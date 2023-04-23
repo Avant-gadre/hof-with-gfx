@@ -1,0 +1,3825 @@
+#!gfx:interface\goals\goal_IRQ.gfx
+#!gfx:interface\goals\goal_MEX.gfx
+#!gfx:interface\goals\goal_generic.gfx
+focus_tree = {
+	id = Iraq_great
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = IRQ
+		}
+	}
+	default = no
+	continuous_focus_position = {
+		x = 20
+		y = 1700
+	}
+	focus = {
+		id = ira_sumerian_revival
+		icon = GFX_goal_generic_national_unity
+		cost = 5
+		mutually_exclusive = {
+			focus = ira_assyrian_nationalism
+		}
+		x = 14
+		y = 0
+		ai_will_do = {
+			factor = 10
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_timed_idea = {
+				idea = ira_sumerian_revival
+				days = 800
+			}
+		}
+	}
+	focus = {
+		id = ira_assyrian_nationalism
+		icon = GFX_focus_generic_support_the_left_right
+		cost = 5
+		mutually_exclusive = {
+			focus = ira_sumerian_revival
+		}
+		x = 6
+		y = 0
+		ai_will_do = {
+			factor = 4
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_timed_idea = {
+				idea = ira_assyrian_nationalism
+				days = 800
+			}
+		}
+	}
+	focus = {
+		id = ira_army_training
+		icon = GFX_focus_secret_rearmament
+		cost = 5
+		x = 28
+		y = 0
+		ai_will_do = {
+			factor = 6
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = volunteer_only
+				}
+				swap_ideas = {
+					remove_idea = volunteer_only
+					add_idea = extensive_conscription
+				}
+			}
+			if = {
+				limit = {
+					has_idea = limited_conscription
+				}
+				swap_ideas = {
+					remove_idea = limited_conscription
+					add_idea = extensive_conscription
+				}
+			}
+			add_ideas = {
+				ira_army_training
+			}
+		}
+	}
+	focus = {
+		id = ira_ishtar_oil_company
+		icon = GFX_goal_generic_oil_refinery
+		cost = 8
+		x = 34
+		y = 0
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			676 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			291 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			676 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 2
+					instant_build = yes
+				}
+			}
+			291 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 2
+					instant_build = yes
+				}
+			}
+			IRQ_MARSHES_IMPAIR = yes
+		}
+	}
+	focus = {
+		id = ira_rule_of_ishtar
+		icon = GFX_focus_IRQ_ishtar2
+		cost = 5
+		x = 39
+		y = 0
+		available = {
+			IRQ_Ishtar = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = ira_rule_of_ereshkigal
+		icon = GFX_focus_IRQ_ereshkigal
+		cost = 5
+		x = 43
+		y = 0
+		available = {
+			IRQ_Ereshkigal = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = ira_aramic_education
+		icon = GFX_goal_generic_radar
+		cost = 6
+		prerequisite = {
+			focus = ira_assyrian_nationalism
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_assyrian_nationalism
+		completion_reward = {
+			add_timed_idea = {
+				idea = ira_aramic_education
+				days = 450
+			}
+		}
+	}
+	focus = {
+		id = ira_reaffirm_MacMahon
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 7
+		prerequisite = {
+			focus = ira_assyrian_nationalism
+			focus = ira_sumerian_revival
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 4
+		y = 1
+		relative_position_id = ira_assyrian_nationalism
+		available = {
+			NOT = {
+				is_in_faction_with = ENG
+			}
+		}
+		completion_reward = {
+			#### MacMahon Correspondence: British response
+			add_state_claim = 680
+			add_state_claim = 677
+			add_state_claim = 554
+			add_state_claim = 292
+			add_state_claim = 679
+			add_state_claim = 656
+		}
+	}
+	focus = {
+		id = ira_pressure_saudi
+		icon = GFX_goal_generic_political_pressure
+		cost = 5
+		prerequisite = {
+			focus = ira_reaffirm_MacMahon
+		}
+		ai_will_do = {
+			factor = 7
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_reaffirm_MacMahon
+		available = {
+			or = {
+				threat > 0.25
+				date > 1937.6.1
+			}
+			NOT = {
+				is_in_faction_with = SAU
+			}
+		}
+		completion_reward = {
+			add_state_core = 292
+			add_state_core = 679
+			SAU = {
+				country_event = {
+					id = iraq.1
+					hours = 10
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_assyrian_national_congress
+		icon = GFX_focus_generic_diplomatic_treaty
+		cost = 5
+		prerequisite = {
+			focus = ira_assyrian_nationalism
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			is_subject = no
+			NOT = {
+				has_government = democratic
+			}
+			NOT = {
+				has_government = communism
+			}
+		}
+		x = -4
+		y = 1
+		relative_position_id = ira_assyrian_nationalism
+		completion_reward = {
+			add_ideas = {
+				ira_assyrian_national_congress
+			}
+			set_party_name = {
+				ideology = fascism
+				name = IRQ_Assyrian_national_congress_short
+				long_name = IRQ_Assyrian_national_congress
+			}
+			hidden_effect = {
+				add_country_leader_role = {
+					character = "IRQ_Semiramis"
+					country_leader = {
+						ideology = fascism_ideology
+						traits = {
+						}
+						expire = "1965.1.1"
+					}
+					promote_leader = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_syria_orthodox_support
+		icon = GFX_focus_mex_restore_the_army_of_christ
+		cost = 5
+		prerequisite = {
+			focus = ira_assyrian_national_congress
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 2
+		y = 1
+		relative_position_id = ira_assyrian_national_congress
+		completion_reward = {
+			add_timed_idea = {
+				idea = ira_syria_orthodox_support
+				days = 1233
+			}
+		}
+	}
+	focus = {
+		id = ira_stronghold_metropolis
+		icon = GFX_goal_generic_fortify_city
+		cost = 7
+		prerequisite = {
+			focus = ira_sumerian_revival
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		x = 6
+		y = 1
+		relative_position_id = ira_sumerian_revival
+		available = {
+			threat > 0.09
+			IRQ_Gilgamesh = {
+				is_country_leader = yes
+			}
+		}
+		completion_reward = {
+			add_ideas = {
+				ira_stronghold_metropolis
+			}
+		}
+	}
+	focus = {
+		id = ira_urbanize_the_south
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7
+		prerequisite = {
+			focus = ira_stronghold_metropolis
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 3
+		y = 1
+		relative_position_id = ira_stronghold_metropolis
+		available = {
+			675 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			291 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			675 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			291 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			IRQ_MARSHES_IMPAIR = yes
+		}
+	}
+	focus = {
+		id = ira_arbitrary_diplomacy
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 6
+		prerequisite = {
+			focus = ira_rule_of_ereshkigal
+			focus = ira_rule_of_ishtar
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		x = -2
+		y = 1
+		relative_position_id = ira_rule_of_ereshkigal
+		available = {
+			threat > 0.39
+			OR = {
+				IRQ_Ishtar = {
+					is_country_leader = yes
+				}
+				IRQ_Ereshkigal = {
+					is_country_leader = yes
+				}
+			}
+		}
+		completion_reward = {
+			add_ideas = {
+				ira_arbitrary_diplomacy
+			}
+		}
+	}
+	focus = {
+		id = ira_absorb_syria_national_congress
+		icon = GFX_goal_generic_improve_relations
+		cost = 5
+		prerequisite = {
+			focus = ira_reaffirm_MacMahon
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_reaffirm_MacMahon
+		available = {
+			threat > 0.19
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_state_core = 680
+			add_state_core = 677
+			add_state_core = 554
+		}
+	}
+	focus = {
+		id = ira_Irredentism
+		icon = GFX_goal_generic_demand_territory
+		cost = 6
+		prerequisite = {
+			focus = ira_aramic_education
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_aramic_education
+		available = {
+			fascism > 0.29
+			has_war_support > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = {
+				ira_Irredentism
+			}
+		}
+	}
+	focus = {
+		id = ira_demand_syria
+		icon = GFX_goal_generic_attack_allies
+		cost = 5
+		prerequisite = {
+			focus = ira_Irredentism
+			focus = ira_absorb_syria_national_congress
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_Irredentism
+		available = {
+			threat > 0.19
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				FRA = {
+					has_war = no
+				}
+			}
+			modifier = {
+				factor = 10
+				OR = {
+					FRA = {
+						has_war_with = ENG
+					}
+					FRA = {
+						has_war_with = GER
+					}
+					FRA = {
+						has_war_with = ITA
+					}
+				}
+			}
+		}
+		completion_reward = {
+			554 = {
+				CONTROLLER = {
+					country_event = {
+						id = iraq.4
+						hours = 6
+					}
+					custom_effect_tooltip = IRQ_DEMAND_WHEN_EUROPEAN_WAR
+					### Tooltip
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_ally_the_militias
+		icon = GFX_goal_generic_military_deal
+		cost = 6
+		prerequisite = {
+			focus = ira_demand_syria
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_demand_syria
+		available = {
+			NOT = {
+				has_government = communism
+			}
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_ideas = {
+				ira_ally_the_militias
+			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = irq_barzan
+			add_corps_commander_role = {
+				character = irq_barzan
+				skill = 4
+				attack_skill = 4
+				defense_skill = 2
+				planning_skill = 4
+				logistics_skill = 3
+				traits = {
+					organizer
+					urban_assault_specialist
+					career_officer
+					trait_reckless
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_assyrian_advance_unity
+		icon = GFX_goal_support_fascism
+		cost = 6
+		prerequisite = {
+			focus = ira_assyrian_national_congress
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_assyrian_national_congress
+		available = {
+			is_subject = no
+			NOT = {
+				has_government = communism
+			}
+			NOT = {
+				has_government = democratic
+			}
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = ira_assyrian_advance_unity
+				days = 800
+			}
+		}
+	}
+	focus = {
+		id = ira_national_coup
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 6
+		prerequisite = {
+			focus = ira_syria_orthodox_support
+			focus = ira_assyrian_advance_unity
+		}
+		x = 1
+		y = 2
+		relative_position_id = ira_assyrian_national_congress
+		available = {
+			is_subject = no
+			NOT = {
+				has_government = communism
+			}
+			NOT = {
+				has_government = democratic
+			}
+			fascism > 0.44
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			set_cosmetic_tag = IRQ_ASSYRIA
+			set_capital = {
+				state = 676
+			}
+			effect_tooltip = {
+				hidden_effect = {
+					add_country_leader_role = {
+						character = "IRQ_Semiramis"
+						country_leader = {
+							ideology = fascism_ideology
+							traits = {
+							}
+							expire = "1965.1.1"
+						}
+						promote_leader = yes
+					}
+				}
+			}
+			set_politics = {
+				ruling_party = fascism
+				last_election = "1936.1.1"
+				election_frequency = 48
+				elections_allowed = no
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			### News Event for Semiramis
+		}
+	}
+	focus = {
+		id = ira_Kha_b_Nisan
+		icon = GFX_goal_generic_propaganda
+		cost = 5
+		prerequisite = {
+			focus = ira_assyrian_advance_unity
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_assyrian_advance_unity
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			is_subject = no
+			NOT = {
+				has_government = democratic
+			}
+			NOT = {
+				has_government = communism
+			}
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ira_assyrian_national_congress
+				add_idea = ira_Kha_b_Nisan
+			}
+		}
+	}
+	focus = {
+		id = ira_ally_kurds
+		icon = GFX_focus_IRQ_kurdistan_ally
+		cost = 6
+		prerequisite = {
+			focus = ira_national_coup
+		}
+		prerequisite = {
+			focus = ira_nineveh_plain_forces
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = 1
+		y = 2
+		relative_position_id = ira_syria_orthodox_support
+		completion_reward = {
+			swap_ideas = {
+				add_idea = irq_kurds_duped
+				remove_idea = irq_kurds_opposite_1
+			}
+		}
+	}
+	focus = {
+		id = ira_Ishtar_Patriotic_List
+		icon = GFX_focus_generic_home_defense
+		cost = 7
+		prerequisite = {
+			focus = ira_absorb_syria_national_congress
+		}
+		prerequisite = {
+			focus = ira_pressure_saudi
+		}
+		ai_will_do = {
+			factor = 7
+		}
+		x = 0
+		y = 2
+		relative_position_id = ira_reaffirm_MacMahon
+		completion_reward = {
+			add_ideas = {
+				ira_Ishtar_Patriotic_List
+			}
+		}
+	}
+	focus = {
+		id = ira_renounce_Treaty_of_Lausanne
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		cost = 5
+		prerequisite = {
+			focus = ira_ally_the_militias
+		}
+		prerequisite = {
+			focus = ira_ally_kurds
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 10
+				TUR = {
+					has_war = yes
+				}
+			}
+		}
+		available = {
+			or = {
+				threat > 0.3
+				date > 1938.1.1
+			}
+			is_subject = no
+		}
+		x = -1
+		y = 2
+		relative_position_id = ira_ally_the_militias
+		completion_reward = {
+			add_state_claim = 352
+			add_state_claim = 350
+			add_state_claim = 344
+			create_wargoal = {
+				type = take_claimed_state
+				target = TUR
+				generator = {
+					352
+					350
+					344
+				}				#TODO_WTT_CODE - ignore states that are not owned or controlled by country
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = ira_absorb_a_greater_kurdistan
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 6
+		prerequisite = {
+			focus = ira_renounce_Treaty_of_Lausanne
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 10
+				TUR = {
+					has_war = yes
+				}
+			}
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_renounce_Treaty_of_Lausanne
+		available = {
+			has_full_control_of_state = 352
+			has_full_control_of_state = 350
+			has_full_control_of_state = 344
+		}
+		completion_reward = {
+			add_state_core = 352
+			add_state_core = 350
+			add_state_core = 344
+			add_state_core = 421
+		}
+	}
+	focus = {
+		id = ira_expand_to_black_sea
+		icon = GFX_goal_generic_occupy_states_coastal
+		cost = 8
+		prerequisite = {
+			focus = ira_renounce_Treaty_of_Lausanne
+		}
+		x = -1
+		y = 1
+		available = {
+			349 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			353 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			354 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			355 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		relative_position_id = ira_renounce_Treaty_of_Lausanne
+		completion_reward = {
+			349 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			355 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			354 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			353 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_Wise_Queen_of_Assyria
+		icon = GFX_focus_IRQ_semiramis
+		cost = 5
+		prerequisite = {
+			focus = ira_national_coup
+		}
+		x = 0
+		y = 2
+		relative_position_id = ira_national_coup
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			IRQ_Semiramis = {
+				is_country_leader = yes
+			}
+		}
+		completion_reward = {
+			add_country_leader_trait = Wise_Queen_of_Assyria
+		}
+	}
+	focus = {
+		id = ira_reclaim_the_empire
+		icon = GFX_focus_generic_strike_at_democracy1
+		cost = 7
+		prerequisite = {
+			focus = ira_Wise_Queen_of_Assyria
+		}
+		x = -2
+		y = 1
+		relative_position_id = ira_Wise_Queen_of_Assyria
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			IRQ_Semiramis = {
+				is_country_leader = yes
+			}
+		}
+		completion_reward = {
+			add_state_claim = 455
+			add_state_claim = 454
+			add_state_claim = 413
+			add_state_claim = 349
+			add_state_claim = 353
+			add_state_claim = 354
+			add_state_claim = 355
+			add_state_claim = 453
+			add_state_claim = 446
+			add_state_claim = 457
+			add_state_claim = 456
+			add_state_claim = 447
+			add_state_claim = 452
+			add_state_core = 183
+			add_state_core = 656
+			hidden_effect = {
+				455 = {
+					controller = {
+						if = {
+							limit = {
+								NOT = {
+									is_in_faction_with = IRQ
+								}
+							}
+							add_ai_strategy = {
+								type = antagonize
+								id = PREV
+								value = 5000
+							}
+						}
+					}
+				}
+				453 = {
+					controller = {
+						if = {
+							limit = {
+								NOT = {
+									is_in_faction_with = IRQ
+								}
+							}
+							add_ai_strategy = {
+								type = antagonize
+								id = PREV
+								value = 2500
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_kurdistan_local_arsenal
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 8
+		prerequisite = {
+			focus = ira_ally_kurds
+		}
+		ai_will_do = {
+			factor = 7
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_ally_kurds
+		available = {
+			676 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			352 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			421 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			676 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			352 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			421 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_Sikera_Usum
+		icon = GFX_focus_rom_parties_end
+		cost = 5
+		prerequisite = {
+			focus = ira_Wise_Queen_of_Assyria
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_Wise_Queen_of_Assyria
+		available = {
+			IRQ_Semiramis = {
+				is_country_leader = yes
+			}
+		}
+		completion_reward = {
+			add_country_leader_trait = Sikera_Usum
+		}
+	}
+	focus = {
+		id = ira_rule_lydia
+		icon = GFX_goal_generic_territory_or_war
+		cost = 6
+		prerequisite = {
+			focus = ira_reclaim_the_empire
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_reclaim_the_empire
+		ai_will_do = {
+			factor = 6
+			modifier = {
+				has_war_with = ENG
+				factor = 0
+			}
+			modifier = {
+				has_war_with = FRA
+				factor = 0
+			}
+			modifier = {
+				date < 1940.1.1
+				factor = 0
+			}
+		}
+		available = {
+			or = {
+				threat > 0.35
+				date > 1938.3.1
+			}
+		}
+		completion_reward = {
+			339 = {
+				CONTROLLER = {
+					ROOT = {
+						create_wargoal = {
+							target = PREV
+							type = take_state_focus
+							generator = {
+								339
+								340
+							}
+							expire = 0
+						}
+						add_ai_strategy = {
+							type = conquer
+							id = PREV
+							value = 200
+						}
+					}
+				}
+			}
+			342 = {
+				CONTROLLER = {
+					ROOT = {
+						create_wargoal = {
+							target = PREV
+							type = take_state_focus
+							generator = {
+								345
+								342
+							}
+							expire = 0
+						}
+						add_ai_strategy = {
+							type = conquer
+							id = PREV
+							value = 200
+						}
+					}
+				}
+			}
+			344 = {
+				CONTROLLER = {
+					ROOT = {
+						create_wargoal = {
+							target = PREV
+							type = take_state_focus
+							generator = {
+								344
+							}
+							expire = 0
+						}
+						add_ai_strategy = {
+							type = conquer
+							id = PREV
+							value = 200
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_conquer_jerusalem_again
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		cost = 5
+		prerequisite = {
+			focus = ira_reclaim_the_empire
+		}
+		available = {
+			454 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			455 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		x = 2
+		y = 1
+		relative_position_id = ira_reclaim_the_empire
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			add_state_core = 454
+			add_state_core = 455
+		}
+	}
+	focus = {
+		id = ira_reconstruct_Assyrian_Triangle
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 10
+		prerequisite = {
+			focus = ira_Kha_b_Nisan
+		}
+		available = {
+			has_full_control_of_state = 676
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_Kha_b_Nisan
+		completion_reward = {
+			676 = {
+				add_extra_state_shared_building_slots = 8
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_take_back_Egypt
+		icon = GFX_goal_generic_major_war
+		cost = 7
+		prerequisite = {
+			focus = ira_conquer_jerusalem_again
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_conquer_jerusalem_again
+		available = {
+			446 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			447 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			452 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			add_state_core = 453
+			add_state_core = 446
+			add_state_core = 457
+			add_state_core = 456
+			add_state_core = 447
+			add_state_core = 452
+		}
+	}
+	focus = {
+		id = ira_fortify_Bosporus
+		icon = GFX_goal_generic_defence
+		cost = 7
+		prerequisite = {
+			focus = ira_rule_lydia
+		}
+		available = {
+			341 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_rule_lydia
+		completion_reward = {
+			341 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 5
+					province = 11829
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 5
+					province = 9833
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 5
+					province = 11829
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 5
+					province = 9833
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_mediterrean_navy
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 8
+		prerequisite = {
+			focus = ira_demand_syria
+		}
+		x = 1
+		y = 2
+		relative_position_id = ira_demand_syria
+		available = {
+			554 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			554 = {
+				add_extra_state_shared_building_slots = 6
+				add_building_construction = {
+					type = dockyard
+					level = 4
+					instant_build = yes
+				}
+			}
+			add_offsite_building = {
+				type = dockyard
+				level = 4
+			}
+		}
+	}
+	focus = {
+		id = ira_protect_western_shore
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		cost = 7
+		prerequisite = {
+			focus = ira_mediterrean_navy
+		}
+		available = {
+			OR = {
+				554 = {
+					CONTROLLER = {
+						OR = {
+							tag = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+				454 = {
+					CONTROLLER = {
+						OR = {
+							tag = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_mediterrean_navy
+		completion_reward = {
+			#### Protect Western Shore
+			add_doctrine_cost_reduction = {
+				name = ira_protect_western_shore
+				cost_reduction = 0.5
+				uses = 3
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = ira_fortify_suez
+		icon = GFX_goal_generic_navy_cruiser
+		cost = 5
+		prerequisite = {
+			focus = ira_take_back_Egypt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			453 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			446 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_take_back_Egypt
+		completion_reward = {
+			453 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 5
+					province = 1155
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 5
+					province = 9947
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 5
+					province = 1155
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 5
+					province = 9947
+					instant_build = yes
+				}
+			}
+			446 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 5
+					province = 4073
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 5
+					province = 12049
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 5
+					province = 4073
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 5
+					province = 12049
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_hanging_garden_of_babylon
+		icon = GFX_focus_IRQ_hanged_garden
+		cost = 7
+		prerequisite = {
+			focus = ira_Sikera_Usum
+		}
+		x = 0
+		y = 4
+		relative_position_id = ira_Sikera_Usum
+		available = {
+			IRQ_Semiramis = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6.5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_hanging_garden_of_babylon
+				bonus = 1
+				ahead_reduction = 2
+				uses = 2
+				category = cat_strategic_bomber
+			}
+			add_tech_bonus = {
+				name = ira_hanging_garden_of_babylon
+				bonus = 1
+				ahead_reduction = 2
+				uses = 2
+				category = construction_tech
+			}
+			add_ideas = {
+				ira_hanging_garden_of_babylon
+			}
+		}
+	}
+	focus = {
+		id = ira_ara_the_beautiful
+		icon = GFX_goal_generic_territory_or_war
+		cost = 6
+		prerequisite = {
+			focus = ira_expand_to_black_sea
+		}
+		prerequisite = {
+			focus = ira_absorb_a_greater_kurdistan
+		}
+		available = {
+			date > 1940.1.1
+			IRQ_Semiramis = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6
+			modifier = {
+				date < 1941.11.7
+				factor = 0
+			}
+		}
+		x = 0
+		y = 2
+		relative_position_id = ira_renounce_Treaty_of_Lausanne
+		completion_reward = {
+			add_state_core = 230
+			230 = {
+				CONTROLLER = {
+					IRQ = {
+						create_wargoal = {
+							target = PREV
+							type = take_core_state
+							generator = {
+								230
+							}
+							expire = 0
+						}
+					}
+					add_ai_strategy = {
+						type = conquer
+						id = PREV
+						value = 500
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_secularize_the_country
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 5
+		prerequisite = {
+			focus = ira_sumerian_revival
+		}
+		ai_will_do = {
+			factor = 7
+		}
+		available = {
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_sumerian_revival
+		completion_reward = {
+			add_stability = 0.07
+			add_political_power = 120
+		}
+	}
+	focus = {
+		id = ira_library_of_Ashurbanipal
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = {
+			focus = ira_reconstruct_Assyrian_Triangle
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_reconstruct_Assyrian_Triangle
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = ire_king_of_heros
+		icon = GFX_focus_rom_royal_dictatorship
+		cost = 6
+		prerequisite = {
+			focus = ira_secularize_the_country
+		}
+		ai_will_do = {
+			factor = 7
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_secularize_the_country
+		completion_reward = {
+			swap_ruler_traits = {
+				remove = Return_of_the_King
+				add = Return_of_the_King_2
+			}
+		}
+	}
+	focus = {
+		id = ira_nineveh_plain_forces
+		icon = GFX_goal_generic_military_sphere
+		cost = 6
+		prerequisite = {
+			focus = ira_syria_orthodox_support
+		}
+		prerequisite = {
+			focus = ira_Irredentism
+		}
+		ai_will_do = {
+			factor = 7
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_Irredentism
+		completion_reward = {
+			add_ideas = {
+				ira_nineveh_plain_forces
+			}
+		}
+	}
+	focus = {
+		id = ira_suppress_Wahhabiya
+		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
+		cost = 5
+		prerequisite = {
+			focus = ira_Ishtar_Patriotic_List
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_Ishtar_Patriotic_List
+		completion_reward = {
+			add_timed_idea = {
+				idea = ira_suppress_Wahhabiya
+				days = 800
+			}
+		}
+	}
+	focus = {
+		id = ira_multiculturalism
+		icon = GFX_goal_generic_national_unity
+		cost = 5
+		prerequisite = {
+			focus = ira_Ishtar_Patriotic_List
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_Ishtar_Patriotic_List
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = ira_naram_sin_frontline
+		icon = GFX_goal_generic_construct_military
+		cost = 6
+		prerequisite = {
+			focus = ira_suppress_Wahhabiya
+		}
+		prerequisite = {
+			focus = ira_multiculturalism
+		}
+		available = {
+			has_full_control_of_state = 676
+			has_full_control_of_state = 291
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 0
+		y = 2
+		relative_position_id = ira_Ishtar_Patriotic_List
+		completion_reward = {
+			676 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = 6826
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = 5014
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = 10793
+					instant_build = yes
+				}
+			}
+			291 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = 12855
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = 78
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = 12726
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = 2089
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_claim_elan
+		icon = GFX_goal_generic_territory_or_war
+		cost = 6
+		prerequisite = {
+			focus = ira_naram_sin_frontline
+		}
+		x = 0
+		y = 1
+		available = {
+			has_full_control_of_state = 676
+			has_full_control_of_state = 291
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		relative_position_id = ira_naram_sin_frontline
+		completion_reward = {
+			add_state_claim = 413
+			add_state_claim = 421
+			add_state_claim = 419
+			421 = {
+				CONTROLLER = {
+					IRQ = {
+						create_wargoal = {
+							type = take_claimed_state
+							target = PREV
+							generator = {
+								421
+								413
+								419
+							}
+							expire = 0
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_wall_of_babylon
+		icon = GFX_goal_generic_construct_military
+		cost = 8
+		prerequisite = {
+			focus = ira_stronghold_metropolis
+		}
+		available = {
+			has_full_control_of_state = 676
+			has_full_control_of_state = 291
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_stronghold_metropolis
+		completion_reward = {
+			291 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 8
+					province = 2097
+					instant_build = yes
+				}
+			}
+			676 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 8
+					province = 10106
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_Ziusudra
+		icon = GFX_goal_generic_improve_relations
+		cost = 5
+		prerequisite = {
+			focus = ira_multiculturalism
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 0
+		y = 3
+		relative_position_id = ira_multiculturalism
+		completion_reward = {
+			custom_effect_tooltip = available_navy_chief
+			show_ideas_tooltip = IRQ_Ziusudra
+			navy_experience = 50
+			army_experience = 50
+		}
+	}
+	focus = {
+		id = ira_Atra_Hasis
+		icon = GFX_focus_IRQ_altra_hasis
+		cost = 6
+		prerequisite = {
+			focus = ira_Ziusudra
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_Ziusudra
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				name = ira_Atra_Hasis
+				bonus = 2
+				uses = 3
+				category = bb_tech
+			}
+		}
+	}
+	focus = {
+		id = ira_hold_the_apsu
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = {
+			focus = ira_suppress_Wahhabiya
+		}
+		x = 0
+		y = 3
+		ai_will_do = {
+			factor = 10
+		}
+		relative_position_id = ira_suppress_Wahhabiya
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = ira_enuma_elish
+		icon = GFX_focus_IRQ_enuma_elish
+		cost = 7
+		prerequisite = {
+			focus = ira_hold_the_apsu
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_hold_the_apsu
+		completion_reward = {
+			add_ideas = {
+				ira_enuma_elish
+			}
+		}
+	}
+	focus = {
+		id = ira_wake_tiamat
+		icon = GFX_focus_IRQ_tiamat
+		cost = 7
+		prerequisite = {
+			focus = ira_Atra_Hasis
+		}
+		prerequisite = {
+			focus = ira_enuma_elish
+		}
+		available = {
+			num_of_factories > 50
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_Atra_Hasis
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				name = ira_wake_tiamat
+				bonus = 2
+				uses = 3
+				category = cv_tech
+			}
+			custom_effect_tooltip = available_high_command
+			show_ideas_tooltip = IRQ_Tiamat
+			add_naval_commander_role = {
+				character = IRQ_Tiamat
+				traits = {
+					superior_tactician
+					ironside
+					blockade_runner
+					bold
+					spotter
+					naval_lineage
+					blue_water_expert
+					green_water_expert
+					dive_bomber
+					torpedo_bomber
+					flight_deck_manager
+					fighter_director
+				}
+				skill = 7
+				attack_skill = 8
+				defense_skill = 8
+				maneuvering_skill = 4
+				coordination_skill = 6
+			}
+		}
+	}
+	focus = {
+		id = ira_Mesopotamia_railway
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 7
+		prerequisite = {
+			focus = ira_stronghold_metropolis
+		}
+		available = {
+			has_full_control_of_state = 676
+			has_full_control_of_state = 291
+			has_full_control_of_state = 675
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = -2
+		y = 1
+		relative_position_id = ira_stronghold_metropolis
+		completion_reward = {
+			676 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			291 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			675 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ire_tablet_of_destiny
+		icon = GFX_focus_IRQ_tablet_of_destiny
+		cost = 7
+		prerequisite = {
+			focus = ira_Mesopotamia_railway
+		}
+		prerequisite = {
+			focus = ire_king_of_heros
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		x = -2
+		y = 1
+		relative_position_id = ira_Mesopotamia_railway
+		completion_reward = {
+			country_event = {
+				id = iraq.14
+				days = 3
+			}
+		}
+	}
+	focus = {
+		id = ira_gilgamesh_line
+		icon = GFX_goal_generic_construct_military
+		cost = 6
+		prerequisite = {
+			focus = ira_wall_of_babylon
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_wall_of_babylon
+		available = {
+			has_full_control_of_state = 676
+		}
+		completion_reward = {
+			676 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 10804
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 10811
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 1938
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 12372
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 12413
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 1631
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_enkidu_line
+		icon = GFX_goal_generic_construct_military
+		cost = 6
+		prerequisite = {
+			focus = ira_wall_of_babylon
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			679 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			675 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_wall_of_babylon
+		completion_reward = {
+			679 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 12101
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 12455
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 10901
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 8101
+					instant_build = yes
+				}
+			}
+			675 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 1631
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_the_persian_gulf_defense
+		icon = GFX_goal_generic_navy_cruiser
+		cost = 5
+		prerequisite = {
+			focus = ira_wall_of_babylon
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 2
+		available = {
+			291 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			292 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			675 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		relative_position_id = ira_wall_of_babylon
+		completion_reward = {
+			675 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 12879
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 4
+					province = 12879
+					instant_build = yes
+				}
+			}
+			291 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 2089
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 4
+					province = 2089
+					instant_build = yes
+				}
+			}
+			292 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 1955
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 10850
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 4
+					province = 12749
+					instant_build = yes
+				}
+			}
+			IRQ_MARSHES_IMPAIR = yes
+		}
+	}
+	focus = {
+		id = ira_concentrated_market
+		icon = GFX_goal_generic_trade
+		cost = 6
+		prerequisite = {
+			focus = ira_urbanize_the_south
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_urbanize_the_south
+		completion_reward = {
+			add_ideas = {
+				ira_concentrated_market
+			}
+		}
+	}
+	focus = {
+		id = ira_star_of_shamash
+		icon = GFX_focus_IRQ_Star_of_shamash
+		cost = 8
+		prerequisite = {
+			focus = ira_army_training
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 5
+				threat > 0.19
+			}
+		}
+		x = -2
+		y = 1
+		relative_position_id = ira_army_training
+		completion_reward = {
+			army_experience = 80
+			add_doctrine_cost_reduction = {
+				name = ira_star_of_shamash
+				cost_reduction = 0.6
+				uses = 3
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = ira_star_of_ishtar
+		icon = GFX_focus_IRQ_Star_of_ishtar
+		cost = 5
+		prerequisite = {
+			focus = ira_army_training
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 5
+				threat > 0.19
+			}
+		}
+		x = 2
+		y = 1
+		relative_position_id = ira_army_training
+		completion_reward = {
+			air_experience = 80
+			add_doctrine_cost_reduction = {
+				name = ira_star_of_ishtar
+				cost_reduction = 0.7
+				uses = 3
+				category = air_doctrine
+			}
+		}
+	}
+	focus = {
+		id = ira_national_industrial_stimulus
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 6
+		prerequisite = {
+			focus = ira_concentrated_market
+		}
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 6
+		}
+		relative_position_id = ira_concentrated_market
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_national_industrial_stimulus
+				bonus = 1
+				uses = 2
+				ahead_reduction = 1
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = ira_demand_kuwait
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 6
+		prerequisite = {
+			focus = ira_the_persian_gulf_defense
+		}
+		ai_will_do = {
+			factor = 3
+			modifier = {
+				ENG = {
+					OR = {
+						has_war_with = FRA
+						has_war_with = GER
+						has_war_with = SOV
+						has_war_with = SWE
+					}
+				}
+				factor = 2
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_the_persian_gulf_defense
+		available = {
+			has_army_manpower = {
+				size > 300000
+			}
+			656 = {
+				CONTROLLER = {
+					NOT = {
+						is_in_faction_with = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			656 = {
+				CONTROLLER = {
+					country_event = {
+						id = iraq.7
+						hours = 4
+					}
+				}
+				custom_effect_tooltip = IRQ_DEMAND_WHEN_EUROPEAN_WAR
+			}
+		}
+	}
+	focus = {
+		id = ira_conserve_mesopotamian_marshes
+		icon = GFX_goal_generic_construction2
+		cost = 6
+		prerequisite = {
+			focus = ira_Mesopotamia_railway
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 3
+		relative_position_id = ira_Mesopotamia_railway
+		available = {
+			has_full_control_of_state = 291
+		}
+		completion_reward = {
+			### Decision: Mesopotamian Marshes
+			unlock_decision_category_tooltip = ira_conserve_mesopotamian_marshes
+		}
+	}
+	focus = {
+		id = ira_clear_alkali_soil
+		icon = GFX_goal_generic_construct_civilian
+		cost = 18
+		prerequisite = {
+			focus = ira_conserve_mesopotamian_marshes
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			has_full_control_of_state = 291
+			has_full_control_of_state = 675
+			has_full_control_of_state = 292
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_conserve_mesopotamian_marshes
+		completion_reward = {
+			IRQ_MARSHES_IMPAIR = yes
+			291 = {
+				add_extra_state_shared_building_slots = 4
+			}
+			675 = {
+				add_extra_state_shared_building_slots = 4
+			}
+			292 = {
+				add_extra_state_shared_building_slots = 4
+			}
+			swap_ideas = {
+				add_idea = irq_mesopotamia_civilization_amelioration
+				remove_idea = irq_mesopotamia_civilization
+			}
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 2
+				ahead_reduction = 1.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = ira_gate_of_babylon
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7
+		prerequisite = {
+			focus = ira_stronghold_metropolis
+		}
+		prerequisite = {
+			focus = ira_star_of_shamash
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_star_of_shamash
+		available = {
+			IRQ_Gilgamesh = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = {
+				ira_gate_of_babylon
+			}
+		}
+	}
+	focus = {
+		id = ira_his_majestys_arsenal
+		icon = GFX_goal_generic_army_artillery
+		cost = 10
+		prerequisite = {
+			focus = ira_gate_of_babylon
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_gate_of_babylon
+		available = {
+			IRQ_Gilgamesh = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 8
+			}
+		}
+	}
+	focus = {
+		id = ire_baathism
+		icon = GFX_focus_IRQ_baathism
+		cost = 7
+		prerequisite = {
+			focus = ire_king_of_heros
+		}
+		x = -1
+		y = 1
+		available = {
+			has_government = neutrality
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		bypass = {
+			OR = {
+				has_government = communism
+				has_government = fascism
+			}
+		}
+		relative_position_id = ire_king_of_heros
+		completion_reward = {
+			add_ideas = {
+				ire_baathism
+			}
+		}
+	}
+	focus = {
+		id = ira_promote_state_ownership
+		icon = GFX_goal_generic_consumer_goods
+		cost = 6
+		prerequisite = {
+			focus = ire_baathism
+		}
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = communism
+				has_government = fascism
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = 0
+		y = 1
+		relative_position_id = ire_baathism
+		completion_reward = {
+			effect_tooltip = {
+				custom_effect_tooltip = PROMOTE_STATE_OWNERSHIP_IRAQI
+			}
+			if = {
+				limit = {
+					has_idea = ire_baathism
+					has_government = neutrality
+				}
+				swap_ideas = {
+					add_idea = ira_promote_state_ownership
+					remove_idea = ire_baathism
+				}
+			}
+			if = {
+				limit = {
+					has_government = communism
+				}
+				add_ideas = ira_promote_state_ownership_communism
+			}
+			if = {
+				limit = {
+					has_government = fascism
+				}
+				add_ideas = ira_promote_state_ownership_fascism
+			}
+		}
+	}
+	focus = {
+		id = ira_dingir
+		icon = GFX_focus_IRQ_melammu_dingir
+		cost = 7
+		prerequisite = {
+			focus = ira_his_majestys_arsenal
+		}
+		available = {
+			IRQ_Gilgamesh = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_his_majestys_arsenal
+		completion_reward = {
+			add_ideas = {
+				ira_dingir
+			}
+		}
+	}
+	focus = {
+		id = ira_unity_progress_kingship
+		icon = GFX_goal_generic_propaganda
+		cost = 5
+		prerequisite = {
+			focus = ire_tablet_of_destiny
+		}
+		available = {
+			IRQ_Gilgamesh = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		bypass = {
+			IRQ_Gilgamesh = {
+				is_country_leader = no
+			}
+		}
+		x = -1
+		y = 1
+		relative_position_id = ire_tablet_of_destiny
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.15
+			}
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = ira_appease_kurds
+		icon = GFX_focus_IRQ_kurdistan_appease
+		cost = 5
+		prerequisite = {
+			focus = ira_unity_progress_kingship
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = 0
+		y = 2
+		relative_position_id = ira_unity_progress_kingship
+		completion_reward = {
+			swap_ideas = {
+				add_idea = irq_kurds_appeased
+				remove_idea = irq_kurds_opposite_1
+			}
+		}
+	}
+	focus = {
+		id = ira_national_mobilization_act
+		icon = GFX_goal_demand_sudetenland
+		cost = 6
+		prerequisite = {
+			focus = ire_tablet_of_destiny
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			has_war = yes
+		}
+		x = 1
+		y = 1
+		relative_position_id = ire_tablet_of_destiny
+		completion_reward = {
+			if = {
+				limit = {
+					OR = {
+						has_idea = tot_economic_mobilisation
+						has_idea = war_economy
+					}
+				}
+				add_political_power = 150
+			}
+			else = {
+				add_ideas = {
+					war_economy
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_national_military_service_act
+		icon = GFX_focus_generic_military_mission
+		cost = 6
+		prerequisite = {
+			focus = ira_national_mobilization_act
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			threat > 0.29
+		}
+		x = 0
+		y = 3
+		relative_position_id = ira_national_mobilization_act
+		completion_reward = {
+			if = {
+				limit = {
+					OR = {
+						has_idea = extensive_conscription
+						has_idea = all_adults_serve
+						has_idea = service_by_requirement
+						has_idea = scraping_the_barrel
+					}
+				}
+				add_political_power = 150
+			}
+			else = {
+				add_ideas = {
+					extensive_conscription
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_national_mythology_committee
+		icon = GFX_focus_generic_concessions
+		cost = 6
+		prerequisite = {
+			focus = ire_tablet_of_destiny
+		}
+		available = {
+			date > 1940.6.1
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 2
+		relative_position_id = ire_tablet_of_destiny
+		completion_reward = {
+			add_ideas = {
+				ira_national_mythology_committee
+			}
+		}
+	}
+	focus = {
+		id = ira_ishtar_mineral_company
+		icon = GFX_focus_generic_steel
+		cost = 6
+		prerequisite = {
+			focus = ira_ishtar_oil_company
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		x = -2
+		y = 1
+		relative_position_id = ira_ishtar_oil_company
+		available = {
+			has_full_control_of_state = 676
+			has_full_control_of_state = 675
+		}
+		completion_reward = {
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = irq_atrum_galliasta
+			add_resource = {
+				type = aluminium
+				amount = 5
+				state = 676
+			}
+			add_resource = {
+				type = steel
+				amount = 5
+				state = 676
+			}
+			add_resource = {
+				type = tungsten
+				amount = 5
+				state = 675
+			}
+			add_resource = {
+				type = steel
+				amount = 5
+				state = 675
+			}
+			676 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			675 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			IRQ_MARSHES_IMPAIR = yes
+		}
+	}
+	focus = {
+		id = ira_aviation_industry_group
+		icon = GFX_goal_generic_air_production
+		cost = 7
+		prerequisite = {
+			focus = ira_star_of_ishtar
+		}
+		prerequisite = {
+			focus = ira_ishtar_mineral_company
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				NOT = {
+					any_owned_state = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+				}
+			}
+		}
+		available_if_capitulated = yes
+		x = 1
+		y = 1
+		relative_position_id = ira_star_of_ishtar
+		complete_tooltip = {
+			every_state = {
+				limit = {
+					has_state_flag = IRQ_aviation_industry_focus_2IC
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1
+				uses = 1
+				ahead_reduction = 1
+				category = light_fighter
+				category = naval_bomber
+				category = cas_bomber
+			}
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+				set_state_flag = IRQ_aviation_industry_focus_2IC
+			}
+			add_tech_bonus = {
+				name = ira_aviation_industry_group
+				bonus = 1
+				uses = 1
+				ahead_reduction = 1
+				category = light_fighter
+				category = naval_bomber
+				category = cas_bomber
+			}
+		}
+	}
+	focus = {
+		id = ira_oil_exploitation
+		icon = GFX_goal_generic_construction2
+		cost = 7
+		prerequisite = {
+			focus = ira_ishtar_oil_company
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		x = 2
+		y = 1
+		relative_position_id = ira_ishtar_oil_company
+		completion_reward = {
+			unlock_decision_category_tooltip = ira_oil_exploitation
+		}
+	}
+	focus = {
+		id = ira_national_science_institute
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = {
+			focus = ira_promote_state_ownership
+			focus = ira_unity_progress_kingship
+		}
+		available = {
+			num_of_factories > 40
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_promote_state_ownership
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = ira_compete_anglo_oil_trade
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 5
+		prerequisite = {
+			focus = ira_oil_exploitation
+		}
+		available = {
+			ENG = {
+				has_opinion = {
+					target = ROOT
+					value > 0
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		x = -1
+		y = 1
+		relative_position_id = ira_oil_exploitation
+		completion_reward = {
+			ENG = {
+				country_event = {
+					id = iraq.10
+					hours = 4
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_reconcile_with_britain
+		icon = GFX_focus_chi_british_cooperation
+		cost = 5
+		prerequisite = {
+			focus = ira_compete_anglo_oil_trade
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			ENG = {
+				has_opinion = {
+					target = ROOT
+					value > 39
+				}
+			}
+			ENG = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+			ENG = {
+				is_faction_leader = yes
+			}
+			is_in_faction = no
+		}
+		bypass = {
+			OR = {
+				is_in_faction_with = ENG
+				ENG = {
+					is_subject_of = ROOT
+				}
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_compete_anglo_oil_trade
+		completion_reward = {
+			ENG = {
+				country_event = {
+					id = generic.2
+					hours = 4
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_OPEC
+		icon = GFX_goal_generic_major_alliance
+		cost = 7
+		prerequisite = {
+			focus = ira_oil_exploitation
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			is_in_faction = no
+		}
+		bypass = {
+			is_faction_leader = yes
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_oil_exploitation
+		completion_reward = {
+			set_rule = {
+				can_create_factions = yes
+			}
+			set_rule = {
+				can_declare_war_on_same_ideology = yes
+			}
+			if = {
+				limit = {
+					is_in_faction = no
+				}
+				create_faction = OPEC
+			}
+		}
+	}
+	focus = {
+		id = ira_oil_embargo
+		icon = GFX_goal_generic_trade
+		cost = 7
+		prerequisite = {
+			focus = ira_OPEC
+		}
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				factor = 0
+				ENG = {
+					has_war = no
+				}
+			}
+			modifier = {
+				factor = 0
+				FRA = {
+					has_war = no
+				}
+			}
+		}
+		available = {
+			is_subject = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_OPEC
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						is_in_faction_with = ENG
+					}
+					NOT = {
+						is_subject_of = ENG
+					}
+				}
+				ENG = {
+					country_event = {
+						id = iraq.13
+						hours = 4
+					}
+				}
+			}
+			if = {
+				limit = {
+					FRA = {
+						has_full_control_of_state = 677
+					}
+					NOT = {
+						is_in_faction_with = FRA
+					}
+					NOT = {
+						is_subject_of = FRA
+					}
+				}
+				FRA = {
+					country_event = {
+						id = iraq.13
+						hours = 4
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_eliminate_opponent
+		icon = GFX_focus_generic_provoke_border_clashes
+		cost = 7
+		prerequisite = {
+			focus = ira_reconcile_with_britain
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			ENG_will_support = yes
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_reconcile_with_britain
+		completion_reward = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = PER
+			}
+		}
+	}
+	focus = {
+		id = ira_war_with_britain_oil
+		icon = GFX_focus_attack_britain
+		cost = 5
+		prerequisite = {
+			focus = ira_oil_embargo
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				factor = 0
+				date < 1941.6.7
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_oil_embargo
+		completion_reward = {
+			create_wargoal = {
+				target = ENG
+				type = puppet_wargoal_focus
+			}
+		}
+	}
+	focus = {
+		id = ira_persian_gulf_fleet
+		icon = GFX_goal_generic_navy_battleship
+		cost = 6
+		prerequisite = {
+			focus = ira_national_industrial_stimulus
+		}
+		prerequisite = {
+			focus = ira_the_persian_gulf_defense
+		}
+		available = {
+			has_full_control_of_state = 291
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_national_industrial_stimulus
+		completion_reward = {
+			291 = {
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = {
+					type = dockyard
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_mesopotamia_staff_hq
+		icon = GFX_focus_usa_build_the_pentagon
+		cost = 5
+		prerequisite = {
+			focus = ira_star_of_shamash
+		}
+		prerequisite = {
+			focus = ira_star_of_ishtar
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 2
+		relative_position_id = ira_army_training
+		completion_reward = {
+			add_ideas = {
+				ira_mesopotamia_staff_hq
+			}
+		}
+	}
+	focus = {
+		id = ira_desert_tank
+		icon = GFX_goal_generic_army_tanks
+		cost = 5
+		prerequisite = {
+			focus = ira_star_of_shamash
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 1
+		y = 2
+		relative_position_id = ira_star_of_shamash
+		completion_reward = {
+			set_technology = {
+				ira_desert_tank = 1
+			}
+		}
+	}
+	focus = {
+		id = ira_logistic_staff
+		icon = GFX_goal_generic_army_motorized
+		cost = 5
+		prerequisite = {
+			focus = ira_mesopotamia_staff_hq
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 2
+		relative_position_id = ira_mesopotamia_staff_hq
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_logistic_staff
+				bonus = 1
+				uses = 3
+				ahead_reduction = 1
+				category = support_tech
+			}
+		}
+	}
+	focus = {
+		id = ira_eastern_mountainer_training
+		icon = GFX_goal_generic_special_forces
+		cost = 5
+		prerequisite = {
+			focus = ira_star_of_shamash
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 4
+		relative_position_id = ira_star_of_shamash
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_eastern_mountainer_training
+				bonus = 1
+				uses = 1
+				ahead_reduction = 2
+				category = mountaineers_tech
+			}
+		}
+	}
+	focus = {
+		id = ira_assyrian_siege_tanks
+		icon = GFX_focus_NZL_bob_semple_tank
+		cost = 6
+		prerequisite = {
+			focus = ira_reclaim_the_empire
+		}
+		available = {
+			num_of_factories > 39
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 1
+		y = 4
+		relative_position_id = ira_reclaim_the_empire
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_assyrian_siege_tanks
+				bonus = 1
+				uses = 1
+				ahead_reduction = 2
+				category = armor
+			}
+			add_ideas = {
+				ira_assyrian_siege_tanks
+			}
+			set_technology = {
+				ira_assyrian_siege_tanks = 1
+			}
+		}
+	}
+	focus = {
+		id = ira_Boat_of_Heaven_Maanna
+		icon = GFX_focus_usa_escort_fighters
+		cost = 6
+		prerequisite = {
+			focus = ira_star_of_ishtar
+		}
+		x = -1
+		y = 2
+		relative_position_id = ira_star_of_ishtar
+		available = {
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_Boat_of_Heaven_Maanna
+				bonus = 1.5
+				ahead_reduction = 1
+				uses = 3
+				category = tactical_bomber
+				category = cas_bomber
+				category = naval_bomber
+			}
+		}
+	}
+	focus = {
+		id = ira_mercenary
+		icon = GFX_goal_generic_military_sphere
+		cost = 6
+		prerequisite = {
+			focus = ira_logistic_staff
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_logistic_staff
+		completion_reward = {
+			hidden_effect = {
+				load_oob = "IRQ_mercenary"
+			}
+			unlock_decision_category_tooltip = ira_mercenary
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = irq_flueger
+			add_corps_commander_role = {
+				character = irq_flueger
+				skill = 4
+				attack_skill = 4
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
+				traits = {
+					organizer
+					politically_connected
+					urban_assault_specialist
+					trickster
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_anzu
+		icon = GFX_focus_IRQ_anzu
+		cost = 6
+		prerequisite = {
+			focus = ira_aviation_industry_group
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_aviation_industry_group
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_Boat_of_Heaven_Maanna
+				bonus = 1.5
+				ahead_reduction = 1
+				uses = 2
+				category = light_fighter
+				category = cat_heavy_fighter
+			}
+		}
+	}
+	focus = {
+		id = ira_aviation_design_center
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = {
+			focus = ira_aviation_industry_group
+		}
+		available = {
+			date > 1938.7.1
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		x = 2
+		y = 1
+		relative_position_id = ira_aviation_industry_group
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = ira_british_pilot_training
+		icon = GFX_goal_generic_air_fighter2
+		cost = 6
+		prerequisite = {
+			focus = ira_aviation_design_center
+		}
+		prerequisite = {
+			focus = ira_reconcile_with_britain
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			ENG_will_support = yes
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_aviation_design_center
+		completion_reward = {
+			add_ideas = {
+				ira_british_pilot_training
+			}
+		}
+	}
+	focus = {
+		id = ira_a_navy_in_need
+		icon = GFX_focus_generic_cruiser2
+		cost = 6
+		prerequisite = {
+			focus = ira_protect_western_shore
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+		}
+		x = 0
+		y = 3
+		relative_position_id = ira_protect_western_shore
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_a_navy_in_need
+				bonus = 2
+				uses = 3
+				ahead_reduction = 0.5
+				category = dd_tech
+				category = cl_tech
+				category = ca_tech
+				category = ss_tech
+			}
+		}
+	}
+	focus = {
+		id = ira_axe_of_marduk
+		icon = GFX_focus_wonderweapons
+		cost = 7
+		prerequisite = {
+			focus = ira_aviation_design_center
+		}
+		prerequisite = {
+			focus = ira_anzu
+		}
+		prerequisite = {
+			focus = ira_Boat_of_Heaven_Maanna
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_anzu
+		completion_reward = {
+			add_tech_bonus = {
+				name = ira_axe_of_marduk
+				bonus = 2
+				uses = 2
+				ahead_reduction = 0.5
+				category = nuclear
+			}
+		}
+	}
+	focus = {
+		id = ira_accumulate_gold
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		cost = 6
+		prerequisite = {
+			focus = ira_rule_of_ishtar
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		available = {
+			IRQ_Ishtar = {
+				is_country_leader = yes
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_rule_of_ishtar
+		completion_reward = {
+			add_timed_idea = {
+				idea = ira_accumulate_gold
+				days = 650
+			}
+		}
+	}
+	focus = {
+		id = ira_legion_of_dead
+		icon = GFX_goal_generic_CAS
+		cost = 6
+		prerequisite = {
+			focus = ira_rule_of_ereshkigal
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		available = {
+			IRQ_Ereshkigal = {
+				is_country_leader = yes
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_rule_of_ereshkigal
+		completion_reward = {
+			add_ideas = {
+				ira_legion_of_dead
+			}
+		}
+	}
+	focus = {
+		id = ira_rule_from_hell
+		icon = GFX_goal_generic_secret_weapon
+		cost = 6
+		prerequisite = {
+			focus = ira_legion_of_dead
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		available = {
+			IRQ_Ereshkigal = {
+				is_country_leader = yes
+			}
+			is_subject = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_legion_of_dead
+		completion_reward = {
+			add_ideas = {
+				ira_rule_from_hell
+			}
+		}
+	}
+	focus = {
+		id = ira_expand_income
+		icon = GFX_focus_mex_privatisation
+		cost = 6
+		prerequisite = {
+			focus = ira_accumulate_gold
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		available = {
+			IRQ_Ishtar = {
+				is_country_leader = yes
+			}
+			is_subject = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = ira_accumulate_gold
+		completion_reward = {
+			add_ideas = {
+				ira_expand_income
+			}
+		}
+	}
+	focus = {
+		id = ira_unreasonable_deal
+		icon = GFX_focus_MEX_new_american_myth
+		cost = 6
+		prerequisite = {
+			focus = ira_arbitrary_diplomacy
+		}
+		prerequisite = {
+			focus = ira_OPEC
+		}
+		x = 41
+		y = 3
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			OR = {
+				IRQ_Ishtar = {
+					is_country_leader = yes
+				}
+				IRQ_Ereshkigal = {
+					is_country_leader = yes
+				}
+			}
+			is_subject = no
+			MEX = {
+				is_in_faction = no
+			}
+			is_faction_leader = yes
+		}
+		bypass = {
+			is_in_faction_with = MEX
+		}
+		completion_reward = {
+			MEX = {
+				country_event = {
+					id = generic.5
+					hours = 12
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_reconcile_with_iran
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 6
+		prerequisite = {
+			focus = ira_OPEC
+		}
+		x = 2
+		y = 1
+		relative_position_id = ira_OPEC
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			OR = {
+				IRQ_Ishtar = {
+					is_country_leader = yes
+				}
+				IRQ_Ereshkigal = {
+					is_country_leader = yes
+				}
+			}
+			is_subject = no
+			PER = {
+				is_in_faction = no
+			}
+			is_faction_leader = yes
+		}
+		bypass = {
+			is_in_faction_with = PER
+		}
+		completion_reward = {
+			PER = {
+				country_event = {
+					id = generic.5
+					hours = 12
+				}
+			}
+		}
+	}
+	focus = {
+		id = ira_american_oil_exporter
+		icon = GFX_goal_generic_major_alliance
+		cost = 6
+		prerequisite = {
+			focus = ira_OPEC
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			OR = {
+				IRQ_Ishtar = {
+					is_country_leader = yes
+				}
+				IRQ_Ereshkigal = {
+					is_country_leader = yes
+				}
+			}
+			is_subject = no
+			VEN = {
+				is_in_faction = no
+			}
+			is_faction_leader = yes
+		}
+		x = 1
+		y = 1
+		relative_position_id = ira_reconcile_with_iran
+		completion_reward = {
+			VEN = {
+				country_event = {
+					id = generic.5
+					hours = 12
+				}
+			}
+		}
+	}
+}

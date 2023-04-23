@@ -1,0 +1,202 @@
+﻿###########################
+# GSK Mexico Events
+###########################
+add_namespace = gsk_mexico
+
+
+
+
+country_event = {
+	id = gsk_mexico.6
+	title = gsk_mexico.6.t
+	desc = gsk_mexico.6.d
+	picture = GFX_report_event_quetzalcoatl
+
+	is_triggered_only = yes
+	
+	option = {
+		name = gsk_mexico.6.a
+        effect_tooltip = {
+			if = {
+				limit = {
+				    ROOT = { is_faction_leader = yes }
+				}
+				add_to_faction = MEX
+				}
+			else_if= {
+					limit = { MEX = { is_faction_leader = yes } }
+					MEX = { add_to_faction = ROOT }
+					else = { 
+						MEX = {
+							set_rule = { can_create_factions = yes }
+							create_faction = Tenochtitlan_treaty
+							add_to_faction = ROOT
+						}      
+					}
+				}		
+		
+			}
+		FROM = {
+			add_ai_strategy = {
+				type = alliance
+				id = "ROOT"
+				value = 200
+			}
+		}
+		add_ai_strategy = {
+				type = alliance
+				id = "MEX"
+				value = 200
+			}
+		FROM = { country_event = { id =  gsk_mexico.7 } }
+		hidden_effect = {
+			
+		}
+		}
+		
+
+	
+	option = {
+		name = gsk_mexico.6.b
+		ai_chance = { factor = 0 }
+		FROM = { 
+
+			country_event = { id = gsk_mexico.8 }
+		}
+		
+	}
+}
+
+country_event = {
+	id = gsk_mexico.7
+	title = gsk_britain.7.t
+	desc = gsk_britain.7.d
+	picture = GFX_report_event_generic_peaceful_annexation
+
+	is_triggered_only	= yes
+
+	option = {
+		name = excellent
+		if = {
+				limit = {
+				    FROM = { is_faction_leader = yes }
+				}
+				add_to_faction = MEX
+				}
+			else_if= {
+					limit = { MEX = { is_faction_leader = yes } }
+					MEX = { add_to_faction = FROM }
+					else = { 
+						MEX = {
+							set_rule = { can_create_factions = yes }
+							create_faction = Tenochtitlan_treaty
+							add_to_faction = FROM
+						}      
+					}
+				}
+		
+		}
+	}
+
+
+country_event = {
+	id = gsk_mexico.8
+	title = gsk_britain.8.t
+	desc = gsk_britain.8.d
+	picture = GFX_report_event_french_resistance_02
+
+	is_triggered_only	= yes
+
+	option = {
+		name = unfortunate
+	}
+}
+
+
+news_event = {
+	id = gsk_mexico.47
+	title = gsk_mexico.47.title
+	desc = gsk_mexico.47.desc
+	
+	picture = GFX_news_event_gathering_protest
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = mexico.46.a
+		
+		trigger = {
+			OR = {
+				original_tag = MEX
+				is_in_faction_with = MEX
+			}
+		}
+	}
+	option = {
+		name = mexico.46.b
+		
+		trigger = {
+			has_war_with = MEX
+		}
+	}
+	option = {
+		name = mexico.46.c
+		
+		trigger = {
+			NOT = {
+				OR = {
+					original_tag = MEX
+					is_in_faction_with = MEX
+					has_war_with = MEX
+				}
+			}
+		}
+	}
+}
+
+
+
+news_event = {
+	id = gsk_mexico.1
+	title = gsk_mexico.1.title
+	desc = gsk_mexico.1.desc
+	
+	picture = GFX_news_event_aztec
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = gsk_mexico.1.a
+		
+		trigger = {
+			OR = {
+				original_tag = MEX
+				is_in_faction_with = MEX
+			}
+		}
+	}
+	option = {
+		name = gsk_mexico.1.b
+		
+		trigger = {
+			has_war_with = MEX
+		}
+	}
+	option = {
+		name = gsk_mexico.1.c
+		
+		trigger = {
+			NOT = {
+				OR = {
+					original_tag = MEX
+					is_in_faction_with = MEX
+					has_war_with = MEX
+				}
+			}
+		}
+	}
+}

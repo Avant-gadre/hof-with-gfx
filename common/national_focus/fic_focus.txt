@@ -1,0 +1,2592 @@
+focus_tree = {
+	id = fic_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = FIC
+		}
+	}
+	default = no
+	continuous_focus_position = {
+		x = 20
+		y = 1500
+	}
+	##########总督上任#########
+	focus = {
+		id = FIC_New_governor
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 5
+		x = 6
+		y = 0
+		available = {
+			always = no
+		}
+		bypass = {
+			or = {
+				has_country_leader = {
+					name = "St. Martha"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FIC_duc_de_richelieu
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = FIC_New_governor_tt
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	focus = {
+		id = FIC_Frenchization_policy
+		icon = GFX_focus_chi_reach_out_to_france
+		cost = 5
+		x = -2
+		y = 1
+		mutually_exclusive = {
+			focus = FIC_Realistic_policy
+		}
+		prerequisite = {
+			focus = FIC_New_governor
+		}
+		relative_position_id = FIC_New_governor
+		available = {
+			or = {
+				has_country_leader = {
+					name = "St. Martha"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = 150
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Promote_Catholicism
+		icon = GFX_focus_por_concordat
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Frenchization_policy
+		}
+		relative_position_id = FIC_Frenchization_policy
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = -0.05
+			add_ideas = FIC_Catholic_influence_idea
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Pull_out_the_poppy
+		icon = GFX_goal_generic_political_pressure
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Promote_Catholicism
+		}
+		relative_position_id = FIC_Promote_Catholicism
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = 0.05
+			remove_ideas = FIC_salt_opium_alcohol_idea
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Decentralization
+		icon = GFX_goal_support_democracy
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = FIC_Pull_out_the_poppy
+		}
+		relative_position_id = FIC_Pull_out_the_poppy
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = -0.1
+			add_country_leader_trait = dictator
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Reiterate_the_three_principles
+		icon = GFX_goal_generic_propaganda
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = FIC_Recruit_locals
+		}
+		prerequisite = {
+			focus = FIC_Decentralization
+		}
+		relative_position_id = FIC_Recruit_locals
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = 100
+			swap_ideas = {
+				remove_idea = FIC_Difficulty_in_conscription_1
+				add_idea = FIC_Difficulty_in_conscription_2
+			}
+			remove_ideas = FIC_turbulent_situation_idea
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Realistic_policy
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 5
+		x = 2
+		y = 1
+		mutually_exclusive = {
+			focus = FIC_Frenchization_policy
+		}
+		prerequisite = {
+			focus = FIC_New_governor
+		}
+		relative_position_id = FIC_New_governor
+		available = {
+			or = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FIC_duc_de_richelieu
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Strengthen_cooperation_with_princes
+		icon = GFX_focus_rom_royal_dictatorship
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Realistic_policy
+		}
+		relative_position_id = FIC_Realistic_policy
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = 0.15
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Rectify_corruption
+		icon = GFX_focus_mex_privatisation
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Strengthen_cooperation_with_princes
+		}
+		relative_position_id = FIC_Strengthen_cooperation_with_princes
+		available = {
+		}
+		bypass = {
+			NOT = {
+				FIC = {
+					is_subject_of = FRA
+				}
+			}
+		}
+		completion_reward = {
+			add_political_power = -50
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			FRA = {
+				swap_ideas = {
+					remove_idea = FIC_Colonial_gains
+					add_idea = FIC_Colonial_gains_1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Recruit_locals
+		icon = GFX_focus_generic_little_entente
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Pull_out_the_poppy
+			focus = FIC_Rectify_corruption
+		}
+		relative_position_id = FIC_Pull_out_the_poppy
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_Difficulty_in_conscription
+				add_idea = FIC_Difficulty_in_conscription_1
+			}
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Strong_suppression
+		icon = GFX_goal_generic_political_pressure
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Rectify_corruption
+		}
+		relative_position_id = FIC_Rectify_corruption
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = FIC_Strengthen_the_colonial_police_idea
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Restore_order
+		icon = GFX_goal_anti_comintern_pact
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Recruit_locals
+		}
+		prerequisite = {
+			focus = FIC_Strong_suppression
+		}
+		relative_position_id = FIC_Recruit_locals
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = 0.1
+			remove_ideas = FIC_turbulent_situation_idea
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	##########工业#########
+	focus = {
+		id = FIC_Bank_of_Indochina_Investment_Loan
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		cost = 5
+		x = 12
+		y = 0
+		relative_position_id = FIC_New_governor
+		available = {
+			or = {
+				has_completed_focus = FIC_Reiterate_the_three_principles
+				has_completed_focus = FIC_Restore_order
+			}
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_timed_idea = {
+				idea = FIC_Investment_Loan_idea
+				days = 365
+			}
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FIC_Full_industrial_investment
+		icon = GFX_focus_generic_industry_3
+		cost = 5
+		x = -4
+		y = 1
+		prerequisite = {
+			focus = FIC_Bank_of_Indochina_Investment_Loan
+		}
+		relative_position_id = FIC_Bank_of_Indochina_Investment_Loan
+		available = {
+			or = {
+				has_country_leader = {
+					name = "St. Martha"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+			has_completed_focus = FIC_Reiterate_the_three_principles
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = FIC_Industrialization_process_idea
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Local_weapon_manufacturing
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = FIC_Full_industrial_investment
+		}
+		relative_position_id = FIC_Full_industrial_investment
+		available = {
+			has_full_control_of_state = 671
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = -50
+			671 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Local_Michelin_tire_factory
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Full_industrial_investment
+		}
+		relative_position_id = FIC_Full_industrial_investment
+		available = {
+			has_full_control_of_state = 286
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = -50
+			286 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_tech = motorised_infantry
+					}
+				}
+				set_technology = {
+					motorised_infantry = 1
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment_1
+				amount = 200
+				producer = FRA
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Local_steel_plant
+		icon = GFX_focus_generic_steel
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Full_industrial_investment
+		}
+		prerequisite = {
+			focus = FIC_Indochina_Railway
+		}
+		relative_position_id = FIC_Full_industrial_investment
+		available = {
+			has_full_control_of_state = 671
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = -50
+			671 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 15
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Local_shipyard
+		icon = GFX_goal_generic_build_navy
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Local_weapon_manufacturing
+		}
+		prerequisite = {
+			focus = FIC_Local_Michelin_tire_factory
+		}
+		prerequisite = {
+			focus = FIC_Local_steel_plant
+		}
+		relative_position_id = FIC_Local_weapon_manufacturing
+		available = {
+			has_full_control_of_state = 286
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = -50
+			286 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = dockyard
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Protect_workers_rights
+		icon = GFX_goal_generic_national_unity
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Local_shipyard
+		}
+		relative_position_id = FIC_Local_shipyard
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_Catholic_influence_idea
+				add_idea = FIC_Catholic_influence_idea_1
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Stable_industrialization
+		icon = GFX_focus_generic_combined_arms
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Protect_workers_rights
+		}
+		relative_position_id = FIC_Protect_workers_rights
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			remove_ideas = FIC_Agricultural_colonies_idea
+			swap_ideas = {
+				remove_idea = FIC_Industrialization_process_idea
+				add_idea = FIC_Stable_industrialization_idea
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Indochina_Railway
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Bank_of_Indochina_Investment_Loan
+		}
+		relative_position_id = FIC_Bank_of_Indochina_Investment_Loan
+		available = {
+			has_full_control_of_state = 671
+			has_full_control_of_state = 286
+		}
+		bypass = {
+		}
+		completion_reward = {
+			671 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			286 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Limited_land_reform
+		icon = GFX_goal_generic_consumer_goods
+		cost = 5
+		x = 4
+		y = 1
+		prerequisite = {
+			focus = FIC_Bank_of_Indochina_Investment_Loan
+		}
+		relative_position_id = FIC_Bank_of_Indochina_Investment_Loan
+		available = {
+			or = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FIC_duc_de_richelieu
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+			has_completed_focus = FIC_Restore_order
+			has_full_control_of_state = 671
+			has_full_control_of_state = 286
+			has_full_control_of_state = 670
+			has_full_control_of_state = 741
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_Agricultural_colonies_idea
+				add_idea = FIC_Land_reform_idea
+			}
+			671 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			286 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			670 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			741 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Expand_rice_planting
+		icon = GFX_goal_generic_construction2
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = FIC_Limited_land_reform
+		}
+		prerequisite = {
+			focus = FIC_Indochina_Railway
+		}
+		relative_position_id = FIC_Limited_land_reform
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 2
+			}
+			add_ideas = FIC_Expand_rice_planting_idea
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Development_of_rare_minerals
+		icon = GFX_focus_generic_tungsten
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Limited_land_reform
+		}
+		relative_position_id = FIC_Limited_land_reform
+		available = {
+			has_full_control_of_state = 671
+		}
+		bypass = {
+		}
+		completion_reward = {
+			671 = {
+				add_resource = {
+					type = tungsten
+					amount = 16
+				}
+				add_resource = {
+					type = chromium
+					amount = 4
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Expand_rubber_plantation
+		icon = GFX_focus_generic_rubber
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Limited_land_reform
+		}
+		relative_position_id = FIC_Limited_land_reform
+		available = {
+			has_full_control_of_state = 286
+		}
+		bypass = {
+		}
+		completion_reward = {
+			286 = {
+				add_resource = {
+					type = rubber
+					amount = 20
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Limited_industrial_expansion
+		icon = GFX_focus_generic_industry_2
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Expand_rice_planting
+		}
+		prerequisite = {
+			focus = FIC_Development_of_rare_minerals
+		}
+		prerequisite = {
+			focus = FIC_Expand_rubber_plantation
+		}
+		relative_position_id = FIC_Expand_rice_planting
+		available = {
+			has_full_control_of_state = 671
+			has_full_control_of_state = 286
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_Land_reform_idea
+				add_idea = FIC_Limited_industrial_expansion_idea
+			}
+			671 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			286 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Continue_to_increase_taxes
+		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Limited_industrial_expansion
+		}
+		relative_position_id = FIC_Limited_industrial_expansion
+		available = {
+			has_idea = FIC_Strengthen_the_colonial_police_idea
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_Strengthen_the_colonial_police_idea
+				add_idea = FIC_Strengthen_the_colonial_police_idea_1
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Stable_financial_resources
+		icon = GFX_focus_generic_home_defense
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Continue_to_increase_taxes
+		}
+		relative_position_id = FIC_Continue_to_increase_taxes
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_offsite_building = {
+				type = arms_factory
+				level = 1
+			}
+			add_offsite_building = {
+				type = dockyard
+				level = 2
+			}
+			add_ideas = FIC_endless_sea
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Port_expansion
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Indochina_Railway
+		}
+		relative_position_id = FIC_Indochina_Railway
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			286 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = naval_base
+						level = 3
+						province = 4401
+						instant_build = yes
+					}
+					set_state_flag = FRA_colonial_naval_bases
+				}
+			}
+			671 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = naval_base
+						level = 3
+						province = 1185
+						instant_build = yes
+					}
+					set_state_flag = FRA_colonial_naval_bases
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Conveying_equipment_from_home
+		icon = GFX_goal_generic_production
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Port_expansion
+		}
+		relative_position_id = FIC_Port_expansion
+		available = {
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		bypass = {
+			NOT = {
+				FIC = {
+					is_subject_of = FRA
+				}
+			}
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = FIC_Conveying_equipment_from_home
+				bonus = 1
+				uses = 3
+				category = industry
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Local_technicians
+		icon = GFX_goal_tfv_generic_tech_sharing
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Conveying_equipment_from_home
+		}
+		relative_position_id = FIC_Conveying_equipment_from_home
+		available = {
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		bypass = {
+			NOT = {
+				FIC = {
+					is_subject_of = FRA
+				}
+			}
+		}
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = FIC_Local_technicians
+				bonus = 1
+				uses = 1
+				category = electronics
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Indochina_Research_Center
+		icon = GFX_focus_research
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = FIC_Local_technicians
+		}
+		relative_position_id = FIC_Local_technicians
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	##########陆军#########
+	focus = {
+		id = FIC_Indochina_Military_Development_Plan
+		icon = GFX_goal_generic_army_doctrines
+		cost = 5
+		x = 16
+		y = 0
+		relative_position_id = FIC_Bank_of_Indochina_Investment_Loan
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			army_experience = 25
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_East_Asian_trench_war
+		icon = GFX_goal_generic_construction2
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = FIC_Indochina_Military_Development_Plan
+		}
+		relative_position_id = FIC_Indochina_Military_Development_Plan
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			army_experience = 10
+			add_doctrine_cost_reduction = {
+				name = FIC_East_Asian_trench_war
+				cost_reduction = 0.25
+				uses = 2
+				category = land_doctrine
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_East_Asian_Mobile_Warfare
+		icon = GFX_goal_generic_cavalry
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Indochina_Military_Development_Plan
+		}
+		relative_position_id = FIC_Indochina_Military_Development_Plan
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = FIC_East_Asian_Mobile_Warfare
+				cost_reduction = 0.25
+				uses = 1
+				category = land_doctrine
+			}
+			if = {
+				limit = {
+					not = {
+						has_tech = gwtank
+					}
+				}
+				set_technology = {
+					gwtank = 1
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = light_tank_equipment_1
+				amount = 100
+				producer = FRA
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_actung_panzer
+		icon = GFX_goal_generic_army_tanks
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_East_Asian_Mobile_Warfare
+		}
+		relative_position_id = FIC_East_Asian_Mobile_Warfare
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = light_tank_equipment_1
+				amount = 200
+				producer = FRA
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Motorized
+		icon = GFX_goal_generic_army_motorized
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_actung_panzer
+		}
+		relative_position_id = FIC_actung_panzer
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = FIC_Motorized_idea
+			if = {
+				limit = {
+					not = {
+						has_tech = motorised_infantry
+					}
+				}
+				set_technology = {
+					motorised_infantry = 1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Oriental_special_model
+		icon = GFX_focus_generic_army_tanks2
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Standard_command_system
+		}
+		prerequisite = {
+			focus = FIC_actung_panzer
+		}
+		relative_position_id = FIC_Standard_command_system
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = FIC_Oriental_special_model_idea
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Rapid_reaction_force
+		icon = GFX_focus_chi_army_reform
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Oriental_special_model
+		}
+		prerequisite = {
+			focus = FIC_Motorized
+		}
+		relative_position_id = FIC_Oriental_special_model
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_Motorized_idea
+				add_idea = FIC_Mobile_Warfare_idea
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Oriental_Magino
+		icon = GFX_goal_generic_fortify_city
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = FIC_East_Asian_trench_war
+		}
+		relative_position_id = FIC_East_Asian_trench_war
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					any_neighbor_state = {
+						is_owned_by = SIA
+					}
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Standard_command_system
+		icon = GFX_focus_generic_military_academy
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_East_Asian_trench_war
+		}
+		prerequisite = {
+			focus = FIC_East_Asian_Mobile_Warfare
+		}
+		relative_position_id = FIC_East_Asian_trench_war
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_undisciplined_Army
+				add_idea = FIC_good_army
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Replace_the_old_gun
+		icon = GFX_goal_generic_small_arms
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = FIC_Oriental_Magino
+		}
+		relative_position_id = FIC_Oriental_Magino
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = FIC_Replace_the_old_gun
+				bonus = 1
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Set_up_a_cannon
+		icon = GFX_goal_generic_army_artillery2
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Oriental_Magino
+		}
+		prerequisite = {
+			focus = FIC_Standard_command_system
+		}
+		relative_position_id = FIC_Oriental_Magino
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = FIC_Set_up_a_cannon
+				bonus = 1
+				uses = 1
+				category = artillery
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_Jungle_Verdun
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Replace_the_old_gun
+		}
+		prerequisite = {
+			focus = FIC_Set_up_a_cannon
+		}
+		relative_position_id = FIC_Replace_the_old_gun
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = FIC_Jungle_Verdun_idea
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FIC_regular_army
+		icon = GFX_focus_generic_military_mission
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = FIC_Set_up_a_cannon
+			focus = FIC_Oriental_special_model
+		}
+		prerequisite = {
+			focus = FIC_Standard_command_system
+		}
+		relative_position_id = FIC_Set_up_a_cannon
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIC_good_army
+				add_idea = FIC_Regular_army_idea
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	##########海空#########
+	focus = {
+		id = FRA_naval_rearmament
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 12
+		y = 0
+		cost = 5
+		relative_position_id = FIC_Indochina_Military_Development_Plan
+		available = {
+			or = {
+				has_completed_focus = FIC_Reiterate_the_three_principles
+				has_completed_focus = FIC_Restore_order
+			}
+		}
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		complete_tooltip = {
+			navy_experience = 25
+			every_state = {
+				limit = {
+					has_state_flag = FRA_naval_rearmament_2NB
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		completion_reward = {
+			navy_experience = 25
+			add_doctrine_cost_reduction = {
+				name = FRA_naval_doctrine
+				cost_reduction = 0.5
+				uses = 1
+				category = naval_doctrine
+			}
+			671 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = FRA_naval_rearmament_2NB
+				}
+			}
+			286 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = FRA_naval_rearmament_2NB
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 25
+		}
+	}
+	focus = {
+		id = FRA_the_old_school
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = {
+			focus = FRA_naval_rearmament
+		}
+		x = 0
+		y = 1
+		relative_position_id = FRA_naval_rearmament
+		cost = 5
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = FRA_the_old_school
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FRA_capital_ship_focus
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = {
+			focus = FRA_the_old_school
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_the_old_school
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = FRA_improved_screen_ships
+				bonus = 2
+				uses = 1
+				category = cl_tech
+			}
+			add_tech_bonus = {
+				name = FRA_capital_ship_focus
+				bonus = 1
+				uses = 2
+				category = bb_tech
+				category = bc_tech
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FIC_Coast_Guard_ship		#案防舰（自产）
+		icon = GFX_goal_generic_defence
+		cost = 5
+		prerequisite = {
+			focus = FRA_capital_ship_focus
+			focus = FRA_carrier_focus
+			focus = FRA_undersea_combat
+			focus = FRA_surface_combat
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_capital_ship_focus
+		ai_will_do = {
+			factor = 3500
+		}
+		available = {
+			has_dlc = "Man the Guns"
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			country_event = {
+				id = ficn.1
+			}
+		}
+	}
+	focus = {
+		id = FIC_frigate		#护卫舰（自产）
+		icon = GFX_goal_generic_navy_anti_submarine
+		cost = 5
+		prerequisite = {
+			focus = FRA_capital_ship_focus
+			focus = FRA_carrier_focus
+			focus = FRA_undersea_combat
+			focus = FRA_surface_combat
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_capital_ship_focus
+		ai_will_do = {
+			factor = 3500
+		}
+		available = {
+			has_dlc = "Man the Guns"
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			country_event = {
+				id = ficn.2
+			}
+		}
+	}
+	focus = {
+		id = FIC_Procurement_plan_I		#主力舰（采购）
+		icon = GFX_goal_generic_navy_battleship
+		cost = 5
+		prerequisite = {
+			focus = FRA_capital_ship_focus
+			focus = FRA_carrier_focus
+			focus = FRA_undersea_combat
+			focus = FRA_surface_combat
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_carrier_focus
+		ai_will_do = {
+			factor = 3500
+		}
+		available = {
+			has_dlc = "Man the Guns"
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			country_event = {
+				id = ficn.3
+			}
+		}
+	}
+	focus = {
+		id = FIC_Procurement_plan_II		#巡洋舰（采购）
+		icon = GFX_focus_generic_cruiser2
+		cost = 5
+		prerequisite = {
+			focus = FRA_capital_ship_focus
+			focus = FRA_carrier_focus
+			focus = FRA_undersea_combat
+			focus = FRA_surface_combat
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_undersea_combat
+		ai_will_do = {
+			factor = 3500
+		}
+		available = {
+			has_dlc = "Man the Guns"
+			has_completed_focus = FIC_Procurement_plan_I
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			country_event = {
+				id = ficn.16
+			}
+		}
+	}
+	focus = {
+		id = FIC_Procurement_plan_III		#驱逐舰（采购）
+		icon = GFX_focus_generic_destroyer
+		cost = 5
+		prerequisite = {
+			focus = FRA_capital_ship_focus
+			focus = FRA_carrier_focus
+			focus = FRA_undersea_combat
+			focus = FRA_surface_combat
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_surface_combat
+		ai_will_do = {
+			factor = 3500
+		}
+		available = {
+			has_dlc = "Man the Guns"
+			has_completed_focus = FIC_Procurement_plan_II
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			country_event = {
+				id = ficn.17
+			}
+		}
+	}
+	focus = {
+		id = FRA_carrier_focus
+		icon = GFX_goal_generic_navy_carrier
+		prerequisite = {
+			focus = FRA_the_old_school
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_the_old_school
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_carrier_focus
+				bonus = 1
+				uses = 2
+				category = cv_tech
+			}
+			add_tech_bonus = {
+				name = FRA_carrier_focus
+				bonus = 1
+				uses = 2
+				category = naval_air
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FRA_the_young_school
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = {
+			focus = FRA_naval_rearmament
+		}
+		x = 4
+		y = 1
+		relative_position_id = FRA_naval_rearmament
+		cost = 5
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_ideas = FRA_the_young_school
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FRA_undersea_combat
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = {
+			focus = FRA_the_young_school
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_the_young_school
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = FRA_undersea_combat
+				bonus = 1
+				uses = 2
+				category = ss_tech
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FRA_surface_combat
+		icon = GFX_focus_generic_destroyer
+		prerequisite = {
+			focus = FRA_the_young_school
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_the_young_school
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = FRA_surface_combat
+				bonus = 2
+				uses = 1
+				category = dd_tech
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+	}
+	focus = {
+		id = FRA_air_focus
+		icon = GFX_goal_generic_build_airforce
+		x = 10
+		y = 0
+		cost = 5
+		relative_position_id = FRA_naval_rearmament
+		available_if_capitulated = yes
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = air_focus_bypass_tt
+				NOT = {
+					any_owned_state = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+			}
+		}
+		complete_tooltip = {
+			air_experience = 25
+			every_state = {
+				limit = {
+					has_state_flag = FRA_air_focus_2air
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		completion_reward = {
+			air_experience = 25
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = FRA_air_focus_2air
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = FRA_air_focus_2air
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = FRA_air_focus_2air
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	focus = {
+		id = FRA_fighter_focus
+		icon = GFX_goal_generic_air_fighter
+		mutually_exclusive = {
+			focus = FRA_bomber_focus
+		}
+		prerequisite = {
+			focus = FRA_air_focus
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_air_focus
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_fighter_focus
+				bonus = 1
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+	focus = {
+		id = FRA_heavy_fighter_focus
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = {
+			focus = FRA_fighter_focus
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_fighter_focus
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_heavy_fighter_focus
+				bonus = 1
+				uses = 2
+				category = cat_heavy_fighter
+			}
+		}
+	}
+	focus = {
+		id = FRA_bomber_focus
+		icon = GFX_goal_generic_air_bomber
+		mutually_exclusive = {
+			focus = FRA_fighter_focus
+		}
+		prerequisite = {
+			focus = FRA_air_focus
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_air_focus
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_bomber_focus
+				bonus = 1
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+	focus = {
+		id = FRA_air_doctrine
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = {
+			focus = FRA_fighter_focus
+			focus = FRA_bomber_focus
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_fighter_focus
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				name = FRA_air_doctrine
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
+	focus = {
+		id = FRA_heavy_bomber_focus
+		icon = GFX_goal_generic_occupy_start_war
+		prerequisite = {
+			focus = FRA_bomber_focus
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_bomber_focus
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_heavy_bomber_focus
+				bonus = 1
+				uses = 2
+				category = cat_strategic_bomber
+			}
+		}
+	}
+	focus = {
+		id = FRA_naval_bomber_focus
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = {
+			focus = FRA_bomber_focus
+		}
+		x = 3
+		y = 1
+		relative_position_id = FRA_bomber_focus
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_naval_bomber_focus
+				bonus = 1
+				uses = 2
+				category = naval_bomber
+			}
+		}
+	}
+	##########外交#########
+	focus = {
+		id = FIC_Tense_situation
+		icon = GFX_goal_generic_territory_or_war
+		x = 0
+		y = 3
+		cost = 5
+		relative_position_id = FIC_regular_army
+		available = {
+			always = no
+		}
+		bypass = {
+			or = {
+				threat > 0.25
+				has_country_flag = Vietnam_war_flag
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_The_dream_of_the_Central_South_Federation
+		icon = GFX_goal_generic_major_war
+		x = -5
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Tense_situation
+		}
+		relative_position_id = FIC_Tense_situation
+		available = {
+			has_army_manpower = {
+				size > 199999
+			}
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			custom_effect_tooltip = FIC_The_dream_of_the_Central_South_Federation_tt
+			every_state = {
+				limit = {
+					is_core_of = SIA
+				}
+				add_claim_by = FIC
+			}
+			every_state = {
+				limit = {
+					is_core_of = BRM
+				}
+				add_claim_by = FIC
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Integrating_Thailand
+		icon = GFX_goal_generic_position_armies
+		cost = 12
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = FIC_The_dream_of_the_Central_South_Federation
+		}
+		relative_position_id = FIC_The_dream_of_the_Central_South_Federation
+		available = {
+			any_state = {
+				is_owned_by = ROOT
+				is_claimed_by = ROOT
+				is_core_of = SIA
+			}
+		}
+		bypass = {
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_claimed_by = ROOT
+					is_core_of = SIA
+				}
+				add_core_of = FIC
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	focus = {
+		id = FIC_Integrating_Myanmar
+		icon = GFX_goal_generic_position_armies
+		cost = 12
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = FIC_The_dream_of_the_Central_South_Federation
+		}
+		relative_position_id = FIC_The_dream_of_the_Central_South_Federation
+		available = {
+			any_state = {
+				is_owned_by = ROOT
+				is_claimed_by = ROOT
+				is_core_of = BUR
+			}
+		}
+		bypass = {
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_claimed_by = ROOT
+					is_core_of = BUR
+				}
+				add_core_of = FIC
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	focus = {
+		id = FIC_Declare_the_Central_South_Federation
+		icon = GFX_goal_generic_demand_territory
+		cost = 12
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = FIC_Integrating_Thailand
+		}
+		prerequisite = {
+			focus = FIC_Integrating_Myanmar
+		}
+		relative_position_id = FIC_Integrating_Thailand
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = 250
+			set_cosmetic_tag = FIC_Central_South_Federation
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	focus = {
+		id = FIC_Emergency_arms_purchase_program
+		icon = GFX_focus_generic_combined_arms
+		x = 5
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Tense_situation
+		}
+		relative_position_id = FIC_Tense_situation
+		available = {
+			has_country_flag = Vietnam_war_flag
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			FRA = {
+				country_event = {
+					id = French_Indochina.3
+					days = 1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Unite_believers
+		icon = GFX_goal_generic_national_unity
+		x = -1
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Emergency_arms_purchase_program
+		}
+		relative_position_id = FIC_Emergency_arms_purchase_program
+		available = {
+			or = {
+				has_country_leader = {
+					name = "St. Martha"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_timed_idea = {
+				idea = FIC_Unite_believers_idea
+				days = 180
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Democracy_under_the_church
+		icon = GFX_goal_support_democracy
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Unite_believers
+		}
+		relative_position_id = FIC_Unite_believers
+		available = {
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+			custom_effect_tooltip = FIC_Democracy_under_the_church_tt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Arming_French_nationals
+		icon = GFX_focus_focus_fra_maquis
+		x = 1
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Emergency_arms_purchase_program
+		}
+		relative_position_id = FIC_Emergency_arms_purchase_program
+		available = {
+			or = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FIC_duc_de_richelieu
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			custom_effect_tooltip = FIC_Arming_French_nationals_tt
+			hidden_effect = {
+				division_template = {
+					name = "Croix de Feu"
+					division_names_group = FIC_INF_01
+					regiments = {
+						infantry = {
+							x = 0
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+						infantry = {
+							x = 0
+							y = 3
+						}
+						infantry = {
+							x = 0
+							y = 4
+						}
+					}
+					support = {
+						recon = {
+							x = 0
+							y = 1
+						}
+					}
+					priority = 1
+				}
+				load_oob = "FIC_Arming_French_nationals"
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Croix_de_Feu
+		icon = GFX_goal_support_fascism
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Arming_French_nationals
+		}
+		relative_position_id = FIC_Arming_French_nationals
+		available = {
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.5
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = FIC_democratic_party_Croix_de_Feu_long
+				name = FIC_democratic_party_Croix_de_Feu
+			}
+			add_ideas = FIC_Croix_de_Feu_idea
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Destroy_the_rebels
+		icon = GFX_goal_generic_political_pressure
+		x = 1
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Democracy_under_the_church
+			focus = FIC_Croix_de_Feu
+		}
+		relative_position_id = FIC_Democracy_under_the_church
+		available = {
+		}
+		bypass = {
+			VIN = {
+				exists = no
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_timed_idea = {
+				idea = FIC_Destroy_the_rebels_idea
+				days = 180
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Indochina_Army
+		icon = GFX_focus_RAJ_lions_of_the_great_war
+		x = -2
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Tense_situation
+		}
+		relative_position_id = FIC_Tense_situation
+		available = {
+			or = {
+				has_country_leader = {
+					name = "St. Martha"
+					ruling_only = yes
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+			FIC = {
+				is_subject_of = FRA
+			}
+			threat > 0.25
+		}
+		bypass = {
+			NOT = {
+				FIC = {
+					is_subject_of = FRA
+				}
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			custom_effect_tooltip = FIC_Indochina_Army_tt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Indochina_Armored_Division
+		icon = GFX_focus_generic_army_tanks2
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Indochina_Army
+		}
+		relative_position_id = FIC_Indochina_Army
+		available = {
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		bypass = {
+			NOT = {
+				FIC = {
+					is_subject_of = FRA
+				}
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			custom_effect_tooltip = FIC_Indochina_Armored_Division_tt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Guarantee_local_shipping
+		icon = GFX_focus_generic_cruiser2
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Tense_situation
+		}
+		relative_position_id = FIC_Tense_situation
+		available = {
+			threat > 0.25
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = FIC_Guarantee_local_shipping
+				bonus = 1
+				uses = 2
+				category = naval_equipment
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Shipping_rubber
+		icon = GFX_focus_generic_rubber
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Guarantee_local_shipping
+		}
+		relative_position_id = FIC_Guarantee_local_shipping
+		available = {
+			FIC = {
+				is_subject_of = FRA
+			}
+		}
+		bypass = {
+			NOT = {
+				FIC = {
+					is_subject_of = FRA
+				}
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			give_resource_rights = {
+				receiver = FRA
+				state = 286
+			}
+			give_resource_rights = {
+				receiver = FRA
+				state = 671
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Dispatch_workers
+		icon = GFX_goal_generic_production2
+		x = 2
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Tense_situation
+		}
+		relative_position_id = FIC_Tense_situation
+		available = {
+			or = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FIC_duc_de_richelieu
+				}
+				has_country_leader = {
+					name = "Marie Antoinette"
+					ruling_only = yes
+				}
+			}
+			FIC = {
+				is_subject_of = FRA
+			}
+			FRA = {
+				has_idea = FIC_Colonial_gains_1
+			}
+			threat > 0.25
+		}
+		bypass = {
+			NOT = {
+				FIC = {
+					is_subject_of = FRA
+				}
+			}
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			FRA = {
+				swap_ideas = {
+					remove_idea = FIC_Colonial_gains_1
+					add_idea = FIC_Colonial_gains_2
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Increase_exploitation
+		icon = GFX_goal_generic_consumer_goods
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Dispatch_workers
+		}
+		relative_position_id = FIC_Dispatch_workers
+		available = {
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = limited_conscription
+				}
+				swap_ideas = {
+					remove_idea = limited_conscription
+					add_idea = service_by_requirement
+				}
+			}
+			if = {
+				limit = {
+					has_idea = extensive_conscription
+				}
+				swap_ideas = {
+					remove_idea = extensive_conscription
+					add_idea = service_by_requirement
+				}
+			}
+			add_ideas = tot_economic_mobilisation
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	focus = {
+		id = FIC_Always_loyal
+		icon = GFX_focus_chi_reach_out_to_france
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = FIC_Increase_exploitation
+			focus = FIC_Indochina_Armored_Division
+		}
+		prerequisite = {
+			focus = FIC_Shipping_rubber
+		}
+		relative_position_id = FIC_Shipping_rubber
+		available = {
+		}
+		bypass = {
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			# This is kind of awkward
+			# set_major = yes
+			add_ideas = FIC_Always_loyal_idea
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

@@ -1,0 +1,133 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+
+british_help_against_germany = {
+	enable = {
+		tag = POL
+		OR = {
+			GER = { has_completed_focus = GER_second_vienna_award }
+			GER = { has_war_with = POL }
+		}
+		country_exists = ENG
+	}
+	abort = {
+		NOT = { country_exists = ENG }
+	}
+	
+	ai_strategy = {
+		type = befriend
+		id = "ENG"			
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = "ENG"			
+		value = 200
+	}	
+}
+
+POL_unit_production = {
+	enable = {
+	
+		original_tag = POL
+		
+	}
+	abort = { 
+		always = no
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 2
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 15
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry 
+		value = 15
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 50 
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 0 
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_tank
+		value = 20
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_air
+		value = 15
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 30 
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20 
+	} 
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = artillery
+		value = 3
+	}
+
+}
+
+POL_halt_light_armor_production_in_transitioning = {
+	enable = {
+		original_tag = POL
+		has_template_majority_unit = medium_armor
+		OR = {
+			has_equipment = { light_tank_equipment > 600 }
+			date > 1938.1.1
+		}		
+	}
+	abort = {
+		# once we start we never go back to light armor
+	}
+
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = light_tank_equipment
+		value = -75
+	}
+}

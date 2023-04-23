@@ -1,0 +1,513 @@
+
+ROM_Liberation_of_Serbia_decision = {
+
+	ROM_Liberation_of_Serbia = {
+
+		icon = ger_reichskommissariats
+
+		available = {
+      OR = {
+        ROM = { has_full_control_of_state = 107 }
+        any_other_country = {
+          is_ai = yes
+          OR = {
+            is_subject = no
+            AND = {
+              is_subject = yes
+              OVERLORD = { 
+                or = { 
+                  is_ai = yes  
+                  tag = ROM
+                }
+              }
+            }
+          }
+
+          is_in_faction_with = ROM
+          has_full_control_of_state = 107
+        }
+      }
+      OR = {
+        ROM = { has_full_control_of_state = 108 }
+        any_other_country = {
+          is_ai = yes
+          OR = {
+            is_subject = no
+            AND = {
+              is_subject = yes
+              OVERLORD = { 
+                or = { 
+                  is_ai = yes  
+                  tag = ROM
+                }
+              }
+            }
+          }
+
+          is_in_faction_with = ROM
+          has_full_control_of_state = 108
+        }
+      }
+		}
+
+		cost = 0
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		visible = {
+      is_subject = no
+      country_exists = SER 
+		}
+
+		complete_effect = {
+			SER = {
+				transfer_state = 107
+				transfer_state = 108
+
+				add_ai_strategy = {
+					type = befriend
+					id = "SER"
+					value = 500
+				}
+
+				ROM = {
+					add_ai_strategy = {
+						type = befriend
+						id = "SER"
+						value = 500
+					}
+				}
+
+        set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+        }  
+
+        add_popularity = {
+          ideology = neutrality
+          popularity = 0.65
+        }  
+
+
+			}
+		}
+	}
+		
+}
+
+
+ROM_dominance_in_the_seas = {
+	ROM_dominance_in_the_black_sea_mission = {
+
+		icon = GFX_decision_generic_operation
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 0.01
+				is_major = yes
+				OR = {
+					has_war = no
+					alliance_strength_ratio > 1
+				}
+			}
+		}
+
+		allowed = {
+			original_tag = ROM
+		}
+
+		available = { #GOAL
+			NOT = {
+				any_state = {
+					BUL_state_is_in_the_black_sea = yes
+					controller = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								is_in_faction_with = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+
+		activation = {
+			has_completed_focus = ROM_dominance_in_the_black_sea
+		}
+		
+		visible = {
+			has_completed_focus = ROM_dominance_in_the_black_sea
+		}
+
+		highlight_states = { 
+			BUL_state_is_in_the_black_sea = yes
+			controller = {
+				NOT = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+			}
+		}
+
+		days_mission_timeout = 730
+
+		fire_only_once = yes
+
+		is_good = no
+		
+		timeout_effect = { #FAIL
+			set_country_flag = BUL_black_sea_mission_failure_flag
+			add_stability = -0.1
+			add_war_support = -0.1
+			every_state = {
+				limit = {
+					has_state_flag = BUL_dominance_in_the_seas_claim_flag
+				}
+				remove_claim_by = ROOT
+				clr_state_flag = BUL_dominance_in_the_seas_claim_flag
+			}
+		}
+
+		complete_effect = { #SUCCESS
+			set_country_flag = BUL_black_sea_mission_success_flag
+			add_stability = 0.1
+			add_war_support = 0.1
+			if = {
+				limit = {
+					has_idea = ROM_supremacy_on_the_bosporus
+				}
+				modify_timed_idea = {
+					idea = ROM_supremacy_on_the_bosporus
+					days = 180
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_03
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_03
+					add_idea = ROM_prussia_of_the_balkans_04
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_02
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_02
+					add_idea = ROM_prussia_of_the_balkans_03
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_01
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_01
+					add_idea = ROM_prussia_of_the_balkans_02
+				}
+			}
+		}
+	}
+
+	ROM_dominance_in_the_aegean_sea_mission = {
+
+		icon = GFX_decision_generic_operation
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 0.01
+				is_major = yes
+				OR = {
+					has_war = no
+					alliance_strength_ratio > 1
+				}
+			}
+		}
+
+		allowed = {
+			original_tag = ROM
+		}
+
+		available = { #GOAL
+			NOT = {
+				any_state = {
+					BUL_state_is_in_the_aegean_sea = yes
+					controller = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								is_in_faction_with = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+
+		activation = {
+			has_completed_focus = ROM_dominance_in_the_aegean_sea
+		}
+		
+		visible = {
+			has_completed_focus = ROM_dominance_in_the_aegean_sea
+		}
+
+		days_mission_timeout = 730
+
+		fire_only_once = yes
+
+		is_good = no
+
+		highlight_states = { 
+			BUL_state_is_in_the_aegean_sea = yes
+			controller = {
+				NOT = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+			}
+		}
+		
+		timeout_effect = { #FAIL
+			set_country_flag = BUL_aegean_sea_mission_failure_flag
+			add_stability = -0.1
+			add_war_support = -0.1
+			every_state = {
+				limit = {
+					has_state_flag = BUL_dominance_in_the_seas_claim_flag
+				}
+				remove_claim_by = ROOT
+				clr_state_flag = BUL_dominance_in_the_seas_claim_flag
+			}
+		}
+
+		complete_effect = { #SUCCESS
+			set_country_flag = BUL_aegean_sea_mission_success_flag
+			add_stability = 0.1
+			add_war_support = 0.1
+			if = {
+				limit = {
+					has_idea = ROM_supremacy_on_the_bosporus
+				}
+				modify_timed_idea = {
+					idea = ROM_supremacy_on_the_bosporus
+					days = 180
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_03
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_03
+					add_idea = ROM_prussia_of_the_balkans_04
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_02
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_02
+					add_idea = ROM_prussia_of_the_balkans_03
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_01
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_01
+					add_idea = ROM_prussia_of_the_balkans_02
+				}
+			}
+		}
+	}
+
+	ROM_dominance_in_the_adriatic_sea_mission = {
+
+		icon = GFX_decision_generic_operation
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 0.01
+				is_major = yes
+				OR = {
+					has_war = no
+					alliance_strength_ratio > 1
+				}
+			}
+		}
+
+		allowed = {
+			original_tag = ROM
+		}
+
+		available = { #GOAL
+			NOT = {
+				any_state = {
+					BUL_state_is_in_the_adriatic_sea = yes
+					controller = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								is_in_faction_with = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+
+		activation = {
+			has_completed_focus = ROM_dominance_in_the_adriatic_sea
+		}
+		
+		visible = {
+			has_completed_focus = ROM_dominance_in_the_adriatic_sea
+		}
+
+		days_mission_timeout = 730
+
+		fire_only_once = yes
+
+		is_good = no
+
+		highlight_states = { 
+			BUL_state_is_in_the_adriatic_sea = yes
+			controller = {
+				NOT = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+			}
+		}
+		
+		timeout_effect = { #FAIL
+			set_country_flag = BUL_adriatic_sea_mission_failure_flag
+			add_stability = -0.1
+			add_war_support = -0.1
+			every_state = {
+				limit = {
+					has_state_flag = BUL_dominance_in_the_seas_claim_flag
+				}
+				remove_claim_by = ROOT
+				clr_state_flag = BUL_dominance_in_the_seas_claim_flag
+			}
+		}
+
+		complete_effect = { #SUCCESS
+			set_country_flag = BUL_adriatic_sea_mission_success_flag
+			add_stability = 0.1
+			add_war_support = 0.1
+			if = {
+				limit = {
+					has_idea = ROM_supremacy_on_the_bosporus
+				}
+				modify_timed_idea = {
+					idea = ROM_supremacy_on_the_bosporus
+					days = 180
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_03
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_03
+					add_idea = ROM_prussia_of_the_balkans_04
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_02
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_02
+					add_idea = ROM_prussia_of_the_balkans_03
+				}
+			}
+			if = {
+				limit = {
+					has_idea = ROM_prussia_of_the_balkans_01
+				}
+				swap_ideas = {
+					remove_idea = ROM_prussia_of_the_balkans_01
+					add_idea = ROM_prussia_of_the_balkans_02
+				}
+			}
+		}
+	}
+}
+
+
+SER_Get_our_claim_decision = {
+
+	SER_Get_our_claim = {
+
+		icon = generic_political_actions
+
+		available = {
+			  has_capitulated = no
+		}
+
+		cost = 0
+		ai_will_do = {
+			factor = 5000
+		}
+		days_remove = 90
+
+		visible = {
+			any_state = {
+				or = {
+					is_core_of = root
+					is_claimed_by = root
+				}
+        NOT = { is_core_of = ROM }
+        NOT = { is_claimed_by = ROM }
+        is_fully_controlled_by = ROM
+			}
+		}
+		modifier = {
+		  political_power_cost = 0.1
+		}
+		complete_effect = {
+
+			every_state = {
+				limit = {
+				or = {
+					is_core_of = root
+					is_claimed_by = root
+				}
+        NOT = { is_core_of = ROM }
+        NOT = { is_claimed_by = ROM }
+        is_fully_controlled_by = ROM
+				}
+				root = { transfer_state = PREV }
+			}
+
+		}		
+	}
+	
+}	

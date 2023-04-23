@@ -1,0 +1,464 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+
+CHI_unit_production = {
+	enable = {
+		original_tag = CHI
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 0
+	}
+
+
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 5
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 95
+	}
+	
+	#Air unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 75 # From 70 to 75
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 0
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 0
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 0
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 0
+	}
+	
+	
+	# Naval unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = capital_ship
+		value = 25 # from 15 to 25
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = submarine
+		value = 40 #from 50 to 40
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 20
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = convoy
+		value = 20
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 20
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 0
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 30
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_tank
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_air
+		value = 10
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 0
+	}
+	
+	ai_strategy = {
+		type = ignore_army_incompetence
+		value = 50
+	}
+}
+
+CHI_dont_waste_on_offensive_air_early = {
+	enable = {
+		original_tag = CHI
+		date < 1940.1.1
+	}
+	abort = {
+		date > 1940.1.1
+	}
+
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = tac_bomber_equipment
+		value = -100
+	}
+	
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = strat_bomber_equipment
+		value = -100
+	}
+}
+
+CHI_prio_military_even_at_peace = {
+	enable = {
+		original_tag = CHI
+	}
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 50
+	}
+	
+}
+	
+CHI_dont_mess_with_the_soviets = {
+
+	enable = {
+		original_tag = CHI
+		
+		NOT = { has_war_with = SOV }
+	}
+	
+	abort = {
+		has_war_with = SOV
+	}
+
+	ai_strategy = {
+		type = contain
+		id = "SOV"			
+		value = -200
+	}
+}
+
+CHI_some_safer_places_to_build = {
+	enable = {
+		original_tag = CHI
+	}
+
+	abort = {
+		date > 1941.1.1
+	}
+
+	ai_strategy = {
+        type = factory_build_score_factor
+        target =  602
+        value = 300
+    }
+
+	ai_strategy = {
+        type = factory_build_score_factor
+        target =  605
+        value = 300
+    }
+}
+
+CHI_you_should_be_prepared_for_war = {
+
+	enable = {
+		is_literally_china = yes
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+        type = force_build_armies
+        value = 100
+    }
+}
+
+war_with_man = {
+	enable = {
+		tag = CHI
+		has_completed_focus = CHI_pick_a_fight_with_japan
+		country_exists = MAN
+	}
+	abort = {
+		NOT = { country_exists = MAN }
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "MAN"
+		value = 5000
+	}
+}
+
+
+war_with_jap = {
+	enable = {
+		tag = CHI
+		has_completed_focus = CHI_pick_a_fight_with_japan
+		country_exists = JAP
+	    or = {
+		country_exists = MAN
+        JAP = { controls_state = 716 }
+	    }
+        NOT = { is_in_faction_with = JAP }
+	}
+	abort = {
+		NOT = { country_exists = JAP }
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "JAP"
+		value = 5000
+	}
+}
+
+war_with_fra = {
+	enable = {
+		tag = CHI
+    always = no
+		CHI = { controls_state = 328 }
+		country_exists = FRA
+    FRA = { controls_state = 728 }
+    NOT = { is_in_faction_with = FRA }
+	}
+	abort = {
+        CHI = { controls_state = 728 }
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "FRA"
+		value = 5000
+	}
+}
+
+war_with_eng = {
+	enable = {
+		tag = CHI
+    always = no
+		CHI = { controls_state = 328 }
+		country_exists = ENG
+    ENG = { controls_state = 326 }
+    NOT = { is_in_faction_with = ENG }
+	}
+	abort = {
+        CHI = { controls_state = 326 }
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "ENG"
+		value = 5000
+	}
+}
+
+war_with_por = {
+	enable = {
+		tag = CHI
+    always = no
+		CHI = { controls_state = 328 }
+		country_exists = POR
+        POR = { controls_state = 729 }
+        NOT = { is_in_faction_with = POR }
+	}
+	abort = {
+        CHI = { controls_state = 729 }
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "POR"
+		value = 5000
+	}
+}
+
+CHI_NOT_chicken_head = {
+	enable = {
+		tag = CHI
+		is_in_faction_with = BEY 
+    has_war_with = JAP
+    JAP = { is_ai = no }
+	}
+	abort = {
+		NOT = { has_war_with = JAP }
+	}
+
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "BEY"
+		value = 100
+	}
+	
+}
+
+war_with_jap_player = {
+	enable = {
+		tag = CHI
+		has_completed_focus = CHI_pick_a_fight_with_japan
+		country_exists = JAP
+    or = {
+      country_exists = KOR
+      JAP = { controls_state = 527 }
+    }
+    NOT = { is_in_faction_with = JAP }
+    JAP = { is_ai = no }
+	}
+	abort = {
+		NOT = { country_exists = JAP }
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "JAP"
+		value = 5000
+	}
+
+	ai_strategy = {
+		type = antagonize
+		id = "KOR"
+		value = 5000
+	}
+
+}
+
+CHI_Dying_japan = {
+	allowed = {
+		original_tag = CHI
+	}
+
+  enable = {
+		original_tag = CHI
+		or = {
+			JAP = { has_idea = JAP_intervene_in_china_1 }
+			JAP = { has_idea = JAP_nichi_go }
+			JAP = { has_idea = JAP_ichi_go }
+		}
+	}
+	
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		area = asia
+		ratio = 0
+		ordertype = front
+		priority = 999
+		execution_type = careful
+		execute_order = no
+		manual_attack = no
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = "JAP"
+		value = -999
+	}
+
+}
+
+BEY_Dying_japan = {
+	allowed = {
+		original_tag = BEY
+	}
+
+  enable = {
+		original_tag = BEY
+		or = {
+			JAP = { has_idea = JAP_intervene_in_china_1 }
+			JAP = { has_idea = JAP_nichi_go }
+			JAP = { has_idea = JAP_ichi_go }
+		}
+	}
+	
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		area = asia
+		ratio = 0
+		ordertype = front
+		priority = 999
+		execution_type = careful
+		execute_order = no
+		manual_attack = no
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = "JAP"
+		value = -999
+	}
+
+}

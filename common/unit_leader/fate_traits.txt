@@ -1,0 +1,329 @@
+# leader_traits contain a list of UnitLeaderTrait with the following structure:
+# trait_key = {
+# 	type = all # or either of field_marshal, corps_commander, navy
+#	trait_type = basic_trait # or either of status_trait, personality_trait, assignable_trait, basic_terrain_trait, assignable_terrain_trait, exile
+#	attack_skill = 0 # integer
+#	defense_skill = 0 # integer
+#	logistics_skill = 0 # integer
+#	planning_skill = 0 # integer
+#	maneuvering_skill = 0 # integer
+#	coordination_skill = 0 # integer
+#	attack_skill_factor = 0.0 # decimal
+#	defense_skill_factor = 0.0 # decimal
+#	logistics_skill_factor = 0.0 # decimal
+#	planning_skill_factor = 0.0 # decimal
+#	maneuvering_skill_factor = 0.0 # decimal
+#	coordination_skill_factor = 0.0 # decimal
+#	show_in_combat = yes # boolean
+#	override_effect_tooltip = "" # loc key
+#	custom_effect_tooltip = "" # loc key
+#	custom_prerequisite_tooltip = "" # loc key
+#	custom_gain_xp_trigger_tooltip = "" # loc key
+#	mutually_exclusive = other_trait # trait key
+#	parent = other_trait # trait key
+#	num_parents_needed = -1 # integer, -1 means "all"
+#	gui_row = -1 # integer, starts at 0, -1 means auto
+#	gui_column = -1 # integer, starts at 0, -1 means auto
+#	allowed = trigger # scope is an unit leader
+#	prerequisites = trigger # scope is an unit leader
+#	gain_xp = trigger # scope is a combatant
+#	gain_xp_on_spotting = 0 # integer
+#	modifier = { } # list of modifiers
+#	non_shared_modifier = {} #
+#	corps_commander_modifier = {} #
+#	field_marshal_modifier = {} #
+#	sub_unit_modifiers = { # list of sub unit def
+#		# e.g.
+#		submarine {
+#			units = {} # list of adjusters
+#			# list of modifiers e.g.
+#			naval_visibility = -0.1
+#		}
+#	}
+#	trait_xp_factor = {} # list of trait_key/decimal
+#	on_add = effect # scope is an unit leader
+#	on_remove = effect # scope is an unit leader
+#	daily_effect = effect # scope is an unit leader
+#	cost = 1000 # integer
+#	ai_will_do = {} # weight
+#	new_commander_weight = {} # weight
+#	enable_ability = ability_key
+#}
+leader_traits = {
+
+	
+##################################
+# Common Traits
+##################################
+	reduced_land = { 
+		type = land
+		trait_type = personality_trait
+
+		modifier = {
+			desert = {
+				movement = 0.15
+			}
+			hills = {
+				movement = 0.15
+			}
+			forest = {
+				movement = 0.15
+			}
+			mountain = {
+				movement = 0.15
+			}
+			plains = {
+				movement = 0.15
+			}
+			urban = {
+				movement = 0.15
+			}
+			jungle = {
+				movement = 0.15
+			}
+			marsh = {
+				movement = 0.15
+			}
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+		
+	}
+	
+	
+	eye_of_the_mind = { 
+		type = land
+		trait_type = personality_trait
+		modifier = {
+			recon_factor = 0.3
+			planning_speed = 0.15
+			cas_damage_reduction = 0.3
+		}
+		
+		planning_skill_factor = 1
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	
+	formation_shapeshift = { 
+		type = land
+		trait_type = personality_trait
+		modifier = {
+			army_defence_factor = 0.15
+			dig_in_speed_factor = 0.15
+		}
+		
+		defense_skill = 1
+		
+		defense_skill_factor = 1
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	power_up = { 
+		type = land
+		trait_type = personality_trait
+		modifier = {
+			army_attack_factor = 0.10
+			army_morale_factor = 0.05
+			supply_consumption_factor = 0.05
+		}
+		
+		attack_skill_factor = 1
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+
+	unlimited_rice = { 
+		type = land
+		trait_type = personality_trait
+		modifier = {
+			supply_consumption_factor = -0.20
+			out_of_supply_factor = -0.15
+			no_supply_grace = 30
+		}
+		
+		logistics_skill_factor = 1
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	legend_of_the_sea = { #海上传奇
+		type = navy
+		trait_type = personality_trait
+		
+		modifier = {
+			naval_damage_factor = 0.2
+			naval_defense_factor = 0.2
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	the_last_wish = { #最后希望
+		type = navy
+		trait_type = personality_trait
+		
+		modifier = {
+			naval_critical_score_chance_factor = 0.2
+			positioning = 0.2
+			navy_org = 10
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	unfinished_dream = { #未尽的夙愿
+		type = navy
+		trait_type = personality_trait
+		
+		modifier = {
+			ships_at_battle_start = 0.35
+			naval_speed_factor = 0.15
+			naval_retreat_chance = -0.5
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	comprehensive_anti_air = { #天击
+		type = navy
+		trait_type = personality_trait
+		
+		modifier = {
+			navy_anti_air_attack_factor = 0.25
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	supreme_honour = { #至高荣耀
+		type = navy
+		trait_type = personality_trait
+		
+		modifier = {
+			navy_org = 10
+			navy_capital_ship_attack_factor = 0.15
+			critical_receive_chance = -0.35
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	Heart_of_the_Oak = { #橡树之心
+		type = navy
+		trait_type = personality_trait
+		
+		modifier = {
+			naval_enemy_fleet_size_ratio_penalty_factor = 0.2
+			naval_retreat_speed = 0.15
+			navy_visibility = -0.15
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	Insight = { #洞察
+		type = navy
+		trait_type = personality_trait
+		
+		modifier = {
+			spotting_chance = 0.25
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+	
+	genius = { #天慧
+		type = land
+		trait_type = personality_trait
+		
+		non_shared_modifier = {
+			experience_gain_factor = 0.3
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+
+	Radiance = { #光辉
+		type = land
+		trait_type = personality_trait
+		
+		modifier = {
+			army_org_factor = 0.1
+			army_morale_factor = 0.20
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+
+	}
+}

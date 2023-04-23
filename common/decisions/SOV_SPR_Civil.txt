@@ -1,0 +1,467 @@
+SOV_soviet_aid_to_poum_decision_category = {
+	SOV_organize_covert_depots_poum = { #DECISION AVAILABLE PRIOR TO THE POUM SPLIT
+		priority = 50
+
+		icon = ger_military_buildup
+
+		ai_will_do = {
+			base = 30
+			modifier = {
+				factor = 0.01
+				has_war = yes
+				command_power < 50
+			}
+		}
+
+		allowed = {
+			original_tag = SOV
+		}
+
+		available = {
+			has_global_flag = spanish_civil_war
+		}
+
+		visible = {
+			NOT = { has_global_flag = SPR_anarchist_uprising_flag }
+			NOT = { has_global_flag = scw_over }
+			is_subject = no
+		}
+
+		cancel_if_not_visible = yes
+
+		fire_only_once = yes
+
+		days_remove = SOV_default_poum_days
+
+		custom_cost_trigger = {
+			command_power > 74
+		}
+		custom_cost_text = decision_cost_CP_75
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -75
+			}
+		}
+
+		remove_effect = {
+			set_global_flag = SOV_poum_has_covert_depots_from_soviets_flag
+			effect_tooltip = {
+				custom_effect_tooltip = SOV_organize_covert_depots_poum_tt
+				SPC = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 6000
+						producer = ROOT
+					}
+					add_equipment_to_stockpile = {
+						type = support_equipment
+						amount = 600
+						producer = ROOT
+					}
+					add_equipment_to_stockpile = {
+						type = artillery_equipment
+						amount = 120
+						producer = ROOT
+					}
+					add_equipment_to_stockpile = {
+						type = motorized_equipment
+						amount = 60
+						producer = ROOT
+					}
+					add_equipment_to_stockpile = {
+						type = train_equipment
+						amount = 6
+						producer = ROOT
+					}
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SOV_sent_us_weapons
+					}
+				}
+			}
+			custom_effect_tooltip = decision_only_once_tt
+		}
+	}
+
+	SOV_send_infantry_equipment_poum = {
+		priority = 50
+
+		icon = generic_industry
+
+		ai_will_do = {
+			base = 1.2
+			modifier = {
+				factor = 0.1
+				has_war = yes
+				has_equipment = { infantry_equipment < 10000 }
+			}
+		}
+
+		allowed = {
+			original_tag = SOV
+		}
+
+		available = {
+		}
+
+		visible = {
+			SPR_scw_in_progress = yes
+			country_exists = SPC
+			SPC = { has_completed_focus = SPR_the_anti_fascist_workers_revolution }
+			NOT = { has_war_with = SPC }
+		}
+
+		days_remove = SOV_default_poum_days
+
+		days_re_enable = SOV_default_poum_cd
+
+		custom_cost_trigger = {
+			command_power > 24
+		}
+		custom_cost_text = decision_cost_CP_25
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+			}
+		}
+
+		remove_effect = {
+			effect_tooltip = {
+				SPC = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 6000
+						producer = FROM
+					}
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SOV_sent_us_weapons
+					}
+				}
+			}
+			hidden_effect = {
+				SPC = {
+					country_event = { id = NSB_soviet_foreign_politics_events.250 hours = 2 }
+					add_ai_strategy = {
+						type = befriend
+						id = SOV
+						value = 5
+					}
+				}
+			}
+			custom_effect_tooltip = SOV_default_poum_cd_tt
+		}
+	}
+
+	SOV_organize_popular_brigades_poum = {
+		priority = 50
+
+		icon = generic_nationalism
+
+		ai_will_do = {
+			base = 1.2
+		}
+
+		allowed = {
+			original_tag = SOV
+		}
+
+		available = {
+		}
+
+		visible = {
+			SPR_scw_in_progress = yes
+			country_exists = SPC
+			SPC = { has_completed_focus = SPR_the_anti_fascist_workers_revolution }
+			NOT = { has_war_with = SPC }
+		}
+
+		days_remove = SOV_default_poum_days
+
+		days_re_enable = SOV_default_poum_cd
+
+		ai_hint_pp_cost = 25
+		custom_cost_trigger = {
+			command_power > 24
+			has_political_power > 24
+		}
+		custom_cost_text = decision_cost_CP_25_pp_25
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			effect_tooltip = {
+				SPC ={
+					division_template = {
+						name = "International Marxist Brigades"
+						is_locked = yes
+						priority = 1
+						template_counter = 14
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+						}
+					}
+					capital_scope = {
+						create_unit = {
+							division = "name = \"International Marxist Brigade\" division_template = \"International Marxist Brigades\" start_experience_factor = 0.1 start_equipment_factor = 1.0" owner = SPC count = 6
+						}
+					}
+				}
+			}
+			hidden_effect = {
+				SPC = {
+					country_event = { id = NSB_soviet_spanish_civil_war.2 hours = 1 }
+					add_ai_strategy = {
+						type = befriend
+						id = SOV
+						value = 5
+					}
+				}
+			}
+			custom_effect_tooltip = SOV_default_poum_cd_tt
+		}
+	}
+
+	SOV_send_elite_commandos_poum = {
+		priority = 50
+
+		icon = generic_military
+
+		ai_will_do = {
+			base = 1.2
+		}
+
+		allowed = {
+			original_tag = SOV
+		}
+
+		available = {
+		}
+
+		visible = {
+			SPR_scw_in_progress = yes
+			country_exists = SPC
+			SPC = { has_completed_focus = SPR_the_anti_fascist_workers_revolution }
+			NOT = { has_war_with = SPC }
+		}
+
+		days_remove = SOV_default_poum_days
+
+		days_re_enable = SOV_long_poum_cd
+
+		custom_cost_trigger = {
+			command_power > 49
+		}
+		custom_cost_text = decision_cost_CP_50
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
+		}
+
+		remove_effect = {
+			effect_tooltip = {
+				SPC ={
+					add_timed_idea = {
+						idea = SOV_soviet_commandos_poum
+						days = 180
+					}
+					division_template = {
+						name = "Soviet Special Brigades"
+						is_locked = yes
+						priority = 1
+						template_counter = 02
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+							infantry = { x = 1 y = 2 }
+						}
+						support = {
+							engineer = { x = 0 y = 0 }
+							recon = { x = 0 y = 1 }
+							artillery = { x = 0 y = 2 }
+							anti_tank = { x = 0 y = 3 }
+						}
+					}
+					capital_scope = {
+						create_unit = {
+							division = "name = \"Soviet Special Brigade\" division_template = \"Soviet Special Brigades\" start_experience_factor = 0.7 start_equipment_factor = 1.0" owner = SPC count = 2
+						}
+					}
+				}
+			}
+			hidden_effect = {
+				SPC = {
+					country_event = { id = NSB_soviet_spanish_civil_war.3 hours = 1 }
+					add_ai_strategy = {
+						type = befriend
+						id = SOV
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = SOV_send_elite_commandos_poum_flag }
+					}
+					set_country_flag = SOV_send_elite_commandos_poum_flag
+				}
+			}
+			custom_effect_tooltip = SOV_long_poum_cd_tt
+		}
+	}
+
+	SOV_organize_popular_speeches_poum = {
+		priority = 50
+
+		icon = eng_propaganda_campaigns
+
+		ai_will_do = {
+			base = 1.2
+		}
+
+		allowed = {
+			original_tag = SOV
+		}
+
+		available = {
+		}
+
+		visible = {
+			SPR_scw_in_progress = yes
+			country_exists = SPC
+			SPC = { has_completed_focus = SPR_the_anti_fascist_workers_revolution }
+			NOT = { has_war_with = SPC }
+		}
+
+		days_remove = SOV_default_poum_days
+
+		days_re_enable = SOV_default_poum_cd
+
+		cost = 25
+
+		remove_effect = {
+			effect_tooltip = {
+				SPC ={
+					add_timed_idea = {
+						idea = SOV_popular_speeches_poum
+						days = 180
+					}
+					division_template = {
+						name = "International Marxist Brigades"
+						is_locked = yes
+						priority = 1
+						template_counter = 14
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+						}
+					}
+					capital_scope = {
+						create_unit = {
+							division = "name = \"International Marxist Brigade\" division_template = \"International Marxist Brigades\" start_experience_factor = 0.1 start_equipment_factor = 1.0" owner = SPC count = 2
+						}
+					}
+				}
+			}
+			hidden_effect = {
+				SPC = {
+					country_event = { id = NSB_soviet_spanish_civil_war.4 hours = 1 }
+					add_ai_strategy = {
+						type = befriend
+						id = SOV
+						value = 5
+					}
+				}
+			}
+			custom_effect_tooltip = SOV_default_poum_cd_tt
+		}
+	}
+
+	SOV_infiltrate_stalinist_plans_in_spain_poum = {
+		priority = 50
+
+		icon = eng_propaganda_campaigns
+
+		ai_will_do = {
+			base = 1.2
+		}
+
+		allowed = {
+			original_tag = SOV
+		}
+
+		available = {
+			has_completed_focus = SOV_send_military_advisors_to_spain
+			NOT = { has_completed_focus = SOV_coup_detat }
+			has_country_flag = SOV_send_elite_commandos_poum_flag
+		}
+
+		visible = {
+			SPR_scw_in_progress = yes
+			country_exists = SPC
+			country_exists = SPD
+			NOT = { has_completed_focus = SOV_coup_detat }
+			SPC = { has_completed_focus = SPR_the_anti_fascist_workers_revolution }
+			NOT = { has_war_with = SPC }
+			NOT = { is_in_faction_with = SPD }
+		}
+
+		cancel_if_not_visible = yes
+
+		days_remove = SOV_default_poum_days
+
+		fire_only_once = yes
+
+		ai_hint_pp_cost = 15
+		custom_cost_trigger = {
+			command_power > 49
+			has_political_power > 14
+		}
+		custom_cost_text = decision_cost_CP_50_pp_15
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+				add_political_power = -15
+			}
+		}
+
+		remove_effect = {
+			effect_tooltip = {
+				SPC ={
+					add_timed_idea = {
+						idea = SOV_agents_in_the_stalinist_command_poum
+						days = 365
+					}
+				}
+			}
+			hidden_effect = {
+				SPC = {
+					country_event = { id = NSB_soviet_spanish_civil_war.5 hours = 1 }
+					add_ai_strategy = {
+						type = befriend
+						id = SOV
+						value = 5
+					}
+				}
+			}
+			custom_effect_tooltip = decision_only_once_tt
+		}
+	}
+}

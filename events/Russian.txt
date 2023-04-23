@@ -1,0 +1,6274 @@
+###########################
+# Russian Events
+###########################
+add_namespace = russian
+add_namespace = russian_flavour
+add_namespace = more_russia_dlc
+country_event = {
+	id = more_russia_dlc.1
+	title = more_russia_dlc.1.t
+	desc = {
+		text = more_russia_dlc.1.d1
+		trigger = {
+			SOV = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SOV_nikolay_yezhov
+				}
+			}
+		}
+	}
+	desc = {
+		text = more_russia_dlc.1.d2
+		trigger = {
+			NOT = {
+				SOV = {
+					has_country_leader = {
+						ruling_only = yes
+						character = SOV_nikolay_yezhov
+					}
+				}
+			}
+		}
+	}
+	picture = GFX_report_event_rus_siberia1
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = more_russia_dlc.1.a
+		trigger = {
+			SOV = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SOV_nikolay_yezhov
+				}
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+		add_war_support = 0.05
+	}
+	option = {
+		name = more_russia_dlc.1.b
+		trigger = {
+			NOT = {
+				SOV = {
+					has_country_leader = {
+						ruling_only = yes
+						character = SOV_nikolay_yezhov
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+		add_war_support = 0.01
+	}
+	option = {
+		name = more_russia_dlc.1.c
+		ai_chance = {
+			base = 40
+		}
+	}
+}
+
+country_event = {
+	id = russian.1
+	title = russian.1.t
+	desc = russian.1.d
+	picture = GFX_report_event_rus_siberia1
+	fire_only_once = yes
+	is_triggered_only = yes
+	#mean_time_to_happen = {
+	#days = 1
+	#}
+	#trigger = {
+	#date > 1937.1.1
+	#tag = RUS
+	#is_subject = no
+	#has_war = no
+	#country_exists = SOV 
+	#}	
+	option = {
+		name = russian.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_ai_strategy = {
+			type = antagonize
+			id = "SOV"
+			value = 200
+		}
+		every_state = {
+			limit = {
+				is_core_of = SOV
+			}
+			add_core_of = RUS
+		}
+		every_state = {
+			limit = {
+				or = {
+					is_core_of = SOV
+					is_core_of = RUS
+				}
+				NOT = {
+					is_on_continent = europe
+				}
+			}
+			add_dynamic_modifier = {
+				modifier = SOV_RUS_Siberia_war_zone
+			}
+		}
+		declare_war_on = {
+			target = SOV
+			type = annex_everything
+		}
+		complete_national_focus = rus_continue_the_civil_war
+		add_timed_idea = {
+			days = 240
+			idea = RUS_Kick_open_the_door
+		}
+		activate_mission = RUS_Across_the_Urals_mission
+		hidden_effect = {
+			news_event = {
+				id = russian.51
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	### Talk with army
+	id = russian.2
+	title = russian.2.t
+	desc = russian.2.d
+	picture = GFX_report_event_rus_kornilov_troops
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Army_Obedience
+				value = 0
+			}
+		}
+	}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = russian.2.a
+		ai_chance = {
+			base = 35
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = RUS_AI_RANDOM_AUTOCRATIC_MONARCH
+					has_game_rule = {
+						rule = RUS_ai_behavior
+						option = AUTOCRATIC_MONARCH
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = RUS_AI_RANDOM_AUTOCRATIC_DEMOCRATIC_MONARCH
+					has_game_rule = {
+						rule = RUS_ai_behavior
+						option = AUTOCRATIC_DEMOCRATIC_MONARCH
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = RUS_AI_RANDOM_DEMOCRATIC_MONARCH
+					has_game_rule = {
+						rule = RUS_ai_behavior
+						option = DEMOCRATIC_MONARCH
+					}
+				}
+			}
+		}
+		add_political_power = -50
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Army_Obedience
+				value = -1
+			}
+			set_country_flag = RUS_army_talk_end
+		}
+	}
+	option = {
+		name = russian.2.b
+		ai_chance = {
+			base = 40
+		}
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Army_Obedience
+				value = 0
+			}
+			set_country_flag = RUS_army_talk_end
+		}
+	}
+	option = {
+		name = russian.2.c
+		ai_chance = {
+			base = 25
+		}
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Army_Obedience
+				value = 1
+			}
+			set_country_flag = RUS_army_talk_end
+		}
+	}
+}
+
+country_event = {
+	### Talk with Navy
+	id = russian.3
+	title = russian.3.t
+	desc = russian.3.d
+	picture = GFX_report_event_rus_arctic
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Navy_Obedience
+				value = 0
+			}
+		}
+	}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = russian.3.a
+		ai_chance = {
+			base = 35
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = RUS_AI_RANDOM_AUTOCRATIC_MONARCH
+					has_game_rule = {
+						rule = RUS_ai_behavior
+						option = AUTOCRATIC_MONARCH
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = RUS_AI_RANDOM_AUTOCRATIC_DEMOCRATIC_MONARCH
+					has_game_rule = {
+						rule = RUS_ai_behavior
+						option = AUTOCRATIC_DEMOCRATIC_MONARCH
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = RUS_AI_RANDOM_DEMOCRATIC_MONARCH
+					has_game_rule = {
+						rule = RUS_ai_behavior
+						option = DEMOCRATIC_MONARCH
+					}
+				}
+			}
+		}
+		add_political_power = -50
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Navy_Obedience
+				value = -1
+			}
+			set_country_flag = RUS_navy_talk_end
+		}
+	}
+	option = {
+		name = russian.3.b
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = RUS_AI_RANDOM_KADOC_ZEMIUPUS
+					has_game_rule = {
+						rule = RUS_ai_behavior
+						option = KADOC_ZEMIUPUS
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Navy_Obedience
+				value = 0
+			}
+			set_country_flag = RUS_navy_talk_end
+		}
+	}
+	option = {
+		name = russian.3.c
+		ai_chance = {
+			base = 25
+		}
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_Navy_Obedience
+				value = 1
+			}
+			set_country_flag = RUS_navy_talk_end
+		}
+	}
+}
+
+country_event = {
+	### Calculate Variables (legacy
+	id = russian.4
+	title = russian.4.t
+	desc = russian.4.d
+	picture = GFX_report_event_german_speech
+	hidden = yes
+	fire_only_once = yes
+	trigger = {
+		always = no
+		tag = RUS
+		has_country_flag = RUS_army_talk_end
+		has_country_flag = RUS_navy_talk_end
+	}
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				var = ROOT.RUS_military_attitude
+				value = 0
+			}
+		}
+	}
+	option = {
+		name = russian.4.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			set_variable = {
+				ROOT.RUS_military_attitude = ROOT.RUS_Army_Obedience
+			}
+			add_to_variable = {
+				ROOT.RUS_military_attitude = ROOT.RUS_Navy_Obedience
+			}
+		}
+	}
+}
+
+country_event = {
+	### Anti-Tsarina Coup
+	id = russian.5
+	title = russian.5.t
+	desc = russian.5.d
+	picture = GFX_report_event_rus_army_1
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			set_country_flag = RUS_Anti_Tsarina_Coup_flag
+			unlock_national_focus = rus_forced_abdication
+		}
+	}
+	trigger = {
+		tag = RUS
+		is_subject = no
+		NOT = {
+			has_country_flag = RUS_Japanese_puppet_flag
+		}
+		OR = {
+			has_completed_focus = rus_prohibit_democratic_opponents
+			has_completed_focus = rus_negotiation_with_democrats
+		}
+		OR = {
+			check_variable = {
+				ROOT.RUS_Army_Obedience < 0
+			}
+			check_variable = {
+				ROOT.RUS_Navy_Obedience < 0
+			}
+		}
+		AND = {
+			check_variable = {
+				ROOT.RUS_Army_Obedience < 1
+			}
+			check_variable = {
+				ROOT.RUS_Navy_Obedience < 1
+			}
+		}
+		has_country_flag = RUS_army_talk_end
+		has_country_flag = RUS_navy_talk_end
+	}
+	mean_time_to_happen = {
+		days = 15
+	}
+	option = {
+		name = russian.5.a
+		ai_chance = {
+			base = 85
+		}
+		#retire_ideology_leader = neutrality
+		add_country_leader_role = {
+			character = "RUS_Provisional_Military_Government"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_RUS_PROVISIONAL_GOVERNMENT_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.1
+		}
+		hidden_effect = {
+			set_cosmetic_tag = RUS_JUNTA
+		}
+		add_stability = -0.05
+		country_event = {
+			id = russian.6
+			days = 7
+		}
+	}
+	option = {
+		name = russian.5.b
+		ai_chance = {
+			base = 15
+		}
+		add_country_leader_role = {
+			character = "RUS_anastasia_i"
+			country_leader = {
+				ideology = fascism_ideology
+				desc = "POLITICS_ANASTASIA_PUPPET_DESC"
+				traits = {
+					popular_figurehead2
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = RUS_fascism_party_bl_long
+			name = RUS_fascism_party_bl
+		}
+		add_stability = -0.1
+		hidden_effect = {
+			set_cosmetic_tag = RUS_BLFIG
+		}
+		unlock_national_focus = rus_power_politics
+		unlock_national_focus = rus_black_league_coup
+	}
+}
+
+country_event = {
+	### Select a leader for junta
+	id = russian.6
+	title = russian.6.t
+	desc = russian.6.d
+	picture = GFX_report_event_rus_at_arms
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = russian.6.a		## Kadoc 
+		ai_chance = {
+			base = 20
+		}
+		add_country_leader_role = {
+			character = "RUS_kadoc_zemiupus"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_KADOC_JUNTA_DESC"
+				traits = {
+					socialite_connections
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Zemiupus_coup
+		}
+	}
+	option = {
+		name = russian.6.b		## Kryuger
+		ai_chance = {
+			base = 15
+		}
+		trigger = {
+			has_completed_focus = rus_prohibit_democratic_opponents
+		}
+		add_country_leader_role = {
+			character = "RUS_berezovich_kryuger"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_BEREZOVICH_JUNTA_DESC"
+				traits = {
+					war_industrialist
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Kryuger_coup
+		}
+	}
+	option = {
+		name = russian.6.c		## Kornilov
+		ai_chance = {
+			base = 30
+		}
+		trigger = {
+			check_variable = {
+				ROOT.RUS_Army_Obedience < 0
+			}
+		}
+		add_country_leader_role = {
+			character = "RUS_lavr_kornilov"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_LAVR_KORNILOV_DESC"
+				traits = {
+					hawk
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Kornilov_coup
+			country_event = {
+				id = russian.10
+				days = 2
+			}
+		}
+	}
+	option = {
+		name = russian.6.e		## Wranger
+		ai_chance = {
+			base = 15
+		}
+		trigger = {
+			check_variable = {
+				ROOT.RUS_Army_Obedience < 1
+			}
+			check_variable = {
+				ROOT.RUS_Navy_Obedience > -1
+			}
+		}
+		add_country_leader_role = {
+			character = "RUS_pyotr_wrangel"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_PYOTR_WRANGER_DESC"
+				traits = {
+					Railway_Engineer
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Wranger_coup
+			country_event = {
+				id = russian.10
+				days = 2
+			}
+		}
+	}
+	option = {
+		name = russian.6.f		## Kolchack
+		ai_chance = {
+			base = 10
+		}
+		trigger = {
+			check_variable = {
+				ROOT.RUS_Navy_Obedience < 0
+			}
+		}
+		add_country_leader_role = {
+			character = "RUS_aleksandr_kolchak"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_ALEXANDER_KOLCHAK_DESC"
+				traits = {
+					Admiral_kolchak
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Kolchack_coup
+			country_event = {
+				id = russian.10
+				days = 2
+			}
+		}
+	}
+	option = {
+		name = russian.6.g		## Zakhaev
+		ai_chance = {
+			base = 10
+		}
+		trigger = {
+			has_completed_focus = rus_negotiation_with_democrats
+		}
+		add_country_leader_role = {
+			character = "RUS_imran_zakhaev"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_IMRAN_ZAKHAEV_DESC"
+				traits = {
+					Nationalist_Revenger
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		add_popularity = {
+			popularity = 0.1
+			ideology = fascism
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Zakhaev_coup
+		}
+	}
+}
+
+country_event = {
+	### SR Bronya's deal with Kadoc
+	id = russian.7
+	title = russian.7.t
+	desc = russian.7.d
+	picture = GFX_report_event_rus_meeting
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		is_subject = no
+		NOT = {
+			has_country_flag = RUS_Japanese_puppet_flag
+		}
+		has_country_flag = RUS_army_talk_end
+		has_country_flag = RUS_navy_talk_end
+		has_country_flag = RUS_Zemiupus_coup
+		### has_completed_focus = rus_prohibit_democratic_opponents
+	}
+	mean_time_to_happen = {
+		days = 10
+	}
+	option = {
+		name = russian.7.a		### Agreed
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Kadoc_SR_deal_set
+		}
+	}
+	option = {
+		name = russian.7.b		### Kadoc has his own plan
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			set_country_flag = RUS_Kadoc_SR_deal_refused
+		}
+	}
+}
+
+country_event = {
+	### Kadoc's Promise
+	id = russian.8
+	title = russian.8.t
+	desc = russian.8.d
+	picture = GFX_report_event_rus_meeting
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		is_subject = no
+		NOT = {
+			has_country_flag = RUS_Japanese_puppet_flag
+		}
+		has_country_leader = {
+			character = RUS_kadoc_zemiupus
+			ruling_only = yes
+		}
+		has_government = neutrality
+		has_country_flag = RUS_Kadoc_SR_deal_set
+		OR = {
+			SOV = {
+				exists = no
+			}
+			SOV = {
+				is_subject_of = ROOT
+			}
+			SOV = {
+				has_war_with = ROOT
+				surrender_progress > 0.8
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 10
+	}
+	option = {
+		name = russian.8.a		### Sure
+		ai_chance = {
+			base = 100
+		}
+		add_country_leader_role = {
+			character = "RUS_Provisional_Government"
+			country_leader = {
+				ideology = socialism
+				desc = "POLITICS_RUS_PROVISIONAL_GOVERNMENT_2_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		set_politics = {
+			ruling_party = democratic
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		add_popularity = {
+			popularity = 0.3
+			ideology = democratic
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = RUS_democratic_party_provisional_long
+			name = RUS_democratic_party_provisional
+		}
+		### Election 
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+		unlock_national_focus = rus_restore_the_democracy
+	}
+}
+
+country_event = {
+	### Kadoc's Plan
+	id = russian.9
+	title = russian.9.t
+	desc = russian.9.d
+	picture = GFX_report_event_rus_savinkov_rally
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		is_subject = no
+		NOT = {
+			has_country_flag = RUS_Japanese_puppet_flag
+		}
+		has_country_flag = RUS_Kadoc_SR_deal_refused
+		has_country_leader = {
+			character = RUS_kadoc_zemiupus
+			ruling_only = yes
+		}
+		has_government = neutrality
+		OR = {
+			SOV = {
+				exists = no
+			}
+			SOV = {
+				is_subject_of = ROOT
+			}
+			SOV = {
+				has_war_with = ROOT
+				surrender_progress > 0.8
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 3
+	}
+	option = {
+		name = russian.9.a		### Let's Begin
+		ai_chance = {
+			base = 100
+		}
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		add_popularity = {
+			popularity = 0.15
+			ideology = fascism
+		}
+		unlock_national_focus = rus_Kadoc_the_vozhd
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+	}
+}
+
+country_event = {
+	### Invite Kadoc?
+	id = russian.10
+	title = russian.10.t
+	desc = russian.10.d
+	picture = GFX_report_event_rus_meeting
+	fire_only_once = yes
+	is_triggered_only = yes
+	mean_time_to_happen = {
+		days = 3
+	}
+	option = {
+		name = russian.10.a		### Yes
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 3
+				has_country_leader = {
+					name = "Alexander Kolchak"
+					ruling_only = yes
+				}
+			}
+		}
+		add_ideas = {
+			RUS_kadoc_government
+		}
+		add_popularity = {
+			popularity = 0.05
+			ideology = fascism
+		}
+		add_political_power = -50
+	}
+	option = {
+		name = russian.10.b		### NO
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 25
+	}
+}
+
+country_event = {
+	### Kornilov's Death
+	id = russian.11
+	title = russian.11.t
+	desc = russian.11.d
+	picture = GFX_report_event_rus_death_kornilov
+	fire_only_once = yes
+	trigger = {
+		has_country_leader = {
+			character = RUS_lavr_kornilov
+			ruling_only = yes
+		}
+		date > 1937.10.2
+	}
+	immediate = {
+		hidden_effect = {
+			# remove_unit_leader = 462
+			retire_character = RUS_lavr_kornilov
+			# set_country_flag = RUS_Kornilov_dead
+		}
+	}
+	mean_time_to_happen = {
+		days = 3
+	}
+	option = {
+		name = russian.11.a		### Kadoc should form a government
+		trigger = {
+			has_idea = RUS_kadoc_government
+		}
+		ai_chance = {
+			base = 100
+		}
+		kill_ideology_leader = neutrality
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "RUS_kadoc_zemiupus"
+				country_leader = {
+					ideology = stratocracy
+					#desc = "POLITICS_IMRAN_ZAKHAEV_DESC"
+					traits = {
+						socialite_connections
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		add_popularity = {
+			popularity = 0.2
+			ideology = fascism
+		}
+		unlock_national_focus = rus_Kadoc_the_vozhd
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+	}
+	option = {
+		name = russian.11.b		### A new government should be formed
+		unlock_national_focus = rus_power_politics
+		unlock_national_focus = rus_keep_military_supervision
+		kill_ideology_leader = neutrality
+		add_country_leader_role = {
+			character = "RUS_anna_viktorovna"
+			country_leader = {
+				ideology = stratocracy
+				#desc = "POLITICS_IMRAN_ZAKHAEV_DESC"
+				traits = {
+					Anti_Japanese
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		if = {
+			limit = {
+				has_idea = RUS_kadoc_government
+			}
+			remove_ideas = {
+				RUS_kadoc_government
+			}
+		}
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+	}
+}
+
+country_event = {
+	### Kryuger's Reform
+	id = russian.12
+	title = russian.12.t
+	desc = russian.12.d
+	picture = GFX_report_event_rus_meeting
+	fire_only_once = yes
+	trigger = {
+		is_subject = no
+		NOT = {
+			has_country_flag = RUS_Japanese_puppet_flag
+		}
+		has_country_flag = RUS_Kryuger_coup
+		OR = {
+			SOV = {
+				exists = no
+			}
+			SOV = {
+				is_subject_of = ROOT
+			}
+			SOV = {
+				has_war_with = ROOT
+				surrender_progress > 0.8
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 3
+	}
+	option = {
+		name = russian.12.a		### Kryuger choose to build a democratic government
+		ai_chance = {
+			base = 100
+		}
+		add_country_leader_role = {
+			character = "RUS_Provisional_Government"
+			country_leader = {
+				ideology = conservatism
+				desc = "POLITICS_RUS_PROVISIONAL_GOVERNMENT_2_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		set_politics = {
+			ruling_party = democratic
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		add_popularity = {
+			popularity = 0.3
+			ideology = democratic
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = RUS_democratic_party_provisional_long
+			name = RUS_democratic_party_provisional
+		}
+		### Election 
+		unlock_national_focus = rus_restore_the_democracy
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+	}
+}
+
+country_event = {
+	### Kolchak's Death
+	id = russian.13
+	title = russian.13.t
+	desc = russian.13.d
+	picture = GFX_report_event_rus_siberia1
+	fire_only_once = yes
+	trigger = {
+		# has_country_leader = {
+		# 	name = "Alexander Kolchak"
+		# 	ruling_only = yes
+		# }
+		has_country_leader = { ruling_only = yes character = RUS_aleksandr_kolchak }
+		date > 1938.1.2
+	}
+	immediate = {
+		hidden_effect = {
+			# remove_unit_leader = 50001
+			# set_country_flag = rus_kolchack_dead
+			retire_character = RUS_aleksandr_kolchak
+		}
+	}
+	mean_time_to_happen = {
+		days = 3
+	}
+	option = {
+		name = russian.13.a		### Conservative but moderate government is formed
+		ai_chance = {
+			base = 100
+		}
+		retire_character = RUS_aleksandr_kolchak
+		# kill_ideology_leader = neutrality
+		add_country_leader_role = {
+			character = "RUS_nataliya_andreyevich_rostova"
+			country_leader = {
+				ideology = authoritarian_democracy
+				#desc = "POLITICS_IMRAN_ZAKHAEV_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		add_popularity = {
+			popularity = 0.1
+			ideology = neutrality
+		}
+		add_popularity = {
+			popularity = 0.1
+			ideology = democratic
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = RUS_neutrality_party_octobrist_long
+			name = RUS_neutrality_party_octobrist
+		}
+		unlock_national_focus = rus_Octobrists_win
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+		if = {
+			limit = {
+				has_idea = RUS_kadoc_government
+			}
+			remove_ideas = {
+				RUS_kadoc_government
+			}
+		}
+	}
+	option = {
+		name = russian.13.b		### A new government should be formed
+		unlock_national_focus = rus_power_politics
+		unlock_national_focus = rus_keep_military_supervision
+		retire_character = RUS_aleksandr_kolchak
+		add_country_leader_role = {
+			character = "RUS_nyto_isomer"
+			country_leader = {
+				ideology = stratocracy
+				#desc = "POLITICS_IMRAN_ZAKHAEV_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+		if = {
+			limit = {
+				has_idea = RUS_kadoc_government
+			}
+			remove_ideas = {
+				RUS_kadoc_government
+			}
+		}
+	}
+	option = {
+		name = russian.13.c
+		trigger = {
+			has_idea = RUS_kadoc_government
+		}
+		ai_chance = {
+			base = 100
+		}
+		retire_character = RUS_aleksandr_kolchak
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "RUS_kadoc_zemiupus"
+				country_leader = {
+					ideology = stratocracy
+					#desc = "POLITICS_IMRAN_ZAKHAEV_DESC"
+					traits = {
+						socialite_connections
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		add_popularity = {
+			popularity = 0.2
+			ideology = fascism
+		}
+		unlock_national_focus = rus_Kadoc_the_vozhd
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+	}
+}
+
+country_event = {
+	### Wrangel's death
+	id = russian.14
+	title = russian.14.t
+	desc = russian.14.d
+	picture = GFX_report_event_rus_wrangel
+	fire_only_once = yes
+	trigger = {
+		date > 1938.1.1
+		original_tag = RUS
+		# NOT = {
+		# 	has_country_flag = rus_wranger_dead
+		# }
+		has_character = RUS_pyotr_wrangel
+	}
+	mean_time_to_happen = {
+		days = 3
+	}
+	option = {
+		name = russian.14.a		### Wrangel dead
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				# has_country_leader = {
+				# 	name = "Pyotr Wranger"
+				# 	ruling_only = yes
+				# }
+				has_country_leader = { ruling_only = yes character = RUS_pyotr_wrangel }
+
+				# RUS_pyotr_wrangel
+			}
+			add_country_leader_role = {
+				character = "RUS_Provisional_Government"
+				country_leader = {
+					ideology = conservatism
+					desc = "POLITICS_RUS_PROVISIONAL_GOVERNMENT_2_DESC"
+					traits = {
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+			set_politics = {
+				ruling_party = democratic
+				last_election = "1922.12.9"
+				election_frequency = 48
+				elections_allowed = no
+			}
+			add_popularity = {
+				popularity = 0.3
+				ideology = democratic
+			}
+			### Election 
+			set_party_name = {
+				ideology = democratic
+				long_name = RUS_democratic_party_provisional_long
+				name = RUS_democratic_party_provisional
+			}
+			unlock_national_focus = rus_restore_the_democracy
+			remove_ideas = {
+				RUS_political_uncertainty
+			}
+		}
+		retire_character = RUS_pyotr_wrangel
+		
+		# remove_unit_leader = 460
+		# hidden_effect = {
+		# 	set_country_flag = rus_wranger_dead_flag
+		# }
+		
+	}
+	option = {
+		name = russian.14.b		### Wrangel did not dead
+		ai_chance = {
+			base = 15
+		}
+		if = {
+			limit = {
+				# has_country_leader = {
+				# 	name = "Pyotr Wranger"
+				# 	ruling_only = yes
+				# }
+				has_country_leader = { ruling_only = yes character = RUS_pyotr_wrangel }
+			}
+			remove_ideas = {
+				RUS_political_uncertainty
+			}
+			unlock_national_focus = rus_power_politics
+			unlock_national_focus = rus_keep_military_supervision
+		}
+	}
+}
+
+country_event = {
+	### Fall of USSR
+	id = russian.15
+	title = russian.15.t
+	desc = russian.15.d
+	picture = GFX_report_event_rus_kremlin_1
+	fire_only_once = yes
+	mean_time_to_happen = {
+		days = 1
+	}
+	trigger = {
+		tag = RUS
+		is_subject = no
+		OR = {
+			SOV = {
+				exists = no
+			}
+			SOV = {
+				is_subject_of = ROOT
+			}
+			SOV = {
+				NOT = {
+					has_war_with = ROOT
+				}
+				ic_ratio = {
+					tag = ROOT
+					ratio < 0.2
+				}
+			}
+		}
+		date > 1937.1.1
+	}
+	option = {
+		### Ura!
+		name = russian.15.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 150
+		add_ideas = {
+			rus_communist_rebellion_0
+			Powerful_influence_idea
+		}
+		complete_national_focus = rus_fall_of_ussr
+		JAP = {
+			if = {
+				limit = {
+					has_guaranteed = RUS
+				}
+				diplomatic_relation = {
+					country = RUS
+					relation = guarantee
+					active = no
+				}
+			}
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.35
+		}
+		if = {
+			limit = {
+				has_idea = RUS_entente_observe_committee
+			}
+			remove_ideas = RUS_entente_observe_committee
+		}
+		country_event = {
+			id = russian.24
+			days = 3
+		}
+		every_state = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = SOV_RUS_Siberia_war_zone
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = SOV_RUS_Siberia_war_zone
+			}
+		}
+	}
+}
+
+country_event = {
+	### Tsarina's Suicide
+	id = russian.16
+	title = russian.16.t
+	desc = russian.16.d
+	picture = GFX_report_event_rus_meeting
+	fire_only_once = yes
+	trigger = {
+		has_government = fascism
+		has_completed_focus = rus_fall_of_ussr
+		has_country_leader = {
+			character = RUS_anastasia_i
+			ruling_only = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 15
+	}
+	option = {
+		name = russian.16.a		### Rodzaevsky
+		ai_chance = {
+			base = 50
+		}
+		kill_ideology_leader = fascism
+		hidden_effect = {
+			set_cosmetic_tag = RUS_BL
+			country_event = {
+				id = russian.17
+				days = 15
+			}
+		}
+		add_country_leader_role = {
+			character = "RUS_Konstantin_Rodzaevsky"
+			country_leader = {
+				ideology = nazism
+				desc = "POLITICS_Rodzaevsky_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+	}
+	option = {
+		name = russian.16.b		### Vonsiastsky
+		ai_chance = {
+			base = 100
+		}
+		kill_ideology_leader = fascism
+		hidden_effect = {
+			set_cosmetic_tag = RUS_BL
+			country_event = {
+				id = russian.17
+				days = 15
+			}
+		}
+		add_country_leader_role = {
+			character = "RUS_Anastasy_Vonsiatsky"
+			country_leader = {
+				ideology = nazism
+				desc = "POLITICS_VONSIATSKY_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+	}
+	option = {
+		name = russian.16.c		### Matkovsky
+		ai_chance = {
+			base = 30
+		}
+		kill_ideology_leader = fascism
+		hidden_effect = {
+			set_cosmetic_tag = RUS_BL
+			country_event = {
+				id = russian.17
+				days = 15
+			}
+		}
+		add_country_leader_role = {
+			character = "RUS_mikhail_matkovsky"
+			country_leader = {
+				ideology = fascism_ideology
+				desc = "POLITICS_MATKOVSKY_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+	}
+}
+
+country_event = {
+	### DEFY's Operation
+	id = russian.17
+	title = russian.17.t
+	desc = russian.17.d
+	picture = GFX_report_event_rus_riders
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		### Operation Succeed
+		name = russian.17.a
+		ai_chance = {
+			base = 75
+		}
+		add_political_power = -50
+		set_politics = {
+			ruling_party = neutrality
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		add_country_leader_role = {
+			character = "RUS_Provisional_Military_Government"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_RUS_PROVISIONAL_GOVERNMENT_DESC"
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		remove_unit_leader = 8805
+		hidden_effect = {
+			country_event = {
+				id = russian.18
+				hours = 20
+			}
+		}
+	}
+	option = {
+		### Operation Failed
+		name = russian.17.b
+		ai_chance = {
+			base = 25
+		}
+		add_stability = -0.05
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_completed_focus = rus_black_league_coup
+				}
+			}
+			complete_national_focus = rus_black_league_coup
+		}
+		remove_unit_leader = 8812
+		remove_unit_leader = 8813
+		remove_unit_leader = 8814
+		remove_unit_leader = 8815
+	}
+}
+
+country_event = {
+	### RPK's Betrayal
+	id = russian.18
+	title = russian.18.t
+	desc = russian.18.d
+	picture = GFX_report_event_rus_army_1
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		### RPK is the final winner
+		name = russian.18.a
+		ai_chance = {
+			base = 65
+		}
+		add_political_power = -50
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		hidden_effect = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_completed_focus = rus_black_league_coup
+				}
+			}
+			complete_national_focus = rus_black_league_coup
+		}
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+		add_country_leader_role = {
+			character = "RUS_ruchnoy_kalashnikova"
+			country_leader = {
+				ideology = nazism
+				desc = "POLITICS_RUS_RPK_DESC"
+				traits = {
+					traitor
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		RUS_ruchnoy_kalashnikova = {
+			set_portraits = {
+				civilian = {
+					large = "gfx/leaders/RUS/Portrait_Ruchnoy_Pulemyot_Kalashnikova_Vozhd.dds"
+				}
+			}
+		}
+		hidden_effect = {
+			kill_ideology_leader = neutrality
+			add_country_leader_role = {
+				character = "RUS_ruchnoy_kalashnikova"
+				country_leader = {
+					ideology = stratocracy
+					desc = "POLITICS_RUS_RPK_DESC"
+					traits = {
+						traitor
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+			###此处有头像问题
+		}
+		remove_unit_leader = 8812
+		remove_unit_leader = 8813
+		remove_unit_leader = 8814
+	}
+	option = {
+		### RPK's plot was wrecked down
+		name = russian.18.b
+		ai_chance = {
+			base = 35
+		}
+		add_stability = -0.05
+		remove_ideas = {
+			RUS_political_uncertainty
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_completed_focus = rus_keep_military_supervision
+				}
+			}
+			complete_national_focus = rus_keep_military_supervision
+		}
+		add_country_leader_role = {
+			character = "RUS_antona_kalashnikova"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_RUS_AK_DESC"
+				traits = {
+					Commando_Captain
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		remove_unit_leader = 8815
+	}
+}
+
+country_event = {
+	### Imran Zakhaev's Revolution
+	id = russian.19
+	title = russian.19.t
+	desc = russian.19.d
+	picture = GFX_report_event_rus_trial_2
+	fire_only_once = yes
+	trigger = {
+		has_government = neutrality
+		has_completed_focus = rus_fall_of_ussr
+		has_country_leader = {
+			name = "Imran Zakhaev"
+			ruling_only = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 15
+	}
+	option = {
+		name = russian.19.a		### Imran Zakhaev's "Revolution"
+		ai_chance = {
+			base = 50
+		}
+		hidden_effect = {
+			kill_ideology_leader = fascism
+			set_cosmetic_tag = RUS_BL
+			country_event = {
+				id = russian.17
+				days = 15
+			}
+		}
+		add_country_leader_role = {
+			character = "RUS_imran_zakhaev"
+			country_leader = {
+				ideology = nazism
+				desc = "POLITICS_Rodzaevsky_DESC"
+				traits = {
+					Nationalist_Revenger
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1922.12.9"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		hidden_effect = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+	}
+}
+
+country_event = {
+	### Election
+	id = russian.20
+	title = russian.20.t
+	desc = russian.20.d
+	picture = GFX_report_event_rus_meeting
+	fire_only_once = yes
+	trigger = {
+		has_government = democratic
+		has_completed_focus = rus_fall_of_ussr
+		NOT = {
+			has_country_flag = rus_election_has_been_hold
+		}
+	}
+	mean_time_to_happen = {
+		days = 15
+	}
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = russian.23
+				days = 35
+			}
+		}
+	}
+	option = {
+		name = russian.20.a		### Octobrists
+		ai_chance = {
+			base = 50
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+			set_politics = {
+				ruling_party = democratic
+				last_election = "1922.12.9"
+				election_frequency = 48
+				elections_allowed = no
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		if = {
+			limit = {
+				has_country_leader = {
+					character = RUS_anastasia_i
+					ruling_only = yes
+				}
+			}
+			add_country_leader_role = {
+				character = "RUS_anastasia_i"
+				country_leader = {
+					ideology = conservatism
+					desc = "POLITICS_ANASTASIA_DESC"
+					traits = {
+						Shvibzik
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_leader = {
+						character = RUS_anastasia_i
+						ruling_only = yes
+					}
+				}
+			}
+			add_country_leader_role = {
+				character = "RUS_nataliya_andreyevich_rostova"
+				country_leader = {
+					ideology = conservatism
+					desc = "POLITICS_ROSTOVA_DESC"
+					traits = {
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		complete_national_focus = rus_Octobrists_win
+		if = {
+			limit = {
+				has_idea = RUS_political_uncertainty
+			}
+			remove_ideas = {
+				RUS_political_uncertainty
+			}
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = RUS_democratic_party_octobrist_long
+			name = RUS_democratic_party_octobrist
+		}
+	}
+	option = {
+		name = russian.20.b		### Kadets
+		ai_chance = {
+			base = 50
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+			set_politics = {
+				ruling_party = democratic
+				last_election = "1922.12.9"
+				election_frequency = 48
+				elections_allowed = no
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		if = {
+			limit = {
+				has_country_leader = {
+					character = RUS_anastasia_i
+					ruling_only = yes
+				}
+			}
+			add_country_leader_role = {
+				character = "RUS_anastasia_i"
+				country_leader = {
+					ideology = liberalism
+					desc = "POLITICS_ANASTASIA_DESC"
+					traits = {
+						Shvibzik
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_leader = {
+						character = RUS_anastasia_i
+						ruling_only = yes
+					}
+				}
+			}
+			add_country_leader_role = {
+				character = "RUS_Katya_Uranova"
+				country_leader = {
+					ideology = liberalism
+					desc = "POLITICS_URANOVA_DESC"
+					traits = {
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		complete_national_focus = rus_kadet_wins
+		if = {
+			limit = {
+				has_idea = RUS_political_uncertainty
+			}
+			remove_ideas = {
+				RUS_political_uncertainty
+			}
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = RUS_democratic_party_kadets_long
+			name = RUS_democratic_party_kadets
+		}
+		country_event = {
+			id = russian.21
+			days = 3
+		}
+	}
+	option = {
+		name = russian.20.c		### PSR
+		ai_chance = {
+			base = 50
+		}
+		trigger = {
+			NOT = {
+				has_country_leader = {
+					character = RUS_anastasia_i
+					ruling_only = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+			set_politics = {
+				ruling_party = democratic
+				last_election = "1922.12.9"
+				election_frequency = 48
+				elections_allowed = no
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		add_country_leader_role = {
+			character = "RUS_bronya_zaychik"
+			country_leader = {
+				ideology = socialism
+				desc = "POLITICS_ZAYCHIK_DESC"
+				traits = {
+					Bomb_revolution
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		complete_national_focus = rus_PSR_comes_back
+		if = {
+			limit = {
+				has_idea = RUS_political_uncertainty
+			}
+			remove_ideas = {
+				RUS_political_uncertainty
+			}
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = RUS_democratic_party_PSR_long
+			name = RUS_democratic_party_PSR
+		}
+		country_event = {
+			id = russian.21
+			days = 3
+		}
+	}
+	option = {
+		name = russian.20.e		### Menshviks
+		ai_chance = {
+			base = 50
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+			set_politics = {
+				ruling_party = democratic
+				last_election = "1922.12.9"
+				election_frequency = 48
+				elections_allowed = no
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		if = {
+			limit = {
+				has_country_leader = {
+					character = RUS_anastasia_i
+					ruling_only = yes
+				}
+			}
+			add_country_leader_role = {
+				character = "RUS_anastasia_i"
+				country_leader = {
+					ideology = socialism
+					desc = "POLITICS_ANASTASIA_DESC"
+					traits = {
+						Shvibzik
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_leader = {
+						character = RUS_anastasia_i
+						ruling_only = yes
+					}
+				}
+			}
+			add_country_leader_role = {
+				character = "RUS_Seele"
+				country_leader = {
+					ideology = socialism
+					desc = "POLITICS_SEELE_DESC"
+					traits = {
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		complete_national_focus = rus_Menshviks_win
+		if = {
+			limit = {
+				has_idea = RUS_political_uncertainty
+			}
+			remove_ideas = {
+				RUS_political_uncertainty
+			}
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = RUS_democratic_party_Menshviks_long
+			name = RUS_democratic_party_Menshviks
+		}
+		country_event = {
+			id = russian.21
+			days = 3
+		}
+	}
+}
+
+country_event = {
+	### Secularization
+	id = russian.21
+	title = russian.21.t
+	desc = russian.21.d
+	picture = GFX_report_event_rus_orthodox
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = russian.21.a
+		ai_chance = {
+			base = 50
+		}
+		RUS_Orthodox_secularize = yes
+		unlock_national_focus = rus_secularization
+	}
+}
+
+country_event = {
+	### Ethnic Policy Changes
+	id = russian.22
+	title = russian.22.t
+	desc = russian.22.d
+	picture = GFX_report_event_rus_army_1
+	fire_only_once = yes
+	trigger = {
+		has_government = fascism
+		has_completed_focus = rus_promise_autonomy
+		has_completed_focus = rus_fall_of_ussr
+	}
+	mean_time_to_happen = {
+		days = 15
+	}
+	option = {
+		name = russian.22.a
+		ai_chance = {
+			base = 50
+		}
+		complete_national_focus = rus_no_compromise_on_united_russia
+		if = {
+			limit = {
+				KAZ = {
+					is_subject_of = ROOT
+				}
+			}
+			set_autonomy = {
+				target = KAZ
+				autonomy_state = autonomy_free
+			}
+			declare_war_on = {
+				target = KAZ
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				UKR = {
+					is_subject_of = ROOT
+				}
+			}
+			set_autonomy = {
+				target = UKR
+				autonomy_state = autonomy_free
+			}
+			declare_war_on = {
+				target = UKR
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				TMS = {
+					is_subject_of = ROOT
+				}
+			}
+			set_autonomy = {
+				target = TMS
+				autonomy_state = autonomy_free
+			}
+			declare_war_on = {
+				target = TMS
+				type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = {
+	### Purge Fascist
+	id = russian.23
+	title = russian.23.t
+	desc = russian.23.d
+	picture = GFX_report_event_rus_army_1
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = russian.23.a
+		ai_chance = {
+			base = 50
+		}
+		remove_unit_leader = 8805
+		remove_unit_leader = 8701
+		remove_unit_leader = 8804
+		remove_unit_leader = 8803
+	}
+}
+
+country_event = {
+	### Change City Names
+	id = russian.24
+	title = russian.24.t
+	desc = russian.24.d
+	picture = GFX_report_event_rus_kremlin4
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = russian.24.a
+		ai_chance = {
+			base = 50
+		}
+		set_province_name = {
+			id = 3151
+			name = Petrograd
+		}
+		# set_province_name = { id = 3529 name = Tsaritsyn }
+		set_province_name = {
+			id = 1821
+			name = Yekaterinburg
+		}
+		set_province_name = {
+			id = 6245
+			name = Tver
+		}
+		set_province_name = {
+			id = 11225
+			name = Samara
+		}
+		set_province_name = {
+			id = 11375
+			name = Nizhny_Novgorod
+		}
+		set_province_name = {
+			id = 392
+			name = Simbirsk
+		}
+		set_province_name = {
+			id = 3734
+			name = Yekaterinodar
+		}
+		set_province_name = {
+			id = 9628
+			name = Vladikavkaz
+		}
+		set_province_name = {
+			id = 6701
+			name = Petrovskoye
+		}
+		set_province_name = {
+			id = 6474
+			name = Donetsk
+		}
+		set_province_name = {
+			id = 11437
+			name = Dnipro
+		}
+		set_province_name = {
+			id = 9461
+			name = Luhansk
+		}
+		set_province_name = {
+			id = 12594
+			name = Alashqala
+		}
+		195 = {
+			set_state_name = Petrograd
+		}
+		# 217 = { set_state_name = Tsaritsyn }
+		400 = {
+			set_state_name = Vyatka
+		}
+		247 = {
+			set_state_name = Tver
+		}
+		588 = {
+			set_state_name = Alashqala
+		}
+		742 = {
+			set_state_name = Dushanbe
+		}
+		653 = {
+			set_state_name = Yekaterinburg
+		}
+		228 = {
+			set_state_name = Luhansk
+		}
+		251 = {
+			set_state_name = Samara
+		}
+		227 = {
+			set_state_name = Donetsk
+		}
+		234 = {
+			set_state_name = Yekaterinodar
+		}
+		226 = {
+			set_state_name = Dnipro
+		}
+		252 = {
+			set_state_name = Nizhny_Novgorod
+		}
+		250 = {
+			set_state_name = Simbirsk
+		}
+		country_event = {
+			id = russian.25
+			hours = 15
+		}
+	}
+}
+
+country_event = {
+	### Choose Capital
+	id = russian.25
+	title = russian.25.t
+	desc = russian.25.d
+	picture = GFX_report_event_rus_kremlin4
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		### Petrograd
+		name = russian.25.a
+		ai_chance = {
+			base = 50
+		}
+		hidden_effect = {
+			set_capital = {
+				state = 219
+			}
+		}
+		set_capital = {
+			state = 195
+		}
+	}
+	option = {
+		### Moscow
+		name = russian.25.b
+		ai_chance = {
+			base = 50
+		}
+		hidden_effect = {
+			set_capital = {
+				state = 195
+			}
+		}
+		set_capital = {
+			state = 219
+		}
+	}
+}
+
+country_event = {
+	### Russia demand us submit and offer autonomy
+	id = russian.26
+	title = russian.26.t
+	desc = russian.26.d
+	picture = GFX_report_event_rus_army_1
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		### Agree
+		name = russian.26.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				tag = UKR
+			}
+		}
+		FROM = {
+			puppet = ROOT
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					tag = KAZ
+				}
+				set_politics = {
+					ruling_party = democratic
+					last_election = "1922.12.9"
+					election_frequency = 48
+					elections_allowed = no
+				}
+				set_popularities = {
+					neutrality = 5
+					fascism = 0
+					communism = 25
+					democratic = 70
+				}
+			}
+		}
+	}
+	option = {
+		### Reject
+		name = russian.26.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				tag = KAZ
+			}
+		}
+		FROM = {
+			create_wargoal = {
+				target = ROOT
+				type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = {
+	id = russian.27
+	title = russian.27.t
+	desc = russian.27.d
+	picture = GFX_report_event_rus_troops2
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		date < 1940.1.1
+		NOT = {
+			has_country_flag = RUS_is_Japanese_puppet_ever_flag
+		}
+		RUS = {
+			is_puppet = no
+		}
+		RUS = {
+			has_war_with = SOV
+		}
+		RUS = {
+			surrender_progress < 0.1
+		}
+		SOV = {
+			exists = yes
+		}
+		SOV = {
+			is_puppet = no
+		}
+		or = {
+			AND = {
+				RUS = {
+					has_idea = RUS_SOV_For_victory_idea
+				}
+				date > 1938.1.1
+			}
+			AND = {
+				or = {
+					SOV = {
+						has_completed_focus = SOV_bloody_dwarf_is_in_power
+					}
+					SOV = {
+						has_country_flag = SOV_Support_compulsory_collectivization_flag
+					}
+				}
+				SOV = {
+					surrender_progress > 0.5
+				}
+			}
+			AND = {
+				or = {
+					SOV = {
+						has_completed_focus = SOV_Continue_military_control
+					}
+					SOV = {
+						has_country_flag = SOV_Support_resource_collectivization_flag
+					}
+				}
+				SOV = {
+					surrender_progress > 0.6
+				}
+			}
+			AND = {
+				SOV = {
+					has_completed_focus = SOV_Humane_communism
+				}
+				SOV = {
+					surrender_progress > 0.7
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = russian.27.a
+		ai_chance = {
+			base = 100
+		}
+		add_named_threat = {
+			threat = 5
+			name = russian.27.t
+		}
+		add_political_power = 50
+		if = {
+			limit = {
+				tag = UKR
+				UKR = {
+					exists = yes
+				}
+				UKR = {
+					is_puppet = no
+				}
+				UKR = {
+					has_war_with = SOV
+				}
+			}
+			set_global_flag = UKR_still_on_earth_flag
+			every_state = {
+				limit = {
+					is_core_of = UKR
+					is_core_of = SOV
+				}
+				UKR = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				RUS = {
+					is_ai = yes
+				}
+			}
+			SOV = {
+				transfer_navy = {
+					target = RUS
+				}
+				transfer_units_fraction = {
+					target = RUS
+					size = 0
+					stockpile_ratio = 0
+					army_ratio = 0.5
+					navy_ratio = 0
+					air_ratio = 0
+					keep_unit_leaders_trigger = {
+						always = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				RUS = {
+					is_ai = no
+				}
+			}
+			SOV = {
+				transfer_navy = {
+					target = RUS
+				}
+				transfer_units_fraction = {
+					target = RUS
+					size = 0
+					stockpile_ratio = 0
+					army_ratio = 0.7
+					navy_ratio = 0
+					air_ratio = 0
+					keep_unit_leaders_trigger = {
+						always = yes
+					}
+				}
+			}
+		}
+		annex_country = {
+			target = SOV
+		}
+		SIK = {
+			remove_ideas = SOV_Focus_on_the_inside_idea
+		}
+		if = {
+			limit = {
+				tag = KAZ
+				KAZ = {
+					exists = yes
+				}
+				or = {
+					KAZ = {
+						is_puppet = no
+					}
+					KAZ = {
+						is_subject_of = RUS
+					}
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = KAZ
+				}
+				KAZ = {
+					transfer_state = PREV
+				}
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = rus_news.2
+				days = 2
+			}
+		}
+	}
+}
+
+news_event = {
+	#第二次俄罗斯内战 
+	id = russian.51
+	title = russian.51.t
+	desc = russian.51.d
+	picture = GFX_report_event_JD_7
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = russian.51.1
+		trigger = {
+			TAG = RUS
+		}
+	}
+	option = {
+		name = russian.51.2
+		trigger = {
+			TAG = SOV
+		}
+	}
+	option = {
+		name = russian.51.3
+		trigger = {
+			NOT = {
+				TAG = RUS
+				TAG = SOV
+			}
+		}
+	}
+}
+
+country_event = {
+	id = russian.101
+	title = russian.101.t
+	desc = russian.101.d
+	picture = GFX_report_event_soviet_tanks_snow
+	is_triggered_only = yes
+	option = {
+		name = russian.101.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 150
+		hidden_effect = {
+			news_event = {
+				id = rus_news.1
+				days = 2
+			}
+		}
+	}
+}
+
+#fighter competition - initial choice for RUS
+country_event = {
+	id = russian.150
+	title = russian.150.t
+	desc = russian.150.desc
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	option = {
+		# light fighter
+		name = russian.150.a
+		trigger = {
+			OR = {
+				GER = {
+					is_available_fighter_RUS = yes
+				}
+				FRA = {
+					is_available_fighter_RUS = yes
+				}
+				ITA = {
+					is_available_fighter_RUS = yes
+				}
+				ENG = {
+					is_available_fighter_RUS = yes
+				}
+				USA = {
+					is_available_fighter_RUS = yes
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				has_tech = fighter1
+				add = -10
+			}
+			modifier = {
+				has_tech = fighter2
+				add = -10
+			}
+			modifier = {
+				has_tech = fighter3
+				factor = 0
+			}
+		}
+		country_event = russian.151
+	}
+	option = {
+		# heavy fighter
+		name = russian.150.b
+		trigger = {
+			OR = {
+				GER = {
+					is_available_heavy_fighter_RUS = yes
+				}
+				FRA = {
+					is_available_heavy_fighter_RUS = yes
+				}
+				ITA = {
+					is_available_heavy_fighter_RUS = yes
+				}
+				ENG = {
+					is_available_heavy_fighter_RUS = yes
+				}
+				USA = {
+					is_available_heavy_fighter_RUS = yes
+				}
+			}
+		}
+		country_event = russian.152
+		ai_chance = {
+			factor = 50
+			modifier = {
+				has_tech = heavy_fighter1
+				add = -10
+			}
+			modifier = {
+				has_tech = heavy_fighter2
+				add = -10
+			}
+			modifier = {
+				has_tech = heavy_fighter3
+				factor = 0
+			}
+		}
+	}
+}
+
+#Fighter competition - russia is looking for a light fighter
+country_event = {
+	id = russian.151
+	title = russian.151.t
+	desc = {
+		text = russian.151.desc_light_fighter
+		trigger = {
+			NOT = {
+				has_country_flag = GER_fighter_refused
+				has_country_flag = ENG_fighter_refused
+				has_country_flag = USA_fighter_refused
+				has_country_flag = FRA_fighter_refused
+				has_country_flag = ITA_fighter_refused
+			}
+		}
+	}
+	desc = {
+		text = russian.151.desc_light_fighter_refused
+		trigger = {
+			OR = {
+				has_country_flag = GER_fighter_refused
+				has_country_flag = ENG_fighter_refused
+				has_country_flag = USA_fighter_refused
+				has_country_flag = FRA_fighter_refused
+				has_country_flag = ITA_fighter_refused
+			}
+		}
+	}
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	option = {
+		# Select German Plane
+		name = russian.151.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = GER
+				factor = 10
+			}
+			modifier = {
+				GER = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				GER = {
+					has_tech = fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					GER = {
+						has_tech = fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter1
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter2
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = GER
+			}
+			NOT = {
+				has_country_flag = GER_fighter_refused
+			}
+		}
+		GER = {
+			country_event = russian.153
+		}
+	}
+	option = {
+		# select italian plane
+		name = russian.151.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ITA
+				factor = 10
+			}
+			modifier = {
+				ITA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ITA = {
+					has_tech = fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ITA = {
+						has_tech = fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter1
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter2
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ITA
+			}
+			NOT = {
+				has_country_flag = ITA_fighter_refused
+			}
+		}
+		ITA = {
+			country_event = russian.153
+		}
+	}
+	option = {
+		# select french plane
+		name = russian.151.c
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = FRA
+				factor = 10
+			}
+			modifier = {
+				FRA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				FRA = {
+					has_tech = fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					FRA = {
+						has_tech = fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter1
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter2
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = FRA
+			}
+			NOT = {
+				has_country_flag = FRA_fighter_refused
+			}
+		}
+		FRA = {
+			country_event = russian.153
+		}
+	}
+	option = {
+		# select british plane
+		name = russian.151.d
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ENG
+				factor = 10
+			}
+			modifier = {
+				ENG = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ENG = {
+					has_tech = fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ENG = {
+						has_tech = fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter1
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter2
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ENG
+			}
+			NOT = {
+				has_country_flag = ENG_fighter_refused
+			}
+		}
+		ENG = {
+			country_event = russian.153
+		}
+	}
+	option = {
+		# select american plane
+		name = russian.151.e
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = USA
+				factor = 10
+			}
+			modifier = {
+				USA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				USA = {
+					has_tech = fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					USA = {
+						has_tech = fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter1
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter2
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = USA
+			}
+			NOT = {
+				has_country_flag = USA_fighter_refused
+			}
+			NOT = {
+				#to prevent overflow issues
+				AND = {
+					GER = {
+						is_available_fighter_RUS = yes
+					}
+					FRA = {
+						is_available_fighter_RUS = yes
+					}
+					ITA = {
+						is_available_fighter_RUS = yes
+					}
+					ENG = {
+						is_available_fighter_RUS = yes
+					}
+				}
+			}
+		}
+		USA = {
+			country_event = russian.153
+		}
+	}
+	option = {
+		# failsafe
+		name = russian.151.f
+		trigger = {
+			OR = {
+				has_country_flag = GER_fighter_refused
+				has_country_flag = ITA_fighter_refused
+				has_country_flag = ENG_fighter_refused
+				has_country_flag = FRA_fighter_refused
+				has_country_flag = USA_fighter_refused
+			}
+		}
+		air_experience = 50
+	}
+}
+
+#Fighter competition - russia is looking for a heavy fighter
+country_event = {
+	id = russian.152
+	title = russian.152.t
+	desc = {
+		text = russian.152.desc_heavy_fighter
+		trigger = {
+			NOT = {
+				has_country_flag = GER_heavy_fighter_refused
+				has_country_flag = ENG_heavy_fighter_refused
+				has_country_flag = USA_heavy_fighter_refused
+				has_country_flag = FRA_heavy_fighter_refused
+				has_country_flag = ITA_heavy_fighter_refused
+			}
+		}
+	}
+	desc = {
+		text = russian.152.desc_heavy_fighter_refused
+		trigger = {
+			OR = {
+				has_country_flag = GER_heavy_fighter_refused
+				has_country_flag = ENG_heavy_fighter_refused
+				has_country_flag = USA_heavy_fighter_refused
+				has_country_flag = FRA_heavy_fighter_refused
+				has_country_flag = ITA_heavy_fighter_refused
+			}
+		}
+	}
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	option = {
+		# Select German Plane
+		name = russian.151.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = GER
+				factor = 10
+			}
+			modifier = {
+				GER = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				GER = {
+					has_tech = heavy_fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = heavy_fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = heavy_fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					GER = {
+						has_tech = heavy_fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter1
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = heavy_fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter2
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = heavy_fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = GER
+			}
+			NOT = {
+				has_country_flag = GER_heavy_fighter_refused
+			}
+		}
+		GER = {
+			country_event = russian.154
+		}
+	}
+	option = {
+		# select italian plane
+		name = russian.151.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ITA
+				factor = 10
+			}
+			modifier = {
+				ITA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ITA = {
+					has_tech = heavy_fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = heavy_fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = heavy_fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ITA = {
+						has_tech = heavy_fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter1
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = heavy_fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter2
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = heavy_fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ITA
+			}
+			NOT = {
+				has_country_flag = ITA_heavy_fighter_refused
+			}
+		}
+		ITA = {
+			country_event = russian.154
+		}
+	}
+	option = {
+		# select french plane
+		name = russian.151.c
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = FRA
+				factor = 10
+			}
+			modifier = {
+				FRA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				FRA = {
+					has_tech = heavy_fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = heavy_fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = heavy_fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					FRA = {
+						has_tech = heavy_fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter1
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = heavy_fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter2
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = heavy_fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = FRA
+			}
+			NOT = {
+				has_country_flag = FRA_heavy_fighter_refused
+			}
+		}
+		FRA = {
+			country_event = russian.154
+		}
+	}
+	option = {
+		# select british plane
+		name = russian.151.d
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ENG
+				factor = 10
+			}
+			modifier = {
+				ENG = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ENG = {
+					has_tech = heavy_fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = heavy_fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = heavy_fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ENG = {
+						has_tech = heavy_fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter1
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = heavy_fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter2
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = heavy_fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ENG
+			}
+			NOT = {
+				has_country_flag = ENG_heavy_fighter_refused
+			}
+		}
+		ENG = {
+			country_event = russian.154
+		}
+	}
+	option = {
+		# select american plane
+		name = russian.151.e
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = USA
+				factor = 10
+			}
+			modifier = {
+				USA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				USA = {
+					has_tech = heavy_fighter1
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = heavy_fighter2
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = heavy_fighter3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					USA = {
+						has_tech = heavy_fighter1
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter1
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = heavy_fighter2
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter2
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = heavy_fighter3
+					}
+					RUS = {
+						NOT = {
+							has_tech = heavy_fighter3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = USA
+			}
+			NOT = {
+				has_country_flag = USA_heavy_fighter_refused
+			}
+			NOT = {
+				#to prevent overflow issues
+				AND = {
+					GER = {
+						is_available_heavy_fighter_RUS = yes
+					}
+					FRA = {
+						is_available_heavy_fighter_RUS = yes
+					}
+					ITA = {
+						is_available_heavy_fighter_RUS = yes
+					}
+					ENG = {
+						is_available_heavy_fighter_RUS = yes
+					}
+				}
+			}
+		}
+		USA = {
+			country_event = russian.154
+		}
+	}
+	option = {
+		# failsafe
+		name = russian.151.f
+		trigger = {
+			OR = {
+				has_country_flag = GER_heavy_fighter_refused
+				has_country_flag = ITA_heavy_fighter_refused
+				has_country_flag = ENG_heavy_fighter_refused
+				has_country_flag = FRA_heavy_fighter_refused
+				has_country_flag = USA_heavy_fighter_refused
+			}
+		}
+		air_experience = 50
+	}
+}
+
+#fighter competition - light fighter competition winner gets a choice whether to permit license production
+country_event = {
+	id = russian.153
+	title = russian.153.t
+	desc = russian.153.desc
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	option = {
+		# certainly
+		name = russian.153.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				has_war = yes
+				factor = 0.5
+			}
+		}
+		RUS = {
+			country_event = russian.155
+		}
+		air_experience = 20
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = fighter_equipment
+					amount = 400
+					producer = GER
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = fighter_equipment
+					amount = 400
+					producer = ITA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = fighter_equipment
+					amount = 400
+					producer = ENG
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = fighter_equipment
+					amount = 400
+					producer = FRA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = fighter_equipment
+					amount = 400
+					producer = USA
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_tech = fighter1
+				NOT = {
+					has_tech = fighter2
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = fighter_equipment_1
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = fighter2
+				NOT = {
+					has_tech = fighter3
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = fighter_equipment_2
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = fighter3
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = fighter_equipment_3
+				}
+				cost_factor = 0
+			}
+		}
+	}
+	option = {
+		# no
+		name = russian.153.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				is_in_faction_with = RUS
+				factor = 0
+			}
+		}
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				set_country_flag = GER_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				set_country_flag = ITA_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				set_country_flag = FRA_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				set_country_flag = ENG_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				set_country_flag = USA_fighter_refused
+			}
+		}
+		RUS = {
+			country_event = russian.151
+		}
+		reverse_add_opinion_modifier = {
+			target = RUS
+			modifier = refused_help
+		}
+	}
+}
+
+#fighter competition - heavy fighter competition winner gets a choice whether to permit license production
+country_event = {
+	id = russian.154
+	title = russian.153.t
+	desc = russian.154.desc
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	option = {
+		# certainly
+		name = russian.153.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				has_war = yes
+				factor = 0.5
+			}
+		}
+		air_experience = 20
+		RUS = {
+			country_event = russian.155
+		}
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = heavy_fighter_equipment
+					amount = 200
+					producer = GER
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = heavy_fighter_equipment
+					amount = 200
+					producer = ITA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = heavy_fighter_equipment
+					amount = 200
+					producer = ENG
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = heavy_fighter_equipment
+					amount = 200
+					producer = FRA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = heavy_fighter_equipment
+					amount = 200
+					producer = USA
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_tech = heavy_fighter1
+				NOT = {
+					has_tech = heavy_fighter2
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = heavy_fighter_equipment_1
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = heavy_fighter2
+				NOT = {
+					has_tech = heavy_fighter3
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = heavy_fighter_equipment_2
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = heavy_fighter3
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = heavy_fighter_equipment_3
+				}
+				cost_factor = 0
+			}
+		}
+	}
+	option = {
+		# no
+		name = russian.153.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				is_in_faction_with = RUS
+				factor = 0
+			}
+		}
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				set_country_flag = GER_heavy_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				set_country_flag = ITA_heavy_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				set_country_flag = FRA_heavy_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				set_country_flag = ENG_heavy_fighter_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				set_country_flag = USA_heavy_fighter_refused
+			}
+		}
+		RUS = {
+			country_event = russian.152
+		}
+		reverse_add_opinion_modifier = {
+			target = RUS
+			modifier = refused_help
+		}
+	}
+}
+
+#fighter competition - license production approved
+country_event = {
+	id = russian.155
+	title = russian.155.t
+	desc = russian.155.desc
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	option = {
+		# neat
+		name = russian.155.a
+	}
+}
+
+#bomber competition - initial choice for russia
+country_event = {
+	id = russian.160
+	title = russian.160.t
+	desc = russian.160.desc
+	picture = GFX_report_event_generic_bombers
+	is_triggered_only = yes
+	option = {
+		# CAS
+		name = russian.160.a
+		trigger = {
+			OR = {
+				GER = {
+					is_available_cas_RUS = yes
+				}
+				FRA = {
+					is_available_cas_RUS = yes
+				}
+				ITA = {
+					is_available_cas_RUS = yes
+				}
+				ENG = {
+					is_available_cas_RUS = yes
+				}
+				USA = {
+					is_available_cas_RUS = yes
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				has_tech = CAS1
+				add = -10
+			}
+			modifier = {
+				has_tech = CAS2
+				add = -10
+			}
+			modifier = {
+				has_tech = CAS3
+				factor = 0
+			}
+		}
+		country_event = russian.161
+	}
+	option = {
+		# TAC
+		name = russian.160.b
+		trigger = {
+			OR = {
+				GER = {
+					is_available_tac_RUS = yes
+				}
+				FRA = {
+					is_available_tac_RUS = yes
+				}
+				ITA = {
+					is_available_tac_RUS = yes
+				}
+				ENG = {
+					is_available_tac_RUS = yes
+				}
+				USA = {
+					is_available_tac_RUS = yes
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				has_tech = tactical_bomber1
+				add = -10
+			}
+			modifier = {
+				has_tech = tactical_bomber2
+				add = -10
+			}
+			modifier = {
+				has_tech = tactical_bomber3
+				factor = 0
+			}
+		}
+		country_event = russian.162
+	}
+}
+
+#Bomber competition - Russia is looking for a CAS
+country_event = {
+	id = russian.161
+	title = russian.161.t
+	desc = {
+		text = russian.161.desc_cas
+		trigger = {
+			NOT = {
+				has_country_flag = GER_CAS_refused
+				has_country_flag = ENG_CAS_refused
+				has_country_flag = USA_CAS_refused
+				has_country_flag = FRA_CAS_refused
+				has_country_flag = ITA_CAS_refused
+			}
+		}
+	}
+	desc = {
+		text = russian.161.desc_cas_refused
+		trigger = {
+			OR = {
+				has_country_flag = GER_CAS_refused
+				has_country_flag = ENG_CAS_refused
+				has_country_flag = USA_CAS_refused
+				has_country_flag = FRA_CAS_refused
+				has_country_flag = ITA_CAS_refused
+			}
+		}
+	}
+	picture = GFX_report_event_generic_bombers
+	is_triggered_only = yes
+	option = {
+		# Select German Plane
+		name = russian.151.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = GER
+				factor = 10
+			}
+			modifier = {
+				GER = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				GER = {
+					has_tech = CAS1
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = CAS2
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = CAS3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					GER = {
+						has_tech = CAS1
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS1
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = CAS2
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS2
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = CAS3
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = GER
+			}
+			NOT = {
+				has_country_flag = GER_CAS_refused
+			}
+		}
+		GER = {
+			country_event = russian.163
+		}
+	}
+	option = {
+		# select italian plane
+		name = russian.151.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ITA
+				factor = 10
+			}
+			modifier = {
+				ITA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ITA = {
+					has_tech = CAS1
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = CAS2
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = CAS3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ITA = {
+						has_tech = CAS1
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS1
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = CAS2
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS2
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = CAS3
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ITA
+			}
+			NOT = {
+				has_country_flag = ITA_CAS_refused
+			}
+		}
+		ITA = {
+			country_event = russian.163
+		}
+	}
+	option = {
+		# select french plane
+		name = russian.151.c
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = FRA
+				factor = 10
+			}
+			modifier = {
+				FRA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				FRA = {
+					has_tech = CAS1
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = CAS2
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = CAS3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					FRA = {
+						has_tech = CAS1
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS1
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = CAS2
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS2
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = CAS3
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = FRA
+			}
+			NOT = {
+				has_country_flag = FRA_CAS_refused
+			}
+		}
+		FRA = {
+			country_event = russian.163
+		}
+	}
+	option = {
+		# select british plane
+		name = russian.151.d
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ENG
+				factor = 10
+			}
+			modifier = {
+				ENG = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ENG = {
+					has_tech = CAS1
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = CAS2
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = CAS3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ENG = {
+						has_tech = CAS1
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS1
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = CAS2
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS2
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = CAS3
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ENG
+			}
+			NOT = {
+				has_country_flag = ENG_CAS_refused
+			}
+		}
+		ENG = {
+			country_event = russian.163
+		}
+	}
+	option = {
+		# select american plane
+		name = russian.151.e
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = USA
+				factor = 10
+			}
+			modifier = {
+				USA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				USA = {
+					has_tech = CAS1
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = CAS2
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = CAS3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					USA = {
+						has_tech = CAS1
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS1
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = CAS2
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS2
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = CAS3
+					}
+					RUS = {
+						NOT = {
+							has_tech = CAS3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = USA
+			}
+			NOT = {
+				has_country_flag = USA_CAS_refused
+			}
+			NOT = {
+				#to prevent overflow issues
+				AND = {
+					GER = {
+						is_available_cas_RUS = yes
+					}
+					FRA = {
+						is_available_cas_RUS = yes
+					}
+					ITA = {
+						is_available_cas_RUS = yes
+					}
+					ENG = {
+						is_available_cas_RUS = yes
+					}
+				}
+			}
+		}
+		USA = {
+			country_event = russian.163
+		}
+	}
+	option = {
+		# failsafe
+		name = russian.151.f
+		trigger = {
+			OR = {
+				has_country_flag = GER_CAS_refused
+				has_country_flag = ITA_CAS_refused
+				has_country_flag = ENG_CAS_refused
+				has_country_flag = FRA_CAS_refused
+				has_country_flag = USA_CAS_refused
+			}
+		}
+		air_experience = 50
+	}
+}
+
+#bomber competition - Russia is looking for a tacbomber
+country_event = {
+	id = russian.162
+	title = russian.162.t
+	desc = {
+		text = russian.162.desc_tac
+		trigger = {
+			NOT = {
+				has_country_flag = GER_tactical_bomber_refused
+				has_country_flag = ENG_tactical_bomber_refused
+				has_country_flag = USA_tactical_bomber_refused
+				has_country_flag = FRA_tactical_bomber_refused
+				has_country_flag = ITA_tactical_bomber_refused
+			}
+		}
+	}
+	desc = {
+		text = russian.162.desc_tac_refused
+		trigger = {
+			OR = {
+				has_country_flag = GER_tactical_bomber_refused
+				has_country_flag = ENG_tactical_bomber_refused
+				has_country_flag = USA_tactical_bomber_refused
+				has_country_flag = FRA_tactical_bomber_refused
+				has_country_flag = ITA_tactical_bomber_refused
+			}
+		}
+	}
+	picture = GFX_report_event_generic_bombers
+	is_triggered_only = yes
+	option = {
+		# Select German Plane
+		name = russian.151.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = GER
+				factor = 10
+			}
+			modifier = {
+				GER = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				GER = {
+					has_tech = tactical_bomber1
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = tactical_bomber2
+				}
+				add = 10
+			}
+			modifier = {
+				GER = {
+					has_tech = tactical_bomber3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					GER = {
+						has_tech = tactical_bomber1
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber1
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = tactical_bomber2
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber2
+						}
+					}
+				}
+				AND = {
+					GER = {
+						has_tech = tactical_bomber3
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = GER
+			}
+			NOT = {
+				has_country_flag = GER_tactical_bomber_refused
+			}
+		}
+		GER = {
+			country_event = russian.164
+		}
+	}
+	option = {
+		# select italian plane
+		name = russian.151.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ITA
+				factor = 10
+			}
+			modifier = {
+				ITA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ITA = {
+					has_tech = tactical_bomber1
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = tactical_bomber2
+				}
+				add = 10
+			}
+			modifier = {
+				ITA = {
+					has_tech = tactical_bomber3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ITA = {
+						has_tech = tactical_bomber1
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber1
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = tactical_bomber2
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber2
+						}
+					}
+				}
+				AND = {
+					ITA = {
+						has_tech = tactical_bomber3
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ITA
+			}
+			NOT = {
+				has_country_flag = ITA_tactical_bomber_refused
+			}
+		}
+		ITA = {
+			country_event = russian.164
+		}
+	}
+	option = {
+		# select french plane
+		name = russian.151.c
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = FRA
+				factor = 10
+			}
+			modifier = {
+				FRA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				FRA = {
+					has_tech = tactical_bomber1
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = tactical_bomber2
+				}
+				add = 10
+			}
+			modifier = {
+				FRA = {
+					has_tech = tactical_bomber3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					FRA = {
+						has_tech = tactical_bomber1
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber1
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = tactical_bomber2
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber2
+						}
+					}
+				}
+				AND = {
+					FRA = {
+						has_tech = tactical_bomber3
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = FRA
+			}
+			NOT = {
+				has_country_flag = FRA_tactical_bomber_refused
+			}
+		}
+		FRA = {
+			country_event = russian.164
+		}
+	}
+	option = {
+		# select british plane
+		name = russian.151.d
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = ENG
+				factor = 10
+			}
+			modifier = {
+				ENG = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				ENG = {
+					has_tech = tactical_bomber1
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = tactical_bomber2
+				}
+				add = 10
+			}
+			modifier = {
+				ENG = {
+					has_tech = tactical_bomber3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					ENG = {
+						has_tech = tactical_bomber1
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber1
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = tactical_bomber2
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber2
+						}
+					}
+				}
+				AND = {
+					ENG = {
+						has_tech = tactical_bomber3
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = ENG
+			}
+			NOT = {
+				has_country_flag = ENG_tactical_bomber_refused
+			}
+		}
+		ENG = {
+			country_event = russian.164
+		}
+	}
+	option = {
+		# select american plane
+		name = russian.151.e
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_in_faction_with = USA
+				factor = 10
+			}
+			modifier = {
+				USA = {
+					has_government = ROOT
+				}
+				factor = 2
+			}
+			modifier = {
+				USA = {
+					has_tech = tactical_bomber1
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = tactical_bomber2
+				}
+				add = 10
+			}
+			modifier = {
+				USA = {
+					has_tech = tactical_bomber3
+				}
+				add = 10
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					USA = {
+						has_tech = tactical_bomber1
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber1
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = tactical_bomber2
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber2
+						}
+					}
+				}
+				AND = {
+					USA = {
+						has_tech = tactical_bomber3
+					}
+					RUS = {
+						NOT = {
+							has_tech = tactical_bomber3
+						}
+					}
+				}
+			}
+			NOT = {
+				has_war_with = USA
+			}
+			NOT = {
+				has_country_flag = USA_tactical_bomber_refused
+			}
+			NOT = {
+				#to prevent overflow issues
+				AND = {
+					GER = {
+						is_available_tac_RUS = yes
+					}
+					FRA = {
+						is_available_tac_RUS = yes
+					}
+					ITA = {
+						is_available_tac_RUS = yes
+					}
+					ENG = {
+						is_available_tac_RUS = yes
+					}
+				}
+			}
+		}
+		USA = {
+			country_event = russian.164
+		}
+	}
+	option = {
+		# failsafe
+		name = russian.151.f
+		trigger = {
+			OR = {
+				has_country_flag = GER_tactical_bomber_refused
+				has_country_flag = ITA_tactical_bomber_refused
+				has_country_flag = ENG_tactical_bomber_refused
+				has_country_flag = FRA_tactical_bomber_refused
+				has_country_flag = USA_tactical_bomber_refused
+			}
+		}
+		air_experience = 50
+	}
+}
+
+#bomber competition - CAS competition winner gets a choice whether to permit license production
+country_event = {
+	id = russian.163
+	title = russian.163.t
+	desc = russian.163.desc
+	picture = GFX_report_event_generic_bombers
+	is_triggered_only = yes
+	option = {
+		# certainly
+		name = russian.153.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				has_war = yes
+				factor = 0.5
+			}
+		}
+		air_experience = 20
+		RUS = {
+			country_event = russian.165
+		}
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = CAS_equipment
+					amount = 400
+					producer = GER
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = CAS_equipment
+					amount = 400
+					producer = ITA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = CAS_equipment
+					amount = 400
+					producer = ENG
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = CAS_equipment
+					amount = 400
+					producer = FRA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = CAS_equipment
+					amount = 400
+					producer = USA
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_tech = CAS1
+				NOT = {
+					has_tech = CAS2
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = CAS_equipment_1
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = CAS2
+				NOT = {
+					has_tech = CAS3
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = CAS_equipment_2
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = CAS3
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = CAS_equipment_3
+				}
+				cost_factor = 0
+			}
+		}
+	}
+	option = {
+		# no
+		name = russian.153.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				is_in_faction_with = RUS
+				factor = 0
+			}
+		}
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				set_country_flag = GER_CAS_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				set_country_flag = ITA_CAS_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				set_country_flag = FRA_CAS_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				set_country_flag = ENG_CAS_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				set_country_flag = USA_CAS_refused
+			}
+		}
+		RUS = {
+			country_event = russian.161
+		}
+		reverse_add_opinion_modifier = {
+			target = RUS
+			modifier = refused_help
+		}
+	}
+}
+
+#bomber competition - tac bomber competition winner gets a choice whether to permit license production
+country_event = {
+	id = russian.164
+	title = russian.164.t
+	desc = russian.164.desc
+	picture = GFX_report_event_generic_bombers
+	is_triggered_only = yes
+	option = {
+		# certainly
+		name = russian.153.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				has_war = yes
+				factor = 0.5
+			}
+		}
+		RUS = {
+			country_event = russian.165
+		}
+		air_experience = 20
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment
+					amount = 200
+					producer = GER
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment
+					amount = 200
+					producer = ITA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment
+					amount = 200
+					producer = ENG
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment
+					amount = 200
+					producer = FRA
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment
+					amount = 200
+					producer = USA
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_tech = tactical_bomber1
+				NOT = {
+					has_tech = tactical_bomber2
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = tac_bomber_equipment_1
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = tactical_bomber2
+				NOT = {
+					has_tech = tactical_bomber3
+				}
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = tac_bomber_equipment_2
+				}
+				cost_factor = 0
+			}
+		}
+		if = {
+			limit = {
+				has_tech = tactical_bomber3
+			}
+			create_production_license = {
+				target = RUS
+				equipment = {
+					type = tac_bomber_equipment_3
+				}
+				cost_factor = 0
+			}
+		}
+	}
+	option = {
+		# no
+		name = russian.153.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				is_in_faction_with = RUS
+				factor = 0
+			}
+		}
+		if = {
+			limit = {
+				tag = GER
+			}
+			RUS = {
+				set_country_flag = GER_tactical_bomber_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ITA
+			}
+			RUS = {
+				set_country_flag = ITA_tactical_bomber_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = FRA
+			}
+			RUS = {
+				set_country_flag = FRA_tactical_bomber_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = ENG
+			}
+			RUS = {
+				set_country_flag = ENG_tactical_bomber_refused
+			}
+		}
+		if = {
+			limit = {
+				tag = USA
+			}
+			RUS = {
+				set_country_flag = USA_tactical_bomber_refused
+			}
+		}
+		RUS = {
+			country_event = russian.162
+		}
+		reverse_add_opinion_modifier = {
+			target = RUS
+			modifier = refused_help
+		}
+	}
+}
+
+#bomber competition - license production approved
+country_event = {
+	id = russian.165
+	title = russian.165.t
+	desc = russian.165.desc
+	picture = GFX_report_event_generic_bombers
+	is_triggered_only = yes
+	option = {
+		# neat
+		name = russian.165.a
+	}
+}
+
+country_event = {
+	###  February Revolution memorial day, Milyukov's death
+	id = russian_flavour.1
+	title = russian_flavour.1.t
+	desc = russian_flavour.1.d
+	picture = GFX_report_event_german_speech
+	fire_only_once = yes
+	trigger = {
+		original_tag = RUS
+		date > 1937.2.23
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = russian_flavour.1.a
+		add_political_power = -25
+	}
+}
+
+country_event = {
+	###  Alexie in my dream
+	id = russian_flavour.2
+	title = russian_flavour.2.t
+	desc = russian_flavour.2.d
+	picture = GFX_report_event_rus_winter_palace
+	fire_only_once = yes
+	trigger = {
+		original_tag = RUS
+		date > 1936.7.15
+		has_country_leader = {
+			character = RUS_anastasia_i
+			ruling_only = yes
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = russian_flavour.2.a
+		add_political_power = 2
+	}
+}
+
+country_event = {
+	###  Kornilov's Death normal
+	id = russian_flavour.3
+	title = russian_flavour.3.t
+	desc = russian_flavour.3.d
+	picture = GFX_report_event_rus_mass
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		NOT = {
+			has_country_leader = {
+				character = RUS_lavr_kornilov
+				ruling_only = yes
+			}
+		}
+		date > 1937.12.2
+	}
+	immediate = {
+		hidden_effect = {
+			# set_country_flag = RUS_Kornilov_dead
+			retire_character = RUS_lavr_kornilov
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = russian_flavour.3.a
+		retire_character = RUS_lavr_kornilov
+		add_stability = -0.03
+	}
+}
+
+country_event = {
+	###  Kolchak's Death normal
+	id = russian_flavour.4
+	title = russian_flavour.4.t
+	desc = russian_flavour.4.d
+	picture = GFX_report_event_rus_mass
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		NOT = {
+			has_country_leader = {
+				character = RUS_aleksandr_kolchak
+				ruling_only = yes
+			}
+		}
+		date > 1938.3.2
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	immediate = {
+		hidden_effect = {
+			# remove_unit_leader = 50001
+			# set_country_flag = rus_kolchack_dead
+			retire_character = RUS_aleksandr_kolchak
+		}
+	}
+	option = {
+		name = russian_flavour.4.a
+		## kolchak death
+		add_stability = -0.03
+	}
+}
+
+country_event = {
+	###  Royal Marriage
+	id = russian_flavour.5
+	title = russian_flavour.5.t
+	desc = russian_flavour.5.d
+	picture = GFX_report_event_german_speech
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian_flavour.5.a
+		add_stability = 0.025
+		add_political_power = -50
+	}
+}
+
+country_event = {
+	###  Church of All Saints
+	id = russian_flavour.6
+	title = russian_flavour.6.t
+	desc = russian_flavour.6.d
+	picture = GFX_report_event_rus_church
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian_flavour.6.a
+		add_stability = 0.02
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.025
+		}
+	}
+}
+
+country_event = {
+	###  Fix Winter Palace
+	id = russian_flavour.7
+	title = russian_flavour.7.t
+	desc = russian_flavour.7.d
+	picture = GFX_report_event_rus_winter_palace
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian_flavour.7.a
+		add_political_power = -25
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.025
+		}
+	}
+}
+
+country_event = {
+	###  Revere the dead
+	id = russian_flavour.8
+	title = russian_flavour.8.t
+	desc = russian_flavour.8.d
+	picture = GFX_report_event_rus_mass
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian_flavour.8.a
+		add_war_support = 0.02
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.025
+		}
+	}
+}
+
+country_event = {
+	###  Corruption
+	id = russian_flavour.9
+	title = russian_flavour.9.t
+	desc = russian_flavour.9.d
+	picture = GFX_report_event_rus_mass
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian_flavour.9.a
+		add_political_power = -75
+		hidden_effect = {
+			country_event = {
+				id = russian_flavour.10
+				days = 28
+			}
+		}
+	}
+}
+
+country_event = {
+	###  Corruption 2
+	id = russian_flavour.10
+	title = russian_flavour.10.t
+	desc = russian_flavour.10.d
+	picture = GFX_report_event_rus_mass
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian_flavour.10.a
+		add_war_support = -0.05
+		remove_unit_leader = 464
+	}
+	option = {
+		name = russian_flavour.10.b
+		add_political_power = -20
+		random_army_leader = {
+			limit = {
+				has_id = 464
+			}
+			set_nationality = MAN
+		}
+	}
+}
+
+country_event = {
+	id = russian.201
+	title = russian.201.t
+	desc = russian.201.d
+	picture = GFX_report_event_rus_troops2
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		RUS = {
+			is_puppet = no
+		}
+		RUS = {
+			has_war_with = SOV
+		}
+		SOV = {
+			exists = yes
+		}
+		SOV = {
+			is_puppet = no
+		}
+		JAP = {
+			exists = yes
+		}
+		JAP = {
+			is_puppet = no
+		}
+		or = {
+			AND = {
+				SOV = {
+					has_idea = RUS_SOV_For_victory_idea
+				}
+				date > 1938.3.1
+			}
+			AND = {
+				OR = {
+					561 = {
+						is_controlled_by = RUS
+						any_neighbor_state = {
+							CONTROLLER = {
+								has_war_with = RUS
+							}
+							OWNER = {
+								tag = RUS
+							}
+						}
+					}
+					560 = {
+						is_controlled_by = RUS
+						any_neighbor_state = {
+							CONTROLLER = {
+								has_war_with = RUS
+							}
+							OWNER = {
+								tag = RUS
+							}
+						}
+					}
+					657 = {
+						is_controlled_by = RUS
+						any_neighbor_state = {
+							CONTROLLER = {
+								has_war_with = RUS
+							}
+							OWNER = {
+								tag = RUS
+							}
+						}
+					}
+				}
+				SOV = {
+					is_ai = no
+				}
+			}
+			AND = {
+				OR = {
+					563 = {
+						is_controlled_by = RUS
+						any_neighbor_state = {
+							CONTROLLER = {
+								has_war_with = RUS
+							}
+							OWNER = {
+								tag = RUS
+							}
+						}
+					}
+					566 = {
+						is_controlled_by = RUS
+						any_neighbor_state = {
+							CONTROLLER = {
+								has_war_with = RUS
+							}
+							OWNER = {
+								tag = RUS
+							}
+						}
+					}
+				}
+				SOV = {
+					is_ai = yes
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = russian.201.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -100
+		add_stability = -0.1
+		add_war_support = -0.1
+		JAP = {
+			country_event = {
+				id = russian.202
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	### JAP傀儡RUS 
+	id = russian.202
+	title = russian.202.t
+	desc = russian.202.d
+	picture = GFX_report_event_japanese_army_parade
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.202.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 100
+		add_war_support = 0.1
+		add_state_claim = 637
+		transfer_state = 637
+		SOV = {
+			transfer_state = 516
+			transfer_state = 577
+			transfer_state = 578
+			transfer_state = 570
+			transfer_state = 576
+			transfer_state = 569
+			transfer_state = 568
+			transfer_state = 40
+			transfer_state = 654
+			transfer_state = 329
+			transfer_state = 567
+			transfer_state = 575
+			transfer_state = 566
+			transfer_state = 564
+			transfer_state = 563
+			transfer_state = 574
+			transfer_state = 565
+			transfer_state = 562
+			transfer_state = 644
+
+			transfer_state = 822
+			transfer_state = 874
+			transfer_state = 876
+			transfer_state = 877
+			transfer_state = 878
+			transfer_state = 875
+			white_peace = RUS
+			puppet = MON
+			every_state = {
+				limit = {
+					is_owned_by = RUS
+					OR = {
+						is_core_of = KAZ
+						is_core_of = UZB
+						is_core_of = TMS
+					}
+				}
+				SOV = {
+					transfer_state = PREV
+				}
+			}
+			if = {
+				limit = {
+					KAZ = {
+						is_subject_of = RUS
+					}
+				}
+				annex_country = {
+					target = KAZ
+				}
+			}
+			if = {
+				limit = {
+					UZB = {
+						is_subject_of = RUS
+					}
+				}
+				annex_country = {
+					target = UZB
+				}
+			}
+			if = {
+				limit = {
+					TMS = {
+						is_subject_of = RUS
+					}
+				}
+				annex_country = {
+					target = TMS
+				}
+			}
+			if = {
+				limit = {
+					UKR = {
+						is_subject_of = RUS
+					}
+				}
+				annex_country = {
+					target = UKR
+				}
+			}
+			country_event = {
+				id = russian.203
+				days = 1
+			}
+		}
+		RUS = {
+			set_country_flag = RUS_is_Japanese_puppet_ever_flag
+			set_country_flag = RUS_Japanese_puppet_flag
+			set_capital = {
+				state = 408
+			}
+			give_resource_rights = {
+				receiver = JAP
+				state = 560
+			}
+			give_resource_rights = {
+				receiver = JAP
+				state = 657
+			}
+			country_event = {
+				id = russian.204
+				days = 1
+			}
+		}
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+				is_subject = no
+			}
+			set_autonomy = {
+				target = FROM
+				autonomy_state = autonomy_Far_east_protectorate
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_dlc = "Together for Victory"
+				}
+				is_subject = no
+			}
+			puppet = FROM
+		}
+		every_state = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = SOV_RUS_Siberia_war_zone
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = SOV_RUS_Siberia_war_zone
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = rus_news.1
+				days = 2
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = jap_news.3
+				days = 7
+			}
+		}
+	}
+	option = {
+		name = russian.202.b
+		trigger = {
+			always = no
+		}
+		ai_chance = {
+			base = 0
+		}
+		diplomatic_relation = {
+			country = SOV
+			relation = non_aggression_pact
+			active = yes
+		}
+	}
+}
+
+country_event = {
+	### JAP干涉 
+	id = russian.203
+	title = russian.203.t
+	desc = russian.203.d
+	picture = GFX_report_event_japanese_army_parade
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.203.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+country_event = {
+	### JAP干涉 
+	id = russian.204
+	title = russian.204.t
+	desc = russian.204.d
+	picture = GFX_report_event_japanese_army_parade
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.204.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+country_event = {
+	### 合法性危机
+	id = russian.205
+	title = russian.205.t
+	desc = {
+		text = russian.205.d1
+		trigger = {
+			NOT = {
+				has_country_flag = RUS_Anti_Tsarina_Coup_flag
+			}
+		}
+	}
+	desc = {
+		text = russian.205.d2
+		trigger = {
+			has_country_flag = RUS_Anti_Tsarina_Coup_flag
+		}
+	}
+	picture = GFX_report_event_rus_at_arms
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.205.a
+		ai_chance = {
+			base = 33
+		}
+		JAP = {
+			country_event = {
+				id = russian.206
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = russian.205.b
+		trigger = {
+			NOT = {
+				has_country_flag = RUS_Anti_Tsarina_Coup_flag
+			}
+		}
+		ai_chance = {
+			base = 34
+		}
+		set_country_flag = RUS_Ambassador_rule_flag
+		hidden_effect = {
+			news_event = {
+				id = rus_news.3
+				days = 180
+			}
+		}
+	}
+	option = {
+		name = russian.205.c
+		trigger = {
+			has_country_flag = RUS_Anti_Tsarina_Coup_flag
+		}
+		ai_chance = {
+			base = 33
+		}
+		set_country_flag = RUS_Ambassador_rule_flag
+	}
+}
+
+country_event = {
+	### 全权大使问题
+	id = russian.206
+	title = russian.206.t
+	desc = russian.206.d
+	picture = GFX_report_event_japanese_officers
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.206.a
+		ai_chance = {
+			base = 50
+		}
+		RUS = {
+			set_country_flag = RUS_empire_continues_flag
+			country_event = {
+				id = russian.207
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = russian.206.b
+		ai_chance = {
+			base = 20
+		}
+		RUS = {
+			set_country_flag = RUS_Ambassador_rule_flag
+			country_event = {
+				id = russian.208
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = russian.206.c
+		ai_chance = {
+			base = 15
+		}
+		RUS = {
+			set_country_flag = RUS_Advisory_rule_flag
+			country_event = {
+				id = russian.208
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = russian.206.e
+		ai_chance = {
+			base = 15
+		}
+		RUS = {
+			set_country_flag = RUS_who_is_that_flag
+			country_event = {
+				id = russian.208
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	### 帝国继续维持
+	id = russian.207
+	title = russian.207.t
+	desc = russian.207.d
+	picture = GFX_report_event_rus_at_arms
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.207.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+country_event = {
+	### 大使的统治
+	id = russian.208
+	title = russian.208.t
+	desc = russian.208.d
+	picture = GFX_report_event_japanese_officers
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.208.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+country_event = {
+	### 工业援助
+	id = russian.209
+	title = russian.209.t
+	desc = russian.209.d
+	picture = GFX_report_event_japan_europe_pact
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.209.a
+		ai_chance = {
+			base = 90
+		}
+		add_timed_idea = {
+			days = 180
+			idea = JAP_RUS_Japanese_investment_idea
+		}
+		RUS = {
+			set_country_flag = RUS_Japanese_investment_flag
+			country_event = {
+				id = russian.210
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = russian.209.b
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+country_event = {
+	### 工业援助
+	id = russian.210
+	title = russian.210.t
+	desc = russian.210.d
+	picture = GFX_report_event_japan_europe_pact
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = russian.210.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+country_event = {
+	### 胜利？
+	id = russian.211
+	title = russian.211.t
+	desc = russian.211.d
+	picture = GFX_report_event_rus_troops2
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		NOT = {
+			has_completed_focus = rus_fall_of_ussr
+		}
+		RUS = {
+			is_puppet = yes
+		}
+		OR = {
+			SOV = {
+				exists = no
+			}
+			SOV = {
+				is_puppet = yes
+			}
+			SOV = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = russian.211.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 150
+		add_ideas = {
+			rus_communist_rebellion_0
+			Powerful_influence_idea
+		}
+		complete_national_focus = rus_fall_of_ussr
+		add_popularity = {
+			ideology = communism
+			popularity = 0.35
+		}
+		country_event = {
+			id = russian.24
+			days = 3
+		}
+	}
+}
+
+country_event = {
+	### 日本统治的终结
+	id = russian.212
+	title = russian.212.t
+	desc = russian.212.d
+	picture = GFX_report_event_rus_troops2
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		NOT = {
+			RUS = {
+				is_subject_of = JAP
+			}
+		}
+		or = {
+			has_country_flag = RUS_Ambassador_rule_flag
+			has_country_flag = RUS_Advisory_rule_flag
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = russian.212.a
+		ai_chance = {
+			base = 100
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = RUS_democratic_party_long
+			name = RUS_democratic_party
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = RUS_neutrality_party_long
+			name = RUS_neutrality_party
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = RUS_fascism_party_long
+			name = RUS_fascism_party
+		}
+		add_country_leader_role = {
+			character = "RUS_anastasia_i"
+			country_leader = {
+				ideology = stratocracy
+				desc = "POLITICS_ANASTASIA_DESC"
+				traits = {
+					Shvibzik
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		add_country_leader_role = {
+			character = "RUS_kadoc_zemiupus"
+			country_leader = {
+				ideology = valkist
+				desc = ""
+				traits = {
+				}
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = RUS_Zaychik_dead
+				}
+			}
+			add_country_leader_role = {
+				character = "RUS_bronya_zaychik"
+				country_leader = {
+					ideology = socialism
+					desc = ""
+					traits = {
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = RUS_Zaychik_dead
+			}
+			add_country_leader_role = {
+				character = "RUS_nataliya_andreyevich_rostova"
+				country_leader = {
+					ideology = conservatism
+					desc = "POLITICS_ROSTOVA_DESC"
+					traits = {
+					}
+					expire = "1965.1.1"
+				}
+				promote_leader = yes
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = RUS_democratic_party_octobrist_long
+				name = RUS_democratic_party_octobrist
+			}
+		}
+	}
+}

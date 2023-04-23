@@ -1,0 +1,975 @@
+﻿###########################
+# RUS Events
+###########################
+
+add_namespace = rus_diplo
+
+# 请求恢复俄法同盟
+country_event = {
+	id = rus_diplo.1
+	title = rus_diplo.1.t
+	desc = rus_diplo.1.d
+	picture = GFX_report_event_finnish_letter
+	
+	is_triggered_only = yes
+	
+	option = {
+		#同意
+		name = rus_diplo.1.a
+		add_stability = -0.05
+		ai_chance = {
+			factor = 1
+		}
+		RUS = {
+			country_event = rus_diplo.2
+		}
+		effect_tooltip = {
+			diplomatic_relation = {
+				country = RUS
+				relation = guarantee
+				active = yes
+			}							
+			diplomatic_relation = {
+				country = RUS
+				relation = non_aggression_pact
+				active = yes
+			}			
+			diplomatic_relation = {
+				country = RUS
+				relation = military_access
+				active = yes
+			}			
+			
+			RUS = {
+				diplomatic_relation = {
+					country = FRA
+					relation = guarantee
+					active = yes
+				}							
+				diplomatic_relation = {
+					country = FRA
+					relation = non_aggression_pact
+					active = yes
+				}			
+				diplomatic_relation = {
+					country = FRA
+					relation = military_access
+					active = yes
+				}
+				add_ideas = russian_french_alliance			
+			}			
+			
+			GER = {
+				add_relation_modifier = {
+					target = RUS
+					modifier = RUS_align_FRA_neg
+				}			
+			}			
+			
+		}
+	}
+	option = {
+		#拒绝
+		name = rus_diplo.1.b
+		add_political_power = -15
+		ai_chance = {
+			factor = 0
+		}
+		RUS = {
+			country_event = rus_diplo.3
+		}
+		effect_tooltip = {
+			RUS = {
+				add_relation_modifier = {
+					target = FRA
+					modifier = refused_help
+				}		
+			}
+			
+		}		
+	}
+}
+
+# 法国同意恢复俄法同盟
+country_event = {
+	id = rus_diplo.2
+	title = rus_diplo.2.t
+	desc = rus_diplo.2.d
+	picture = GFX_report_event_second_vienna_award_pact
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.2.a
+		diplomatic_relation = {
+			country = FRA
+			relation = guarantee
+			active = yes
+		}							
+		diplomatic_relation = {
+			country = FRA
+			relation = non_aggression_pact
+			active = yes
+		}			
+		diplomatic_relation = {
+			country = FRA
+			relation = military_access
+			active = yes
+		}			
+		
+		FRA = {
+			diplomatic_relation = {
+				country = RUS
+				relation = guarantee
+				active = yes
+			}							
+			diplomatic_relation = {
+				country = RUS
+				relation = non_aggression_pact
+				active = yes
+			}			
+			diplomatic_relation = {
+				country = RUS
+				relation = military_access
+				active = yes
+			}			
+		}
+
+		#法国俄国互相保独 互不侵犯 军通
+		#结盟+200
+		add_ai_strategy = {
+			type = alliance
+			id = FRA
+			value = 200
+		}
+		FRA = {
+			add_ai_strategy = {
+				type = alliance
+				id = RUS
+				value = 200
+			}	
+		}
+		add_ideas = russian_french_alliance
+		GER = {
+			add_relation_modifier = {
+				target = RUS
+				modifier = RUS_align_FRA_neg
+			}			
+		}
+
+	}
+}
+
+# 法国拒绝恢复俄法同盟
+country_event = {
+	id = rus_diplo.3
+	title = rus_diplo.2.t
+	desc = rus_diplo.3.d
+	picture = GFX_report_event_second_vienna_award_pact
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.2.a
+		add_relation_modifier = {
+			target = FRA
+			modifier = refused_help
+		}
+	}
+}
+
+# 请求法俄同盟正式化
+country_event = {
+	id = rus_diplo.4
+	title = rus_diplo.2.t
+	desc = rus_diplo.4.d
+	picture = GFX_report_event_second_vienna_award_pact
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.4.a
+		#同意结盟
+		FROM = {
+			country_event = rus_diplo.5
+		}
+	}
+	option = {
+		name = rus_diplo.4.b
+		#拒绝结盟
+
+		ai_chance = {
+			factor = 0
+		}
+
+		FROM = {
+			country_event = rus_diplo.6
+		}
+	}
+}
+
+# [FROM.GetName]同意结盟
+country_event = {
+	id = rus_diplo.5
+	title = rus_diplo.2.t
+	desc = rus_diplo.5.d
+	picture = GFX_report_event_second_vienna_award_pact
+	
+	is_triggered_only = yes
+	
+	option = {
+		if = {
+			limit = {
+				FROM = {
+					is_faction_leader = yes
+				}
+			}
+			every_country = {
+				limit = {
+				    is_in_faction_with = RUS
+				}
+				FROM = {
+				    add_to_faction = PREV
+				}
+			}
+			FROM = {
+				add_to_faction = RUS
+			}
+		}
+		else = {
+			add_to_faction = FROM
+		}
+	}
+}
+
+# [FROM.GetName]拒绝结盟
+country_event = {
+	id = rus_diplo.6
+	title = rus_diplo.6.t
+	desc = rus_diplo.6.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.6.a
+		add_political_power = -20
+	}
+}
+
+#############
+# 请求恢复协约国
+country_event = {
+	id = rus_diplo.7
+	title = rus_diplo.7.t
+	desc = rus_diplo.7.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {#
+		#同意
+		name = rus_diplo.7.a
+		FROM = {
+			country_event = rus_diplo.5
+		}
+	}
+	option = {
+		#拒绝
+		name = rus_diplo.7.b
+		FROM = {
+			country_event = rus_diplo.6
+		}
+	}
+}
+
+# 俄罗斯转向英国
+country_event = {
+	id = rus_diplo.8
+	title = rus_diplo.8.t
+	desc = rus_diplo.8.d
+	picture = GFX_report_event_vienna_award_negotiations
+	fire_only_once = yes
+	
+	trigger = {
+		tag = FRA
+		RUS = {
+			is_in_faction_with = ENG			
+		}
+		FRA = {
+			is_faction_leader = yes
+		}
+	}
+	
+	option = {
+		#这是背叛行为！法国获得对俄国评价修正 RUS_betrayal
+		name = rus_diplo.8.a
+		add_relation_modifier = {
+			target = RUS
+			modifier = RUS_betrayal
+		}
+	}
+}
+
+
+#请求加入共荣圈
+country_event = {
+	id = rus_diplo.9
+	title = rus_diplo.9.t
+	desc = rus_diplo.9.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {#
+		#同意
+		name = rus_diplo.9.a
+		FROM = {
+			country_event = rus_diplo.5
+		}
+	}
+	option = {
+		#拒绝
+		name = rus_diplo.9.b
+		FROM = {
+			country_event = rus_diplo.6
+		}
+	}
+}
+
+
+# 俄罗斯转向日本
+country_event = {
+	id = rus_diplo.10
+	title = rus_diplo.10.t
+	desc = rus_diplo.10.d
+	picture = GFX_report_event_vienna_award_negotiations
+	fire_only_once = yes
+	
+	trigger = {
+		tag = ENG
+		RUS = {
+			is_in_faction_with = JAP			
+		}
+		ENG = {
+			is_faction_leader = yes
+		}
+	}
+	option = {
+		name = rus_diplo.10.a
+		#这可是他们自己选的
+		add_relation_modifier = {
+			target = RUS
+			modifier = RUS_betrayal
+		}
+	}
+}
+
+
+
+# 请求加入钢铁条约
+country_event = {
+	id = rus_diplo.11
+	title = rus_diplo.11.t
+	desc = rus_diplo.11.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {#
+		#同意
+		name = rus_diplo.11.a
+		FROM = {
+			country_event = rus_diplo.5
+		}
+	}
+	option = {
+		#拒绝
+		name = rus_diplo.11.b
+		FROM = {
+			country_event = rus_diplo.6
+		}
+	}
+}
+
+# 俄罗斯转向德国
+country_event = {
+	id = rus_diplo.12
+	title = rus_diplo.12.t
+	desc = rus_diplo.12.d
+	picture = GFX_report_event_vienna_award_negotiations
+	fire_only_once = yes
+	
+	trigger = {
+		OR = {
+			tag = ENG
+			tag = FRA
+		}
+		
+		#ROOT = {
+			NOT = {
+				is_in_faction_with = GER
+			}			
+		#}
+		RUS = {
+			is_in_faction_with = GER
+		}
+	}
+	
+	option = {
+		#这有点不妙啊，ROOT获得对俄国评价修正RUS_betrayal
+		name = rus_diplo.12.a
+		add_relation_modifier = {
+			target = RUS
+			modifier = RUS_betrayal
+		}
+	}
+}
+
+
+# 俄罗斯转向法国
+country_event = {
+	id = rus_diplo.13
+	title = rus_diplo.13.t
+	desc = rus_diplo.13.d
+	picture = GFX_report_event_vienna_award_negotiations
+	fire_only_once = yes
+	
+	trigger = {
+		tag = GER
+		GER = {
+			is_faction_leader = yes
+		}
+		RUS = {
+			is_in_faction_with = FRA
+		}
+	}
+	
+	option = {
+		name = rus_diplo.13.a
+		#我们要准备两线作战，+25陆军经验和50pp
+		army_experience = 25
+		add_political_power = 50
+	}
+}
+
+
+# 俄罗斯希望与我们划分势力范围
+country_event = {
+	id = rus_diplo.14
+	title = rus_diplo.14.t
+	desc = rus_diplo.14.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		#俄罗斯可以与我们瓜分东欧，RUS获得事件rus_diplo.15，ROOT获得flag        RUS_sphere_divided_west
+		name = rus_diplo.14.a
+		RUS = {
+			country_event = rus_diplo.15
+		}
+		set_country_flag = RUS_sphere_divided_west
+	}
+	option = {
+		#俄罗斯需要放弃对当前东欧国家的所有领土宣称，RUS获得事件rus_diplo.16
+		name = rus_diplo.14.b
+		RUS = {
+			country_event = rus_diplo.16
+		}		
+	}
+	
+	option = {
+		#我们没有兴趣，RUS获得事件rus_diplo.17
+		name = rus_diplo.14.c
+		RUS = {
+			country_event = rus_diplo.17
+		}
+	}	
+}
+
+
+##########
+# [FROM.GetName]同意了我们的势力范围协议
+country_event = {
+	id = rus_diplo.15
+	title = rus_diplo.15.t
+	desc = rus_diplo.15.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		##好的，获得与FROM的互不侵犯条约，获得国家flag RUS_sphere_divided
+		name = rus_diplo.15.a
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}	
+		set_country_flag = RUS_sphere_divided
+	}
+}
+
+# [FROM.GetName]要求我们放弃对于东欧国家的领土宣称
+country_event = {
+	id = rus_diplo.16
+	title = rus_diplo.16.t
+	desc = rus_diplo.16.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		
+
+		#行吧，获得与FROM的互不侵犯条约，如果FROM是GER，获得国家精神 RUS_sphere_invasion_not_available_GER；如果FROM是SWE，获得国家精神 RUS_sphere_invasion_not_available_SWE，FROM获得 rus_diplo.18
+		name = rus_diplo.16.a
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}		
+		if = {
+			limit = {
+				FROM = {
+					tag = GER
+				}
+			}
+			add_ideas = RUS_sphere_invasion_not_available_GER		
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = GER
+				}
+			}
+			add_ideas = RUS_sphere_invasion_not_available_SWE		
+		}
+		FROM = {
+			country_event = rus_diplo.18
+		}
+	}
+	
+	option = {
+		#容我们拒绝, FROM获得rus_diplo.19
+		name = rus_diplo.16.b
+		FROM = {
+			country_event = rus_diplo.19
+		}
+		
+	}
+}
+
+
+#[FROM.GetName]拒绝了我们的要求
+country_event = {
+	id = rus_diplo.17
+	title = rus_diplo.17.t
+	desc = rus_diplo.17.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.17.a
+		##他们会为此付出代价
+
+	}
+}
+
+
+# 俄罗斯同意了我们的要求
+country_event = {
+	id = rus_diplo.18
+	title = rus_diplo.18.t
+	desc = rus_diplo.18.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.18.a
+		#他们还蛮识趣，ROOT获得flag RUS_sphere_divided_west
+
+	}
+}
+
+
+# 俄罗斯拒绝了我们的要求
+country_event = {
+	id = rus_diplo.19
+	title = rus_diplo.19.t
+	desc = rus_diplo.19.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.19.a
+		#我们与他们说不定必有一战
+	}
+}
+
+#俄罗斯停止了和我们的合作
+country_event = {
+	id = rus_diplo.20
+	title = rus_diplo.20.t
+	desc = rus_diplo.20.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.20.a
+		#他们会为与西方的合作而后悔
+		#（如果在保独俄罗斯，则撤保；如果与俄罗斯有互不侵犯条约，则撤除，日本获得国家flag  RUS_cut_the_rope_with_us_JAP
+		if = {
+			limit = {
+				has_non_aggression_pact_with = RUS
+			}
+			diplomatic_relation = {
+				country = RUS
+				relation = non_aggression_pact
+				active = no
+			}			
+			
+		}
+		if = {
+			limit = {
+				has_guaranteed = RUS
+			}
+			diplomatic_relation = {
+				country = RUS
+				relation = guarantee
+				active = no
+			}			
+			
+		}
+		set_country_flag = RUS_cut_the_rope_with_us_JAP
+		
+	}
+}
+
+
+# 俄罗斯希望同我们和解
+country_event = {
+	id = rus_diplo.21
+	title = rus_diplo.21.t
+	desc = rus_diplo.21.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.21.a
+		#这是好的，（获得与RUS的互不侵犯条约
+		
+		diplomatic_relation = {
+			country = RUS
+			relation = non_aggression_pact
+			active = yes
+		}
+		RUS = {
+			diplomatic_relation = {
+				country = ROOT
+				relation = non_aggression_pact
+				active = yes
+			}				
+		}
+	}
+}
+
+
+# 俄罗斯希望回购满铁的部分权益
+country_event = {
+	id = rus_diplo.22
+	title = rus_diplo.22.t
+	desc = rus_diplo.22.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.22.a
+		#同意，获得200pp，如果有idea：idea_man_railway_benefit,变更为idea_man_railway_benefit_2，
+		#俄罗斯获得事件 rus_diplo.23
+		add_political_power = 200
+		ai_chance = {
+			factor = 1
+		}
+		if = {
+			limit = {
+				has_idea = idea_man_railway_benefit
+			}
+			swap_ideas = {
+				remove_idea = idea_man_railway_benefit
+				add_idea = idea_man_railway_benefit_2	
+			}
+		}
+		RUS = {
+			country_event = rus_diplo.23
+		}
+	}
+	option = {
+		name = rus_diplo.22.b
+		#拒绝，俄罗斯获得事件 rus_diplo.24
+		ai_chance = {
+			factor = 0
+		}
+		RUS = {
+			country_event = rus_diplo.24
+		}
+	}
+}
+
+
+############
+
+# 日本接受了回购要求
+country_event = {
+	id = rus_diplo.23
+	title = rus_diplo.23.t
+	desc = rus_diplo.23.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.23.a
+		
+		add_ideas = idea_man_railway_benefit_2	
+		add_political_power = -150
+	}
+}
+
+# 日本拒绝了回购要求
+country_event = {
+	id = rus_diplo.24
+	title = rus_diplo.24.t
+	desc = rus_diplo.24.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.24.a
+		add_political_power = -10
+	}
+}
+
+
+# 俄罗斯希望签订互不侵犯条约
+country_event = {
+	id = rus_diplo.25
+	title = rus_diplo.25.t
+	desc = rus_diplo.25.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.25.a
+		#好，这对我们都没有坏处，俄罗斯获得rus_diplo.26，显示该事件的tooltip
+		RUS = {
+			country_event = rus_diplo.26
+		}
+		ai_chance = {
+			factor = 1
+		}
+		effect_tooltip = {
+			diplomatic_relation = {
+				country = RUS
+				relation = non_aggression_pact
+				active = yes
+			}			
+		}
+	}
+	
+	option = {
+		name = rus_diplo.25.b
+		#拒绝，我们没有理由同意，俄罗斯获得 rus_diplo.27
+		ai_chance = {
+			factor = 0
+		}
+		RUS = {
+			country_event = rus_diplo.27
+		}
+	}
+}
+
+
+#[FROM.GetName]同意了互不侵犯条约
+country_event = {
+	id = rus_diplo.26
+	title = rus_diplo.26.t
+	desc = rus_diplo.26.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.26.a
+		#太好了，RUS与FROM获得互不侵犯条约，RUS获得50pp
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}
+		FROM = {
+			diplomatic_relation = {
+				country = RUS
+				relation = non_aggression_pact
+				active = yes
+			}
+		}
+		add_political_power = 50
+	}
+}
+
+
+#[FROM.GetName]拒绝了互不侵犯条约
+country_event = {
+	id = rus_diplo.27
+	title = rus_diplo.27.t
+	desc = rus_diplo.27.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = rus_diplo.27.a
+		add_political_power = -25
+	}
+}
+
+# 俄罗斯希望与我们划分势力范围
+country_event = {
+	id = rus_diplo.28
+	title = rus_diplo.28.t
+	desc = rus_diplo.28.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		#俄罗斯可以与我们瓜分东欧，RUS获得事件rus_diplo.29，ROOT获得flag        RUS_sphere_divided_west
+		name = rus_diplo.28.a
+
+		ai_chance = {
+      base = 20
+			modifier = {
+				factor = 3
+        UKR = { has_war_with = GER }
+			}
+		}
+
+		RUS = {
+			country_event = rus_diplo.29
+		}
+		set_country_flag = RUS_sphere_divided_west
+	}
+	option = {
+		#俄罗斯不能踏足我们支持的乌克兰，RUS获得事件rus_diplo.30
+		name = rus_diplo.28.b
+
+		trigger = { 
+			country_exists = UKR
+			UKR = { is_subject = no }
+			NOT = { UKR = { has_war_with = RUS } }
+			NOT = { UKR = { has_war_with = GER } }
+    	}
+
+		ai_chance = {
+			base = 60
+		}
+
+		RUS = {
+			country_event = rus_diplo.30
+		}		
+	}
+	
+	option = {
+		#我们没有兴趣，RUS获得事件rus_diplo.17
+		name = rus_diplo.28.c
+
+		ai_chance = {
+			base = 20
+			modifier = {
+				factor = 3
+				or = {
+					NOT = { country_exists = UKR }
+					UKR = { is_subject = yes }
+					UKR = { has_war_with = RUS }
+				}
+			}
+		}
+
+		RUS = {
+			country_event = rus_diplo.17
+		}
+	}	
+}
+
+##########
+# [FROM.GetName]同意了我们的势力范围协议
+country_event = {
+	id = rus_diplo.29
+	title = rus_diplo.29.t
+	desc = rus_diplo.29.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		##好的，获得与FROM的互不侵犯条约，获得国家flag RUS_sphere_divided
+		name = rus_diplo.29.a
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}	
+		set_country_flag = RUS_sphere_divided
+	}
+}
+
+# [FROM.GetName]要求我们放弃乌克兰
+country_event = {
+	id = rus_diplo.30
+	title = rus_diplo.30.t
+	desc = rus_diplo.30.d
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		
+		name = rus_diplo.30.a
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}		
+
+		diplomatic_relation = {
+			country = UKR
+			relation = non_aggression_pact
+			active = yes
+		}	
+
+		add_ideas = RUS_sphere_invasion_not_available_GER		
+
+		FROM = {
+			country_event = rus_diplo.18
+		}
+	}
+	
+	option = {
+		#容我们拒绝, FROM获得rus_diplo.19
+		name = rus_diplo.30.b
+		FROM = {
+			country_event = rus_diplo.19
+		}
+		
+	}
+}

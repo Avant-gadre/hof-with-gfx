@@ -1,0 +1,73 @@
+﻿###########################
+# GSK Britain Events
+###########################
+add_namespace = more_usa
+
+country_event = {     # USA Crisis mobilization
+	id = more_usa.1
+	title = more_usa.1.t
+	desc = more_usa.1.d
+	picture = GFX_report_event_german_detained_china
+
+	trigger = {
+    is_ai = yes
+    original_tag = USA
+    is_subject = no
+    has_civil_war = no
+
+    or = {
+      has_defensive_war = yes
+      threat > 0.50
+      surrender_progress > 0.1
+      ENG = { has_government = fascism } 
+      any_other_country = {
+        has_government = fascism
+        controls_state = 332
+      }
+    }
+
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	fire_only_once = yes
+
+	option = {
+		name = more_usa.1.a
+		ai_chance = {
+			factor = 100
+		}
+
+    set_country_flag = USA_Crisis_mobilization
+
+				add_political_power = 600
+
+				add_war_support = 0.1
+      
+
+							every_owned_state = {
+									if = {
+											limit = {
+													is_controlled_by = ROOT
+                                                    industrial_complex > 1
+												}
+					                        remove_building = {
+						                            type = industrial_complex
+						                            level = 1
+					                            }
+									add_building_construction = {
+											type = arms_factory
+											level = 1
+											instant_build = yes
+										}
+										}
+								}
+
+	}
+	
+
+}
+
+

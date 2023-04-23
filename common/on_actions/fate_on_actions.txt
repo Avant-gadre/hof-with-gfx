@@ -1,0 +1,284 @@
+
+on_actions = {
+	on_startup = {
+		effect = {
+			every_country = {
+				if = {
+					limit = { OR = { original_tag = ENG original_tag = FRA original_tag = ITA original_tag = JAP original_tag = SWE original_tag = BRA original_tag = CHI original_tag = PER original_tag = SOV original_tag = USA original_tag = FIC original_tag = RUS  original_tag = PRC original_tag = XSM } }
+					country_event = { id = intro.0 days = 5 random = 1 }
+				}
+			}
+
+			JAP = {
+				JAP_lock_all_initial_templates = yes
+				country_event = { id = jap_elective.1  days = 35 }
+				country_event = { id = jap_elective.27  days = 68 }
+				country_event = { id = jap_elective.35  days = 45 }
+				country_event = { id = jap_elective.37  days = 59 }
+			}
+
+			SOV = {
+				country_event = { id = soviet_flavour.1  days = 5 }
+				country_event = { id = ukr_western.2  days = 15 }
+			}
+
+			RUS = {
+				country_event = { id = russian_flavour.9  days = 40 }
+			}
+			
+			UKR = {
+				country_event = { id = ukr_western.1  days = 80 }
+				country_event = { id = ukr_western.2  days = 15 }
+			}
+			
+			FRA = {
+				country_event = { id = ukr_western.2  days = 15 }
+			}
+
+			POL = {
+				# country_event = { id = poland_hof.2  days = 35 }  ### PPS vs Endecja Conflicts -> PPS event chain
+				# country_event = { id = poland_hof.7  days = 71 }  ### PSL Witos retire ->PLS event chain
+			}
+
+			MAN = {
+				give_resource_rights = { receiver = JAP state = 716 }
+				give_resource_rights = { receiver = JAP state = 328 }
+			}
+
+			KEN = {
+				give_resource_rights = { receiver = ENG state = 771 }
+				give_resource_rights = { receiver = ENG state = 542 }
+			}
+
+			BUR = {
+				give_resource_rights = { receiver = ENG state = 640 }
+				give_resource_rights = { receiver = ENG state = 288 }
+			}
+
+			MAL = {
+				give_resource_rights = { receiver = ENG state = 336 }
+				give_resource_rights = { receiver = ENG state = 672 }
+				give_resource_rights = { receiver = ENG state = 333 }
+			}
+
+			BAH = {
+				give_resource_rights = { receiver = ENG state = 691 }
+				give_resource_rights = { receiver = ENG state = 687 }
+			}
+
+			PER = {
+				give_resource_rights = { receiver = ENG state = 413 }
+			}
+			
+		}
+	}
+  
+  on_new_term_election = {
+    random_events = {
+      100 = rw_jap_election.1
+      100 = rw_jap_election.2
+      100 = rw_jap_election.3
+      100 = rw_jap_election.4
+      100 = rw_jap_election.5
+    }
+  
+  }
+	
+	on_daily = { 
+		effect = {
+		JAP = { JAP_interDiff_calculation = yes  }
+		}
+	}
+
+	on_daily_USA = { 
+		effect = {
+			USA_congress_update_from_factions = yes
+		}
+	}
+  
+  on_weekly = {
+    effect = {
+      JAP = { JAP_interservice_swap = yes }
+	  
+	  
+	  ############## Rename ################
+	  ## Eugengrade
+	  if = {
+		limit = {
+			107 = {
+				NOT = { has_state_flag = GER_Eugengrade_named }
+				CONTROLLER = { OR = { tag = GER is_subject_of = GER } }	
+			}
+		}
+		
+		set_province_name = { id = 11586 name = Eugengrade }
+		set_state_flag = GER_Eugengrade_named
+	  }
+	  
+	  if = {
+		limit = {
+			107 = {
+				has_state_flag = GER_Eugengrade_named
+				CONTROLLER = { NOT = { tag = GER } NOT = { is_subject_of = GER } }	
+			}
+		}
+		
+		reset_province_name = 11586
+		clr_state_flag = GER_Eugengrade_named
+	  }
+	  ####################################
+	  ## Kaliningrad
+	  if = {
+		limit = {
+			763 = {
+				NOT = { has_state_flag = SOV_Kaliningrad_named }
+				CONTROLLER = { OR = { tag = SOV is_subject_of = SOV } }	
+			}
+		}
+		
+		set_province_name = { id = 6332 name = Kaliningrad }
+		set_state_flag = SOV_Kaliningrad_named
+	  }
+	  
+	  if = {
+		limit = {
+			763 = {
+				has_state_flag = SOV_Kaliningrad_named
+				CONTROLLER = { NOT = { tag = SOV } NOT = { is_subject_of = SOV } }	
+			}
+		}
+		
+		reset_province_name = 6332
+		clr_state_flag = SOV_Kaliningrad_named
+	  }
+	  
+	  ####################################
+	  ## Kornilov 
+	  if = {
+		limit = {
+			763 = {
+				NOT = { has_state_flag = RUS_Kornilov_named }
+				CONTROLLER = { OR = { tag = RUS is_subject_of = RUS } }	
+			}
+			### Remember Kornilov Affairs!
+			RUS = { OR = { has_government = neutrality has_government = fascism } }
+		}
+		
+		set_province_name = { id = 6332 name = Kornilov }
+		set_state_flag = RUS_Kornilov_named
+	  }
+	  
+	  if = {
+		limit = {
+			763 = {
+				has_state_flag = RUS_Kornilov_named
+				CONTROLLER = { NOT = { tag = RUS } NOT = { is_subject_of = RUS } }	
+			}
+		}
+		
+		reset_province_name = 6332
+		clr_state_flag = RUS_Kornilov_named
+	  }
+	  
+    }
+  }
+  on_monthly_TMS = {
+	  effect = {
+		subject_situation_change_list = yes
+	  }
+  }
+
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+			    tag = ROM
+				}
+				if = {
+					limit = {
+						date > 1936.10.1
+						FROM = { tag = HUN }							
+            			NOT = { has_global_flag = News_Third_Transylva_ian_War_flag }
+					}
+					hidden_effect = {
+            set_global_flag = News_Third_Transylva_ian_War_flag
+						news_event = { id = more_News.61 days = 1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+			    tag = HUN
+				}
+				if = {
+					limit = {
+						date > 1936.10.1
+						FROM = { tag = ROM }							
+            			NOT = { has_global_flag = News_Third_Transylva_ian_War_flag }
+					}
+					hidden_effect = {
+            set_global_flag = News_Third_Transylva_ian_War_flag
+						news_event = { id = more_News.61 days = 1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = RUS
+				}
+				if = {
+					limit = {
+						FROM = { tag = GER }							
+            NOT = { has_global_flag = News_Thunderstorm_for_RUS_flag }
+					}
+					hidden_effect = {
+            set_global_flag = News_Thunderstorm_for_RUS_flag
+						news_event = { id = more_News.60 days = 1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = SOV
+				}
+				if = {
+					limit = {
+						FROM = { tag = GER }							
+            NOT = { has_global_flag = News_Thunderstorm_for_SOV_flag }
+					}
+					hidden_effect = {
+            set_global_flag = News_Thunderstorm_for_SOV_flag
+						news_event = { id = more_News.59 days = 1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = GER
+				}
+				if = {
+					limit = {
+						FROM = { tag = SOV }							
+            NOT = { has_global_flag = News_Barbarossa_to_SOV_flag }
+					}
+					hidden_effect = {
+            set_global_flag = News_Barbarossa_to_SOV_flag
+						news_event = { id = more_News.57 days = 1 }
+					}
+				}
+				if = {
+					limit = {
+						FROM = { tag = RUS }							
+            NOT = { has_global_flag = News_Barbarossa_to_RUS_flag }
+					}
+					hidden_effect = {
+            set_global_flag = News_Barbarossa_to_RUS_flag
+						news_event = { id = more_News.58 days = 1 }
+					}
+				}
+			}
+		}
+	}
+
+}
+

@@ -1,0 +1,258 @@
+ITA_will_support = {
+	ITA = {
+		exists = yes
+		has_capitulated = no
+		NOT = {
+			has_war_with = ROOT
+		}
+		OR = {
+			has_opinion = { target = ROOT value > 74 }
+			is_in_faction_with = ROOT
+			ROOT = {
+				is_subject_of = ITA
+			}
+		}
+	}
+}
+
+ITA_possibly_alliance = {
+	ITA = {
+		exists = yes
+		is_subject = no
+		NOT = {
+			has_war_with = ROOT
+      has_idea = GER_rom_non_aggression_idea
+			has_offensive_war = yes
+			has_added_tension_amount > 5
+		}		
+	}
+	OR = {
+	    AND = {
+		    ITA = { is_faction_leader = yes }
+			ROOT = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_faction_leader = yes }
+			ITA = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_in_faction = no }
+			ITA = { is_in_faction = no }
+		}
+	}
+	OR = {
+	    AND = {
+		    ITA = { has_government = fascism }
+			ROOT = { has_government = fascism }
+		}
+		AND = {
+		    ITA = { has_government = neutrality }
+			ROOT = { has_government = neutrality }
+		}
+	}
+}
+
+
+JAP_possibly_alliance = {
+	JAP = {
+		exists = yes
+		NOT = {
+			has_war_with = ROOT
+		}		
+	}
+	OR = {
+	    AND = {
+		    JAP = { is_faction_leader = yes }
+			ROOT = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_faction_leader = yes }
+			JAP = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_in_faction = no }
+			JAP = { is_in_faction = no }
+		}
+	}
+	OR = {
+	    AND = {
+		    JAP = { has_government = fascism }
+			ROOT = { has_government = fascism }
+		}
+		AND = {
+		    OR = { 
+				JAP = { has_government = neutrality } 
+				JAP = { has_government = democratic } 
+			}		    
+			ROOT = { has_government = neutrality }
+		}
+	}
+}
+
+
+GER_possibly_alliance = {
+	GER = {
+		exists = yes
+		NOT = {
+			has_war_with = ROOT
+		}		
+	}
+	OR = {
+	    AND = {
+		    GER = { is_faction_leader = yes }
+			ROOT = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_faction_leader = yes }
+			GER = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_in_faction = no }
+			GER = { is_in_faction = no }
+		}
+	}
+	AND = {
+		GER = { has_government = fascism }
+        ROOT = { has_government = fascism }
+	}
+}
+
+
+
+FRA_possibly_alliance = {
+	FRA = {
+		exists = yes
+		NOT = {
+			has_war_with = ROOT
+		}		
+	}
+	OR = {
+	    AND = {
+		    FRA = { is_faction_leader = yes }
+			ROOT = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_faction_leader = yes }
+			FRA = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_in_faction = no }
+			FRA = { is_in_faction = no }
+		}
+	}
+	AND = {
+		FRA = { has_government = fascism }
+        ROOT = { has_government = fascism }
+	}
+}
+
+HUN_possibly_alliance = {
+	HUN = {
+		exists = yes
+		NOT = {
+			has_war_with = ROOT
+		}		
+	}
+	OR = {
+	    AND = {
+		    HUN = { is_faction_leader = yes }
+			ROOT = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_faction_leader = yes }
+			HUN = { is_in_faction = no }
+		}
+		AND = {
+		    ROOT = { is_in_faction = no }
+			HUN = { is_in_faction = no }
+		}
+	}
+  OR = {
+    HUN = { has_government = fascism }
+    HUN = { has_government = neutrality }
+  }
+	
+}
+
+is_spainish_state = {
+  OR = {
+    state = 169
+    state = 166
+    state = 177
+    state = 178
+    
+    state = 790
+    state = 176
+    state = 165
+    state = 290
+    
+    state = 167
+    state = 791
+    
+    state = 788
+    state = 783
+    
+    state = 789
+    state = 794
+    
+    state = 170
+    state = 792
+    state = 171
+    
+    state = 173
+    state = 165
+    state = 172
+    state = 168
+    
+    state = 793
+    state = 175
+    state = 174
+    state = 41
+  }
+}
+
+is_kit_state = {
+  OR = {
+    state = 158
+    state = 159
+    
+    state = 39
+    state = 160
+    
+    state = 736
+    state = 161
+    
+    state = 162
+    state = 157
+  }
+}
+
+is_npl_state = {
+  OR = {
+    state = 156
+    state = 117
+
+  }
+}
+
+is_owned_and_subject_root = {
+  OWNER = {
+    OR = {
+      tag = ROOT
+      is_subject_of = ROOT
+    }
+  }
+}
+
+USA_can_sell_weapons_trigger_general = {
+	NOT = { 
+		USA = {
+			AND = {
+				has_completed_focus = USA_neutrality_act 
+				NOT = { has_completed_focus = USA_lend_lease_act } #Can't sell weapons if US has declared neutrality without passing Lend-Lease Act
+			}
+			has_war_with = ROOT
+		}
+	}
+	USA = { has_civil_war = no }
+}

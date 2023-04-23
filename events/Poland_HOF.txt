@@ -1,0 +1,1251 @@
+###########################
+# Polish Events HOF, made by Entarogan
+###########################
+
+add_namespace = poland_hof
+add_namespace = poland_flavour
+add_namespace = poland_ai_cheating
+
+
+##### 1936 Polish Election
+country_event = {
+	id = poland_hof.1
+	title = poland_hof.1.t
+	desc = poland_hof.1.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = POL_election_triggered_flag
+		}
+	}
+	
+	option = {
+		name = poland_hof.1.a
+		### PSL Elected
+		trigger = {
+			check_variable = {
+				var = POL_PSL_Power
+				value = POL_Sanacja_Power
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				var = POL_PSL_Power
+				value = POL_Endecja_Power
+				compare = greater_than_or_equals
+			}
+		}
+		country_event = { id = poland_hof.13 hours = 12 }
+	}
+
+	option = {
+		name = poland_hof.1.b
+		### Sanacja Maintained
+		trigger = {
+			check_variable = {
+				var = POL_Sanacja_Power
+				value = POL_PSL_Power
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				var = POL_Sanacja_Power
+				value = POL_Endecja_Power
+				compare = greater_than_or_equals
+			}
+		}
+		country_event = { id = poland_hof.14 hours = 12 }
+	}
+
+	option = {
+		name = poland_hof.1.c
+		### Endejca Elected
+		trigger = {
+			check_variable = {
+				var = POL_Endecja_Power
+				value = POL_Sanacja_Power
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				var = POL_Endecja_Power
+				value = POL_PSL_Power
+				compare = greater_than_or_equals
+			}
+		}
+		country_event = { id = poland_hof.15 hours = 12 }
+	}
+}
+
+##### Conflicts between PPS and Endecja
+country_event = {
+	id = poland_hof.2
+	title = poland_hof.2.t
+	desc = poland_hof.2.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = poland_hof.3  days = 55 }
+		}
+	}
+	
+	option = {
+		name = poland_hof.2.a
+		### PPS gained
+		POL_PPS_power_increase = yes
+		POL_Endecja_power_decrease = yes
+	}
+
+	option = {
+		name = poland_hof.2.b
+		### Endecja gained
+		POL_PPS_power_decrease = yes
+		POL_Endecja_power_increase = yes
+	}
+}
+
+
+##### PPS and PSL Coalition?
+country_event = {
+	id = poland_hof.3
+	title = poland_hof.3.t
+	desc = poland_hof.3.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = poland_hof.3.a
+		### PSL made a compromise
+		add_stability = -0.05
+		custom_effect_tooltip = POL_this_would_be_influential_tt
+		hidden_effect = {
+			set_country_flag = POL_PSL_PPS_deal_flag
+			add_to_variable = {
+				var = POL_PSL_Power
+				value = POL_PPS_Power
+			}
+		}
+	}
+
+	option = {
+		name = poland_hof.3.b
+		### No Deal
+		add_stability = 0.05
+	}
+}
+
+##### PSL Peasant Strike!
+country_event = {
+	id = poland_hof.4
+	title = poland_hof.4.t
+	desc = poland_hof.4.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			
+		}
+	}
+	
+	option = {
+		name = poland_hof.4.a
+		### 
+		add_stability = -0.10
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		custom_effect_tooltip = POL_what_happens_next_depends_on_chosen_options_tt
+		if = {
+			limit = {
+				has_country_flag = POL_PSL_PPS_deal_flag
+			}
+			### PPS joined Strike, Sanacja Collapsed
+			hidden_effect = {
+				country_event = { id = poland_hof.5 days = 5 }
+			}
+		}
+		else_if = {
+			limit = {
+				set_temp_variable = { Sanacja_Repression = POL_Sanacja_repression }
+				subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
+				check_variable = {
+					var = Sanacja_Repression
+					value = -19
+					compare = less_than
+				}
+			}
+			hidden_effect = {
+				country_event = { id = poland_hof.9 days = 6 }
+				country_event = { id = poland_hof.12 days = 6 }
+			}
+			### PPS refused to strike
+			### Repression failed, PSL made a government
+		}
+		else_if = {
+			limit = { 
+				set_temp_variable = { Sanacja_Repression = POL_Sanacja_repression }
+				subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
+				check_variable = {
+					var = Sanacja_Repression
+					value = -20
+					compare = greater_than
+				}
+				check_variable = {
+					var = Sanacja_Repression
+					value = 11
+					compare = less_than
+				}
+			}
+			hidden_effect = {
+				country_event = { id = poland_hof.9 days = 6 }
+				country_event = { id = poland_hof.10 days = 10 }
+			}
+			### PPS refused to strike
+			### Sanacja Repression lead to civil war
+		}
+		else = {
+			hidden_effect = {
+				country_event = { id = poland_hof.9 days = 6 }
+				country_event = { id = poland_hof.11 days = 10 }
+			}
+			### PPS refused to strike
+			### Sanacja Strike Cracked Down
+		}
+	}
+}
+
+
+##### PPS started a strike in City
+country_event = {
+	id = poland_hof.5
+	title = poland_hof.5.t
+	desc = poland_hof.5.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = poland_hof.5.a
+		### PPS leads a government!
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+		hidden_effect = {
+			set_country_flag = POL_Sanacja_Government_democratized_flag
+			country_event = { id = poland_hof.6 days = 7 }
+		}
+	}
+}
+
+
+##### PPS lead government, Centrolew
+country_event = {
+	id = poland_hof.6
+	title = poland_hof.6.t
+	desc = poland_hof.6.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = poland_hof.6.a
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = no
+		}
+		add_country_leader_role = {
+			character = POL_natalia_kaminska
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = {  }
+			}
+		}
+		### TODO: Set Natalya Kaminska as country leader
+		set_party_name = {
+			ideology = democratic
+			long_name = POL_PPS_name_Long
+			name = POL_PPS_name
+		}
+		hidden_effect = {
+			set_country_flag = POL_Centrolew_government_flag
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+
+##### PSL Witos retired #####
+country_event = {
+	id = poland_hof.7
+	title = poland_hof.7.t
+	desc = poland_hof.7.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = poland_hof.7.a
+		### Set PSL Leaders to Sona
+		remove_country_leader_role = {
+			character = POL_wincenty_witos
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_sona_flametail
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {  }
+			}
+		}
+	}
+}
+
+##### Front Morges Established #####
+country_event = {
+	id = poland_hof.8
+	title = poland_hof.8.t
+	desc = poland_hof.8.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = poland_hof.8.a
+		### Maria leads the Front Morges
+		hidden_effect = {
+			set_country_flag = POL_Front_Morges_established
+		}
+	}
+}
+
+##### PPS refused to strike! ######
+country_event = {
+	id = poland_hof.9
+	title = poland_hof.9.t
+	desc = poland_hof.9.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = poland_hof.9.a
+		### PPS refused to strike!
+		add_stability = 0.05
+
+		hidden_effect = {
+			set_country_flag = POL_PPS_Strike_refused
+		}
+	}
+}
+
+##### Incoming Sanacja Repression: Civil War #####
+country_event = {
+	id = poland_hof.10
+	title = poland_hof.10.t
+	desc = poland_hof.10.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Go with PSL and peasants!
+		name = poland_hof.10.a
+		POL_Peasant_Strike_Civil_War_PSL = yes
+		hidden_effect = {
+			set_country_flag = POL_no_need_to_elect_flag
+		}
+	}
+
+	option = {    #### Go with Sanacja!
+		name = poland_hof.10.b
+		POL_Peasant_Strike_Civil_War_Sanacja = yes
+		hidden_effect = {
+			set_country_flag = POL_no_need_to_elect_flag
+		}
+	}
+}
+
+
+##### Incoming Sanacja Repression: Peasant Strike cracked down #####
+country_event = {
+	id = poland_hof.11
+	title = poland_hof.11.t
+	desc = poland_hof.11.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Strike Cracked Down
+		name = poland_hof.11.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.10
+		}
+		add_stability = 0.05
+		hidden_effect = {
+			remove_country_leader_role = {
+				character = POL_sona_flametail
+				ideology = liberalism
+			}
+			add_country_leader_role = {
+				character = POL_wincenty_witos
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+					traits = {  }
+				}
+			}
+		}
+		### TODO: Remove ideas
+		retire_character = POL_sona_flametail
+		retire_character = POL_iwona_krukowska
+		retire_character = POL_greynuty_kaliska
+		retire_character = POL_justyna_valentine
+		hidden_effect = {
+			### set_country_flag = POL_Sanacja_government_flag
+			#### TODO: Which Sanacja？
+			### mark_focus_tree_layout_dirty = yes
+			
+			POL_PSL_power_decrease = yes
+			POL_PSL_power_decrease = yes
+			POL_PSL_power_decrease = yes
+			POL_PSL_power_decrease = yes
+			if = {
+				limit = {
+					has_country_flag = POL_sanacja_elected_flag
+				}
+				set_country_flag = POL_Sanacja_government_flag
+				if = {
+					limit = {
+						has_completed_focus = POL_woo_morges_staff_hof
+					}
+					set_country_flag = POL_Morges_Sanacja_flag
+				}
+				else_if = {
+					limit = {
+						has_completed_focus = POL_ozon_hof
+					}
+					set_country_flag = POL_Nationalist_Sanacja_flag
+				}
+				else = {
+					set_country_flag = POL_Nearl_Sanacja_flag
+				}
+			}
+		}
+	}
+}
+
+
+##### Incoming Sanacja Repression: Sanacja Collapsed #####
+country_event = {
+	id = poland_hof.12
+	title = poland_hof.12.t
+	desc = poland_hof.12.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### PSL government
+		name = poland_hof.12.a
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.10
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.15
+		}
+		add_stability = 0.05
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			set_country_flag = POL_PSL_government_flag
+			country_event = { id = poland_hof.20  days = 2 }
+		}
+		hidden_effect = {
+			set_country_flag = POL_no_need_to_elect_flag
+		}
+	}
+}
+
+
+##### PSL Elected:
+country_event = {
+	id = poland_hof.13
+	title = poland_hof.13.t
+	desc = poland_hof.13.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### PSL government
+		name = poland_hof.13.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.10
+		}
+		add_stability = 0.05
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			set_country_flag = POL_PSL_government_flag
+			set_country_flag = POL_peasant_strike_halted_election_flag
+			if = {
+				limit = {
+					set_temp_variable = { Sanacja_Repression = POL_Sanacja_repression }
+					subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
+					OR = {
+						check_variable = {
+							var = Sanacja_Repression
+							value = -9
+							compare = less_than
+						}
+						has_completed_focus = POL_woo_morges_staff_hof
+					}
+				}
+				country_event = { id = poland_hof.20 days = 1 }
+			}
+			else = {
+				country_event = { id = poland_hof.18 days = 1 }
+			}
+		}
+	}
+}
+
+
+##### Sanacja Elected:
+country_event = {
+	id = poland_hof.14
+	title = poland_hof.14.t
+	desc = poland_hof.14.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Sanacja government
+		name = poland_hof.14.a
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+		add_stability = 0.05
+		### TODO: Remove ideas
+		hidden_effect = {
+			# set_country_flag = POL_Sanacja_government_flag
+			set_country_flag = POL_peasant_strike_halted_election_flag
+			set_country_flag = POL_sanacja_elected_flag
+			#### TODO: Which Sanacja？
+			### mark_focus_tree_layout_dirty = yes
+			
+		}
+		if = { 
+			limit = {
+				set_temp_variable = { Sanacja_PSL_Compare = POL_Sanacja_power }
+				subtract_from_temp_variable = { Sanacja_PSL_Compare = POL_PSL_Power }
+				check_variable = {
+					var = Sanacja_PSL_Compare
+					value = -11
+					compare = greater_than
+				}
+				NOT = { has_completed_focus = POL_woo_morges_staff_hof }
+			}
+			### PSL defy the election if the margin is too close
+			hidden_effect = {
+				country_event = { id = poland_hof.21 days = 1 }
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_country_flag = POL_Sanacja_government_flag
+				if = {
+					limit = {
+						has_completed_focus = POL_woo_morges_staff_hof
+					}
+					set_country_flag = POL_Morges_Sanacja_flag
+				}
+				else_if = {
+					limit = {
+						has_completed_focus = POL_ozon_hof
+					}
+					set_country_flag = POL_Nationalist_Sanacja_flag
+				}
+				else = {
+					set_country_flag = POL_Nearl_Sanacja_flag
+				}
+			}
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+}
+
+##### Endecja Elected:
+country_event = {
+	id = poland_hof.15
+	title = poland_hof.15.t
+	desc = poland_hof.15.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Endecja government
+		name = poland_hof.15.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_stability = -0.05
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			set_country_flag = POL_peasant_strike_halted_election_flag
+			if = {
+				limit = {
+					set_temp_variable = { Sanacja_Repression = POL_Sanacja_repression }
+					subtract_from_temp_variable = { Sanacja_Repression = POL_Endecja_Power }
+					check_variable = {
+						var = Sanacja_Repression
+						value = -5
+						compare = greater_than
+					}
+					NOT = { has_country_flag = POL_OZON_formed_flag }
+					NOT = { has_completed_focus = POL_woo_morges_staff_hof }
+					NOT = { has_completed_focus = POL_ozon_hof }
+				}
+				country_event = { id = poland_hof.16  hours = 35 }
+			}
+			else = {
+				country_event = { id = poland_hof.17  hours = 35 }
+				# set_country_flag = POL_Endecja_government_flag
+			}
+			
+		}
+	}
+}
+
+
+##### Since Endecja Elected, Sanacja set a coup d'etat
+country_event = {
+	id = poland_hof.16
+	title = poland_hof.16.t
+	desc = poland_hof.16.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Endecja government
+		name = poland_hof.16.a
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.10
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.10
+		}
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		add_country_leader_role = {
+			character = POL_natalia_kaminska
+			promote_leader = yes
+			country_leader = {
+				ideology = stratocracy
+				expire = "1965.1.1.1"
+				traits = { }
+			}
+		}
+
+		hidden_effect = {
+			set_country_flag = POL_Sanacja_government_flag
+			set_country_flag = POL_Leftist_Sanacja_flag
+			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+
+##### Endecja Government confirmed
+country_event = {
+	id = poland_hof.17
+	title = poland_hof.17.t
+	desc = poland_hof.17.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Endecja government
+		name = poland_hof.17.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_stability = -0.05
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			set_country_flag = POL_Endecja_government_flag
+		}
+		retire_character = POL_natalia_kaminska
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+
+##### PSL elected, Sanacja defy the result
+
+country_event = {
+	id = poland_hof.18
+	title = poland_hof.18.t
+	desc = poland_hof.18.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Civil War
+		name = poland_hof.18.a
+		trigger = {
+			set_temp_variable = { Sanacja_Repression = POL_Sanacja_repression }
+			subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
+			check_variable = {
+				var = Sanacja_Repression
+				value = 21
+				compare = less_than
+			}
+		}
+		hidden_effect = {
+			country_event = { id = poland_hof.10 days = 6 }
+		}
+
+	} 
+
+	option = {    #### Sanacja Coup d'etat
+		name = poland_hof.18.b
+		trigger = {
+			set_temp_variable = { Sanacja_Repression = POL_Sanacja_repression }
+			subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
+			check_variable = {
+				var = Sanacja_Repression
+				value = 20
+				compare = greater_than
+			}
+		}
+		hidden_effect = {
+			country_event = { id = poland_hof.19 days = 6 }
+		}
+
+	} 
+}
+
+
+##### Sanacja set a coup d'etat against PSL
+country_event = {
+	id = poland_hof.19
+	title = poland_hof.19.t
+	desc = poland_hof.19.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### Sanacja government
+		name = poland_hof.19.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.10
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.10
+		}
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			remove_country_leader_role = {
+				character = POL_sona_flametail
+				ideology = liberalism
+			}
+			add_country_leader_role = {
+				character = POL_wincenty_witos
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+					traits = {  }
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { 
+					has_country_leader = {
+						character = POL_edward_rydzSmigly
+						ruling_only = yes
+					}
+				}
+			}
+			add_country_leader_role = {
+				character = POL_edward_rydzSmigly
+				promote_leader = yes
+				country_leader = {
+					ideology = stratocracy
+					expire = "1965.1.1.1"
+					traits = {  }
+				}
+			}
+		}
+		retire_character = POL_sona_flametail
+		retire_character = POL_greynuty_kaliska
+		retire_character = POL_iwona_krukowska
+		retire_character = POL_justyna_valentine
+		hidden_effect = {
+			set_country_flag = POL_Sanacja_government_flag
+			set_country_flag = POL_Nationalist_Sanacja_flag
+			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+##### PSL government confirmed
+country_event = {
+	id = poland_hof.20
+	title = poland_hof.20.t
+	desc = poland_hof.20.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### PSL government
+		name = poland_hof.20.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		if = {
+			limit = {
+				NOT = { has_government = democratic }
+			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+			}
+		}
+		
+		hidden_effect = {
+			set_country_flag = POL_PSL_government_flag
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+
+##### PSL refused to confirm the election
+country_event = {
+	id = poland_hof.21
+	title = poland_hof.21.t
+	desc = poland_hof.21.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### PSL Strike
+		name = poland_hof.21.a
+		country_event = { id = poland_hof.4 days = 3 }
+	}
+}
+
+#########################################
+##### 
+country_event = {
+	id = poland_hof.22
+	title = poland_hof.22.t
+	desc = poland_hof.22.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### The second Lwow Trial
+		name = poland_hof.22.a
+		unlock_national_focus = POL_the_second_lwow_trial
+		91 = { add_resistance = -7.5 }
+		89 = { add_resistance = -7.5 }
+		93 = { add_resistance = -5 }
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = poland_hof.23
+	title = poland_hof.23.t
+	desc = poland_hof.23.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    #### The Third Lwow Trial
+		name = poland_hof.23.a
+		
+		if = {
+			limit = {
+				has_idea = UKR_OUN_subversion_POL
+			}
+			remove_ideas = { UKR_OUN_subversion_POL }
+		}
+		if = {
+			limit = {
+				has_idea = UKR_OUN_subversion_POL_2
+			}
+			remove_ideas = { UKR_OUN_subversion_POL_2 }
+		}
+	}
+}
+
+###################################################
+### The Second Brest Trial Series #################
+###################################################
+
+country_event = {
+	id = poland_hof.24
+	title = poland_hof.24.t
+	desc = poland_hof.24.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Anonymous Report Letter against Meteorite
+		name = poland_hof.24.a
+		add_stability = -0.015
+		hidden_effect = {
+			country_event = { id = poland_hof.25 days = 2 }
+		}
+	}
+}
+
+country_event = {
+	id = poland_hof.25
+	title = poland_hof.25.t
+	desc = poland_hof.25.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Meteorite Arrested
+		name = poland_hof.25.a
+		add_stability = -0.015
+		hidden_effect = {
+			country_event = { id = poland_hof.26 days = 3 }
+		}
+	}
+}
+
+country_event = {   ### Czarny met with Firewatch
+	id = poland_hof.26
+	title = poland_hof.26.t
+	desc = poland_hof.26.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### I trust Meteorite
+		name = poland_hof.26.a
+		add_stability = -0.015
+		hidden_effect = {
+			set_country_flag = POL_Firewatch_refused_to_testify_flag
+		}
+	}
+
+	option = {    ### I will testify
+		name = poland_hof.26.b
+		add_stability = -0.015
+		hidden_effect = {
+			set_country_flag = POL_Firewatch_refused_to_testify_flag
+		}
+	}
+}
+
+country_event = {   ### The Second Brest Trial: Meteorite innocent
+	id = poland_hof.27
+	title = poland_hof.27.t
+	desc = poland_hof.27.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### What a farce!
+		name = poland_hof.27.a
+		add_political_power = 25
+		POL_Endecja_power_decrease = yes
+		unlock_national_focus = POL_the_second_brest_trial
+		hidden_effect = {
+			set_country_flag = POL_Meteorite_innocent_flag
+		}
+	}
+}
+
+country_event = {   ### The Second Brest Trial: Meteorite Treason
+	id = poland_hof.28
+	title = poland_hof.28.t
+	desc = poland_hof.28.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### What a shame!
+		name = poland_hof.28.a
+		POL_Endecja_power_increase = yes
+		retire_character = POL_meteorite
+		unlock_national_focus = POL_the_second_brest_trial
+		hidden_effect = {
+			set_country_flag = POL_Meteorite_treason_flag
+		}
+	}
+}
+
+country_event = {   ### Antisemitic Waves (Innocent)
+	id = poland_hof.29
+	title = poland_hof.29.t
+	desc = poland_hof.29.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### What a shame!
+		name = poland_hof.29.a
+		# POL_Endecja_power_increase_10 = yes
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.075
+		}
+	}
+}
+
+country_event = {   ### Antisemitic Waves (Treason)
+	id = poland_hof.30
+	title = poland_hof.30.t
+	desc = poland_hof.30.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### What a shame!
+		name = poland_hof.30.a
+		# POL_Endecja_power_increase_10 = yes
+		POL_Endecja_power_increase = yes
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.075
+		}
+	}
+}
+
+country_event = {   ### Warsaw Riot
+	id = poland_hof.31
+	title = poland_hof.31.t
+	desc = poland_hof.31.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### 
+		name = poland_hof.31.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							has_country_flag = POL_Meteorite_innocent_flags
+							check_variable = {
+								var = POL_Sanacja_repression
+								value = 25
+								compare = greater_than_or_equals
+							}
+						}
+						AND = {
+							has_country_flag = POL_Meteorite_treason_flag
+							check_variable = {
+								var = POL_Sanacja_repression
+								value = 40
+								compare = greater_than_or_equals
+							}
+						}
+					}
+				}
+				country_event = { id = poland_hof.32  days = 1 }
+			}
+			else = {
+				country_event = { id = poland_hof.33  days = 1 }
+			}
+		}
+	}
+}
+
+country_event = {   ### Warsaw Riot (Fail)
+	id = poland_hof.32
+	title = poland_hof.32.t
+	desc = poland_hof.32.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### 
+		name = poland_hof.32.a
+		POL_Endecja_power_decrease_10 = yes
+	}
+}
+
+country_event = {   ### Warsaw Riot
+	id = poland_hof.33
+	title = poland_hof.33.t
+	desc = poland_hof.33.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### 
+		name = poland_hof.33.a
+		POL_Endecja_power_increase_10 = yes
+	}
+}
+
+country_event = {   ### SOV/UKR: POL is preparing to attack
+	id = poland_hof.34
+	title = poland_hof.34.t
+	desc = poland_hof.34.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### OK
+		name = poland_hof.34.a
+		add_ai_strategy = {
+			type = prepare_for_war
+			id = POL
+			value = 100
+		}
+	}
+}
+
+country_event = {   ### POL: Conduct Prometeizm
+	id = poland_hof.35
+	title = poland_hof.35.t
+	desc = poland_hof.35.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = yes
+	mean_time_to_happen = { days = 1 }
+	trigger = {
+		has_completed_focus = POL_conduct_Prometeizm
+		date > 1937.1.1
+		has_civil_war = no
+		is_subject = no
+		has_capitulated = no
+	}
+	
+	option = {    ### OK
+		name = poland_hof.35.a
+		declare_war_on = {
+			target = SOV
+			type = take_state_focus
+			generator = { 207 241 206 204 194 }
+		}
+		activate_mission = POL_Prometeizm_mission
+		SOV = { activate_mission = POL_Prometeizm_mission_SOV }
+	}
+}
+
+country_event = {
+	id = poland_ai_cheating.1001
+	title = poland_ai_cheating.1001.t
+	desc = poland_ai_cheating.1001.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		tag = POL
+		is_ai = yes
+		is_subject = no
+		has_capitulated = no
+		date > 1937.3.1
+	}
+	fire_only_once = yes
+	
+	option = {    #### 
+		name = poland_hof.1001.a
+		add_state_core = 94
+		add_state_core = 95
+		add_state_core = 96
+	}
+}
+
+country_event = {
+	id = poland_ai_cheating.1002
+	title = poland_ai_cheating.1002.t
+	desc = poland_ai_cheating.1002.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		tag = POL
+		is_ai = yes
+		is_subject = no
+		has_capitulated = no
+		date > 1938.3.1
+	}
+	fire_only_once = yes
+	
+	option = {    #### 
+		name = poland_hof.1002.a
+		add_state_core = 93
+	}
+}
+
+country_event = {
+	id = poland_ai_cheating.1003
+	title = poland_ai_cheating.1003.t
+	desc = poland_ai_cheating.1003.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		tag = POL
+		is_ai = yes
+		is_subject = no
+		has_capitulated = no
+		date > 1939.3.1
+	}
+	fire_only_once = yes
+	
+	option = {    #### 
+		name = poland_hof.1003.a
+		add_state_core = 89
+		add_state_core = 91
+	}
+}

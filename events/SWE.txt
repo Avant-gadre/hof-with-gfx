@@ -1,0 +1,173 @@
+﻿
+
+add_namespace = swe_mot
+
+# Norway_Denmark Annex
+country_event = {
+	id = swe_mot.1
+	title = swe_mot.1.t
+	desc = swe_mot.1.d
+	picture = GFX_report_event_generic_scandinavia
+	
+	is_triggered_only = yes
+	
+	option = {
+        name = swe_mot.1.a
+        if = {
+            limit = { FROM = { tag = DEN } }
+            
+            create_corps_commander = {
+                name = "Hans Christian Andersen"
+                picture = "Portrait_Hans_Christian_Andersen.dds"
+                traits = {  politically_connected inflexible_strategist trickster trait_engineer }
+                skill = 5
+                attack_skill = 2
+                defense_skill = 3
+                planning_skill = 5
+                logistics_skill = 5
+            }
+        }
+        
+        if = {
+            limit = { FROM = { tag = NOR } }
+            
+            create_field_marshal = {
+                name = "Eiríkr Haraldsson"
+                picture = "Portrait_Eric.dds"
+                traits = {  politically_connected inspirational_leader politically_connected harsh_leader adaptable trait_reckless }
+                skill = 5
+                attack_skill = 4
+                defense_skill = 2
+                planning_skill = 3
+                logistics_skill = 3
+            }
+        }
+        
+        if = {
+            limit = { FROM = { tag = FIN }  has_government = democratic }
+            
+            create_corps_commander = {
+                name = "Luviagelita Edefelt"
+                picture = "Portrait_Luviagelita_Edefelt.dds"
+                traits = { organizer politically_connected organisational_leader inspirational_leader politically_connected expert_delegator adaptable brilliant_strategist thorough_planner  }
+                skill = 5
+                attack_skill = 4
+                defense_skill = 4
+                planning_skill = 6
+                logistics_skill = 4
+            }
+        }
+        
+		annex_country = { target = FROM transfer_troops = yes }
+		add_named_threat = { threat = 2 name = SWE_Annex }
+
+	}
+}
+
+# Norway Denmark Rejects
+country_event = {
+	id = swe_mot.2
+	title = swe_mot.2.t
+	desc = swe_mot.2.d
+	picture = GFX_report_event_generic_scandinavia
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = swe_mot.2.a
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			expire = 0
+		}
+	}
+    
+    option = {
+		name = swe_mot.2.b
+        ai_chance = {
+            factor = 0
+        }
+	}
+}
+
+# Norway/Denmark Receives Ultimatum
+country_event = {
+	id = swe_mot.3
+	title = swe_mot.3.t
+	desc = swe_mot.3.d
+	picture = GFX_report_event_generic_scandinavia
+	
+	is_triggered_only = yes
+	
+	option = { # Ja
+		name = swe_mot.3.a
+		ai_chance = {
+			base = 10
+			modifier = {
+                AND = {
+                    FROM = { has_government = fascism }
+                    ROOT = { has_government = democratic }
+                }
+				factor = 0								
+			}
+		}
+		SWE = {
+			country_event = { days = 1 id = swe_mot.1 }
+		}
+		custom_effect_tooltip = GAME_OVER_TT
+	}
+	option = { # Nein
+		name = swe_mot.3.b
+		ai_chance = {
+			base = 0
+			modifier = {
+                AND = {
+                    FROM = { has_government = fascism }
+                    ROOT = { has_government = democratic }
+                }
+				add = 10	
+			}
+		}
+		SWE = {
+			effect_tooltip = {
+				create_wargoal = {
+					type = annex_everything
+					target = ROOT
+				}
+			}
+			country_event = { days = 1 id = swe_mot.2 }
+		}
+	}
+}
+
+# Non-agression-pact with Sweden
+country_event = {
+	id = swe_mot.4
+	title = swe_mot.4.t
+	desc = swe_mot.4.d
+	picture = GFX_report_event_generic_ophelia
+	
+	is_triggered_only = yes
+	
+	option = {   # Sounds Good
+		name = swe_mot.4.a
+        diplomatic_relation = { country = FROM relation = non_aggression_pact }
+        add_opinion_modifier = { target = FROM modifier = swe_non_agression_pact }# pact
+        if = { 
+            limit = { ROOT = { tag = SOV } }
+            FIN = { add_opinion_modifier = { target = ROOT modifier = fin_non_agression_pact } }
+        }       
+        FROM = { country_event = { id = swe_mot.8 }} 
+	}
+    
+    option = {    # No
+		name = swe_mot.4.b
+        ai_chance = {
+            factor = 0
+        }
+        FROM = { country_event = { id = swe_mot.9 } }
+	}
+}
+
+
+

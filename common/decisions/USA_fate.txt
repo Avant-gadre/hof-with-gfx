@@ -1,0 +1,518 @@
+USA_Interference_in_the_World_War_desicsions = {
+
+	USA_invite_france_when_france_is_nearly_surrender = {
+		icon = generic_army_support
+
+		visible = {
+			tag = USA
+			is_puppet = no
+			or = {
+				is_in_faction = no
+				is_faction_leader = yes
+			}
+			or = {
+				has_war = no
+				AND = {
+					has_war_together_with = FRA
+					NOT = {
+					    has_war_with = FRA
+					}
+				}
+			}
+
+			has_government = democratic 
+
+			FRA = { 
+				or = {
+					is_in_faction = no
+					is_faction_leader = yes
+				}
+			}
+
+			#OR = {
+				#FRA = { has_war_with = GER } 
+				#FRA = { has_war_with = ENG } 
+				#FRA = { has_war_with = ITA } 
+				#FRA = { has_war_with = SWE } 
+				#FRA = { has_war_with = JAP } 
+				#FRA = { has_war_with = SOV }
+				#FRA = { has_war_with = RUS }
+			#}
+		}
+
+		ai_will_do = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				surrender_progress > 0.15 
+			}
+			modifier = {
+				factor = 0
+				FRA = { is_ai = no }
+			}
+		}
+
+		available = {
+		    NOT = { has_global_flag = ENG_invite_france_flag }
+			FRA = { NOT = { has_government = fascism } }
+			FRA = { NOT = { has_government = communism } }
+			FRA = { NOT = { has_completed_focus = FRA_return_America } }
+			FRA = { is_subject = no }
+			NOT = { FRA = { has_war_with = USA } }
+
+			FRA = { 
+				has_war = yes 
+				any_enemy_country = {
+					is_major = yes
+				}
+			}
+
+			#OR = {
+				#FRA = { has_war_with = GER }
+				#FRA = { has_war_with = ITA }
+				#FRA = { has_war_with = ENG }
+			#}
+			FRA = { surrender_progress > 0.75 }
+		}
+
+		cost = 0
+
+		fire_only_once = yes 
+
+		complete_effect = {
+			FRA = { country_event = { id = lr_france.104  hours = 3 } }
+		}
+
+    }
+
+	USA_Allianc_with_Britain = {
+		icon = generic_army_support
+
+		visible = {
+			tag = USA
+			is_puppet = no
+			is_in_faction = no
+			or = {
+				has_war = no
+				AND = {
+					has_war_together_with = ENG
+					NOT = {
+					    has_war_with = ENG
+					}
+				}
+			}
+
+			has_government = democratic 
+
+			ENG = { NOT = { has_government = fascism } }
+			ENG = { is_faction_leader = yes }
+
+			OR = {
+				ENG = { has_war_with = GER } 
+				ENG = { has_war_with = FRA } 
+				ENG = { has_war_with = ITA } 
+				ENG = { has_war_with = SWE } 
+				ENG = { has_war_with = JAP } 
+				ENG = { has_war_with = SOV }
+				ENG = { has_war_with = RUS }
+			}
+
+		}
+
+		ai_will_do = {
+			factor = 2000
+		}
+
+		available = {
+			or = {
+				count_triggers = {
+					amount = 2
+					AND = {
+						MAL = { is_subject_of = ENG } 
+						MAL = { has_capitulated = yes } 
+					}
+					AND = {
+						BUR = { is_subject_of = ENG } 
+						BUR = { has_capitulated = yes } 
+					}
+					AND = {
+						EGY = { is_subject_of = ENG } 
+						EGY = { has_capitulated = yes } 
+					}
+					AND = {
+						RAJ = { is_subject_of = ENG } 
+						RAJ = { has_capitulated = yes } 
+					}
+					AND = {
+						SAF = { is_subject_of = ENG } 
+						SAF = { has_capitulated = yes } 
+					}
+				}
+				ENG = { casualties > 1000000 }
+				ENG = { surrender_progress > 0.15 }
+				date > 1942.1.1
+			}
+		}
+
+    cost = 0
+
+    fire_only_once = yes 
+
+    complete_effect = {
+			if = { 
+				limit = { ENG = { is_ai = yes } }
+        ENG = { 
+          add_to_faction = USA 
+        }
+        random_country = {
+          limit = {
+            is_faction_leader = yes
+            is_in_faction_with = USA
+          }
+          random_enemy_country = {
+            limit = {
+              NOT = { has_war_with = USA }
+            }
+            USA = {
+              add_to_war = {
+                targeted_alliance = PREV.PREV
+                enemy = PREV
+                hostility_reason = asked_to_join
+              }
+            }
+          }
+        }
+			}
+			if = { 
+				limit = { ENG = { is_ai = no } }
+				ENG = { country_event = { id = generic.2  hours = 3 } }
+			}
+		}
+
+  }
+
+  USA_Defend_world_peace_dec = {
+
+  icon = hol_draw_up_staff_plans
+
+    visible = {
+      date > 1942.6.1
+
+      tag = USA
+      is_puppet = no
+      is_in_faction = no
+      has_war = no
+      has_government = democratic 
+
+      country_exists = FROM
+      FROM = { is_subject = no }
+      FROM = { NOT = { is_in_faction_with = USA } }
+      FROM = { has_added_tension_amount > 30 }
+    }
+
+    target_trigger = {
+      FROM = {
+        OR = {
+          original_tag = GER
+          original_tag = ENG
+          original_tag = FRA
+          original_tag = ITA
+          original_tag = SWE
+          original_tag = JAP
+          original_tag = SOV
+          original_tag = RUS
+        }
+      }
+    }
+
+    available = {
+      custom_trigger_tooltip = {
+        tooltip = ENG_Political_points_are_positive_tt
+        or = {
+          has_political_power > 0
+          is_ai = yes
+        }
+      }
+    }
+
+    modifier = {
+        political_power_cost = 0.5
+    }
+
+    cost = 0
+
+    days_remove = 60
+
+    fire_only_once = yes 
+
+
+    complete_effect = {
+
+      if = {
+        limit = { 
+          has_military_access_to = FROM
+        }			
+        diplomatic_relation = {
+            country = FROM
+            relation = military_access
+            active = no
+        }
+      }
+
+      if = {
+        limit = { 
+          FROM = { has_military_access_to = USA }
+        }			
+        FROM = {
+          diplomatic_relation = {
+              country = USA
+              relation = military_access
+              active = no
+          }
+        }
+      }
+
+      FROM = {
+        country_event = { id = more_ger.59 days = 2 }
+        add_ai_strategy = {
+          type = prepare_for_war
+          id = ROOT
+          value = 1000
+        }
+        ROOT = {
+          add_ai_strategy = {
+            type = antagonize
+            id = PREV
+            value = 1000
+          }
+          add_ai_strategy = {
+            type = prepare_for_war
+            id = PREV
+            value = 1000
+          }
+        }
+      }
+
+      every_other_country = {
+        limit = {
+          is_neighbor_of = USA
+          NOT = { TAG = FROM }
+          or = {
+            is_in_faction_with = FROM
+            is_subject_of = FROM
+          }
+        }
+        add_ai_strategy = {
+          type = prepare_for_war
+          id = ROOT
+          value = 1000
+        }
+        ROOT = {
+          add_ai_strategy = {
+            type = prepare_for_war
+            id = PREV
+            value = 1000
+          }
+        }
+      }
+
+    }
+
+    cancel_trigger = {
+
+    }
+
+    remove_effect = {
+
+        FROM = {
+          add_ai_strategy = {
+            type = prepare_for_war
+            id = ROOT
+            value = -1000
+          }
+          ROOT = {
+            add_ai_strategy = {
+              type = antagonize
+              id = PREV
+              value = -1000
+            }
+            add_ai_strategy = {
+              type = prepare_for_war
+              id = PREV
+              value = -1000
+            }
+          }
+        }
+
+        every_other_country = {
+          limit = {
+            is_neighbor_of = USA
+            NOT = { TAG = FROM }
+            or = {
+              is_in_faction_with = FROM
+              is_subject_of = FROM
+            }
+          }
+          add_ai_strategy = {
+            type = prepare_for_war
+            id = ROOT
+            value = -1000
+          }
+          ROOT = {
+            add_ai_strategy = {
+              type = prepare_for_war
+              id = PREV
+              value = -1000
+            }
+          }
+        }
+
+        if = {
+          limit = { 
+            is_ai = yes
+          }			
+          FROM = {
+            USA = {
+              declare_war_on = {
+                type = annex_everything
+                target = PREV
+              }
+            }				
+          }
+        }
+
+        if = {
+          limit = { 
+            is_ai = no
+          }			
+          FROM = {
+            USA = {
+              create_wargoal = {
+                type = annex_everything
+                target = PREV
+                expire = 0
+              }
+            }				
+          }
+        }
+
+    }
+    ai_will_do = {
+      factor = 1000
+    }
+
+  }
+
+}
+
+
+USA_OFN_decisions = {
+
+	USA_form_OFN = {
+    icon = generic_army_support
+
+    visible = {
+      tag = USA
+      is_puppet = no
+      has_government = democratic 
+      or = {
+        is_in_faction = no
+        is_faction_leader = yes
+      }
+      ENG = { has_government = fascism } 
+		}
+
+    ai_will_do = {
+			factor = 2000
+		}
+
+    available = {
+      or = {
+				CAN = { has_country_flag = ENG_already_left_faction_flag }  
+				SAF = { has_country_flag = ENG_already_left_faction_flag }  
+				RAJ = { has_country_flag = ENG_already_left_faction_flag }  
+				AST = { has_country_flag = ENG_already_left_faction_flag }  
+				NZL = { has_country_flag = ENG_already_left_faction_flag }  
+				BUR = { has_country_flag = ENG_already_left_faction_flag }   
+      }
+		}
+
+    cost = 0
+
+    days_remove = 30
+
+    complete_effect = {
+
+			if = {
+				limit = {
+					is_in_faction = no
+				}
+				create_faction = USA_hemisphere_defense_faction
+			}
+
+		}
+
+    remove_effect = {
+
+			transfer_state = 311
+			transfer_state = 689
+			transfer_state = 690
+			transfer_state = 693
+			transfer_state = 308
+			transfer_state = 692
+			transfer_state = 687
+
+			transfer_state = 696
+			transfer_state = 691
+
+			if = { 
+				limit = { CAN = { has_country_flag = ENG_already_left_faction_flag } }
+        USA = { 
+          add_to_faction = CAN 
+        }
+        CAN = { 
+          transfer_state = 331
+          transfer_state = 332
+        }
+			}
+
+			if = { 
+				limit = { SAF = { has_country_flag = ENG_already_left_faction_flag } }
+        USA = { 
+          add_to_faction = SAF 
+        }
+			}
+
+			if = { 
+				limit = { RAJ = { has_country_flag = ENG_already_left_faction_flag } }
+        USA = { 
+          add_to_faction = RAJ 
+        }
+			}
+
+			if = { 
+				limit = { AST = { has_country_flag = ENG_already_left_faction_flag } }
+        USA = { 
+          add_to_faction = AST 
+        }
+			}
+
+			if = { 
+				limit = { NZL = { has_country_flag = ENG_already_left_faction_flag } }
+        USA = { 
+          add_to_faction = NZL 
+        }
+			}
+
+			if = { 
+				limit = { BUR = { has_country_flag = ENG_already_left_faction_flag } }
+        USA = { 
+          add_to_faction = BUR 
+        }
+			}
+
+		}
+
+  }
+
+}
