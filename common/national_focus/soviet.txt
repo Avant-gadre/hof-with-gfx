@@ -91,7 +91,7 @@ focus_tree = {
 		available = {
 			or = { 
 				has_completed_focus = SOV_Continue_to_enforce_collectivization 
-				has_completed_focus = SOV_Voluntary_collectivization
+				has_completed_focus = SOV_back_to_the_nep
 				has_completed_focus = SOV_Military_collectivization
 				has_completed_focus = SOV_Farmer_problem
 			}
@@ -1374,7 +1374,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = SOV_Voluntary_collectivization
+		id = SOV_back_to_the_nep
 		icon = GFX_focus_SOV_Voluntary_collectivization
 		prerequisite = { focus = SOV_Return_power_to_the_union }
 
@@ -1401,7 +1401,15 @@ focus_tree = {
 
 		completion_reward = {
 
-      add_ideas = SOV_Voluntary_collectivization_idea
+			add_stability = 0.05
+			add_popularity = {
+				ideology = democratic 
+				popularity = -0.1
+			}
+
+			add_ideas = SOV_Voluntary_collectivization_idea
+
+			add_ideas = new_economic_policy
 
 		}
 	}
@@ -1409,11 +1417,11 @@ focus_tree = {
 	focus = {
 		id = SOV_Guarantee_freedom_of_the_press
 		icon = GFX_focus_SOV_Guarantee_freedom_of_the_press
-		prerequisite = { focus = SOV_Voluntary_collectivization }
+		prerequisite = { focus = SOV_back_to_the_nep }
 
 		x = -1
 		y = 1
-		relative_position_id = SOV_Voluntary_collectivization
+		relative_position_id = SOV_back_to_the_nep
 		cost = 5
 		ai_will_do = {
 			factor = 100
@@ -1441,11 +1449,11 @@ focus_tree = {
 	focus = {
 		id = SOV_Industrialization_process
 		icon = GFX_focus_generic_factory_complex
-		prerequisite = { focus = SOV_Voluntary_collectivization }
+		prerequisite = { focus = SOV_back_to_the_nep }
 
 		x = 1
 		y = 1
-		relative_position_id = SOV_Voluntary_collectivization
+		relative_position_id = SOV_back_to_the_nep
 		cost = 5
 		ai_will_do = {
 			factor = 100
@@ -1504,6 +1512,8 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+
+			set_cosmetic_tag = SOV_right_opposition
 
 			swap_ideas = {
 				remove_idea = SOV_Humane_communism_idea_2
@@ -1988,6 +1998,15 @@ focus_tree = {
 
       add_stability = -0.10
 
+			add_war_support = -0.1
+
+			add_tech_bonus = {
+				name = SOV_Rapid_industrialization
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+
       SOV_increase_industrialization = yes
 
       SOV_increase_industrialization = yes
@@ -2022,6 +2041,8 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+
+			set_cosmetic_tag = SOV_left_opposition
 
 			add_political_power = 200
 
@@ -3817,7 +3838,7 @@ focus_tree = {
 
 	focus = {
 		id = SOV_Offshore_defense
-		icon = GFX_goal_generic_air_naval_bomber
+		icon = GFX_focus_generic_mine_warfare
 
 		prerequisite = { focus = SOV_Admission_of_White_Admiral }
 
@@ -3840,11 +3861,13 @@ focus_tree = {
 
 		completion_reward = {
 
+			add_ideas = SOV_mine_warfare_ns
+
 			add_tech_bonus = {
-				name = SOV_Offshore_defense
+				name = SOV_mine_warfare
 				bonus = 1.0
 				uses = 2
-				category = naval_bomber
+				category = naval_mines
 			}
 
 		}
@@ -3957,6 +3980,10 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+
+			add_to_variable = { HOF_SOV_the_red_army_dynamic_naval_invasion_capacity = 15 }
+			add_to_variable = { HOF_SOV_the_red_army_dynamic_army_infantry_attack_factor = 0.05 }
+			custom_effect_tooltip = SOV_Put_into_the_Black_Sea_Fleet_tt
 
 			army_experience = 10
 
@@ -4088,7 +4115,7 @@ focus_tree = {
 		x = 14
 		y = 0
 		relative_position_id = SOV_Great_Purge_will_fail
-		cost = 5
+		cost = 8
 		ai_will_do = {
 			factor = 2000
 		}
@@ -4104,6 +4131,34 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+
+			add_stability = 0.15
+
+			if = {
+				limit = { 
+					has_idea = new_economic_policy
+				}
+				swap_ideas = {
+					remove_idea = new_economic_policy
+					add_idea = new_economic_policy_2
+				}
+			}
+
+			if = {
+				limit = { 
+					has_global_flag = UKR_still_on_earth_flag
+				}
+				swap_ideas = {
+					remove_idea = home_of_revolution
+					add_idea = home_of_revolution_victory_butnoukr
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = home_of_revolution
+					add_idea = home_of_revolution_victory
+				}
+			}
 
 			SOV_increase_industrialization = yes
 
@@ -6962,21 +7017,15 @@ focus_tree = {
 				SIK = { remove_ideas = SOV_Focus_on_the_inside_idea }
 			}
 
-			add_ideas = SOV_World_revolution_idea
+			#add_ideas = SOV_World_revolution_idea
+			add_to_variable = { HOF_SOV_the_red_army_dynamic_army_attack_factor = 0.05 }
+			add_to_variable = { HOF_SOV_the_red_army_dynamic_army_speed_factor = 0.05 }
+			add_to_variable = { HOF_SOV_the_red_army_dynamic_resistance_damage_to_garrison = -0.2 }
+			custom_effect_tooltip = SOV_World_revolution_tt_2
 
 			every_state = {
 				limit = {
-					is_core_of = UKR
 					NOT = { is_core_of = ROOT }
-					NOT = { is_fully_controlled_by = ROOT }
-					NOT = {
-						state = 93
-						state = 91
-						state = 89
-						state = 73
-						state = 80
-						state = 766
-					}
 				}
 				add_claim_by = ROOT
 			}
@@ -7601,12 +7650,12 @@ focus_tree = {
 
 	focus = {
 		id = SOV_Mobilize_the_rear_industrial_area
-		icon = GFX_goal_generic_army_tanks
+		icon = GFX_focus_generic_ITA_urban
 		prerequisite = { focus = SOV_move_industry_to_the_urals }
 		x = -2
 		y = 1
 		relative_position_id = SOV_move_industry_to_the_urals
-		cost = 7
+		cost = 10
 
 		ai_will_do = {
 			factor = 3000
@@ -7674,10 +7723,10 @@ focus_tree = {
 			}
 
 			249 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 8
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 4
 					instant_build = yes
 				} 
 			}
@@ -7719,10 +7768,10 @@ focus_tree = {
 			}
 
 			251 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 8
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 4
 					instant_build = yes
 				} 
 			}
@@ -7749,12 +7798,12 @@ focus_tree = {
 
 			582 = {
 				set_state_category = town
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 8
 			}
 
 			573 = {
 				set_state_category = town
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 8
 			}
 
 			572 = {
@@ -7774,10 +7823,10 @@ focus_tree = {
 			}
 
 			572 = {
-				add_extra_state_shared_building_slots = 8
+				add_extra_state_shared_building_slots = 16
 				add_building_construction = {
 					type = arms_factory
-					level = 4
+					level = 8
 					instant_build = yes
 				}
 				set_state_category = city
@@ -7788,8 +7837,39 @@ focus_tree = {
 	}
 
 	focus = {
+		id = SOV_Extreme_mobilization
+		icon = GFX_focus_generic_economic_control
+		prerequisite = { focus = SOV_Mobilize_the_rear_industrial_area }
+		x = 0
+		y = 1
+		relative_position_id = SOV_Mobilize_the_rear_industrial_area
+		cost = 5
+
+		ai_will_do = {
+			factor = 3000
+		}
+
+		available = {
+			NOT = { has_completed_focus = SOV_Humane_communism }
+			has_war = yes
+			any_enemy_country = {
+				is_major = yes
+			}
+			has_idea = tot_economic_mobilisation
+		}
+		search_filters = {}
+
+		completion_reward = {
+
+            add_ideas = SOV_Extreme_mobilization_idea
+
+		}
+
+	}
+
+	focus = {
 		id = SOV_Simplify_production
-		icon = GFX_goal_generic_production2
+		icon = GFX_focus_generic_military_equipment
 		prerequisite = { focus = SOV_move_industry_to_the_urals }
 		x = 0
 		y = 1
@@ -7816,7 +7896,7 @@ focus_tree = {
 	}
 	focus = {
 		id = SOV_pc_of_mechanical_engineering
-		icon = GFX_goal_generic_production2
+		icon = GFX_focus_generic_manage_industries
 		prerequisite = { focus = SOV_Simplify_production }
 		x = 0
 		y = 1
@@ -7992,7 +8072,16 @@ focus_tree = {
 		cost = 10
 
 		available = {
-
+			custom_trigger_tooltip = {
+				tooltip = SOV_Tank_Group_Army_available_tt
+				OR = { 
+					check_variable = { num_equipment_in_armies@medium_tank_chassis > 2499 }
+					AND = { 
+						is_ai = yes
+						date > 1941.1.1			
+					}
+				}
+			}
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -8044,6 +8133,9 @@ focus_tree = {
 		search_filters = {}
 
 		completion_reward = {
+
+			set_country_flag = SOV_increase_aircraft_production_flag
+
 			add_ideas = SOV_Simplified_production_of_Air_Force_equipment_idea
 
 			add_ideas = SOV_plane_losing_mass_idea
@@ -8068,12 +8160,30 @@ focus_tree = {
 		cost = 10
 
 		available = {
-
+			has_country_flag = {
+				flag = SOV_increase_aircraft_production_flag
+				days > 180
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOV_increase_aircraft_production_flag_tt
+				has_country_flag = {
+					flag = SOV_increase_aircraft_production_flag
+					days > 180
+				}
+			}
 		}
 		
 		search_filters = {}
 
 		completion_reward = {
+
+			if = {
+				limit = {
+					has_idea = SOV_plane_losing_mass_idea
+				}
+				remove_ideas = SOV_plane_losing_mass_idea
+			}
+
 			air_experience = 50
 
 			add_to_variable = { HOF_SOV_soviet_airforce_dynamic_air_accidents_factor = -0.25 }
@@ -8098,7 +8208,29 @@ focus_tree = {
 		cost = 10
 
 		available = {
-
+			custom_trigger_tooltip = {
+				tooltip = SOV_Aviation_Group_Army_available_tt
+				OR = { 
+					AND = { 
+						has_deployed_air_force_size = {
+							size > 2499
+							type = fighter
+						}
+						has_deployed_air_force_size = {
+							size > 999
+							type = cas
+						}
+						has_deployed_air_force_size = {
+							size > 499
+							type = tactical_bomber
+						}
+					}
+					AND = { 
+						is_ai = yes
+						date > 1942.1.1			
+					}
+				}
+			}
 		}
 		
 		search_filters = {}
@@ -8444,16 +8576,7 @@ focus_tree = {
 					}
 				}
 
-				add_timed_idea = {
-					idea = SOV_central_headquarters_of_the_partisan_movement
-					days = 720
-				}
-			}
-			else = {
-				add_timed_idea = {
-					idea = SOV_central_headquarters_of_the_partisan_movement_no_lar
-					days = 720
-				}
+				add_ideas = SOV_central_headquarters_of_the_partisan_movement
 			}
 
 			if = {
@@ -8572,6 +8695,7 @@ focus_tree = {
 		}
 		completion_reward = {
 
+			add_to_variable = { HOF_SOV_the_red_army_dynamic_max_command_power = 25 }
 			add_to_variable = { HOF_SOV_the_red_army_dynamic_max_planning = 0.05 }
 			add_to_variable = { HOF_SOV_the_red_army_dynamic_supply_consumption_factor = -0.1 }
 			add_to_variable = { HOF_SOV_the_red_army_dynamic_training_time_factor = -0.1 }
@@ -8712,12 +8836,12 @@ focus_tree = {
 					has_completed_focus = SOV_Humane_communism
 				}
 				swap_ideas = {
-					remove_idea = SOV_politicized_military_humanism
-					add_idea = SOV_politicized_military_keep_humanism
+					remove_idea = SOV_politicized_military
+					add_idea = SOV_politicized_military_swap
 				}
 			}
 			else = {
-				remove_ideas = SOV_politicized_military_humanism
+				remove_ideas = SOV_politicized_military
 			}
 
 		}
@@ -8764,7 +8888,12 @@ focus_tree = {
 		completion_reward = {
 			add_to_variable = { HOF_SOV_the_red_army_dynamic_org_loss_at_low_org_factor = -0.2 }
 			custom_effect_tooltip = SOV_Fieldrunners_tt
-			custom_effect_tooltip = kamikaze_focus_tooltip
+			if = { 
+				limit = {
+					has_dlc = "Waking the Tiger"
+				}
+				custom_effect_tooltip = cost_reduced_last_stand 
+			}
 		}
 	}
 
@@ -8780,7 +8909,16 @@ focus_tree = {
 			factor = 2500
 		}
 		available = {
-
+			custom_trigger_tooltip = {
+				tooltip = SOV_Infantry_Corps_available_tt
+				OR = { 
+					check_variable = { num_equipment_in_armies_k@infantry_equipment > 150 }
+					AND = { 
+						is_ai = yes
+						date > 1940.1.1			
+					}
+				}
+			}
 		}
 		completion_reward = {
 
@@ -8826,10 +8964,25 @@ focus_tree = {
 			factor = 2500
 		}
 		available = {
-
+			NOT = { has_completed_focus = SOV_Anti_nationalist_propaganda }
+			has_idea = SOV_central_headquarters_of_the_partisan_movement
+			any_owned_state = {
+				controller = {
+					has_war_with = ROOT
+				}
+			}
 		}
 		completion_reward = {
 
+			add_popularity = {
+				ideology = communism 
+				popularity = -0.1
+			}
+
+			swap_ideas = {
+				remove_idea = SOV_central_headquarters_of_the_partisan_movement
+				add_idea = SOV_For_the_motherland_idea
+			}
 
 		}
 	}
@@ -8856,6 +9009,8 @@ focus_tree = {
 		search_filters = {}
 
 		completion_reward = {
+
+			army_experience = 100
 
 			#New
 			hidden_effect = {

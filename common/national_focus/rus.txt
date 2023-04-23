@@ -8851,14 +8851,14 @@ focus_tree = {
 	}
 	focus = {
 		id = RUS_Mobilize_the_rear_industrial_area
-		icon = GFX_goal_generic_army_tanks
+		icon = GFX_focus_generic_ITA_urban
 		prerequisite = {
 			focus = RUS_move_industry_to_the_urals
 		}
 		x = -2
 		y = 1
 		relative_position_id = RUS_move_industry_to_the_urals
-		cost = 7
+		cost = 10
 		ai_will_do = {
 			factor = 2500
 		}
@@ -8918,10 +8918,10 @@ focus_tree = {
 				}
 			}
 			249 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 8
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 4
 					instant_build = yes
 				}
 			}
@@ -8959,10 +8959,10 @@ focus_tree = {
 				}
 			}
 			251 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 8
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 4
 					instant_build = yes
 				}
 			}
@@ -8986,9 +8986,11 @@ focus_tree = {
 			}
 			582 = {
 				set_state_category = town
+				add_extra_state_shared_building_slots = 8
 			}
 			573 = {
 				set_state_category = town
+				add_extra_state_shared_building_slots = 8
 			}
 			572 = {
 				if = {
@@ -9006,10 +9008,10 @@ focus_tree = {
 				}
 			}
 			572 = {
-				add_extra_state_shared_building_slots = 8
+				add_extra_state_shared_building_slots = 16
 				add_building_construction = {
 					type = arms_factory
-					level = 4
+					level = 8
 					instant_build = yes
 				}
 				set_state_category = city
@@ -9018,7 +9020,7 @@ focus_tree = {
 	}
 	focus = {
 		id = RUS_Simplify_production
-		icon = GFX_goal_generic_production2
+		icon = GFX_focus_generic_military_equipment
 		prerequisite = {
 			focus = RUS_move_industry_to_the_urals
 		}
@@ -9041,7 +9043,7 @@ focus_tree = {
 	}
 	focus = {
 		id = RUS_Military_Industrial_Commission
-		icon = GFX_goal_generic_production2
+		icon = GFX_focus_generic_manage_industries
 		prerequisite = {
 			focus = RUS_Simplify_production
 		}
@@ -9197,6 +9199,10 @@ focus_tree = {
 		relative_position_id = RUS_Armored_Infantry
 		cost = 5
 		available = {
+			OR = { 
+				has_tech = armor_tech_3
+				date > 1942.1.1			
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
@@ -9226,12 +9232,6 @@ focus_tree = {
 				technology = super_heavy_tank_chassis
 			}
 			add_ideas = SOV_the_iron_wall_of_russian_resolve
-			if = {
-				limit = {
-					has_idea = SOV_Armor_quality_declines_idea
-				}
-				remove_ideas = SOV_Armor_quality_declines_idea
-			}
 		}
 	}
 	focus = {
@@ -9250,6 +9250,8 @@ focus_tree = {
 		search_filters = {
 		}
 		completion_reward = {
+			set_country_flag = RUS_increase_aircraft_production_flag
+
 			add_ideas = RUS_Simplified_production_of_Air_Force_equipment_idea
 			add_tech_bonus = {
 				name = SOV_increase_aircraft_production
@@ -9273,11 +9275,22 @@ focus_tree = {
 		relative_position_id = RUS_increase_aircraft_production
 		cost = 5
 		available = {
-			has_war = yes
+			has_country_flag = {
+				flag = RUS_increase_aircraft_production_flag
+				days > 180
+			}
+			custom_trigger_tooltip = {
+				tooltip = RUS_increase_aircraft_production_flag_tt
+				has_country_flag = {
+					flag = RUS_increase_aircraft_production_flag
+					days > 180
+				}
+			}
 		}
 		search_filters = {
 		}
 		completion_reward = {
+
 			air_experience = 50
 			add_to_variable = {
 				HOF_RUS_russia_airforce_dynamic_air_accidents_factor = -0.1
@@ -9303,11 +9316,37 @@ focus_tree = {
 		prerequisite = {
 			focus = RUS_increase_aircraft_production
 		}
+		prerequisite = {
+			focus = RUS_intensify_pilot_training_program
+		}
 		x = 0
 		y = 2
 		relative_position_id = RUS_increase_aircraft_production
 		cost = 10
 		available = {
+			custom_trigger_tooltip = {
+				tooltip = RUS_Russian_Air_Force_morden_available_tt
+				OR = { 
+					AND = { 
+						has_deployed_air_force_size = {
+							size > 1999
+							type = fighter
+						}
+						has_deployed_air_force_size = {
+							size > 499
+							type = cas
+						}
+						has_deployed_air_force_size = {
+							size > 499
+							type = tactical_bomber
+						}
+					}
+					AND = { 
+						is_ai = yes
+						date > 1942.1.1			
+					}
+				}
+			}
 		}
 		search_filters = {
 		}
@@ -9378,26 +9417,13 @@ focus_tree = {
 		search_filters = {
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = RUS_the_glory_of_the_russia_army
-				bonus = 1
-				uses = 1
-				category = artillery
-			}
-			add_tech_bonus = {
-				name = RUS_the_glory_of_the_russia_army
-				bonus = 2
-				uses = 1
-				category = armor
-			}
+
+			army_experience = 100
+
 			#New
 			hidden_effect = {
 				set_technology = {
 					masterful_blitz = 1
-					popup = no
-				}
-				set_technology = {
-					masterful_deep_battle = 1
 					popup = no
 				}
 			}
@@ -9665,10 +9691,7 @@ focus_tree = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
-				add_timed_idea = {
-					idea = rus_organize_black_youth
-					days = 720
-				}
+				add_ideas = rus_organize_black_youth
 			}
 		}
 	}
@@ -9717,10 +9740,6 @@ focus_tree = {
 					}
 				}
 				surrender_progress > 0.2
-			}
-			or = {
-				has_completed_focus = rus_Brusilov_legacy
-				has_completed_focus = rus_Tukhachevski_legacy
 			}
 		}
 		search_filters = {
@@ -9910,7 +9929,7 @@ focus_tree = {
 				HOF_RUS_the_white_army_dynamic_org_loss_at_low_org_factor = -0.2
 			}
 			custom_effect_tooltip = RUS_Whatever_it_takes_tt
-			custom_effect_tooltip = kamikaze_focus_tooltip
+			custom_effect_tooltip = CHI_50_cheaper_force_attack
 		}
 	}
 	focus = {
@@ -9930,6 +9949,14 @@ focus_tree = {
 			factor = 2500
 		}
 		available = {
+			OR = {
+				has_tech = kampfgruppe
+				has_tech = concentrated_fire_plans
+				has_tech = centralized_fire_control
+				has_tech = assault_breakthrough
+				has_tech = night_assault_tactics
+				has_tech = operational_concentration
+			}
 		}
 		completion_reward = {
 			add_to_variable = {
