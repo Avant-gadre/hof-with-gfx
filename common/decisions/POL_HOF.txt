@@ -138,6 +138,12 @@ POL_Polish_Unity = {
 		remove_effect = {
 			add_state_core = 89
 			add_stability = 0.025
+			if = {
+				limit = { has_completed_focus = POL_Firewatch_eliminate_traitors }
+				89 = {
+					add_manpower = -10000
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -153,10 +159,16 @@ POL_Polish_Unity = {
 			NOT = { has_idea = UKR_OUN_subversion_POL }
 			NOT = { has_idea = UKR_OUN_subversion_POL_2 }
 			NOT = { has_idea = POL_UNDO_opposition }
-			93 = {
-				resistance < 40
-				compliance > 49
+			OR = {
+				93 = {
+					AND = {
+						resistance < 40
+						compliance > 49
+					}
+				}
+				has_completed_focus = POL_Jozewski_Plan
 			}
+			
 			OR = {
 				has_completed_focus = POL_Jozewski_Plan
 				has_completed_focus = POL_PSL_ethnical_unity

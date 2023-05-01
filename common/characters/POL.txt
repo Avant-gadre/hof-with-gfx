@@ -38,7 +38,7 @@ characters={
 			legacy_id=-1
 		}
 	}
-	POL_władysław_sikorski={
+	POL_wladyslaw_sikorski={
 		name="Władysław Sikorski"
 		portraits={
 			civilian={
@@ -176,26 +176,6 @@ characters={
 		}
 	}
 
-	POL_margaret_nearl={
-		name="Margaret Nearl"
-		portraits={
-			army={
-				small="GFX_idea_advisor_unknown"
-			}
-			army={
-				large="gfx/leaders/POL/Portrait_Margaret_Nearl.dds"
-			}
-		}
-		corps_commander={
-			traits={ inflexible_strategist cavalry_officer armor_officer }
-			skill=5
-			attack_skill=4
-			defense_skill=6
-			planning_skill=3
-			logistics_skill=3
-			legacy_id=-1
-		}
-	}
 	POL_meteorite={
 		name="Meteorite"
 		portraits={
@@ -991,14 +971,18 @@ characters={
 			available = {
 				OR = {
 					has_completed_focus = POL_modus_vivendi
-					has_completed_focus = POL_a_leftist_sejm
+					has_completed_focus = POL_Socialist_Radical_Program
+					AND = {
+						has_government = communist
+						is_subject_of = SOV
+					}
 				}
 			}
 			allowed = {
 				original_tag = POL
 			}
 			traits = {
-				leftist_intellectual
+				leftist_intellectual_hof
 			}
 		}
 	}
@@ -1020,7 +1004,7 @@ characters={
 				original_tag = POL
 			}
 			traits = {
-				national_propagandist 
+				national_propagandist_hof 
 			}
 		}
 	}
@@ -1202,13 +1186,16 @@ characters={
 			slot = political_advisor
 			idea_token = POL_kazimierz_switalski
 			available = {
-				has_completed_focus = POL_the_sanation_left
+				OR = {
+					has_completed_focus = POL_Socialist_Worker_Voluntary_Forces
+					has_completed_focus = POL_Bataliony_Chlopskie
+				}
 			}
 			allowed = {
 				original_tag = POL
 			}
 			traits = {
-				leftist_legionary
+				leftist_legionary_hof
 			}
 		}
 	}
@@ -1254,6 +1241,7 @@ characters={
 			}
 			visible = {
 				has_completed_focus = POL_assemble_the_regency_council
+				always = no
 			}
 			traits = {
 				staunch_aristocrat 
@@ -1275,19 +1263,27 @@ characters={
 		portraits={
 			army={
 				small="GFX_portrait_POL_tadeusz_bielecki_small"
-				large = "GFX_portrait_POL_tadeusz_bielecki" #Country Leader role not implemented
+				large = "gfx/leaders/POL/Portrait_POL_Tadeusz_Bielecki.png" #Country Leader role not implemented
 			}
 			civilian = {
-				large = "GFX_portrait_POL_tadeusz_bielecki"
+				large = "gfx/leaders/POL/Portrait_POL_Tadeusz_Bielecki.png"
 			}
 		}
-		visible = {
-			has_completed_focus = POL_Endecja_Politics_Rationalisation
-		}
+		
 		advisor={
 			slot = political_advisor
 			idea_token = POL_tadeusz_bielecki
 			available = {
+				has_completed_focus = POL_Endecja_Politics_Rationalisation
+				NOT = {
+					has_country_leader = {
+						character = POL_tadeusz_bielecki
+						ruling_only = yes
+					}
+				}
+				has_government = fascism
+			}
+			visible = {
 				has_completed_focus = POL_Endecja_Politics_Rationalisation
 			}
 			allowed = {
@@ -1313,8 +1309,7 @@ characters={
 			available = {
 				OR = {
 					has_completed_focus = POL_modus_vivendi 
-					has_completed_focus = POL_reassemble_the_sejm_hof 
-					has_completed_focus = POL_integrate_the_endecja 
+					has_completed_focus = POL_Endecja_foundation_of_modern_poland 
 				}
 			}
 			allowed = {
@@ -1428,6 +1423,9 @@ characters={
 			allowed = {
 				original_tag = POL
 			}
+			available = {
+				has_completed_focus = POL_central_region_strategy
+			}
 			traits = {
 				captain_of_industry 
 			}
@@ -1480,11 +1478,11 @@ characters={
 			available = {
 				OR = {
 					has_completed_focus = POL_support_right_paramilitaries 
-					has_completed_focus = POL_integrate_the_falanga 
+					has_completed_focus = POL_paramilitarism 
 				}
 			}
 			traits = {
-				falangist_militarist 
+				falangist_militarist_hof 
 			}
 			ai_will_do = {
 				factor = 1.000
