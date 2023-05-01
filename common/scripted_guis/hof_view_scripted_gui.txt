@@ -1,0 +1,199 @@
+scripted_gui = {
+
+	HOF_hun_power_balance_view_ui = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "HOF_hun_power_balance_view"
+		visible = {
+            tag = HUN
+        }
+		# triggers = {
+		# 	red_ring_visible = {
+		# 		not = {
+		# 			has_country_flag = HUN_GUI_first_blood
+		# 		}
+		# 	}
+		# }
+		effects = {
+			view_button_click = {
+				if = {
+					limit = {
+						has_country_flag = show_power_balance_context
+					}
+					clr_country_flag = show_power_balance_context
+				}
+				else = {
+					set_country_flag = show_power_balance_context
+				}
+			}	
+		}
+
+	}
+	HOF_hun_power_balance_window_ui = {
+		context_type = player_context
+		# parent_window_token = politics_tab
+		window_name = "HOF_hun_power_balance_window"
+		visible = {
+            tag = HUN
+			has_country_flag = show_power_balance_context
+        }
+		effects = {	
+			button_close_click = {
+				clr_country_flag = show_power_balance_context
+			}
+		}
+		properties = {
+			left_value = {
+				image = "[GetHunLeftValue]"
+			}
+			center_value = {
+				image = "[GetHunCenterValue]"
+			}
+			right_value = {
+				image = "[GetHunRightValue]"
+			}
+		}
+	}
+
+	HOF_ukr_power_balance_view_ui = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "HOF_ukr_power_balance_view"
+		visible = {
+            tag = UKR
+        }
+		effects = {
+			view_button_click = {
+				if = {
+					limit = {
+						has_country_flag = show_power_balance_context
+					}
+					clr_country_flag = show_power_balance_context
+				}
+				else = {
+					set_country_flag = show_power_balance_context
+				}
+			}
+		}
+
+	}
+	HOF_ukr_power_balance_window_ui = {
+		context_type = player_context
+		# parent_window_token = politics_tab
+		window_name = "HOF_ukr_power_balance_window"
+		visible = {
+            tag = UKR
+			has_country_flag = show_power_balance_context
+        }
+
+		effects = {
+			button_close_click = {
+				clr_country_flag = show_power_balance_context
+			}	
+		}
+
+	}
+
+	HOF_city_view_ui = {
+		context_type = player_context
+		# parent_window_token = politics_tab
+		window_name = "HOF_city_view"
+		visible = {
+            always = yes
+        }
+
+		effects = {
+			view_button_click = {
+				if = {
+					limit = {
+						has_country_flag = show_city_context
+					}
+					clr_country_flag = show_city_context
+				}
+				else = {
+					set_country_flag = show_city_context
+				}
+				if = {
+					limit = {
+						ROOT = {
+							num_subjects > 0
+						}
+					}
+					check_whether_subject_has_city = yes
+				}
+			}
+		}
+	}
+	HOF_city_window_ui = {
+		context_type = player_context
+		# parent_window_token = politics_tab
+		window_name = "HOF_city_window"
+		visible = {
+			has_country_flag = show_city_context
+        }
+		# 
+		effects = {
+			button_close_click = {
+				clr_country_flag = show_city_context
+			}	
+		}
+		dynamic_lists = {
+			HOF_city_grid = {
+				array = HOF_city_list
+				change_scope = yes
+				entry_container = HOF_city_name_entry
+			} 
+			HOF_city_icon_grid = {
+				array = HOF_city_list
+				change_scope = no
+				entry_container = "[GetHofCityList]"
+			}
+		}
+	}
+	HOF_welcome_button_ui = {
+		context_type = player_context
+		parent_window_token = top_bar
+		window_name = "HOF_welcome_button"
+		visible = {
+
+        }
+		#  
+		effects = { 
+			view_button_click = {
+
+				if = {
+					limit = {
+						has_country_flag = close_welcome_window
+					}
+					clr_country_flag = close_welcome_window
+				}
+				else = {
+					set_country_flag = close_welcome_window
+				}
+				
+			}	
+		}
+	}
+	HOF_welcome_window_ui = {
+		context_type = player_context
+		# parent_window_token = politics_tab
+		window_name = "HOF_welcome_window"
+		visible = {
+			not = {
+				has_country_flag = close_welcome_window
+			}
+        }
+		# 
+		effects = {
+			button_close_click = {
+				set_country_flag = close_welcome_window
+			}	
+		}
+		# dynamic_lists = {
+
+		# }
+
+		
+	}
+}
+
