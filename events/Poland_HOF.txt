@@ -330,6 +330,7 @@ country_event = {
 		### Maria leads the Front Morges
 		hidden_effect = {
 			set_country_flag = POL_Front_Morges_established
+			country_event = { id = poland_hof.47 days = 50 }
 		}
 	}
 }
@@ -1344,12 +1345,12 @@ country_event = {   ### POL: New President for SN
 	option = {    ### TODO: New leader Tadeusz Bielecki
 		name = poland_hof.38.c
 		add_country_leader_role = {
-			character = POL_mlynar_nearl
+			character = POL_tadeusz_bielecki
 			promote_leader = yes
 			country_leader = {
-				ideology = authoritarian_democracy
+				ideology = fascism_ideology
 				expire = "1965.1.1.1"
-				traits = { Nationalist_Austrian_School_Economist }
+				traits = { nationalist_journalist }
 			}
 		}
 	}
@@ -1600,6 +1601,223 @@ country_event = {   ### Land Reform Endecja
 	}
 }
 
+
+
+country_event = {   ### PPS Report: Platinum's assassination of Maria Nearl
+	id = poland_hof.47
+	title = poland_hof.47.t
+	desc = poland_hof.47.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Tell Kaminska
+		name = poland_hof.47.a
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		hidden_effect = {
+			country_event = { id = poland_hof.49  days = 5  }
+		}
+	}
+
+	option = {    ### Tell PSL
+		name = poland_hof.47.b
+		trigger = {
+			has_country_flag =  POL_PSL_PPS_deal_flag
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+		hidden_effect = {
+			country_event = { id = poland_hof.50  days = 6  }
+		}
+	}
+
+	option = {    ### Let the internecine war begin
+		name = poland_hof.47.d
+		hidden_effect = {
+			country_event = { id = poland_hof.51  days = 6  }
+		}
+	}
+
+	option = {    ### Investigate who is that Platinum
+		name = poland_hof.47.e
+		hidden_effect = {
+			country_event = { id = poland_hof.48  days = 1  }
+		}
+	}
+}
+
+country_event = {   ### Platinum is Centaurea 
+	id = poland_hof.48
+	title = poland_hof.48.t
+	desc = poland_hof.48.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = POL_Platinum_identity_confirmed_flag
+		}
+	}
+	
+	option = {    ### Tell Kaminska
+		name = poland_hof.48.a
+		hidden_effect = {
+			country_event = { id = poland_hof.49  days = 5  }
+		}
+	}
+
+	option = {    ### Tell Kaminska
+		name = poland_hof.48.b
+		hidden_effect = {
+			country_event = { id = poland_hof.50  days = 6  }
+		}
+	}
+
+	option = {    ### Let the internecine war begin
+		name = poland_hof.48.c
+		hidden_effect = {
+			country_event = { id = poland_hof.51  days = 6  }
+		}
+	}
+}
+
+country_event = {   ### Kaminska's counter-attack
+	id = poland_hof.49
+	title = poland_hof.49.t
+	desc = poland_hof.49.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Warsaw suburban fight
+		name = poland_hof.49.a
+		trigger = {
+			NOT = { has_country_flag = POL_Platinum_identity_confirmed_flag }
+		}
+		add_stability = -0.05
+		POL_PPS_power_increase = yes
+		hidden_effect = {
+			country_event = { id = poland_hof.52 days = 1 }
+		}
+	}
+
+	option = {    ### Centaurea captured
+		name = poland_hof.49.b
+		trigger = {
+			has_country_flag = POL_Platinum_identity_confirmed_flag
+		}
+		hidden_effect = {
+			set_country_flag = POL_Centaurea_captured_PPS
+			country_event = { id = poland_hof.53 days = 1 }
+		}
+		POL_PPS_power_increase = yes
+	}
+}
+
+
+country_event = {   ### PSL's counter-attack
+	id = poland_hof.50
+	title = poland_hof.50.t
+	desc = poland_hof.50.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### counter-attack 
+		name = poland_hof.50.a
+		trigger = {
+			NOT = { has_country_flag = POL_Platinum_identity_confirmed_flag }
+		}
+		POL_PSL_power_increase = yes
+		hidden_effect = {
+			country_event = { id = poland_hof.52 days = 1 }
+		}
+	}
+
+	option = {    ### Pre-emptive attack
+		name = poland_hof.50.b
+		trigger = {
+			has_country_flag = POL_Platinum_identity_confirmed_flag
+		}
+		hidden_effect = {
+			set_country_flag = POL_Centaurea_captured_PSL
+			country_event = { id = poland_hof.54 days = 1 }
+		}
+		POL_PSL_power_increase = yes
+	}
+}
+
+country_event = {   ### Failed attempt to assassinate Maria Nearl
+	id = poland_hof.51
+	title = poland_hof.51.t
+	desc = poland_hof.51.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Centaurea's influence increased
+		name = poland_hof.51.a
+		add_stability = -0.05
+		POL_Endecja_power_increase = yes
+		POL_Sanacja_repression_increase = yes
+		hidden_effect = {
+			set_country_flag = POL_Plantium_Endecja_leader_enabled_flag
+		}
+	}
+
+}
+
+country_event = {   ### Failed attempt to assassinate Maria Nearl (Counter Attack)
+	id = poland_hof.52
+	title = poland_hof.52.t
+	desc = poland_hof.52.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Endecja's failure
+		name = poland_hof.52.a
+		add_stability = -0.05
+		POL_Endecja_power_decrease = yes
+		hidden_effect = {
+			set_country_flag = POL_Plantium_Endecja_leader_enabled_flag
+		}
+	}
+}
+
+country_event = {   ### Centaurea's turn （PPS）
+	id = poland_hof.53
+	title = poland_hof.53.t
+	desc = poland_hof.53.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Hopefully this will help
+		name = poland_hof.53.a
+		POL_Endecja_power_decrease = yes
+	}
+}
+
+country_event = {   ### Centaurea's turn （PSL）
+	id = poland_hof.54
+	title = poland_hof.54.t
+	desc = poland_hof.54.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Hopefully this will help
+		name = poland_hof.54.a
+		POL_Endecja_power_decrease = yes
+	}
+}
 
 country_event = {
 	id = poland_ai_cheating.1001
