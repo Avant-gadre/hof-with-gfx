@@ -5,6 +5,7 @@
 add_namespace = poland_hof
 add_namespace = poland_flavour
 add_namespace = poland_ai_cheating
+add_namespace = poland_diplo
 
 
 ##### 1936 Polish Election
@@ -1459,17 +1460,20 @@ country_event = {   ### Krakow Trial
 	
 	option = {    ### Innocent
 		name = poland_hof.42.a
+		unlock_national_focus = POL_the_krakow_trial
 		POL_PSL_power_increase = yes
 		POL_PPS_power_increase = yes
 	}
 
 	option = {    ### Seizing Weapons
 		name = poland_hof.42.b
+		unlock_national_focus = POL_the_krakow_trial
 		add_stability = -0.05
 	}
 
 	option = {    ### Full sentence
 		name = poland_hof.42.c
+		unlock_national_focus = POL_the_krakow_trial
 		POL_Endecja_power_increase = yes
 	}
 }
@@ -1672,7 +1676,7 @@ country_event = {   ### Platinum is Centaurea
 		}
 	}
 
-	option = {    ### Tell Kaminska
+	option = {    ### Tell PSL
 		name = poland_hof.48.b
 		hidden_effect = {
 			country_event = { id = poland_hof.50  days = 6  }
@@ -1788,6 +1792,7 @@ country_event = {   ### Failed attempt to assassinate Maria Nearl (Counter Attac
 		hidden_effect = {
 			set_country_flag = POL_Plantium_Endecja_leader_enabled_flag
 		}
+		retire_character = POL_platinum
 	}
 }
 
@@ -1816,6 +1821,562 @@ country_event = {   ### Centaurea's turn （PSL）
 	option = {    ### Hopefully this will help
 		name = poland_hof.54.a
 		POL_Endecja_power_decrease = yes
+	}
+}
+
+
+country_event = {   ### UKR: POL seeks reconcilation
+	id = poland_hof.55
+	title = poland_hof.55.t
+	desc = poland_hof.55.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Sure
+		name = poland_hof.55.a
+		POL = { country_event = { id = poland_hof.56 days = 5 } }
+		effect_tooltip = {
+			POL = {
+				remove_opinion_modifier = {
+					target = UKR
+					modifier = UKR_POL_hostility
+				}
+				add_opinion_modifier = {
+					target = UKR
+					modifier = UKR_POL_rapprochement
+				}
+			}
+			remove_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_hostility
+			}
+			add_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_rapprochement
+			}
+		}
+	}
+
+	option = {
+		name = poland_hof.55.b
+		ai_chance = {
+			factor = 0
+		}
+		POL = { country_event = { id = poland_hof.57 days = 5 } }
+	}
+}
+
+country_event = {   ### POL: UKR agrees
+	id = poland_hof.56
+	title = poland_hof.56.t
+	desc = poland_hof.56.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Sure
+		name = poland_hof.56.a
+		remove_opinion_modifier = {
+			target = UKR
+			modifier = UKR_POL_hostility
+		}
+		add_opinion_modifier = {
+			target = UKR
+			modifier = UKR_POL_rapprochement
+		}
+		UKR = {
+			remove_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_hostility
+			}
+			add_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_rapprochement
+			}
+		}
+		hidden_effect = {
+			add_ai_strategy = {
+				type = alliance
+				id = UKR
+				value = 800
+			}
+			UKR = {
+				add_ai_strategy = {
+					type = alliance
+					id = POL
+					value = 800
+				}
+			}
+			set_global_flag = UKR_POL_rapprochement_flag 
+		}
+	}
+}
+
+country_event = {   ### POL: UKR refuses
+	id = poland_hof.57
+	title = poland_hof.57.t
+	desc = poland_hof.57.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Bah
+		name = poland_hof.57.a
+		add_political_power = -5
+	}
+}
+
+country_event = {   ### ISR: POL supports Zionism
+	id = poland_hof.58
+	title = poland_hof.58.t
+	desc = poland_hof.58.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Thank them!
+		name = poland_hof.58.a
+		add_manpower = 50000
+		add_offsite_building = {
+			type = industrial_complex
+			level = 5
+		}
+	}
+}
+
+country_event = {   ### ISR: POL supports Zionism
+	id = poland_hof.59
+	title = poland_hof.59.t
+	desc = poland_hof.59.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Thank them!
+		name = poland_hof.59.a
+		add_timed_idea = {
+			idea = POL_ISR_support
+			days = 400
+		}
+	}
+}
+
+country_event = {   ### Western Countries: POL seeks help
+	id = poland_hof.60
+	title = poland_hof.60.t
+	desc = poland_hof.60.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Send Aids
+		name = poland_hof.60.a
+		add_political_power = -125
+		ai_chance = {
+			factor = 3
+		}
+		effect_tooltip = {
+			POL = {
+				if = {
+					limit = { has_idea = POL_Polscy_Zydzi }
+					swap_ideas = {
+						add_idea = POL_Polscy_Zydzi_relieved
+						remove_idea = POL_Polscy_Zydzi
+					}
+				}
+				else = {
+					add_political_power = 100
+				}
+			}
+		}
+		FROM = { country_event = { id = poland_hof.61  days = 3 } }
+		
+	}
+
+	option = {    ### Accept Jewish immigration
+		name = poland_hof.60.b
+		add_stability = -0.065
+		add_manpower = 10000
+		ai_chance = {
+			factor = 3
+		}
+		effect_tooltip = {
+			POL = {
+				if = {
+					limit = { has_idea = POL_Polscy_Zydzi }
+					swap_ideas = {
+						add_idea = POL_Polscy_Zydzi_relieved
+						remove_idea = POL_Polscy_Zydzi
+					}
+				}
+				else = {
+					add_stability = 0.05
+					add_manpower = -10000
+				}
+			}
+		}
+		FROM = { country_event = { id = poland_hof.62  days = 3 } }
+	}
+
+	option = {   ### Do nothing
+		name = poland_hof.60.b
+		ai_chance = {
+			factor = 2
+		}
+		add_political_power = 2
+		FROM = { country_event = { id = poland_hof.63  days = 3 } }
+	}
+}
+
+country_event = {   ### FROM provides financial aids
+	id = poland_hof.61
+	title = poland_hof.61.t
+	desc = poland_hof.61.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### 
+		name = poland_hof.61.a
+		effect_tooltip = {
+			FROM = { add_political_power = -125 }
+		}
+		if = {
+			limit = { has_idea = POL_Polscy_Zydzi }
+			swap_ideas = {
+				add_idea = POL_Polscy_Zydzi_relieved
+				remove_idea = POL_Polscy_Zydzi
+			}
+		}
+		else = {
+			add_political_power = 100
+		}
+	}
+}
+
+country_event = {   ### FROM accepted Jewish immigrants
+	id = poland_hof.62
+	title = poland_hof.62.t
+	desc = poland_hof.62.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### 
+		name = poland_hof.62.a
+		effect_tooltip = {
+			FROM = {
+				add_stability = -0.065
+				add_manpower = 10000
+			}
+		}
+		if = {
+			limit = { has_idea = POL_Polscy_Zydzi }
+			swap_ideas = {
+				add_idea = POL_Polscy_Zydzi_relieved
+				remove_idea = POL_Polscy_Zydzi
+			}
+		}
+		else = {
+			add_stability = 0.05
+			add_manpower = -10000
+		}
+	}
+}
+
+
+country_event = {   ### FROM accepted Jewish immigrants
+	id = poland_hof.63
+	title = poland_hof.63.t
+	desc = poland_hof.63.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### 
+		name = poland_hof.63.a
+		add_political_power = -5
+	}
+}
+
+country_event = {   ### EST/FIN: POL invite us against Russia
+	id = poland_hof.64
+	title = poland_hof.64.t
+	desc = poland_hof.64.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### OK
+		name = poland_hof.64.a
+		FROM = {  
+			country_event = { id = poland_hof.65 days = 1 }
+		}
+		effect_tooltip = {
+			add_ideas = { POL_Anti_Russia_Pact }
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				POL = { add_to_faction = ROOT }
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						is_faction_leader = yes
+						is_in_faction_with = POL
+					}
+				}
+				random_other_country = {
+					limit = {
+						is_faction_leader = yes
+						is_in_faction_with = POL
+					}
+					add_to_faction = ROOT
+				}
+			}
+		}
+	}
+
+	option = {    ### NO
+		name = poland_hof.64.b
+		FROM = { country_event = { id = poland_hof.66 days = 1 } }
+	}
+}
+
+country_event = {   ### POL: EST/FIN in 
+	id = poland_hof.65
+	title = poland_hof.65.t
+	desc = poland_hof.65.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### OK
+		name = poland_hof.65.a
+		FROM = { add_ideas = { POL_Anti_Russia_Pact } }
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			add_to_faction = FROM
+		}
+		else_if = {
+			limit = {
+				any_other_country = {
+					is_faction_leader = yes
+					is_in_faction_with = POL
+				}
+			}
+			random_other_country = {
+				limit = {
+					is_faction_leader = yes
+					is_in_faction_with = POL
+				}
+				add_to_faction = FROM
+			}
+		}
+	}
+}
+
+country_event = {   ### POL: EST/FIN out
+	id = poland_hof.66
+	title = poland_hof.66.t
+	desc = poland_hof.66.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Bah!
+		name = poland_hof.66.a
+		add_political_power = -5
+	}
+}
+
+country_event = {
+	id = poland_diplo.1
+	title = poland_diplo.1.t
+	desc = poland_diplo.1.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.1.a
+		#同意
+		ai_chance = {
+			base = 100
+		}
+		## 互不侵犯
+		set_global_flag = RUS_POL_rapprochement_flag
+		diplomatic_relation = {
+			country = POL
+			relation = non_aggression_pact
+			active = yes
+		}
+		add_opinion_modifier = {
+			target = POL
+			modifier = POL_anti_germans_abroad
+		}
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = POL_anti_germans_abroad
+		}
+		FROM = { country_event = { id = poland_diplo.6 days = 1 } }
+	}
+	option = {
+		name = poland_diplo.1.b
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 对德外交转向 德国触发
+	id = poland_diplo.2
+	title = poland_diplo.2.t
+	desc = poland_diplo.2.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.2.a
+		#同意
+		ai_chance = {
+			base = 10
+		}
+		## 互不侵犯
+		set_global_flag = GER_POL_rapprochement_flag
+		unlock_decision_tooltip = POL_join_germany_faction_hof
+		# 解锁一个加入德国阵营的决议
+		# 德国同意（概率10）和德国关系加，互不侵犯条约签署，
+		add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		diplomatic_relation = {
+			country = POL
+			relation = non_aggression_pact
+			active = yes
+		}
+	}
+	option = {
+		name = poland_diplo.2.b
+		# 向波兰索要波兹南
+		ai_chance = {
+			base = 90
+		}
+		POL = {
+			country_event = poland_diplo.3
+		}
+	}
+	option = {
+		name = poland_diplo.2.c
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 波兰：德国索取波兹南
+	id = poland_diplo.3
+	title = poland_diplo.3.t
+	desc = poland_diplo.3.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.3.a
+		#同意 
+		ai_chance = {
+			base = 100
+		}
+		GER = {
+			country_event = poland_diplo.4
+		}
+	}
+	option = {
+		name = poland_diplo.3.b
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 德国：波兰同意交出波兹南
+	id = poland_diplo.4
+	title = poland_diplo.4.t
+	desc = poland_diplo.4.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.4.a
+		#同意 互不侵犯
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 86
+		add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		diplomatic_relation = {
+			country = POL
+			relation = non_aggression_pact
+			active = yes
+		}
+		POL = {
+			country_event = poland_diplo.5
+		}
+		set_global_flag = GER_POL_rapprochement_flag
+		unlock_decision_tooltip = POL_join_germany_faction_hof
+		# 解锁一个加入德国阵营的决议
+		# 德国同意（概率10）和德国关系加，互不侵犯条约签署，
+		## 互不侵犯
+	}
+	option = {
+		name = poland_diplo.3.b
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 波兰收到德国同意的消息
+	id = poland_diplo.5
+	title = poland_diplo.5.t
+	desc = poland_diplo.5.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.5.b
+		#好的
+	}
+}
+
+country_event = {
+	# 波兰收到俄国同意的消息（互不侵犯
+	id = poland_diplo.6
+	title = poland_diplo.6.t
+	desc = poland_diplo.6.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.6.b
+		#好的
 	}
 }
 
