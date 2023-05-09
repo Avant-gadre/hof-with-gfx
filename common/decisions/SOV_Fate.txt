@@ -3106,6 +3106,7 @@ SOV_War_plan_decisions = {
 		}
 
 		available = {
+		    NOT = { country_exists = UKR }
 			FROM = {
 				is_fully_controlled_by = ROOT
 			}
@@ -4157,6 +4158,10 @@ SOV_War_plan_decisions = {
 			}
 		}
 
+		available = {
+            NOT = { country_exists = UKR }
+		}
+
 		cancel_if_not_visible = yes
 
 		cost = 75
@@ -4206,6 +4211,10 @@ SOV_War_plan_decisions = {
         is_claimed_by = ROOT
         NOT = { is_core_of = ROOT } 
 			}
+		}
+
+		available = {
+            NOT = { country_exists = UKR }
 		}
 
 		cancel_if_not_visible = yes
@@ -4708,6 +4717,192 @@ SOV_War_plan_decisions = {
 					is_neighbor_of = ROOT
 					NOT = { TAG = GER }
 					is_in_faction_with = GER
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = puppet_wargoal_focus
+					}
+				}
+			}
+
+		}
+
+	}
+
+	SOV_road_to_Berlin_decisions = {
+		icon = hol_draw_up_staff_plans
+
+		target_trigger = {
+			FROM = {
+				original_tag = POL
+			}
+        }
+
+		available = {
+			country_exists = POL
+			or = {
+				is_neighbor_of = POL
+
+				any_neighbor_country = {
+					is_subject_of = POL
+				}
+
+				any_allied_country = {
+					is_neighbor_of = POL
+				}
+
+				any_allied_country = {
+					any_neighbor_country = {
+						is_subject_of = POL
+					}
+				}
+			}
+		}
+
+		visible = {
+			is_subject = no 
+			has_war_with = UKR
+			has_war_with = GER
+            GER = { is_in_faction_with = UKR }
+			NOT = { has_war_with = POL }
+			NOT = { POL = { is_in_faction_with  = ROOT } }
+			NOT = { POL = { is_subject_of  = ROOT } }
+		}
+
+		cost = 50
+
+		days_remove = 60
+		fire_only_once = yes
+		war_with_target_on_remove = yes
+
+		ai_will_do = {
+			factor = 1500
+			modifier = {
+				factor = 0
+				has_country_flag = SOV_war_preparation_flag
+			}
+			modifier = {
+				factor = 0
+				surrender_progress > 0
+			}
+			modifier = {
+				factor = 0
+				any_home_area_neighbor_country = {
+				    has_war_with = ROOT
+				}
+			}
+			modifier = {
+				factor = 0
+				has_war_with = UKR
+				UKR = { surrender_progress < 0.7 }
+			}
+		}
+
+		complete_effect = {
+
+			set_country_flag = {
+				flag = SOV_war_preparation_flag
+				days = 75
+				value = 1
+			}
+
+			set_country_flag = {
+				flag = SOV_prepare_for_war_ger_flag
+				days = 90
+				value = 1
+			}
+
+			if = {
+				limit = { 
+					country_exists = POL
+					NOT = { has_war_with = POL }
+					NOT = { POL = { is_subject_of  = ROOT } }
+				}			
+				POL = {
+				    country_event = { id = more_soviet.201 days = 1 }
+				} 
+			}
+
+			if = {
+				limit = { 
+					country_exists = EST
+					NOT = { has_war_with = EST }
+					NOT = { EST = { is_subject_of  = ROOT } }
+				}			
+				EST = {
+				    country_event = { id = more_soviet.201 days = 1 }
+				} 
+			}
+
+			if = {
+				limit = { 
+					country_exists = BAT
+					NOT = { has_war_with = BAT }
+					NOT = { BAT = { is_subject_of  = ROOT } }
+				}			
+				BAT = {
+				    country_event = { id = more_soviet.201 days = 1 }
+				} 
+			}
+
+			every_other_country = {
+				limit = {
+					is_neighbor_of = ROOT
+					NOT = { TAG = POL }
+					is_in_faction_with = POL
+				}
+				country_event = { id = more_soviet.201 days = 1 }
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = 1000
+					}
+				}
+			}
+
+		}
+
+		remove_effect = {
+
+			declare_war_on = {
+				type = puppet_wargoal_focus
+				target = POL
+				# expire = 0
+			}
+
+			if = {
+				limit = { 
+					country_exists = EST
+					NOT = { has_war_with = EST }
+					NOT = { EST = { is_subject_of  = ROOT } }
+				}			
+				declare_war_on = {
+					type = puppet_wargoal_focus
+					target = EST
+					# expire = 0
+				}
+			}
+
+			if = {
+				limit = { 
+					country_exists = BAT
+					NOT = { has_war_with = BAT }
+					NOT = { BAT = { is_subject_of  = ROOT } }
+				}			
+				declare_war_on = {
+					type = puppet_wargoal_focus
+					target = BAT
+					# expire = 0
+				}
+			}
+
+			every_other_country = {
+				limit = {
+					is_neighbor_of = ROOT
+					NOT = { TAG = POL }
+					is_in_faction_with = POL
 				}
 				ROOT = {
 					declare_war_on = {

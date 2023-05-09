@@ -1,0 +1,878 @@
+
+ITA_nero_category = {
+
+	# Hold the north "dummy" mission for Italy
+	HOF_ITA_conquer_the_north_mission = {
+		icon = GFX_decision_generic_operation
+
+		allowed = {
+			tag = ITA
+		}
+
+		available = { #GOAL
+			OR = {
+				has_country_flag = HOF_ITA_victory_in_ethiopia_flag
+				count_triggers = {
+					amount = 2
+					# 841 = { is_controlled_by = ROOT }
+					# 842 = { is_controlled_by = ROOT }
+					# 843 = { is_controlled_by = ROOT }
+					controls_province = 1984
+					controls_province = 2072
+					controls_province = 5097
+				}
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+			has_global_flag = HOF_second_italo_ethiopian_war_flag
+			NOT = { has_country_flag = HOF_ITA_victory_in_ethiopia_flag } #If Italy peaces out with ETH, the mission just cancels instead of failing
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 841 #BEGEMDER
+				state = 842 #TIGRAY
+				state = 843 #WELLO
+			}
+			#highlight_provinces = {
+			#	1984
+			#	#2072
+			#	#5097
+			#}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+
+		#highlight_states = {
+		#	highlight_states_trigger = {
+		#		OR = {
+		#			state = 841 #BEGEMDER
+		#			state = 842 #TIGRAY
+		#			state = 843 #WELLO
+		#		}
+		#	}
+		#	highlight_color_while_active = 2
+		#}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = ETH.ETH_hold_the_north_time
+
+		cancel_effect = {
+			if = { #MISSION SUCCEEDED
+				limit = {
+					OR = {
+						has_country_flag = HOF_ITA_victory_in_ethiopia_flag
+						count_triggers = {
+							amount = 2
+							# 841 = { is_controlled_by = ROOT }
+							# 842 = { is_controlled_by = ROOT }
+							# 843 = { is_controlled_by = ROOT }
+							controls_province = 1984
+							controls_province = 2072
+							controls_province = 5097
+						}
+						hidden_trigger = {
+							NOT = { has_global_flag = HOF_second_italo_ethiopian_war_flag }
+							hidden_trigger = { NOT = { has_country_flag = HOF_ITA_defeat_in_ethiopia_flag } }
+						}
+					}
+				}
+				country_event = { id = HOF_italy_nero.03_north hours = 1 }
+			}
+			else = { #MISSION FAILED
+				#Prepare next mission
+				if = {
+					limit = {
+						NOT = { has_active_mission = HOF_ITA_conquer_the_south_mission }
+						ITA_nero_system_available = yes
+					}
+					HOF_ITA_nero_manage_next_mission = yes
+				}
+
+				if = {
+					limit = {
+						NOT = { has_country_flag = ITA_nero_conquer_the_south_failed_flag }
+					}
+					set_country_flag = ITA_nero_conquer_the_south_failed_flag
+					#log = "Adding North flag"
+				}
+
+				country_event = { id = HOF_italy_nero.02_north hours = 1 }
+			}
+		}
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_progress_in_ethiopia_failure_effect = yes
+			}
+
+			hidden_effect = {
+				#Prepare next mission
+				if = {
+					limit = {
+						NOT = { has_active_mission = HOF_ITA_conquer_the_south_mission }
+						ITA_nero_system_available = yes
+					}
+					HOF_ITA_nero_manage_next_mission = yes
+				}
+
+				if = {
+					limit = {
+						NOT = { has_country_flag = ITA_nero_conquer_the_south_failed_flag }
+					}
+					set_country_flag = ITA_nero_conquer_the_south_failed_flag
+					#log = "Adding North flag"
+				}
+
+				country_event = { id = HOF_italy_nero.02_north hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_progress_in_ethiopia_success_effect = yes
+			}
+
+			hidden_effect = {
+				#Prepare next mission
+				if = {
+					limit = {
+						NOT = { has_active_mission = HOF_ITA_conquer_the_south_mission }
+						ITA_nero_system_available = yes
+					}
+					HOF_ITA_nero_manage_next_mission = yes
+				}
+
+				if = {
+					limit = {
+						NOT = { has_country_flag = ITA_nero_conquer_the_south_succeeded_flag }
+					}
+					set_country_flag = ITA_nero_conquer_the_south_succeeded_flag
+				}
+
+				country_event = { id = HOF_italy_nero.03_north hours = 1 }
+			}
+		}
+	}
+
+	# Hold the south "dummy" mission for Italy
+	HOF_ITA_conquer_the_south_mission = {
+		icon = GFX_decision_generic_operation
+		allowed = { tag = ITA }
+
+		available = { #GOAL
+			OR = {
+				has_country_flag = HOF_ITA_victory_in_ethiopia_flag
+				count_triggers = {
+					amount = 2
+					# 835 = { is_controlled_by = ROOT }
+					# 836 = { is_controlled_by = ROOT }
+					# 837 = { is_controlled_by = ROOT }
+					controls_province = 12812
+					controls_province = 10775
+					controls_province = 13247
+				}
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+			has_global_flag = HOF_second_italo_ethiopian_war_flag
+			NOT = { has_country_flag = HOF_ITA_victory_in_ethiopia_flag } #If Italy peaces out with ETH, the mission just cancels instead of failing
+		}
+
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					state = 835 #HARARGHE
+					state = 836 #BALE
+					state = 837 #SIDAMO
+				}
+			}
+			highlight_color_while_active = 2
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = ETH.ETH_hold_the_south_time
+
+		cancel_effect = {
+			if = { #MISSION SUCCEEDED
+				limit = {
+					OR = {
+						has_country_flag = HOF_ITA_victory_in_ethiopia_flag
+						count_triggers = {
+							amount = 2
+							# 835 = { is_controlled_by = ROOT }
+							# 836 = { is_controlled_by = ROOT }
+							# 837 = { is_controlled_by = ROOT }
+							controls_province = 12812
+							controls_province = 10775
+							controls_province = 13247
+						}
+						hidden_trigger = {
+							NOT = { has_global_flag = HOF_second_italo_ethiopian_war_flag }
+							hidden_trigger = { NOT = { has_country_flag = HOF_ITA_defeat_in_ethiopia_flag } }
+						}
+					}
+				}
+				country_event = { id = HOF_italy_nero.05_south hours = 1 }
+			}
+			else = { #MISSION FAILED
+				if = {
+					limit = {
+						NOT = { has_country_flag = ITA_nero_conquer_the_north_failed_flag }
+					}
+					set_country_flag = ITA_nero_conquer_the_north_failed_flag
+					#log = "Adding South flag"
+				}
+
+				country_event = { id = HOF_italy_nero.04_south hours = 1 }
+			}
+		}
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_progress_in_ethiopia_failure_effect = yes
+			}
+
+			hidden_effect = {
+				#Prepare next mission
+				if = {
+					limit = {
+						NOT = { has_active_mission = HOF_ITA_conquer_the_south_mission }
+						ITA_nero_system_available = yes
+					}
+					HOF_ITA_nero_manage_next_mission = yes
+				}
+
+				if = {
+					limit = {
+						NOT = { has_country_flag = ITA_nero_conquer_the_north_failed_flag }
+					}
+					set_country_flag = ITA_nero_conquer_the_north_failed_flag
+					#log = "Adding South flag"
+				}
+				country_event = { id = HOF_italy_nero.04_south hours = 1 } #Triggered one hour later for event options purposes
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_progress_in_ethiopia_success_effect = yes
+			}
+
+			hidden_effect = {
+				#Prepare next mission
+				if = {
+					limit = {
+						NOT = { has_active_mission = HOF_ITA_conquer_the_south_mission }
+						ITA_nero_system_available = yes
+					}
+					HOF_ITA_nero_manage_next_mission = yes
+				}
+
+				if = {
+					limit = {
+						NOT = { has_country_flag = ITA_nero_conquer_the_north_succeeded_flag }
+					}
+					set_country_flag = ITA_nero_conquer_the_south_succeeded_flag
+				}
+
+				country_event = { id = HOF_italy_nero.05_south hours = 1 }
+			}
+		}
+	}
+
+	# Conquer Ethiopia
+	HOF_ITA_conquer_ethiopia = {
+		icon = GFX_decision_generic_prepare_civil_war
+		allowed = { tag = ITA }
+
+		visible = {
+			ITA_nero_system_available = yes
+			hidden_trigger = { NOT = { has_country_flag = HOF_ITA_defeat_in_ethiopia_flag } }
+		}
+
+		available = { #GOAL
+			NOT = { has_global_flag = HOF_second_italo_ethiopian_war_flag }
+			hidden_trigger = { NOT = { has_country_flag = HOF_ITA_defeat_in_ethiopia_flag } }
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = HOF_ITA_nero_conquer_ethiopia_days #这个值在历史文件里面设定为60
+
+		cancel_effect = {
+			if = { #Succeeded
+				limit = {
+					NOT = { has_country_flag = ITA_defeat_in_ethiopia_flag }
+				}
+				country_event = { id = HOF_italy_nero.13 hours = 1 }
+			}
+			else = { #Failed
+				country_event = { id = HOF_italy_nero.12 hours = 1 }
+			}
+		}
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_conquer_ethiopia_failure_effect = yes
+			}
+
+			hidden_effect = {
+				#Prepare next mission
+				HOF_ITA_nero_manage_next_mission = yes
+
+				country_event = { id = HOF_italy_nero.12 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_conquer_ethiopia_success_effect = yes
+			}
+
+			hidden_effect = {
+				#Prepare next mission
+				HOF_ITA_nero_manage_next_mission = yes
+
+				country_event = { id = HOF_italy_nero.13 hours = 1 }
+			}
+		}
+	}
+
+	# Strengthen Heavy Industry
+	HOF_ITA_nero_strengthen_heavy_industry = {
+		icon = GFX_decision_generic_merge_plant_materiel
+		allowed = {
+			tag = ITA
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+		}
+
+		available = { #GOAL
+			custom_trigger_tooltip = { #TODO_Manu: This should be replaced by the appropriate check once Red king merges stuff (Factories BUILD check)
+				tooltip = ITA_missiolini_strengthen_heavy_industry_trigger_tt
+				num_of_civilian_factories > ROOT.ITA_missiolinis_required_civs
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = HOF_ITA_missiolinis_default_days #这个值在历史文件里面设定为140
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_strengthen_heavy_industry_failure_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.32 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_strengthen_heavy_industry_success_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.33 hours = 1 }
+			}
+		}
+	}
+
+	# Strengthen the Army
+	HOF_ITA_nero_strengthen_the_army = {
+		icon = GFX_decision_generic_military
+		allowed = {
+			tag = ITA
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+		}
+
+		available = { #GOAL
+			#has_army_manpower = { size > ROOT.ITA_missiolinis_fielded_manpower_goal } #1kk #TODO_Manu: Code support to use vars in has_army_manpower
+			#if = { #FIRST TIME - FIXED AMOUNT #TODO_Manu: NEED CODE SUPPORT (see line above)
+			#	limit = {
+			#		NOT = { has_country_flag = ITA_missiolini_strengthen_the_army_repeatable_flag } #First time it's a fixed amopunt. Then if the mission is repeated it will require +500k MP in the field (compare to current)
+			#	}
+				#if = {
+				#	limit = {
+				#		ITA_has_missiolini_easier_goals = yes
+				#	}
+				#	has_army_manpower = { size > 650000 } #650k
+				#}
+				#else = {
+					has_army_manpower = { size > 500000 } #500k
+				#}
+			#}
+			#else = { #IF REPEATING
+			#	has_army_manpower = { size > 1000000 } #TODO_Manu: Current MP + 500 -> Code Support for this (has_army_manpower does not take vars)
+			#}
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = HOF_ITA_missiolinis_default_days #这个值在历史文件里面设定为140
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_strengthen_the_army_failure_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.42 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_strengthen_the_army_success_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.43 hours = 1 }
+			}
+		}
+	}
+
+	# Strengthen the Navy
+	HOF_ITA_nero_strengthen_the_navy = {
+		icon = GFX_decision_generic_military
+		allowed = {
+			tag = ITA
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+		}
+
+		available = { #GOAL
+			#has_army_manpower = { size > ROOT.ITA_missiolinis_fielded_manpower_goal } #1kk #TODO_Manu: Code support to use vars in has_army_manpower
+			#if = { #FIRST TIME - FIXED AMOUNT #TODO_Manu: NEED CODE SUPPORT (see line above)
+			#	limit = {
+			#		NOT = { has_country_flag = ITA_missiolini_strengthen_the_army_repeatable_flag } #First time it's a fixed amopunt. Then if the mission is repeated it will require +500k MP in the field (compare to current)
+			#	}
+				#if = {
+				#	limit = {
+				#		ITA_has_missiolini_easier_goals = yes
+				#	}
+				#	has_army_manpower = { size > 650000 } #650k
+				#}
+				#else = {
+					has_navy_size = {
+						size > 5
+						archetype = ship_hull_heavy
+					}
+				#}
+			#}
+			#else = { #IF REPEATING
+			#	has_army_manpower = { size > 1000000 } #TODO_Manu: Current MP + 500 -> Code Support for this (has_army_manpower does not take vars)
+			#}
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = HOF_ITA_navy_default_days #这个值在历史文件里面设定为730,两年造不出，我看你是不造了
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_strengthen_the_navy_failure_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.1001 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_strengthen_the_navy_success_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.1002 hours = 1 }
+			}
+		}
+	}
+
+	# Stockpile Trucks
+	ITA_missiolini_stockpile_trucks = {
+		icon = GFX_decision_generic_trucks
+		allowed = {
+			tag = ITA
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+		}
+
+		available = { #GOAL
+			has_equipment = { #TODO_Manu: Code Support to also get the trucks in the field // Alternatively, check for trucks produced (Code support too!)
+				motorized_equipment_1 > ROOT.ITA_missiolinis_trucks_to_produce
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = ITA_missiolinis_default_days
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				ITA_missiolini_stockpile_trucks_failure_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = BBA_italy_missiolinis.52 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				ITA_missiolini_stockpile_trucks_success_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = BBA_italy_missiolinis.53 hours = 1 }
+			}
+		}
+	}
+
+	# Occupy Albania
+	HOF_ITA_nero_occupy_albania = {
+		icon = GFX_decision_infiltrate_state
+		allowed = {
+			tag = ITA
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+		}
+
+		available = { #GOAL
+			44 = { #ALBANIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			805 = { #NORTHERN EPIRUS
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = HOF_ITA_missiolinis_default_days
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_occupy_albania_failure_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.102 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_occupy_albania_success_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.103 hours = 1 }
+			}
+		}
+	}
+
+	# Occupy Dalmatia
+	HOF_ITA_nero_occupy_dalmatia = {
+		icon = GFX_decision_infiltrate_state
+		allowed = {
+			tag = ITA
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+		}
+
+		available = { #GOAL
+		
+			104 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			105 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			106 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			107 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			108 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			109 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			802 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			803 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			804 = { #DALMATIA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = HOF_ITA_missiolinis_default_days
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_occupy_dalmatia_failure_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.112 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_occupy_dalmatia_success_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.113 hours = 1 }
+			}
+		}
+	}
+
+	# Occupy Greece
+	HOF_ITA_nero_occupy_greece = {
+		icon = GFX_decision_infiltrate_state
+		allowed = {
+			tag = ITA
+		}
+
+		visible = {
+			ITA_nero_system_available = yes
+		}
+
+		available = { #GOAL
+			185 = { #EPIRUS
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			47 = { #ATTICA
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+			186 = { #PELOPONNESE
+				OR = {
+					is_fully_controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+						hidden_trigger = { #To prevent unnecessary overcrowding
+							has_full_control_of_state = PREV
+						}
+					}
+				}
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = HOF_ITA_missiolinis_default_days
+
+		cosmetic_tag = GRE
+		cosmetic_ideology = neutrality
+
+		timeout_effect = { #MISSION FAILS
+			effect_tooltip = {
+				HOF_ITA_nero_occupy_greece_failure_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.122 hours = 1 }
+			}
+		}
+
+		complete_effect = { #MISSION SUCCEEDS
+			effect_tooltip = {
+				HOF_ITA_nero_occupy_greece_success_effect = yes
+			}
+
+			hidden_effect = {
+				country_event = { id = HOF_italy_nero.123 hours = 1 }
+			}
+		}
+	}
+
+}

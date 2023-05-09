@@ -1070,6 +1070,11 @@ focus_tree = {
 
 		    add_political_power = 350
 
+			swap_ideas = {
+				remove_idea = SOV_Legacy_of_the_Great_Famine_stalindied
+				add_idea = SOV_Legacy_of_the_Great_Famine_nostalin
+			}
+
 			remove_country_leader_trait = Blood_Dwarf
 			add_country_leader_trait = Blood_Dwarf_1
 
@@ -1514,6 +1519,8 @@ focus_tree = {
 		completion_reward = {
 
 			set_cosmetic_tag = SOV_right_opposition
+
+			remove_ideas = SOV_Legacy_of_the_Great_Famine_nostalin
 
 			swap_ideas = {
 				remove_idea = SOV_Humane_communism_idea_2
@@ -2335,20 +2342,21 @@ focus_tree = {
 			factor = 200
 		}
 
-    available = {
-      SOV = { has_war_with = RUS }
-    }
-    bypass = {
-      or = {
-        RUS = { exists = no }
-        RUS = { is_puppet = yes }
-      }
-    }
+		available = {
+			NOT = { has_completed_focus = SOV_Humane_communism }
+			SOV = { has_war_with = RUS }
+		}
+		bypass = {
+			or = {
+				RUS = { exists = no }
+				RUS = { is_puppet = yes }
+			}
+		}
 
 		available_if_capitulated = yes
 
 		completion_reward = {
-      add_ideas = SOV_Wartime_communism_idea
+            add_ideas = SOV_Wartime_communism_idea
 		}
 	}
 
@@ -2364,23 +2372,46 @@ focus_tree = {
 		cost = 5
 		ai_will_do = {
 			factor = 200
+			modifier = {
+				factor = 0
+				NOT = { surrender_progress > 0.10 }
+			}
 		}
 
-    available = {
-      has_war = yes
-      or = {
-        casualties > 500000
-        surrender_progress > 0.30
-      }
-    }
-    bypass = {
-		  has_idea = tot_economic_mobilisation
-    }
+		available = {
+			or = {
+				has_country_leader  = {
+					ruling_only  = yes 
+					character = SOV_nikolay_yezhov
+				}
+				has_country_leader  = {
+					ruling_only  = yes 
+					character = SOV_lev_trotsky
+				}
+			}
+			has_war = yes
+			or = {
+				casualties > 500000
+				surrender_progress > 0.30
+			}
+		}
+		bypass = {
+			or = {
+				threat > 0.6
+				has_idea = tot_economic_mobilisation
+				or = {
+					RUS = { exists = no }
+					RUS = { is_puppet = yes }
+				}
+			}
+		}
 
 		available_if_capitulated = yes
 
 		completion_reward = {
-		  add_ideas = tot_economic_mobilisation
+			add_political_power = -300
+
+            add_ideas = tot_economic_mobilisation
 		}
 	}
 
@@ -4132,16 +4163,27 @@ focus_tree = {
 
 		completion_reward = {
 
+			unlock_decision_tooltip = RUS_Develop_Industry_In_Moscow
+			unlock_decision_tooltip = RUS_Develop_Industry_In_Petersburg
+
+			if = {
+				limit = { 
+					NOT = { has_global_flag = UKR_still_on_earth_flag }
+				}
+				unlock_decision_tooltip = RUS_Develop_Industry_In_Kharkov
+				unlock_decision_tooltip = RUS_Develop_Industry_In_Donetsk
+				unlock_decision_tooltip = RUS_Develop_Industry_In_Luhansk
+				unlock_decision_tooltip = RUS_Develop_Industry_In_Kyiv
+				unlock_decision_tooltip = RUS_Develop_Industry_In_Dnipro
+			}
+
 			add_stability = 0.15
 
 			if = {
 				limit = { 
-					has_idea = new_economic_policy
+					has_completed_focus = SOV_back_to_the_nep
 				}
-				swap_ideas = {
-					remove_idea = new_economic_policy
-					add_idea = new_economic_policy_2
-				}
+				add_ideas = new_economic_policy_2
 			}
 
 			if = {
@@ -4872,20 +4914,20 @@ focus_tree = {
 
 			573 = {
 				if = {
-					limit = { 
-						free_building_slots = {
-							building = industrial_complex
-							size > 3
-							include_locked = yes
-						}
+					limit = {
+						has_completed_focus = SOV_Mobilize_the_rear_industrial_area
 					}
-					add_extra_state_shared_building_slots = 4
-					add_building_construction = {
-						type = industrial_complex
-						level = 4
-						instant_build = yes
-					}
-
+					remove_dynamic_modifier = { modifier = industrial_area_Lv2 }
+					add_dynamic_modifier = { modifier = industrial_area_Lv3 }
+				}
+				else = {
+					add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
 				}
 			}
 
@@ -4909,20 +4951,20 @@ focus_tree = {
 
 			582 = {
 				if = {
-					limit = { 
-						free_building_slots = {
-							building = industrial_complex
-							size > 3
-							include_locked = yes
-						}
+					limit = {
+						has_completed_focus = SOV_Mobilize_the_rear_industrial_area
 					}
-					add_extra_state_shared_building_slots = 4
-					add_building_construction = {
-						type = industrial_complex
-						level = 4
-						instant_build = yes
-					}
-
+					remove_dynamic_modifier = { modifier = industrial_area_Lv2 }
+					add_dynamic_modifier = { modifier = industrial_area_Lv3 }
+				}
+				else = {
+					add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
 				}
 			}
 
@@ -5594,6 +5636,16 @@ focus_tree = {
 			unlock_decision_tooltip = RUS_Develop_Industry_In_Tsaritsyn
 
 			if = {
+				limit = { 
+					has_global_flag = UKR_still_on_earth_flag
+				}
+			    add_stability = 0.1
+			}
+			else = {
+			    add_stability = 0.15
+			}
+
+			if = {
 				limit = {
 					570 = {
 						OR = {
@@ -5618,11 +5670,6 @@ focus_tree = {
 						}
 					}
 					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
 					add_building_construction = {
 						type = industrial_complex
 						level = 1
@@ -5682,11 +5729,6 @@ focus_tree = {
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
 						type = industrial_complex
 						level = 1
 						instant_build = yes
@@ -5744,11 +5786,6 @@ focus_tree = {
 						}
 					}
 					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
 					add_building_construction = {
 						type = industrial_complex
 						level = 1
@@ -5808,11 +5845,6 @@ focus_tree = {
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
 						type = industrial_complex
 						level = 1
 						instant_build = yes
@@ -5870,11 +5902,6 @@ focus_tree = {
 						}
 					}
 					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
 					add_building_construction = {
 						type = industrial_complex
 						level = 1
@@ -5934,11 +5961,6 @@ focus_tree = {
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
 						type = industrial_complex
 						level = 1
 						instant_build = yes
@@ -5997,11 +6019,6 @@ focus_tree = {
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
 						type = industrial_complex
 						level = 1
 						instant_build = yes
@@ -6059,11 +6076,6 @@ focus_tree = {
 						}
 					}
 					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
 					add_building_construction = {
 						type = industrial_complex
 						level = 1
@@ -7026,6 +7038,10 @@ focus_tree = {
 			every_state = {
 				limit = {
 					NOT = { is_core_of = ROOT }
+					OR = {
+						is_on_continent = europe
+						is_on_continent = asia
+					}
 				}
 				add_claim_by = ROOT
 			}
@@ -7723,7 +7739,7 @@ focus_tree = {
 			}
 
 			249 = {
-				add_extra_state_shared_building_slots = 8
+				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
 					type = arms_factory
 					level = 4
@@ -7732,6 +7748,7 @@ focus_tree = {
 			}
 
 			249 = {
+				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
 				set_state_category = town
 			}
 
@@ -7768,7 +7785,7 @@ focus_tree = {
 			}
 
 			251 = {
-				add_extra_state_shared_building_slots = 8
+				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
 					type = arms_factory
 					level = 4
@@ -7777,6 +7794,7 @@ focus_tree = {
 			}
 
 			251 = {
+				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
 				set_state_category = town
 			}
 
@@ -7797,11 +7815,31 @@ focus_tree = {
 			}
 
 			582 = {
+				if = {
+					limit = {
+						has_completed_focus = SOV_Magnitorsk_steel_mill
+					}
+					remove_dynamic_modifier = { modifier = industrial_area_Lv1 }
+					add_dynamic_modifier = { modifier = industrial_area_Lv3 }
+				}
+				else = {
+					add_dynamic_modifier = { modifier = industrial_area_Lv2 }
+				}
 				set_state_category = town
 				add_extra_state_shared_building_slots = 8
 			}
 
 			573 = {
+				if = {
+					limit = {
+						has_completed_focus = SOV_Magnitorsk_steel_mill
+					}
+					remove_dynamic_modifier = { modifier = industrial_area_Lv1 }
+					add_dynamic_modifier = { modifier = industrial_area_Lv3 }
+				}
+				else = {
+					add_dynamic_modifier = { modifier = industrial_area_Lv2 }
+				}
 				set_state_category = town
 				add_extra_state_shared_building_slots = 8
 			}
@@ -7823,7 +7861,8 @@ focus_tree = {
 			}
 
 			572 = {
-				add_extra_state_shared_building_slots = 16
+				add_dynamic_modifier = { modifier = industrial_area_Lv3 }
+				add_extra_state_shared_building_slots = 8
 				add_building_construction = {
 					type = arms_factory
 					level = 8
@@ -7966,7 +8005,7 @@ focus_tree = {
 		cost = 5
 
 		available = {
-
+			has_completed_focus = SOV_found_the_pcdi
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -8024,7 +8063,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_pc_of_mortar_armament
-		cost = 10
+		cost = 5
 
 		available = {
 			has_country_flag = {
@@ -8069,7 +8108,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_superior_war_machines
-		cost = 10
+		cost = 5
 
 		available = {
 			custom_trigger_tooltip = {
@@ -8124,7 +8163,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = SOV_pc_of_mechanical_engineering
-		cost = 10
+		cost = 5
 
 		available = {
 			has_war = yes
@@ -8157,7 +8196,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_increase_aircraft_production
-		cost = 10
+		cost = 5
 
 		available = {
 			has_country_flag = {
@@ -8205,7 +8244,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_intensify_pilot_training_program
-		cost = 10
+		cost = 5
 
 		available = {
 			custom_trigger_tooltip = {
@@ -8254,7 +8293,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_Aviation_Group_Army
-		cost = 10
+		cost = 5
 
 		available = {
 
@@ -8667,7 +8706,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_lessons_of_war
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 2500
 		}
@@ -8959,7 +8998,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = SOV_organization_of_the_partisans
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 2500
 		}

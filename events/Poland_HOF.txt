@@ -283,6 +283,10 @@ country_event = {
 		}
 		hidden_effect = {
 			set_country_flag = POL_Centrolew_government_flag
+			if = {
+				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
 		}
 		mark_focus_tree_layout_dirty = yes
 	}
@@ -594,6 +598,10 @@ country_event = {
 				else = {
 					set_country_flag = POL_Nearl_Sanacja_flag
 				}
+				if = {
+					limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+					clr_country_flag = POL_Sanacja_show_initial_flag
+				}
 			}
 			mark_focus_tree_layout_dirty = yes
 		}
@@ -686,6 +694,10 @@ country_event = {
 			set_country_flag = POL_Sanacja_government_flag
 			set_country_flag = POL_Leftist_Sanacja_flag
 			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+			if = {
+				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
 		}
 		mark_focus_tree_layout_dirty = yes
 	}
@@ -715,6 +727,10 @@ country_event = {
 		}
 		hidden_effect = {
 			set_country_flag = POL_Endecja_government_flag
+			if = {
+				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
 		}
 		retire_character = POL_natalia_kaminska
 		mark_focus_tree_layout_dirty = yes
@@ -834,6 +850,10 @@ country_event = {
 			set_country_flag = POL_Sanacja_government_flag
 			set_country_flag = POL_Nationalist_Sanacja_flag
 			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+			if = {
+				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
 		}
 		mark_focus_tree_layout_dirty = yes
 	}
@@ -866,6 +886,10 @@ country_event = {
 		
 		hidden_effect = {
 			set_country_flag = POL_PSL_government_flag
+			if = {
+				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
 		}
 		mark_focus_tree_layout_dirty = yes
 	}
@@ -992,7 +1016,7 @@ country_event = {   ### Czarny met with Firewatch
 		name = poland_hof.26.b
 		add_stability = -0.015
 		hidden_effect = {
-			set_country_flag = POL_Firewatch_refused_to_testify_flag
+			set_country_flag = POL_Firewatch_chose_to_testify_flag
 		}
 		country_event = { id = poland_hof.28  days = 3 }
 	}
@@ -1327,6 +1351,14 @@ country_event = {   ### POL: New President for SN
 		add_political_power = 100
 		hidden_effect = {
 			set_country_flag = POL_Firewatch_path_leader_open_flag
+			if = {
+				limit = {
+					has_completed_focus = POL_firewatch
+					has_country_flag = POL_Firewatch_chose_to_testify_flag
+					NOT = { has_country_flag = POL_Falangist_early_purge_flag }
+				}
+				country_event = { id = poland_hof.67  days = 80 }
+			}
 		}
 	}
 
@@ -2191,6 +2223,44 @@ country_event = {   ### POL: EST/FIN out
 	option = {    ### Bah!
 		name = poland_hof.66.a
 		add_political_power = -5
+	}
+}
+
+country_event = {   ### POL: Firewatch Coup d'etat
+	id = poland_hof.67
+	title = poland_hof.67.t
+	desc = poland_hof.67.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    
+		name = poland_hof.67.a
+		remove_country_leader_role = {
+			character = POL_Czarny
+			ideology = fascism_ideology
+		}
+		add_country_leader_role = {
+			character = POL_firewatcher
+			promote_leader = yes
+			country_leader = {
+				ideology = falangism
+				expire = "1965.1.1.1"
+				traits = { green_death }
+			}
+		}
+		hidden_effect = {
+			set_country_flag = POL_Firewatch_government_flag
+			if = {
+				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
+			if = {
+				limit = { has_country_flag = POL_Endecja_government_flag  }
+				clr_country_flag = POL_Endecja_government_flag
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 

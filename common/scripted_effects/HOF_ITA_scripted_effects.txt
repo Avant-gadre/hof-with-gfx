@@ -1,0 +1,536 @@
+#	Example:
+#
+#	example_effect = {
+#		add_political_power = 66
+#		add_popularity = {
+#			ideology = fascism
+#			popularity = 0.33
+#		}
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		example_effect = yes
+#	}
+#
+
+HOF_ITA_end_the_italo_ethiopian_war = {
+	clr_global_flag = HOF_second_italo_ethiopian_war_flag
+	
+	# check if Italian victory
+	IF = {
+		limit = {
+			any_country = {
+				OR = {
+					original_tag = ITA
+					is_subject_of = ITA
+				}
+				controls_state = 271
+			}
+		}
+		ITA = {
+			set_country_flag = HOF_ITA_victory_in_ethiopia_flag
+		}
+	}
+	ELSE = {
+		ITA = {
+			set_country_flag = HOF_ITA_defeat_in_ethiopia_flag
+		}
+	}
+}
+
+##     ## ####  ######   ######  ####  #######  ##       #### ##    ## ####  ######
+###   ###  ##  ##    ## ##    ##  ##  ##     ## ##        ##  ###   ##  ##  ##    ##
+#### ####  ##  ##       ##        ##  ##     ## ##        ##  ####  ##  ##  ##
+## ### ##  ##   ######   ######   ##  ##     ## ##        ##  ## ## ##  ##   ######
+##     ##  ##        ##       ##  ##  ##     ## ##        ##  ##  ####  ##        ##
+##     ##  ##  ##    ## ##    ##  ##  ##     ## ##        ##  ##   ###  ##  ##    ##
+##     ## ####  ######   ######  ####  #######  ######## #### ##    ## ####  ######
+
+
+HOF_ITA_nero_initialize_nero_system = {
+	set_country_flag = HOF_ITA_nero_system_active_flag
+}
+
+HOF_ITA_nero_initialize_new_mission_effect = { #Sets flags and everything necessary to keep track of ongoing missions, last time a mission was issued, etc.
+	set_country_flag = { flag = ITA_nero_activated_recently_flag days = 30 } #WARNING THIS IS NOT SYNC WITH THE REST OF STUFF USING THE VAR ITA_missiolinis_min_cd_between_missions
+
+	add_to_variable = { HOF_ITA_nero_active_missions = 1 }
+	add_to_variable = { HOF_ITA_nero_number_of_missions_triggered = 1 }
+}
+
+ITA_missiolinis_revert_new_mission_initialization_effect = { #For when player chooses to re-roll for a new mission
+	clr_country_flag = ITA_nero_activated_recently_flag
+
+	add_to_variable = { HOF_ITA_nero_active_missions = -1 }
+	add_to_variable = { HOF_ITA_nero_number_of_missions_triggered = -1 }
+}
+
+HOF_ITA_nero_manage_next_mission = {
+	#log = "Managing next Mussolini, please hang on. Tack!"
+
+	#Check for pre-scripted vs randomized missions
+	if = {
+		limit = {
+			check_variable = { HOF_ITA_nero_number_of_missions_triggered = 5 } # WARNING: 5 is the number of pre-scripted missions. If more pre-scripted missions are added or removed, adjust this value
+		}
+		set_country_flag = HOF_ITA_randomize_nero_flag
+	}
+
+	if = { #PRE-SCRIPTED MISSIOLINIS
+		limit = {
+			NOT = {	has_country_flag = HOF_ITA_randomize_nero_flag }
+		}
+		if = {
+			limit = {
+				check_variable = { HOF_ITA_nero_number_of_missions_triggered = 1 } # WARNING: 5 is the number of pre-scripted missions. If more pre-scripted missions are added or removed, adjust this value
+			}
+
+
+			add_to_variable = { HOF_ITA_nero_number_of_missions_triggered = 1 }
+		}
+
+
+	}
+	else = { #RANDOM MISSIOLINIS TIME
+
+	}
+}
+
+HOF_ITA_nero_finalize_mission_effect = { #Sets flags and everything necessary to end a mission and keep track of ongoing missions, etc.
+	add_to_variable = { HOF_ITA_nero_active_missions = -1 }
+	add_to_variable = { HOF_ITA_nero_number_of_missions_resolved = 1 }
+}
+
+HOF_ITA_nero_add_to_failed_missions = {
+	add_to_variable = { HOF_ITA_nero_failed_missions = 1 }
+}
+
+HOF_ITA_nero_add_to_successful_missions = {
+	add_to_variable = { HOF_ITA_nero_successful_missions = 1 }
+}
+
+### PROGRESS IN ETHIOPIA ###
+HOF_ITA_nero_progress_in_ethiopia_failure_effect = {
+	add_war_support = -0.03
+	add_political_power = -15
+	if = {
+		limit = {
+			has_dlc = "By Blood Alone"
+		}
+		custom_effect_tooltip = ITA_war_escalation_inc_tt
+	}
+}
+
+HOF_ITA_nero_progress_in_ethiopia_success_effect = {
+	add_stability = 0.03
+	add_war_support = 0.03
+	army_experience = 15
+	add_command_power = 15
+
+	#Effects in Ethiopia
+	if = {
+		limit = {
+			has_dlc = "By Blood Alone"
+		}
+		effect_tooltip = { #With BBA this is handled in Ethiopian decisions
+			ETH = { add_war_support = -0.1 }
+		}
+	}
+    #南方胜利与北方胜利会两次触发ITA_missiolini_progress_in_ethiopia_success_effect，会完成两次ITA_solid_progress这一次国策，因此P社程序员用下面的写法避免上述情况
+	if = { #First mission to succeed
+		limit = {
+			NOT = { has_country_flag = ITA_missiolini_progress_in_ethiopia_one_mission_successful_flag }
+		}
+		set_country_flag = ITA_missiolini_progress_in_ethiopia_one_mission_successful_flag
+	}
+	else_if = { #Second mission to succeed
+		ITA_nero_claudius = { unit_leader_event = { id =  HOF_italy_nero.11 } }
+	}
+}
+
+### CONQUER ETHIOPIA ###
+HOF_ITA_nero_conquer_ethiopia_failure_effect = {
+	add_political_power = -25
+	add_war_support = -0.05
+	add_stability = -0.05
+	every_controlled_state = {
+		limit = {
+			NOT = { is_owned_by = ROOT }
+			is_core_of = ETH
+		}
+		add_compliance = -5
+	}
+}
+
+HOF_ITA_nero_conquer_ethiopia_success_effect = {
+	add_political_power = 50
+	add_stability = 0.05
+	add_war_support = 0.05
+	army_experience = 25
+	add_command_power = 25
+}
+
+### STRENGTHEN HEAVY INDUSTRY ###
+HOF_ITA_nero_strengthen_heavy_industry_failure_effect = {
+	add_political_power = -25
+	add_stability = -0.03
+}
+
+HOF_ITA_nero_strengthen_heavy_industry_success_effect = {
+	add_political_power = 50
+	add_stability = 0.03
+
+	add_timed_idea = {
+		idea = ITA_strengthened_heavy_industry
+		days = 365
+	}
+}
+
+### STRENGTHEN THE ARMY ###
+HOF_ITA_nero_strengthen_the_army_failure_effect = {
+	add_political_power = -25
+	add_war_support = -0.03
+	add_timed_idea = {
+		idea = ITA_disgruntlement_in_the_army
+		days = 180
+	}
+}
+
+HOF_ITA_nero_strengthen_the_army_success_effect = {
+	army_experience = 50
+	add_command_power = 25
+	add_war_support = 0.03
+	add_timed_idea = {
+		idea = ITA_strengthened_the_army
+		days = 365
+	}
+}
+
+### STRENGTHEN THE NAVY ###
+HOF_ITA_nero_strengthen_the_navy_failure_effect = {
+	add_political_power = -25
+	add_war_support = -0.03
+	add_timed_idea = {
+		idea = ITA_disgruntlement_in_the_navy
+		days = 180
+	}
+}
+
+HOF_ITA_nero_strengthen_the_navy_success_effect = {
+	navy_experience = 50
+	add_command_power = 25
+	add_war_support = 0.03
+	add_timed_idea = {
+		idea = ITA_strengthened_the_navy
+		days = 365
+	}
+}
+
+### STOCKPILE TRUCKS ###
+ITA_missiolini_stockpile_trucks_failure_effect = {
+	add_political_power = -25
+	add_war_support = -0.03
+}
+
+ITA_missiolini_stockpile_trucks_success_effect = {
+	if = { #DEFAULT
+		limit = {
+			NOT = { has_completed_focus = ITA_to_live_as_a_lion }
+		}
+		add_political_power = 50
+		add_war_support = 0.03
+		add_timed_idea = {
+			idea = ITA_efficient_supply_lines
+			days = 365
+		}
+	}
+	else = { # GREATER REWARD (from To Live as a Lion focus)
+		add_political_power = 75
+		add_war_support = 0.05
+		add_timed_idea = {
+			idea = ITA_efficient_supply_lines_lion_version
+			days = 365
+		}
+	}
+}
+
+### STRENGTHEN THE AIRFORCE ###
+ITA_missiolini_strengthen_the_airforce_failure_effect = {
+	add_political_power = -25
+	add_war_support = -0.03
+	add_timed_idea = {
+		idea = ITA_disgruntlement_in_the_airforce
+		days = 365
+	}
+}
+
+ITA_missiolini_strengthen_the_airforce_success_effect = {
+	if = { #DEFAULT
+		limit = {
+			NOT = { has_completed_focus = ITA_to_live_as_a_lion }
+		}
+		air_experience = 50
+		add_command_power = 25
+		add_war_support = 0.03
+		add_timed_idea = {
+			idea = ITA_strengthened_the_airforce
+			days = 365
+		}
+	}
+	else = { # GREATER REWARD (from To Live as a Lion focus)
+		air_experience = 60
+		add_command_power = 35
+		add_war_support = 0.05
+		add_timed_idea = {
+			idea = ITA_strengthened_the_airforce_lion_Version
+			days = 365
+		}
+	}
+}
+
+### INDUSTRIAL RESEARCH ###
+ITA_missiolini_industrial_research_failure_effect = {
+	add_political_power = -25
+	add_popularity = {
+		ideology = ROOT
+		popularity = -0.05
+	}
+
+	#CLEAR FLAGS FOR NEXT TIME
+	if = {
+		limit = {
+			has_country_flag = ITA_missiolini_research_production_flag
+		}
+		clr_country_flag = ITA_missiolini_research_production_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = ITA_missiolini_research_industry_flag
+		}
+		clr_country_flag = ITA_missiolini_research_industry_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = ITA_missiolini_research_construction_flag
+		}
+		clr_country_flag = ITA_missiolini_research_construction_flag
+	}
+}
+
+ITA_missiolini_industrial_research_success_effect = {
+	if = { #DEFAULT
+		limit = {
+			NOT = { has_completed_focus = ITA_to_live_as_a_lion }
+		}
+		add_political_power = 25
+		add_tech_bonus = {
+			name = ITA_missiolini_industrial_research
+			bonus = 0.5
+			uses = 2
+			category = industry
+			category = air_equipment
+			category = naval_equipment
+			category = artillery
+			category = armor
+			category = motorized_equipment
+		}
+	}
+	else = { # GREATER REWARD (from To Live as a Lion focus)
+		add_political_power = 35
+		add_tech_bonus = {
+			name = ITA_missiolini_industrial_research
+			bonus = 0.75
+			uses = 2
+			category = industry
+			category = air_equipment
+			category = naval_equipment
+			category = artillery
+			category = armor
+			category = motorized_equipment
+		}
+	}
+
+	#CLEAR FLAGS FOR NEXT TIME
+	if = {
+		limit = {
+			has_country_flag = ITA_missiolini_research_production_flag
+		}
+		clr_country_flag = ITA_missiolini_research_production_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = ITA_missiolini_research_industry_flag
+		}
+		clr_country_flag = ITA_missiolini_research_industry_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = ITA_missiolini_research_construction_flag
+		}
+		clr_country_flag = ITA_missiolini_research_construction_flag
+	}
+}
+
+### OCCUPY ALBANIA ###
+HOF_ITA_nero_occupy_albania_failure_effect = {
+	add_political_power = -25
+	add_popularity = {
+		ideology = ROOT
+		popularity = -0.05
+	}
+}
+
+HOF_ITA_nero_occupy_albania_success_effect = {
+		add_political_power = 50
+		add_popularity = {
+			ideology = ROOT
+			popularity = 0.05
+		}
+		custom_effect_tooltip = ITA_missiolini_occupy_albania_occupation_effects
+		effect_tooltip = {
+			44 = { #ALBANIA
+				add_compliance = 5
+				add_resistance = -5
+			}
+			805 = { #NORTHERN EPIRUS
+				add_compliance = 5
+				add_resistance = -5
+			}
+		}
+}
+
+### OCCUPY DALMATIA ###
+HOF_ITA_nero_occupy_dalmatia_failure_effect = {
+	add_political_power = -25
+	add_war_support = -0.03
+	add_popularity = {
+		ideology = ROOT
+		popularity = -0.05
+	}
+}
+
+HOF_ITA_nero_occupy_dalmatia_success_effect = {
+
+		add_political_power = 50
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = ROOT
+			popularity = 0.05
+		}
+		if = {
+			limit = {
+				104 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				105 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				106 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				107 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				108 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				109 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				802 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				803 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+				804 = {
+					is_fully_controlled_by = ROOT
+					has_resistance = yes
+				}
+			}
+			every_controlled_state = {
+				limit = {
+					is_core_of = YUG
+					is_fully_controlled_by = ROOT #Dalmatia goes first above
+					has_resistance = yes
+				}
+				add_compliance = 5
+				add_resistance = -5
+			}
+		}
+	
+}
+
+### OCCUPY GREECE ###
+HOF_ITA_nero_occupy_greece_failure_effect = {
+	add_political_power = -25
+	add_war_support = -0.03
+	add_popularity = {
+		ideology = ROOT
+		popularity = -0.05
+	}
+}
+
+HOF_ITA_nero_occupy_greece_success_effect = {
+
+		add_political_power = 50
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = ROOT
+			popularity = 0.05
+		}
+
+		custom_effect_tooltip = ITA_missiolini_occupy_greece_occupation_effects
+		every_controlled_state = {
+			limit = {
+				is_core_of = GRE
+				is_fully_controlled_by = ROOT
+				has_resistance = yes
+			}
+			add_compliance = 5 #WARNING CHANGING THESE NUMBERS REQUIRES CHANGING THE TOOLTIPS
+			add_resistance = -5
+		}
+
+		if = {
+			limit = {
+				has_subject_autonomy_feature = yes
+			}
+			if = {
+				limit = {
+					GRE = {
+						is_subject_of = ROOT
+					}
+				}
+				GRE = {
+					add_autonomy_score = {
+						value = -35
+						localization = ITA_missiolini_firmly_established_italian_administration_autonomy_text
+					}
+				}
+			}
+			else = {
+				custom_effect_tooltip = ITA_missiolini_occupy_greece_subject_effects
+				effect_tooltip = {
+					GRE = {
+						add_autonomy_score = {
+							value = -35
+							localization = ITA_missiolini_firmly_established_italian_administration_autonomy_text
+						}
+					}
+				}
+			}
+		}
+	
+
+}
