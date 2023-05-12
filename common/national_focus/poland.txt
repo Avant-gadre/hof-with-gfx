@@ -25,6 +25,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		available = {
+			date > 1936.8.1
+		}
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 			FOCUS_FILTER_RESEARCH
@@ -79,6 +82,9 @@ focus_tree = {
 			factor = 10
 		}
 		available_if_capitulated = yes
+		available = {
+			date > 1936.6.1
+		}
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 			FOCUS_FILTER_WAR_SUPPORT
@@ -504,6 +510,11 @@ focus_tree = {
 					remove_idea = POL_Adeptus_Sprawiedliwi
 				}
 			}
+			hidden_effect = {
+				country_event = { id = poland_hof.68 days = 50 }
+				country_event = { id = poland_hof.69 days = 1542 }
+			}
+			add_political_power = 100
 		}
 	}
 	focus = {
@@ -511,7 +522,7 @@ focus_tree = {
 		icon = GFX_focus_POL_Centrolew
 		cost = 5
 		x = 70
-		y = 7
+		y = 0
 		allow_branch = {
 			has_country_flag = POL_Centrolew_government_flag
 		}
@@ -530,6 +541,10 @@ focus_tree = {
 			}
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POL_mieczyslaw_michalowicz
+			hidden_effect = {
+				country_event = { id = poland_hof.68 days = 50 }
+				country_event = { id = poland_hof.70 days = 1542 }
+			}
 		}
 	}
 	focus = {
@@ -537,7 +552,7 @@ focus_tree = {
 		icon = GFX_focus_POL_Socialist_Radical_Program
 		cost = 5
 		x = 64
-		y = 7
+		y = 0
 		allow_branch = {
 			OR = {
 				has_country_flag = POL_Centrolew_government_flag
@@ -557,7 +572,7 @@ focus_tree = {
 		icon = GFX_focus_POL_Sanacja_maintained
 		cost = 5
 		x = 70
-		y = 12
+		y = 0
 		allow_branch = {
 			OR = {
 				has_country_flag = POL_Nearl_Sanacja_flag
@@ -600,7 +615,7 @@ focus_tree = {
 		icon = GFX_focus_POL_Nearl_Central_Supremacy
 		cost = 5
 		x = 64
-		y = 12
+		y = 7
 		allow_branch = {
 			OR = {
 				has_country_flag = POL_Sanacja_show_initial_flag
@@ -643,7 +658,7 @@ focus_tree = {
 		icon = GFX_focus_POL_Morges_Democracy_and_Peace
 		cost = 5
 		x = 70
-		y = 17
+		y = 0
 		allow_branch = {
 			has_country_flag = POL_Morges_Sanacja_flag
 		}
@@ -667,7 +682,7 @@ focus_tree = {
 		icon = GFX_focus_POL_Endecja_Politics_Rationalisation
 		cost = 5
 		x = 70
-		y = 23
+		y = 0
 		allow_branch = {
 			has_country_flag = POL_Endecja_government_flag
 		}
@@ -692,7 +707,7 @@ focus_tree = {
 			}
 		}
 		x = 63
-		y = 23
+		y = 0
 		completion_reward = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POL_jan_mosdorf
@@ -704,7 +719,7 @@ focus_tree = {
 		icon = GFX_focus_POL_Firewatch_Road_to_Revenge
 		cost = 5
 		x = 70
-		y = 29
+		y = 0
 		allow_branch = {
 			has_country_flag = POL_Firewatch_government_flag
 		}
@@ -2435,8 +2450,6 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			POL_sanation_left_opposition_down = yes
-			POL_sanation_right_opposition_down = yes
 			random_state = {
 				prioritize = {
 					89
@@ -2474,6 +2487,16 @@ focus_tree = {
 			factor = 10
 		}
 		available = {
+			OR = {
+				has_country_leader = {
+					character = POL_margaret_nearl
+					ruling_only = yes
+				}
+				has_country_leader = {
+					character = POL_maria_nearl
+					ruling_only = yes
+				}
+			}
 		}
 		available_if_capitulated = yes
 		search_filters = {
@@ -4181,9 +4204,6 @@ focus_tree = {
 		id = POL_anti_blitz_tactics
 		icon = GFX_goal_generic_army_artillery2
 		cost = 5
-		prerequisite = {
-			focus = POL_reassert_silesian_claims
-		}
 		prerequisite = {
 			focus = POL_reassert_silesian_claims
 		}
@@ -7477,6 +7497,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = POL_reconcile_with_RUSK
 		}
+		available = {
+			NOT = { has_idea = BMN_idea }
+		}
 		x = -1
 		y = 1
 		relative_position_id = POL_invest_in_eastern_poland
@@ -7503,7 +7526,24 @@ focus_tree = {
 		relative_position_id = POL_ban_UNDO
 		completion_reward = {
 			POL_Nationalism_Move_towards_Dmowski_3 = yes
-
+			random_owned_controlled_state = {
+				prioritize = { 91 94 93 96 }
+				limit = { NOT = { is_core_of = ROOT } }
+				add_extra_state_shared_building_slots = 2
+				add_compliance = 10
+			}
+			random_owned_controlled_state = {
+				prioritize = { 91 94 93 96 }
+				limit = { NOT = { is_core_of = ROOT } }
+				add_extra_state_shared_building_slots = 2
+				add_compliance = 10
+			}
+			random_owned_controlled_state = {
+				prioritize = { 91 94 93 96 }
+				limit = { NOT = { is_core_of = ROOT } }
+				add_extra_state_shared_building_slots = 2
+				add_compliance = 10
+			}
 		}
 	}
 	focus = {
@@ -7719,12 +7759,27 @@ focus_tree = {
 				id = POL_Nationalism_bop
 				value < -0.50
 			}
+			OR = {
+				has_completed_focus = POL_polish_national_community
+				count_triggers = {
+					amount = 4
+					has_full_control_of_state = 11
+					has_full_control_of_state = 814
+					has_full_control_of_state = 815
+					has_full_control_of_state = 188
+					has_full_control_of_state = 189
+				}
+			}
 		}
 		x = -2
 		y = 1
 		relative_position_id = POL_reconcile_with_Ukraine
 		completion_reward = {
 			### TODO Change Country Name
+			set_cosmetic_tag = POL_FED
+			unlock_decision_tooltip = POL_integrate_11_814 
+			unlock_decision_tooltip = POL_integrate_815 
+			unlock_decision_tooltip = POL_integrate_189_188 
 			custom_effect_tooltip = POL_will_lock_balance_of_power_tt
 		}
 	}
@@ -7813,6 +7868,9 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = POL_delay_the_election
+		}
+		bypass = {
+			has_country_flag = POL_election_triggered_flag
 		}
 		x = -1
 		y = 1
@@ -8160,6 +8218,8 @@ focus_tree = {
 			add_ideas = {
 				POL_PSL_Power_of_Peasant
 			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = POL_Toland_Cash
 		}
 	}
 	focus = {
@@ -9010,6 +9070,8 @@ focus_tree = {
 				add_compliance = 0.15
 			}
 			add_stability = 0.1
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = POL_stefan_wyszynski
 		}
 	}
 	focus = {

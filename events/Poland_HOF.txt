@@ -315,7 +315,7 @@ country_event = {
 			country_leader = {
 				ideology = liberalism
 				expire = "1965.1.1.1"
-				traits = {  }
+				traits = { Flameheart }
 			}
 		}
 	}
@@ -1673,7 +1673,7 @@ country_event = {   ### PPS Report: Platinum's assassination of Maria Nearl
 	}
 
 	option = {    ### Let the internecine war begin
-		name = poland_hof.47.d
+		name = poland_hof.47.c
 		hidden_effect = {
 			country_event = { id = poland_hof.51  days = 6  }
 		}
@@ -1893,7 +1893,7 @@ country_event = {   ### UKR: POL seeks reconcilation
 	option = {
 		name = poland_hof.55.b
 		ai_chance = {
-			factor = 0
+			base = 0
 		}
 		POL = { country_event = { id = poland_hof.57 days = 5 } }
 	}
@@ -2006,7 +2006,7 @@ country_event = {   ### Western Countries: POL seeks help
 		name = poland_hof.60.a
 		add_political_power = -125
 		ai_chance = {
-			factor = 3
+			base = 3
 		}
 		effect_tooltip = {
 			POL = {
@@ -2031,7 +2031,7 @@ country_event = {   ### Western Countries: POL seeks help
 		add_stability = -0.065
 		add_manpower = 10000
 		ai_chance = {
-			factor = 3
+			base = 3
 		}
 		effect_tooltip = {
 			POL = {
@@ -2054,7 +2054,7 @@ country_event = {   ### Western Countries: POL seeks help
 	option = {   ### Do nothing
 		name = poland_hof.60.b
 		ai_chance = {
-			factor = 2
+			base = 2
 		}
 		add_political_power = 2
 		FROM = { country_event = { id = poland_hof.63  days = 3 } }
@@ -2173,6 +2173,12 @@ country_event = {   ### EST/FIN: POL invite us against Russia
 
 	option = {    ### NO
 		name = poland_hof.64.b
+		ai_chance = {
+			modifier = {
+				factor = 0
+				# NOT = { has_government = democratic }
+			}
+		}
 		FROM = { country_event = { id = poland_hof.66 days = 1 } }
 	}
 }
@@ -2224,6 +2230,15 @@ country_event = {   ### POL: EST/FIN out
 		name = poland_hof.66.a
 		add_political_power = -5
 	}
+
+	option = {    ### Then force them in
+		name = poland_hof.66.b
+		add_political_power = -5
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = FROM
+		}
+	}
 }
 
 country_event = {   ### POL: Firewatch Coup d'etat
@@ -2263,6 +2278,196 @@ country_event = {   ### POL: Firewatch Coup d'etat
 		mark_focus_tree_layout_dirty = yes
 	}
 }
+
+
+country_event = {   ### BMN join the goverment?
+	id = poland_hof.68
+	title = poland_hof.68.t
+	desc = poland_hof.68.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+	
+	option = {    ### Join Coliation
+		name = poland_hof.68.a
+		add_political_power = 25
+		add_ideas = { BMN_idea }
+		hidden_effect = {
+			set_country_flag = POL_BMN_join_the_government_flag
+		}
+	}
+
+	option = {    ### We could be without them
+		name = poland_hof.68.b
+		add_political_power = -50
+	}
+}
+
+country_event = {   ### PSL Election 
+	id = poland_hof.69
+	title = poland_hof.69.t
+	desc = poland_hof.69.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_government = democratic
+		is_subject = no
+	}
+	
+	option = {    ### Keep Sona as president
+		name = poland_hof.69.a
+		add_political_power = 25
+		
+	}
+
+	option = {    ### Let Valentine become president
+		name = poland_hof.69.b
+		remove_country_leader_role = {
+			character = POL_sona_flametail
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_justyna_valentine
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = { Flexible_Assault_Leader }
+			}
+		}
+	}
+
+	option = {    ### Let Firewatch from BMN become president
+		name = poland_hof.69.c
+		trigger = {
+			has_country_flag = POL_Firewatch_refused_to_testify_flag
+			has_country_flag = POL_BMN_join_the_government_flag
+		}
+		remove_country_leader_role = {
+			character = POL_sona_flametail
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_firewatcher
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = { green_death }
+			}
+		}
+	}
+
+	option = {    ### Let Centaurea become president
+		name = poland_hof.69.e
+		trigger = {
+			has_country_flag = POL_Centaurea_captured_PSL
+		}
+		remove_country_leader_role = {
+			character = POL_sona_flametail
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_platinum
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = { Cold_Blooded_agent }
+			}
+		}
+	}
+}
+
+
+country_event = {   ### PPS Election 
+	id = poland_hof.70
+	title = poland_hof.70.t
+	desc = poland_hof.70.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_government = democratic
+		is_subject = no
+	}
+	
+	option = {    ### Keep Kaminska as president
+		name = poland_hof.70.a
+		add_political_power = 25
+		
+	}
+
+	option = {    ### Let Krukowska become president
+		name = poland_hof.70.b
+		trigger = {
+			has_completed_focus = POL_Socialist_consolidate_Farmer_Labour_alliance
+		}
+		remove_country_leader_role = {
+			character = POL_natalia_kaminska
+			ideology = socialism
+		}
+		add_country_leader_role = {
+			character = POL_iwona_krukowska
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = { Coercive_Charge_Leader }
+			}
+		}
+	}
+
+	option = {    ### Let Meteorite from Bund become president
+		name = poland_hof.70.c
+		trigger = {
+			has_country_flag = POL_Firewatch_refused_to_testify_flag
+			OR = {
+				has_country_flag = POL_BMN_join_the_government_flag
+				has_country_flag = POL_Centrolew_Cooperate_with_BUND
+			}
+			
+		}
+		remove_country_leader_role = {
+			character = POL_natalia_kaminska
+			ideology = socialism
+		}
+		add_country_leader_role = {
+			character = POL_meteorite
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = { Former_Freelancer }
+			}
+		}
+	}
+
+	option = {    ### Let Centaurea become president
+		name = poland_hof.70.e
+		trigger = {
+			has_country_flag = POL_Centaurea_captured_PPS
+		}
+		remove_country_leader_role = {
+			character = POL_natalia_kaminska
+			ideology = socialism
+		}
+		add_country_leader_role = {
+			character = POL_platinum
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = { Cold_Blooded_agent }
+			}
+		}
+	}
+}
+
+
 
 country_event = {
 	id = poland_diplo.1
