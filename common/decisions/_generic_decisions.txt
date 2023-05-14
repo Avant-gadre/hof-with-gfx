@@ -339,6 +339,139 @@ propaganda_efforts = {
 		}
 	}
 
+	war_propaganda_against_warmonger = {
+
+		icon = generic_prepare_civil_war
+
+		available = {
+			NOT = { has_country_flag = war_propaganda_campaign_running }
+			FROM = {
+				OR = {
+					is_justifying_wargoal_against = ROOT
+					AND = {
+						has_war_with = ROOT
+						is_neighbor_of = ROOT
+					}
+					has_offensive_war = yes
+				}
+			}
+			if = {
+				limit = {
+					tag = SPR
+					has_dlc = "La Resistance"
+				}
+				NOT = {
+					has_idea = SPR_political_violence
+				}
+			}
+			if = {
+				limit = {
+					original_tag = SPR
+					has_dlc = "La Resistance"
+				}
+				has_global_flag = scw_over
+			}
+			
+			# lower the cost for neighbors
+			if = {
+				limit = {
+					FROM = {
+						is_neighbor_of = ROOT
+					}
+					set_temp_variable = { war_propaganda_cost = 50 }
+				}
+			}
+		}
+
+		visible = {
+			FROM = {
+				NOT = { is_in_faction_with = ROOT }
+				OR = {
+					is_justifying_wargoal_against = ROOT
+					AND = {
+						is_neighbor_of = ROOT
+						OR = {
+							has_war_with = ROOT
+							AND = {
+								NOT = { has_government = ROOT }
+								has_offensive_war = yes
+								has_added_tension_amount > 5
+							}
+						}
+					}
+					AND = {
+						NOT = { is_neighbor_of = ROOT }
+						OR = {
+							has_offensive_war_with = ROOT
+							AND = {
+								NOT = { has_government = ROOT }
+								has_offensive_war = yes
+								has_added_tension_amount > 30
+							}
+						}
+					}
+				}
+			}
+		}
+
+		target_trigger = {
+			FROM = {
+				NOT = { is_in_faction_with = ROOT }
+				OR = {
+					is_justifying_wargoal_against = ROOT
+					AND = {
+						is_neighbor_of = ROOT
+						OR = {
+							has_war_with = ROOT
+							AND = {
+								NOT = { has_government = ROOT }
+								has_offensive_war = yes
+								has_added_tension_amount > 5
+							}
+						}
+					}
+					AND = {
+						NOT = { is_neighbor_of = ROOT }
+						OR = {
+							has_offensive_war_with = ROOT
+							AND = {
+								NOT = { has_government = ROOT }
+								has_offensive_war = yes
+								has_added_tension_amount > 30
+							}
+						}
+					}
+				}
+			}
+		}
+
+		days_remove = 90
+		days_re_enable = 180
+
+		fire_only_once = yes
+
+		cost = var:war_propaganda_cost?75
+
+		modifier = {
+			war_support_weekly = 0.01
+		}
+
+		complete_effect = {
+			set_country_flag = { flag = war_propaganda_campaign_running value = 1 days = 90 } #TODO_Manu: This is a nasty fix so that the flag gets eventually removed if the target is annexed. days = days_remove
+		}
+		remove_effect = {
+			clr_country_flag = war_propaganda_campaign_running
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_war_support > 0.9
+			}
+		}
+	}
+
 	war_propaganda_casualties = { 
 
 		icon = generic_prepare_civil_war
@@ -1680,7 +1813,7 @@ war_measures = {
 			industrial_capacity_factory = 0.1
 			industrial_capacity_dockyard = 0.1
             production_speed_buildings_factor = 0.05
-			MONTHLY_POPULATION = -0.05
+			MONTHLY_POPULATION = -0.15
         }
         ai_will_do = {
 			factor = 100

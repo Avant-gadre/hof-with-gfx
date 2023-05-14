@@ -832,11 +832,11 @@ focus_tree = {
 		}
 
 		bypass = {
-      or = {
-        has_global_flag = jap_manchuria_occupied
-        controls_state = 716
-        has_war_with = JAP
-      }
+			or = {
+				has_global_flag = jap_manchuria_occupied
+				controls_state = 716
+				has_war_with = JAP
+			}
 		}
 
 		
@@ -972,10 +972,12 @@ focus_tree = {
 		}
 
 		available = {
-			NOT = {
-				has_idea = CHI_army_corruption_1
-			}		
-			has_war = yes
+			or = {
+				has_war_with = JAP
+				has_war_with = SOV
+				has_war_with = RUS
+				surrender_progress > 0.15
+			}
 		}
 
 		bypass = {
@@ -1012,31 +1014,25 @@ focus_tree = {
 				producer = GER
 			}
 
-      add_equipment_to_stockpile = {
-        type = fighter_equipment
-        amount = 50
-        producer = GER
-      }
-
 			add_ideas = CHI_war_of_resistance
 			if = {
 				limit = {
 					has_idea = civilian_economy
 				}
-			swap_ideas = {
-				remove_idea = civilian_economy
-				add_idea = partial_economic_mobilisation
-			}
+				swap_ideas = {
+					remove_idea = civilian_economy
+					add_idea = partial_economic_mobilisation
+				}
 			}
 
 			if = {
 				limit = {
 					has_idea = low_economic_mobilisation
 				}
-			swap_ideas = {
-				remove_idea = low_economic_mobilisation
-				add_idea = partial_economic_mobilisation
-			}
+				swap_ideas = {
+					remove_idea = low_economic_mobilisation
+					add_idea = partial_economic_mobilisation
+				}
 			}
 		}
 	}
@@ -1088,11 +1084,11 @@ focus_tree = {
 		}
 
 		available = {
-			NOT = {
-				has_idea = CHI_army_corruption_2
-			}
 			has_war = yes
-			surrender_progress > 0.25
+			or = {
+				has_country_flag = CHI_annexed_BEY
+				surrender_progress > 0.15
+			}
 		}
 
 		bypass = {
@@ -1128,12 +1124,6 @@ focus_tree = {
 				amount = 100
 				producer = GER
 			}
-
-      add_equipment_to_stockpile = {
-        type = fighter_equipment
-        amount = 50
-        producer = GER
-      }
 
 			if = {
 				limit = {
@@ -1237,13 +1227,7 @@ focus_tree = {
 				producer = GER
 			}
 
-      add_equipment_to_stockpile = {
-        type = fighter_equipment
-        amount = 100
-        producer = GER
-      }
-
-      add_timed_idea = { idea = CHI_war_of_anti_imperialism days = 365 }
+            add_timed_idea = { idea = CHI_war_of_anti_imperialism days = 365 }
 		}
 	}
 
@@ -1259,14 +1243,14 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 4
-			modifier = {
-				has_manpower > 1000000
-				factor = 0
-			}
 		}
 
 		available = {
-
+			has_war = yes
+			or = {
+				has_country_flag = CHI_annexed_BEY
+				surrender_progress > 0.15
+			}
 		}
 
 		bypass = {
@@ -1278,6 +1262,75 @@ focus_tree = {
 		
 
 		completion_reward = {
+
+			if = {
+				limit = {
+					NOT = { has_template = "Mín bīngtuán" }
+				}
+				set_country_flag = CHI_zhuazhuangding_flag
+				division_template = {
+					name = "Mín bīngtuán"		
+					division_names_group = CHI_INF_01
+					is_locked = yes
+					template_counter = 66
+					regiments = {
+						irregular_infantry = { x = 0 y = 0 }
+						irregular_infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+
+						irregular_infantry = { x = 1 y = 0 }
+						irregular_infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+
+						irregular_infantry = { x = 2 y = 0 }
+						irregular_infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+					}
+
+					support = {
+						engineer = { x = 0 y = 0 }
+					}
+
+					priority = 0 
+				}
+
+				unlock_decision_tooltip = CHI_recruit_militias
+
+				add_war_support = -0.05
+
+				add_manpower = -240000
+
+				if = {
+					limit = {
+						605 = {
+							CONTROLLER = {
+								OR = {
+									tag = CHI
+									is_in_faction_with = CHI
+									is_subject_of = CHI
+								}
+							}
+						}
+					}
+					605 = {
+						create_unit = {
+							division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0"
+							owner = CHI
+							count = 24
+						}
+					}
+				}
+				else = {
+					capital_scope = {
+						create_unit = {
+							division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0"
+							owner = CHI
+							count = 24
+						}
+					}
+				}
+
+			}
 
 			add_ideas = CHI_forced_conscription
 			if = {

@@ -50,24 +50,7 @@ CHI_army_reform = {
 		icon = generic_prepare_civil_war
 
 		available = {
-      or = {
-        has_army_experience > 99
-        AND = {
-          is_ai = yes
-          any_enemy_country = {
-            or = {
-              tag = BEY
-              tag = CHI
-              is_major = yes
-            }
-          }
-          or = {
-            JAP = { is_ai = no }
-            surrender_progress > 0.05
-            casualties > 75000
-          }
-        }
-      }
+			has_army_experience > 99
 		}
 
 		cost = 0
@@ -112,27 +95,6 @@ CHI_army_reform = {
 				category = land_doctrine
 			}
 
-      if = {
-        limit = {
-          is_ai = yes
-          any_enemy_country = {
-            is_ai = no
-            or = {
-              tag = BEY
-              tag = CHI
-              is_major = yes
-            }
-          }
-          or = {
-            JAP = { is_ai = no }
-            surrender_progress > 0.05
-            casualties > 75000
-          }
-        }
-        army_experience = 100
-
-      }
-
 			army_experience = -100	
 		}		
 	}
@@ -140,23 +102,7 @@ CHI_army_reform = {
 	CHI_lessons_of_war = {
 		icon = generic_army_support
 		available = {
-      or = {
-        has_army_experience > 199
-        AND = {
-          is_ai = yes
-          any_enemy_country = {
-            or = {
-              tag = JAP
-              is_major = yes
-            }
-          }
-          or = {
-            JAP = { is_ai = no }
-            surrender_progress > 0.3
-            casualties > 450000
-          }
-        }
-      }
+			has_army_experience > 199
 			has_idea = CHI_incompetent_officers
 			if = {
 				limit = { has_idea = CHI_army_corruption_1 }
@@ -194,32 +140,6 @@ CHI_army_reform = {
 		}
 
 		complete_effect = {
-
-      if = {
-        limit = {
-          is_ai = yes
-          any_enemy_country = {
-            or = {
-              tag = JAP
-              is_major = yes
-            }
-          }
-          or = {
-            JAP = { is_ai = no }
-            surrender_progress > 0.3
-            casualties > 450000
-          }
-        }
-        army_experience = 200
-
-        add_equipment_to_stockpile = { type = light_tank_equipment amount = 200 }
-        add_equipment_to_stockpile = { type = motorized_equipment amount = 200 }
-        add_equipment_to_stockpile = { type = artillery_equipment amount = 1000 }
-        add_equipment_to_stockpile = { type = infantry_equipment amount = 20000 }
-        add_equipment_to_stockpile = { type = support_equipment amount = 1000 }
-        add_equipment_to_stockpile = { type = fighter_equipment amount = 200 }
-
-      }
 
 			army_experience = -200
 
@@ -373,6 +293,108 @@ economy_decisions = {
 }
 
 war_measures = {
+
+	CHI_recruit_militias = {
+		icon = generic_political_discourse
+		
+        allowed = { tag = CHI }
+
+		available = {
+			surrender_progress > 0.05
+			OR = {
+				has_manpower > 120000
+				num_divisions < 100
+			}
+			has_army_manpower = { size < 999999 }
+			has_war = yes
+		}
+		visible = {
+			has_country_flag = CHI_zhuazhuangding_flag
+			OR = {
+				has_idea = CHI_war_of_resistance_2
+				has_idea = CHI_war_of_national_liberation
+			}
+		}
+
+		days_remove = 30
+		is_good = yes
+		cost = 25
+
+		cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 250
+		}
+
+		remove_effect = {
+			add_war_support = -0.02
+
+			add_manpower = -120000
+
+			if = {
+				limit = {
+					605 = {
+						CONTROLLER = {
+							OR = {
+								tag = CHI
+								is_in_faction_with = CHI
+								is_subject_of = CHI
+							}
+						}
+					}
+				}
+				605 = {
+					create_unit = {
+						division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0"
+						owner = CHI
+						count = 12
+					}
+				}
+			}
+			else = {
+				capital_scope = {
+					create_unit = {
+						division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0"
+						owner = CHI
+						count = 12
+					}
+				}
+			}
+		}
+	}
+
+	CHI_annexed_BEY_decision = {
+		icon = generic_political_discourse
+		
+        allowed = { tag = CHI }
+
+		available = {
+			BEY = { surrender_progress > 0.7 }
+			has_war = yes
+		}
+		visible = {
+			country_exists = BEY
+			BEY = { is_in_faction_with = CHI }
+		}
+
+		days_remove = 7
+		is_good = yes
+		cost = 0
+
+		cancel_if_not_visible = yes
+
+		ai_will_do = {
+			factor = 250
+		}
+
+		remove_effect = {
+			set_country_flag = CHI_annexed_BEY
+
+			add_political_power = 75
+
+			annex_country = { target = BEY transfer_troops = yes }
+		}
+	}
 
 	CHI_scorched_earth_tactics = {
 		icon = generic_scorched_earth
