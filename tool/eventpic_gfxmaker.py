@@ -4,12 +4,10 @@ import os
 import io
 import time
 
-currentTime = time.strftime("%Y_%m_%d", time.localtime())
-# print(currentTime)
 picpath = ''
 
-outfilename = 'eventpic'+currentTime+'.gfx'  # utf-8
-outpath = 'E:\MOD\py\\' + outfilename
+outfilename = 'eventFate.gfx'  # utf-8
+outpath = '..\interface\eventFate.gfx'
 pngpath = 'gfx/event_pictures/'
 print(outfilename)
 
@@ -41,8 +39,8 @@ def getNameList(pathname):
     return namelist
 # 读取eventpic文件名
 
-pathhead = 'E:/modding/@test event/'
-pathname = pathhead+pngpath
+
+pathname = '..\gfx\event_pictures\\'
 pngnames = getNameList(pathname)
 # print(pngnames)
 outpuGfx(pngnames)
