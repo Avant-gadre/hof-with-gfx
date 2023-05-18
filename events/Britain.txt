@@ -724,33 +724,232 @@ country_event = {
 }
 
 
-# King's Dream 2
-# country_event = {
-# 	id = britain.24
-# 	title = britainArturia.1.t
-# 	desc = britainArturia.1.d
-# 	picture = GFX_report_event_arturia_dream_i
-# 	
-# 	trigger = {
-# 		tag = ENG
-# 		date > 1939.6.19
-# 		has_start_date < 1936.01.02
-# 		has_government = neutrality
-# 	}	
-# 
-# 	fire_only_once = yes
-# 
-# 	mean_time_to_happen = { days = 7 }
-# 
-# 	immediate = {
-# 		hidden_effect = {
-# 
-# 		}		
-# 	}
-# 	
-# 	option = {
-# 		name = britainArturia.1.a
-# 		effect_tooltip = {
-# 		}
-# 	}
-# }
+# Shadow Scheme Factories
+country_event = {
+    id = britain.24
+    title = britain.24.t
+    desc = britain.24.d
+    picture = GFX_report_event_generic_factory
+ 
+    fire_only_once = yes
+ 
+    trigger = {
+        original_tag = ENG
+        has_completed_focus = shadow_scheme_focus
+        has_war = yes
+    }
+
+    mean_time_to_happen = {
+        days = 7
+    }
+
+    option = {
+        name = britain.24.a
+        random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = arms_factory
+				level = 3
+				instant_build = yes
+			}
+			set_state_flag = shadow_scheme_2AF
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = arms_factory
+				level = 3
+				instant_build = yes
+			}
+			set_state_flag = shadow_scheme_2AF
+		}
+    }
+}
+
+#Operation Fork ultimatum
+country_event = {
+    id = britain.25
+    title = britain.25.t
+    desc = britain.25.desc
+    picture = GFX_report_event_generic_sign_treaty2
+ 
+    is_triggered_only = yes
+
+    #fold. join the allies
+    option = {
+        name = britain.25.a
+        trigger = {
+        	FROM = { is_faction_leader = yes }
+        }
+        FROM = { 
+        	add_to_faction = ROOT
+        	country_event = { id = generic.6 days = 1 }  
+        }
+
+        ai_chance = {
+        	base = 5
+        	modifier = {
+        		is_historical_focus_on = yes
+        		factor = 10
+        	}
+        }
+    }
+
+    #seek axis help
+    option = {
+        name = britain.25.b
+        trigger = {
+        	any_other_country = {
+        		is_faction_leader = yes
+    			has_war_with = ROOT.FROM
+        	}
+        }
+        if = {
+        	limit = {
+        		GER = { 
+    				has_war_with = FROM
+					is_faction_leader = yes
+        		}
+        	}
+        	GER = {	country_event = { id = britain.26 days = 1} }
+        }
+        else = {
+        	random_other_country = {
+        		limit = {
+        			has_war_with = FROM
+    				is_faction_leader = yes
+        		}
+    			country_event = { id = britain.26 days = 1} 
+        	}
+        }
+
+    	FROM = {
+    		create_wargoal = {
+				target = PREV
+				type = puppet_wargoal_focus
+			}
+    	}
+        set_country_flag = rejected_fork_demand 
+    	
+    	ai_chance = {
+    		base = 5
+    		modifier = {
+    			is_historical_focus_on = yes
+    			factor = 0
+    		}
+    	}
+    }
+
+    #go at it alone
+    option = {
+        name = britain.25.c
+
+        set_country_flag = rejected_fork_demand 
+		effect_tooltip = {
+        	FROM = {
+		        create_wargoal = {
+        			target = PREV
+        			type = puppet_wargoal_focus
+        		}
+        		country_event = { id = britain.27 }
+        	}
+    	}
+        FROM = { country_event = { id = britain.27 days = 1 } }
+
+        ai_chance = {
+        	base = 0.5
+        	modifier = {
+        		is_historical_focus_on = yes
+        		factor = 0
+        	}
+        }
+    }
+}
+
+#Iceland seeks protection
+country_event = {
+    id = britain.26
+    title = britain.26.t
+    desc = britain.26.desc
+    picture = GFX_report_event_generic_read_write
+ 
+    is_triggered_only = yes
+
+
+    #accept
+    option = {
+        name = britain.26.a
+
+    	add_to_faction = FROM 
+    	FROM = { country_event = { id = generic.3 days = 1 } }
+    	ai_chance = {
+    		base = 3
+    		modifier = {
+    			is_historical_focus_on = yes
+    			add = -1
+    		}
+
+    		modifier = {
+    			FROM = {
+    				is_ai = no
+    			}
+    			add = 10
+    		}
+
+    		modifier = {
+    			FRA = {
+    				has_capitulated = no
+    			}
+    			POL = {
+    				has_capitulated = no
+    			}
+    			factor = 0
+    		}
+    	}
+    }
+
+    #deny
+    option = {
+		name = britain.26.b
+		FROM = { country_event = { id = generic.4 days = 1 } }
+		ai_chance = {
+			base = 1
+		}
+    }
+}
+
+#rejected fork
+country_event = {
+    id = britain.27
+    title = britain.27.t
+    desc = britain.27.desc
+    picture = GFX_report_event_generic_read_write
+ 
+    is_triggered_only = yes
+
+
+    #accept
+    option = {
+        name = britain.27.a
+        create_wargoal = {
+        	target = FROM
+        	type = puppet_wargoal_focus
+        }
+    }
+}

@@ -362,6 +362,59 @@ focus_tree = {
 			}
 		}
 	}
+
+	focus = {
+		id = JAP_national_mobilization_law
+		icon = GFX_goal_generic_axis_build_infantry
+		cost = 3
+		prerequisite = {
+			focus = JAP_lessons_from_the_crisis
+		}
+		available = {
+			has_war = yes
+			OR = {
+				threat > 0.3
+				has_country_leader = {
+					name = "Sajyou Manaka"
+					ruling_only = yes
+				}
+				AND = {
+					has_war_with = CHI
+					OR = {
+						CHI = { surrender_progress > 0.2 }
+						NOT = { country_exists = BEY }
+					}
+				}
+			}
+		}
+
+		bypass = {
+			has_idea = tot_economic_mobilisation
+		}
+
+		x = -4
+		y = 1
+		relative_position_id = JAP_lessons_from_the_crisis
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = war_economy
+				}
+				add_political_power = 150
+			}
+			else = {
+				add_ideas = war_economy
+			}
+		}
+		ai_will_do = {
+			factor = 35
+			modifier = {
+				has_war = yes
+				factor = 30
+			}
+		}
+	}
+
 	focus = {
 		id = JAP_active_finance
 		icon = GFX_focus_JAP_The_Matsuoka_Plan
