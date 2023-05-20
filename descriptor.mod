@@ -1,10 +1,14 @@
 name="Hearts of Fate tarn working"
-version="1.9"
+version="0.1"
 tags={
-	"Translation"
+	"Alternative History"
+	"Gameplay"
+	"Map"
+	"National Focuses"
 }
 dependencies={
 	# "Hearts of Fate: dev"
 }
+replace_path="common/ai_equipment"
 supported_version="1.12.*"
 # remote_file_id="1533199946"
