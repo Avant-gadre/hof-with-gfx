@@ -19,10 +19,10 @@ def outpuGfx(text):
     for txt in text:
         # 读入的name是带有png后缀的 此处先将后缀去掉
         pngfullname = '\t\ttexturefile = \"' + pngpath + txt + '\"\n'
-        print(pngfullname)
+        # print(pngfullname)
         txt = txt.replace('.png', '')
         pngfullgfxname = '\t\tname = \"GFX_' + txt + '\"\n'
-        print(pngfullgfxname)
+        # print(pngfullgfxname)
         txtfile.write('\tspriteType = {\n')
         txtfile.write(pngfullgfxname)
         txtfile.write(pngfullname)
