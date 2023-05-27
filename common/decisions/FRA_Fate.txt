@@ -1,3 +1,186 @@
+operations = {
+
+	FRA_R_Plan_decisions = {
+		icon = hol_draw_up_staff_plans
+		target_trigger = {
+			FROM = {
+				original_tag = GER
+			}
+		}
+		available = {
+			has_war_with = GER
+		}
+		visible = {
+			tag = FRA
+			is_subject = no
+			RHI = { is_subject_of = FRA }
+		}
+		cost = 0
+		custom_cost_trigger = {
+			command_power > 14.9
+		}
+		custom_cost_text = TUR_decision_cost_kurd_rebels
+		days_remove = 150
+		fire_only_once = yes
+
+		remove_trigger = {
+			OR = {
+				surrender_progress > 0.05
+				RHI = { has_capitulated = yes }
+			}
+		}
+
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			activate_mission = FRA_R_Plan_mission
+		}
+		targeted_modifier = {
+			tag = GER
+			defense_bonus_against = 0.15
+		}
+		modifier = {
+			org_loss_at_low_org_factor = -0.5
+			dig_in_speed_factor = 0.25
+			land_reinforce_rate = 0.05
+		}
+		remove_effect = {
+		}
+	}
+
+	FRA_R_Plan_mission = {
+		icon = generic_operation
+		allowed = {
+			always = no
+			#added through on_action
+		}
+		available = {
+			OR = {
+				surrender_progress > 0.05
+				RHI = { has_capitulated = yes }
+			}
+		}
+		days_mission_timeout = 150
+		fire_only_once = yes
+		activation = {
+		}
+		is_good = no
+		complete_effect = {
+			add_war_support = -0.1
+		}
+		timeout_effect = {
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	FRA_On_ne_passe_pas_decisions = {
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			OR = {
+				surrender_progress > 0.05
+				RHI = { has_capitulated = yes }
+			}
+		}
+		visible = {
+			tag = FRA
+			is_subject = no
+			has_civil_war = no
+			NOT = { has_government = fascism }
+		}
+		cost = 0
+
+		custom_cost_text = TUR_decision_cost_kurd_rebels
+		days_remove = 365
+		fire_only_once = yes
+
+		remove_trigger = {
+			OR = {
+				FRA = { has_capitulated = yes }
+				FRA = { is_subject = yes }
+			}
+		}
+
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+
+			activate_mission = FRA_On_ne_passe_pas_mission
+
+			if = {
+				limit = {
+					has_idea = tot_economic_mobilisation
+				}
+			}
+			else = {
+				add_political_power = -150
+				add_ideas = tot_economic_mobilisation
+			}
+
+		}
+
+		modifier = {
+				political_power_cost = 0.2
+
+				org_loss_at_low_org_factor = -0.5
+				army_morale_Factor = 0.2
+				land_reinforce_rate = 0.05
+
+				dig_in_speed_factor = 0.5
+
+				army_core_defence_factor = 0.25
+				surrender_limit = 0.1
+				war_support_weekly = 0.005
+
+				experience_loss_factor = 0.20
+		}
+		remove_effect = {
+		}
+	}
+
+	FRA_On_ne_passe_pas_mission = {
+		icon = generic_operation
+		allowed = {
+			always = no
+			#added through on_action
+		}
+		available = {
+			OR = {
+				FRA = { has_capitulated = yes }
+				FRA = { is_subject = yes }
+			}
+		}
+		days_mission_timeout = 365
+		fire_only_once = yes
+		activation = {
+		}
+		is_good = no
+		complete_effect = {
+			add_war_support = -0.2
+		}
+		timeout_effect = {
+			add_stability = 0.2
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+}
+
 
 FRA_Final_war_plan = {
 

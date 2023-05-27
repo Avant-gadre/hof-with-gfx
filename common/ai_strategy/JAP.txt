@@ -26,7 +26,7 @@ less_trucks_4_u_JAP = {
 	ai_strategy = { 
 		type = role_ratio
 		id = infantry
-		value = 55
+		value = 80
 	}
 
 	ai_strategy = {
@@ -38,13 +38,13 @@ less_trucks_4_u_JAP = {
 	ai_strategy = {
 		type = role_ratio
 		id = mechanized
-		value = 10
+		value = 0
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 15
+		value = 0
 	}
 	
 	ai_strategy = { 
@@ -53,7 +53,7 @@ less_trucks_4_u_JAP = {
 		value = 5
 	}
 	
-		ai_strategy = {
+	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
 		value = 20
@@ -62,7 +62,7 @@ less_trucks_4_u_JAP = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = -10
+		value = 10
 	}
 	
 	ai_strategy = {
@@ -99,6 +99,42 @@ less_trucks_4_u_JAP = {
 		type = equipment_production_min_factories
 		id = tactical_bomber
 		value = 2
+	}
+
+}
+
+JAP_unit_armor_production = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		date > 1939.6.1
+	}
+	abort = {
+		always = no
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = -25
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = mechanized
+		value = 10
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 15
+	}
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 15
 	}
 
 }
@@ -236,10 +272,16 @@ JAP_philippines_and_garrison = {
 		original_tag = JAP
 	}
 	enable = {
-		has_war_with = USA
-		date > 1941.1.1
+		has_war_with = ENG
+		date > 1940.1.1
 	}
 	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = Southern_Resource_Area
+		value = 120
+	}
 
 	ai_strategy = { #Take & Hold and supply DEI invasions
 		type = put_unit_buffers
@@ -276,8 +318,8 @@ JAP_philippines_and_garrison_prio = {
 		original_tag = JAP
 	}
 	enable = {
-		has_war_with = USA
-		date > 1941.1.1
+		has_war_with = ENG
+		date > 1940.1.1
 		date < 1944.1.1
 	}
 	abort_when_not_enabled = yes
@@ -290,26 +332,26 @@ JAP_philippines_and_garrison_prio = {
 }
 
 
-JAP_dei = {
+JAP_dei_AST = {
 	allowed = {
 		original_tag = JAP
 	}
 	enable = {
-		has_war_with = INS
-		PHI = { has_capitulated = yes }
-		date > 1941.1.1
+		has_war_with = AST
+		AST = { has_capitulated = no }
+		date > 1941.3.1
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = area_priority
-		id = east_indies
-		value = 220
+		id = oceania
+		value = 120
 	}
 
 	ai_strategy = {
 		type = invade
-		id = "INS"
+		id = "AST"
 		value = 80
 	}
 }
@@ -1147,16 +1189,17 @@ JAP_hold_up_in_china = { #We got this far but there are bigger targets to worry 
 	}
 
 	enable = {
-		date > 1940.1.1
-		date < 1945.1.1
+		date < 1942.1.1
+		NOT = { has_idea = JAP_ichi_go }
 		has_war_with = CHI
 		CHI = { has_capitulated = no }
-
-		613 = { # Nanjing
-			is_controlled_by = JAP
+		CHI = { has_army_manpower = { size > 999999 } }
+		CHI = {
+			OR = {
+				surrender_progress > 0.35
+				has_completed_focus = CHI_war_of_national_liberation
+			}
 		}
-		has_war_with = INS
-		INS = { has_capitulated = no }
 
 	}
 
@@ -1164,38 +1207,23 @@ JAP_hold_up_in_china = { #We got this far but there are bigger targets to worry 
 
 	ai_strategy = {
 		type = front_control
-
-		tag = CHI
-
-		ratio = 0.25
-
-		priority = 100
+		country_trigger = {
+			tag = CHI
+		}
 		ordertype = front
 		execution_type = careful
+		manual_attack = yes
 	}
 
 	ai_strategy = {
-		type = front_control
-
-		tag = GXC
-
-		ratio = 0.25
-
-		priority = 100
-		ordertype = front
-		execution_type = careful
+		type = invade
+		id = "CHI"			
+		value = -500
 	}
 
 	ai_strategy = {
-		type = front_control
-
-		tag = YUN
-
-		ratio = 0.25
-
-		priority = 100
-		ordertype = front
-		execution_type = careful
+		type = added_military_to_civilian_factory_ratio
+		value = 15
 	}
 
 }

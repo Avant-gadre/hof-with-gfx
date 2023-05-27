@@ -154,7 +154,8 @@ focus_tree = {
 	focus = {
 		id = JAP_lessons_from_the_crisis
 		icon = GFX_focus_JAP_Maritime_Silkroad_2
-		cost = 5
+		#cost = 5
+		cost = 3
 		x = 58
 		y = 0
 		available = {
@@ -418,7 +419,8 @@ focus_tree = {
 	focus = {
 		id = JAP_active_finance
 		icon = GFX_focus_JAP_The_Matsuoka_Plan
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_lessons_from_the_crisis
 		}
@@ -459,7 +461,8 @@ focus_tree = {
 	focus = {
 		id = JAP_new_naval_estimates
 		icon = GFX_focus_JAP_Navy_generic
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_active_finance
 		}
@@ -548,17 +551,6 @@ focus_tree = {
 				amount = 1
 			}
 
-			add_equipment_production = {
-				equipment = {
-					type = ship_hull_heavy_1
-					creator = "JAP"
-					version_name = "Kongo Class"
-				}
-				requested_factories = 1
-				progress = 0.90
-				amount = 1
-			}
-
 			random_owned_controlled_state = {
 				limit = {
 					ROOT = {
@@ -636,7 +628,8 @@ focus_tree = {
 	focus = {
 		id = JAP_fighter_modernization
 		icon = GFX_focus_JAP_Airforce_generic
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_active_finance
 		}
@@ -764,7 +757,7 @@ focus_tree = {
 	focus = {
 		id = JAP_alliance_with_siam
 		icon = GFX_goal_generic_major_alliance
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_greater_east_asian_co_prosperity_sphere
 		}
@@ -897,7 +890,7 @@ focus_tree = {
 	focus = {
 		id = JAP_bafuku_authority
 		icon = GFX_goal_demand_sudetenland
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_the_longest_day
 		}
@@ -1231,10 +1224,10 @@ focus_tree = {
 					}
 					OR = {
 						casualties > 100000
-						threat > 0.6
+						threat > 0.65
 						AND = {
 							has_war = yes
-							threat > 0.35
+							threat > 0.45
 						}
 					}
 				}
@@ -1245,10 +1238,10 @@ focus_tree = {
 					}
 					OR = {
 						casualties > 50000
-						threat > 0.45
+						threat > 0.55
 						AND = {
 							has_war = yes
-							threat > 0.25
+							threat > 0.35
 						}
 					}
 				}
@@ -1336,7 +1329,7 @@ focus_tree = {
 	focus = {
 		id = JAP_supremacy_of_will
 		icon = GFX_focus_JAP_Japanese_Glory
-		cost = 5
+		cost = 8
 		prerequisite = {
 			focus = JAP_spiritual_mobilization
 		}
@@ -1396,7 +1389,8 @@ focus_tree = {
 		y = 1
 		relative_position_id = JAP_warrior_spirit
 		available = {
-			date > 1939.3.1
+			has_completed_focus = JAP_supremacy_of_will
+			has_tech = mechanised_infantry
 		}
 		completion_reward = {
 			add_ideas = {
@@ -1433,20 +1427,6 @@ focus_tree = {
 				is_major = yes
 			}
 			OR = {
-				AND = {
-					enemies_naval_strength_ratio > 3
-					enemies_strength_ratio > 2
-				}
-				any_enemy_country = {
-					strength_ratio = {
-						tag = JAP
-						ratio > 1
-					}
-					naval_strength_ratio = {
-						tag = JAP
-						ratio > 2
-					}
-				}
 				any_owned_state = {
 					is_core_of = ROOT
 					CONTROLLER = {
@@ -2145,28 +2125,6 @@ focus_tree = {
 				SOV = {
 					has_war_with = RUS
 				}
-			}
-			modifier = {
-				JAP = {
-					has_war_with = CHI
-				}
-				CHI = {
-					is_subject = no
-				}
-				CHI = {
-					surrender_progress < 0.6
-				}
-				factor = 0.05
-			}
-			modifier = {
-				surrender_progress > 0.05
-				factor = 0
-			}
-			modifier = {
-				has_army_manpower = {
-					size < 1249999
-				}
-				factor = 0
 			}
 			modifier = {
 				RUS = {
@@ -2963,6 +2921,7 @@ focus_tree = {
 		id = JAP_expand_manchurian_railways
 		icon = GFX_focus_JAP_SMR
 		cost = 5
+
 		prerequisite = {
 			focus = JAP_line_of_life
 		}
@@ -3005,6 +2964,53 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+
+			610 = {
+				if = {
+					limit = { 
+						OR = { 
+							is_fully_controlled_by = ROOT
+							is_fully_controlled_by = MAN
+						}
+					}
+					add_building_construction = {
+						type = supply_node
+						level = 1
+						province = 9873
+						instant_build = yes
+					}
+				}
+			}
+
+			610 = {
+				if = {
+					limit = { 
+						OR = { 
+							is_fully_controlled_by = ROOT
+							is_fully_controlled_by = MAN
+						}
+					}
+					add_building_construction = {
+						type = supply_node
+						level = 1
+						province = 4514
+						instant_build = yes
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					OR = {
+						has_full_control_of_state = 610 #REHE
+						MAN = { has_full_control_of_state = 610 } #REHE
+					}
+				}
+				build_railway = {
+					path = { 4514 3828 11855 3881 9873 }
+				}
+			}
+
 			MAN = {
 				random_owned_controlled_state = {
 					limit = {
@@ -3717,6 +3723,9 @@ focus_tree = {
 		complete_tooltip = {
 		}
 		completion_reward = {
+
+			add_country_leader_trait = military_modernizer
+
 			add_tech_bonus = {
 				name = JAP_three_thousand_worlds_focus
 				bonus = 1
@@ -3899,6 +3908,24 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+
+			if = {
+				limit = { 
+					OR = {
+						has_country_leader = {
+							character = JAP_oda_nobunaga
+							ruling_only = yes
+						}
+						has_country_leader = {
+							name = "Oda Nobunaga"
+							ruling_only = yes
+						}
+					}
+				}
+                add_country_leader_trait = finance_graduate
+                add_country_leader_trait = economist
+			}
+
 			random_owned_controlled_state = {
 				limit = {
 					ROOT = {
@@ -4105,7 +4132,7 @@ focus_tree = {
 	focus = {
 		id = JAP_intervene_in_china
 		icon = GFX_focus_JAP_strike_china
-		cost = 10
+		cost = 7
 		prerequisite = {
 			focus = JAP_line_of_life
 		}
@@ -4195,52 +4222,6 @@ focus_tree = {
 				type = dont_defend_ally_borders
 				id = "RUS"
 				value = 400
-			}
-
-			610 = {
-				if = {
-					limit = { 
-						OR = { 
-							is_fully_controlled_by = ROOT
-							is_fully_controlled_by = MAN
-						}
-					}
-					add_building_construction = {
-						type = supply_node
-						level = 1
-						province = 9873
-						instant_build = yes
-					}
-				}
-			}
-
-			610 = {
-				if = {
-					limit = { 
-						OR = { 
-							is_fully_controlled_by = ROOT
-							is_fully_controlled_by = MAN
-						}
-					}
-					add_building_construction = {
-						type = supply_node
-						level = 1
-						province = 4514
-						instant_build = yes
-					}
-				}
-			}
-
-			if = {
-				limit = {
-					OR = {
-						has_full_control_of_state = 610 #REHE
-						MAN = { has_full_control_of_state = 610 } #REHE
-					}
-				}
-				build_railway = {
-					path = { 4514 3828 11855 3881 9873 }
-				}
 			}
 
 			743 = { #
@@ -4453,15 +4434,7 @@ focus_tree = {
 					value = 1
 				}
 			}
-			if = {
-				limit = {
-					has_country_leader = {
-						id = 700
-						ruling_only = yes
-					}
-				}
-				remove_country_leader_trait = imperial_sanction
-			}
+
 			add_named_threat = {
 				threat = 5
 				name = JAP_intervene_in_china
@@ -4475,7 +4448,7 @@ focus_tree = {
 	focus = {
 		id = JAP_secure_china
 		icon = GFX_focus_JAP_ichigo
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_intervene_in_china
 		}
@@ -4490,22 +4463,25 @@ focus_tree = {
 			}
 		}
 		available = {
+			NOT = { has_idea = JAP_nichi_go }
+			NOT = { has_idea = JAP_intervene_in_china_1 }
 			CHI = {
-				surrender_progress > 0.3
+				OR = {
+					surrender_progress > 0.25
+					has_completed_focus = CHI_war_of_national_liberation
+				}
 			}
 			OR = {
 				has_war_with = USA
 				has_war_with = ENG
 				has_war_with = FRA
 				has_war_with = SOV
+				has_war_with = RUS
 				threat > 0.75
 			}
 		}
 		bypass = {
 			OR = {
-				NOT = {
-					JAP_has_idea_JAP_intervene_in_china = yes
-				}
 				CHI = {
 					exists = no
 				}
@@ -4520,7 +4496,6 @@ focus_tree = {
 		complete_tooltip = {
 		}
 		completion_reward = {
-			JAP_intervene_in_china_remove = yes
 			add_named_threat = {
 				threat = 15
 				name = JAP_secure_china
@@ -5039,6 +5014,7 @@ focus_tree = {
 				}
 			}
 			modifier = {
+				date < 1940.1.1
 				JAP = {
 					has_war_with = CHI
 				}
@@ -5046,7 +5022,7 @@ focus_tree = {
 					is_subject = no
 				}
 				CHI = {
-					surrender_progress < 0.6
+					surrender_progress < 0.4
 				}
 				factor = 0.05
 			}
@@ -5208,7 +5184,7 @@ focus_tree = {
 					is_subject = no
 				}
 				CHI = {
-					surrender_progress < 0.5
+					surrender_progress < 0.4
 				}
 				factor = 0.05
 			}
@@ -5354,6 +5330,7 @@ focus_tree = {
 				}
 			}
 			modifier = {
+				date < 1940.1.1
 				JAP = {
 					has_war_with = CHI
 				}
@@ -5361,7 +5338,7 @@ focus_tree = {
 					is_subject = no
 				}
 				CHI = {
-					surrender_progress < 0.6
+					surrender_progress < 0.4
 				}
 				factor = 0.05
 			}
@@ -6027,6 +6004,9 @@ focus_tree = {
 				factor = 10
 			}
 			modifier = {
+				has_army_manpower = {
+					size < 1999999
+				}
 				JAP = {
 					has_war_with = CHI
 				}
@@ -6217,6 +6197,9 @@ focus_tree = {
 				factor = 10
 			}
 			modifier = {
+				has_army_manpower = {
+					size < 1999999
+				}
 				JAP = {
 					has_war_with = CHI
 				}
@@ -6453,6 +6436,9 @@ focus_tree = {
 				factor = 10
 			}
 			modifier = {
+				has_army_manpower = {
+					size < 1999999
+				}
 				JAP = {
 					has_war_with = CHI
 				}
@@ -7036,15 +7022,16 @@ focus_tree = {
 		}
 		completion_reward = {
 			528 = {
-				add_extra_state_shared_building_slots = 2
+				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 				add_resource = {
 					type = steel
-					amount = 8					
+					amount = 16					
 				}
 			}
 			529 = {
@@ -7091,27 +7078,36 @@ focus_tree = {
 		}
 		completion_reward = {
 			530 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
-				add_resource = {
-					type = steel
-					amount = 16					
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
 				}
 			}
 			531 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
+				remove_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				add_dynamic_modifier = { modifier = industrial_area_Lv2 }
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
-				add_resource = {
-					type = steel
-					amount = 8					
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
@@ -7167,7 +7163,7 @@ focus_tree = {
 	focus = {
 		id = JAP_new_energy
 		icon = GFX_focus_generic_concessions
-		cost = 10
+		cost = 8
 		prerequisite = {
 			focus = JAP_chemistry_innovation
 		}
@@ -7671,7 +7667,8 @@ focus_tree = {
 	focus = {
 		id = JAP_tengu_focus
 		icon = GFX_focus_JAP_tangu
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_fighter_modernization
 		}
@@ -7683,7 +7680,6 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_political_power = 100
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = tengu
 		}
@@ -7709,7 +7705,8 @@ focus_tree = {
 	focus = {
 		id = JAP_hinanawi_focus
 		icon = GFX_focus_JAP_hinanawi_bomber
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_fighter_modernization
 		}
@@ -7721,7 +7718,6 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_political_power = 100
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = hinanawi
 		}
@@ -7747,7 +7743,8 @@ focus_tree = {
 	focus = {
 		id = JAP_the_zero
 		icon = GFX_focus_jap_zero
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_first_air_fleet
 		}
@@ -7760,14 +7757,11 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			has_tech = cv_fighter2
+
 		}
 		completion_reward = {
-			custom_effect_tooltip = JAP_the_zero_tt
-			hidden_effect = {
-				set_technology = {
-					cv_fighter2 = 1
-				}
+			add_ideas = {
+				JAP_prioritize_naval_aircraft_construction
 			}
 		}
 		ai_will_do = {
@@ -7781,7 +7775,8 @@ focus_tree = {
 	focus = {
 		id = JAP_bomber_modernization
 		icon = GFX_goal_generic_CAS
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_hinanawi_focus
 		}
@@ -7793,6 +7788,11 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+
+			add_ideas = {
+				JAP_prioritize_army_aircraft_construction
+			}
+
 			add_tech_bonus = {
 				name = JAP_bomber_modernization
 				bonus = 1
@@ -7844,7 +7844,8 @@ focus_tree = {
 	focus = {
 		id = JAP_unified_fighter_development
 		icon = GFX_goal_generic_air_fighter
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_tengu_focus
 		}
@@ -7903,7 +7904,8 @@ focus_tree = {
 	focus = {
 		id = JAP_carrier_warfare_experiments
 		icon = GFX_goal_generic_navy_doctrines_tactics
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_new_naval_estimates
 		}
@@ -8007,7 +8009,8 @@ focus_tree = {
 	focus = {
 		id = JAP_first_air_fleet
 		icon = GFX_goal_generic_navy_carrier
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_carrier_warfare_experiments
 		}
@@ -8053,7 +8056,8 @@ focus_tree = {
 	focus = {
 		id = JAP_modern_escorts
 		icon = GFX_goal_generic_navy_anti_submarine
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_the_ultimate_battleship
 			focus = JAP_first_air_fleet
@@ -8085,7 +8089,8 @@ focus_tree = {
 	focus = {
 		id = JAP_supremacy_of_the_battlefleet
 		icon = GFX_goal_generic_navy_doctrines_tactics
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_new_naval_estimates
 		}
@@ -8169,7 +8174,8 @@ focus_tree = {
 	focus = {
 		id = JAP_the_ultimate_battleship
 		icon = GFX_focus_JAP_goal_japanese_navy_2
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_Sasebo_Dockyard
 		}
@@ -8511,7 +8517,7 @@ focus_tree = {
 	focus = {
 		id = JAP_purge_kodoha_fate
 		icon = GFX_focus_generic_court
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_youkusan_cabinet
 		}
@@ -8585,7 +8591,7 @@ focus_tree = {
 	focus = {
 		id = JAP_rectify_the_army
 		icon = GFX_focus_generic_manpower
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_blackbox_operation
 		}
@@ -8771,7 +8777,7 @@ focus_tree = {
 	focus = {
 		id = JAP_disband_national_diet
 		icon = GFX_focus_generic_strike_at_democracy3
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_Dairokutenmaohajun_focus
 		}
@@ -8806,7 +8812,7 @@ focus_tree = {
 	focus = {
 		id = JAP_take_over_the_government
 		icon = GFX_goal_generic_secret_weapon
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = JAP_cancel_shinto
 		}
@@ -8868,8 +8874,15 @@ focus_tree = {
 		relative_position_id = JAP_bafuku_armor_focus
 		completion_reward = {
 			JAP_empress_abdicate = yes
-			add_war_support = 0.25
-			add_political_power = 500
+
+			add_political_power = 300
+
+			add_stability = 0.3
+
+			add_country_leader_trait = dictator
+
+			add_country_leader_trait = nationalist_symbol
+
 			set_cosmetic_tag = JAP_NobuReich
 		}
 		ai_will_do = {
@@ -10776,7 +10789,8 @@ focus_tree = {
 	focus = {
 		id = JAP_Sasebo_Dockyard
 		icon = GFX_focus_JAP_sesabo
-		cost = 6
+		#cost = 6
+		cost = 4
 		prerequisite = {
 			focus = JAP_new_naval_estimates
 		}
@@ -11196,8 +11210,9 @@ focus_tree = {
 				add_dynamic_modifier = { modifier = industrial_area_Lv3 }
 			}
 
-		    528 = { #九州
-				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+		    532 = { #东海道
+				remove_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				add_dynamic_modifier = { modifier = industrial_area_Lv2 }
 			}
 
 			add_ideas = {

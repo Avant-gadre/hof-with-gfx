@@ -312,6 +312,19 @@ country_event = {
 					}
 				}
 				modifier = {
+					factor = 1.5
+					or = {
+						403 = { is_controlled_by = RUS }
+						583 = { is_controlled_by = RUS }
+					}
+				}
+				modifier = {
+					factor = 0
+					SOV = {
+						owns_state = 202
+					}
+				}
+				modifier = {
 					factor = 0
 					SOV = {
 						NOT = {
@@ -492,7 +505,7 @@ country_event = {
 	}	
 
 	mean_time_to_happen = {
-		days = 3
+		days = 1
 	}
 
 
@@ -1741,6 +1754,8 @@ country_event = { # 我想要部分动员！
 				NOT = { has_idea = partial_economic_mobilisation }
 				NOT = { has_idea = war_economy }
 				NOT = { has_idea = tot_economic_mobilisation }
+				NOT = { has_idea = new_economic_policy }
+				NOT = { has_idea = new_economic_policy_2 }
 			}
 			add_ideas = partial_economic_mobilisation
 		}
@@ -1763,7 +1778,7 @@ country_event = { # 我想总动员！！！
 		is_ai = yes	
 		NOT = { has_country_flag = tot_economic_mobilisation_flag }
 		NOT = { has_idea = tot_economic_mobilisation }
-		threat > 0.6
+		threat > 0.8
 		has_war = yes
 		OR = {
 			has_war_support > 0.8
@@ -1874,6 +1889,229 @@ country_event = { # 麦先生你暂时还是圆润的去死
 		}
 
         annex_country = { target = BAT }
+
+	}
+		
+}
+
+country_event = { # 你已经是一个负责任的大国了
+	id = martian.55
+	title = martian.55.t
+	desc = martian.55.d
+	picture = GFX_report_event_generic_funeral
+
+	fire_only_once = no
+	
+	trigger = {
+		tag = GER
+		is_ai = yes	
+		is_subject = no
+		GER = { is_faction_leader = yes }
+		is_in_faction_with = HUN
+		any_country = {
+			NOT = { has_war_with = GER }
+			has_war_with = HUN
+		}
+	}	
+
+	mean_time_to_happen = {
+		days = 3
+	}
+
+
+	option = {
+		name = martian.55.a
+		ai_chance = {
+			factor = 100
+		}
+
+		random_country = {
+			limit = {
+				tag = HUN
+				is_in_faction_with = GER
+			}
+			random_enemy_country = {
+				limit = {
+				    NOT = { has_war_with = GER }
+				}
+				GER = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
+				}
+			}
+		}
+
+	}
+		
+}
+
+country_event = { # 不要卖队友
+	id = martian.56
+	title = martian.56.t
+	desc = martian.56.d
+	picture = GFX_report_event_generic_funeral
+
+	fire_only_once = no
+	
+	trigger = {
+		tag = GER
+		is_ai = yes	
+		is_subject = no
+		GER = { is_faction_leader = yes }
+		is_in_faction_with = UKR
+		any_country = {
+			NOT = { has_war_with = GER }
+			has_war_with = UKR
+		}
+	}	
+
+	mean_time_to_happen = {
+		days = 3
+	}
+
+
+	option = {
+		name = martian.56.a
+		ai_chance = {
+			factor = 100
+		}
+
+		random_country = {
+			limit = {
+				tag = UKR
+				is_in_faction_with = GER
+			}
+			random_enemy_country = {
+				limit = {
+				    NOT = { has_war_with = GER }
+				}
+				GER = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
+				}
+			}
+		}
+
+	}
+		
+}
+
+country_event = { # 你不需要牛莱特
+	id = martian.57
+	title = martian.57.t
+	desc = martian.57.d
+	picture = GFX_report_event_generic_funeral
+
+	fire_only_once = no
+	
+	trigger = {
+		tag = GER
+		is_ai = yes	
+		has_completed_focus = GER_General_Mobilization_Act
+		has_idea = konstantin_von_neurath
+	}	
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+	option = {
+		name = martian.57.a
+		ai_chance = {
+			factor = 100
+		}
+
+		remove_ideas = konstantin_von_neurath
+		add_ideas = joseph_goebbels
+
+	}
+		
+}
+
+country_event = { # 欧根是更好的选择
+	id = martian.58
+	title = martian.58.t
+	desc = martian.58.d
+	picture = GFX_report_event_generic_funeral
+
+	fire_only_once = no
+	
+	trigger = {
+		tag = GER
+		is_ai = yes	
+		has_country_flag = GER_ostreich_return
+		OR = {
+			has_idea = walther_von_brauchitsch
+			has_idea = ludwig_beck
+		}
+	}	
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+	option = {
+		name = martian.58.a
+		ai_chance = {
+			factor = 100
+		}
+
+		if = {
+			limit = {
+				has_idea = walther_von_brauchitsch
+			}
+			remove_ideas = walther_von_brauchitsch
+			add_ideas = GER_prince_eugen
+		}
+
+		if = {
+			limit = {
+				has_idea = ludwig_beck
+			}
+			remove_ideas = ludwig_beck
+			add_ideas = GER_prince_eugen
+		}
+
+	}
+		
+}
+
+country_event = { # 戈林现在大致是个累赘
+	id = martian.59
+	title = martian.59.t
+	desc = martian.59.d
+	picture = GFX_report_event_generic_funeral
+
+	fire_only_once = no
+	
+	trigger = {
+		tag = GER
+		is_ai = yes	
+		has_completed_focus = GER_Ensure_air_superiority
+		has_idea = goering
+	}	
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+	option = {
+		name = martian.59.a
+		ai_chance = {
+			factor = 100
+		}
+
+		remove_ideas = has_idea = goering
+		add_ideas = GER_gertrud_barkhorn
 
 	}
 		

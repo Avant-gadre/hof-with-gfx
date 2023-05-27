@@ -9,6 +9,5 @@ tags={
 dependencies={
 	# "Hearts of Fate: dev"
 }
-replace_path="common/ai_equipment"
 supported_version="1.12.*"
 # remote_file_id="1533199946"

@@ -90,11 +90,11 @@ GER_historical_plan = {
 
     GER_Wehrmacht # 35
 
-    GER_Old_glory # 35
+    GER_Old_glory # 35 to 21
 
-    GER_Modernization_of_light_weapons # 35
+    GER_Modernization_of_light_weapons # 35 to 21
 
-    GER_New_tactics # 35
+    GER_New_tactics # 35 to 21
 
     # Goring
     GER_Goring_Project # 35
@@ -115,16 +115,16 @@ GER_historical_plan = {
     GER_four_year_plan # 35
 
 
-    GER_air_innovation # 35
+    GER_air_innovation # 35 to 21
     # Spain
     GER_SPR_support_nationalist_spain # 35
 
-    GER_actung_panzer # 35
+    GER_actung_panzer # 35 to 21
 
 
-    GER_Surprise_preparation # 35
+    GER_Surprise_preparation # 35 to 21
 
-    GER_Panzergrenadier # 35
+    GER_Panzergrenadier # 35 to 21
 
     # Ostreich
     GER_anschluss # 35
@@ -147,12 +147,21 @@ GER_historical_plan = {
 
     GER_Preparing_for_the_Great_Europa_War # 35
 
-    GER_blitzkrieg # 35
+    GER_blitzkrieg # 35 to 21
 
-    GER_messerschmitt_1 # 35
-    GER_focke # 35
+    GER_messerschmitt_1 # 35 to 21
+    GER_focke # 35 to 21
+
+    GER_coal_liquidization # 56 to 35
+    GER_synthetic_rubber# 56 to 35
+    GER_IG_Farben # 35
+
+    GER_Legacy_of_the_Commando # 35 to 21
 
     GER_west_wall# 56
+
+	GER_Rectify_military_production
+	GER_Bring_in_foreign_workers
 
     GER_demand_sudetenland
     GER_CZE_sudetenlandische_treibstoffwerke_ag      
@@ -162,24 +171,30 @@ GER_historical_plan = {
 
     GER_secure_vital_resources_from_sweden # 35
 
-    GER_30_ton_tank_project # 35
+    GER_30_ton_tank_project # 35 to 21
 
-    GER_RHI_Anschluss
-    GER_second_Schlieffen_plan
-
-    GER_Legacy_of_the_Spanish_Civil_War # 35
-
-    GER_coal_liquidization # 56
-    GER_synthetic_rubber# 56
-    GER_IG_Farben # 35
-
-    GER_Stuka # 35
-    GER_High_speed_bomber # 35
-    GER_CAS_doctrine # 35 
+    GER_Stuka # 35 to 14
+    GER_High_speed_bomber # 35 to 14
+    GER_CAS_doctrine # 35 to 21
 			
-    GER_Joint_air_to_ground_operations # 35 
+    GER_Joint_air_to_ground_operations # 35
 
-    GER_Legacy_of_the_Commando
+    GER_Coastal_Defense
+    GER_Operation_Himmler
+
+	GER_New_artillery
+
+	GER_Assault_gun_concept
+
+	GER_Legacy_of_the_weltkrieg
+
+	GER_Legacy_of_the_Spanish_Civil_War # 35
+
+	GER_RHI_Anschluss
+	GER_second_Schlieffen_plan 
+
+	GER_Fallschirmjager
+
     # Cze
 
     GER_CHI_continue_military_cooperation_with_china
@@ -189,6 +204,49 @@ GER_historical_plan = {
     GER_JAP_military_technology_collaboration
 
 
+	}
+
+	research = {
+
+	}
+
+	ideas = {
+
+	}
+
+	# Keep small, as it is used as a factor for some things (such as research needs)
+	# Recommended around 1.0. Useful for relation between plans
+	weight = {
+		factor = 1.0
+		modifier = {
+			factor = 1.0
+		}
+	}
+
+}
+
+GER_alt_plan_war_fra = {
+	name = "German alt plan"
+	desc = "alt behavior for German"
+
+	enable = {
+		original_tag = GER
+		or = {
+			has_completed_focus = GER_General_Mobilization_Act
+			has_completed_focus = GER_Overall_war
+		}
+		NOT = { is_in_faction_with = FRA }  
+		NOT = { has_war_with = FRA } 
+	}
+	abort = {
+		has_war_with = FRA
+	}
+
+	ai_national_focuses = {
+		GER_Preparing_for_the_Great_Europa_War
+		GER_west_wall
+		GER_RHI_Anschluss
+		GER_second_Schlieffen_plan
 	}
 
 	research = {
@@ -488,6 +546,8 @@ GER_historical_plan_Conquer_Europa = {
     GER_first_vienna_award
     GER_end_of_czechoslovakia
     GER_Take_over_the_Czech_arms_industry
+    GER_Coastal_Defense
+    GER_Operation_Himmler
     GER_nationalist_spain_ally
     GER_Operation_Felix
     GER_IG_Farben
@@ -664,12 +724,13 @@ GER_historical_tot_economic_mobilisation = {
 	}
 
 	ai_national_focuses = {
-    GER_coal_liquidization
+	GER_Lessons_from_the_war
+	GER_coal_liquidization
     GER_synthetic_rubber
     GER_IG_Farben
+	GER_Rectify_military_production
+	GER_Bring_in_foreign_workers
     GER_Authorize_the_new_armaments_minister
-    GER_Bring_in_foreign_workers
-    GER_Rectify_military_production
     GER_General_Mobilization_Act
     GER_People_tank_project
     GER_Power_of_the_people
@@ -696,6 +757,58 @@ GER_historical_tot_economic_mobilisation = {
 	}
 
 }
+
+GER_historical_tot_economic_mobilisation = {
+	name = "German historical plan"
+	desc = "Historical behavior for German"
+
+	enable = {
+		original_tag = GER
+		has_war = yes
+		any_enemy_country = {
+		    is_major = yes
+		}
+		OR = {
+			AND = {
+				has_completed_focus = GER_messerschmitt_1
+				date > 1943.1.1
+			}
+			has_tech = rocket_engines
+		}
+	}
+	abort = {
+		has_completed_focus = GER_Jet_prototype
+	}
+
+	ai_national_focuses = {
+		GER_Lessons_from_the_war
+		GER_Ensure_air_superiority
+		GER_New_fighter
+		GER_New_bomber
+
+		GER_rocketry_focus
+		GER_Jet_prototype
+	}
+
+	research = {
+
+	}
+
+	ideas = {
+
+	}
+
+	# Keep small, as it is used as a factor for some things (such as research needs)
+	# Recommended around 1.0. Useful for relation between plans
+	weight = {
+		factor = 1.0
+		modifier = {
+			factor = 1.0
+		}
+	}
+
+}
+
 
 GER_minor_allies = { #used to make minor European nations like Axis more
 	name = "Minor German Allies"

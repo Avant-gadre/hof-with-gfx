@@ -427,9 +427,9 @@ focus_tree = {
 			focus = FRA_Royal_military_parade
 		}
 		ai_will_do = {
-			factor = 500
+			factor = 1000
 			modifier = {
-				factor = 3
+				factor = 2
 				has_war = yes
 			}
 		}
@@ -472,7 +472,8 @@ focus_tree = {
 	focus = {
 		id = FRA_Manufacture_d_Armes_de_St_Etienne
 		icon = GFX_focus_secret_rearmament
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_army_command_focus
 		}
@@ -791,7 +792,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Return_to_World_Stage
 		icon = GFX_focus_FRA_navy_generic
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Royal_military_parade
 		}
@@ -2892,7 +2893,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			remove_ideas = FRA_protected_by_the_maginot_line
 			add_ideas = FRA_Luminosite_Eternelle_idea
 		}
 	}
@@ -4651,7 +4651,7 @@ focus_tree = {
 	focus = {
 		id = FRA_fireside_talk
 		icon = GFX_goal_generic_national_unity
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Emergency_allocation
 		}
@@ -4695,7 +4695,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Royal_bonds
 		icon = GFX_focus_generic_royal_bonds
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_fireside_talk
 		}
@@ -4803,7 +4803,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Invite_Western_world_Investment
 		icon = GFX_goal_generic_dangerous_deal
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Royal_bonds
 		}
@@ -4871,6 +4871,22 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = FRA_National_Relief_Agency_idea
 				add_idea = FRA_Unemployment_compensation_idea
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -5309,15 +5325,23 @@ focus_tree = {
 				}
 				add_political_power = 25
 				add_tech_bonus = {
-					name = industry_bonus
+					name = FRA_Research_Assembly_line
 					bonus = 1
 					uses = 1
 					category = industry
 				}
 			}
 			add_tech_bonus = {
-				name = industry_bonus
-				bonus = 1
+				ahead_reduction = 1.0
+				bonus = 1.0
+				uses = 1
+				name = FRA_Research_Assembly_line
+				technology = advanced_machine_tools
+				technology = assembly_line_production
+			}
+			add_tech_bonus = {
+				name = FRA_Research_Assembly_line
+				bonus = 0.75
 				uses = 2
 				category = industry
 			}
@@ -5427,7 +5451,7 @@ focus_tree = {
 						limit = {
 							is_controlled_by = ROOT
 						}
-						add_extra_state_shared_building_slots = 3
+						add_extra_state_shared_building_slots = 2
 						add_building_construction = {
 							type = arms_factory
 							level = 2
@@ -5444,7 +5468,7 @@ focus_tree = {
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = arms_factory
-						level = 2
+						level = 3
 						instant_build = yes
 					}
 				}
@@ -5457,7 +5481,7 @@ focus_tree = {
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = arms_factory
-						level = 2
+						level = 3
 						instant_build = yes
 					}
 				}
@@ -5662,6 +5686,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 750
 		}
+
+		available = {
+			OR = {
+				date > 1939.1.1
+				has_tech = advanced_machine_tools
+			}
+		}
+
 		completion_reward = {
 			if = {
 				limit = {
@@ -6000,9 +6032,11 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_army_command_focus
 		}
+
 		mutually_exclusive = {
 			focus = FRA_Old_Glory
 		}
+
 		available = {
 			NOT = {
 				has_country_leader = {
@@ -6012,7 +6046,7 @@ focus_tree = {
 			}
 		}
 		ai_will_do = {
-			factor = 400
+			factor = 500
 			modifier = {
 				factor = 3
 				has_country_flag = napoleon_oppose
@@ -6043,6 +6077,111 @@ focus_tree = {
 				}
 				add_political_power = 50
 			}
+
+			hidden_effect = {
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = superior_firepower
+					}
+					set_technology = {
+						superior_firepower = 0
+						mobile_warfare = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = sup_delay
+					}
+					set_technology = {
+						sup_delay = 0
+						delay = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = mobile_defence
+					}
+					set_technology = {
+						mobile_defence = 0
+						elastic_defence = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = intergrated_support
+					}
+					set_technology = {
+						intergrated_support = 0
+						mobile_infantry = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = regimental_combat_teams
+					}
+					set_technology = {
+						regimental_combat_teams = 0
+						mass_motorization = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = dispersed_support
+					}
+					set_technology = {
+						dispersed_support = 0
+						armored_spearhead = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = overwhelming_firepower
+					}
+					set_technology = {
+						overwhelming_firepower = 0
+						schwerpunk = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = schwerpunk
+						has_tech = sup_mechanized_offensive
+					}
+					set_technology = {
+						sup_mechanized_offensive = 0
+						blitzkrieg = 1
+					}
+				}
+
+				if = {
+					limit = {
+						is_ai = yes
+						has_tech = mass_motorization
+						has_tech = sup_mechanized_offensive
+					}
+					set_technology = {
+						sup_mechanized_offensive = 0
+						mechanised_offensive = 1
+					}
+				}
+
+			}
+
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
@@ -6056,15 +6195,18 @@ focus_tree = {
 	focus = {
 		id = FRA_Old_Glory
 		icon = GFX_goal_generic_army_doctrines
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_army_command_focus
 		}
+
 		mutually_exclusive = {
 			focus = FRA_Strategies_for_New_Era
 		}
+
 		ai_will_do = {
-			factor = 1200
+			factor = 1500
 		}
 		x = 1
 		y = 1
@@ -6090,6 +6232,7 @@ focus_tree = {
 				}
 				add_political_power = 50
 			}
+
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
@@ -6217,15 +6360,17 @@ focus_tree = {
 		cancel_if_invalid = no
 		continue_if_invalid = yes
 		available_if_capitulated = yes
+
+		prerequisite = {
+			focus = FRA_Strategies_for_New_Era
+			focus = FRA_Old_Glory
+		}
+
 		prerequisite = {
 			focus = FRA_army_command_focus
 		}
 		ai_will_do = {
-			factor = 1000
-			modifier = {
-				factor = 2
-				has_war = yes
-			}
+			factor = 2000
 		}
 		x = 0
 		y = 2
@@ -6251,7 +6396,7 @@ focus_tree = {
 			has_civil_war = yes
 		}
 		completion_reward = {
-			army_experience = 15
+			army_experience = 25
 			if = {
 				limit = {
 					or = {
@@ -6271,15 +6416,32 @@ focus_tree = {
 				limit = {
 					RHI = {
 						is_subject_of = FRA
+						has_war = no
 					}
 				}
 				RHI = {
-					army_experience = 10
+					army_experience = 25
 					add_manpower = 12000
 					add_equipment_to_stockpile = {
 						type = infantry_equipment
-						amount = 3000
+						amount = 6000
 						producer = FRA
+					}
+					every_owned_state = {
+						limit = {
+							any_neighbor_state = {
+								is_owned_by = GER
+							}
+						}
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = {
+								all_provinces = yes
+								limit_to_border = yes
+							}
+						}
 					}
 				}
 			}
@@ -6486,6 +6648,7 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = FRA_Strategies_for_New_Era
+			focus = FRA_Old_Glory
 		}
 		x = -1
 		y = 1
@@ -6517,17 +6680,16 @@ focus_tree = {
 			add_ideas = FRA_Mechanized_equipments_production_idea
 			add_tech_bonus = {
 				name = FRA_Mechanized_Army
-				bonus = 1
+				bonus = 1.5
+				ahead_reduction = 1.5
 				uses = 1
-				technology = mechanised_infantry
-				technology = mechanised_infantry2
+				category = cat_mechanized_equipment
 			}
 			add_tech_bonus = {
-				bonus = 1
-				uses = 1
 				name = FRA_Mechanized_Army
-				technology = mechanised_infantry
-				technology = mechanised_infantry2
+				bonus = 1.0
+				uses = 1
+				category = cat_armored_cars
 			}
 		}
 	}
@@ -6612,8 +6774,8 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = armor_bonus
-				bonus = 1
 				ahead_reduction = 1
+				bonus = 1
 				uses = 1
 				category = armor
 			}
@@ -6622,20 +6784,14 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = armor
-			}
-			add_tech_bonus = {
-				bonus = 1
-				uses = 1
-				name = armor_bonus
-				technology = armored_car2
-				technology = armored_car3
 			}
 		}
 	}
 	focus = {
 		id = FRA_Battlefield_support
 		icon = GFX_goal_generic_army_motorized
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Manufacture_d_Armes_de_St_Etienne
 		}
@@ -6669,6 +6825,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = infantry_bonus
 				ahead_reduction = 1
+				bonus = 1
 				uses = 2
 				category = support_tech
 			}
@@ -6677,8 +6834,10 @@ focus_tree = {
 	focus = {
 		id = FRA_Cannon_doctrine
 		icon = GFX_goal_generic_army_artillery2
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
+			focus = FRA_Strategies_for_New_Era
 			focus = FRA_Old_Glory
 		}
 		x = 1
@@ -6726,7 +6885,8 @@ focus_tree = {
 	focus = {
 		id = FRA_September_Snow
 		icon = GFX_focus_generic_paratrooper
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Cannon_doctrine
 		}
@@ -6855,7 +7015,8 @@ focus_tree = {
 	focus = {
 		id = FRA_Three_dimensional_war
 		icon = GFX_focus_generic_license_production
-		cost = 5
+		#cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_September_Snow
 		}
@@ -6895,12 +7056,6 @@ focus_tree = {
 				cost_reduction = 0.5
 				uses = 2
 				category = air_doctrine
-			}
-			add_tech_bonus = {
-				name = FRA_Three_dimensional_war
-				bonus = 1
-				uses = 1
-				category = cat_mechanized_equipment
 			}
 		}
 	}
@@ -7242,7 +7397,7 @@ focus_tree = {
 	focus = {
 		id = FRA_BSEB
 		icon = GFX_focus_generic_shipyard
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Return_to_World_Stage
 		}
@@ -7266,7 +7421,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Atlantic_Strategy
 		icon = GFX_goal_generic_navy_doctrines_tactics
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Return_to_World_Stage
 		}
@@ -7292,7 +7447,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Ocean_Industry_Group
 		icon = GFX_goal_generic_construct_civ_factory
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Atlantic_Strategy
 		}
@@ -7314,7 +7469,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Ocean_Operational_Theory
 		icon = GFX_goal_generic_navy_battleship
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Ocean_Industry_Group
 		}
@@ -7339,7 +7494,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Maritime_supremacy
 		icon = GFX_goal_demand_sudetenland
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Ocean_Operational_Theory
 		}
@@ -7360,7 +7515,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Mediterranean_hegemony
 		icon = GFX_goal_generic_territory_or_war
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Return_to_World_Stage
 		}
@@ -7386,7 +7541,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Provence_Shipyard
 		icon = GFX_goal_generic_construct_naval_dockyard
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Mediterranean_hegemony
 		}
@@ -7433,7 +7588,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Large_scale_landing
 		icon = GFX_goal_generic_amphibious_assault
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Provence_Shipyard
 		}
@@ -7465,7 +7620,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Fleet_shield
 		icon = GFX_goal_generic_defence
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Large_scale_landing
 		}
@@ -7486,7 +7641,7 @@ focus_tree = {
 	focus = {
 		id = FRA_CL_programme
 		icon = GFX_focus_generic_cruiser2
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_BSEB
 		}
@@ -7569,7 +7724,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Fantasme_programme
 		icon = GFX_focus_generic_destroyer
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_BSEB
 		}
@@ -7684,7 +7839,7 @@ focus_tree = {
 	focus = {
 		id = FRA_C5_programme
 		icon = GFX_focus_generic_cruiser2
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_BSEB
 		}
@@ -7761,7 +7916,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Joffre_programme
 		icon = GFX_goal_generic_navy_carrier
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_BSEB
 		}
@@ -7835,7 +7990,7 @@ focus_tree = {
 	focus = {
 		id = FRA_PN-196_programme
 		icon = GFX_focus_generic_navy_battleship2
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_BSEB
 		}
@@ -7902,7 +8057,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Naval_warfare_theory
 		icon = GFX_goal_generic_navy_doctrines_tactics
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_CL_programme
 			focus = FRA_Fantasme_programme
@@ -8088,12 +8243,13 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = FRA_Royal_military_parade
+
+		available = {
+			num_of_military_factories > 24
+		}
+
 		ai_will_do = {
-			factor = 8
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
+			factor = 1200
 		}
 		completion_reward = {
 			air_experience = 25
@@ -8104,12 +8260,19 @@ focus_tree = {
 				category = air_doctrine
 			}
 			add_ideas = FRA_European_Air_Force_Command_idea
+			if = {
+				limit = {
+					has_war = no
+					NOT = { has_government = fascism }
+				}
+				add_ideas = FRA_Plan_five_idea
+			}
 		}
 	}
 	focus = {
 		id = FRA_Air_superiority
 		icon = GFX_goal_generic_air_fighter
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_European_Air_Force_Command
 		}
@@ -8135,7 +8298,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Ace_of_Ace
 		icon = GFX_focus_CZE_military_aeronautical_institute
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Air_superiority
 		}
@@ -8156,7 +8319,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Navy_Strike_Corp
 		icon = GFX_goal_generic_air_naval_bomber
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Ace_of_Ace
 		}
@@ -8188,7 +8351,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Tactical_Strike
 		icon = GFX_goal_generic_air_bomber
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_European_Air_Force_Command
 		}
@@ -8214,13 +8377,18 @@ focus_tree = {
 	focus = {
 		id = FRA_Air_fortress
 		icon = GFX_focus_usa_escort_fighters
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Tactical_Strike
 		}
 		x = 1
 		y = 1
 		relative_position_id = FRA_Tactical_Strike
+
+		available = {
+			has_war = yes
+		}
+
 		ai_will_do = {
 			factor = 8
 			modifier = {
@@ -8241,7 +8409,7 @@ focus_tree = {
 	focus = {
 		id = FRA_multi-cooperation
 		icon = GFX_goal_generic_air_doctrine
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_Air_fortress
 		}
@@ -9170,7 +9338,7 @@ focus_tree = {
 				factor = 0
 				FRA = {
 					has_army_manpower = {
-						size < 749999
+						size < 999999
 					}
 				}
 			}
@@ -9700,8 +9868,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_political_power = 150
-			add_stability = 0.25
+			add_political_power = 100
+			add_stability = 0.40
 			remove_ideas = {
 				FRA_Economic_crisis_idea
 			}
@@ -10810,8 +10978,14 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			add_ideas = {
-				war_economy
+			if = {
+				limit = {
+					has_idea = tot_economic_mobilisation
+				}
+				add_political_power = 150
+			}
+			else = {
+				add_ideas = tot_economic_mobilisation
 			}
 		}
 	}

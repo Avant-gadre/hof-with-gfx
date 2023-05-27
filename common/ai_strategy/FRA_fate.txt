@@ -801,7 +801,7 @@ FRA_Dying_german = {
 	}
 
   enable = {
-		date < 1939.6.1
+		date < 1940.1.1
 		original_tag = FRA
 		has_war_with = GER
 		NOT = { GER = { casualties > 999999 } }
@@ -810,20 +810,48 @@ FRA_Dying_german = {
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = front_control
-		area = europe
-		ratio = 0
-		ordertype = front
-		priority = 999
-		execution_type = careful
-		execute_order = no
-		manual_attack = no
+		type = area_priority
+		id = GER_west_line_hof
+		value = 100
 	}
 
 	ai_strategy = {
-		type = consider_weak
-		id = "GER"
-		value = -999
+		type = front_control
+		country_trigger = {
+			or = {
+				tag = GER
+				tag = HOL
+			}
+		}
+		ordertype = front
+		execution_type = careful
+		manual_attack = yes
+	}
+
+}
+
+FRA_Dying_nero = {
+	allowed = {
+		original_tag = FRA
+	}
+
+  enable = {
+		date < 1940.1.1
+		original_tag = FRA
+		has_war_with = ITA
+		NOT = { ITA = { casualties > 499999 } }
+	}
+	
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			tag = ITA
+		}
+		ordertype = front
+		execution_type = careful
+		manual_attack = yes
 	}
 
 }
@@ -843,11 +871,17 @@ FRA_why_the_Maginot_line_was_repaired = {
 	
 	abort = {
 		OR = {
-			date > 1939.6.1
+			date > 1940.6.1
 			NOT = { has_war_with = GER }
 			NOT = { controls_state = 28 }		
 			has_capitulated = yes
 		}
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = GER_west_line_hof
+		value = 200
 	}
 
 	ai_strategy = {
@@ -864,6 +898,37 @@ FRA_why_the_Maginot_line_was_repaired = {
 		tag = HOL
 
 		value = 200 # lets put more units, should be safe
+	}
+
+}
+
+FRA_Maginot_line_never_fall = {
+
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		controls_state = 28
+	}
+	
+	abort = {
+		NOT = { controls_state = 28 }	
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# 
+		states = {
+			28 #Maginot
+		}
+
+		ratio = 0.3
+
+		area = mainland_europe
+
+		subtract_invasions_from_need = no
 	}
 
 }

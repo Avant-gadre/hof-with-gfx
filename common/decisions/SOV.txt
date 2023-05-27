@@ -260,14 +260,30 @@ SOV_industry_relocation = {
 		ai_will_do = {
 			factor = 0
 			modifier = {
-				add = 200 # oh shit they are getting close!
+				add = 800 # oh shit they are getting close!
 				FROM = {
 					OR = {
 						state = 219 #MOSCOW
-						state = 195 #LENINGRAD
+						state = 254 #MOSCOW RING
+						state = 253 #MOSCOW RING
+						state = 248 #MOSCOW RING
+						state = 247 #MOSCOW RING
+						state = 195 #LENINGRAD 
+						state = 208 #LENINGRAD RING
+						state = 244 #LENINGRAD RING
+						state = 263 #LENINGRAD RING
 						state = 202 #KIEV
 						state = 206 #MINSK
 						state = 217 #STALINGRAD
+						state = 245 #STALINGRAD RING
+						state = 265 #STALINGRAD RING
+						state = 226 #Dnipro
+						state = 228 #Luhansk
+						state = 227 #Donetsk
+						state = 221 #Kharkov
+						state = 246 #Lerev
+						state = 220 #Kursk
+						state = 209 #Pskov
 					}
 					any_neighbor_state = {
 						NOT = { is_fully_controlled_by = ROOT }
@@ -336,6 +352,14 @@ SOV_industry_relocation = {
 		days_remove = RUS_industrial_relocation_days
 
 		complete_effect = {  #Attempt to remove 2 CIVS & 2 MILS
+
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				add_political_power = 25
+			}
+
 			hidden_effect = {
 				add_equipment_to_stockpile = {
 					type = train_equipment
@@ -1359,6 +1383,99 @@ SOV_great_patriotic_war = {
 		}
 	}
 
+	SOV_order_227_ai = {
+		priority = 101
+
+		icon = generic_army_support
+
+		available = {
+			any_enemy_country = {
+				SOV_is_major_not_original_sov = yes
+			}
+			or = {
+				AND = {
+					surrender_progress > 0.15
+					202 = { #Kiev
+						NOT = { is_owned_by = ROOT }
+					}
+					226 = { #
+						NOT = { is_owned_by = ROOT }
+					}
+					198 = { #
+						NOT = { is_owned_by = ROOT }
+					}
+				}
+				surrender_progress > 0.25
+			}
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		visible = {
+        	is_ai = yes
+			has_war = yes
+			any_enemy_country = {
+				SOV_is_major_not_original_sov = yes
+			}
+			has_civil_war = no
+			surrender_progress > 0
+		}
+
+		days_remove = 720
+
+		cancel_trigger = {
+			or = {
+				AND = {
+					surrender_progress < 0
+					202 = { #Kiev
+						NOT = { is_owned_by = ROOT }
+					}
+					226 = { #
+						NOT = { is_owned_by = ROOT }
+					}
+					198 = { #
+						NOT = { is_owned_by = ROOT }
+					}
+				}
+				surrender_progress < 0.05
+			}
+		}
+
+		complete_effect = {
+
+			set_country_flag = SOV_order_227_flag
+			custom_effect_tooltip = SOV_order_227_decisions_tt
+			if = {
+				limit = {
+					NOT = { has_dlc = "No Step Back" }
+				}
+				custom_effect_tooltip = SOV_order_227_scorched_earth_decisions_tt
+			}
+		}
+
+		modifier = {
+			political_power_cost = 0.2
+			dig_in_speed_factor = 0.20
+			recon_factor_while_entrenched = 0.20
+			army_core_defence_factor = 0.20
+			army_morale_Factor = 0.10
+			land_reinforce_rate = 0.05
+			mobilization_speed = 0.20
+			training_time_factor = -0.20
+			experience_loss_factor = 0.20
+		}
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				surrender_progress > 0.1
+				factor = 25
+			}
+		}
+	}
+
 	SOV_order_227 = {
 		priority = 101
 
@@ -1395,6 +1512,7 @@ SOV_great_patriotic_war = {
 		fire_only_once = yes
 
 		visible = {
+        	is_ai = no
 			has_war = yes
 			any_enemy_country = {
 				SOV_is_major_not_original_sov = yes

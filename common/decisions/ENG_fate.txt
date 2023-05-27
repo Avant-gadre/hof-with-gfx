@@ -1,5 +1,112 @@
 Please_don_improve_the_relationship_anymore_ai_Strategy = {
 
+	Ai_JAP_Your_script = { #拿好你的剧本朋友.
+		icon = generic_operation
+		available = {
+			NOT = {
+				CHI = {
+					has_completed_focus = CHI_war_of_national_liberation
+				}
+			}
+		}
+		visible = {
+			NOT = { date > 1940.6.1 }
+			tag = JAP
+			is_ai = yes
+			is_major = yes
+			is_subject = no
+			has_war_with = CHI
+		}
+		cost = 0
+		days_remove = 100000
+		fire_only_once = no
+		remove_trigger = {
+			OR = {
+				is_ai = no
+				CHI = {
+					has_completed_focus = CHI_war_of_national_liberation
+				}
+			}
+		}
+		targeted_modifier = {
+			tag = CHI
+			attack_bonus_against = 0.30
+			breakthrough_bonus_against = 0.15
+			defense_bonus_against = 0.15
+		}
+		modifier = {
+
+		}
+		ai_will_do = {
+			factor = 150
+		}
+		complete_effect = {
+		}
+	}
+
+	Ai_wont_get_weaker = { #再强大的Ai到了40年后都无法面对玩具的成型大军 先试试看能不能给ai多续会
+		icon = generic_operation
+		available = {
+		}
+		visible = {
+			date > 1941.1.1
+			is_ai = yes
+			is_major = yes
+			is_subject = no
+			has_war = yes
+			any_enemy_country = {
+				is_major = yes
+			}
+			OR = {
+				tag = ENG
+				tag = FRA
+				tag = USA
+
+				tag = GER
+				tag = ITA
+				tag = JAP
+
+				tag = SOV
+				tag = RUS
+				tag = UKR
+
+				tag = ROM
+				tag = HUN
+				tag = POL
+				tag = SWE
+
+				tag = IRQ
+			}
+		}
+		cost = 0
+		days_remove = 100000
+		fire_only_once = no
+		remove_trigger = {
+			is_ai = no
+		}
+		modifier = {
+
+			dig_in_speed_factor = 0.25
+
+			experience_gain_army_unit_factor = 0.05
+			experience_loss_factor = -0.2
+			attrition = -0.15
+			supply_consumption_factor = -0.1
+
+			air_training_xp_gain_factor = 0.25
+			air_mission_xp_gain_factor = 0.15
+			air_untrained_pilots_penalty_factor = -0.25
+
+			air_fuel_consumption_factor = -0.1
+			army_fuel_consumption_factor = -0.1
+		}
+		ai_will_do = {
+			factor = 150
+		}
+		complete_effect = {
+		}
+	}
+
 	Ai_is_a_stinky_motherfucker_that_probably_wont_watch_the_debuff = {
 		icon = generic_operation
 		available = {
@@ -18,7 +125,7 @@ Please_don_improve_the_relationship_anymore_ai_Strategy = {
 			}
 		}
 		cost = 0
-		days_remove = 180
+		days_remove = 100000
 		fire_only_once = no
 		remove_trigger = {
 			is_ai = no
@@ -52,7 +159,7 @@ Please_don_improve_the_relationship_anymore_ai_Strategy = {
 			is_ai = no
 		}
 		modifier = {
-			political_power_factor = 0.35
+			political_power_factor = 0.5
 		}
 		ai_will_do = {
 			factor = 150
@@ -76,8 +183,8 @@ Please_don_improve_the_relationship_anymore_ai_Strategy = {
 		}
 		modifier = {
 
-			max_command_power = 50
-			command_power_gain = 0.25
+			max_command_power = 75
+			command_power_gain = 0.5
 
 			political_advisor_cost_factor = -0.5
 			army_chief_cost_factor = -0.25
@@ -279,11 +386,14 @@ ENG_biesongle_ai_Strategy = {
 		icon = eng_trade_unions_demand
 		visible = {
 			is_ai = yes
-			NOT = {
-				TAG = USA
-			}
-			NOT = {
-				is_in_faction_with = USA
+			OR = {
+				NOT = {
+					is_in_faction_with = USA
+				}
+				AND = {
+					is_in_faction_with = USA
+					USA = { num_of_military_factories < 200 }
+				}
 			}
 			OR = {
 				is_in_faction_with = ENG				# anyone in allies
@@ -307,11 +417,24 @@ ENG_biesongle_ai_Strategy = {
 					is_ai = no
 				}
 				GER = {
-					surrender_progress < 0.05
+					surrender_progress < 0.10
 				}
 				GER = {
-					has_army_manpower = {
-						size > 1499999
+					casualties < 2000000
+				}
+				AND = {
+					GER = {
+						any_enemy_country = {
+							is_ai = no
+							is_major = yes
+							capital_scope = {
+								is_on_continent = europe # 
+							}
+						}
+					}
+					OR = {
+						surrender_progress < 0.05
+						casualties < 1000000
 					}
 				}
 			}
@@ -347,13 +470,13 @@ ENG_biesongle_ai_Strategy = {
 				is_in_faction_with = ENG				# anyone in allies
 				original_tag = ENG
 			}
-			date < 1942.6.1
+			date < 1943.1.1
 			OR = {
 				GER = {
-					surrender_progress < 0.05
+					surrender_progress < 0.10
 				}
 				GER = {
-					casualties < 1500000
+					casualties < 2000000
 				}
 			}
 			has_army_manpower = {
@@ -392,14 +515,6 @@ ENG_biesongle_ai_Strategy = {
 					}
 					AND = {
 						is_ai = no
-						OR = {
-							NOT = {
-								has_war_with = GER
-							}
-							NOT = {
-								surrender_progress > 0
-							}
-						}
 					}
 				}
 			}
@@ -640,6 +755,9 @@ ENG_European_Equilibrium_Strategy = {
 		cost = 50
 		fire_only_once = yes
 		complete_effect = {
+
+		    add_named_threat = { threat = 10 name = ENG_Empire_Mobilization_dec }
+
 			if = {
 				limit = {
 					is_ai = yes
@@ -727,7 +845,12 @@ ENG_European_Equilibrium_Strategy = {
 		icon = generic_army_support
 		available = {
 			ENG = {
-				has_war = no
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 1499999
+					}
+				}
 			}
 			NOT = {
 				has_country_flag = ENG_We_are_ready_to_fight_flag
@@ -833,7 +956,12 @@ ENG_European_Equilibrium_Strategy = {
 		}
 		available = {
 			ENG = {
-				has_war = no
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 1499999
+					}
+				}
 			}
 			custom_trigger_tooltip = {
 				tooltip = ENG_Political_points_are_positive_tt
@@ -1045,7 +1173,12 @@ ENG_European_Equilibrium_Strategy = {
 		}
 		available = {
 			ENG = {
-				has_war = no
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 1499999
+					}
+				}
 			}
 			custom_trigger_tooltip = {
 				tooltip = ENG_Political_points_are_positive_tt
@@ -1195,7 +1328,12 @@ ENG_European_Equilibrium_Strategy = {
 		}
 		available = {
 			ENG = {
-				has_war = no
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 1499999
+					}
+				}
 			}
 			custom_trigger_tooltip = {
 				tooltip = ENG_Political_points_are_positive_tt
@@ -1368,12 +1506,19 @@ ENG_European_Equilibrium_Strategy = {
 			ITA = {
 				is_subject = no
 			}
-			ITA = {
-				has_added_tension_amount > 15
-				any_enemy_country = {
-					has_army_manpower = {
-						size > 299999
+			or = {
+				ITA = {
+					has_added_tension_amount > 15
+					any_enemy_country = {
+						has_army_manpower = {
+							size > 299999
+						}
 					}
+				}
+				ITA = {
+					date > 1940.1.1
+					has_war = no
+					num_of_factories > 150
 				}
 			}
 		}
@@ -1384,7 +1529,12 @@ ENG_European_Equilibrium_Strategy = {
 		}
 		available = {
 			ENG = {
-				has_war = no
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 999999
+					}
+				}
 			}
 			NOT = {
 				has_country_flag = ENG_We_are_ready_to_fight_flag
