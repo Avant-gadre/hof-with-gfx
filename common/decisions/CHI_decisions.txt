@@ -368,22 +368,22 @@ war_measures = {
 				AND = {
 					surrender_progress > 0.5
 					OR = {
-						has_army_manpower = { size < 1600000 }
-						num_divisions < 160
+						has_army_manpower = { size < 1700000 }
+						num_divisions < 170
 					}
 				}
 				AND = {
 					surrender_progress > 0.6
 					OR = {
-						has_army_manpower = { size < 1800000 }
-						num_divisions < 180
+						has_army_manpower = { size < 2100000 }
+						num_divisions < 210
 					}
 				}
 				AND = {
 					surrender_progress > 0.7
 					OR = {
-						has_army_manpower = { size < 2000000 }
-						num_divisions < 200
+						has_army_manpower = { size < 2600000 }
+						num_divisions < 260
 					}
 				}
 			}
@@ -5861,10 +5861,17 @@ CHI_communist_infiltration = {
 #    ##  #  # ### ###  ##  #  #     ##   ##  #    #     ##  #  #  #  
 
 foreign_support = {
+
 	CHI_flying_tigers = {
 		icon = generic_air
+		allowed = {
+			original_tag = USA
+		}
 		available = {
-			has_equipment = { fighter_equipment > 149 }
+			OR = {
+				has_equipment = { small_plane_airframe > 99 }
+				has_tech = improved_small_airframe
+			}
 		}
 		visible = {
 			has_country_flag = CHI_flying_tigers
@@ -5882,11 +5889,22 @@ foreign_support = {
 				}
 				custom_effect_tooltip = flying_tigers_tt
 				hidden_effect = {
-					USA = {
-						send_equipment = {
-							target = PREV
-							type = fighter_equipment
-							amount = 150
+					if = {
+						limit = {
+							NOT = { has_dlc = "By Blood Alone" }
+						}
+						add_equipment_to_stockpile = {
+							producer = USA
+							type = fighter_equipment_1
+							amount = 100
+						}
+					}
+					else = {
+						add_equipment_to_stockpile = {
+							producer = USA
+							type = small_plane_airframe_1
+							amount = 100
+							variant_name = "P-40"
 						}
 					}
 				}
@@ -5894,15 +5912,18 @@ foreign_support = {
 			add_war_support = 0.05
 		}
 		modifier = {
-			air_volunteer_cap = 100
+			air_volunteer_cap = 1
 		}
 	}
 
 	CHI_soviet_volunteer_group = {
 		icon = generic_air
+		allowed = {
+			original_tag = SOV
+		}
 		available = {
-			has_equipment = { fighter_equipment > 99 }
-			has_equipment = { tac_bomber_equipment > 49 }
+			has_equipment = { small_plane_airframe > 99 }
+			has_equipment = { medium_plane_airframe > 49 }
 		}
 		visible = {
 			has_country_flag = CHI_soviet_volunteer_group
@@ -5920,26 +5941,451 @@ foreign_support = {
 				}
 				custom_effect_tooltip = soviet_volunteers_tt
 				hidden_effect = {
-					SOV = {
-						send_equipment = {
-							target = PREV
-							type = fighter_equipment
+					if = {
+						limit = {
+							NOT = {
+								has_dlc = "By Blood Alone"
+							}
+						}
+						add_equipment_to_stockpile = {
+							producer = SOV
+							type = fighter_equipment_1
 							amount = 100
 						}
-					}
-					SOV = {
-						send_equipment = {
-							target = PREV
-							type = tac_bomber_equipment
+						add_equipment_to_stockpile = {
+							producer = SOV
+							type = tac_bomber_equipment_1
 							amount = 50
+						}	
+					}
+					else = {
+						add_equipment_to_stockpile = {
+							producer = SOV
+							type = small_plane_airframe_1
+							amount = 100
+							variant_name = "I-16"
 						}
+						add_equipment_to_stockpile = {
+							producer = SOV
+							type = medium_plane_airframe_0
+							amount = 50
+							variant_name = "DB-3"
+						}	
 					}
 				}
 			}
 			add_war_support = 0.05	
 		}
 		modifier = {
-			air_volunteer_cap = 100
+			air_volunteer_cap = 1
+		}
+	}
+
+	CHI_weapon_shipments_from_france = {
+		icon = generic_prepare_civil_war
+
+		allowed = {
+			tag = CHI
+		}
+
+		available = {
+			OR = {
+				NOT = { has_war_with = JAP }
+				has_equipment = { infantry_equipment > 14999 }
+				FRA = { has_capitulated = yes }
+				FRA = { is_subject = yes }
+				FRA = { casualties > 500000 }
+				NOT = { country_exists = FRA }
+				has_war_with = FRA
+				has_country_flag = hanoi_route_closed
+			}
+        }
+
+        visible = {
+			has_completed_focus = CHI_guarantee_the_hanoi_route
+			JAP = { has_offensive_war_with = CHI }
+			FRA = {
+				has_capitulated = no
+				is_subject = no
+				casualties < 500000
+			}
+			country_exists = FRA
+			NOT = { has_war_with = FRA }
+			NOT = {
+				has_country_flag = hanoi_route_closed
+			}
+        }
+
+		days_mission_timeout = 90
+		is_good = yes
+
+		activation = {
+			has_completed_focus = CHI_guarantee_the_hanoi_route
+			JAP = { has_offensive_war_with = CHI }
+			has_equipment = { infantry_equipment < 5000 }
+			FRA = {
+				has_capitulated = no
+				is_subject = no
+				casualties < 500000
+			}
+			country_exists = FRA
+			NOT = { has_war_with = FRA }
+			NOT = {
+				has_country_flag = hanoi_route_closed
+			}
+		}
+
+		timeout_effect = {
+			add_equipment_to_stockpile = { 
+				type = infantry_equipment
+				amount = 1000
+				producer = FRA
+			}
+			add_equipment_to_stockpile = { 
+				type = support_equipment
+				amount = 100
+				producer = FRA 
+			}
+		}
+	}
+
+	CHI_weapon_shipments_from_britain = {
+		icon = generic_prepare_civil_war
+
+		allowed = {
+			tag = CHI
+		}
+
+		available = {
+			OR = {
+				NOT = { has_war_with = JAP }
+				has_equipment = { infantry_equipment > 14999 }
+				ENG = { has_capitulated = yes }
+				ENG = { is_subject = yes }
+				NOT = { country_exists = ENG }
+				has_war_with = ENG
+				has_country_flag = burma_route_closed
+				has_completed_focus = CHI_ledo_road
+			}
+        }
+
+        visible = {
+			has_completed_focus = CHI_burma_road
+			JAP = { has_offensive_war_with = CHI }
+			ENG = {
+				has_capitulated = no
+				is_subject = no
+			}
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+			NOT = {
+				has_country_flag = burma_route_closed
+			}
+			NOT = {
+				has_completed_focus = CHI_ledo_road
+			}
+        }
+
+		days_mission_timeout = 90
+		is_good = yes
+
+		activation = {
+			has_completed_focus = CHI_burma_road
+			JAP = { has_offensive_war_with = CHI }
+			has_equipment = { infantry_equipment < 5000 }
+			ENG = {
+				has_capitulated = no
+				is_subject = no
+			}
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+			NOT = {
+				has_country_flag = burma_route_closed
+			}
+			NOT = {
+				has_completed_focus = CHI_ledo_road
+			}
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					NOT = { has_global_flag = CHI_expand_the_burma_road_flag }
+				}
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment
+					amount = 1500
+					producer = ENG
+				}
+				add_equipment_to_stockpile = { 
+					type = support_equipment
+					amount = 150
+					producer = ENG 
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment
+					amount = 3000
+					producer = ENG
+				}
+				add_equipment_to_stockpile = { 
+					type = support_equipment
+					amount = 300
+					producer = ENG 
+				}
+			}
+		}
+	}
+
+	CHI_weapon_shipments_from_britain_ledo = {
+		icon = generic_prepare_civil_war
+
+		allowed = {
+			tag = CHI
+		}
+
+		available = {
+			OR = {
+				NOT = { has_war_with = JAP }
+				has_equipment = { infantry_equipment > 14999 }
+				ENG = { has_capitulated = yes }
+				ENG = { is_subject = yes }
+				NOT = { country_exists = ENG }
+				has_war_with = ENG
+				has_country_flag = ledo_route_closed
+			}
+        }
+
+        visible = {
+			has_completed_focus = CHI_ledo_road
+			JAP = { has_offensive_war_with = CHI }
+			ENG = {
+				has_capitulated = no
+				is_subject = no
+			}
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+			NOT = {
+				has_country_flag = ledo_route_closed
+			}
+        }
+
+		days_mission_timeout = 90
+		is_good = yes
+
+		activation = {
+			has_completed_focus = CHI_ledo_road
+			JAP = { has_offensive_war_with = CHI }
+			has_equipment = { infantry_equipment < 5000 }
+			ENG = {
+				has_capitulated = no
+				is_subject = no
+			}
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+			NOT = {
+				has_country_flag = ledo_route_closed
+			}
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					NOT = { has_global_flag = CHI_expand_the_burma_road_flag }
+				}
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment
+					amount = 1500
+					producer = ENG
+				}
+				add_equipment_to_stockpile = { 
+					type = support_equipment
+					amount = 150
+					producer = ENG 
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment
+					amount = 3000
+					producer = ENG
+				}
+				add_equipment_to_stockpile = { 
+					type = support_equipment
+					amount = 300
+					producer = ENG 
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { has_global_flag = CHI_expand_the_ledo_road_flag }
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 150
+					producer = ENG
+				}
+
+				add_equipment_to_stockpile = {
+					type = anti_air_equipment
+					amount = 50
+					producer = ENG
+				}
+
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = 50
+					producer = ENG
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 300
+					producer = ENG
+				}
+
+				add_equipment_to_stockpile = {
+					type = anti_air_equipment
+					amount = 100
+					producer = ENG
+				}
+
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = 100
+					producer = ENG
+				}
+			}
+		}
+	}
+
+	CHI_weapon_shipments_from_usa = {
+
+		icon = generic_prepare_civil_war
+
+		allowed = {
+			tag = CHI
+		}
+
+		available = {
+			OR = {
+				NOT = { has_war_with = JAP }
+				has_equipment = { infantry_equipment > 29999 }
+				USA = { has_capitulated = yes }
+				USA = { is_subject = yes }
+				NOT = { country_exists = USA }
+				has_war_with = USA
+				has_country_flag = the_hump_closed
+			}
+        }
+
+        visible = {
+			has_completed_focus = CHI_the_hump
+			JAP = { has_offensive_war_with = CHI }
+			USA = {
+				has_capitulated = no
+				is_subject = no
+			}
+			country_exists = USA
+			NOT = { has_war_with = USA }
+			NOT = {
+				has_country_flag = the_hump_closed
+			}
+        }
+
+		days_mission_timeout = 90
+		is_good = yes
+
+		activation = {
+			has_completed_focus = CHI_the_hump
+			JAP = { has_offensive_war_with = CHI }
+			has_equipment = { infantry_equipment < 10000 }
+			USA = {
+				has_capitulated = no
+				is_subject = no
+			}
+			country_exists = USA
+			NOT = { has_war_with = USA }
+			NOT = {
+				has_country_flag = the_hump_closed
+			}
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					NOT = { has_global_flag = CHI_expand_the_airlift_flag }
+				}
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment
+					amount = 2000
+					producer = USA
+				}
+				add_equipment_to_stockpile = { 
+					type = support_equipment
+					amount = 200
+					producer = USA 
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 300
+					producer = USA
+				}
+				add_equipment_to_stockpile = {
+					type = anti_air_equipment
+					amount = 100
+					producer = USA
+				}
+
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = 100
+					producer = USA
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment
+					amount = 4000
+					producer = USA
+				}
+				add_equipment_to_stockpile = { 
+					type = support_equipment
+					amount = 400
+					producer = USA 
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 600
+					producer = USA
+				}
+				add_equipment_to_stockpile = {
+					type = anti_air_equipment
+					amount = 200
+					producer = USA
+				}
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = 200
+					producer = USA
+				}
+			}
+
+			if = {
+				limit = { 
+					has_completed_focus = CHI_invite_the_flying_tigers 
+					USA = { has_country_flag = USA_1936_plane_decision_flag }
+				}
+				add_equipment_to_stockpile = { 
+					type = small_plane_cas_airframe_1
+					amount = 100
+					producer = USA
+					variant_name = "P-40"
+				}
+			}
 		}
 	}
 
@@ -5948,7 +6394,7 @@ foreign_support = {
 		allowed = {
 			OR = {
 				original_tag = ENG
-				is_literally_china = yes
+				original_tag = CHI
 			}
 		}
 
@@ -5966,7 +6412,9 @@ foreign_support = {
 				limit = {
 					has_focus_tree = british_focus
 				}
-				has_completed_focus = uk_burma_focus
+				JAP = {
+					has_offensive_war_with = CHI
+				}
 			}
 			
 			288 = {
@@ -6030,7 +6478,7 @@ foreign_support = {
 			}
 		}
 		visible = {
-			NOT = { has_global_flag = CHI_burma_3 }
+			NOT = { has_global_flag = CHI_expand_the_burma_road_flag }
 			OR = {
 				has_focus_tree = china_nationalist_focus
 				has_focus_tree = china_communist_focus 
@@ -6081,6 +6529,8 @@ foreign_support = {
 			}
 		}
 		remove_effect = {
+			set_global_flag = CHI_expand_the_burma_road_flag
+
 			288 = {
 				add_building_construction = {
 					type = infrastructure
@@ -6102,24 +6552,8 @@ foreign_support = {
 					instant_build = yes
 				}
 			}
-			if = {
-				limit = {
-					has_global_flag = CHI_burma_2
-				}
-				set_global_flag = CHI_burma_3
-			}
-			if = {
-				limit = {
-					NOT = { has_global_flag = CHI_burma_2} # 
-				}
-				set_global_flag = CHI_burma_2
-			}
 			
 			random_country = {
-				limit = { check_variable = { CHI_burma_road > 0 } }
-				add_to_variable = { var = CHI_burma_road value = 1 }
-
-				#Country that had the burma road open
 				add_offsite_building = { type = arms_factory level = 1 }
 			}
 		}
@@ -6169,7 +6603,7 @@ foreign_support = {
 				}
 			}
 			NOT = {
-				has_global_flag = CHI_ledo_3
+				has_global_flag = CHI_expand_the_ledo_road_flag
 			}
 			any_country = {
 				has_completed_focus = CHI_ledo_road
@@ -6186,23 +6620,9 @@ foreign_support = {
 		}
 
 		remove_effect = {
-			if = {
-				limit = {
-					has_global_flag = CHI_ledo_2
-				}
-				set_global_flag = CHI_ledo_3
-			}
-			if = {
-				limit = {
-					NOT = { has_global_flag = CHI_ledo_2} # 
-				}
-				set_global_flag = CHI_ledo_2
-			}
+			set_global_flag = CHI_expand_the_ledo_road_flag
 
 			random_country = {
-				limit = { check_variable = { CHI_ledo_road > 0 } }
-				add_to_variable = { var = CHI_ledo_road value = 1 }
-
 				#Country that had the ledo road open
 				add_offsite_building = { type = arms_factory level = 1 }
 			}
@@ -6251,7 +6671,7 @@ foreign_support = {
 				}
 			}
 			NOT = {
-				has_global_flag = CHI_hump_3
+				has_global_flag = CHI_expand_the_airlift_flag
 			}
 		}
 		cost = 25
@@ -6289,21 +6709,9 @@ foreign_support = {
 					instant_build = yes
 				}
 			}
-			if = {
-				limit = {
-					has_global_flag = CHI_hump_2
-				}
-				set_global_flag = CHI_hump_3 # Hump 3: Revenge of the Hump: The Humpening
-			}
-			if = {
-				limit = {
-					NOT = { has_global_flag = CHI_hump_2} # Hump 2: Hump Harder
-				}
-				set_global_flag = CHI_hump_2
-			}
+			set_global_flag = CHI_expand_the_airlift_flag
 			601 = {
 				CONTROLLER = {
-					add_to_variable = { var = CHI_the_hump value = 1 }
 					add_offsite_building = { type = arms_factory level = 1 }
 				}
 			}

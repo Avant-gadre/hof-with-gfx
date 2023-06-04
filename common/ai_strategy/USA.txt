@@ -311,7 +311,8 @@ USA_motherfuck_force = {
 	}
 
 	enable = {
-		date > 1942.1.1
+		date > 1941.1.1
+		has_country_flag = USA_1942_big_plane_decision_flag
 		has_deployed_air_force_size = {
 			type = strategic_bomber
 			size < 2500
@@ -331,7 +332,7 @@ USA_motherfuck_force = {
 	ai_strategy = {
 		type = unit_ratio
 		id = strategic_bomber
-		value = 100
+		value = 200
 	}
 
 	ai_strategy = {
@@ -339,10 +340,16 @@ USA_motherfuck_force = {
 		id = strategic_bomber
 		value = 75
 	}	
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = strategic_bomber
+		value = 50
+	}
 	
 	ai_strategy = {
 		type = air_factory_balance
-		value = 125
+		value = 200
 	}
 
 }
@@ -887,7 +894,6 @@ USA_stop_soviet_from_falling = {
 
 	enable = {
 		has_war = no
-		num_divisions > 85 # we must have some divisions ourselves
 
 		NOT = { has_government = fascism }
 		NOT = { is_in_faction_with = GER }
@@ -900,6 +906,7 @@ USA_stop_soviet_from_falling = {
 		SOV = {
 			surrender_progress > 0.05
 			has_capitulated = no
+			is_subject = no
 		}
 	}
 
@@ -946,6 +953,140 @@ USA_stop_soviet_from_falling = {
 	}
 }
 
+USA_stop_russia_from_falling = {
+
+	allowed = {
+		original_tag = USA
+	}
+
+	enable = {
+		has_war = no
+
+		NOT = { has_government = fascism }
+		NOT = { is_in_faction_with = GER }
+		NOT = { has_war_with = RUS }
+		GER = { 
+			has_war_with = RUS 
+			has_war_with = ENG
+			has_government = fascism
+		}
+		RUS = {
+			surrender_progress > 0.05
+			has_capitulated = no
+			is_subject = no
+		}
+	}
+
+	abort = {
+		OR = {
+			has_war = yes
+			has_war_with = RUS
+			NOT = { GER = { has_war_with = RUS } }
+			is_in_faction_with = GER
+			has_government = fascism
+			RUS = { has_war = no }
+			RUS = { surrender_progress < 0.01 }
+		}
+	}
+
+	ai_strategy = {
+		type = support
+		id = "RUS"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = -75
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = -25
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = -25
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = heavy_armor
+		value = -25
+	}
+}
+
+USA_stop_china_from_falling = {
+
+	allowed = {
+		original_tag = USA
+	}
+
+	enable = {
+		has_war = no
+
+		NOT = { has_government = fascism }
+		NOT = { is_in_faction_with = JAP }
+		NOT = { has_war_with = CHI }
+		JAP = { 
+			has_offensive_war_with = CHI
+			has_government = fascism
+		}
+		CHI = {
+			surrender_progress > 0.3
+			has_capitulated = no
+			is_subject = no
+		}
+	}
+
+	abort = {
+		OR = {
+			has_war = yes
+			has_war_with = CHI
+			NOT = { JAP = { has_war_with = CHI } }
+			is_in_faction_with = JAP
+			has_government = fascism
+			CHI = { has_war = no }
+			CHI = { surrender_progress < 0.01 }
+		}
+	}
+
+	ai_strategy = {
+		type = support
+		id = "CHI"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = -75
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = -25
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = -25
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = heavy_armor
+		value = -25
+	}
+}
+
+
 # this one is same as above, but if you have entered the war yourself
 USA_stop_soviet_from_falling_2 = {
 
@@ -965,6 +1106,7 @@ USA_stop_soviet_from_falling_2 = {
 		SOV = {
 			surrender_progress > 0.05
 			has_capitulated = no
+			is_subject = no
 		}
 	}
 
@@ -983,6 +1125,90 @@ USA_stop_soviet_from_falling_2 = {
 	ai_strategy = {
 		type = support
 		id = "SOV"
+		value = 100
+	}
+}
+
+# this one is same as above, but if you have entered the war yourself
+USA_stop_russia_from_falling_2 = {
+
+	allowed = {
+		original_tag = USA
+	}
+
+	enable = {
+		has_war = yes
+		NOT = { has_government = fascism }
+		NOT = { is_in_faction_with = GER }
+		NOT = { has_war_with = RUS }
+		GER = { 
+			has_war_with = RUS 
+			has_war_with = USA
+		}
+		RUS = {
+			surrender_progress > 0.05
+			has_capitulated = no
+			is_subject = no
+		}
+	}
+
+	abort = {
+		OR = {
+			has_war = no
+			has_war_with = RUS
+			NOT = { GER = { has_war_with = RUS } }
+			is_in_faction_with = GER
+			has_government = fascism
+			RUS = { has_war = no }
+			RUS = { surrender_progress < 0.01 }
+		}
+	}
+
+	ai_strategy = {
+		type = support
+		id = "RUS"
+		value = 100
+	}
+}
+
+# this one is same as above, but if you have entered the war yourself
+USA_stop_china_from_falling_2 = {
+
+	allowed = {
+		original_tag = USA
+	}
+
+	enable = {
+		has_war = yes
+		NOT = { has_government = fascism }
+		NOT = { is_in_faction_with = JAP }
+		NOT = { has_war_with = CHI }
+		JAP = { 
+			has_war_with = CHI 
+			has_war_with = USA
+		}
+		CHI = {
+			surrender_progress > 0.3
+			has_capitulated = no
+			is_subject = no
+		}
+	}
+
+	abort = {
+		OR = {
+			has_war = no
+			has_war_with = CHI
+			NOT = { JAP = { has_war_with = CHI } }
+			is_in_faction_with = JAP
+			has_government = fascism
+			CHI = { has_war = no }
+			CHI = { surrender_progress < 0.01 }
+		}
+	}
+
+	ai_strategy = {
+		type = support
+		id = "CHI"
 		value = 100
 	}
 }
@@ -1492,13 +1718,19 @@ USA_srsly_mils_now = {
 		original_tag = USA
 	}
 	enable = {
-		date > 1942.1.1
+		has_idea = wartime_industry_focus_2
+		num_of_military_factories < 300
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = building_target
 		id = arms_factory
-		value = 200
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 1000
 	}
 }
 

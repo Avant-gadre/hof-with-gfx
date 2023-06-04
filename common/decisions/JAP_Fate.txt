@@ -239,6 +239,572 @@ JAP_interservice_rivalry = {
 }
 
 jap_manage_the_sphere = {
+
+    JAP_KOR_industrial_decision = {
+		icon = decision_generic_factory
+		allowed = {
+			tag = JAP
+		}
+		available = {
+			num_of_civilian_factories_available_for_projects > 10
+			has_full_control_of_state = 527 #North Korea
+			has_full_control_of_state = 525 #South Korea
+        }
+		visible = {
+			has_completed_Focus = JAP_greater_east_asian_co_prosperity_sphere
+		}
+		cost = 50
+		fire_only_once = yes
+
+		days_remove = 80
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+
+		remove_effect = {
+
+			527 = {
+				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+                add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+                add_compliance = 10
+			}
+
+            525 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+                add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_compliance = 10
+			}
+		}
+
+		ai_will_do = {
+			base = 40
+		}
+
+	}
+
+    JAP_PHI_industrial_decision = {
+		icon = decision_generic_factory
+		allowed = {
+			tag = JAP
+		}
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			has_full_control_of_state = 327 #Manila
+        }
+		visible = {
+			has_completed_Focus = JAP_greater_east_asian_co_prosperity_sphere
+		}
+		cost = 25
+		fire_only_once = yes
+
+		days_remove = 60
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		remove_effect = {
+
+			327 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+                add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+                add_compliance = 20
+			}
+		}
+
+		ai_will_do = {
+			base = 40
+		}
+
+	}
+
+	JAP_train_koukyogun = {
+		icon = GFX_decision_generic_prepare_civil_war
+		allowed = {
+			tag = JAP
+		}
+
+		available = {
+			has_idea = tot_economic_mobilisation
+			has_war_with = CHI
+			CHI = {
+				has_capitulated = no
+				is_subject = no
+				OR = {
+					surrender_progress > 0.3
+					has_completed_focus = CHI_war_of_national_liberation
+				}
+			}
+			any_controlled_state = {
+				is_core_of = CHI
+			}
+		}
+
+		visible = {
+			has_completed_Focus = JAP_greater_east_asian_co_prosperity_sphere
+		}
+
+		ai_hint_pp_cost = 50
+		custom_cost_trigger = {
+			command_power > 49
+			has_political_power > 49
+		}
+		custom_cost_text = decision_cost_CP_50_pp_50
+
+		days_remove = JAP_train_koukyogun_days
+
+		days_re_enable = JAP_train_koukyogun_cd
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+				add_political_power = -50
+			}
+		}
+
+		remove_effect = {
+			if = {
+				limit = {
+					NOT = { has_template = "Mengjiang Qibing Jun" }
+				}
+
+				set_country_flag = JAP_form_Mengjiang_Qibing_Jun_flag
+
+				division_template = { #
+					name = "Mengjiang Qibing Jun"
+					division_names_group = JAP_MEN_CAV_01
+					is_locked = yes
+					regiments = {
+						cavalry = { x = 0 y = 0 }
+						cavalry = { x = 0 y = 1 }
+						cavalry = { x = 1 y = 0 }
+						cavalry = { x = 1 y = 1 }
+						cavalry = { x = 2 y = 0 }
+						cavalry = { x = 2 y = 1 }
+					}
+					support = {
+						recon = { x = 0 y = 0 }
+						artillery = { x = 0 y = 1 }
+					}
+					priority = 0
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { has_template = "Manzhou Bubing Shi" }
+				}
+
+				set_country_flag = JAP_form_Manzhou_Bubing_Shi_flag
+
+				division_template = { #
+					name = "Manzhou Bubing Shi"
+					division_names_group = JAP_MAN_INF_01
+					is_locked = yes
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+						recon = { x = 0 y = 1 }
+						artillery = { x = 0 y = 2 }
+					}
+					priority = 0
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { has_template = "Zhianjun Bubing Shi" }
+				}
+
+				set_country_flag = JAP_form_Zhianjun_Bubing_Shi_flag
+
+				division_template = { #
+					name = "Zhianjun Bubing Shi"
+					division_names_group = JAP_HUABEI_INF_01
+					is_locked = yes
+					regiments = {
+						irregular_infantry = { x = 0 y = 0 }
+						irregular_infantry = { x = 0 y = 1 }
+						irregular_infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+						artillery = { x = 0 y = 1 }
+					}
+					priority = 0
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { has_template = "Jianguojun Bubing Shi" }
+				}
+
+				set_country_flag = JAP_form_Jianguojun_Bubing_Shi_flag
+
+				division_template = { #
+					name = "Jianguojun Bubing Shi"
+					division_names_group = JAP_WANGWEI_INF_01
+					is_locked = yes
+					regiments = {
+						irregular_infantry = { x = 0 y = 0 }
+						irregular_infantry = { x = 0 y = 1 }
+						irregular_infantry = { x = 0 y = 2 }
+						irregular_infantry = { x = 1 y = 0 }
+						irregular_infantry = { x = 1 y = 1 }
+						irregular_infantry = { x = 1 y = 2 }
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+					}
+					priority = 0
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { has_template = "Chosen Shidan" }
+				}
+
+				set_country_flag = JAP_form_Chosen_Shidan_flag
+
+				division_template = { #
+					name = "Chosen Shidan"
+					division_names_group = JAP_INF_01
+					is_locked = yes
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+						artillery_brigade = { x = 2 y = 3 }	
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+						recon = { x = 0 y = 1 }
+						artillery = { x = 0 y = 2 }
+						anti_tank = { x = 0 y = 3 }
+						anti_air = { x = 0 y = 4 }
+					}
+					priority = 1
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { has_template = "Taiwan Shidan" }
+				}
+
+				set_country_flag = JAP_form_Taiwan_Shidan_flag
+
+				if = {
+					limit = { NOT = { has_tech = tech_mountaineers } }
+					set_technology = { tech_mountaineers = 1 }
+				}
+
+				division_template = { #
+					name = "Taiwan Shidan"
+					division_names_group = JAP_MNT_01
+					is_locked = yes
+					regiments = {
+						mountaineers = { x = 0 y = 0 }
+						mountaineers = { x = 0 y = 1 }
+						mountaineers = { x = 0 y = 2 }
+						mountaineers = { x = 1 y = 0 }
+						mountaineers = { x = 1 y = 1 }
+						mountaineers = { x = 1 y = 2 }
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+						artillery_brigade = { x = 2 y = 3 }	
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+						recon = { x = 0 y = 1 }
+						artillery = { x = 0 y = 2 }
+						anti_tank = { x = 0 y = 3 }
+						anti_air = { x = 0 y = 4 }
+					}
+					priority = 1
+				}
+			}
+
+			custom_effect_tooltip = JAP_train_koukyogun_create_units_tt
+
+			#MENGJIANG
+			if = {
+				limit = {
+					has_country_flag = JAP_form_Mengjiang_Qibing_Jun_flag
+					any_owned_state = {
+						is_core_of = MEN
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = MEN
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+					custom_effect_tooltip = JAP_train_Mengjiang_Qibing_Jun_tt
+					hidden_effect = {
+						create_unit = {
+							division = "division_template = \"Mengjiang Qibing Jun\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 1
+						}
+					}
+				}
+			}
+
+			#MANZHOU
+			if = {
+				limit = {
+					has_country_flag = JAP_form_Manzhou_Bubing_Shi_flag
+					any_owned_state = {
+						is_core_of = MAN
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = MAN
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+					prioritize = { 448 } # TRIPOLI (In case at some point this gets split or tag gets more cores)
+					custom_effect_tooltip = JAP_train_Manzhou_Bubing_Shi_tt
+					hidden_effect = {
+						create_unit = {
+							division = "division_template = \"Manzhou Bubing Shi\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 1
+						}
+						create_unit = {
+							division = "division_template = \"Manzhou Bubing Shi\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 1
+						}
+					}
+				}
+			}
+
+			#HUABEI
+			if = {
+				limit = {
+					has_country_flag = JAP_form_Zhianjun_Bubing_Shi_flag
+					any_owned_state = {
+						is_core_of = BEY
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = BEY
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+					prioritize = { 559 } # SOMALILAND (In case at some point this gets split or tag gets more cores)
+					custom_effect_tooltip = JAP_train_Zhianjun_tt
+					hidden_effect = {
+						create_unit = {
+							division = "division_template = \"Zhianjun Bubing Shi\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 2
+						}
+						create_unit = {
+							division = "division_template = \"Zhianjun Bubing Shi\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 1
+						}
+					}
+				}
+			}
+
+			#WANGWEI
+			if = {
+				limit = {
+					has_country_flag = JAP_form_Jianguojun_Bubing_Shi_flag
+					any_owned_state = {
+						is_core_of = CHI
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = CHI
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+					prioritize = { 271 } # ADDIS ABABA (In case at some point this gets split or tag gets more cores)
+					custom_effect_tooltip = JAP_train_Jianguojun_tt
+					hidden_effect = {
+						create_unit = {
+							division = "division_template = \"Jianguojun Bubing Shi\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 2
+						}
+						create_unit = {
+							division = "division_template = \"Jianguojun Bubing Shi\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 2
+						}
+					}
+				}
+			}
+
+			#KOREA
+			if = {
+				limit = {
+					has_country_flag = JAP_form_Chosen_Shidan_flag
+					any_owned_state = {
+						is_core_of = KOR
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = KOR
+						OR = {
+							is_fully_controlled_by = JAP
+							is_fully_controlled_by = MAN
+						}
+					}
+					custom_effect_tooltip = JAP_train_Chosen_Shidan_tt
+					hidden_effect = {
+						create_unit = {
+							division = "division_template = \"Chosen Shidan\" start_experience_factor = 0.3 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 2
+						}
+					}
+				}
+			}
+
+			#TAIWAN
+			if = {
+				limit = {
+					has_country_flag = JAP_form_Taiwan_Shidan_flag
+					524 = {
+						is_fully_controlled_by = JAP
+					}
+				}
+				524 = {
+					custom_effect_tooltip = JAP_train_Taiwan_Shidan_tt
+					hidden_effect = {
+						create_unit = {
+							division = "division_template = \"Taiwan Shidan\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+							owner = JAP
+							count = 1
+						}
+					}
+				}
+			}
+
+			custom_effect_tooltip = JAP_train_koukyogun_cd_tt
+		}
+
+		ai_will_do = {
+			base = 50
+		}
+	}
+
 	JAP_backstab_RUS = {
 		icon = generic_prepare_civil_war
 		fire_only_once = yes
