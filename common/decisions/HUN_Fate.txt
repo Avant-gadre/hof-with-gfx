@@ -1,9 +1,71 @@
+HUN_form_true_kingdom_decision = {
+	HUN_form_true_kingdom = {
+		icon = generic_army_support
+		visible = {
+			HUN_elizabeth_bathory = {
+				is_country_leader = yes
+			}
+			# has_full_control_of_state = 664
+			# has_full_control_of_state = 73
+			# has_full_control_of_state = 76
+			# has_full_control_of_state = 84
+			# has_full_control_of_state = 83
+			# has_full_control_of_state = 82
+			# has_full_control_of_state = 45
+			# has_completed_focus = HUN_Personality_cult
+			# has_completed_focus = HUN_Military_dictatorship
+
+		}
+		available = {
+			HUN_elizabeth_bathory = {
+				is_country_leader = yes
+			}
+			has_full_control_of_state = 664
+			has_full_control_of_state = 73
+			has_full_control_of_state = 76
+			has_full_control_of_state = 84
+			has_full_control_of_state = 83
+			has_full_control_of_state = 82
+			has_full_control_of_state = 45
+			has_completed_focus = HUN_Personality_cult
+			has_completed_focus = HUN_Military_dictatorship
+		}
+		cost = 10
+		# modifier = {
+		# 	political_power_cost = 0.2
+		# }
+		# days_remove = 21
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 200
+		}
+		complete_effect = {
+			# HUN_elizabeth_bathory
+			# 名字变为伊丽莎白一世
+			HUN_elizabeth_bathory = {
+				set_portraits = {
+					civilian = {
+						large = "gfx/leaders/HUN/Portrait_Elizabathe_Bathory_Monarch.dds"
+					}
+				}
+				add_country_leader_trait =  the_soldier_king 
+				set_character_name = HUN_elizabeth_bathory_king
+			}
+	
+			add_stability = 0.05
+		}
+
+	}
+
+}
 
 operations = {
 	ROM_Start_ROM_HUN_War = {
-		allowed = { tag = ROM }
+		allowed = {
+			tag = ROM
+		}
 		available = {
-		always = no
+			always = no
 		}
 		is_good = no
 		days_mission_timeout = 180
@@ -13,12 +75,13 @@ operations = {
 		}
 		cancel_trigger = {
 			OR = {
-				has_war_with = HUN 
+				has_war_with = HUN
 				is_subject = yes
 				exists = no
 			}
 		}
-		timeout_effect = { #Attack 
+		timeout_effect = {
+			#Attack 
 			hidden_effect = {
 				set_global_flag = ROM_HUN_war_begins
 			}
@@ -31,12 +94,17 @@ operations = {
 				target = HUN
 				type = take_core_state
 				generator = {
-					76 82 93 664
+					76
+					82
+					93
+					664
 				}
 			}
 			if = {
 				limit = {
-					ROM = { has_completed_focus = ROM_contact_czechs }
+					ROM = {
+						has_completed_focus = ROM_contact_czechs
+					}
 				}
 				CZE = {
 					add_timed_idea = {
@@ -52,902 +120,1301 @@ operations = {
 			add_political_power = -50
 			add_stability = -0.05
 			activate_mission = ROMHUN_ROM_occupy_transylvania
-			HUN = { activate_mission = ROMHUN_HUN_fight_off_romania }
-			HUN = { activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war }
+			HUN = {
+				activate_mission = ROMHUN_HUN_fight_off_romania
+			}
+			HUN = {
+				activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
+			}
 			HUN = {
 				add_timed_idea = {
 					idea = HUN_Passion_for_fighting
 					days = 150
 				}
 			}
-
 			hidden_effect = {
-				news_event = { id = more_News.35 days = 1}
+				news_event = {
+					id = more_News.35
+					days = 1
+				}
 			}
-
-		}	
+		}
 	}
-
-
 	ROMHUN_ROM_occupy_transylvania = {
-		allowed = { tag = ROM }
+		allowed = {
+			tag = ROM
+		}
 		available = {
 			or = {
 				count_triggers = {
 					amount = 4
-					NOT = { 76 = { is_controlled_by = HUN } }
-					NOT = { 82 = { is_controlled_by = HUN } }
-					NOT = { 83 = { is_controlled_by = HUN } }
-					NOT = { 664 = { is_controlled_by = HUN } }
-					NOT = { 154 = { is_controlled_by = HUN } }
-					NOT = { 43 = { is_controlled_by = HUN } }
-          SLO = { has_capitulated = yes }
-					HUN = { surrender_progress > 0.45 }
+					NOT = {
+						76 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						82 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						83 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						664 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						154 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						43 = {
+							is_controlled_by = HUN
+						}
+					}
+					SLO = {
+						has_capitulated = yes
+					}
+					HUN = {
+						surrender_progress > 0.45
+					}
 				}
-				HUN = { surrender_progress > 0.7 }
+				HUN = {
+					surrender_progress > 0.7
+				}
 			}
 		}
 		activation = {
-			always = no #triggered by event
+			always = no			#triggered by event
 		}
 		cancel_trigger = {
 			or = {
 				count_triggers = {
 					amount = 2
-					NOT = { 81 = { is_controlled_by = ROM } }
-					NOT = { 84 = { is_controlled_by = ROM } }
-					ROM = { surrender_progress > 0.45 }
+					NOT = {
+						81 = {
+							is_controlled_by = ROM
+						}
+					}
+					NOT = {
+						84 = {
+							is_controlled_by = ROM
+						}
+					}
+					ROM = {
+						surrender_progress > 0.45
+					}
 				}
-				ROM = { surrender_progress > 0.7 }
+				ROM = {
+					surrender_progress > 0.7
+				}
 			}
 		}
 		is_good = no
 		days_mission_timeout = 140
-		timeout_effect = { #ceasefire
-
-      set_global_flag = HUN_wins_the_war_flag
-
-      if = {
-        limit = {
-          has_war_with = HUN
-        }
-        white_peace = HUN
-        else = { effect_tooltip = { white_peace = HUN } }
-      }
-      if = {
-        limit = {
-          CZE = { has_war_with = HUN }
-        }
-        CZE = { white_peace = HUN }
-        else = { effect_tooltip = { CZE = { white_peace = HUN } } }
-      }
-      add_stability = -0.10
-      add_war_support = -0.15
-      ROM = { complete_national_focus = ROM_setback }
-		}
-		complete_effect = { #ROM WIN
-
-      set_global_flag = HUN_lost_the_war_flag
-
-      if = {
-        limit = {
-          has_war_with = HUN
-        }
-        white_peace = HUN
-        else = { effect_tooltip = { white_peace = HUN } }
-      }
-		  transfer_state = 76
-		  transfer_state = 82
-		  transfer_state = 83
-      add_stability = 0.10
-      add_war_support = 0.05
-      if = {
-        limit = {
-          CZE = { has_war_with = HUN }
-        }
-        CZE = { white_peace = HUN }
-        else = { effect_tooltip = { CZE = { white_peace = HUN } } }
-      }
-      CZE = { transfer_state = 70 }
-      CZE = { transfer_state = 71 }
-      CZE = { transfer_state = 664 }
-      CZE = { transfer_state = 73 }
-      if = {
-        limit = { HUN = { owns_state = 45 } }
-        45 = { set_demilitarized_zone = yes }
-      }
-      if = {
-        limit = { HUN = { owns_state = 764 } }
-        764 = { set_demilitarized_zone = yes }
-      }
-      ROM = { complete_national_focus = ROM_a_total_victory }
-
-			hidden_effect = {
-				news_event = { id = more_News.37 days = 1}
+		timeout_effect = {
+			#ceasefire
+			set_global_flag = HUN_wins_the_war_flag
+			if = {
+				limit = {
+					has_war_with = HUN
+				}
+				white_peace = HUN
+				else = {
+					effect_tooltip = {
+						white_peace = HUN
+					}
+				}
 			}
-
+			if = {
+				limit = {
+					CZE = {
+						has_war_with = HUN
+					}
+				}
+				CZE = {
+					white_peace = HUN
+				}
+				else = {
+					effect_tooltip = {
+						CZE = {
+							white_peace = HUN
+						}
+					}
+				}
+			}
+			add_stability = -0.1
+			add_war_support = -0.15
+			ROM = {
+				complete_national_focus = ROM_setback
+			}
 		}
-		cancel_effect = { #HUN WIN
-			effect_tooltip = { 
-        HUN = { 
-          if = {
-            limit = {
-              has_war_with = ROM
-            }
-            white_peace = ROM
-            else = { effect_tooltip = { white_peace = ROM } }
-          }
-          if = {
-            limit = {
-              has_war_with = CZE
-            }
-            white_peace = CZE
-            else = { effect_tooltip = { white_peace = CZE } }
-          }
-		      add_political_power = 150
-          add_state_claim = 81
-          transfer_state = 81
-          transfer_state = 84
-        }
-      }
-      ROM = { complete_national_focus = ROM_setback }
+		complete_effect = {
+			#ROM WIN
+			set_global_flag = HUN_lost_the_war_flag
+			if = {
+				limit = {
+					has_war_with = HUN
+				}
+				white_peace = HUN
+				else = {
+					effect_tooltip = {
+						white_peace = HUN
+					}
+				}
+			}
+			transfer_state = 76
+			transfer_state = 82
+			transfer_state = 83
+			add_stability = 0.1
+			add_war_support = 0.05
+			if = {
+				limit = {
+					CZE = {
+						has_war_with = HUN
+					}
+				}
+				CZE = {
+					white_peace = HUN
+				}
+				else = {
+					effect_tooltip = {
+						CZE = {
+							white_peace = HUN
+						}
+					}
+				}
+			}
+			CZE = {
+				transfer_state = 70
+			}
+			CZE = {
+				transfer_state = 71
+			}
+			CZE = {
+				transfer_state = 664
+			}
+			CZE = {
+				transfer_state = 73
+			}
+			if = {
+				limit = {
+					HUN = {
+						owns_state = 45
+					}
+				}
+				45 = {
+					set_demilitarized_zone = yes
+				}
+			}
+			if = {
+				limit = {
+					HUN = {
+						owns_state = 764
+					}
+				}
+				764 = {
+					set_demilitarized_zone = yes
+				}
+			}
+			ROM = {
+				complete_national_focus = ROM_a_total_victory
+			}
+			hidden_effect = {
+				news_event = {
+					id = more_News.37
+					days = 1
+				}
+			}
+		}
+		cancel_effect = {
+			#HUN WIN
+			effect_tooltip = {
+				HUN = {
+					if = {
+						limit = {
+							has_war_with = ROM
+						}
+						white_peace = ROM
+						else = {
+							effect_tooltip = {
+								white_peace = ROM
+							}
+						}
+					}
+					if = {
+						limit = {
+							has_war_with = CZE
+						}
+						white_peace = CZE
+						else = {
+							effect_tooltip = {
+								white_peace = CZE
+							}
+						}
+					}
+					add_political_power = 150
+					add_state_claim = 81
+					transfer_state = 81
+					transfer_state = 84
+				}
+			}
+			ROM = {
+				complete_national_focus = ROM_setback
+			}
 		}
 	}
 	ROMHUN_HUN_fight_off_romania = {
-		allowed = { tag = HUN }
+		allowed = {
+			tag = HUN
+		}
 		available = {
 			or = {
 				count_triggers = {
 					amount = 2
-					NOT = { 81 = { is_controlled_by = ROM } }
-					NOT = { 84 = { is_controlled_by = ROM } }
-					ROM = { surrender_progress > 0.45 }
+					NOT = {
+						81 = {
+							is_controlled_by = ROM
+						}
+					}
+					NOT = {
+						84 = {
+							is_controlled_by = ROM
+						}
+					}
+					ROM = {
+						surrender_progress > 0.45
+					}
 				}
-				ROM = { surrender_progress > 0.7 }
+				ROM = {
+					surrender_progress > 0.7
+				}
 			}
 		}
 		activation = {
-			always = no #triggered by event
+			always = no			#triggered by event
 		}
 		cancel_trigger = {
 			or = {
 				count_triggers = {
 					amount = 4
-					NOT = { 76 = { is_controlled_by = HUN } }
-					NOT = { 82 = { is_controlled_by = HUN } }
-					NOT = { 83 = { is_controlled_by = HUN } }
-					NOT = { 664 = { is_controlled_by = HUN } }
-					NOT = { 154 = { is_controlled_by = HUN } }
-					NOT = { 43 = { is_controlled_by = HUN } }
-          SLO = { has_capitulated = yes }
-					HUN = { surrender_progress > 0.45 }
+					NOT = {
+						76 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						82 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						83 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						664 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						154 = {
+							is_controlled_by = HUN
+						}
+					}
+					NOT = {
+						43 = {
+							is_controlled_by = HUN
+						}
+					}
+					SLO = {
+						has_capitulated = yes
+					}
+					HUN = {
+						surrender_progress > 0.45
+					}
 				}
-				HUN = { surrender_progress > 0.7 }
+				HUN = {
+					surrender_progress > 0.7
+				}
 			}
 		}
 		is_good = no
 		days_mission_timeout = 140
-		timeout_effect = { #ceasefire
-
-      set_global_flag = HUN_wins_the_war_flag
-
-      if = {
-        limit = {
-          has_war_with = ROM
-        }
-        white_peace = ROM
-        else = { effect_tooltip = { white_peace = ROM } }
-      }
-      if = {
-        limit = {
-          has_war_with = CZE
-        }
-        white_peace = CZE
-        else = { effect_tooltip = { white_peace = CZE } }
-      }
-      add_stability = 0.10
-      add_war_support = -0.02
-
-			hidden_effect = {
-				news_event = { id = more_News.36 days = 1}
+		timeout_effect = {
+			#ceasefire
+			set_global_flag = HUN_wins_the_war_flag
+			if = {
+				limit = {
+					has_war_with = ROM
+				}
+				white_peace = ROM
+				else = {
+					effect_tooltip = {
+						white_peace = ROM
+					}
+				}
 			}
-
-		}
-		complete_effect = { #HUN WIN
-
-      set_global_flag = HUN_wins_the_war_flag
-
-      if = {
-        limit = {
-          has_war_with = ROM
-        }
-        white_peace = ROM
-        else = { effect_tooltip = { white_peace = ROM } }
-      }
-      if = {
-        limit = {
-          has_war_with = CZE
-        }
-        white_peace = CZE
-        else = { effect_tooltip = { white_peace = CZE } }
-      }
-      add_political_power = 150
-      if = {
-        limit = { ROM = { owns_state = 81 } }
-        81 = { set_demilitarized_zone = yes }
-      }
-      transfer_state = 84
-
-			hidden_effect = {
-				news_event = { id = more_News.36 days = 1}
+			if = {
+				limit = {
+					has_war_with = CZE
+				}
+				white_peace = CZE
+				else = {
+					effect_tooltip = {
+						white_peace = CZE
+					}
+				}
 			}
-
+			add_stability = 0.1
+			add_war_support = -0.02
+			hidden_effect = {
+				news_event = {
+					id = more_News.36
+					days = 1
+				}
+			}
 		}
-		cancel_effect = { #ROM WIN
-
-			effect_tooltip = { 
-        ROM = { 
-          if = {
-            limit = {
-              has_war_with = HUN
-            }
-            white_peace = HUN
-            else = { effect_tooltip = { white_peace = HUN } }
-          }
-          transfer_state = 76
-          transfer_state = 82
-          transfer_state = 83
-          add_stability = 0.10
-          add_war_support = 0.05
-          if = {
-            limit = {
-              CZE = { has_war_with = HUN }
-            }
-            CZE = { white_peace = HUN }
-            else = { effect_tooltip = { CZE = { white_peace = HUN } } }
-          }
-          CZE = { transfer_state = 70 }
-          CZE = { transfer_state = 71 }
-          CZE = { transfer_state = 664 }
-          CZE = { transfer_state = 73 }
-          if = {
-            limit = { HUN = { owns_state = 45 } }
-            45 = { set_demilitarized_zone = yes }
-          }
-          if = {
-            limit = { HUN = { owns_state = 764 } }
-            764 = { set_demilitarized_zone = yes }
-          }
-        }
-      }
+		complete_effect = {
+			#HUN WIN
+			set_global_flag = HUN_wins_the_war_flag
+			if = {
+				limit = {
+					has_war_with = ROM
+				}
+				white_peace = ROM
+				else = {
+					effect_tooltip = {
+						white_peace = ROM
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_war_with = CZE
+				}
+				white_peace = CZE
+				else = {
+					effect_tooltip = {
+						white_peace = CZE
+					}
+				}
+			}
+			add_political_power = 150
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 81
+					}
+				}
+				81 = {
+					set_demilitarized_zone = yes
+				}
+			}
+			transfer_state = 84
+			hidden_effect = {
+				news_event = {
+					id = more_News.36
+					days = 1
+				}
+			}
+		}
+		cancel_effect = {
+			#ROM WIN
+			effect_tooltip = {
+				ROM = {
+					if = {
+						limit = {
+							has_war_with = HUN
+						}
+						white_peace = HUN
+						else = {
+							effect_tooltip = {
+								white_peace = HUN
+							}
+						}
+					}
+					transfer_state = 76
+					transfer_state = 82
+					transfer_state = 83
+					add_stability = 0.1
+					add_war_support = 0.05
+					if = {
+						limit = {
+							CZE = {
+								has_war_with = HUN
+							}
+						}
+						CZE = {
+							white_peace = HUN
+						}
+						else = {
+							effect_tooltip = {
+								CZE = {
+									white_peace = HUN
+								}
+							}
+						}
+					}
+					CZE = {
+						transfer_state = 70
+					}
+					CZE = {
+						transfer_state = 71
+					}
+					CZE = {
+						transfer_state = 664
+					}
+					CZE = {
+						transfer_state = 73
+					}
+					if = {
+						limit = {
+							HUN = {
+								owns_state = 45
+							}
+						}
+						45 = {
+							set_demilitarized_zone = yes
+						}
+					}
+					if = {
+						limit = {
+							HUN = {
+								owns_state = 764
+							}
+						}
+						764 = {
+							set_demilitarized_zone = yes
+						}
+					}
+				}
+			}
 		}
 	}
 	Forcing_the_Czech_Republic_to_withdraw_from_the_war = {
-		allowed = { tag = HUN }
+		allowed = {
+			tag = HUN
+		}
 		available = {
 			or = {
 				count_triggers = {
 					amount = 2
-					NOT = { 74 = { is_controlled_by = CZE } }
-					NOT = { 75 = { is_controlled_by = CZE } }
-					CZE = { surrender_progress > 0.45 }
+					NOT = {
+						74 = {
+							is_controlled_by = CZE
+						}
+					}
+					NOT = {
+						75 = {
+							is_controlled_by = CZE
+						}
+					}
+					CZE = {
+						surrender_progress > 0.45
+					}
 				}
-        CZE = { surrender_progress > 0.7 }
+				CZE = {
+					surrender_progress > 0.7
+				}
 			}
 		}
 		activation = {
-			always = no #triggered by event
+			always = no			#triggered by event
 		}
 		cancel_trigger = {
-      NOT = { SLO = { has_war_with = CZE } }
+			NOT = {
+				SLO = {
+					has_war_with = CZE
+				}
+			}
 		}
 		is_good = no
 		days_mission_timeout = 140
-		timeout_effect = { #ceasefire
-
+		timeout_effect = {
+			#ceasefire
 		}
-		complete_effect = { #
-
-      if = {
-        limit = {
-          has_war_with = CZE
-        }
-        white_peace = CZE
-        else = { effect_tooltip = { white_peace = CZE } }
-      }
-
+		complete_effect = {
+			#
+			if = {
+				limit = {
+					has_war_with = CZE
+				}
+				white_peace = CZE
+				else = {
+					effect_tooltip = {
+						white_peace = CZE
+					}
+				}
+			}
 		}
-		cancel_effect = { 
-
+		cancel_effect = {
 		}
 	}
-
 }
-
 
 HUN_Banat_TST_decision = {
-
 	SS_Sepp = {
-
 		icon = generic_army_support
-
 		available = {
-      num_of_civilian_factories_available_for_projects > 3
-      has_army_experience > 29
-      43 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-      764 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
+			num_of_civilian_factories_available_for_projects > 3
+			has_army_experience > 29
+			43 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
+			764 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
 		}
 		visible = {
-      is_subject = no
-      is_in_faction_with = GER
-      43 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-      764 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
+			is_subject = no
+			is_in_faction_with = GER
+			43 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
+			764 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
 		}
-
 		cost = 25
-
-    modifier = {
-      civilian_factory_use = 3
-    }
-
-    days_remove = 140
-
+		modifier = {
+			civilian_factory_use = 3
+		}
+		days_remove = 140
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 200
 		}
 		complete_effect = {
-
-      764 = {
-        add_manpower = -12200
-      }
-
-			army_experience = -30
-
-			custom_effect_tooltip = HUN_Banat_TST_tooltip
-
-			division_template = {
-				name = "Schutzstaffel Grenadier" 
-				priority = 2
-        is_locked = yes
-        division_names_group = HUN_Inf_01
-				regiments = {
-          infantry = { x = 0 y = 0 }
-          infantry = { x = 0 y = 1 }
-          infantry = { x = 0 y = 2 }
-          infantry = { x = 0 y = 3 }				
-
-          infantry = { x = 1 y = 0 }
-          infantry = { x = 1 y = 1 }
-          infantry = { x = 1 y = 2 }
-          infantry = { x = 1 y = 3 }
-
-          artillery_brigade = { x = 2 y = 0 }
-          artillery_brigade = { x = 2 y = 1 }
-          artillery_brigade = { x = 2 y = 2 }
-          anti_tank_brigade = { x = 2 y = 3 }
-          anti_air_brigade = { x = 2 y = 4 }
-
-				}
-       support = {
-          recon = { x = 0 y = 0 }
-          engineer = { x = 0 y = 1 }
-          artillery = { x = 0 y = 2 }
-          anti_tank = { x = 0 y = 3 }
-          anti_air = { x = 0 y = 4 }
-        }
+			764 = {
+				add_manpower = -12200
 			}
-
-      hidden_effect = {
-        load_oob = "HUN_TST_Sepp"
-      }
-
+			army_experience = -30
+			custom_effect_tooltip = HUN_Banat_TST_tooltip
+			division_template = {
+				name = "Schutzstaffel Grenadier"
+				priority = 2
+				is_locked = yes
+				division_names_group = HUN_Inf_01
+				regiments = {
+					infantry = {
+						x = 0
+						y = 0
+					}
+					infantry = {
+						x = 0
+						y = 1
+					}
+					infantry = {
+						x = 0
+						y = 2
+					}
+					infantry = {
+						x = 0
+						y = 3
+					}
+					infantry = {
+						x = 1
+						y = 0
+					}
+					infantry = {
+						x = 1
+						y = 1
+					}
+					infantry = {
+						x = 1
+						y = 2
+					}
+					infantry = {
+						x = 1
+						y = 3
+					}
+					artillery_brigade = {
+						x = 2
+						y = 0
+					}
+					artillery_brigade = {
+						x = 2
+						y = 1
+					}
+					artillery_brigade = {
+						x = 2
+						y = 2
+					}
+					anti_tank_brigade = {
+						x = 2
+						y = 3
+					}
+					anti_air_brigade = {
+						x = 2
+						y = 4
+					}
+				}
+				support = {
+					recon = {
+						x = 0
+						y = 0
+					}
+					engineer = {
+						x = 0
+						y = 1
+					}
+					artillery = {
+						x = 0
+						y = 2
+					}
+					anti_tank = {
+						x = 0
+						y = 3
+					}
+					anti_air = {
+						x = 0
+						y = 4
+					}
+				}
+			}
+			hidden_effect = {
+				load_oob = "HUN_TST_Sepp"
+			}
 		}
 	}
-
 	SS_Banat = {
-
 		icon = generic_army_support
-
 		available = {
-      num_of_civilian_factories_available_for_projects > 3
-      has_army_experience > 29
-      has_tech = mechanised_infantry
-      has_tech = basic_medium_tank
-      has_tech = basic_medium_art
-      has_tech = basic_medium_spaa
-      has_tech = motorised_infantry
-      has_tech = armored_car1
-      has_tech = tech_maintenance_company
-      has_tech = tech_logistics_company
-      GER = { has_tech = mechanised_infantry }
-      GER = { has_tech = basic_medium_tank }
-      GER = { has_tech = basic_medium_art }
-      GER = { has_tech = basic_medium_spaa }
-      43 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-      764 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-		}
-		visible = {
-      is_subject = no
-      is_in_faction_with = GER
-      43 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-      764 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-		}
-
-		cost = 25
-
-    modifier = {
-      civilian_factory_use = 3
-    }
-
-    days_remove = 210
-
-		fire_only_once = yes
-		ai_will_do = {
-			factor = 200
-		}
-		complete_effect = {
-
-      764 = {
-        add_manpower = -12100
-      }
-
-			army_experience = -30
-
-			custom_effect_tooltip = HUN_Banat_TST_tooltip
-
-			division_template = {
-				name = "Schutzstaffel mechanized" 
-				priority = 2
-        is_locked = yes
-        division_names_group = HUN_MEC_01
-				regiments = {
-          mechanized = { x = 0 y = 0 }
-          mechanized = { x = 0 y = 1 }
-          mechanized = { x = 0 y = 2 }
-          mechanized = { x = 0 y = 3 }
-          mechanized = { x = 0 y = 4 }
-
-          mechanized = { x = 1 y = 0 }
-          mechanized = { x = 1 y = 1 }
-
-          medium_sp_artillery_brigade = { x = 2 y = 0 }
-          medium_sp_artillery_brigade = { x = 2 y = 1 }
-          medium_sp_anti_air_brigade = { x = 2 y = 2 }
-
-          medium_tank_destroyer_brigade = { x = 3 y = 0 }
-          medium_tank_destroyer_brigade = { x = 3 y = 1 }
-          medium_armor = { x = 3 y = 2 }
+			num_of_civilian_factories_available_for_projects > 3
+			has_army_experience > 29
+			has_tech = mechanised_infantry
+			has_tech = basic_medium_tank
+			has_tech = basic_medium_art
+			has_tech = basic_medium_spaa
+			has_tech = motorised_infantry
+			has_tech = armored_car1
+			has_tech = tech_maintenance_company
+			has_tech = tech_logistics_company
+			GER = {
+				has_tech = mechanised_infantry
+			}
+			GER = {
+				has_tech = basic_medium_tank
+			}
+			GER = {
+				has_tech = basic_medium_art
+			}
+			GER = {
+				has_tech = basic_medium_spaa
+			}
+			43 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
 				}
-        support = {
-          armored_car_recon = { x = 0 y = 0 }
-          engineer = { x = 0 y = 1 }
-          artillery = { x = 0 y = 2 }
-          maintenance_company = { x = 0 y = 3 }
-          logistics_company = { x = 0 y = 4 }
-        }
 			}
-
-      hidden_effect = {
-        load_oob = "HUN_TST_Banat"
-      }
-
-		}
-	}
-
-	SS_Schwaben = {
-
-		icon = generic_army_support
-
-		available = {
-      num_of_civilian_factories_available_for_projects > 3
-      has_army_experience > 29
-      has_tech = mechanised_infantry
-      has_tech = basic_medium_tank
-      has_tech = basic_medium_art
-      has_tech = basic_medium_spaa
-      has_tech = motorised_infantry
-      has_tech = armored_car1
-      has_tech = tech_maintenance_company
-      has_tech = tech_logistics_company
-      GER = { has_tech = mechanised_infantry }
-      GER = { has_tech = basic_medium_tank }
-      GER = { has_tech = basic_medium_art }
-      GER = { has_tech = basic_medium_spaa }
-      43 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-      764 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
+			764 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
 		}
 		visible = {
-      is_subject = no
-      is_in_faction_with = GER
-      43 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
-      764 = {
-        CONTROLLER = {
-          OR = {
-            original_tag = HUN
-            is_subject_of = HUN
-          }
-        }
-      }
+			is_subject = no
+			is_in_faction_with = GER
+			43 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
+			764 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
 		}
-
 		cost = 25
-
-    modifier = {
-      civilian_factory_use = 3
-    }
-
-    days_remove = 210
-
+		modifier = {
+			civilian_factory_use = 3
+		}
+		days_remove = 210
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 200
 		}
 		complete_effect = {
-
-      764 = {
-        add_manpower = -13500
-      }
-
-			army_experience = -30
-
-			custom_effect_tooltip = HUN_Banat_TST_tooltip
-
-			division_template = {
-				name = "Schutzstaffel armor" 
-				priority = 2
-        is_locked = yes
-        division_names_group = HUN_Arm_01
-        regiments = {
-          medium_armor = { x = 0 y = 0 }
-          medium_armor = { x = 0 y = 1 }
-          medium_armor = { x = 0 y = 2 }
-          medium_armor = { x = 0 y = 3 }				
-          medium_armor = { x = 0 y = 4 }
-
-          mechanized = { x = 1 y = 0 }
-          mechanized = { x = 1 y = 1 }
-          mechanized = { x = 1 y = 2 }
-          mechanized = { x = 1 y = 3 }
-          mechanized = { x = 1 y = 4 }
-
-          medium_sp_artillery_brigade = { x = 2 y = 0 }
-          medium_sp_artillery_brigade = { x = 2 y = 1 }
-          medium_sp_anti_air_brigade = { x = 2 y = 2 }
-        }
-        support = {
-          armored_car_recon = { x = 0 y = 0 }
-          engineer = { x = 0 y = 1 }
-          artillery = { x = 0 y = 2 }
-          maintenance_company = { x = 0 y = 3 }
-          logistics_company = { x = 0 y = 4 }
-        }
+			764 = {
+				add_manpower = -12100
 			}
-
-      hidden_effect = {
-        load_oob = "HUN_TST_Schwaben"
-      }
-
+			army_experience = -30
+			custom_effect_tooltip = HUN_Banat_TST_tooltip
+			division_template = {
+				name = "Schutzstaffel mechanized"
+				priority = 2
+				is_locked = yes
+				division_names_group = HUN_MEC_01
+				regiments = {
+					mechanized = {
+						x = 0
+						y = 0
+					}
+					mechanized = {
+						x = 0
+						y = 1
+					}
+					mechanized = {
+						x = 0
+						y = 2
+					}
+					mechanized = {
+						x = 0
+						y = 3
+					}
+					mechanized = {
+						x = 0
+						y = 4
+					}
+					mechanized = {
+						x = 1
+						y = 0
+					}
+					mechanized = {
+						x = 1
+						y = 1
+					}
+					medium_sp_artillery_brigade = {
+						x = 2
+						y = 0
+					}
+					medium_sp_artillery_brigade = {
+						x = 2
+						y = 1
+					}
+					medium_sp_anti_air_brigade = {
+						x = 2
+						y = 2
+					}
+					medium_tank_destroyer_brigade = {
+						x = 3
+						y = 0
+					}
+					medium_tank_destroyer_brigade = {
+						x = 3
+						y = 1
+					}
+					medium_armor = {
+						x = 3
+						y = 2
+					}
+				}
+				support = {
+					armored_car_recon = {
+						x = 0
+						y = 0
+					}
+					engineer = {
+						x = 0
+						y = 1
+					}
+					artillery = {
+						x = 0
+						y = 2
+					}
+					maintenance_company = {
+						x = 0
+						y = 3
+					}
+					logistics_company = {
+						x = 0
+						y = 4
+					}
+				}
+			}
+			hidden_effect = {
+				load_oob = "HUN_TST_Banat"
+			}
 		}
 	}
-
+	SS_Schwaben = {
+		icon = generic_army_support
+		available = {
+			num_of_civilian_factories_available_for_projects > 3
+			has_army_experience > 29
+			has_tech = mechanised_infantry
+			has_tech = basic_medium_tank
+			has_tech = basic_medium_art
+			has_tech = basic_medium_spaa
+			has_tech = motorised_infantry
+			has_tech = armored_car1
+			has_tech = tech_maintenance_company
+			has_tech = tech_logistics_company
+			GER = {
+				has_tech = mechanised_infantry
+			}
+			GER = {
+				has_tech = basic_medium_tank
+			}
+			GER = {
+				has_tech = basic_medium_art
+			}
+			GER = {
+				has_tech = basic_medium_spaa
+			}
+			43 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
+			764 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
+		}
+		visible = {
+			is_subject = no
+			is_in_faction_with = GER
+			43 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
+			764 = {
+				CONTROLLER = {
+					OR = {
+						original_tag = HUN
+						is_subject_of = HUN
+					}
+				}
+			}
+		}
+		cost = 25
+		modifier = {
+			civilian_factory_use = 3
+		}
+		days_remove = 210
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 200
+		}
+		complete_effect = {
+			764 = {
+				add_manpower = -13500
+			}
+			army_experience = -30
+			custom_effect_tooltip = HUN_Banat_TST_tooltip
+			division_template = {
+				name = "Schutzstaffel armor"
+				priority = 2
+				is_locked = yes
+				division_names_group = HUN_Arm_01
+				regiments = {
+					medium_armor = {
+						x = 0
+						y = 0
+					}
+					medium_armor = {
+						x = 0
+						y = 1
+					}
+					medium_armor = {
+						x = 0
+						y = 2
+					}
+					medium_armor = {
+						x = 0
+						y = 3
+					}
+					medium_armor = {
+						x = 0
+						y = 4
+					}
+					mechanized = {
+						x = 1
+						y = 0
+					}
+					mechanized = {
+						x = 1
+						y = 1
+					}
+					mechanized = {
+						x = 1
+						y = 2
+					}
+					mechanized = {
+						x = 1
+						y = 3
+					}
+					mechanized = {
+						x = 1
+						y = 4
+					}
+					medium_sp_artillery_brigade = {
+						x = 2
+						y = 0
+					}
+					medium_sp_artillery_brigade = {
+						x = 2
+						y = 1
+					}
+					medium_sp_anti_air_brigade = {
+						x = 2
+						y = 2
+					}
+				}
+				support = {
+					armored_car_recon = {
+						x = 0
+						y = 0
+					}
+					engineer = {
+						x = 0
+						y = 1
+					}
+					artillery = {
+						x = 0
+						y = 2
+					}
+					maintenance_company = {
+						x = 0
+						y = 3
+					}
+					logistics_company = {
+						x = 0
+						y = 4
+					}
+				}
+			}
+			hidden_effect = {
+				load_oob = "HUN_TST_Schwaben"
+			}
+		}
+	}
 }
 
-
 HUN_Seek_backer_decision = {
-
 	HUN_Seeking_to_join_the_German_camp_decision = {
-
 		icon = generic_army_support
-
 		target_trigger = {
 			FROM = {
-        original_tag = GER
+				original_tag = GER
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_Seek_backer
-      GER = { is_faction_leader = yes }
-      GER = { has_government = fascism }
-      OR = {
-        has_government = fascism
-        has_government = neutrality
-      }
-      is_subject = no
-      is_in_faction = no
-      has_war = no
-      NOT = { has_country_flag = HUN_decided_direction_of_diplomacy_flag }
+			original_tag = HUN
+			has_completed_focus = HUN_Seek_backer
+			GER = {
+				is_faction_leader = yes
+			}
+			GER = {
+				has_government = fascism
+			}
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+			is_subject = no
+			is_in_faction = no
+			has_war = no
+			NOT = {
+				has_country_flag = HUN_decided_direction_of_diplomacy_flag
+			}
 		}
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
-      GER = {
-        country_event = more_hun.56
-      }
+			GER = {
+				country_event = more_hun.56
+			}
 		}
 	}
-
 	HUN_Seeking_to_join_the_France_camp_decision = {
-
 		icon = generic_army_support
-
 		target_trigger = {
 			FROM = {
-        original_tag = FRA
+				original_tag = FRA
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_Seek_backer
-      FRA = { is_faction_leader = yes }
-      FRA = { has_government = communism }
-      has_government = communism
-      has_completed_focus = HUN_Native_triumph
-      is_subject = no
-      is_in_faction = no
-      has_war = no
-      NOT = { has_country_flag = HUN_decided_direction_of_diplomacy_flag }
+			original_tag = HUN
+			has_completed_focus = HUN_Seek_backer
+			FRA = {
+				is_faction_leader = yes
+			}
+			FRA = {
+				has_government = communism
+			}
+			has_government = communism
+			has_completed_focus = HUN_Native_triumph
+			is_subject = no
+			is_in_faction = no
+			has_war = no
+			NOT = {
+				has_country_flag = HUN_decided_direction_of_diplomacy_flag
+			}
 		}
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
-      FRA = {
-        country_event = more_hun.56
-      }
+			FRA = {
+				country_event = more_hun.56
+			}
 		}
 	}
-
 	HUN_Seeking_to_join_the_Italia_camp_decision = {
-
 		icon = generic_army_support
-
 		target_trigger = {
 			FROM = {
-        original_tag = ITA
+				original_tag = ITA
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_Seek_backer
-      ITA = { is_faction_leader = yes }
-			or = {
-        AND = {
-          ITA = { has_government = communism }
-          has_government = communism
-          has_completed_focus = HUN_Native_triumph
-        }
-        AND = {
-          OR = {
-            ITA = { has_government = fascism }
-            ITA = { has_government = neutrality }
-          }
-          OR = {
-            has_government = fascism
-            has_government = neutrality
-          }
-        }
+			original_tag = HUN
+			has_completed_focus = HUN_Seek_backer
+			ITA = {
+				is_faction_leader = yes
 			}
-      is_subject = no
-      is_in_faction = no
-      has_war = no
-      NOT = { has_country_flag = HUN_decided_direction_of_diplomacy_flag }
+			or = {
+				AND = {
+					ITA = {
+						has_government = communism
+					}
+					has_government = communism
+					has_completed_focus = HUN_Native_triumph
+				}
+				AND = {
+					OR = {
+						ITA = {
+							has_government = fascism
+						}
+						ITA = {
+							has_government = neutrality
+						}
+					}
+					OR = {
+						has_government = fascism
+						has_government = neutrality
+					}
+				}
+			}
+			is_subject = no
+			is_in_faction = no
+			has_war = no
+			NOT = {
+				has_country_flag = HUN_decided_direction_of_diplomacy_flag
+			}
 		}
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
-      ITA = {
-        country_event = more_hun.56
-      }
+			ITA = {
+				country_event = more_hun.56
+			}
 		}
 	}
-
 	HUN_Seeking_to_join_the_Soviet_camp_decision = {
-
 		icon = generic_army_support
-
 		target_trigger = {
 			FROM = {
-        original_tag = SOV
+				original_tag = SOV
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_Seek_backer
-      SOV = { is_faction_leader = yes }
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_1 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_2 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_3 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_4 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_5 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_6 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_7 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_8 } }
-			or = {
-        AND = {
-          SOV = { has_government = communism }
-          NOT = { SOV = { has_completed_focus = SOV_Humane_communism } }
-          has_government = communism
-          has_completed_focus = HUN_International_triumph
-        }
-        AND = {
-          SOV = { has_government = communism }
-          SOV = { has_completed_focus = SOV_Humane_communism }
-          has_government = communism
-          has_completed_focus = HUN_Native_triumph
-        }
+			original_tag = HUN
+			has_completed_focus = HUN_Seek_backer
+			SOV = {
+				is_faction_leader = yes
 			}
-      is_subject = no
-      is_in_faction = no
-      has_war = no
-      NOT = { has_country_flag = HUN_decided_direction_of_diplomacy_flag }
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_1
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_2
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_3
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_4
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_5
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_6
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_7
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_8
+				}
+			}
+			or = {
+				AND = {
+					SOV = {
+						has_government = communism
+					}
+					NOT = {
+						SOV = {
+							has_completed_focus = SOV_Humane_communism
+						}
+					}
+					has_government = communism
+					has_completed_focus = HUN_International_triumph
+				}
+				AND = {
+					SOV = {
+						has_government = communism
+					}
+					SOV = {
+						has_completed_focus = SOV_Humane_communism
+					}
+					has_government = communism
+					has_completed_focus = HUN_Native_triumph
+				}
+			}
+			is_subject = no
+			is_in_faction = no
+			has_war = no
+			NOT = {
+				has_country_flag = HUN_decided_direction_of_diplomacy_flag
+			}
 		}
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
-      SOV = {
-        country_event = more_hun.56
-      }
+			SOV = {
+				country_event = more_hun.56
+			}
 		}
 	}
-
 }
 
 HUN_join_comintern_decision = {
-
 	HUN_join_the_France_decision = {
-
 		icon = generic_army_support
-
 		target_trigger = {
 			FROM = {
-        original_tag = FRA
+				original_tag = FRA
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_join_comintern
-      FRA = { is_faction_leader = yes }
-      FRA = { has_government = communism }
-      has_government = communism
-      has_completed_focus = HUN_Native_triumph
-      is_subject = no
-      is_in_faction = no
-      NOT = { has_war_with = FRA }
+			original_tag = HUN
+			has_completed_focus = HUN_join_comintern
+			FRA = {
+				is_faction_leader = yes
+			}
+			FRA = {
+				has_government = communism
+			}
+			has_government = communism
+			has_completed_focus = HUN_Native_triumph
+			is_subject = no
+			is_in_faction = no
+			NOT = {
+				has_war_with = FRA
+			}
 			NOT = {
 				any_other_country = {
 					is_in_faction_with = FRA
-					has_war_with = HUN	
+					has_war_with = HUN
 				}
 			}
 		}
@@ -955,46 +1422,46 @@ HUN_join_comintern_decision = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
-      FRA = {
-        country_event = more_hun.81
-      }
+			FRA = {
+				country_event = more_hun.81
+			}
 		}
 	}
-
 	HUN_join_the_Italia_decision = {
-
 		icon = generic_army_support
-
 		target_trigger = {
 			FROM = {
-        original_tag = ITA
+				original_tag = ITA
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_join_comintern
-      ITA = { is_faction_leader = yes }
-      ITA = { has_government = communism }
-      has_government = communism
-      has_completed_focus = HUN_Native_triumph
-      is_subject = no
-      is_in_faction = no
-      NOT = { has_war_with = ITA }
+			original_tag = HUN
+			has_completed_focus = HUN_join_comintern
+			ITA = {
+				is_faction_leader = yes
+			}
+			ITA = {
+				has_government = communism
+			}
+			has_government = communism
+			has_completed_focus = HUN_Native_triumph
+			is_subject = no
+			is_in_faction = no
+			NOT = {
+				has_war_with = ITA
+			}
 			NOT = {
 				any_other_country = {
 					is_in_faction_with = ITA
-					has_war_with = HUN	
+					has_war_with = HUN
 				}
 			}
 		}
@@ -1002,65 +1469,105 @@ HUN_join_comintern_decision = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
-      ITA = {
-        country_event = more_hun.81
-      }
+			ITA = {
+				country_event = more_hun.81
+			}
 		}
 	}
-
 	HUN_join_the_Soviet_decision = {
-
 		icon = generic_army_support
-
 		target_trigger = {
 			FROM = {
-        original_tag = SOV
+				original_tag = SOV
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_join_comintern
-      SOV = { is_faction_leader = yes }
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_1 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_2 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_3 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_4 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_5 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_6 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_7 } }			
-      NOT = { SOV = { has_idea = SOV_lacking_industrialization_8 } }
-			or = {
-        AND = {
-          SOV = { has_government = communism }
-          NOT = { SOV = { has_completed_focus = SOV_Humane_communism } }
-          has_government = communism
-          has_completed_focus = HUN_International_triumph
-        }
-        AND = {
-          SOV = { has_government = communism }
-          SOV = { has_completed_focus = SOV_Humane_communism }
-          has_government = communism
-          has_completed_focus = HUN_Native_triumph
-        }
+			original_tag = HUN
+			has_completed_focus = HUN_join_comintern
+			SOV = {
+				is_faction_leader = yes
 			}
-      is_subject = no
-      is_in_faction = no
-      NOT = { has_war_with = SOV }
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_1
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_2
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_3
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_4
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_5
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_6
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_7
+				}
+			}
+			NOT = {
+				SOV = {
+					has_idea = SOV_lacking_industrialization_8
+				}
+			}
+			or = {
+				AND = {
+					SOV = {
+						has_government = communism
+					}
+					NOT = {
+						SOV = {
+							has_completed_focus = SOV_Humane_communism
+						}
+					}
+					has_government = communism
+					has_completed_focus = HUN_International_triumph
+				}
+				AND = {
+					SOV = {
+						has_government = communism
+					}
+					SOV = {
+						has_completed_focus = SOV_Humane_communism
+					}
+					has_government = communism
+					has_completed_focus = HUN_Native_triumph
+				}
+			}
+			is_subject = no
+			is_in_faction = no
+			NOT = {
+				has_war_with = SOV
+			}
 			NOT = {
 				any_other_country = {
 					is_in_faction_with = SOV
-					has_war_with = HUN	
+					has_war_with = HUN
 				}
 			}
 		}
@@ -1068,813 +1575,798 @@ HUN_join_comintern_decision = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
-      SOV = {
-        country_event = more_hun.81
-      }
+			SOV = {
+				country_event = more_hun.81
+			}
 		}
 	}
-
 }
 
 HUN_Launch_the_Magyar_uprising = {
-
 	HUN_Launch_the_Magyar_uprising_664_decision = {
-
 		icon = hol_draw_up_staff_plans
-
 		target_trigger = {
 			FROM = {
 				controls_state = 664
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_Infiltrate_the_occupied_area
-      is_subject = no
-      has_capitulated = no
-      664 = {
-        controller = {
-          NOT = { tag = HUN }
-			    NOT = { has_war_with = HUN }
-			    NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
-				  surrender_progress > 0.4
-        }
-      }
+			original_tag = HUN
+			has_completed_focus = HUN_Infiltrate_the_occupied_area
+			is_subject = no
+			has_capitulated = no
+			664 = {
+				controller = {
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
+					surrender_progress > 0.4
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 0
-
 		days_remove = 10
 		fire_only_once = yes
 		complete_effect = {
 			every_other_country = {
 				limit = {
-          controls_state = 664
-          NOT = { tag = HUN }
-          NOT = { has_war_with = HUN }
-          NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
+					controls_state = 664
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
 				}
-		    country_event = { id = more_hun.68 days = 1 }
-        add_ai_strategy = {
-          type = prepare_for_war
-          id = ROOT
-          value = 1000
-        }
-        ROOT = {
-          add_ai_strategy = {
-            type = prepare_for_war
-            id = PREV
-            value = 1000
-          }
-        }
+				country_event = {
+					id = more_hun.68
+					days = 1
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = 1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = 1000
+					}
+				}
 			}
 		}
-
-    modifier = {
-		  political_power_cost = 1
-    }
-
+		modifier = {
+			political_power_cost = 1
+		}
 		remove_effect = {
-
 			every_other_country = {
 				limit = {
-          controls_state = 664
-          NOT = { tag = HUN }
-          NOT = { has_war_with = HUN }
-          NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
+					controls_state = 664
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
 				}
-		    country_event = { id = more_hun.68 days = 1 }
-        add_ai_strategy = {
-          type = prepare_for_war
-          id = ROOT
-          value = -1000
-        }
-        ROOT = {
-          add_ai_strategy = {
-            type = prepare_for_war
-            id = PREV
-            value = -1000
-          }
-        }
+				country_event = {
+					id = more_hun.68
+					days = 1
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = -1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = -1000
+					}
+				}
 			}
-
-      if = {
-        limit = { 
-          664 = {
-            controller = {
-              NOT = { has_war_with = HUN }
-              NOT = { is_subject_of = HUN }
-              NOT = { is_in_faction_with = HUN }
-            }
-          }
-        }			
-        664 = {
-          controller = {
-            HUN = {
-              create_wargoal = {
-                type = puppet_wargoal_focus
-                target = PREV
-              }
-            }
-          }
-        }
-      }
-
-      transfer_state = 664
-
+			if = {
+				limit = {
+					664 = {
+						controller = {
+							NOT = {
+								has_war_with = HUN
+							}
+							NOT = {
+								is_subject_of = HUN
+							}
+							NOT = {
+								is_in_faction_with = HUN
+							}
+						}
+					}
+				}
+				664 = {
+					controller = {
+						HUN = {
+							create_wargoal = {
+								type = puppet_wargoal_focus
+								target = PREV
+							}
+						}
+					}
+				}
+			}
+			transfer_state = 664
 		}
-
 	}
-
 	HUN_Launch_the_Magyar_uprising_76_decision = {
-
 		icon = hol_draw_up_staff_plans
-
 		target_trigger = {
 			FROM = {
 				controls_state = 76
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_Infiltrate_the_occupied_area
-      is_subject = no
-      has_capitulated = no
-      76 = {
-        controller = {
-          NOT = { tag = HUN }
-			    NOT = { has_war_with = HUN }
-			    NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
-				  surrender_progress > 0.4
-        }
-      }
+			original_tag = HUN
+			has_completed_focus = HUN_Infiltrate_the_occupied_area
+			is_subject = no
+			has_capitulated = no
+			76 = {
+				controller = {
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
+					surrender_progress > 0.4
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 0
-
 		days_remove = 10
 		fire_only_once = yes
 		complete_effect = {
 			every_other_country = {
 				limit = {
-          controls_state = 76
-          NOT = { tag = HUN }
-          NOT = { has_war_with = HUN }
-          NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
+					controls_state = 76
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
 				}
-		    country_event = { id = more_hun.68 days = 1 }
-        add_ai_strategy = {
-          type = prepare_for_war
-          id = ROOT
-          value = 1000
-        }
-        ROOT = {
-          add_ai_strategy = {
-            type = prepare_for_war
-            id = PREV
-            value = 1000
-          }
-        }
+				country_event = {
+					id = more_hun.68
+					days = 1
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = 1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = 1000
+					}
+				}
 			}
 		}
-
-    modifier = {
-		  political_power_cost = 1
-    }
-
+		modifier = {
+			political_power_cost = 1
+		}
 		remove_effect = {
-
 			every_other_country = {
 				limit = {
-          controls_state = 76
-          NOT = { tag = HUN }
-          NOT = { has_war_with = HUN }
-          NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
+					controls_state = 76
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
 				}
-		    country_event = { id = more_hun.68 days = 1 }
-        add_ai_strategy = {
-          type = prepare_for_war
-          id = ROOT
-          value = -1000
-        }
-        ROOT = {
-          add_ai_strategy = {
-            type = prepare_for_war
-            id = PREV
-            value = -1000
-          }
-        }
+				country_event = {
+					id = more_hun.68
+					days = 1
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = -1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = -1000
+					}
+				}
 			}
-
-      if = {
-        limit = { 
-          76 = {
-            controller = {
-              NOT = { has_war_with = HUN }
-              NOT = { is_subject_of = HUN }
-              NOT = { is_in_faction_with = HUN }
-            }
-          }
-        }			
-        76 = {
-          controller = {
-            HUN = {
-              create_wargoal = {
-                type = puppet_wargoal_focus
-                target = PREV
-              }
-            }
-          }
-        }
-      }
-
-      transfer_state = 76
-
+			if = {
+				limit = {
+					76 = {
+						controller = {
+							NOT = {
+								has_war_with = HUN
+							}
+							NOT = {
+								is_subject_of = HUN
+							}
+							NOT = {
+								is_in_faction_with = HUN
+							}
+						}
+					}
+				}
+				76 = {
+					controller = {
+						HUN = {
+							create_wargoal = {
+								type = puppet_wargoal_focus
+								target = PREV
+							}
+						}
+					}
+				}
+			}
+			transfer_state = 76
 		}
-
 	}
-
 	HUN_Launch_the_Magyar_uprising_45_decision = {
-
 		icon = hol_draw_up_staff_plans
-
 		target_trigger = {
 			FROM = {
 				controls_state = 45
 			}
-    }
-
+		}
 		available = {
-
-
 		}
 		visible = {
-      original_tag = HUN
-      has_completed_focus = HUN_Infiltrate_the_occupied_area
-      is_subject = no
-      has_capitulated = no
-      45 = {
-        controller = {
-          NOT = { tag = HUN }
-			    NOT = { has_war_with = HUN }
-			    NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
-				  surrender_progress > 0.4
-        }
-      }
+			original_tag = HUN
+			has_completed_focus = HUN_Infiltrate_the_occupied_area
+			is_subject = no
+			has_capitulated = no
+			45 = {
+				controller = {
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
+					surrender_progress > 0.4
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				surrender_progress > 0.15 
+				surrender_progress > 0.15
 			}
 		}
 		cost = 0
-
 		days_remove = 10
 		fire_only_once = yes
 		complete_effect = {
 			every_other_country = {
 				limit = {
-          controls_state = 45
-          NOT = { tag = HUN }
-          NOT = { has_war_with = HUN }
-          NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
+					controls_state = 45
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
 				}
-		    country_event = { id = more_hun.68 days = 1 }
-        add_ai_strategy = {
-          type = prepare_for_war
-          id = ROOT
-          value = 1000
-        }
-        ROOT = {
-          add_ai_strategy = {
-            type = prepare_for_war
-            id = PREV
-            value = 1000
-          }
-        }
+				country_event = {
+					id = more_hun.68
+					days = 1
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = 1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = 1000
+					}
+				}
 			}
 		}
-
-    modifier = {
-		  political_power_cost = 1
-    }
-
+		modifier = {
+			political_power_cost = 1
+		}
 		remove_effect = {
-
 			every_other_country = {
 				limit = {
-          controls_state = 45
-          NOT = { tag = HUN }
-          NOT = { has_war_with = HUN }
-          NOT = { is_subject_of = HUN }
-          NOT = { is_in_faction_with = HUN }
+					controls_state = 45
+					NOT = {
+						tag = HUN
+					}
+					NOT = {
+						has_war_with = HUN
+					}
+					NOT = {
+						is_subject_of = HUN
+					}
+					NOT = {
+						is_in_faction_with = HUN
+					}
 				}
-		    country_event = { id = more_hun.68 days = 1 }
-        add_ai_strategy = {
-          type = prepare_for_war
-          id = ROOT
-          value = -1000
-        }
-        ROOT = {
-          add_ai_strategy = {
-            type = prepare_for_war
-            id = PREV
-            value = -1000
-          }
-        }
+				country_event = {
+					id = more_hun.68
+					days = 1
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = -1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = -1000
+					}
+				}
 			}
-
-      if = {
-        limit = { 
-          45 = {
-            controller = {
-              NOT = { has_war_with = HUN }
-              NOT = { is_subject_of = HUN }
-              NOT = { is_in_faction_with = HUN }
-            }
-          }
-        }			
-        45 = {
-          controller = {
-            HUN = {
-              create_wargoal = {
-                type = puppet_wargoal_focus
-                target = PREV
-              }
-            }
-          }
-        }
-      }
-
-      transfer_state = 45
-
+			if = {
+				limit = {
+					45 = {
+						controller = {
+							NOT = {
+								has_war_with = HUN
+							}
+							NOT = {
+								is_subject_of = HUN
+							}
+							NOT = {
+								is_in_faction_with = HUN
+							}
+						}
+					}
+				}
+				45 = {
+					controller = {
+						HUN = {
+							create_wargoal = {
+								type = puppet_wargoal_focus
+								target = PREV
+							}
+						}
+					}
+				}
+			}
+			transfer_state = 45
 		}
-
 	}
-
 }
 
 HUN_agricultural_collectivization_decision = {
-
 	HUN_Great_Land_Reform_Plan_mission = {
 		icon = eng_trade_unions_demand
-
 		allowed = {
 			always = no
 			#added through on_action
 		}
-
 		available = {
 			has_completed_focus = HUN_Complete_land_reform
 		}
-
 		is_good = no
-
 		activation = {
-
 		}
-
 		days_mission_timeout = 365
 		fire_only_once = yes
-
-		ai_will_do = { factor = 1000 }
-
-		complete_effect = {
-      set_country_flag = HUN_Great_Land_Reform_Plan_mission_end_flag	
-
-      add_offsite_building = { type = industrial_complex level = 6 }
+		ai_will_do = {
+			factor = 1000
 		}
-
+		complete_effect = {
+			set_country_flag = HUN_Great_Land_Reform_Plan_mission_end_flag
+			add_offsite_building = {
+				type = industrial_complex
+				level = 6
+			}
+		}
 		timeout_effect = {
-      set_country_flag = HUN_Great_Land_Reform_Plan_mission_end_flag	
-
+			set_country_flag = HUN_Great_Land_Reform_Plan_mission_end_flag
 			if = {
 				limit = {
 					is_ai = yes
 				}
-				add_offsite_building = { type = industrial_complex level = 6 }
+				add_offsite_building = {
+					type = industrial_complex
+					level = 6
+				}
 			}
-
 			if = {
 				limit = {
 					is_ai = no
 				}
 				add_political_power = -100
-				add_stability = -0.20
-				add_war_support = -0.10
+				add_stability = -0.2
+				add_war_support = -0.1
 			}
-
 		}
 	}
-
 	HUN_Set_up_checkpoints = {
-
 		icon = generic_political_actions
-
 		cost = 50
-
 		fire_only_once = yes
-
 		days_remove = 120
-
 		visible = {
 			has_completed_focus = HUN_Compulsory_collectivization
-
 		}
 		available = {
-
 			custom_trigger_tooltip = {
 				tooltip = SOV_Collectivization_has_not_been_completed_tt
-		    or = {
-			    has_idea = HUN_agricultural_collectivization_1
-			    has_idea = HUN_agricultural_collectivization_2
-			    has_idea = HUN_agricultural_collectivization_3
-			    has_idea = HUN_agricultural_collectivization_4
-		    }
+				or = {
+					has_idea = HUN_agricultural_collectivization_1
+					has_idea = HUN_agricultural_collectivization_2
+					has_idea = HUN_agricultural_collectivization_3
+					has_idea = HUN_agricultural_collectivization_4
+				}
 			}
-
-		}		
-
-			modifier = {
-        production_speed_buildings_factor = -0.10
-        conscription_factor = -0.1
-			}
-
+		}
+		modifier = {
+			production_speed_buildings_factor = -0.1
+			conscription_factor = -0.1
+		}
 		remove_effect = {
-
 			set_country_flag = SOV_Set_up_checkpoints_flag
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_4
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_4
-            add_idea = HUN_agricultural_collectivization_5
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_3
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_3
-            add_idea = HUN_agricultural_collectivization_4
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_2
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_2
-            add_idea = HUN_agricultural_collectivization_3
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_1
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_1
-            add_idea = HUN_agricultural_collectivization_2
-          }
-        }
-
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_4
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_4
+					add_idea = HUN_agricultural_collectivization_5
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_3
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_3
+					add_idea = HUN_agricultural_collectivization_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_2
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_2
+					add_idea = HUN_agricultural_collectivization_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_1
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_1
+					add_idea = HUN_agricultural_collectivization_2
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
-		}		
+		}
 	}
-
 	HUN_Encourage_internal_reporting = {
-
 		icon = generic_political_actions
-
 		cost = 25
-
 		fire_only_once = yes
-
 		days_remove = 120
-
 		visible = {
 			has_completed_focus = HUN_Compulsory_collectivization
-
 		}
 		available = {
 			has_country_flag = SOV_Set_up_checkpoints_flag
 			custom_trigger_tooltip = {
 				tooltip = SOV_Collectivization_has_not_been_completed_tt
-		    or = {
-			    has_idea = HUN_agricultural_collectivization_1
-			    has_idea = HUN_agricultural_collectivization_2
-			    has_idea = HUN_agricultural_collectivization_3
-			    has_idea = HUN_agricultural_collectivization_4
-		    }
+				or = {
+					has_idea = HUN_agricultural_collectivization_1
+					has_idea = HUN_agricultural_collectivization_2
+					has_idea = HUN_agricultural_collectivization_3
+					has_idea = HUN_agricultural_collectivization_4
+				}
 			}
-
-		}		
-
-    modifier = {
-      political_power_gain = -0.20
-      consumer_goods_factor = 0.03
-    }
-
+		}
+		modifier = {
+			political_power_gain = -0.2
+			consumer_goods_factor = 0.03
+		}
 		remove_effect = {
-
 			set_country_flag = SOV_Encourage_internal_reporting_flag
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_4
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_4
-            add_idea = HUN_agricultural_collectivization_5
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_3
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_3
-            add_idea = HUN_agricultural_collectivization_4
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_2
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_2
-            add_idea = HUN_agricultural_collectivization_3
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_1
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_1
-            add_idea = HUN_agricultural_collectivization_2
-          }
-        }
-
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_4
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_4
+					add_idea = HUN_agricultural_collectivization_5
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_3
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_3
+					add_idea = HUN_agricultural_collectivization_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_2
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_2
+					add_idea = HUN_agricultural_collectivization_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_1
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_1
+					add_idea = HUN_agricultural_collectivization_2
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
-		}		
+		}
 	}
-
 	HUN_creating_the_25_thousand = {
-
 		icon = generic_political_actions
-
 		cost = 25
-
 		fire_only_once = yes
-
 		days_remove = 120
-
 		visible = {
-      has_completed_focus = HUN_Compulsory_collectivization
+			has_completed_focus = HUN_Compulsory_collectivization
 		}
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = SOV_Collectivization_has_not_been_completed_tt
-		    or = {
-			    has_idea = HUN_agricultural_collectivization_1
-			    has_idea = HUN_agricultural_collectivization_2
-			    has_idea = HUN_agricultural_collectivization_3
-			    has_idea = HUN_agricultural_collectivization_4
-		    }
+				or = {
+					has_idea = HUN_agricultural_collectivization_1
+					has_idea = HUN_agricultural_collectivization_2
+					has_idea = HUN_agricultural_collectivization_3
+					has_idea = HUN_agricultural_collectivization_4
+				}
 			}
-
-		}		
-
-    modifier = {
-        political_power_gain = -0.30
-        stability_weekly = -0.003
-    }
-
+		}
+		modifier = {
+			political_power_gain = -0.3
+			stability_weekly = -0.003
+		}
 		remove_effect = {
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_4
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_4
-            add_idea = HUN_agricultural_collectivization_5
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_3
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_3
-            add_idea = HUN_agricultural_collectivization_4
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_2
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_2
-            add_idea = HUN_agricultural_collectivization_3
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_1
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_1
-            add_idea = HUN_agricultural_collectivization_2
-          }
-        }
-
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_4
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_4
+					add_idea = HUN_agricultural_collectivization_5
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_3
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_3
+					add_idea = HUN_agricultural_collectivization_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_2
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_2
+					add_idea = HUN_agricultural_collectivization_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_1
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_1
+					add_idea = HUN_agricultural_collectivization_2
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
-		}		
+		}
 	}
-
 	HUN_Hunt_for_rich_peasants = {
-
 		icon = generic_political_actions
-
 		cost = 25
-
 		fire_only_once = yes
-
 		days_remove = 120
-
 		visible = {
 			has_completed_focus = HUN_Compulsory_collectivization
-
 		}
 		available = {
 			has_country_flag = SOV_Encourage_internal_reporting_flag
 			has_completed_focus = HUN_Ministry_of_National_Security
 			custom_trigger_tooltip = {
 				tooltip = SOV_Collectivization_has_not_been_completed_tt
-		    or = {
-			    has_idea = HUN_agricultural_collectivization_1
-			    has_idea = HUN_agricultural_collectivization_2
-			    has_idea = HUN_agricultural_collectivization_3
-			    has_idea = HUN_agricultural_collectivization_4
-		    }
+				or = {
+					has_idea = HUN_agricultural_collectivization_1
+					has_idea = HUN_agricultural_collectivization_2
+					has_idea = HUN_agricultural_collectivization_3
+					has_idea = HUN_agricultural_collectivization_4
+				}
 			}
-
-		}		
-
-    modifier = {
-      production_speed_buildings_factor = -0.10
-      stability_weekly = -0.002
-    }
-
+		}
+		modifier = {
+			production_speed_buildings_factor = -0.1
+			stability_weekly = -0.002
+		}
 		remove_effect = {
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_4
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_4
-            add_idea = HUN_agricultural_collectivization_5
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_3
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_3
-            add_idea = HUN_agricultural_collectivization_4
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_2
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_2
-            add_idea = HUN_agricultural_collectivization_3
-          }
-        }
-
-      if = {
-        limit = {
-            has_idea = HUN_agricultural_collectivization_1
-          }
-        swap_ideas = {
-            remove_idea = HUN_agricultural_collectivization_1
-            add_idea = HUN_agricultural_collectivization_2
-          }
-        }
-
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_4
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_4
+					add_idea = HUN_agricultural_collectivization_5
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_3
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_3
+					add_idea = HUN_agricultural_collectivization_4
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_2
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_2
+					add_idea = HUN_agricultural_collectivization_3
+				}
+			}
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_1
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_1
+					add_idea = HUN_agricultural_collectivization_2
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
-		}		
+		}
 	}
-
 	HUN_Development_of_agricultural_machinery = {
-
 		icon = generic_political_actions
-
 		cost = 25
-
 		fire_only_once = yes
-
 		days_remove = 120
-
 		visible = {
 			has_completed_focus = HUN_Compulsory_collectivization
 		}
 		available = {
-      has_idea = HUN_agricultural_collectivization_5
-		}		
-
-			modifier = {
-		    research_speed_factor = -0.05
-				consumer_goods_factor = 0.03
-			}
-
+			has_idea = HUN_agricultural_collectivization_5
+		}
+		modifier = {
+			research_speed_factor = -0.05
+			consumer_goods_factor = 0.03
+		}
 		remove_effect = {
-
-      if = {
-        limit = {
-          has_idea = HUN_agricultural_collectivization_5
-        }
-        swap_ideas = {
-          remove_idea = HUN_agricultural_collectivization_5
-          add_idea = HUN_agricultural_collectivization_6
-        }
-      }
-
+			if = {
+				limit = {
+					has_idea = HUN_agricultural_collectivization_5
+				}
+				swap_ideas = {
+					remove_idea = HUN_agricultural_collectivization_5
+					add_idea = HUN_agricultural_collectivization_6
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 100
-		}		
+		}
 	}
-}	
+}
 
 HUN_Investment_promotion_decision = {
-
 	HUN_invite_donations_USA = {
 		icon = ger_mefo_bills
 		available = {
@@ -1883,7 +2375,7 @@ HUN_Investment_promotion_decision = {
 		visible = {
 			has_completed_focus = HUN_Investment_promotion
 			has_war = no
-      has_government = communism
+			has_government = communism
 		}
 		target_trigger = {
 			FROM = {
@@ -1893,7 +2385,7 @@ HUN_Investment_promotion_decision = {
 				has_government = democratic
 			}
 		}
-    fire_only_once = yes
+		fire_only_once = yes
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -1905,7 +2397,6 @@ HUN_Investment_promotion_decision = {
 			}
 		}
 	}
-	
 	HUN_invite_donations_ENG = {
 		icon = ger_mefo_bills
 		available = {
@@ -1914,20 +2405,20 @@ HUN_Investment_promotion_decision = {
 		visible = {
 			has_completed_focus = HUN_Investment_promotion
 			has_war = no
-      has_government = communism 
+			has_government = communism
 		}
 		target_trigger = {
 			FROM = {
 				original_tag = ENG
 				exists = yes
 				has_war = no
-				or = { 
+				or = {
 					has_government = neutrality
 					has_government = democratic
 				}
 			}
 		}
-    fire_only_once = yes
+		fire_only_once = yes
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -1939,7 +2430,6 @@ HUN_Investment_promotion_decision = {
 			}
 		}
 	}
-	
 	HUN_invite_donations_FRA = {
 		icon = ger_mefo_bills
 		available = {
@@ -1948,21 +2438,21 @@ HUN_Investment_promotion_decision = {
 		visible = {
 			has_completed_focus = HUN_Investment_promotion
 			has_war = no
-      has_government = communism
+			has_government = communism
 		}
 		target_trigger = {
 			FROM = {
 				original_tag = FRA
 				exists = yes
 				has_war = no
-				or = { 
-          has_government = neutrality
-          has_government = democratic
-          has_government = communism
+				or = {
+					has_government = neutrality
+					has_government = democratic
+					has_government = communism
 				}
 			}
 		}
-    fire_only_once = yes
+		fire_only_once = yes
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -1974,7 +2464,6 @@ HUN_Investment_promotion_decision = {
 			}
 		}
 	}
-
 	HUN_invite_donations_JAP = {
 		icon = ger_mefo_bills
 		available = {
@@ -1983,20 +2472,20 @@ HUN_Investment_promotion_decision = {
 		visible = {
 			has_completed_focus = HUN_Investment_promotion
 			has_war = no
-      has_government = communism
+			has_government = communism
 		}
 		target_trigger = {
 			FROM = {
 				original_tag = JAP
 				exists = yes
 				has_war = no
-				or = { 
-          has_government = neutrality
-          has_government = democratic
+				or = {
+					has_government = neutrality
+					has_government = democratic
 				}
 			}
 		}
-    fire_only_once = yes
+		fire_only_once = yes
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -2008,7 +2497,6 @@ HUN_Investment_promotion_decision = {
 			}
 		}
 	}
-	
 	HUN_invite_donations_SOV = {
 		icon = ger_mefo_bills
 		available = {
@@ -2017,7 +2505,7 @@ HUN_Investment_promotion_decision = {
 		visible = {
 			has_completed_focus = HUN_Investment_promotion
 			has_war = no
-      has_government = communism
+			has_government = communism
 		}
 		target_trigger = {
 			FROM = {
@@ -2025,10 +2513,10 @@ HUN_Investment_promotion_decision = {
 				exists = yes
 				has_war = no
 				has_government = communism
-			  has_completed_focus = SOV_Humane_communism
+				has_completed_focus = SOV_Humane_communism
 			}
 		}
-    fire_only_once = yes
+		fire_only_once = yes
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -2043,140 +2531,141 @@ HUN_Investment_promotion_decision = {
 }
 
 HUN_buy_land_from_nero = {
-    
-
-  buy_transylvania = {
-	
+	buy_transylvania = {
 		icon = infiltrate_state
-		
 		fire_only_once = yes
-		
 		days_remove = 60
-		
 		visible = {
 			original_tag = HUN
-			
 		}
-    
-    available = {
-        OR = {
-            ITA = {
-                owns_state = 76
-                owns_state = 84
-                owns_state = 83
-            }
-            ROM = {
-                owns_state = 76
-                owns_state = 84
-                owns_state = 83
-                is_subject_of  = ITA
-            }
-        }
-        
-        OR = {
-            ITA = { is_in_faction_with = ROOT }
-            ITA = { has_opinion = { target = ROOT value > 69 } } 
-        }
-    }
-
+		available = {
+			OR = {
+				ITA = {
+					owns_state = 76
+					owns_state = 84
+					owns_state = 83
+				}
+				ROM = {
+					owns_state = 76
+					owns_state = 84
+					owns_state = 83
+					is_subject_of = ITA
+				}
+			}
+			OR = {
+				ITA = {
+					is_in_faction_with = ROOT
+				}
+				ITA = {
+					has_opinion = {
+						target = ROOT
+						value > 69
+					}
+				}
+			}
+		}
 		cost = 25
-		
 		remove_effect = {
-      ITA = { country_event = { id = bd_hun.22 hours = 4 } }
+			ITA = {
+				country_event = {
+					id = bd_hun.22
+					hours = 4
+				}
+			}
 		}
-		
 		ai_will_do = {
 			factor = 50
 		}
 	}
-  
-  buy_vojvodina = {
-	
+	buy_vojvodina = {
 		icon = GFX_decision_generic_political_discourse
-		
 		fire_only_once = yes
-		
 		days_remove = 35
-		
 		visible = {
 			original_tag = HUN
-			
 		}
-    
-    available = {
-        OR = {
-            ITA = {
-                owns_state = 45
-                owns_state = 764
-            }
-            YUG = {
-                owns_state = 45
-                owns_state = 764
-                is_subject_of = ITA
-            }
-        }
-        
-        OR = {
-            ITA = { is_in_faction_with = ROOT }
-            ITA = { has_opinion = { target = ROOT value > 69 } } 
-        }
-      
-    }
-
+		available = {
+			OR = {
+				ITA = {
+					owns_state = 45
+					owns_state = 764
+				}
+				YUG = {
+					owns_state = 45
+					owns_state = 764
+					is_subject_of = ITA
+				}
+			}
+			OR = {
+				ITA = {
+					is_in_faction_with = ROOT
+				}
+				ITA = {
+					has_opinion = {
+						target = ROOT
+						value > 69
+					}
+				}
+			}
+		}
 		cost = 25
-		
 		remove_effect = {
-      ITA = { country_event = { id = bd_hun.25 hours = 4 } }
+			ITA = {
+				country_event = {
+					id = bd_hun.25
+					hours = 4
+				}
+			}
 		}
-		
 		ai_will_do = {
 			factor = 50
 		}
 	}
-  
-  buy_crotia = {
-	
+	buy_crotia = {
 		icon = GFX_decision_generic_political_discourse
-		
 		fire_only_once = no
-		
 		days_remove = 35
-		
 		visible = {
 			original_tag = HUN
-			
 		}
-    
-    available = {
-        
-        OR = {
-            ITA = {
-                owns_state = 103
-                owns_state = 109
-            }
-            CRO = {
-                owns_state = 103
-                owns_state = 109
-                is_subject_of = ITA
-            }
-            YUG = {
-                owns_state = 103
-                owns_state = 109
-                is_subject_of = ITA
-            }
-        }
-        OR = {
-            ITA = { is_in_faction_with = ROOT }
-            ITA = { has_opinion = { target = ROOT value > 69 } } 
-        }
-    }
-
+		available = {
+			OR = {
+				ITA = {
+					owns_state = 103
+					owns_state = 109
+				}
+				CRO = {
+					owns_state = 103
+					owns_state = 109
+					is_subject_of = ITA
+				}
+				YUG = {
+					owns_state = 103
+					owns_state = 109
+					is_subject_of = ITA
+				}
+			}
+			OR = {
+				ITA = {
+					is_in_faction_with = ROOT
+				}
+				ITA = {
+					has_opinion = {
+						target = ROOT
+						value > 69
+					}
+				}
+			}
+		}
 		cost = 25
-		
 		remove_effect = {
-        ITA = { country_event = { id = bd_hun.27 hours = 4 } }
+			ITA = {
+				country_event = {
+					id = bd_hun.27
+					hours = 4
+				}
+			}
 		}
-		
 		ai_will_do = {
 			factor = 25
 		}
@@ -2184,97 +2673,95 @@ HUN_buy_land_from_nero = {
 }
 
 HUN_Take_over_the_core_territory_decision = {
-
 	HUN_Integrating_SLO_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      has_completed_focus = HUN_glory
+			tag = HUN
+			is_subject = no
+			has_completed_focus = HUN_glory
 			70 = {
-        is_claimed_by = ROOT
-        NOT = { is_core_of = ROOT } 
+				is_claimed_by = ROOT
+				NOT = {
+					is_core_of = ROOT
+				}
 			}
 			71 = {
-        is_claimed_by = ROOT
-        NOT = { is_core_of = ROOT } 
+				is_claimed_by = ROOT
+				NOT = {
+					is_core_of = ROOT
+				}
 			}
-      OR = {
-        HUN = { has_full_control_of_state = 70 }
-        any_other_country = {
-          is_subject_of = HUN
-          has_full_control_of_state = 70
-        }
-      }
-      OR = {
-        HUN = { has_full_control_of_state = 71 }
-        any_other_country = {
-          is_subject_of = HUN
-          has_full_control_of_state = 71
-        }
-      }
+			OR = {
+				HUN = {
+					has_full_control_of_state = 70
+				}
+				any_other_country = {
+					is_subject_of = HUN
+					has_full_control_of_state = 70
+				}
+			}
+			OR = {
+				HUN = {
+					has_full_control_of_state = 71
+				}
+				any_other_country = {
+					is_subject_of = HUN
+					has_full_control_of_state = 71
+				}
+			}
 		}
-
-    available = {
-      NOT = { has_country_flag = GER_Integrating_core_flag }
-    }
-
+		available = {
+			NOT = {
+				has_country_flag = GER_Integrating_core_flag
+			}
+		}
 		cancel_if_not_visible = yes
-
-    modifier = {
-      max_command_power = -25
-      political_power_cost = 0.5
-      monthly_population = -0.20
-      production_speed_buildings_factor = -0.2
-      industrial_capacity_factory = -0.2
-      min_export = 0.15
-      consumer_goods_factor = 0.20
-    }
-
+		modifier = {
+			max_command_power = -25
+			political_power_cost = 0.5
+			monthly_population = -0.2
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.15
+			consumer_goods_factor = 0.2
+		}
 		cost = 100
-		
-    complete_effect = {
-
+		complete_effect = {
 			set_country_flag = {
 				value = 1
 				days = 120
 				flag = GER_Integrating_core_flag
 			}
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
+		}
+		cancel_trigger = {
+		}
 		days_remove = 120
-		
 		remove_effect = {
-
 			remove_state_claim = 70
 			remove_state_claim = 71
-
-      add_state_core = 70
-      add_state_core = 71
-
+			add_state_core = 70
+			add_state_core = 71
 			if = {
 				limit = {
-					NOT = { HUN = { owns_state = 70 } }
+					NOT = {
+						HUN = {
+							owns_state = 70
+						}
+					}
 				}
 				transfer_state = 70
 			}
-
 			if = {
 				limit = {
-					NOT = { HUN = { owns_state = 71 } }
+					NOT = {
+						HUN = {
+							owns_state = 71
+						}
+					}
 				}
 				transfer_state = 71
 			}
-
 		}
-
 		ai_will_do = {
 			factor = 50
 			modifier = {
@@ -2291,97 +2778,95 @@ HUN_Take_over_the_core_territory_decision = {
 			}
 		}
 	}
-
 	HUN_Integrating_CRO_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      has_completed_focus = HUN_glory
+			tag = HUN
+			is_subject = no
+			has_completed_focus = HUN_glory
 			109 = {
-        is_claimed_by = ROOT
-        NOT = { is_core_of = ROOT } 
+				is_claimed_by = ROOT
+				NOT = {
+					is_core_of = ROOT
+				}
 			}
 			103 = {
-        is_claimed_by = ROOT
-        NOT = { is_core_of = ROOT } 
+				is_claimed_by = ROOT
+				NOT = {
+					is_core_of = ROOT
+				}
 			}
-      OR = {
-        HUN = { has_full_control_of_state = 109 }
-        any_other_country = {
-          is_subject_of = HUN
-          has_full_control_of_state = 109
-        }
-      }
-      OR = {
-        HUN = { has_full_control_of_state = 103 }
-        any_other_country = {
-          is_subject_of = HUN
-          has_full_control_of_state = 103
-        }
-      }
+			OR = {
+				HUN = {
+					has_full_control_of_state = 109
+				}
+				any_other_country = {
+					is_subject_of = HUN
+					has_full_control_of_state = 109
+				}
+			}
+			OR = {
+				HUN = {
+					has_full_control_of_state = 103
+				}
+				any_other_country = {
+					is_subject_of = HUN
+					has_full_control_of_state = 103
+				}
+			}
 		}
-
-    available = {
-      NOT = { has_country_flag = GER_Integrating_core_flag }
-    }
-
+		available = {
+			NOT = {
+				has_country_flag = GER_Integrating_core_flag
+			}
+		}
 		cancel_if_not_visible = yes
-
-    modifier = {
-      max_command_power = -25
-      political_power_cost = 0.5
-      monthly_population = -0.20
-      production_speed_buildings_factor = -0.2
-      industrial_capacity_factory = -0.2
-      min_export = 0.15
-      consumer_goods_factor = 0.20
-    }
-
+		modifier = {
+			max_command_power = -25
+			political_power_cost = 0.5
+			monthly_population = -0.2
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.15
+			consumer_goods_factor = 0.2
+		}
 		cost = 100
-		
-    complete_effect = {
-
+		complete_effect = {
 			set_country_flag = {
 				value = 1
 				days = 120
 				flag = GER_Integrating_core_flag
 			}
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
+		}
+		cancel_trigger = {
+		}
 		days_remove = 120
-		
 		remove_effect = {
-
 			remove_state_claim = 109
 			remove_state_claim = 103
-
-      add_state_core = 109
-      add_state_core = 103
-
+			add_state_core = 109
+			add_state_core = 103
 			if = {
 				limit = {
-					NOT = { HUN = { owns_state = 109 } }
+					NOT = {
+						HUN = {
+							owns_state = 109
+						}
+					}
 				}
 				transfer_state = 109
 			}
-
 			if = {
 				limit = {
-					NOT = { HUN = { owns_state = 103 } }
+					NOT = {
+						HUN = {
+							owns_state = 103
+						}
+					}
 				}
 				transfer_state = 103
 			}
-
 		}
-
 		ai_will_do = {
 			factor = 50
 			modifier = {
@@ -2398,77 +2883,68 @@ HUN_Take_over_the_core_territory_decision = {
 			}
 		}
 	}
-
 	HUN_Integrating_Istria_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      has_completed_focus = HUN_glory
+			tag = HUN
+			is_subject = no
+			has_completed_focus = HUN_glory
 			736 = {
-        is_claimed_by = ROOT
-        NOT = { is_core_of = ROOT } 
+				is_claimed_by = ROOT
+				NOT = {
+					is_core_of = ROOT
+				}
 			}
-      OR = {
-        HUN = { has_full_control_of_state = 736 }
-        any_other_country = {
-          is_subject_of = HUN
-          has_full_control_of_state = 736
-        }
-      }
+			OR = {
+				HUN = {
+					has_full_control_of_state = 736
+				}
+				any_other_country = {
+					is_subject_of = HUN
+					has_full_control_of_state = 736
+				}
+			}
 		}
-
-    available = {
-      NOT = { has_country_flag = GER_Integrating_core_flag }
-    }
-
+		available = {
+			NOT = {
+				has_country_flag = GER_Integrating_core_flag
+			}
+		}
 		cancel_if_not_visible = yes
-
-    modifier = {
-      max_command_power = -25
-      political_power_cost = 0.5
-      monthly_population = -0.20
-      production_speed_buildings_factor = -0.2
-      industrial_capacity_factory = -0.2
-      min_export = 0.15
-      consumer_goods_factor = 0.20
-    }
-
+		modifier = {
+			max_command_power = -25
+			political_power_cost = 0.5
+			monthly_population = -0.2
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.15
+			consumer_goods_factor = 0.2
+		}
 		cost = 50
-		
-    complete_effect = {
-
+		complete_effect = {
 			set_country_flag = {
 				value = 1
 				days = 60
 				flag = GER_Integrating_core_flag
 			}
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
+		}
+		cancel_trigger = {
+		}
 		days_remove = 60
-		
 		remove_effect = {
-
 			remove_state_claim = 736
-
-      add_state_core = 736
-
+			add_state_core = 736
 			if = {
 				limit = {
-					NOT = { HUN = { owns_state = 736 } }
+					NOT = {
+						HUN = {
+							owns_state = 736
+						}
+					}
 				}
 				transfer_state = 736
 			}
-
 		}
-
 		ai_will_do = {
 			factor = 50
 			modifier = {
@@ -2485,77 +2961,68 @@ HUN_Take_over_the_core_territory_decision = {
 			}
 		}
 	}
-
 	HUN_Integrating_Zadar_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      has_completed_focus = HUN_glory
+			tag = HUN
+			is_subject = no
+			has_completed_focus = HUN_glory
 			163 = {
-        is_claimed_by = ROOT
-        NOT = { is_core_of = ROOT } 
+				is_claimed_by = ROOT
+				NOT = {
+					is_core_of = ROOT
+				}
 			}
-      OR = {
-        HUN = { has_full_control_of_state = 163 }
-        any_other_country = {
-          is_subject_of = HUN
-          has_full_control_of_state = 163
-        }
-      }
+			OR = {
+				HUN = {
+					has_full_control_of_state = 163
+				}
+				any_other_country = {
+					is_subject_of = HUN
+					has_full_control_of_state = 163
+				}
+			}
 		}
-
-    available = {
-      NOT = { has_country_flag = GER_Integrating_core_flag }
-    }
-
+		available = {
+			NOT = {
+				has_country_flag = GER_Integrating_core_flag
+			}
+		}
 		cancel_if_not_visible = yes
-
-    modifier = {
-      max_command_power = -25
-      political_power_cost = 0.5
-      monthly_population = -0.20
-      production_speed_buildings_factor = -0.2
-      industrial_capacity_factory = -0.2
-      min_export = 0.15
-      consumer_goods_factor = 0.20
-    }
-
+		modifier = {
+			max_command_power = -25
+			political_power_cost = 0.5
+			monthly_population = -0.2
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.15
+			consumer_goods_factor = 0.2
+		}
 		cost = 50
-		
-    complete_effect = {
-
+		complete_effect = {
 			set_country_flag = {
 				value = 1
 				days = 60
 				flag = GER_Integrating_core_flag
 			}
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
+		}
+		cancel_trigger = {
+		}
 		days_remove = 60
-		
 		remove_effect = {
-
 			remove_state_claim = 163
-
-      add_state_core = 163
-
+			add_state_core = 163
 			if = {
 				limit = {
-					NOT = { HUN = { owns_state = 163 } }
+					NOT = {
+						HUN = {
+							owns_state = 163
+						}
+					}
 				}
 				transfer_state = 163
 			}
-
 		}
-
 		ai_will_do = {
 			factor = 50
 			modifier = {
@@ -2572,480 +3039,364 @@ HUN_Take_over_the_core_territory_decision = {
 			}
 		}
 	}
-
-
-
 	HUN_Take_over_73_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 73
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      73 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = CZE
-              CZE = { is_subject = no }
-            }
-            AND = {
-              tag = SLO
-              SLO = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			73 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = CZE
+							CZE = {
+								is_subject = no
+							}
+						}
+						AND = {
+							tag = SLO
+							SLO = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 73
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 73
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 	HUN_Take_over_664_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 664
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      664 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = CZE
-              CZE = { is_subject = no }
-            }
-            AND = {
-              tag = SLO
-              SLO = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			664 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = CZE
+							CZE = {
+								is_subject = no
+							}
+						}
+						AND = {
+							tag = SLO
+							SLO = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 664
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 664
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 	HUN_Take_over_45_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 45
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      45 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = YUG
-              YUG = { is_subject = no }
-            }
-            AND = {
-              tag = SER
-              SER = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			45 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = YUG
+							YUG = {
+								is_subject = no
+							}
+						}
+						AND = {
+							tag = SER
+							SER = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 45
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 45
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 	HUN_Take_over_764_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 764
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      764 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = YUG
-              YUG = { is_subject = no }
-            }
-            AND = {
-              tag = SER
-              SER = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			764 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = YUG
+							YUG = {
+								is_subject = no
+							}
+						}
+						AND = {
+							tag = SER
+							SER = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 764
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 764
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 	HUN_Take_over_76_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 76
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      76 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = ROM
-              ROM = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			76 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = ROM
+							ROM = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 76
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 76
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 	HUN_Take_over_84_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 84
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      84 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = ROM
-              ROM = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			84 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = ROM
+							ROM = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 84
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 84
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 	HUN_Take_over_83_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 83
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      83 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = ROM
-              ROM = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			83 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = ROM
+							ROM = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 83
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 83
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 	HUN_Take_over_82_decisions = {
-
 		icon = eng_trade_unions_demand
-
 		highlight_state_targets = {
 			state = 82
 		}
-
 		visible = {
-      tag = HUN
-      is_subject = no
-      is_in_faction = yes 
-      82 = {
-        is_core_of = ROOT 
-        controller = {
-          NOT = {
-            tag = HUN
-            is_subject_of = HUN
-            AND = {
-              tag = ROM
-              ROM = { is_subject = no }
-            }
-          }
-          is_in_faction_with = HUN
-        }
-      }
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+			82 = {
+				is_core_of = ROOT
+				controller = {
+					NOT = {
+						tag = HUN
+						is_subject_of = HUN
+						AND = {
+							tag = ROM
+							ROM = {
+								is_subject = no
+							}
+						}
+					}
+					is_in_faction_with = HUN
+				}
+			}
 		}
-
-    available = {
-
-    }
-
-    modifier = {
-
-    }
-
+		available = {
+		}
+		modifier = {
+		}
 		cost = 0
-		
-    complete_effect = {
-
-    }
-
-    cancel_trigger = {
-
-    }
-		
-		remove_effect = {
-
-      transfer_state = 82
-
+		complete_effect = {
 		}
-
+		cancel_trigger = {
+		}
+		remove_effect = {
+			transfer_state = 82
+		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-
 }
