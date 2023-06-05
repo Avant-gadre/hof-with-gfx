@@ -6757,6 +6757,121 @@ focus_tree = {
 					}
 				}
 			}
+
+			custom_effect_tooltip = ITA_novus_ordo_create_units_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_template = "Divisione Ascari Libica" }
+					}
+					if = {
+						limit = {
+							NOT = { has_country_flag = ITA_improved_ascari_templates_flag }
+						}
+						division_template = { 
+							name = "Divisione Ascari Libica" 
+							division_names_group = ITA_COL_01
+							override_model = ITA_infantry_alt_0_entity
+							template_counter = 67
+							#is_locked = yes
+							obsolete = yes
+
+							# Represents lesser-equipped colonial units
+							regiments = { 
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+							}
+
+							priority = 0 
+						}
+					}
+					else = {
+						division_template = { 
+							name = "Divisione Ascari Libica" 
+							division_names_group = ITA_COL_01
+							override_model = ITA_infantry_alt_0_entity
+							template_counter = 67
+							#is_locked = yes
+							obsolete = yes
+
+							# Represents lesser-equipped colonial units
+							regiments = { 
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+							}
+
+							support = {
+								armored_car_recon = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+
+							priority = 0 
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_controlled_state = {
+						is_core_of = LBA
+						is_fully_controlled_by = ROOT
+					}
+				}
+				random_controlled_state = {
+					limit = {
+						is_core_of = LBA
+						is_fully_controlled_by = ROOT
+					}
+					prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+					custom_effect_tooltip = ITA_novus_ordo_irregular_troops_tt
+					hidden_effect = {
+						create_unit = {
+							division = "division_template = \"Divisione Ascari Libica\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+							owner = ROOT
+							count = 5
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_subject_country = {
+						any_controlled_state = {
+							is_core_of = LBA
+							is_fully_controlled_by = PREV
+						}
+					}
+				}
+				random_other_country = {
+					limit = {
+						is_subject_of = ROOT
+						any_controlled_state = {
+							is_core_of = LBA
+							is_fully_controlled_by = PREV
+						}
+					}
+					random_controlled_state = {
+						limit = {
+							is_core_of = LBA
+							is_fully_controlled_by = ROOT
+						}
+						prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+						custom_effect_tooltip = ITA_novus_ordo_irregular_troops_tt
+						hidden_effect = {
+							create_unit = {
+								division = "division_template = \"Divisione Ascari Libica\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+								owner = ROOT
+								count = 5
+							}
+						}
+					}
+				}
+			}
+
 		}
 
 		ai_will_do = {
