@@ -226,6 +226,137 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = JAP_manchuria_operation
+		icon = GFX_goal_generic_military_sphere
+		cost = 5
+		prerequisite = {
+			focus = JAP_convene_tokyo_conference
+		}
+		prerequisite = {
+			focus = JAP_greater_east_asian_co_prosperity_sphere
+		}
+		available = {
+			always = no
+		}
+		bypass = {
+			OR = {
+				has_global_flag = jap_manchuria_occupied
+				has_war_with = BEY
+				has_war_with = CHI
+			}
+		}
+		x = -4
+		y = 1
+		relative_position_id = JAP_convene_tokyo_conference
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = JAP_line_of_life
+		icon = GFX_focus_jap_manchurian_project
+		cost = 10
+		prerequisite = {
+			focus = JAP_manchuria_operation
+		}
+		x = 0
+		y = 1
+		available = {
+			714 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			715 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			716 = {
+				CONTROLLER = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		relative_position_id = JAP_manchuria_operation
+		completion_reward = {
+			714 = {
+				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+				add_resource = {
+					type = oil
+					amount = 8
+				}
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+			}
+			715 = {
+				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_resource = {
+					type = oil
+					amount = 4
+				}
+				add_resource = {
+					type = steel
+					amount = 10
+				}
+				add_resource = {
+					type = aluminium
+					amount = 10
+				}
+			}
+			716 = {
+				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+				add_resource = {
+					type = aluminium
+					amount = 14
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 350
+			modifier = {
+				factor = 3
+				has_idea = idea_jap_nobu
+			}
+			modifier = {
+				factor = 2
+				has_idea = idea_jap_reformist
+			}
+		}
+	}
+	focus = {
 		id = JAP_pacific_guardian
 		icon = GFX_focus_JAP_Peace_On_the_Pacific
 		cost = 5
@@ -2690,6 +2821,48 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = JAP_support_the_red_swastika_focus
+		icon = GFX_focus_JAP_red_swastika
+		cost = 5
+		prerequisite = {
+			focus = JAP_negotiate_with_china
+		}
+		x = -1
+		y = 1
+		relative_position_id = JAP_negotiate_with_china
+		ai_will_do = {
+			factor = 25
+		}
+		available = {
+			is_in_faction = yes
+		}
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_tech_bonus = {
+				name = JAP_red_swastika
+				bonus = 1.5
+				ahead_reduction = 2
+				uses = 2
+				category = hospital_tech
+			}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = JAP
+				}
+				add_stability = 0.1
+				add_tech_bonus = {
+					name = JAP_red_swastika
+					bonus = 1.5
+					ahead_reduction = 2
+					uses = 2
+					category = hospital_tech
+				}
+			}
+		}
+	}
+	focus = {
 		id = JAP_expand_textile_industrial_routine
 		icon = GFX_goal_generic_positive_trade_relations
 		cost = 7
@@ -2875,48 +3048,7 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = JAP_support_the_red_swastika_focus
-		icon = GFX_focus_JAP_red_swastika
-		cost = 5
-		prerequisite = {
-			focus = JAP_negotiate_with_china
-		}
-		x = -1
-		y = 1
-		relative_position_id = JAP_negotiate_with_china
-		ai_will_do = {
-			factor = 25
-		}
-		available = {
-			is_in_faction = yes
-		}
-		bypass = {
-		}
-		completion_reward = {
-			add_stability = 0.1
-			add_tech_bonus = {
-				name = JAP_red_swastika
-				bonus = 1.5
-				ahead_reduction = 2
-				uses = 2
-				category = hospital_tech
-			}
-			every_other_country = {
-				limit = {
-					is_in_faction_with = JAP
-				}
-				add_stability = 0.1
-				add_tech_bonus = {
-					name = JAP_red_swastika
-					bonus = 1.5
-					ahead_reduction = 2
-					uses = 2
-					category = hospital_tech
-				}
-			}
-		}
-	}
+
 	focus = {
 		id = JAP_expand_manchurian_railways
 		icon = GFX_focus_JAP_SMR
@@ -7118,9 +7250,9 @@ focus_tree = {
 		id = JAP_chemistry_innovation
 		icon = GFX_goal_generic_construct_civilian
 		cost = 5
-		prerequisite = {
-			focus = JAP_chemistry_first
-		}
+		# prerequisite = {
+		# 	focus = JAP_chemistry_first
+		# }
 		prerequisite = {
 			focus = JAP_coal_liquification
 		}
@@ -7739,38 +7871,7 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = JAP_the_zero
-		icon = GFX_focus_jap_zero
-		#cost = 5
-		cost = 3
-		prerequisite = {
-			focus = JAP_first_air_fleet
-		}
-		prerequisite = {
-			focus = JAP_unified_fighter_development
-		}
-		x = 0
-		y = 2
-		relative_position_id = JAP_unified_fighter_development
-		available = {
-		}
-		bypass = {
 
-		}
-		completion_reward = {
-			add_ideas = {
-				JAP_prioritize_naval_aircraft_construction
-			}
-		}
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-	}
 	focus = {
 		id = JAP_bomber_modernization
 		icon = GFX_goal_generic_CAS
@@ -7866,6 +7967,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = JAP_jet_prototypes
 		icon = GFX_focus_JAP_tangu_jet
@@ -7908,9 +8010,10 @@ focus_tree = {
 		prerequisite = {
 			focus = JAP_new_naval_estimates
 		}
+		relative_position_id = JAP_new_naval_estimates
 
-		x = 64
-		y = 3
+		x = 1
+		y = 1
 		available = {
 		}
 		bypass = {
@@ -7971,40 +8074,7 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = JAP_expand_the_snlf
-		icon = GFX_goal_generic_amphibious_assault
-		cost = 5
-		prerequisite = {
-			focus = JAP_carrier_warfare_experiments
-			focus = JAP_supremacy_of_the_battlefleet
-		}
-		x = 0
-		y = 2
-		relative_position_id = JAP_new_naval_estimates
-		available = {
-		}
-		bypass = {
-		}
-		completion_reward = {
-			JAP_navy_focus_activated = yes
-			add_ideas = JAP_expand_the_snlf
-			add_tech_bonus = {
-				name = JAP_expand_the_snlf
-				bonus = 1
-				uses = 2
-				ahead_reduction = 1
-				category = marine_tech
-			}
-		}
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-	}
+
 	focus = {
 		id = JAP_first_air_fleet
 		icon = GFX_goal_generic_navy_carrier
@@ -8013,8 +8083,9 @@ focus_tree = {
 		prerequisite = {
 			focus = JAP_carrier_warfare_experiments
 		}
-		x = 64
-		y = 5
+		relative_position_id = JAP_carrier_warfare_experiments
+		x = 0
+		y = 2
 		available = {
 		}
 		bypass = {
@@ -8053,28 +8124,27 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = JAP_modern_escorts
-		icon = GFX_goal_generic_navy_anti_submarine
+		id = JAP_the_zero
+		icon = GFX_focus_jap_zero
 		#cost = 5
 		cost = 3
 		prerequisite = {
-			focus = JAP_the_ultimate_battleship
 			focus = JAP_first_air_fleet
+		}
+		prerequisite = {
+			focus = JAP_unified_fighter_development
 		}
 		x = 0
 		y = 2
-		relative_position_id = JAP_expand_the_snlf
+		relative_position_id = JAP_unified_fighter_development
 		available = {
 		}
 		bypass = {
+
 		}
 		completion_reward = {
-			JAP_navy_focus_activated = yes
-			add_tech_bonus = {
-				name = JAP_modern_escorts
-				bonus = 1
-				uses = 2
-				category = dd_tech
+			add_ideas = {
+				JAP_prioritize_naval_aircraft_construction
 			}
 		}
 		ai_will_do = {
@@ -8170,105 +8240,70 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
-		id = JAP_the_ultimate_battleship
-		icon = GFX_focus_JAP_goal_japanese_navy_2
-		#cost = 5
-		cost = 3
+		id = JAP_expand_the_snlf
+		icon = GFX_goal_generic_amphibious_assault
+		cost = 5
 		prerequisite = {
-			focus = JAP_Sasebo_Dockyard
-		}
-		prerequisite = {
+			focus = JAP_carrier_warfare_experiments
 			focus = JAP_supremacy_of_the_battlefleet
 		}
-		x = 2
-		y = 1
-		relative_position_id = JAP_Sasebo_Dockyard
+		x = 0
+		y = 2
+		relative_position_id = JAP_new_naval_estimates
 		available = {
 		}
 		bypass = {
 		}
 		completion_reward = {
 			JAP_navy_focus_activated = yes
-
-			create_navy_leader = {
-				name = "Yamato"  # 大和
-				picture = "Portrait_Yamato.png"
-				traits = { old_guard_navy gentlemanly naval_lineage battleship_adherent navy_media_personality superior_tactician ironside }
-				skill = 6
-				id = 8119
-				attack_skill = 6
-				defense_skill = 5
-				maneuvering_skill = 4
-				coordination_skill = 4
+			add_ideas = JAP_expand_the_snlf
+			add_tech_bonus = {
+				name = JAP_expand_the_snlf
+				bonus = 1
+				uses = 2
+				ahead_reduction = 1
+				category = marine_tech
 			}
-
-			if = {
-				limit = {
-					NOT = { has_tech = ship_hull_super_heavy }
-				}
-				hidden_effect = {
-					set_technology = {
-						ship_hull_super_heavy = 1
-					}
-				}
-			}
-
-			create_equipment_variant = { 
-				name = "Yamato Class"
-				type = ship_hull_super_heavy_1
-				name_group = JAP_BB_HISTORICAL
-				parent_version = 0
-				modules = {
-					fixed_ship_battery_slot = ship_super_heavy_battery_1
-					fixed_ship_anti_air_slot = ship_anti_air_2
-					fixed_ship_fire_control_system_slot = ship_fire_control_system_2
-					fixed_ship_radar_slot = ship_radar_1
-					fixed_ship_engine_slot = heavy_ship_engine_2
-					fixed_ship_secondaries_slot = ship_secondaries_2
-					fixed_ship_armor_slot = ship_armor_shbb
-					front_1_custom_slot = ship_super_heavy_battery_1
-					front_2_custom_slot = ship_secondaries_2
-					mid_1_custom_slot = ship_secondaries_2
-					mid_2_custom_slot = ship_secondaries_2
-					mid_3_custom_slot = ship_secondaries_2
-					rear_1_custom_slot = ship_anti_air_2
-					rear_2_custom_slot = ship_airplane_launcher_1
-				}
-			}
-
-			add_equipment_production = {
-				equipment = {
-					type = ship_hull_super_heavy_1
-					creator = "JAP"
-					version_name = "Yamato Class"
-				}
-				requested_factories = 1
-				progress = 0.50
-				amount = 1
-			}
-			add_equipment_production = {
-				equipment = {
-					type = ship_hull_super_heavy_1
-					creator = "JAP"
-					version_name = "Yamato Class"
-				}
-				requested_factories = 1
-				progress = 0.25
-				amount = 1
-			}
-
 		}
 		ai_will_do = {
 			factor = 5
 			modifier = {
-				OR = {
-					has_war_with = ENG
-					has_war_with = FRA
-					has_war_with = USA
-				}
-				factor = 20
+				factor = 3
+				has_war = yes
 			}
+		}
+	}
+
+
+	focus = {
+		id = JAP_modern_escorts
+		icon = GFX_goal_generic_navy_anti_submarine
+		#cost = 5
+		cost = 3
+		prerequisite = {
+			focus = JAP_the_ultimate_battleship
+			focus = JAP_first_air_fleet
+		}
+		x = -1
+		y = 1
+		relative_position_id = JAP_first_air_fleet
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			JAP_navy_focus_activated = yes
+			add_tech_bonus = {
+				name = JAP_modern_escorts
+				bonus = 1
+				uses = 2
+				category = dd_tech
+			}
+		}
+		ai_will_do = {
+			factor = 5
 			modifier = {
 				factor = 3
 				has_war = yes
@@ -9551,137 +9586,8 @@ focus_tree = {
 			factor = 100
 		}
 	}
-	focus = {
-		id = JAP_line_of_life
-		icon = GFX_focus_jap_manchurian_project
-		cost = 10
-		prerequisite = {
-			focus = JAP_manchuria_operation
-		}
-		x = 0
-		y = 1
-		available = {
-			714 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			715 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			716 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-		}
-		relative_position_id = JAP_manchuria_operation
-		completion_reward = {
-			714 = {
-				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-				add_resource = {
-					type = oil
-					amount = 8
-				}
-				add_resource = {
-					type = steel
-					amount = 8
-				}
-			}
-			715 = {
-				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				add_resource = {
-					type = oil
-					amount = 4
-				}
-				add_resource = {
-					type = steel
-					amount = 10
-				}
-				add_resource = {
-					type = aluminium
-					amount = 10
-				}
-			}
-			716 = {
-				add_dynamic_modifier = { modifier = industrial_area_Lv1 }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				add_resource = {
-					type = steel
-					amount = 8
-				}
-				add_resource = {
-					type = aluminium
-					amount = 14
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 350
-			modifier = {
-				factor = 3
-				has_idea = idea_jap_nobu
-			}
-			modifier = {
-				factor = 2
-				has_idea = idea_jap_reformist
-			}
-		}
-	}
-	focus = {
-		id = JAP_manchuria_operation
-		icon = GFX_goal_generic_military_sphere
-		cost = 5
-		prerequisite = {
-			focus = JAP_convene_tokyo_conference
-		}
-		prerequisite = {
-			focus = JAP_greater_east_asian_co_prosperity_sphere
-		}
-		available = {
-			always = no
-		}
-		bypass = {
-			OR = {
-				has_global_flag = jap_manchuria_occupied
-				has_war_with = BEY
-				has_war_with = CHI
-			}
-		}
-		x = -4
-		y = 1
-		relative_position_id = JAP_convene_tokyo_conference
-		completion_reward = {
-		}
-	}
+
+
 	focus = {
 		id = JAP_support_our_friends
 		icon = GFX_focus_generic_self_management
@@ -10821,6 +10727,112 @@ focus_tree = {
 					has_war_with = USA
 				}
 				factor = 20
+			}
+		}
+	}
+
+	focus = {
+		id = JAP_the_ultimate_battleship
+		icon = GFX_focus_JAP_goal_japanese_navy_2
+		#cost = 5
+		cost = 3
+		prerequisite = {
+			focus = JAP_Sasebo_Dockyard
+		}
+		prerequisite = {
+			focus = JAP_supremacy_of_the_battlefleet
+		}
+		x = 0
+		y = 2
+		relative_position_id = JAP_supremacy_of_the_battlefleet
+		available = {
+		}
+		bypass = {
+		}
+		completion_reward = {
+			JAP_navy_focus_activated = yes
+
+			create_navy_leader = {
+				name = "Yamato"  # 大和
+				picture = "Portrait_Yamato.png"
+				traits = { old_guard_navy gentlemanly naval_lineage battleship_adherent navy_media_personality superior_tactician ironside }
+				skill = 6
+				id = 8119
+				attack_skill = 6
+				defense_skill = 5
+				maneuvering_skill = 4
+				coordination_skill = 4
+			}
+
+			if = {
+				limit = {
+					NOT = { has_tech = ship_hull_super_heavy }
+				}
+				hidden_effect = {
+					set_technology = {
+						ship_hull_super_heavy = 1
+					}
+				}
+			}
+
+			create_equipment_variant = { 
+				name = "Yamato Class"
+				type = ship_hull_super_heavy_1
+				name_group = JAP_BB_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_super_heavy_battery_1
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+					fixed_ship_radar_slot = ship_radar_1
+					fixed_ship_engine_slot = heavy_ship_engine_2
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_shbb
+					front_1_custom_slot = ship_super_heavy_battery_1
+					front_2_custom_slot = ship_secondaries_2
+					mid_1_custom_slot = ship_secondaries_2
+					mid_2_custom_slot = ship_secondaries_2
+					mid_3_custom_slot = ship_secondaries_2
+					rear_1_custom_slot = ship_anti_air_2
+					rear_2_custom_slot = ship_airplane_launcher_1
+				}
+			}
+
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_super_heavy_1
+					creator = "JAP"
+					version_name = "Yamato Class"
+				}
+				requested_factories = 1
+				progress = 0.50
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_super_heavy_1
+					creator = "JAP"
+					version_name = "Yamato Class"
+				}
+				requested_factories = 1
+				progress = 0.25
+				amount = 1
+			}
+
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				OR = {
+					has_war_with = ENG
+					has_war_with = FRA
+					has_war_with = USA
+				}
+				factor = 20
+			}
+			modifier = {
+				factor = 3
+				has_war = yes
 			}
 		}
 	}
