@@ -3636,11 +3636,41 @@ focus_tree = {
 		relative_position_id = POL_baltic_security
 		ai_will_do = {
 			factor = 10
+			modifier = {
+				factor = 10
+				FRA = {
+					is_faction_leader = no
+					is_in_faction = yes
+				}
+			}
+		}
+		available = {
+			ENG = {
+				NOT = {
+					has_war_with = ROOT
+				}
+				OR = {
+					has_government = democratic
+					has_government = neutrality
+				}
+			}
+			NOT = {
+				any_other_country = {
+					is_in_faction_with = ENG
+					has_war_with = POL
+				}
+			}
+			is_in_faction = no
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
+
+			ENG = {
+				country_event = generic.2
+			}
+
 			add_opinion_modifier = {
 				target = ENG
 				modifier = POL_draw_closer_to_britain
@@ -3807,13 +3837,19 @@ focus_tree = {
 				}
 				OR = {
 					has_government = democratic
-					has_government = communism
+					has_government = neutrality
 				}
 			}
 			NOT = {
 				any_other_country = {
 					is_in_faction_with = FRA
 					has_war_with = POL
+				}
+			}
+			NOT = {
+				FRA = {
+					is_faction_leader = no
+					is_in_faction = yes
 				}
 			}
 			is_in_faction = no
