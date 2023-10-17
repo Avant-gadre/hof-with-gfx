@@ -1,5 +1,4 @@
 name="Hearts of Fate tarn working"
-replace_path="common/ai_strategy"
 version="0.1"
 tags={
 	"Alternative History"
