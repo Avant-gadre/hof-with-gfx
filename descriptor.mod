@@ -18,8 +18,8 @@ replace_path="common/ai_strategy_plans"
 ##replace_path="common/country_leader"
 ##replace_path="common/country_tag_aliases"
 ##replace_path="common/country_tags"
-##replace_path="common/decisions"
-##replace_path="common/decisions/categories"
+replace_path="common/decisions"
+replace_path="common/decisions/categories"
 ##replace_path="common/difficulty_settings"
 ##replace_path="common/dynamic_modifiers"
 ##replace_path="common/game_rules"
@@ -43,7 +43,6 @@ replace_path="common/ai_strategy_plans"
 ##replace_path="common/scripted_guis"
 
 replace_path="common/scripted_localisation"
-
 ##replace_path="common/scripted_triggers"
 
 ##replace_path="common/state_category"
@@ -63,7 +62,7 @@ replace_path="gfx/loadingscreens"
 ##replace_path="history/countries"
 ##replace_path="history/general"
 
-replace_path="history/states"
+##replace_path="history/states"
 
 ##replace_path="history/units"
 
@@ -75,7 +74,6 @@ tags={
 	"National Focuses"
 }
 dependencies={
-	# "Hearts of Fate: dev"
 }
 supported_version="1.12.*"
 # remote_file_id="1533199946"
