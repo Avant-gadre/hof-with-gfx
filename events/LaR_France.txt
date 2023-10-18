@@ -322,39 +322,6 @@ country_event = {
 	}
 }
 
-# political violence returns at low stability
-country_event = {
-	id = lar_france_political_violence.4
-	title = lar_france_political_violence.4.t
-	desc = lar_france_political_violence.4.desc
-	picture = GFX_report_event_generic_rally2
-	mean_time_to_happen = { days = 50 }
-
-	trigger = {
-		original_tag = FRA
-		NOT = {
-			has_completed_focus = FRA_ban_communism
-			has_completed_focus = FRA_ban_the_leagues
-		}
-		not = { has_idea = FRA_political_violence }
-    always = no
-		has_stability < 0.5
-	}
-
-	immediate = {
-		hidden_effect = {
-			add_ideas = FRA_political_violence
-		}
-	}
-
-	option = {
-		name = lar_france_political_violence.4.a #ignore
-		effect_tooltip = {
-			add_ideas = FRA_political_violence
-		}
-	}
-}
-
 ### ###  ### #  #  ##  #  #     #  # #  # ###  ##  #  # 
 #   #  # #   ## # #  # #  #     #  # ## #  #  #  # ## # 
 ##  ###  ##  # ## #    ####     #  # # ##  #  #  # # ## 
@@ -2778,77 +2745,6 @@ country_event = {
 #   #  # #  # #  # #  # #  #      # #  #  # #   #  #    #       #  #  # #   #  #  #    #   
 #   #  # #  # #  #  ##   ##     ##   ##    #   ### ###  #       #  #  # ### #  #  #    #   
 
-add_namespace = lar_franco_soviet_treaty
-
-#initial event - France offers treaty
-country_event = {
-	id = lar_franco_soviet_treaty.1
-	title = lar_franco_soviet_treaty.1.t
-	desc = lar_franco_soviet_treaty.1.desc
-	picture = GFX_report_event_stalin_02
-	is_triggered_only = yes
-	option = {
-		name = lar_franco_soviet_treaty.1.a #agree
-		ai_chance = {
-			factor = 40
-		}
-		FRA = {
-			country_event = lar_franco_soviet_treaty.2
-		}
-		effect_tooltip = {
-			FRA = {
-				give_guarantee = SOV
-			}
-			give_guarantee = FRA
-		}
-	}
-
-	option = {
-		name = lar_franco_soviet_treaty.1.b #refuse
-		ai_chance = {
-			factor = 60
-			modifier = {
-				FRA = { has_completed_focus = FRA_form_the_popular_front }
-				factor = 0.2
-			}
-		}
-		FRA = {
-			country_event = lar_franco_soviet_treaty.3
-		}
-	}
-}
-
-# rasponse event for France - country agrees
-country_event = {
-	id = lar_franco_soviet_treaty.2
-	title = lar_franco_soviet_treaty.2.t
-	desc = lar_franco_soviet_treaty.2.desc
-	picture = GFX_report_event_generic_sign_treaty2
-	is_triggered_only = yes
-	option = {
-		name = lar_franco_soviet_treaty.2.a #agree
-		ai_chance = {
-			factor = 100
-		}
-		give_guarantee = FROM
-		FROM = { give_guarantee = ROOT }
-	}
-}
-#response event for France - soviets refuse
-country_event = {
-	id = lar_franco_soviet_treaty.3
-	title = lar_franco_soviet_treaty.3.t
-	desc = lar_franco_soviet_treaty.3.desc
-	picture = GFX_report_event_stalin_meeting
-	is_triggered_only = yes
-	option = {
-		name = lar_franco_soviet_treaty.3.a #agree
-		ai_chance = {
-			factor = 80
-		}
-	}
-}
-
 ### #  # ###      ### #  # ###      ##   ##   ##  #  # ###   ##  ### ###  ##  #  # 
 #   ## # #  #      #  #  # #       #  # #  # #  # #  # #  # #  #  #   #  #  # ## # 
 ##  # ## #  #      #  #### ##      #  # #    #    #  # ###  ####  #   #  #  # # ## 
@@ -2926,11 +2822,6 @@ country_event = {
 			FROM = { add_to_faction = ROOT }
 		}
 		load_focus_tree = french_focus
-		unlock_national_focus = FRA_revive_the_national_bloc
-		unlock_national_focus = FRA_utilize_the_leagues
-		unlock_national_focus = FRA_national_regeneration
-		unlock_national_focus = FRA_diplomatic_freedom
-		unlock_national_focus = FRA_towards_a_new_europe
 	}
 }
 
@@ -2963,11 +2854,6 @@ country_event = {
 			factor = 50
 		}
 		load_focus_tree = french_focus
-		unlock_national_focus = FRA_revive_the_national_bloc
-		unlock_national_focus = FRA_utilize_the_leagues
-		unlock_national_focus = FRA_national_regeneration
-		unlock_national_focus = FRA_diplomatic_freedom
-		unlock_national_focus = FRA_latin_entente
 	}
 }
 
@@ -3020,13 +2906,9 @@ country_event = {
 		FROM = {
 			annex_country = { target = ROOT transfer_troops = yes }
 			load_focus_tree = french_focus
-			unlock_national_focus = FRA_revive_the_national_bloc
 			unlock_national_focus = FRA_laissez_faire
-			unlock_national_focus = FRA_protect_the_rights_of_man
-			unlock_national_focus = FRA_review_foreign_policy
 		}
-	}
-	
+	}	
 }
 
 # Free France refuses, Vichy goes at it alone after all
@@ -3044,11 +2926,6 @@ country_event = {
 			factor = 80
 		}
 		load_focus_tree = french_focus
-		unlock_national_focus = FRA_revive_the_national_bloc
-		unlock_national_focus = FRA_utilize_the_leagues
-		unlock_national_focus = FRA_national_regeneration
-		unlock_national_focus = FRA_diplomatic_freedom
-		unlock_national_focus = FRA_latin_entente
 	}
 }
 
@@ -3079,7 +2956,6 @@ country_event = {
 			}
 		}
 		has_stability < 0.25
-    has_completed_focus = FRA_form_the_popular_front
 	}
 	mean_time_to_happen = { days = 180 }
 	fire_only_once = yes
@@ -3114,7 +2990,6 @@ country_event = {
 			}
 		}
 		has_stability < 0.25
-		has_completed_focus = FRA_form_the_popular_front
 	}
 	mean_time_to_happen = { days = 180 }
 	fire_only_once = yes
