@@ -6,7 +6,7 @@ name="Hearts of Fate tarn working"
 ##replace_path="common/ai_focuses"
 ##replace_path="common/ai_strategy"
 
-replace_path="common/ai_strategy_plans"
+##replace_path="common/ai_strategy_plans"
 
 ##replace_path="common/ai_templates"
 ##replace_path="common/autonomous_states"
@@ -18,8 +18,8 @@ replace_path="common/ai_strategy_plans"
 ##replace_path="common/country_leader"
 ##replace_path="common/country_tag_aliases"
 ##replace_path="common/country_tags"
-replace_path="common/decisions"
-replace_path="common/decisions/categories"
+##replace_path="common/decisions"
+##replace_path="common/decisions/categories"
 ##replace_path="common/difficulty_settings"
 ##replace_path="common/dynamic_modifiers"
 ##replace_path="common/game_rules"
@@ -55,8 +55,8 @@ replace_path="common/scripted_localisation"
 ##replace_path="common/units/names_railway_guns"
 ##replace_path="common/units/names_ships"
 
-replace_path="events"
-replace_path="gfx/loadingscreens"
+#replace_path="events"
+#replace_path="gfx/loadingscreens"
 
 ##replace_path="gfx/flags"
 ##replace_path="history/countries"
@@ -76,4 +76,3 @@ tags={
 dependencies={
 }
 supported_version="1.12.*"
-# remote_file_id="1533199946"
