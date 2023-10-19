@@ -1,1170 +1,18 @@
-											  
 focus_tree = {
 	id = netherlands_focus
-	
 	country = {
 		factor = 0
-		
 		modifier = {
 			add = 10
 			tag = HOL
 			has_dlc = "Man the Guns"
 		}
 	}
-	
 	default = no
-
-	continuous_focus_position = { x = 50 y = 1500 }
-
- ##   ##  #    ##  #  # ###  ##  #       ### #  # ###  #  #  ## ### ###  #   #     ### ###  ### ### 
-#  # #  # #   #  # ## #  #  #  # #        #  ## # #  # #  # #    #  #  #  # #       #  #  # #   #   
-#    #  # #   #  # # ##  #  #### #        #  # ## #  # #  #  #   #  ###    #        #  ###  ##  ##  
-#  # #  # #   #  # #  #  #  #  # #        #  #  # #  # #  #   #  #  #  #   #        #  #  # #   #   
- ##   ##  ###  ##  #  # ### #  # ###     ### #  # ###   ##  ##   #  #  #   #        #  #  # ### ### 
-
-
-	focus = {
-		id = HOL_obtain_foreign_colonial_investments
-		available = {
-			NOT = { has_war_with = USA }
-			NOT = { has_war_with = ENG }
-			any_country = {
-				OR = {
-					original_tag = HOL
-					is_subject_of = HOL
-				}
-				has_full_control_of_state = 335
-				has_full_control_of_state = 672
-				has_full_control_of_state = 334
-			}
-			has_full_control_of_state = 695
-			has_full_control_of_state = 309
-		}
-		bypass = {
-		}
-		
-		icon = GFX_goal_generic_consumer_goods
-		x = 3
-		y = 0
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			unlock_decision_category_tooltip = HOL_obtain_foreign_colonial_investments
-			custom_effect_tooltip = HOL_obtain_foreign_colonial_investments_tt
-		}
+	continuous_focus_position = {
+		x = 1000
+		y = 1500
 	}
-
-#   # ###  ## ###     ### #  # ###  ### ###  ## 
-#   # #   #    #       #  ## # #  #  #  #   #   
-# # # ##   #   #       #  # ## #  #  #  ##   #  
-# # # #     #  #       #  #  # #  #  #  #     # 
- # #  ### ##   #      ### #  # ###  ### ### ##  
-
-
-	focus = {
-		id = HOL_the_western_possessions
-		available = {
-			has_full_control_of_state = 695
-			has_full_control_of_state = 309
-		}
-		prerequisite = { focus = HOL_obtain_foreign_colonial_investments }
-		icon = GFX_goal_generic_construct_infrastructure
-		x = -3
-		y = 1
-		relative_position_id = HOL_obtain_foreign_colonial_investments
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			695 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			309 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_expand_curacao_oil_refineries
-		available = {
-			has_full_control_of_state = 695
-			OR = {
-				threat > 0.2
-				has_war = yes
-			}
-			OR = {
-				GER = {
-					is_in_faction_with = ROOT
-				}
-				AND = {
-					USA = {
-						NOT = { has_war_with = ROOT }
-					}
-					ENG = {
-						NOT = { has_war_with = ROOT }
-					}
-				}
-			}
-			OR = {
-				has_idea = free_trade
-				has_idea = export_focus
-			}
-		}
-		prerequisite = { focus = HOL_the_western_possessions }
-		icon = GFX_goal_generic_oil_refinery
-		x = 0
-		y = 1
-		relative_position_id = HOL_the_western_possessions
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			custom_effect_tooltip = HOL_expand_curacao_oil_refineries_tt
-			695 = {
-				add_resource = {
-					type = oil
-					amount = 24
-				}
-				if = {
-					limit = {
-						695 = {
-							free_building_slots = {
-								building = industrial_complex
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = synthetic_refinery
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			add_tech_bonus = {
-				name = HOL_expand_curacao_oil_refineries
-				bonus = 1.0
-				uses = 1
-				category = synth_resources
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_open_second_paranam_bauxite_mine
-		available = {
-			has_full_control_of_state = 309
-			OR = {
-				has_war = yes
-				GER = {
-					is_in_faction_with = ROOT
-				}
-				AND = {
-					USA = {
-						has_war = yes
-						NOT = { has_war_with = ROOT }
-					}
-					ENG = {
-						has_war = yes
-						NOT = { has_war_with = ROOT }
-					}
-				}
-			}
-			OR = {
-				has_idea = free_trade
-				has_idea = export_focus
-			}
-		}
-		prerequisite = { focus = HOL_expand_curacao_oil_refineries }
-		icon = GFX_focus_generic_aluminum
-		x = 0
-		y = 1
-		relative_position_id = HOL_expand_curacao_oil_refineries
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			309 = {
-				add_resource = {
-					type = aluminium
-					amount = 36
-				}
-				if = {
-					limit = {
-						309 = {
-							free_building_slots = {
-								building = industrial_complex
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_antilles_defenses
-		available = {
-			has_full_control_of_state = 695
-		}
-		prerequisite = { focus = HOL_expand_curacao_oil_refineries }
-		icon = GFX_goal_generic_construct_military
-		x = 2
-		y = 2
-		relative_position_id = HOL_expand_curacao_oil_refineries
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			695 = {
-				add_building_construction = {
-					type = coastal_bunker
-					level = 3
-					province = 153
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = anti_air_building
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = naval_base
-					level = 2
-					province = 153
-					instant_build = yes
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_pre_empt_venezuelan_aggression
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = HOL_pre_empt_venezuelan_aggression_tt
-				NOT = {
-					OR = {
-						has_idea = HOL_shell_shocked_spectator_1
-						has_idea = HOL_shell_shocked_spectator_2
-						has_idea = HOL_shell_shocked_spectator_3
-						has_idea = HOL_shell_shocked_spectator_4
-						has_idea = HOL_shell_shocked_spectator_5
-					}
-				}
-			}
-			NOT = { has_idea = HOL_aloof_neutrality }
-			has_global_flag = ven_claims_abc_islands
-		}
-		prerequisite = { focus = HOL_antilles_defenses }
-		will_lead_to_war_with = VEN
-		icon = GFX_goal_demand_sudetenland
-		x = -1
-		y = 1
-		relative_position_id = HOL_antilles_defenses
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			create_wargoal = {
-			    type = puppet_wargoal_focus
-			    target = VEN
-			    expire = 0
-			}
-		}
-	}
-
-###  ##   ## ###     ### #  # ###  ### ###  ## 
-#   #  # #    #       #  ## # #  #  #  #   #   
-##  ####  #   #       #  # ## #  #  #  ##   #  
-#   #  #   #  #       #  #  # #  #  #  #     # 
-### #  # ##   #      ### #  # ###  ### ### ##  
-
-	focus = {
-		id = HOL_the_crown_jewel_colony
-		available = {
-			OR = {
-				AND = {
-					has_full_control_of_state = 335
-					has_full_control_of_state = 672
-				}
-				any_other_country = {
-					is_subject_of = HOL
-					has_full_control_of_state = 335
-					has_full_control_of_state = 672
-				}
-			}
-		}
-		prerequisite = { focus = HOL_obtain_foreign_colonial_investments }
-		icon = GFX_goal_generic_construct_infrastructure
-		x = 3
-		y = 1
-		relative_position_id = HOL_obtain_foreign_colonial_investments
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			335 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			672 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					INS = {
-						is_subject_of = HOL
-						has_full_control_of_state = 335
-						has_full_control_of_state = 672
-					}
-				}
-				INS = {
-					add_autonomy_ratio = {
-						value = -0.025
-						localization = HOL_the_crown_jewel_colony
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_java
-		available = {
-			OR = {
-				has_full_control_of_state = 335
-				any_other_country = {
-					is_subject_of = HOL
-					has_full_control_of_state = 335
-				}
-			}
-		}
-		prerequisite = { focus = HOL_the_crown_jewel_colony }
-		icon = GFX_focus_generic_industry_2
-		x = 0
-		y = 1
-		relative_position_id = HOL_the_crown_jewel_colony
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			335 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				if = {
-					limit = {
-						335 = {
-							free_building_slots = {
-								building = industrial_complex
-								size > 1
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					INS = {
-						is_subject_of = HOL
-						has_full_control_of_state = 335
-					}
-				}
-				INS = {
-					add_autonomy_ratio = {
-						value = -0.05
-						localization = HOL_java
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_reinforce_java
-		available = {
-			OR = {
-				has_full_control_of_state = 335
-				any_other_country = {
-					is_subject_of = HOL
-					has_full_control_of_state = 335
-				}
-			}
-		}
-		prerequisite = { focus = HOL_java }
-		icon = GFX_goal_generic_construct_military
-		x = -2
-		y = 2
-		relative_position_id = HOL_java
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			335 = {
-				add_building_construction = {
-					type = coastal_bunker
-					level = 3
-					province = 7381
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					level = 2
-					province = 7381
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = coastal_bunker
-					level = 3
-					province = 4608
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					level = 2
-					province = 4608
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = anti_air_building
-					level = 2
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					INS = {
-						is_subject_of = HOL
-						has_full_control_of_state = 335
-					}
-				}
-				INS = {
-					add_autonomy_ratio = {
-						value = -0.025
-						localization = HOL_reinforce_java
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_the_foundations_of_defense
-		available = {
-			OR = {
-				has_full_control_of_state = 335
-				any_other_country = {
-					is_subject_of = HOL
-					has_full_control_of_state = 335
-				}
-			}
-			has_full_control_of_state = 695
-			custom_trigger_tooltip = {
-				tooltip = HOL_pre_empt_venezuelan_aggression_tt
-				NOT = {
-					OR = {
-						has_idea = HOL_shell_shocked_spectator_1
-						has_idea = HOL_shell_shocked_spectator_2
-						has_idea = HOL_shell_shocked_spectator_3
-						has_idea = HOL_shell_shocked_spectator_4
-						has_idea = HOL_shell_shocked_spectator_5
-					}
-				}
-			}
-		}
-		prerequisite = { focus = HOL_antilles_defenses focus = HOL_reinforce_java }
-		icon = GFX_focus_hol_the_foundations_of_defense
-		x = -1
-		y = 1
-		relative_position_id = HOL_reinforce_java
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_ideas = HOL_the_foundations_of_defense
-			335 = {
-				custom_effect_tooltip = HOL_the_foundations_of_defense_tt
-				hidden_effect = {
-					add_building_construction = {
-						type = naval_base
-						level = 10
-						province = 4608
-						instant_build = yes
-					}
-				}
-			}
-			695 = {
-				add_building_construction = {
-					type = naval_base
-					level = 2
-					province = 153
-					instant_build = yes
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_sumatra
-		available = {
-			OR = {
-				has_full_control_of_state = 672
-				any_other_country = {
-					is_subject_of = HOL
-					has_full_control_of_state = 672
-				}
-			}
-		}
-		prerequisite = { focus = HOL_java }
-		icon = GFX_focus_generic_industry_2
-		x = -1
-		y = 1
-		relative_position_id = HOL_java
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			672 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				if = {
-					limit = {
-						672 = {
-							free_building_slots = {
-								building = industrial_complex
-								size > 1
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					INS = {
-						is_subject_of = HOL
-						has_full_control_of_state = 672
-					}
-				}
-				INS = {
-					add_autonomy_ratio = {
-						value = -0.05
-						localization = HOL_sumatra
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_borneo_and_the_grote_oost
-		available = {
-			OR = {
-				AND = {
-					has_full_control_of_state = 667
-					has_full_control_of_state = 334
-					has_full_control_of_state = 668
-					has_full_control_of_state = 673
-				}
-				any_other_country = {
-					is_subject_of = HOL
-					has_full_control_of_state = 667
-					has_full_control_of_state = 334
-					has_full_control_of_state = 668
-					has_full_control_of_state = 673
-				}
-			}
-		}
-		prerequisite = { focus = HOL_java }
-		icon = GFX_focus_generic_industry_1
-		x = 1
-		y = 1
-		relative_position_id = HOL_java
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			667 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			334 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			668 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			673 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				if = {
-					limit = {
-						673 = {
-							free_building_slots = {
-								building = industrial_complex
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					INS = {
-						is_subject_of = HOL
-						has_full_control_of_state = 667
-						has_full_control_of_state = 334
-						has_full_control_of_state = 668
-						has_full_control_of_state = 673
-					}
-				}
-				INS = {
-					add_autonomy_ratio = {
-						value = -0.05
-						localization = HOL_borneo_and_the_grote_oost
-					}
-				}
-			}
-		}
-	}
-
- ##   ##  #  # ### ### #  # #  # ###     ### #  # ###     #   #  ##  ###      ### #  #     ###   ##  ###  ##  #   # ###  ##  
-#  # #  # ## #  #   #  ## # #  # #        #  #  # #       #   # #  # #  #      #  ## #     #  # #  #  #  #  # #   #  #  #  # 
-#    #  # # ##  #   #  # ## #  # ##       #  #### ##      # # # #### ###       #  # ##     ###  ####  #  ####  # #   #  #### 
-#  # #  # #  #  #   #  #  # #  # #        #  #  # #       # # # #  # #  #      #  #  #     #  # #  #  #  #  #  # #   #  #  # 
- ##   ##  #  #  #  ### #  #  ##  ###      #  #  # ###      # #  #  # #  #     ### #  #     ###  #  #  #  #  #   #   ### #  # 
-
- 	focus = {
-		id = HOL_curtail_colonial_autonomy
-		available = {
-			country_exists = INS
-			NOT = { has_completed_focus = HOL_oranje_boven }
-			INS = { is_subject_of = HOL }
-		}
-		bypass = {
-			INS = { exists = no }
-			owns_state = 335
-		}
-		prerequisite = { focus = HOL_the_crown_jewel_colony }
-		mutually_exclusive = { focus = HOL_the_zuiderzee_works }
-		icon = GFX_focus_generic_treaty
-		x = 2
-		y = 3
-		relative_position_id = HOL_the_crown_jewel_colony
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_timed_idea = {
-				idea = HOL_curtail_colonial_autonomy_overlord
-				days = 545
-			}
-			INS = {
-				add_timed_idea = {
-					idea = HOL_curtail_colonial_autonomy_subject
-					days = 545
-				}
-				hidden_effect = {
-					country_event = { id = mtg_netherlands.21 hours = 6 }
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_continue_the_war_in_batavia
-		prerequisite = { focus = HOL_sumatra }
-		prerequisite = { focus = HOL_borneo_and_the_grote_oost }
-		prerequisite = { focus = HOL_curtail_colonial_autonomy }
-		available = {
-			has_capitulated = yes
-			NOT = { has_completed_focus = HOL_oranje_boven }
-			OR = {
-				INS = {
-					is_subject_of = HOL
-					has_autonomy_state = autonomy_integrated_puppet
-					compare_autonomy_progress_ratio < 0.6
-					has_full_control_of_state = 335
-				}
-				has_full_control_of_state = 335
-			}
-		}
-		icon = GFX_focus_hol_continue_the_war_in_batavia
-		x = 1
-		y = 2
-		relative_position_id = HOL_sumatra
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			activate_decision = HOL_relocate_government_to_batavia
-			custom_effect_tooltip = HOL_continue_the_war_in_batavia_tt
-			effect_tooltip = {
-				remove_ideas = HOL_curtail_colonial_autonomy_overlord
-				INS = {
-					every_unit_leader = {
-						set_nationality = HOL
-					}
-				}
-				annex_country = {
-				    target = INS
-				    transfer_troops = yes
-				}
-				every_state = {
-					limit = {
-						is_core_of = INS
-					}
-					add_compliance = 70
-			    }
-				set_capital = { state = 335 }
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_a_western_capital
-		available = {
-			has_full_control_of_state = 335
-		}
-		prerequisite = { focus = HOL_continue_the_war_in_batavia }
-		icon = GFX_focus_generic_industry_3
-		x = -1
-		y = 1
-		relative_position_id = HOL_continue_the_war_in_batavia
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			335 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-				if = {
-					limit = {
-						335 = {
-							free_building_slots = {
-								building = industrial_complex
-								size > 3
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 4
-					add_building_construction = {
-						type = industrial_complex
-						level = 4
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_expand_the_colonial_army
-		prerequisite = { focus = HOL_continue_the_war_in_batavia }
-		icon = GFX_focus_generic_military_academy
-		x = 1
-		y = 1
-		relative_position_id = HOL_continue_the_war_in_batavia
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_ideas = HOL_expand_the_colonial_army
-			every_state = {
-				limit = {
-					is_core_of = INS
-				}
-				add_state_modifier = {
-					modifier = {
-						local_non_core_manpower = 0.25
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_colonial_shipbuilding
-		available = {
-			controls_state = 335
-			controls_state = 672
-			controls_state = 334
-			controls_state = 673
-			controls_state = 667
-			controls_state = 309
-		}
-		prerequisite = { focus = HOL_a_western_capital }
-		prerequisite = { focus = HOL_the_foundations_of_defense }
-		icon = GFX_goal_generic_construct_naval_dockyard
-		x = -1
-		y = 1
-		relative_position_id = HOL_a_western_capital
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			335 = {
-				if = {
-					limit = {
-						335 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-			672 = {
-				if = {
-					limit = {
-						672 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-			334 = {
-				if = {
-					limit = {
-						334 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-			673 = {
-				if = {
-					limit = {
-						673 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-			667 = {
-				if = {
-					limit = {
-						667 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-			309 = {
-				if = {
-					limit = {
-						309 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_the_east_indies_war_machine
-		available = {
-			has_full_control_of_state = 335
-		}
-		prerequisite = { focus = HOL_a_western_capital }
-		prerequisite = { focus = HOL_expand_the_colonial_army }
-		icon = GFX_goal_generic_construct_mil_factory
-		x = 1
-		y = 1
-		relative_position_id = HOL_a_western_capital
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			335 = {
-				if = {
-					limit = {
-						335 = {
-							free_building_slots = {
-								building = arms_factory
-								size > 3
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 4
-					add_building_construction = {
-						type = arms_factory
-						level = 4
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_prepare_for_our_return
-		available = {
-		}
-		bypass = {
-			controls_state = 7
-			controls_state = 35
-			controls_state = 36
-		}
-		prerequisite = { focus = HOL_colonial_shipbuilding }
-		prerequisite = { focus = HOL_the_east_indies_war_machine }
-		icon = GFX_goal_generic_amphibious_assault
-		x = 1
-		y = 1
-		relative_position_id = HOL_colonial_shipbuilding
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			335 = {
-				if = {
-					limit = {
-						335 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-			672 = {
-				if = {
-					limit = {
-						672 = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = dockyard
-							level = 1
-							instant_build = yes
-					}
-				}
-			}
-			add_ideas = HOL_prepare_for_our_return
-			add_tech_bonus = {
-				name = HOL_prepare_for_our_return
-				bonus = 1.0
-				uses = 1
-				category = marine_tech
-			}
-		}
-	}
-
-	focus = {
-		id = HOL_liberation
-		available = {
-			has_full_control_of_state = 7
-			has_full_control_of_state = 35
-			has_full_control_of_state = 36
-		}
-		prerequisite = { focus = HOL_prepare_for_our_return }
-		icon = GFX_focus_hol_liberation
-		x = 0
-		y = 1
-		relative_position_id = HOL_prepare_for_our_return
-		cost = 5
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			set_capital = { state = 7 }
-			add_stability = 0.1
-			add_war_support = 0.05
-			add_manpower = 150000
-			add_equipment_to_stockpile = {
-			    type = infantry_equipment
-			    amount = 10000
-			    producer = HOL
-			}
-			add_equipment_to_stockpile = {
-			    type = support_equipment
-			    amount = 500
-			    producer = HOL
-			}
-			add_ideas = HOL_liberation
-			HOL_de_crisisjaren_level_down = yes
-		}
-	}
-
- ##  ###   ##  #  # ###   ##  #  #     ### #  # ###      ##   ##  #   ###       ## ###  ##  #  # ###   ##  ###  ###  
-#  # #  # #  # ## # #  # #  # ## #      #  #  # #       #    #  # #   #  #     #    #  #  # ## # #  # #  # #  # #  # 
-#### ###  #### # ## #  # #  # # ##      #  #### ##      # ## #  # #   #  #      #   #  #### # ## #  # #### ###  #  # 
-#  # #  # #  # #  # #  # #  # #  #      #  #  # #       #  # #  # #   #  #       #  #  #  # #  # #  # #  # #  # #  # 
-#  # ###  #  # #  # ###   ##  #  #      #  #  # ###      ##   ##  ### ###      ##   #  #  # #  # ###  #  # #  # ###  
 
 	focus = {
 		id = HOL_abandon_the_gold_standard
@@ -1173,24 +21,14 @@ focus_tree = {
 		y = 0
 		relative_position_id = HOL_obtain_foreign_colonial_investments
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			HOL_de_crisisjaren_level_down = yes
 		}
 	}
-
-#   #  ##  ### #  # #    ##  #  # ###      ### #  # ###  #  #  ## ### ###  #   #     ### ###  ### ### 
-## ## #  #  #  ## # #   #  # ## # #  #      #  ## # #  # #  # #    #  #  #  # #       #  #  # #   #   
-# # # ####  #  # ## #   #### # ## #  #      #  # ## #  # #  #  #   #  ###    #        #  ###  ##  ##  
-#   # #  #  #  #  # #   #  # #  # #  #      #  #  # #  # #  #   #  #  #  #   #        #  #  # #   #   
-#   # #  # ### #  # ### #  # #  # ###      ### #  # ###   ##  ##   #  #  #   #        #  #  # ### ### 
-
 
 	focus = {
 		id = HOL_continue_the_public_works
@@ -1198,27 +36,32 @@ focus_tree = {
 			has_full_control_of_state = 7
 		}
 		bypass = {
-			NOT = { controls_state = 7 }
-			NOT = { controls_state = 35 }
-			NOT = { controls_state = 36 }
+			NOT = {
+				controls_state = 7
+			}
+			NOT = {
+				controls_state = 35
+			}
+			NOT = {
+				controls_state = 36
+			}
 		}
-		prerequisite = { focus = HOL_abandon_the_gold_standard }
+		prerequisite = {
+			focus = HOL_abandon_the_gold_standard
+		}
 		icon = GFX_goal_generic_construction
 		x = -5
 		y = 1
 		relative_position_id = HOL_abandon_the_gold_standard
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_continue_the_public_works
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = industry
 			}
@@ -1244,30 +87,34 @@ focus_tree = {
 			HOL_de_crisisjaren_level_down = yes
 		}
 	}
-
 	focus = {
 		id = HOL_finish_the_noordoostpolder
 		available = {
 			has_full_control_of_state = 36
 		}
 		bypass = {
-			NOT = { controls_state = 7 }
-			NOT = { controls_state = 35 }
-			NOT = { controls_state = 36 }
+			NOT = {
+				controls_state = 7
+			}
+			NOT = {
+				controls_state = 35
+			}
+			NOT = {
+				controls_state = 36
+			}
 		}
-		prerequisite = { focus = HOL_continue_the_public_works }
+		prerequisite = {
+			focus = HOL_continue_the_public_works
+		}
 		icon = GFX_goal_generic_construction2
 		x = -1
 		y = 1
 		relative_position_id = HOL_continue_the_public_works
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			36 = {
 				add_extra_state_shared_building_slots = 2
@@ -1280,7 +127,6 @@ focus_tree = {
 			HOL_de_crisisjaren_level_down = yes
 		}
 	}
-
 	focus = {
 		id = HOL_the_maastunnel
 		available = {
@@ -1288,23 +134,28 @@ focus_tree = {
 			has_full_control_of_state = 35
 		}
 		bypass = {
-			NOT = { controls_state = 7 }
-			NOT = { controls_state = 35 }
-			NOT = { controls_state = 36 }
+			NOT = {
+				controls_state = 7
+			}
+			NOT = {
+				controls_state = 35
+			}
+			NOT = {
+				controls_state = 36
+			}
 		}
-		prerequisite = { focus = HOL_continue_the_public_works }
+		prerequisite = {
+			focus = HOL_continue_the_public_works
+		}
 		icon = GFX_goal_generic_construct_infrastructure
 		x = 1
 		y = 1
 		relative_position_id = HOL_continue_the_public_works
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				add_building_construction = {
@@ -1323,31 +174,37 @@ focus_tree = {
 			HOL_de_crisisjaren_level_down = yes
 		}
 	}
-
 	focus = {
 		id = HOL_expand_the_artillerieinrichtingen
 		available = {
 			has_full_control_of_state = 7
 		}
 		bypass = {
-			NOT = { controls_state = 7 }
-			NOT = { controls_state = 35 }
-			NOT = { controls_state = 36 }
+			NOT = {
+				controls_state = 7
+			}
+			NOT = {
+				controls_state = 35
+			}
+			NOT = {
+				controls_state = 36
+			}
 		}
-		prerequisite = { focus = HOL_finish_the_noordoostpolder }
-		prerequisite = { focus = HOL_the_maastunnel }
+		prerequisite = {
+			focus = HOL_finish_the_noordoostpolder
+		}
+		prerequisite = {
+			focus = HOL_the_maastunnel
+		}
 		icon = GFX_goal_generic_construct_mil_factory
 		x = 1
 		y = 1
 		relative_position_id = HOL_finish_the_noordoostpolder
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			custom_effect_tooltip = HOL_expand_the_artillerieinrichtingen_tt
 			7 = {
@@ -1371,90 +228,80 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_philips_focus
-		prerequisite = { focus = HOL_expand_the_artillerieinrichtingen }
+		prerequisite = {
+			focus = HOL_expand_the_artillerieinrichtingen
+		}
 		icon = GFX_focus_hol_philips
 		x = 2
 		y = 1
 		relative_position_id = HOL_expand_the_artillerieinrichtingen
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			custom_effect_tooltip = HOL_philips_focus_tt
 			add_tech_bonus = {
 				name = HOL_philips_focus
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = electronics
 			}
 			add_tech_bonus = {
 				name = HOL_philips_focus
-				bonus = 1.0
+				bonus = 1
 				ahead_reduction = 2
 				uses = 1
 				category = electronics
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_expand_RD_facilities
-		prerequisite = { focus = HOL_philips_focus }
+		prerequisite = {
+			focus = HOL_philips_focus
+		}
 		icon = GFX_focus_research
 		x = 0
 		y = 1
 		relative_position_id = HOL_philips_focus
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_research_slot = 1
 		}
 	}
-
-### #  # ###     ### #  # ### ###  ### ###  ### ### ###     #   #  ##  ###  # #  ## 
- #  #  # #         # #  #  #  #  # #   #  #   # #   #       #   # #  # #  # # # #   
- #  #### ##       #  #  #  #  #  # ##  ###   #  ##  ##      # # # #  # ###  ##   #  
- #  #  # #       #   #  #  #  #  # #   #  # #   #   #       # # # #  # #  # # #   # 
- #  #  # ###     ###  ##  ### ###  ### #  # ### ### ###      # #   ##  #  # # # ##  
-
- 	focus = {
+	focus = {
 		id = HOL_the_zuiderzee_works
 		available = {
 			has_full_control_of_state = 7
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_expand_the_artillerieinrichtingen }
-		mutually_exclusive = { focus = HOL_curtail_colonial_autonomy }
+		prerequisite = {
+			focus = HOL_expand_the_artillerieinrichtingen
+		}
+		mutually_exclusive = {
+			focus = HOL_curtail_colonial_autonomy
+		}
 		icon = GFX_focus_hol_the_zuiderzee_works
 		x = -1
 		y = 1
 		relative_position_id = HOL_expand_the_artillerieinrichtingen
 		cost = 15
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_the_zuiderzee_works
-				bonus = 1.0
+				bonus = 1
 				ahead_reduction = 2
 				uses = 2
 				category = industry
@@ -1476,29 +323,35 @@ focus_tree = {
 				}
 			}
 			HOL_de_crisisjaren_level_down = yes
-			hidden_effect = { news_event = { id = mtg_news.47 days = 1 } }
+			hidden_effect = {
+				news_event = {
+					id = mtg_news.47
+					days = 1
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_develop_the_randstad
 		available = {
 			has_full_control_of_state = 7
 		}
-		prerequisite = { focus = HOL_the_zuiderzee_works }
-		mutually_exclusive = { focus = HOL_develop_the_zandstad }
+		prerequisite = {
+			focus = HOL_the_zuiderzee_works
+		}
+		mutually_exclusive = {
+			focus = HOL_develop_the_zandstad
+		}
 		icon = GFX_goal_generic_construct_civ_factory
 		x = -1
 		y = 1
 		relative_position_id = HOL_the_zuiderzee_works
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_develop_the_randstad
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = concentrated_industry_category
 			}
@@ -1542,21 +395,20 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_expand_the_ijmuiden_steel_mill
 		available = {
 			has_full_control_of_state = 7
 		}
-		prerequisite = { focus = HOL_develop_the_randstad }
+		prerequisite = {
+			focus = HOL_develop_the_randstad
+		}
 		icon = GFX_focus_generic_steel
 		x = 0
 		y = 1
 		relative_position_id = HOL_develop_the_randstad
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				add_resource = {
@@ -1583,21 +435,20 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_fokker
 		available = {
 			has_full_control_of_state = 7
 		}
-		prerequisite = { focus = HOL_expand_the_ijmuiden_steel_mill }
+		prerequisite = {
+			focus = HOL_expand_the_ijmuiden_steel_mill
+		}
 		icon = GFX_focus_hol_fokker
 		x = 0
 		y = 1
 		relative_position_id = HOL_expand_the_ijmuiden_steel_mill
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			custom_effect_tooltip = HOL_fokker_tt
 			7 = {
@@ -1621,49 +472,49 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_domestic_jet_engine_designs
-		prerequisite = { focus = HOL_fokker }
+		prerequisite = {
+			focus = HOL_fokker
+		}
 		icon = GFX_goal_generic_build_airforce
 		x = 0
 		y = 1
 		relative_position_id = HOL_fokker
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_domestic_jet_engine_designs
-				bonus = 1.0
+				bonus = 1
 				uses = 2
 				category = jet_technology
 			}
 			HOL_domestic_jet_engine_designs_level_up = yes
 		}
 	}
-
 	focus = {
 		id = HOL_develop_the_zandstad
 		available = {
 			has_full_control_of_state = 35
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_the_zuiderzee_works }
-		mutually_exclusive = { focus = HOL_develop_the_randstad }
+		prerequisite = {
+			focus = HOL_the_zuiderzee_works
+		}
+		mutually_exclusive = {
+			focus = HOL_develop_the_randstad
+		}
 		icon = GFX_goal_generic_construct_civ_factory
 		x = 1
 		y = 1
 		relative_position_id = HOL_the_zuiderzee_works
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_develop_the_randstad
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = dispersed_industry_category
 			}
@@ -1707,21 +558,20 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_friesland_agricultural_impetus
 		available = {
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_develop_the_zandstad }
+		prerequisite = {
+			focus = HOL_develop_the_zandstad
+		}
 		icon = GFX_goal_generic_consumer_goods
 		x = 0
 		y = 1
 		relative_position_id = HOL_develop_the_zandstad
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_friesland_agricultural_impetus
 			36 = {
@@ -1745,21 +595,20 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_daf
 		available = {
 			has_full_control_of_state = 35
 		}
-		prerequisite = { focus = HOL_friesland_agricultural_impetus }
+		prerequisite = {
+			focus = HOL_friesland_agricultural_impetus
+		}
 		icon = GFX_focus_hol_daf
 		x = 0
 		y = 1
 		relative_position_id = HOL_friesland_agricultural_impetus
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			custom_effect_tooltip = HOL_daf_tt
 			35 = {
@@ -1783,29 +632,27 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_domestic_vehicle_designs
-		prerequisite = { focus = HOL_daf }
+		prerequisite = {
+			focus = HOL_daf
+		}
 		icon = GFX_goal_generic_army_motorized
 		x = 0
 		y = 1
 		relative_position_id = HOL_daf
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_domestic_vehicle_designs
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = motorized_equipment
 			}
 			add_ideas = HOL_domestic_vehicle_designs
 		}
 	}
-
 	focus = {
 		id = HOL_continental_shipbuilding
 		available = {
@@ -1813,15 +660,16 @@ focus_tree = {
 			has_full_control_of_state = 35
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_fokker focus = HOL_daf }
+		prerequisite = {
+			focus = HOL_fokker
+			focus = HOL_daf
+		}
 		icon = GFX_goal_generic_construct_naval_dockyard
 		x = 1
 		y = 2
 		relative_position_id = HOL_fokker
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				if = {
@@ -1882,10 +730,13 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_domestic_innovation
-		prerequisite = { focus = HOL_the_east_indies_war_machine focus = HOL_fokker focus = HOL_daf }
+		prerequisite = {
+			focus = HOL_the_east_indies_war_machine
+			focus = HOL_fokker
+			focus = HOL_daf
+		}
 		available = {
 			num_of_factories > 50
 		}
@@ -1896,113 +747,101 @@ focus_tree = {
 		y = 2
 		relative_position_id = HOL_fokker
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_research_slot = 1
 		}
 	}
-
 	focus = {
 		id = HOL_make_use_of_our_riches
-		prerequisite = { focus = HOL_domestic_innovation }
+		prerequisite = {
+			focus = HOL_domestic_innovation
+		}
 		icon = GFX_goal_generic_construction2
 		x = -1
 		y = 1
 		relative_position_id = HOL_domestic_innovation
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_make_use_of_our_riches
-				bonus = 1.0
+				bonus = 1
 				uses = 2
 				category = excavation_tech
 			}
 			add_ideas = HOL_make_use_of_our_riches
 		}
 	}
-
 	focus = {
 		id = HOL_the_ultimate_deterrent
-		prerequisite = { focus = HOL_domestic_innovation }
+		prerequisite = {
+			focus = HOL_domestic_innovation
+		}
 		icon = GFX_focus_wonderweapons
 		x = 1
 		y = 1
 		relative_position_id = HOL_domestic_innovation
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_the_ultimate_deterrent
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = nuclear
 			}
 		}
 	}
-
-#   # ### #   ### ###  ##  ###  #   #     ### ###  ### ### 
-## ##  #  #    #   #  #  # #  #  # #       #  #  # #   #   
-# # #  #  #    #   #  #### ###    #        #  ###  ##  ##  
-#   #  #  #    #   #  #  # #  #   #        #  #  # #   #   
-#   # ### ### ###  #  #  # #  #   #        #  #  # ### ### 
-
+	#   # ### #   ### ###  ##  ###  #   #     ### ###  ### ### 
+	## ##  #  #    #   #  #  # #  #  # #       #  #  # #   #   
+	# # #  #  #    #   #  #### ###    #        #  ###  ##  ##  
+	#   #  #  #    #   #  #  # #  #   #        #  #  # #   #   
+	#   # ### ### ###  #  #  # #  #   #        #  #  # ### ### 
 	focus = {
 		id = HOL_overturn_military_budget_cuts
-		prerequisite = { focus = HOL_abandon_the_gold_standard }
+		prerequisite = {
+			focus = HOL_abandon_the_gold_standard
+		}
 		icon = GFX_goal_generic_army_doctrines
 		x = 6
 		y = 1
 		relative_position_id = HOL_abandon_the_gold_standard
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			army_experience = 5
 			add_war_support = 0.1
 		}
 	}
-
-###  ### ### ### #  #  ## ###  ## 
-#  # #   #   #   ## # #   #   #   
-#  # ##  ##  ##  # ##  #  ##   #  
-#  # #   #   #   #  #   # #     # 
-###  ### #   ### #  # ##  ### ##  
-
-
+	###  ### ### ### #  #  ## ###  ## 
+	#  # #   #   #   ## # #   #   #   
+	#  # ##  ##  ##  # ##  #  ##   #  
+	#  # #   #   #   #  #   # #     # 
+	###  ### #   ### #  # ##  ### ##  
 	focus = {
 		id = HOL_prepare_the_inundation_lines
-		prerequisite = { focus = HOL_overturn_military_budget_cuts }
+		prerequisite = {
+			focus = HOL_overturn_military_budget_cuts
+		}
 		icon = GFX_focus_hol_prepare_the_inundation_lines
 		x = -6
 		y = 1
 		relative_position_id = HOL_overturn_military_budget_cuts
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_prepare_the_inundation_lines
 			unlock_decision_category_tooltip = HOL_prepare_the_inundation_lines
 			custom_effect_tooltip = HOL_prepare_the_inundation_lines_tt
 		}
 	}
-
 	focus = {
 		id = HOL_protect_against_britain
 		available = {
@@ -2019,20 +858,21 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_prepare_the_inundation_lines }
-		mutually_exclusive = { focus = HOL_germany_is_the_greater_threat }
+		prerequisite = {
+			focus = HOL_prepare_the_inundation_lines
+		}
+		mutually_exclusive = {
+			focus = HOL_germany_is_the_greater_threat
+		}
 		icon = GFX_focus_attack_britain
 		x = -1
 		y = 1
 		relative_position_id = HOL_prepare_the_inundation_lines
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				add_building_construction = {
@@ -2060,7 +900,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			36 = {	
+			36 = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
@@ -2075,11 +915,13 @@ focus_tree = {
 				}
 			}
 			ENG = {
-				add_opinion_modifier = { target = HOL modifier = HOL_protect_against_britain }
-			}	
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_protect_against_britain
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_further_reinforce_the_ports
 		available = {
@@ -2087,15 +929,15 @@ focus_tree = {
 			has_full_control_of_state = 7
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_protect_against_britain }
+		prerequisite = {
+			focus = HOL_protect_against_britain
+		}
 		icon = GFX_focus_generic_coastal_fort
 		x = 0
 		y = 1
 		relative_position_id = HOL_protect_against_britain
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				add_building_construction = {
@@ -2123,7 +965,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			36 = {	
+			36 = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
@@ -2139,7 +981,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_southward_defenses
 		available = {
@@ -2148,15 +989,15 @@ focus_tree = {
 			has_full_control_of_state = 35
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_further_reinforce_the_ports }
+		prerequisite = {
+			focus = HOL_further_reinforce_the_ports
+		}
 		icon = GFX_goal_generic_construct_military
 		x = 0
 		y = 1
 		relative_position_id = HOL_further_reinforce_the_ports
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				add_building_construction = {
@@ -2191,7 +1032,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			36 = {	
+			36 = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
@@ -2201,7 +1042,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_germany_is_the_greater_threat
 		available = {
@@ -2219,20 +1059,21 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_prepare_the_inundation_lines }
-		mutually_exclusive = { focus = HOL_protect_against_britain }
+		prerequisite = {
+			focus = HOL_prepare_the_inundation_lines
+		}
+		mutually_exclusive = {
+			focus = HOL_protect_against_britain
+		}
 		icon = GFX_focus_attack_germany
 		x = 1
 		y = 1
 		relative_position_id = HOL_prepare_the_inundation_lines
 		cost = 5
-
 		available_if_capitulated = yes
-
 		ai_will_do = {
 			factor = 0
 		}
-
 		completion_reward = {
 			7 = {
 				add_building_construction = {
@@ -2242,7 +1083,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			36 = {	
+			36 = {
 				add_building_construction = {
 					type = bunker
 					level = 1
@@ -2250,7 +1091,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			35 = {	
+			35 = {
 				add_building_construction = {
 					type = bunker
 					level = 1
@@ -2263,13 +1104,15 @@ focus_tree = {
 					province = 6500
 					instant_build = yes
 				}
-			}	
+			}
 			GER = {
-				add_opinion_modifier = { target = HOL modifier = HOL_germany_is_the_greater_threat }
-			}	
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_germany_is_the_greater_threat
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_fortress_holland
 		available = {
@@ -2277,15 +1120,15 @@ focus_tree = {
 			has_full_control_of_state = 7
 			has_full_control_of_state = 35
 		}
-		prerequisite = { focus = HOL_germany_is_the_greater_threat }
+		prerequisite = {
+			focus = HOL_germany_is_the_greater_threat
+		}
 		icon = GFX_goal_generic_fortify_city
 		x = 0
 		y = 1
 		relative_position_id = HOL_germany_is_the_greater_threat
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				add_building_construction = {
@@ -2312,7 +1155,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			35 = {	
+			35 = {
 				add_building_construction = {
 					type = bunker
 					level = 2
@@ -2324,27 +1167,26 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}
-			}	
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_modernize_the_grebbeline
 		available = {
 			threat > 0.2
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_fortress_holland }
+		prerequisite = {
+			focus = HOL_fortress_holland
+		}
 		icon = GFX_goal_generic_construct_military
 		x = 0
 		y = 1
 		relative_position_id = HOL_fortress_holland
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			36 = {	
+			36 = {
 				add_building_construction = {
 					type = bunker
 					level = 2
@@ -2356,54 +1198,49 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}
-			}	
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_war_on_pacifism
 		available = {
 			threat > 0.15
 		}
-		prerequisite = { focus = HOL_protect_against_britain focus = HOL_germany_is_the_greater_threat }
+		prerequisite = {
+			focus = HOL_protect_against_britain
+			focus = HOL_germany_is_the_greater_threat
+		}
 		icon = GFX_focus_hol_war_on_pacifism
 		x = 1
 		y = 3
 		relative_position_id = HOL_protect_against_britain
 		cost = 5
-
 		ai_will_do = {
 			factor = 100
 		}
-
 		cancel_if_invalid = no
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			unlock_decision_category_tooltip = HOL_war_on_pacifism
 			custom_effect_tooltip = HOL_war_on_pacifism_tt
 		}
 	}
-
- ##  ###  #   # #   #     ### ###  ### ### 
-#  # #  # ## ##  # #       #  #  # #   #   
-#### ###  # # #   #        #  ###  ##  ##  
-#  # #  # #   #   #        #  #  # #   #   
-#  # #  # #   #   #        #  #  # ### ### 
-
-
+	##  ###  #   # #   #     ### ###  ### ### 
+	#  # #  # ## ##  # #       #  #  # #   #   
+	#### ###  # # #   #        #  ###  ##  ##  
+	#  # #  # #   #   #        #  #  # #   #   
+	#  # #  # #   #   #        #  #  # ### ### 
 	focus = {
 		id = HOL_appoint_new_supreme_commander
-		prerequisite = { focus = HOL_overturn_military_budget_cuts }
+		prerequisite = {
+			focus = HOL_overturn_military_budget_cuts
+		}
 		icon = GFX_focus_generic_military_mission
 		x = -1
 		y = 1
 		relative_position_id = HOL_overturn_military_budget_cuts
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			army_experience = 10
 			add_doctrine_cost_reduction = {
@@ -2415,31 +1252,32 @@ focus_tree = {
 			remove_ideas = HOL_izaak_reijnders
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = HOL_henri_winkelman
-
 			custom_effect_tooltip = HOL_appoint_new_supreme_commander_tt
 			hidden_effect = {
 				add_field_marshal_role = {
-							 
 					character = "HOL_henri_winkelman"
-						traits = { 
-							defensive_doctrine 
-							trait_cautious 
-							unyielding_defender 
-						}
-						skill = 4
-						attack_skill = 2
-						defense_skill = 4
-						planning_skill = 4
-						logistics_skill = 3
+					traits = {
+						defensive_doctrine
+						trait_cautious
+						unyielding_defender
+					}
+					skill = 4
+					attack_skill = 2
+					defense_skill = 4
+					planning_skill = 4
+					logistics_skill = 3
 				}
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_modernize_our_infantry_equipment
-		prerequisite = { focus = HOL_appoint_new_supreme_commander }
-		mutually_exclusive = { focus = HOL_production_under_license }
+		prerequisite = {
+			focus = HOL_appoint_new_supreme_commander
+		}
+		mutually_exclusive = {
+			focus = HOL_production_under_license
+		}
 		icon = GFX_goal_generic_small_arms
 		x = -1
 		y = 1
@@ -2447,24 +1285,24 @@ focus_tree = {
 			x = 1
 			y = 0
 			trigger = {
-				NOT = { has_dlc = "Death or Dishonor" }
+				NOT = {
+					has_dlc = "Death or Dishonor"
+				}
 			}
 		}
 		relative_position_id = HOL_appoint_new_supreme_commander
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_modernize_our_infantry_equipment
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = infantry_weapons
 			}
 			add_tech_bonus = {
 				name = HOL_modernize_our_infantry_equipment
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = artillery
 			}
@@ -2476,16 +1314,17 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_production_under_license
-		prerequisite = { focus = HOL_appoint_new_supreme_commander }
-		mutually_exclusive = { focus = HOL_modernize_our_infantry_equipment }
-
+		prerequisite = {
+			focus = HOL_appoint_new_supreme_commander
+		}
+		mutually_exclusive = {
+			focus = HOL_modernize_our_infantry_equipment
+		}
 		allow_branch = {
 			has_dlc = "Death or Dishonor"
 		}
-
 		available = {
 		}
 		icon = GFX_goal_generic_production
@@ -2493,21 +1332,21 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_appoint_new_supreme_commander
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_production_under_license
 			custom_effect_tooltip = HOL_production_under_license_tt
 		}
 	}
-
 	focus = {
 		id = HOL_light_tanks_for_the_colonies
 		allow_branch = {
 			always = yes
 		}
-		prerequisite = { focus = HOL_modernize_our_infantry_equipment focus = HOL_production_under_license }
+		prerequisite = {
+			focus = HOL_modernize_our_infantry_equipment
+			focus = HOL_production_under_license
+		}
 		icon = GFX_goal_generic_army_tanks
 		x = -1
 		y = 1
@@ -2515,26 +1354,30 @@ focus_tree = {
 			x = -1
 			y = 0
 			trigger = {
-				NOT = { has_dlc = "Death or Dishonor" }
+				NOT = {
+					has_dlc = "Death or Dishonor"
+				}
 			}
 		}
 		relative_position_id = HOL_modernize_our_infantry_equipment
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			if = {
 				limit = {
-					NOT = { has_completed_focus = HOL_modernize_our_infantry_equipment }
-					NOT = { has_completed_focus = HOL_production_under_license }
+					NOT = {
+						has_completed_focus = HOL_modernize_our_infantry_equipment
+					}
+					NOT = {
+						has_completed_focus = HOL_production_under_license
+					}
 					has_dlc = "Death or Dishonor"
 				}
 				custom_effect_tooltip = HOL_light_tanks_for_the_colonies_tt
 				effect_tooltip = {
 					add_tech_bonus = {
 						name = HOL_light_tanks_for_the_colonies
-						bonus = 1.0
+						bonus = 1
 						uses = 1
 						category = cat_light_armor
 					}
@@ -2546,12 +1389,14 @@ focus_tree = {
 				limit = {
 					OR = {
 						has_completed_focus = HOL_modernize_our_infantry_equipment
-						NOT = { has_dlc = "Death or Dishonor" }
+						NOT = {
+							has_dlc = "Death or Dishonor"
+						}
 					}
 				}
 				add_tech_bonus = {
 					name = HOL_light_tanks_for_the_colonies
-					bonus = 1.0
+					bonus = 1
 					uses = 1
 					category = cat_light_armor
 				}
@@ -2564,22 +1409,30 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_secret_staff_talks
 		available = {
 			threat > 0.15
 			OR = {
-				GER = { has_added_tension_amount > 10 }
-				ENG = { has_added_tension_amount > 10 }
-				FRA = { has_added_tension_amount > 10 }
+				GER = {
+					has_added_tension_amount > 10
+				}
+				ENG = {
+					has_added_tension_amount > 10
+				}
+				FRA = {
+					has_added_tension_amount > 10
+				}
 			}
 			has_war = no
 		}
 		allow_branch = {
 			always = yes
 		}
-		prerequisite = { focus = HOL_modernize_our_infantry_equipment focus = HOL_production_under_license }
+		prerequisite = {
+			focus = HOL_modernize_our_infantry_equipment
+			focus = HOL_production_under_license
+		}
 		icon = GFX_goal_generic_intelligence_exchange
 		x = 1
 		y = 1
@@ -2587,26 +1440,28 @@ focus_tree = {
 			x = -1
 			y = 0
 			trigger = {
-				NOT = { has_dlc = "Death or Dishonor" }
+				NOT = {
+					has_dlc = "Death or Dishonor"
+				}
 			}
 		}
 		relative_position_id = HOL_modernize_our_infantry_equipment
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			unlock_decision_category_tooltip = HOL_secret_staff_talks
 			custom_effect_tooltip = HOL_secret_staff_talks_tt
 		}
 	}
-
 	focus = {
 		id = HOL_anti_tank_guns_for_the_continent
 		allow_branch = {
 			always = yes
 		}
-		prerequisite = { focus = HOL_modernize_our_infantry_equipment focus = HOL_production_under_license }
+		prerequisite = {
+			focus = HOL_modernize_our_infantry_equipment
+			focus = HOL_production_under_license
+		}
 		icon = GFX_goal_generic_army_artillery2
 		x = 3
 		y = 1
@@ -2614,26 +1469,30 @@ focus_tree = {
 			x = -1
 			y = 0
 			trigger = {
-				NOT = { has_dlc = "Death or Dishonor" }
+				NOT = {
+					has_dlc = "Death or Dishonor"
+				}
 			}
 		}
 		relative_position_id = HOL_modernize_our_infantry_equipment
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			if = {
 				limit = {
-					NOT = { has_completed_focus = HOL_modernize_our_infantry_equipment }
-					NOT = { has_completed_focus = HOL_production_under_license }
+					NOT = {
+						has_completed_focus = HOL_modernize_our_infantry_equipment
+					}
+					NOT = {
+						has_completed_focus = HOL_production_under_license
+					}
 					has_dlc = "Death or Dishonor"
 				}
 				custom_effect_tooltip = HOL_light_tanks_for_the_colonies_tt
 				effect_tooltip = {
 					add_tech_bonus = {
 						name = HOL_anti_tank_guns_for_the_continent
-						bonus = 1.0
+						bonus = 1
 						uses = 1
 						category = cat_anti_tank
 					}
@@ -2645,12 +1504,14 @@ focus_tree = {
 				limit = {
 					OR = {
 						has_completed_focus = HOL_modernize_our_infantry_equipment
-						NOT = { has_dlc = "Death or Dishonor" }
+						NOT = {
+							has_dlc = "Death or Dishonor"
+						}
 					}
 				}
 				add_tech_bonus = {
 					name = HOL_anti_tank_guns_for_the_continent
-					bonus = 1.0
+					bonus = 1
 					uses = 1
 					category = cat_anti_tank
 				}
@@ -2663,18 +1524,19 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_lessons_from_the_last_war
-		prerequisite = { focus = HOL_light_tanks_for_the_colonies focus = HOL_secret_staff_talks focus = HOL_anti_tank_guns_for_the_continent }
+		prerequisite = {
+			focus = HOL_light_tanks_for_the_colonies
+			focus = HOL_secret_staff_talks
+			focus = HOL_anti_tank_guns_for_the_continent
+		}
 		icon = GFX_goal_generic_army_doctrines
 		x = 0
 		y = 1
 		relative_position_id = HOL_secret_staff_talks
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			army_experience = 25
 			add_doctrine_cost_reduction = {
@@ -2685,13 +1547,11 @@ focus_tree = {
 			}
 		}
 	}
-
- ##  ### ###      ### ###  ### ### 
-#  #  #  #  #      #  #  # #   #   
-####  #  ###       #  ###  ##  ##  
-#  #  #  #  #      #  #  # #   #   
-#  # ### #  #      #  #  # ### ### 
-
+	##  ### ###      ### ###  ### ### 
+	#  #  #  #  #      #  #  # #   #   
+	####  #  ###       #  ###  ##  ##  
+	#  #  #  #  #      #  #  # #   #   
+	#  # ### #  #      #  #  # ### ### 
 	focus = {
 		id = HOL_expand_the_mld
 		available = {
@@ -2705,25 +1565,25 @@ focus_tree = {
 		}
 		bypass = {
 			335 = {
-				OWNER = { 
+				OWNER = {
 					NOT = {
 						OR = {
-							TAG = ROOT 
-							is_subject_of = ROOT 
+							TAG = ROOT
+							is_subject_of = ROOT
 						}
-					} 
+					}
 				}
 			}
 		}
-		prerequisite = { focus = HOL_overturn_military_budget_cuts }
+		prerequisite = {
+			focus = HOL_overturn_military_budget_cuts
+		}
 		icon = GFX_goal_generic_air_doctrine
 		x = 4
 		y = 2
 		relative_position_id = HOL_overturn_military_budget_cuts
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			air_experience = 25
 			add_doctrine_cost_reduction = {
@@ -2741,14 +1601,19 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_protect_the_mainland
 		bypass = {
 			OR = {
-				NOT = { controls_state = 7 }
-				NOT = { controls_state = 35 }
-				NOT = { controls_state = 36 }
+				NOT = {
+					controls_state = 7
+				}
+				NOT = {
+					controls_state = 35
+				}
+				NOT = {
+					controls_state = 36
+				}
 			}
 			NOT = {
 				focus_progress = {
@@ -2757,26 +1622,27 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_expand_the_mld }
-		mutually_exclusive = { focus = HOL_protect_the_colonies }
+		prerequisite = {
+			focus = HOL_expand_the_mld
+		}
+		mutually_exclusive = {
+			focus = HOL_protect_the_colonies
+		}
 		icon = GFX_goal_generic_air_fighter
 		x = -1
 		y = 1
 		relative_position_id = HOL_expand_the_mld
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_protect_the_mainland
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = light_fighter
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_protect_the_colonies
 		bypass = {
@@ -2787,13 +1653,10 @@ focus_tree = {
 						controls_state = 335
 						any_country = {
 							is_subject_of = HOL
-						  
 							controls_state = 335
 						}
 					}
 					OR = {
-						 
-						  
 						controls_state = 672
 						any_country = {
 							is_subject_of = HOL
@@ -2829,7 +1692,6 @@ focus_tree = {
 						}
 					}
 				}
-				
 				NOT = {
 					focus_progress = {
 						focus = HOL_protect_the_mainland
@@ -2838,16 +1700,18 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_expand_the_mld }
-		mutually_exclusive = { focus = HOL_protect_the_mainland }
+		prerequisite = {
+			focus = HOL_expand_the_mld
+		}
+		mutually_exclusive = {
+			focus = HOL_protect_the_mainland
+		}
 		icon = GFX_goal_generic_air_naval_bomber
 		x = 1
 		y = 1
 		relative_position_id = HOL_expand_the_mld
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_protect_the_colonies
@@ -2857,37 +1721,39 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_modernize_the_air_fleet
-		prerequisite = { focus = HOL_protect_the_mainland focus = HOL_protect_the_colonies }
+		prerequisite = {
+			focus = HOL_protect_the_mainland
+			focus = HOL_protect_the_colonies
+		}
 		icon = GFX_goal_generic_air_production
 		x = 1
 		y = 1
 		relative_position_id = HOL_protect_the_mainland
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			add_timed_idea = { idea = HOL_modernize_the_air_fleet days = 365 }
+			add_timed_idea = {
+				idea = HOL_modernize_the_air_fleet
+				days = 365
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_strategic_bombing_defense
 		available = {
 			has_full_control_of_state = 7
 		}
-		prerequisite = { focus = HOL_modernize_the_air_fleet }
+		prerequisite = {
+			focus = HOL_modernize_the_air_fleet
+		}
 		icon = GFX_focus_generic_air_defense
 		x = 0
 		y = 1
 		relative_position_id = HOL_modernize_the_air_fleet
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			air_experience = 25
 			add_doctrine_cost_reduction = {
@@ -2896,7 +1762,7 @@ focus_tree = {
 				uses = 1
 				category = air_doctrine
 			}
-			7 = {			
+			7 = {
 				add_building_construction = {
 					type = air_base
 					level = 2
@@ -2910,18 +1776,17 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_longer_range_models
-		prerequisite = { focus = HOL_strategic_bombing_defense }
+		prerequisite = {
+			focus = HOL_strategic_bombing_defense
+		}
 		icon = GFX_goal_generic_air_bomber
 		x = -1
 		y = 1
 		relative_position_id = HOL_strategic_bombing_defense
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_longer_range_models
@@ -2932,7 +1797,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_unsinkable_aircraft_carriers
 		available = {
@@ -2960,87 +1824,89 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_strategic_bombing_defense }
-		mutually_exclusive = { focus = HOL_air_cover_for_the_new_fleet }
+		prerequisite = {
+			focus = HOL_strategic_bombing_defense
+		}
+		mutually_exclusive = {
+			focus = HOL_air_cover_for_the_new_fleet
+		}
 		icon = GFX_goal_generic_construct_military
 		x = 1
 		y = 1
 		relative_position_id = HOL_strategic_bombing_defense
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			335 = {			
+			335 = {
 				add_building_construction = {
 					type = air_base
 					level = 2
 					instant_build = yes
 				}
 			}
-			672 = {			
+			672 = {
 				add_building_construction = {
 					type = air_base
 					level = 2
 					instant_build = yes
 				}
 			}
-			673 = {			
+			673 = {
 				add_building_construction = {
 					type = air_base
 					level = 2
 					instant_build = yes
 				}
 			}
-			334 = {			
+			334 = {
 				add_building_construction = {
 					type = air_base
 					level = 1
 					instant_build = yes
 				}
 			}
-			667 = {			
+			667 = {
 				add_building_construction = {
 					type = air_base
 					level = 1
 					instant_build = yes
 				}
 			}
-			668 = {			
+			668 = {
 				add_building_construction = {
 					type = air_base
 					level = 1
 					instant_build = yes
 				}
 			}
-			738 = {			
+			738 = {
 				add_building_construction = {
 					type = air_base
 					level = 1
 					instant_build = yes
 				}
 			}
-			669 = {			
+			669 = {
 				add_building_construction = {
 					type = air_base
 					level = 1
 					instant_build = yes
 				}
-			}	
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_aviatic_aspirations
-		prerequisite = { focus = HOL_longer_range_models focus = HOL_unsinkable_aircraft_carriers }
+		prerequisite = {
+			focus = HOL_longer_range_models
+			focus = HOL_unsinkable_aircraft_carriers
+		}
 		icon = GFX_goal_generic_build_airforce
 		x = 1
 		y = 1
 		relative_position_id = HOL_longer_range_models
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			air_experience = 25
 			add_doctrine_cost_reduction = {
@@ -3052,16 +1918,16 @@ focus_tree = {
 			HOL_domestic_jet_engine_designs_level_up = yes
 		}
 	}
-
-#  #  ##  #   #  ##  #       ### ###  ### ### 
-## # #  # #   # #  # #        #  #  # #   #   
-# ## ####  # #  #### #        #  ###  ##  ##  
-#  # #  #  # #  #  # #        #  #  # #   #   
-#  # #  #   #   #  # ###      #  #  # ### ### 
-	
+	#  #  ##  #   #  ##  #       ### ###  ### ### 
+	## # #  # #   # #  # #        #  #  # #   #   
+	# ## ####  # #  #### #        #  ###  ##  ##  
+	#  # #  #  # #  #  # #        #  #  # #   #   
+	#  # #  #   #   #  # ###      #  #  # ### ### 
 	focus = {
 		id = HOL_prepare_naval_expansion
-		prerequisite = { focus = HOL_overturn_military_budget_cuts }
+		prerequisite = {
+			focus = HOL_overturn_military_budget_cuts
+		}
 		available = {
 			OR = {
 				has_full_control_of_state = 7
@@ -3074,12 +1940,12 @@ focus_tree = {
 		y = 2
 		relative_position_id = HOL_overturn_military_budget_cuts
 		cost = 5
-
 		available_if_capitulated = yes
-
 		complete_tooltip = {
 			every_state = {
-				limit = { has_state_flag = HOL_prepare_naval_expansion_3DY }
+				limit = {
+					has_state_flag = HOL_prepare_naval_expansion_3DY
+				}
 				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = dockyard
@@ -3088,12 +1954,13 @@ focus_tree = {
 				}
 			}
 		}
-
 		completion_reward = {
 			navy_experience = 25
 			random_owned_controlled_state = {
 				limit = {
-					NOT = { state = 7 }
+					NOT = {
+						state = 7
+					}
 					free_building_slots = {
 						building = dockyard
 						size > 2
@@ -3111,10 +1978,11 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_expand_the_amsterdam_petroleum_harbor
-		prerequisite = { focus = HOL_prepare_naval_expansion }
+		prerequisite = {
+			focus = HOL_prepare_naval_expansion
+		}
 		available = {
 			has_full_control_of_state = 7
 			7 = {
@@ -3130,9 +1998,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_prepare_naval_expansion
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			7 = {
 				add_extra_state_shared_building_slots = 1
@@ -3144,18 +2010,17 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_cornerstone_of_colonial_defense
-		prerequisite = { focus = HOL_prepare_naval_expansion }
+		prerequisite = {
+			focus = HOL_prepare_naval_expansion
+		}
 		icon = GFX_goal_generic_navy_doctrines_tactics
 		x = 0
 		y = 1
 		relative_position_id = HOL_prepare_naval_expansion
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = HOL_cornerstone_of_colonial_defense
@@ -3165,19 +2030,20 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_rely_on_submarines
-		prerequisite = { focus = HOL_cornerstone_of_colonial_defense }
-		mutually_exclusive = { focus = HOL_modernize_the_cruiser_fleet }
+		prerequisite = {
+			focus = HOL_cornerstone_of_colonial_defense
+		}
+		mutually_exclusive = {
+			focus = HOL_modernize_the_cruiser_fleet
+		}
 		icon = GFX_goal_generic_navy_submarine
 		x = -1
 		y = 1
 		relative_position_id = HOL_cornerstone_of_colonial_defense
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_rely_on_submarines
@@ -3187,19 +2053,20 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_modernize_the_cruiser_fleet
-		prerequisite = { focus = HOL_cornerstone_of_colonial_defense }
-		mutually_exclusive = { focus = HOL_rely_on_submarines }
+		prerequisite = {
+			focus = HOL_cornerstone_of_colonial_defense
+		}
+		mutually_exclusive = {
+			focus = HOL_rely_on_submarines
+		}
 		icon = GFX_focus_generic_cruiser2
 		x = 1
 		y = 1
 		relative_position_id = HOL_cornerstone_of_colonial_defense
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_modernize_the_cruiser_fleet
@@ -3211,15 +2078,21 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_the_battlecruiser_plan
-		prerequisite = { focus = HOL_rely_on_submarines focus = HOL_modernize_the_cruiser_fleet focus = HOL_join_germany }
+		prerequisite = {
+			focus = HOL_rely_on_submarines
+			focus = HOL_modernize_the_cruiser_fleet
+			focus = HOL_join_germany
+		}
 		available = {
 			GER = {
 				AND = {
-						country_exists = GER
-						has_opinion = { target = HOL value > 74 } 
+					country_exists = GER
+					has_opinion = {
+						target = HOL
+						value > 74
+					}
 				}
 			}
 		}
@@ -3231,9 +2104,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_rely_on_submarines
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			effect_tooltip = {
 				set_technology = {
@@ -3262,22 +2133,28 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = HOL_the_battlecruiser_plan_tt
-			GER = { country_event = { id = mtg_netherlands.7 hours = 6 } }
+			GER = {
+				country_event = {
+					id = mtg_netherlands.7
+					hours = 6
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_air_cover_for_the_new_fleet
-		prerequisite = { focus = HOL_the_battlecruiser_plan }
-		mutually_exclusive = { focus = HOL_unsinkable_aircraft_carriers }
+		prerequisite = {
+			focus = HOL_the_battlecruiser_plan
+		}
+		mutually_exclusive = {
+			focus = HOL_unsinkable_aircraft_carriers
+		}
 		icon = GFX_goal_generic_navy_carrier
 		x = -1
 		y = 1
 		relative_position_id = HOL_the_battlecruiser_plan
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_air_cover_for_the_new_fleet
@@ -3287,18 +2164,17 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_escorts_for_the_new_fleet
-		prerequisite = { focus = HOL_the_battlecruiser_plan }
+		prerequisite = {
+			focus = HOL_the_battlecruiser_plan
+		}
 		icon = GFX_focus_generic_destroyer
 		x = 1
 		y = 1
 		relative_position_id = HOL_the_battlecruiser_plan
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_escorts_for_the_new_fleet
@@ -3309,18 +2185,18 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_naval_heritage
-		prerequisite = { focus = HOL_air_cover_for_the_new_fleet focus = HOL_escorts_for_the_new_fleet }
+		prerequisite = {
+			focus = HOL_air_cover_for_the_new_fleet
+			focus = HOL_escorts_for_the_new_fleet
+		}
 		icon = GFX_goal_generic_build_navy
 		x = 1
 		y = 1
 		relative_position_id = HOL_air_cover_for_the_new_fleet
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			navy_experience = 50
 			add_doctrine_cost_reduction = {
@@ -3332,13 +2208,11 @@ focus_tree = {
 			add_ideas = HOL_naval_heritage
 		}
 	}
-
-###   ##  #   ### ### ###  ##   ##  #       ### ###  ### ### 
-#  # #  # #    #   #   #  #  # #  # #        #  #  # #   #   
-###  #  # #    #   #   #  #    #### #        #  ###  ##  ##  
-#    #  # #    #   #   #  #  # #  # #        #  #  # #   #   
-#     ##  ### ###  #  ###  ##  #  # ###      #  #  # ### ### 
-
+	###   ##  #   ### ### ###  ##   ##  #       ### ###  ### ### 
+	#  # #  # #    #   #   #  #  # #  # #        #  #  # #   #   
+	###  #  # #    #   #   #  #    #### #        #  ###  ##  ##  
+	#    #  # #    #   #   #  #  # #  # #        #  #  # #   #   
+	#     ##  ### ###  #  ###  ##  #  # ###      #  #  # ### ### 
 	focus = {
 		id = HOL_form_new_government
 		bypass = {
@@ -3349,35 +2223,34 @@ focus_tree = {
 		y = 0
 		relative_position_id = HOL_abandon_the_gold_standard
 		cost = 5
-
 		ai_will_do = {
 			factor = 200
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			country_event = { id = mtg_netherlands.10 hours = 6 }
+			country_event = {
+				id = mtg_netherlands.10
+				hours = 6
+			}
 			effect_tooltip = {
-				set_party_name = { ideology = democratic long_name = HOL_CHU_party_long name = HOL_CHU_party }
+				set_party_name = {
+					ideology = democratic
+					long_name = HOL_CHU_party_long
+					name = HOL_CHU_party
+				}
 				promote_character = {
 					character = HOL_dirk_jan_de_geer
-											
-														  
-						
 					ideology = conservatism
-			   
-			   
-	  
 				}
 				remove_ideas = HOL_weak_government
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_gateway_to_europe
-		prerequisite = { focus = HOL_form_new_government }
+		prerequisite = {
+			focus = HOL_form_new_government
+		}
 		bypass = {
 			OR = {
 				has_war_with = GER
@@ -3389,40 +2262,48 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_form_new_government
 		cost = 5
-
 		ai_will_do = {
 			factor = 200
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_political_power = 120
 			unlock_decision_category_tooltip = HOL_gateway_to_europe_hol_category
 			custom_effect_tooltip = HOL_gateway_to_europe_tt
 		}
 	}
-
 	focus = {
 		id = HOL_cave_to_the_germans
-		prerequisite = { focus = HOL_gateway_to_europe }
-		mutually_exclusive = { focus = HOL_maintain_trade_neutrality focus = HOL_cave_to_the_british }
+		prerequisite = {
+			focus = HOL_gateway_to_europe
+		}
+		mutually_exclusive = {
+			focus = HOL_maintain_trade_neutrality
+			focus = HOL_cave_to_the_british
+		}
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = HOL_cave_to_the_germans2_tt
-				check_variable = { var = GER.ger_gateway_to_europe_influence value = 25 compare = greater_than_or_equals }
+				check_variable = {
+					var = GER.ger_gateway_to_europe_influence
+					value = 25
+					compare = greater_than_or_equals
+				}
 			}
 			custom_trigger_tooltip = {
 				tooltip = HOL_cave_to_the_germans_tt
-				check_variable = { var = ger_temp_trade_influence value = 15 compare = greater_than_or_equals }
+				check_variable = {
+					var = ger_temp_trade_influence
+					value = 15
+					compare = greater_than_or_equals
+				}
 			}
 		}
 		bypass = {
 			OR = {
-                has_government = fascism
+				has_government = fascism
 				has_war_with = ENG
 			}
-
 		}
 		icon = GFX_goal_generic_trade
 		cancel_if_invalid = no
@@ -3430,19 +2311,22 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_gateway_to_europe
 		cost = 5
-
 		available_if_capitulated = yes
-
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 100
 				is_historical_focus_on = no
-				GER = { is_ai = no }
-				check_variable = { var = ger_temp_trade_influence value = 15 compare = greater_than_or_equals }
+				GER = {
+					is_ai = no
+				}
+				check_variable = {
+					var = ger_temp_trade_influence
+					value = 15
+					compare = greater_than_or_equals
+				}
 			}
 		}
-
 		completion_reward = {
 			effect_tooltip = {
 				GER = {
@@ -3451,48 +2335,93 @@ focus_tree = {
 				}
 			}
 			add_ideas = free_trade
-			add_timed_idea = { idea = HOL_caved_to_the_germans days = 1095 }
+			add_timed_idea = {
+				idea = HOL_caved_to_the_germans
+				days = 1095
+			}
 			GER = {
-				add_opinion_modifier = { target = HOL modifier = HOL_caved_to_the_germans_ger }
-				add_opinion_modifier = { target = HOL modifier = HOL_caved_to_the_germans_ger_trade }
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_caved_to_the_germans_ger
+				}
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_caved_to_the_germans_ger_trade
+				}
 				if = {
 					limit = {
-						INS = { is_subject_of = HOL }
+						INS = {
+							is_subject_of = HOL
+						}
 					}
-					add_opinion_modifier = { target = INS modifier = HOL_caved_to_the_germans_ger_trade }
+					add_opinion_modifier = {
+						target = INS
+						modifier = HOL_caved_to_the_germans_ger_trade
+					}
 				}
-			}	
-			ENG = {
-				add_opinion_modifier = { target = HOL modifier = HOL_caved_to_the_germans_eng }
 			}
-			hidden_effect = { news_event = { id = mtg_news.10 hours = 6 } }
+			ENG = {
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_caved_to_the_germans_eng
+				}
+			}
+			hidden_effect = {
+				news_event = {
+					id = mtg_news.10
+					hours = 6
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_maintain_trade_neutrality
-		prerequisite = { focus = HOL_gateway_to_europe }
-		mutually_exclusive = { focus = HOL_cave_to_the_germans focus = HOL_cave_to_the_british }
+		prerequisite = {
+			focus = HOL_gateway_to_europe
+		}
+		mutually_exclusive = {
+			focus = HOL_cave_to_the_germans
+			focus = HOL_cave_to_the_british
+		}
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = HOL_maintain_trade_neutrality2_tt
-				check_variable = { var = ENG.eng_gateway_to_europe_influence value = 50 compare = greater_than_or_equals }
-				check_variable = { var = GER.ger_gateway_to_europe_influence value = 50 compare = greater_than_or_equals }
+				check_variable = {
+					var = ENG.eng_gateway_to_europe_influence
+					value = 50
+					compare = greater_than_or_equals
+				}
+				check_variable = {
+					var = GER.ger_gateway_to_europe_influence
+					value = 50
+					compare = greater_than_or_equals
+				}
 			}
 			custom_trigger_tooltip = {
 				tooltip = HOL_maintain_trade_neutrality_tt
-				check_variable = { var = eng_temp_trade_influence value = 5 compare = less_than_or_equals }
-				check_variable = { var = eng_temp_trade_influence value = -5 compare = greater_than_or_equals }
+				check_variable = {
+					var = eng_temp_trade_influence
+					value = 5
+					compare = less_than_or_equals
+				}
+				check_variable = {
+					var = eng_temp_trade_influence
+					value = -5
+					compare = greater_than_or_equals
+				}
 			}
-			NOT = { has_war_with = ENG }
-			NOT = { has_war_with = GER }
+			NOT = {
+				has_war_with = ENG
+			}
+			NOT = {
+				has_war_with = GER
+			}
 		}
 		bypass = {
 			OR = {
-                has_government = neutrality
+				has_government = neutrality
 				has_government = communism
 			}
-
 		}
 		icon = GFX_goal_generic_positive_trade_relations
 		cancel_if_invalid = no
@@ -3500,48 +2429,80 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_gateway_to_europe
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			ROOT = {
 				custom_effect_tooltip = HOL_trade_influence_tt
 				add_political_power = gateway_to_europe_influence_pp_total
 			}
-			add_opinion_modifier = { target = GER modifier = HOL_essential_dutch_trade }
+			add_opinion_modifier = {
+				target = GER
+				modifier = HOL_essential_dutch_trade
+			}
 			GER = {
-				add_opinion_modifier = { target = HOL modifier = HOL_maintained_trade_neutrality }
-				add_opinion_modifier = { target = HOL modifier = HOL_essential_dutch_trade }
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_maintained_trade_neutrality
+				}
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_essential_dutch_trade
+				}
 			}
-			add_opinion_modifier = { target = ENG modifier = HOL_essential_dutch_trade }
+			add_opinion_modifier = {
+				target = ENG
+				modifier = HOL_essential_dutch_trade
+			}
 			ENG = {
-				add_opinion_modifier = { target = HOL modifier = HOL_maintained_trade_neutrality }
-				add_opinion_modifier = { target = HOL modifier = HOL_essential_dutch_trade }
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_maintained_trade_neutrality
+				}
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_essential_dutch_trade
+				}
 			}
-			hidden_effect = { news_event = { id = mtg_news.12 hours = 6 } }
+			hidden_effect = {
+				news_event = {
+					id = mtg_news.12
+					hours = 6
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_cave_to_the_british
-		prerequisite = { focus = HOL_gateway_to_europe }
-		mutually_exclusive = { focus = HOL_cave_to_the_germans focus = HOL_maintain_trade_neutrality }
+		prerequisite = {
+			focus = HOL_gateway_to_europe
+		}
+		mutually_exclusive = {
+			focus = HOL_cave_to_the_germans
+			focus = HOL_maintain_trade_neutrality
+		}
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = HOL_cave_to_the_british2_tt
-				check_variable = { var = ENG.eng_gateway_to_europe_influence value = 25 compare = greater_than_or_equals }
+				check_variable = {
+					var = ENG.eng_gateway_to_europe_influence
+					value = 25
+					compare = greater_than_or_equals
+				}
 			}
 			custom_trigger_tooltip = {
 				tooltip = HOL_cave_to_the_british_tt
-				check_variable = { var = eng_temp_trade_influence value = 15 compare = greater_than_or_equals }
+				check_variable = {
+					var = eng_temp_trade_influence
+					value = 15
+					compare = greater_than_or_equals
+				}
 			}
 		}
 		bypass = {
 			OR = {
-                has_government = democratic
+				has_government = democratic
 				has_war_with = GER
 			}
-
 		}
 		icon = GFX_goal_generic_trade
 		cancel_if_invalid = no
@@ -3549,19 +2510,22 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_gateway_to_europe
 		cost = 5
-
 		available_if_capitulated = yes
-
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 100
 				is_historical_focus_on = no
-				ENG = { is_ai = no }
-				check_variable = { var = eng_temp_trade_influence value = 15 compare = greater_than_or_equals }
+				ENG = {
+					is_ai = no
+				}
+				check_variable = {
+					var = eng_temp_trade_influence
+					value = 15
+					compare = greater_than_or_equals
+				}
 			}
 		}
-
 		completion_reward = {
 			effect_tooltip = {
 				ENG = {
@@ -3570,90 +2534,110 @@ focus_tree = {
 				}
 			}
 			add_ideas = limited_exports
-			add_timed_idea = { idea = HOL_caved_to_the_british days = 1095 }
+			add_timed_idea = {
+				idea = HOL_caved_to_the_british
+				days = 1095
+			}
 			GER = {
-				add_opinion_modifier = { target = HOL modifier = HOL_caved_to_the_british_ger }
-				add_opinion_modifier = { target = HOL modifier = HOL_caved_to_the_british_ger_trade }
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_caved_to_the_british_ger
+				}
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_caved_to_the_british_ger_trade
+				}
 				if = {
 					limit = {
-						INS = { is_subject_of = HOL }
+						INS = {
+							is_subject_of = HOL
+						}
 					}
-					add_opinion_modifier = { target = INS modifier = HOL_caved_to_the_british_ger_trade }
+					add_opinion_modifier = {
+						target = INS
+						modifier = HOL_caved_to_the_british_ger_trade
+					}
 				}
-			}	
-			ENG = {
-				add_opinion_modifier = { target = HOL modifier = HOL_caved_to_the_british_eng }
 			}
-			hidden_effect = { news_event = { id = mtg_news.11 hours = 6 } }
+			ENG = {
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_caved_to_the_british_eng
+				}
+			}
+			hidden_effect = {
+				news_event = {
+					id = mtg_news.11
+					hours = 6
+				}
+			}
 		}
 	}
-
-###  ##   ##  ##  ### #   # 
-#   #  # #   #  #  #  ## ## 
-##  ####  #  #     #  # # # 
-#   #  #   # #  #  #  #   # 
-#   #  # ##   ##  ### #   # 
-
+	###  ##   ##  ##  ### #   # 
+	#   #  # #   #  #  #  ## ## 
+	##  ####  #  #     #  # # # 
+	#   #  #   # #  #  #  #   # 
+	#   #  # ##   ##  ### #   # 
 	focus = {
 		id = HOL_volk_en_vaderland
-		prerequisite = { focus = HOL_cave_to_the_germans }
+		prerequisite = {
+			focus = HOL_cave_to_the_germans
+		}
 		icon = GFX_goal_support_fascism
 		x = -3
 		y = 1
 		relative_position_id = HOL_cave_to_the_germans
 		cost = 5
-
 		ai_will_do = {
 			factor = 200
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			add_timed_idea = { idea = HOL_volk_en_vaderland days = 1095 }
+			add_timed_idea = {
+				idea = HOL_volk_en_vaderland
+				days = 1095
+			}
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = HOL_meinout_rost_van_tonningen
 		}
 	}
-
 	focus = {
 		id = HOL_de_jeugdstorm
 		available = {
 			has_government = fascism
 		}
-		prerequisite = { focus = HOL_volk_en_vaderland }
+		prerequisite = {
+			focus = HOL_volk_en_vaderland
+		}
 		icon = GFX_goal_generic_more_territorial_claims
 		x = 1
 		y = 1
 		relative_position_id = HOL_volk_en_vaderland
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_popularity = {
-			    ideology = fascism
-			    popularity = 0.05
+				ideology = fascism
+				popularity = 0.05
 			}
 			add_war_support = 0.05
 			add_ideas = HOL_de_jeugdstorm
 		}
 	}
-
 	focus = {
 		id = HOL_strength_over_blood
 		available = {
 			has_government = fascism
 		}
-		prerequisite = { focus = HOL_volk_en_vaderland }
+		prerequisite = {
+			focus = HOL_volk_en_vaderland
+		}
 		icon = GFX_focus_generic_support_the_left_right
 		x = -1
 		y = 1
 		relative_position_id = HOL_volk_en_vaderland
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			remove_ideas = HOL_aloof_neutrality
 			add_war_support = 0.1
@@ -3665,19 +2649,20 @@ focus_tree = {
 			}
 		}
 	}
-
- ###  ##  ### #  #      ##  ### ###  #   #  ##  #  # #   # 
-   # #  #  #  ## #     #    #   #  # ## ## #  # ## #  # #  
-   # #  #  #  # ##     # ## ##  ###  # # # #### # ##   #   
-#  # #  #  #  #  #     #  # #   #  # #   # #  # #  #   #   
- ##   ##  ### #  #      ##  ### #  # #   # #  # #  #   #   
-
-
+	###  ##  ### #  #      ##  ### ###  #   #  ##  #  # #   # 
+	# #  #  #  ## #     #    #   #  # ## ## #  # ## #  # #  
+	# #  #  #  # ##     # ## ##  ###  # # # #### # ##   #   
+	#  # #  #  #  #  #     #  # #   #  # #   # #  # #  #   #   
+	##   ##  ### #  #      ##  ### #  # #   # #  # #  #   #   
 	focus = {
 		id = HOL_join_germany
 		available = {
-			GER = { has_government = fascism }
-			NOT = { has_war_with = GER }
+			GER = {
+				has_government = fascism
+			}
+			NOT = {
+				has_war_with = GER
+			}
 		}
 		bypass = {
 			is_in_faction_with = GER
@@ -3688,32 +2673,38 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_strength_over_blood }
-		mutually_exclusive = { focus = HOL_the_netherlands_first }
+		prerequisite = {
+			focus = HOL_strength_over_blood
+		}
+		mutually_exclusive = {
+			focus = HOL_the_netherlands_first
+		}
 		icon = GFX_focus_chi_mission_to_germany
 		x = -1
 		y = 1
 		relative_position_id = HOL_strength_over_blood
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			GER = { country_event = { id = generic.2 hours = 6 } }
+			GER = {
+				country_event = {
+					id = generic.2
+					hours = 6
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_german_technological_exchange
-		prerequisite = { focus = HOL_join_germany }
+		prerequisite = {
+			focus = HOL_join_germany
+		}
 		icon = GFX_goal_tfv_generic_tech_sharing
 		x = -1
 		y = 1
 		relative_position_id = HOL_join_germany
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_to_tech_sharing_group = HOL_ger_research
 			every_country = {
@@ -3724,11 +2715,14 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_beginnings_of_a_dutch_blitzkrieg
-		prerequisite = { focus = HOL_german_technological_exchange }
-		mutually_exclusive = { focus = HOL_assume_the_naval_burden }
+		prerequisite = {
+			focus = HOL_german_technological_exchange
+		}
+		mutually_exclusive = {
+			focus = HOL_assume_the_naval_burden
+		}
 		available = {
 			GER = {
 				OR = {
@@ -3742,9 +2736,10 @@ focus_tree = {
 		y = 3
 		relative_position_id = HOL_german_technological_exchange
 		cost = 10
-
 		available_if_capitulated = yes
-		search_filters = {FOCUS_FILTER_INDUSTRY}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		completion_reward = {
 			if = {
 				limit = {
@@ -3753,10 +2748,15 @@ focus_tree = {
 				if = {
 					limit = {
 						GER = {
-												
-							NOT = { has_tech = improved_medium_tank }
-							NOT = { has_tech = basic_medium_tank }
-							NOT = { has_tech = basic_medium_tank_chassis }
+							NOT = {
+								has_tech = improved_medium_tank
+							}
+							NOT = {
+								has_tech = basic_medium_tank
+							}
+							NOT = {
+								has_tech = basic_medium_tank_chassis
+							}
 						}
 					}
 					custom_effect_tooltip = HOL_beginnings_of_a_dutch_blitzkrieg_tt_1
@@ -3775,16 +2775,15 @@ focus_tree = {
 						}
 						HOL = {
 							add_equipment_to_stockpile = {
-							    type = medium_tank_equipment_3
-							    amount = 250
-							    producer = GER
+								type = medium_tank_equipment_3
+								amount = 250
+								producer = GER
 							}
 						}
 					}
 					else_if = {
 						limit = {
 							has_tech = improved_medium_tank
-												
 						}
 						create_production_license = {
 							target = HOL
@@ -3795,9 +2794,9 @@ focus_tree = {
 						}
 						HOL = {
 							add_equipment_to_stockpile = {
-							    type = medium_tank_equipment_2
-							    amount = 250
-							    producer = GER
+								type = medium_tank_equipment_2
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3814,9 +2813,9 @@ focus_tree = {
 						}
 						HOL = {
 							add_equipment_to_stockpile = {
-							    type = medium_tank_equipment_1
-							    amount = 250
-							    producer = GER
+								type = medium_tank_equipment_1
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3833,9 +2832,9 @@ focus_tree = {
 						}
 						HOL = {
 							add_equipment_to_stockpile = {
-							    type = medium_tank_chassis_3
-							    amount = 250
-							    producer = GER
+								type = medium_tank_chassis_3
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3852,9 +2851,9 @@ focus_tree = {
 						}
 						HOL = {
 							add_equipment_to_stockpile = {
-							    type = medium_tank_chassis_2
-							    amount = 250
-							    producer = GER
+								type = medium_tank_chassis_2
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3871,9 +2870,9 @@ focus_tree = {
 						}
 						HOL = {
 							add_equipment_to_stockpile = {
-							    type = medium_tank_chassis_1
-							    amount = 250
-							    producer = GER
+								type = medium_tank_chassis_1
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3881,15 +2880,22 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					NOT = { has_dlc = "Death or Dishonor" }
+					NOT = {
+						has_dlc = "Death or Dishonor"
+					}
 				}
 				if = {
 					limit = {
 						GER = {
-												
-							NOT = { has_tech = improved_medium_tank }
-							NOT = { has_tech = basic_medium_tank }
-							NOT = { has_tech = basic_medium_tank_chassis }
+							NOT = {
+								has_tech = improved_medium_tank
+							}
+							NOT = {
+								has_tech = basic_medium_tank
+							}
+							NOT = {
+								has_tech = basic_medium_tank_chassis
+							}
 						}
 					}
 					custom_effect_tooltip = HOL_beginnings_of_a_dutch_blitzkrieg_tt_2
@@ -3907,16 +2913,15 @@ focus_tree = {
 								technology = advanced_medium_tank
 							}
 							add_equipment_to_stockpile = {
-							    type = medium_tank_equipment_3
-							    amount = 250
-							    producer = GER
+								type = medium_tank_equipment_3
+								amount = 250
+								producer = GER
 							}
 						}
 					}
 					else_if = {
 						limit = {
 							has_tech = improved_medium_tank
-												
 						}
 						HOL = {
 							add_tech_bonus = {
@@ -3926,9 +2931,9 @@ focus_tree = {
 								technology = improved_medium_tank
 							}
 							add_equipment_to_stockpile = {
-							    type = medium_tank_equipment_2
-							    amount = 250
-							    producer = GER
+								type = medium_tank_equipment_2
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3944,9 +2949,9 @@ focus_tree = {
 								technology = basic_medium_tank
 							}
 							add_equipment_to_stockpile = {
-							    type = medium_tank_equipment_1
-							    amount = 250
-							    producer = GER
+								type = medium_tank_equipment_1
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3962,9 +2967,9 @@ focus_tree = {
 								technology = advanced_medium_tank_chassis
 							}
 							add_equipment_to_stockpile = {
-							    type = medium_tank_chassis_3
-							    amount = 250
-							    producer = GER
+								type = medium_tank_chassis_3
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3980,9 +2985,9 @@ focus_tree = {
 								technology = improved_medium_tank_chassis
 							}
 							add_equipment_to_stockpile = {
-							    type = medium_tank_chassis_2
-							    amount = 250
-							    producer = GER
+								type = medium_tank_chassis_2
+								amount = 250
+								producer = GER
 							}
 						}
 					}
@@ -3998,23 +3003,29 @@ focus_tree = {
 								technology = basic_medium_tank_chassis
 							}
 							add_equipment_to_stockpile = {
-							    type = medium_tank_chassis_1
-							    amount = 250
-							    producer = GER
+								type = medium_tank_chassis_1
+								amount = 250
+								producer = GER
 							}
 						}
 					}
 				}
 			}
-			add_offsite_building = { type = arms_factory level = 4 }
+			add_offsite_building = {
+				type = arms_factory
+				level = 4
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_placate_the_japanese
 		available = {
-			JAP = { has_government = fascism }
-			NOT = { has_war_with = JAP }
+			JAP = {
+				has_government = fascism
+			}
+			NOT = {
+				has_war_with = JAP
+			}
 			OR = {
 				AND = {
 					controls_state = 335
@@ -4057,36 +3068,40 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_join_germany }
+		prerequisite = {
+			focus = HOL_join_germany
+		}
 		icon = GFX_focus_chi_collaboration_with_the_japanese
 		x = 0
 		y = 2
 		relative_position_id = HOL_join_germany
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			country_event = { id = mtg_netherlands.11 hours = 6 }
+			country_event = {
+				id = mtg_netherlands.11
+				hours = 6
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_assume_the_naval_burden
 		available = {
 			has_full_control_of_state = 7
 			has_full_control_of_state = 36
 		}
-		prerequisite = { focus = HOL_placate_the_japanese }
-		mutually_exclusive = { focus = HOL_beginnings_of_a_dutch_blitzkrieg }
+		prerequisite = {
+			focus = HOL_placate_the_japanese
+		}
+		mutually_exclusive = {
+			focus = HOL_beginnings_of_a_dutch_blitzkrieg
+		}
 		icon = GFX_goal_generic_occupy_states_coastal
 		x = 0
 		y = 2
 		relative_position_id = HOL_placate_the_japanese
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_assume_the_naval_burden
 			7 = {
@@ -4148,13 +3163,11 @@ focus_tree = {
 			}
 		}
 	}
-
-#  # ### ### #  # ### ###  #    ##  #  # ###   ##     ### ### ###   ## ### 
-## # #    #  #  # #   #  # #   #  # ## # #  # #       #    #  #  # #    #  
-# ## ##   #  #### ##  ###  #   #### # ## #  #  #      ##   #  ###   #   #  
-#  # #    #  #  # #   #  # #   #  # #  # #  #   #     #    #  #  #   #  #  
-#  # ###  #  #  # ### #  # ### #  # #  # ###  ##      #   ### #  # ##   #  
-
+	#  # ### ### #  # ### ###  #    ##  #  # ###   ##     ### ### ###   ## ### 
+	## # #    #  #  # #   #  # #   #  # ## # #  # #       #    #  #  # #    #  
+	# ## ##   #  #### ##  ###  #   #### # ## #  #  #      ##   #  ###   #   #  
+	#  # #    #  #  # #   #  # #   #  # #  # #  #   #     #    #  #  #   #  #  
+	#  # ###  #  #  # ### #  # ### #  # #  # ###  ##      #   ### #  # ##   #  
 	focus = {
 		id = HOL_the_netherlands_first
 		available = {
@@ -4162,39 +3175,42 @@ focus_tree = {
 				is_in_faction_with = GER
 			}
 		}
-		prerequisite = { focus = HOL_strength_over_blood }
-		mutually_exclusive = { focus = HOL_join_germany }
+		prerequisite = {
+			focus = HOL_strength_over_blood
+		}
+		mutually_exclusive = {
+			focus = HOL_join_germany
+		}
 		icon = GFX_goal_generic_demand_territory
 		x = 1
 		y = 1
 		relative_position_id = HOL_strength_over_blood
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			set_rule = { can_create_factions = yes }
+			set_rule = {
+				can_create_factions = yes
+			}
 			add_war_support = 0.1
 		}
 	}
-
 	focus = {
 		id = HOL_implement_the_program
-		prerequisite = { focus = HOL_the_netherlands_first }
+		prerequisite = {
+			focus = HOL_the_netherlands_first
+		}
 		icon = GFX_goal_generic_military_sphere
 		x = 0
 		y = 2
 		relative_position_id = HOL_the_netherlands_first
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_implement_the_program
 			add_stability = 0.05
 			add_popularity = {
-			    ideology = fascism
-			    popularity = 0.05
+				ideology = fascism
+				popularity = 0.05
 			}
 			if = {
 				limit = {
@@ -4246,18 +3262,17 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_taking_back_french_flanders
-		prerequisite = { focus = HOL_implement_the_program }
+		prerequisite = {
+			focus = HOL_implement_the_program
+		}
 		icon = GFX_goal_generic_occupy_states_ongoing_war
 		x = 0
 		y = 2
 		relative_position_id = HOL_implement_the_program
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			random_other_country = {
 				limit = {
@@ -4267,21 +3282,26 @@ focus_tree = {
 				HOL = {
 					add_state_claim = 29
 					create_wargoal = {
-					    type = take_state_focus
-					    generator = { 29 }
-					    target = PREV
-					    expire = 0
+						type = take_state_focus
+						generator = {
+							29
+						}
+						target = PREV
+						expire = 0
 					}
 				}
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_the_united_netherlands
 		available = {
-			NOT = { is_in_faction_with = BEL }
-			NOT = { is_in_faction_with = LUX }
+			NOT = {
+				is_in_faction_with = BEL
+			}
+			NOT = {
+				is_in_faction_with = LUX
+			}
 			custom_trigger_tooltip = {
 				tooltip = HOL_pre_empt_venezuelan_aggression_tt
 				NOT = {
@@ -4300,7 +3320,10 @@ focus_tree = {
 			has_full_control_of_state = 34
 			has_full_control_of_state = 8
 		}
-		prerequisite = { focus = HOL_join_germany focus = HOL_the_netherlands_first }
+		prerequisite = {
+			focus = HOL_join_germany
+			focus = HOL_the_netherlands_first
+		}
 		will_lead_to_war_with = BEL
 		will_lead_to_war_with = LUX
 		icon = GFX_focus_hol_united_netherlands
@@ -4308,36 +3331,36 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_join_germany
 		cost = 5
-
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0
 				date < 1940.3.5
 			}
-		}	
-
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
 			create_wargoal = {
-			    type = annex_everything
-			    target = BEL
-			    expire = 0
+				type = annex_everything
+				target = BEL
+				expire = 0
 			}
 			create_wargoal = {
-			    type = annex_everything
-			    target = LUX
-			    expire = 0
+				type = annex_everything
+				target = LUX
+				expire = 0
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_taking_back_our_old_colonies
 		available = {
-			NOT = { is_in_faction_with = ENG }
-			NOT = { is_in_faction_with = SAF }
+			NOT = {
+				is_in_faction_with = ENG
+			}
+			NOT = {
+				is_in_faction_with = SAF
+			}
 		}
 		bypass = {
 			has_full_control_of_state = 694
@@ -4351,7 +3374,9 @@ focus_tree = {
 			has_full_control_of_state = 719
 			has_full_control_of_state = 422
 		}
-		prerequisite = { focus = HOL_the_united_netherlands }
+		prerequisite = {
+			focus = HOL_the_united_netherlands
+		}
 		will_lead_to_war_with = FRA
 		will_lead_to_war_with = ENG
 		will_lead_to_war_with = SAF
@@ -4360,9 +3385,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = HOL_the_united_netherlands
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_state_claim = 694
 			add_state_claim = 308
@@ -4374,21 +3397,29 @@ focus_tree = {
 			add_state_claim = 275
 			add_state_claim = 719
 			add_state_claim = 422
-
 			create_wargoal = {
-			    type = take_state_focus
-			    generator = { 308 691 687 274 422 }
-			    expire = 0
-			    target = ENG
+				type = take_state_focus
+				generator = {
+					308
+					691
+					687
+					274
+					422
+				}
+				expire = 0
+				target = ENG
 			}
 			create_wargoal = {
-			    type = take_state_focus
-			    generator = { 681 275 719 }
-			    expire = 0
-			    target = SAF
+				type = take_state_focus
+				generator = {
+					681
+					275
+					719
+				}
+				expire = 0
+				target = SAF
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -4401,13 +3432,13 @@ focus_tree = {
 				}
 			}
 		}
-
 	}
-
 	focus = {
 		id = HOL_imperial_ambitions
 		available = {
-			NOT = { is_in_faction_with = USA }
+			NOT = {
+				is_in_faction_with = USA
+			}
 		}
 		bypass = {
 			has_full_control_of_state = 357
@@ -4415,17 +3446,16 @@ focus_tree = {
 			has_full_control_of_state = 359
 			has_full_control_of_state = 361
 		}
-
-		prerequisite = { focus = HOL_taking_back_our_old_colonies }
+		prerequisite = {
+			focus = HOL_taking_back_our_old_colonies
+		}
 		will_lead_to_war_with = USA
 		icon = GFX_goal_generic_territory_or_war
 		x = 0
 		y = 2
 		relative_position_id = HOL_taking_back_our_old_colonies
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_imperial_ambitions
 			add_war_support = 0.1
@@ -4434,50 +3464,60 @@ focus_tree = {
 			add_state_claim = 359
 			add_state_claim = 361
 			create_wargoal = {
-			    type = take_state_focus
-			    generator = { 357 358 359 361 }
-			    target = USA
-			    expire = 0
+				type = take_state_focus
+				generator = {
+					357
+					358
+					359
+					361
+				}
+				target = USA
+				expire = 0
 			}
 		}
-
 		ai_will_do = {
 			factor = 100
 			modifier = {
 				factor = 0
-				NOT = { has_war_with = USA }
+				NOT = {
+					has_war_with = USA
+				}
 			}
 		}
-
 	}
-
- ##   ##  #   # #   # #  # #  # ###  ## #   # 
-#  # #  # ## ## ## ## #  # ## #  #  #   ## ## 
-#    #  # # # # # # # #  # # ##  #   #  # # # 
-#  # #  # #   # #   # #  # #  #  #    # #   # 
- ##   ##  #   # #   #  ##  #  # ### ##  #   # 
-
- 	focus = {
+	##   ##  #   # #   # #  # #  # ###  ## #   # 
+	#  # #  # ## ## ## ## #  # ## #  #  #   ## ## 
+	#    #  # # # # # # # #  # # ##  #   #  # # # 
+	#  # #  # #   # #   # #  # #  #  #    # #   # 
+	##   ##  #   # #   #  ##  #  # ### ##  #   # 
+	focus = {
 		id = HOL_legacy_of_the_de_zeven_provincien_mutiny
-		prerequisite = { focus = HOL_maintain_trade_neutrality }
-		mutually_exclusive = { focus = HOL_oranje_boven }
+		prerequisite = {
+			focus = HOL_maintain_trade_neutrality
+		}
+		mutually_exclusive = {
+			focus = HOL_oranje_boven
+		}
 		icon = GFX_focus_hol_legacy_of_the_de_zeven_provincien_mutiny
 		x = -2
 		y = 1
 		relative_position_id = HOL_maintain_trade_neutrality
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			add_timed_idea = { idea = HOL_legacy_of_the_de_zeven_provincien_mutiny days = 1095 }
+			add_timed_idea = {
+				idea = HOL_legacy_of_the_de_zeven_provincien_mutiny
+				days = 1095
+			}
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = HOL_saul_de_groot
 			hidden_effect = {
 				if = {
 					limit = {
 						ENG = {
-							NOT = { has_government = communism }
+							NOT = {
+								has_government = communism
+							}
 						}
 					}
 					ENG = {
@@ -4506,7 +3546,9 @@ focus_tree = {
 				if = {
 					limit = {
 						USA = {
-							NOT = { has_government = communism }
+							NOT = {
+								has_government = communism
+							}
 						}
 					}
 					USA = {
@@ -4535,7 +3577,9 @@ focus_tree = {
 				if = {
 					limit = {
 						FRA = {
-							NOT = { has_government = communism }
+							NOT = {
+								has_government = communism
+							}
 						}
 					}
 					FRA = {
@@ -4564,41 +3608,82 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_decolonization
 		available = {
 			has_government = communism
 			OR = {
-				CRC = { is_subject_of = HOL }
-				695 = { is_fully_controlled_by = HOL }
-				SUR = { is_subject_of = HOL }
-				309 = { is_fully_controlled_by = HOL }
+				CRC = {
+					is_subject_of = HOL
+				}
+				695 = {
+					is_fully_controlled_by = HOL
+				}
+				SUR = {
+					is_subject_of = HOL
+				}
+				309 = {
+					is_fully_controlled_by = HOL
+				}
 				custom_trigger_tooltip = {
 					tooltip = HOL_decolonization_tt2
 					AND = {
-						672 = { is_fully_controlled_by = HOL }
-						335 = { is_fully_controlled_by = HOL }
-						334 = { is_fully_controlled_by = HOL }
-						667 = { is_fully_controlled_by = HOL }
-						673 = { is_fully_controlled_by = HOL }
-						668 = { is_fully_controlled_by = HOL }
-						738 = { is_fully_controlled_by = HOL }
-						669 = { is_fully_controlled_by = HOL }
+						672 = {
+							is_fully_controlled_by = HOL
+						}
+						335 = {
+							is_fully_controlled_by = HOL
+						}
+						334 = {
+							is_fully_controlled_by = HOL
+						}
+						667 = {
+							is_fully_controlled_by = HOL
+						}
+						673 = {
+							is_fully_controlled_by = HOL
+						}
+						668 = {
+							is_fully_controlled_by = HOL
+						}
+						738 = {
+							is_fully_controlled_by = HOL
+						}
+						669 = {
+							is_fully_controlled_by = HOL
+						}
 					}
 				}
 				AND = {
-					INS = { is_subject_of = HOL }
+					INS = {
+						is_subject_of = HOL
+					}
 					custom_trigger_tooltip = {
 						tooltip = HOL_decolonization_tt1
-						672 = { is_fully_controlled_by = INS }
-						335 = { is_fully_controlled_by = INS }
-						334 = { is_fully_controlled_by = INS }
-						667 = { is_fully_controlled_by = INS }
-						673 = { is_fully_controlled_by = INS }
-						668 = { is_fully_controlled_by = INS }
-						738 = { is_fully_controlled_by = INS }
-						669 = { is_fully_controlled_by = INS }
+						672 = {
+							is_fully_controlled_by = INS
+						}
+						335 = {
+							is_fully_controlled_by = INS
+						}
+						334 = {
+							is_fully_controlled_by = INS
+						}
+						667 = {
+							is_fully_controlled_by = INS
+						}
+						673 = {
+							is_fully_controlled_by = INS
+						}
+						668 = {
+							is_fully_controlled_by = INS
+						}
+						738 = {
+							is_fully_controlled_by = INS
+						}
+						669 = {
+							is_fully_controlled_by = INS
+						}
 					}
 				}
 			}
@@ -4606,46 +3691,88 @@ focus_tree = {
 		bypass = {
 			NOT = {
 				OR = {
-					672 = { is_owned_by = HOL }
-					335 = { is_owned_by = HOL }
-					334 = { is_owned_by = HOL }
-					667 = { is_owned_by = HOL }
-					673 = { is_owned_by = HOL }
-					668 = { is_owned_by = HOL }
-					738 = { is_owned_by = HOL }
-					669 = { is_owned_by = HOL }
-					695 = { is_owned_by = HOL }
-					309 = { is_owned_by = HOL }
+					672 = {
+						is_owned_by = HOL
+					}
+					335 = {
+						is_owned_by = HOL
+					}
+					334 = {
+						is_owned_by = HOL
+					}
+					667 = {
+						is_owned_by = HOL
+					}
+					673 = {
+						is_owned_by = HOL
+					}
+					668 = {
+						is_owned_by = HOL
+					}
+					738 = {
+						is_owned_by = HOL
+					}
+					669 = {
+						is_owned_by = HOL
+					}
+					695 = {
+						is_owned_by = HOL
+					}
+					309 = {
+						is_owned_by = HOL
+					}
 				}
 			}
 			NOT = {
 				OR = {
-					CRC = { is_subject_of = HOL }
-					SUR = { is_subject_of = HOL }
-					INS = { is_subject_of = HOL }
+					CRC = {
+						is_subject_of = HOL
+					}
+					SUR = {
+						is_subject_of = HOL
+					}
+					INS = {
+						is_subject_of = HOL
+					}
 				}
 			}
 		}
-		prerequisite = { focus = HOL_legacy_of_the_de_zeven_provincien_mutiny }
+		prerequisite = {
+			focus = HOL_legacy_of_the_de_zeven_provincien_mutiny
+		}
 		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
 		x = -1
 		y = 1
 		relative_position_id = HOL_legacy_of_the_de_zeven_provincien_mutiny
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			if = {
 				limit = {
-					672 = { is_fully_controlled_by = HOL }
-					335 = { is_fully_controlled_by = HOL }
-					334 = { is_fully_controlled_by = HOL }
-					667 = { is_fully_controlled_by = HOL }
-					673 = { is_fully_controlled_by = HOL }
-					668 = { is_fully_controlled_by = HOL }
-					738 = { is_fully_controlled_by = HOL }
-					669 = { is_fully_controlled_by = HOL }
+					672 = {
+						is_fully_controlled_by = HOL
+					}
+					335 = {
+						is_fully_controlled_by = HOL
+					}
+					334 = {
+						is_fully_controlled_by = HOL
+					}
+					667 = {
+						is_fully_controlled_by = HOL
+					}
+					673 = {
+						is_fully_controlled_by = HOL
+					}
+					668 = {
+						is_fully_controlled_by = HOL
+					}
+					738 = {
+						is_fully_controlled_by = HOL
+					}
+					669 = {
+						is_fully_controlled_by = HOL
+					}
 				}
 				INS = {
 					every_unit_leader = {
@@ -4662,15 +3789,33 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					INS = { is_subject_of = HOL }
-					672 = { is_fully_controlled_by = INS }
-					335 = { is_fully_controlled_by = INS }
-					334 = { is_fully_controlled_by = INS }
-					667 = { is_fully_controlled_by = INS }
-					673 = { is_fully_controlled_by = INS }
-					668 = { is_fully_controlled_by = INS }
-					738 = { is_fully_controlled_by = INS }
-					669 = { is_fully_controlled_by = INS }
+					INS = {
+						is_subject_of = HOL
+					}
+					672 = {
+						is_fully_controlled_by = INS
+					}
+					335 = {
+						is_fully_controlled_by = INS
+					}
+					334 = {
+						is_fully_controlled_by = INS
+					}
+					667 = {
+						is_fully_controlled_by = INS
+					}
+					673 = {
+						is_fully_controlled_by = INS
+					}
+					668 = {
+						is_fully_controlled_by = INS
+					}
+					738 = {
+						is_fully_controlled_by = INS
+					}
+					669 = {
+						is_fully_controlled_by = INS
+					}
 				}
 				hidden_effect = {
 					INS = {
@@ -4679,17 +3824,27 @@ focus_tree = {
 					}
 				}
 				set_autonomy = {
-				    target = INS
-				    autonomy_state = autonomy_free
+					target = INS
+					autonomy_state = autonomy_free
 				}
 			}
-			set_province_name = { id = 7381 name = "Jakarta" }
-			set_province_name = { id = 4608 name = "Surabaya" }
+			set_province_name = {
+				id = 7381
+				name = "Jakarta"
+			}
+			set_province_name = {
+				id = 4608
+				name = "Surabaya"
+			}
 			if = {
 				limit = {
 					OR = {
-						CRC = { is_subject_of = HOL }
-						695 = { is_fully_controlled_by = HOL }
+						CRC = {
+							is_subject_of = HOL
+						}
+						695 = {
+							is_fully_controlled_by = HOL
+						}
 					}
 				}
 				release = CRC
@@ -4697,8 +3852,12 @@ focus_tree = {
 			if = {
 				limit = {
 					OR = {
-						SUR = { is_subject_of = HOL }
-						309 = { is_fully_controlled_by = HOL }
+						SUR = {
+							is_subject_of = HOL
+						}
+						309 = {
+							is_fully_controlled_by = HOL
+						}
 					}
 				}
 				release = SUR
@@ -4706,7 +3865,10 @@ focus_tree = {
 			add_stability = -0.1
 			add_political_power = 150
 			add_manpower = 150000
-			add_timed_idea = { idea = HOL_redirected_investments days = 365 }
+			add_timed_idea = {
+				idea = HOL_redirected_investments
+				days = 365
+			}
 			custom_effect_tooltip = HOL_decolonization_tt
 			hidden_effect = {
 				division_template = {
@@ -4714,70 +3876,101 @@ focus_tree = {
 					priority = 1
 					division_names_group = INS_INF_01
 					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-						infantry = { x = 2 y = 0 }
-						infantry = { x = 2 y = 1 }
-						infantry = { x = 2 y = 2 }
+						infantry = {
+							x = 0
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+						infantry = {
+							x = 1
+							y = 0
+						}
+						infantry = {
+							x = 1
+							y = 1
+						}
+						infantry = {
+							x = 1
+							y = 2
+						}
+						infantry = {
+							x = 2
+							y = 0
+						}
+						infantry = {
+							x = 2
+							y = 1
+						}
+						infantry = {
+							x = 2
+							y = 2
+						}
 					}
 				}
 				7 = {
 					create_unit = {
-						division = "name = \"1. KNIL Divisie 'Java'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"1. KNIL Divisie 'Java'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 					create_unit = {
-						division = "name = \"2. KNIL Divisie 'Java'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"2. KNIL Divisie 'Java'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 					create_unit = {
-						division = "name = \"3. KNIL Divisie 'Java'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"3. KNIL Divisie 'Java'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 					create_unit = {
-						division = "name = \"4. KNIL Divisie 'Sumatra'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"4. KNIL Divisie 'Sumatra'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 					create_unit = {
-						division = "name = \"5. KNIL Divisie 'Sumatra'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"5. KNIL Divisie 'Sumatra'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 					create_unit = {
-						division = "name = \"6. KNIL Divisie 'Borneo'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"6. KNIL Divisie 'Borneo'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 					create_unit = {
-						division = "name = \"7. KNIL Divisie 'Borneo'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"7. KNIL Divisie 'Borneo'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 					create_unit = {
-						division = "name = \"8. KNIL Divisie 'Celebes'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5" 
+						division = "name = \"8. KNIL Divisie 'Celebes'\" division_template = \"KNIL Divisie\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 				}
 			}
-			hidden_effect = { news_event = { id = mtg_news.50 days = 1 } }
+			hidden_effect = {
+				news_event = {
+					id = mtg_news.50
+					days = 1
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_red_is_the_new_orange
 		available = {
 			has_government = communism
 		}
-		prerequisite = { focus = HOL_legacy_of_the_de_zeven_provincien_mutiny }
+		prerequisite = {
+			focus = HOL_legacy_of_the_de_zeven_provincien_mutiny
+		}
 		icon = GFX_goal_tfv_burn_the_royal_portraits
 		x = 1
 		y = 1
 		relative_position_id = HOL_legacy_of_the_de_zeven_provincien_mutiny
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			remove_ideas = HOL_wilhelmina
 			add_war_support = 0.1
@@ -4790,17 +3983,17 @@ focus_tree = {
 			}
 		}
 	}
-
- ##  ### ### ### ###  #   #     #    ##  #   #  ##  #   ### #   #     ###  ##      #   #  ##   ##  ##   ##  #   # 
-#  # #   #    #  #  # ## ##     #   #  #  # #  #  # #    #   # #       #  #  #     ## ## #  # #   #  # #  # #   # 
-#### ##  ##   #  ###  # # #     #   #  #   #   #### #    #    #        #  #  #     # # # #  #  #  #    #  # # # # 
-#  # #   #    #  #  # #   #     #   #  #   #   #  # #    #    #        #  #  #     #   # #  #   # #  # #  # # # # 
-#  # #   #   ### #  # #   #     ###  ##    #   #  # ###  #    #        #   ##      #   #  ##  ##   ##   ##   # #  
-
+	##  ### ### ### ###  #   #     #    ##  #   #  ##  #   ### #   #     ###  ##      #   #  ##   ##  ##   ##  #   # 
+	#  # #   #    #  #  # ## ##     #   #  #  # #  #  # #    #   # #       #  #  #     ## ## #  # #   #  # #  # #   # 
+	#### ##  ##   #  ###  # # #     #   #  #   #   #### #    #    #        #  #  #     # # # #  #  #  #    #  # # # # 
+	#  # #   #    #  #  # #   #     #   #  #   #   #  # #    #    #        #  #  #     #   # #  #   # #  # #  # # # # 
+	#  # #   #   ### #  # #   #     ###  ##    #   #  # ###  #    #        #   ##      #   #  ##  ##   ##   ##   # #  
 	focus = {
 		id = HOL_affirm_loyalty_to_moscow
 		available = {
-			NOT = { has_war_with = SOV }
+			NOT = {
+				has_war_with = SOV
+			}
 		}
 		bypass = {
 			is_in_faction_with = SOV
@@ -4817,76 +4010,86 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_decolonization }
-		prerequisite = { focus = HOL_red_is_the_new_orange }
-		mutually_exclusive = { focus = HOL_join_the_french focus = HOL_bastion_of_true_communism }
+		prerequisite = {
+			focus = HOL_decolonization
+		}
+		prerequisite = {
+			focus = HOL_red_is_the_new_orange
+		}
+		mutually_exclusive = {
+			focus = HOL_join_the_french
+			focus = HOL_bastion_of_true_communism
+		}
 		icon = GFX_focus_chi_mission_to_the_soviet_union
 		x = -2
 		y = 1
 		relative_position_id = HOL_decolonization
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			SOV = { country_event = { id = generic.2 hours = 6 } }
+			SOV = {
+				country_event = {
+					id = generic.2
+					hours = 6
+				}
+			}
 			remove_ideas = HOL_aloof_neutrality
 		}
 	}
-
 	focus = {
 		id = HOL_soviet_technical_teams
-		prerequisite = { focus = HOL_affirm_loyalty_to_moscow }
+		prerequisite = {
+			focus = HOL_affirm_loyalty_to_moscow
+		}
 		icon = GFX_goal_generic_production2
 		x = -1
 		y = 1
 		relative_position_id = HOL_affirm_loyalty_to_moscow
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_soviet_technical_teams
 		}
 	}
-
 	focus = {
 		id = HOL_making_the_ends_of_europe_meet
 		available = {
-			NOT = { is_in_faction_with = GER }
+			NOT = {
+				is_in_faction_with = GER
+			}
 		}
 		bypass = {
 			has_war_with = GER
 		}
-		prerequisite = { focus = HOL_soviet_technical_teams }
+		prerequisite = {
+			focus = HOL_soviet_technical_teams
+		}
 		will_lead_to_war_with = GER
 		icon = GFX_focus_attack_germany
 		x = 0
 		y = 2
 		relative_position_id = HOL_soviet_technical_teams
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			create_wargoal = {
-			    type = puppet_wargoal_focus
-			    target = GER
-			    expire = 0
+				type = puppet_wargoal_focus
+				target = GER
+				expire = 0
 			}
 		}
 	}
-
- ###  ##  ### #  #     ### #  # ###     ### ###  ### #  #  ##  #  # 
-   # #  #  #  ## #      #  #  # #       #   #  # #   ## # #  # #  # 
-   # #  #  #  # ##      #  #### ##      ##  ###  ##  # ## #    #### 
-#  # #  #  #  #  #      #  #  # #       #   #  # #   #  # #  # #  # 
- ##   ##  ### #  #      #  #  # ###     #   #  # ### #  #  ##  #  # 
-
- 	focus = {
+	###  ##  ### #  #     ### #  # ###     ### ###  ### #  #  ##  #  # 
+	# #  #  #  ## #      #  #  # #       #   #  # #   ## # #  # #  # 
+	# #  #  #  # ##      #  #### ##      ##  ###  ##  # ## #    #### 
+	#  # #  #  #  #  #      #  #  # #       #   #  # #   #  # #  # #  # 
+	##   ##  ### #  #      #  #  # ###     #   #  # ### #  #  ##  #  # 
+	focus = {
 		id = HOL_join_the_french
 		available = {
-			NOT = { has_war_with = FRA }
+			NOT = {
+				has_war_with = FRA
+			}
 			FRA = {
 				#has_completed_focus = FRA_humanite_unie
 				is_faction_leader = yes
@@ -4907,24 +4110,36 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_decolonization }
-		prerequisite = { focus = HOL_red_is_the_new_orange }
-		mutually_exclusive = { focus = HOL_affirm_loyalty_to_moscow focus = HOL_bastion_of_true_communism }
+		prerequisite = {
+			focus = HOL_decolonization
+		}
+		prerequisite = {
+			focus = HOL_red_is_the_new_orange
+		}
+		mutually_exclusive = {
+			focus = HOL_affirm_loyalty_to_moscow
+			focus = HOL_bastion_of_true_communism
+		}
 		icon = GFX_focus_chi_reach_out_to_france
 		x = 0
 		y = 1
 		relative_position_id = HOL_decolonization
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			FRA = { country_event = { id = generic.2 hours = 6 } }
+			FRA = {
+				country_event = {
+					id = generic.2
+					hours = 6
+				}
+			}
 			remove_ideas = HOL_aloof_neutrality
 			hidden_effect = {
 				if = {
 					limit = {
-						SOV = { has_government = communism }
+						SOV = {
+							has_government = communism
+						}
 					}
 					SOV = {
 						add_ai_strategy = {
@@ -4952,18 +4167,17 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_french_military_mission
-		prerequisite = { focus = HOL_join_the_french }
+		prerequisite = {
+			focus = HOL_join_the_french
+		}
 		icon = GFX_goal_generic_army_doctrines
 		x = 0
 		y = 2
 		relative_position_id = HOL_join_the_french
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			army_experience = 25
 			add_doctrine_cost_reduction = {
@@ -4975,46 +4189,54 @@ focus_tree = {
 			add_ideas = HOL_french_military_mission
 		}
 	}
-
 	focus = {
 		id = HOL_socialist_industrial_support
-		prerequisite = { focus = HOL_affirm_loyalty_to_moscow focus = HOL_join_the_french }
+		prerequisite = {
+			focus = HOL_affirm_loyalty_to_moscow
+			focus = HOL_join_the_french
+		}
 		icon = GFX_goal_generic_soviet_construction
 		x = 1
 		y = 1
 		relative_position_id = HOL_affirm_loyalty_to_moscow
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			add_offsite_building = { type = arms_factory level = 4 }
+			add_offsite_building = {
+				type = arms_factory
+				level = 4
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_for_the_common_good
-		prerequisite = { focus = HOL_socialist_industrial_support }
+		prerequisite = {
+			focus = HOL_socialist_industrial_support
+		}
 		icon = GFX_focus_generic_socialist_science
 		x = -1
 		y = 1
 		relative_position_id = HOL_socialist_industrial_support
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			if = {
 				limit = {
-					NOT = { is_in_faction_with = SOV }
-					NOT = { is_in_faction_with = FRA }
+					NOT = {
+						is_in_faction_with = SOV
+					}
+					NOT = {
+						is_in_faction_with = FRA
+					}
 				}
 				custom_effect_tooltip = HOL_for_the_common_good_tt
 			}
 			if = {
 				limit = {
 					is_in_faction_with = FRA
-					NOT = { is_in_faction_with = SOV }
+					NOT = {
+						is_in_faction_with = SOV
+					}
 				}
 				add_to_tech_sharing_group = HOL_fra_research
 				every_country = {
@@ -5038,48 +4260,56 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_mobilize_the_masses
-		prerequisite = { focus = HOL_socialist_industrial_support }
+		prerequisite = {
+			focus = HOL_socialist_industrial_support
+		}
 		icon = GFX_goal_generic_allies_build_infantry
 		x = 0
 		y = 2
 		relative_position_id = HOL_socialist_industrial_support
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_mobilize_the_masses
 		}
 	}
-
-###   ##   ## ### ###  ##  #  #      ##  ###     ### ###  #  # ###      ##   ##  #   # #   # #  # #  # ###  ## #   # 
-#  # #  # #    #   #  #  # ## #     #  # #        #  #  # #  # #       #  # #  # ## ## ## ## #  # ## #  #  #   ## ## 
-###  ####  #   #   #  #  # # ##     #  # ##       #  ###  #  # ##      #    #  # # # # # # # #  # # ##  #   #  # # # 
-#  # #  #   #  #   #  #  # #  #     #  # #        #  #  # #  # #       #  # #  # #   # #   # #  # #  #  #    # #   # 
-###  #  # ##   #  ###  ##  #  #      ##  #        #  #  #  ##  ###      ##   ##  #   # #   #  ##  #  # ### ##  #   # 
-
+	###   ##   ## ### ###  ##  #  #      ##  ###     ### ###  #  # ###      ##   ##  #   # #   # #  # #  # ###  ## #   # 
+	#  # #  # #    #   #  #  # ## #     #  # #        #  #  # #  # #       #  # #  # ## ## ## ## #  # ## #  #  #   ## ## 
+	###  ####  #   #   #  #  # # ##     #  # ##       #  ###  #  # ##      #    #  # # # # # # # #  # # ##  #   #  # # # 
+	#  # #  #   #  #   #  #  # #  #     #  # #        #  #  # #  # #       #  # #  # #   # #   # #  # #  #  #    # #   # 
+	###  #  # ##   #  ###  ##  #  #      ##  #        #  #  #  ##  ###      ##   ##  #   # #   #  ##  #  # ### ##  #   # 
 	focus = {
 		id = HOL_bastion_of_true_communism
 		available = {
-			NOT = { is_in_faction_with = SOV }
-			NOT = { is_in_faction_with = FRA }
+			NOT = {
+				is_in_faction_with = SOV
+			}
+			NOT = {
+				is_in_faction_with = FRA
+			}
 		}
-		prerequisite = { focus = HOL_decolonization }
-		prerequisite = { focus = HOL_red_is_the_new_orange }
-		mutually_exclusive = { focus = HOL_affirm_loyalty_to_moscow focus = HOL_join_the_french }
+		prerequisite = {
+			focus = HOL_decolonization
+		}
+		prerequisite = {
+			focus = HOL_red_is_the_new_orange
+		}
+		mutually_exclusive = {
+			focus = HOL_affirm_loyalty_to_moscow
+			focus = HOL_join_the_french
+		}
 		icon = GFX_focus_generic_join_comintern
 		x = 2
 		y = 1
 		relative_position_id = HOL_decolonization
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			set_rule = { can_create_factions = yes }
+			set_rule = {
+				can_create_factions = yes
+			}
 			add_war_support = 0.1
 			add_ideas = HOL_bastion_of_true_communism
 			remove_ideas = HOL_aloof_neutrality
@@ -5138,12 +4368,15 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_bring_socialism_south
 		available = {
-			NOT = { is_in_faction_with = BEL }
-			NOT = { is_in_faction_with = LUX }
+			NOT = {
+				is_in_faction_with = BEL
+			}
+			NOT = {
+				is_in_faction_with = LUX
+			}
 			custom_trigger_tooltip = {
 				tooltip = HOL_pre_empt_venezuelan_aggression_tt
 				NOT = {
@@ -5162,7 +4395,11 @@ focus_tree = {
 			has_full_control_of_state = 34
 			has_full_control_of_state = 8
 		}
-		prerequisite = { focus = HOL_bastion_of_true_communism focus = HOL_join_the_french focus = HOL_affirm_loyalty_to_moscow }
+		prerequisite = {
+			focus = HOL_bastion_of_true_communism
+			focus = HOL_join_the_french
+			focus = HOL_affirm_loyalty_to_moscow
+		}
 		will_lead_to_war_with = BEL
 		will_lead_to_war_with = LUX
 		icon = GFX_goal_generic_war_with_comintern
@@ -5170,73 +4407,89 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_bastion_of_true_communism
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_war_support = 0.1
 			create_wargoal = {
-			    type = puppet_wargoal_focus
-			    target = BEL
-			    expire = 0
+				type = puppet_wargoal_focus
+				target = BEL
+				expire = 0
 			}
 			create_wargoal = {
-			    type = puppet_wargoal_focus
-			    target = LUX
-			    expire = 0
+				type = puppet_wargoal_focus
+				target = LUX
+				expire = 0
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_enemies_on_all_fronts
-		prerequisite = { focus = HOL_bastion_of_true_communism }
+		prerequisite = {
+			focus = HOL_bastion_of_true_communism
+		}
 		icon = GFX_goal_generic_allies_build_infantry
 		x = 1
 		y = 1
 		relative_position_id = HOL_bring_socialism_south
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_enemies_on_all_fronts
 		}
 	}
-
 	focus = {
 		id = HOL_haven_of_tolerance
-		prerequisite = { focus = HOL_enemies_on_all_fronts }
+		prerequisite = {
+			focus = HOL_enemies_on_all_fronts
+		}
 		icon = GFX_goal_support_communism
 		x = 0
 		y = 2
 		relative_position_id = HOL_enemies_on_all_fronts
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_stability = 0.1
 			add_war_support = 0.05
 			add_ideas = HOL_haven_of_tolerance
 		}
 	}
-
 	focus = {
 		id = HOL_pre_empt_western_intervention
 		available = {
 			OR = {
-				ENG = { NOT = { has_government = communism } }
-				FRA = { NOT = { has_government = communism } }
-				USA = { NOT = { has_government = communism } }
+				ENG = {
+					NOT = {
+						has_government = communism
+					}
+				}
+				FRA = {
+					NOT = {
+						has_government = communism
+					}
+				}
+				USA = {
+					NOT = {
+						has_government = communism
+					}
+				}
 			}
 			OR = {
-				NOT = { is_in_faction_with = ENG }
-				NOT = { is_in_faction_with = FRA }
-				NOT = { is_in_faction_with = USA }
+				NOT = {
+					is_in_faction_with = ENG
+				}
+				NOT = {
+					is_in_faction_with = FRA
+				}
+				NOT = {
+					is_in_faction_with = USA
+				}
 			}
 		}
-		prerequisite = { focus = HOL_french_military_mission focus = HOL_enemies_on_all_fronts }
+		prerequisite = {
+			focus = HOL_french_military_mission
+			focus = HOL_enemies_on_all_fronts
+		}
 		will_lead_to_war_with = ENG
 		will_lead_to_war_with = FRA
 		will_lead_to_war_with = USA
@@ -5251,24 +4504,36 @@ focus_tree = {
 				add = 1
 				OR = {
 					AND = {
-						NOT = { is_in_faction_with = USA }
-						USA = { has_war = yes }
+						NOT = {
+							is_in_faction_with = USA
+						}
+						USA = {
+							has_war = yes
+						}
 						strength_ratio = {
 							tag = USA
 							ratio = 0.5
 						}
 					}
 					AND = {
-						NOT = { is_in_faction_with = ENG }
-						ENG = { has_war = yes }
+						NOT = {
+							is_in_faction_with = ENG
+						}
+						ENG = {
+							has_war = yes
+						}
 						strength_ratio = {
 							tag = ENG
 							ratio = 0.7
 						}
 					}
 					AND = {
-						NOT = { is_in_faction_with = FRA }
-						FRA = { has_war = yes }
+						NOT = {
+							is_in_faction_with = FRA
+						}
+						FRA = {
+							has_war = yes
+						}
 						strength_ratio = {
 							tag = FRA
 							ratio = 0.9
@@ -5277,89 +4542,99 @@ focus_tree = {
 				}
 			}
 		}
-
-		
-
 		completion_reward = {
 			if = {
 				limit = {
 					ENG = {
-						NOT = { has_government = communism }
-						NOT = { is_in_faction_with = HOL }
+						NOT = {
+							has_government = communism
+						}
+						NOT = {
+							is_in_faction_with = HOL
+						}
 					}
 				}
 				create_wargoal = {
-				    type = puppet_wargoal_focus
-				    target = ENG
-				    expire = 0
+					type = puppet_wargoal_focus
+					target = ENG
+					expire = 0
 				}
 			}
 			if = {
 				limit = {
 					FRA = {
-						NOT = { has_government = communism }
-						NOT = { is_in_faction_with = HOL }
+						NOT = {
+							has_government = communism
+						}
+						NOT = {
+							is_in_faction_with = HOL
+						}
 					}
 				}
 				create_wargoal = {
-				    type = puppet_wargoal_focus
-				    target = FRA
-				    expire = 0
+					type = puppet_wargoal_focus
+					target = FRA
+					expire = 0
 				}
 			}
 			if = {
 				limit = {
 					USA = {
-						NOT = { has_government = communism }
-						NOT = { is_in_faction_with = HOL }
+						NOT = {
+							has_government = communism
+						}
+						NOT = {
+							is_in_faction_with = HOL
+						}
 					}
 				}
 				create_wargoal = {
-				    type = puppet_wargoal_focus
-				    target = USA
-				    expire = 0
+					type = puppet_wargoal_focus
+					target = USA
+					expire = 0
 				}
 			}
 		}
 	}
-
-#   #  ##  #  #  ##  ###   ##  #  # ###  ## #   #    #  # ### #  # ### ###   ##  #   ### ### #   # 
-## ## #  # ## # #  # #  # #  # #  #  #  #   ## ##    ## # #   #  #  #  #  # #  # #    #   #   # #  
-# # # #  # # ## #### ###  #    ####  #   #  # # # ## # ## ##  #  #  #  ###  #### #    #   #    #   
-#   # #  # #  # #  # #  # #  # #  #  #    # #   #    #  # #   #  #  #  #  # #  # #    #   #    #   
-#   #  ##  #  # #  # #  #  ##  #  # ### ##  #   #    #  # ###  ##   #  #  # #  # ### ###  #    #   
-
+	#   #  ##  #  #  ##  ###   ##  #  # ###  ## #   #    #  # ### #  # ### ###   ##  #   ### ### #   # 
+	## ## #  # ## # #  # #  # #  # #  #  #  #   ## ##    ## # #   #  #  #  #  # #  # #    #   #   # #  
+	# # # #  # # ## #### ###  #    ####  #   #  # # # ## # ## ##  #  #  #  ###  #### #    #   #    #   
+	#   # #  # #  # #  # #  # #  # #  #  #    # #   #    #  # #   #  #  #  #  # #  # #    #   #    #   
+	#   #  ##  #  # #  # #  #  ##  #  # ### ##  #   #    #  # ###  ##   #  #  # #  # ### ###  #    #   
 	focus = {
 		id = HOL_oranje_boven
 		available = {
-			NOT = { has_completed_focus = HOL_curtail_colonial_autonomy }
+			NOT = {
+				has_completed_focus = HOL_curtail_colonial_autonomy
+			}
 		}
-		prerequisite = { focus = HOL_maintain_trade_neutrality }
-		mutually_exclusive = { focus = HOL_legacy_of_the_de_zeven_provincien_mutiny }
+		prerequisite = {
+			focus = HOL_maintain_trade_neutrality
+		}
+		mutually_exclusive = {
+			focus = HOL_legacy_of_the_de_zeven_provincien_mutiny
+		}
 		icon = GFX_focus_hol_oranje_boven
 		x = 2
 		y = 1
 		relative_position_id = HOL_maintain_trade_neutrality
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_oranje_boven_1
 		}
 	}
-
 	focus = {
 		id = HOL_symbol_of_resistance
-		prerequisite = { focus = HOL_oranje_boven }
+		prerequisite = {
+			focus = HOL_oranje_boven
+		}
 		icon = GFX_focus_generic_support_the_left_right
 		x = -1
 		y = 1
 		relative_position_id = HOL_oranje_boven
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = HOL_oranje_boven_1
@@ -5367,10 +4642,12 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_replace_the_defeatist_government
-		prerequisite = { focus = HOL_oranje_boven focus = HOL_unity_through_democracy }
+		prerequisite = {
+			focus = HOL_oranje_boven
+			focus = HOL_unity_through_democracy
+		}
 		available = {
 			has_war = yes
 		}
@@ -5382,25 +4659,19 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_oranje_boven
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			country_event = { id = mtg_netherlands.14 }
+			country_event = {
+				id = mtg_netherlands.14
+			}
 			effect_tooltip = {
 				add_popularity = {
-				    ideology = democratic
-				    popularity = -0.05
+					ideology = democratic
+					popularity = -0.05
 				}
 				HOL_pieter_sjoerds_gerbrandy = {
 					promote_character = {
-									  
-													
-														  
-						
 						ideology = conservatism
-			   
-					  
 					}
 				}
 				retire_country_leader = yes
@@ -5410,57 +4681,52 @@ focus_tree = {
 					}
 					remove_ideas = HOL_weak_government
 				}
-		    }
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_the_only_man_in_the_dutch_government
 		available = {
 			neutrality > 0.45
-			NOT = { has_completed_focus = HOL_curtail_colonial_autonomy }
+			NOT = {
+				has_completed_focus = HOL_curtail_colonial_autonomy
+			}
 		}
-		prerequisite = { focus = HOL_symbol_of_resistance }
-		prerequisite = { focus = HOL_replace_the_defeatist_government }
+		prerequisite = {
+			focus = HOL_symbol_of_resistance
+		}
+		prerequisite = {
+			focus = HOL_replace_the_defeatist_government
+		}
 		icon = GFX_focus_hol_the_only_man_in_the_dutch_government
 		x = 1
 		y = 1
 		relative_position_id = HOL_symbol_of_resistance
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			promote_character = {
-								
-							
-					   
-									 
 				character = HOL_wilhelmina
-					   
 				ideology = centrism
-			  
-			   
-							  
-						
-	 
 			}
-			set_politics = { ruling_party = neutrality elections_allowed = no }
-			remove_ideas = HOL_wilhelmina				
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			remove_ideas = HOL_wilhelmina
 		}
 	}
-
 	focus = {
 		id = HOL_de_vernieuwing
-		prerequisite = { focus = HOL_the_only_man_in_the_dutch_government }
+		prerequisite = {
+			focus = HOL_the_only_man_in_the_dutch_government
+		}
 		icon = GFX_goal_generic_demand_territory
 		x = -1
 		y = 1
 		relative_position_id = HOL_the_only_man_in_the_dutch_government
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_political_power = 200
 			set_temp_variable = {
@@ -5499,45 +4765,47 @@ focus_tree = {
 				ideology = democratic
 				popularity = ban_democratic_var
 			}
-			swap_ruler_traits = { remove = disdain_for_politicians_1 add = disdain_for_politicians_2 }
+			swap_ruler_traits = {
+				remove = disdain_for_politicians_1
+				add = disdain_for_politicians_2
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_depillarization
-		prerequisite = { focus = HOL_the_only_man_in_the_dutch_government }
+		prerequisite = {
+			focus = HOL_the_only_man_in_the_dutch_government
+		}
 		icon = GFX_goal_generic_national_unity
 		x = 1
 		y = 1
 		relative_position_id = HOL_the_only_man_in_the_dutch_government
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_stability = 0.1
 			add_ideas = HOL_depillarization
 		}
 	}
-
 	focus = {
 		id = HOL_a_new_dutch_unity
-		prerequisite = { focus = HOL_de_vernieuwing }
-		prerequisite = { focus = HOL_depillarization }
+		prerequisite = {
+			focus = HOL_de_vernieuwing
+		}
+		prerequisite = {
+			focus = HOL_depillarization
+		}
 		icon = GFX_goal_anschluss
 		x = 1
 		y = 1
 		relative_position_id = HOL_de_vernieuwing
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_war_support = 0.15
 			add_stability = 0.05
 		}
 	}
-
 	focus = {
 		id = HOL_revive_the_buffer_state_proposal
 		available = {
@@ -5553,59 +4821,82 @@ focus_tree = {
 			}
 			OR = {
 				AND = {
-					ROOT = { has_capitulated = no }
-					BEL = { has_capitulated = yes }
-					LUX = { has_capitulated = yes }
+					ROOT = {
+						has_capitulated = no
+					}
+					BEL = {
+						has_capitulated = yes
+					}
+					LUX = {
+						has_capitulated = yes
+					}
 				}
 				AND = {
-					ROOT = { has_capitulated = yes }
-					BEL = { has_capitulated = yes }
-					LUX = { has_capitulated = yes }
+					ROOT = {
+						has_capitulated = yes
+					}
+					BEL = {
+						has_capitulated = yes
+					}
+					LUX = {
+						has_capitulated = yes
+					}
 					custom_trigger_tooltip = {
 						tooltip = HOL_revive_the_buffer_state_proposal_tt1
-						check_variable = { HOL.legitimacy > BEL.legitimacy }
+						check_variable = {
+							HOL.legitimacy > BEL.legitimacy
+						}
 					}
 					custom_trigger_tooltip = {
 						tooltip = HOL_revive_the_buffer_state_proposal_tt2
-						check_variable = { HOL.legitimacy > LUX.legitimacy }
+						check_variable = {
+							HOL.legitimacy > LUX.legitimacy
+						}
 					}
 				}
 			}
 		}
-		prerequisite = { focus = HOL_a_new_dutch_unity }
-		prerequisite = { focus = HOL_request_allied_favors }
+		prerequisite = {
+			focus = HOL_a_new_dutch_unity
+		}
+		prerequisite = {
+			focus = HOL_request_allied_favors
+		}
 		icon = GFX_goal_generic_position_armies
 		x = 1
 		y = 1
 		relative_position_id = HOL_a_new_dutch_unity
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			ENG = { country_event = { id = mtg_netherlands.15 hours = 6 } }
+			ENG = {
+				country_event = {
+					id = mtg_netherlands.15
+					hours = 6
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_royal_arms_purchases
 		available = {
-			
 		}
-		prerequisite = { focus = HOL_de_vernieuwing }
+		prerequisite = {
+			focus = HOL_de_vernieuwing
+		}
 		icon = GFX_goal_generic_construct_mil_factory
 		x = 0
 		y = 2
 		relative_position_id = HOL_de_vernieuwing
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			add_offsite_building = { type = arms_factory level = 3 }
+			add_offsite_building = {
+				type = arms_factory
+				level = 3
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_develop_the_south
 		available = {
@@ -5613,16 +4904,14 @@ focus_tree = {
 			has_full_control_of_state = 34
 			has_full_control_of_state = 8
 		}
-		
-		prerequisite = { focus = HOL_revive_the_buffer_state_proposal }
+		prerequisite = {
+			focus = HOL_revive_the_buffer_state_proposal
+		}
 		icon = GFX_goal_generic_construct_civilian
 		x = 0
 		y = 1
 		relative_position_id = HOL_revive_the_buffer_state_proposal
 		cost = 5
-
-		
-
 		completion_reward = {
 			6 = {
 				if = {
@@ -5693,52 +4982,69 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_wilhelminism
 		available = {
 			OR = {
 				AND = {
 					has_war_with = GER
-					GER = { has_government = fascism }
+					GER = {
+						has_government = fascism
+					}
 				}
 				AND = {
-					NOT = { has_war_with = GER }
+					NOT = {
+						has_war_with = GER
+					}
 					#GER = { has_completed_focus = GER_revive_the_kaiserreich }
 				}
 			}
 		}
-		prerequisite = { focus = HOL_a_new_dutch_unity }
+		prerequisite = {
+			focus = HOL_a_new_dutch_unity
+		}
 		icon = GFX_goal_generic_dangerous_deal
 		x = 0
 		y = 3
 		relative_position_id = HOL_a_new_dutch_unity
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			if = {
 				limit = {
 					is_in_faction = yes
-					NOT = { has_war_with = GER }
+					NOT = {
+						has_war_with = GER
+					}
 					#GER = { has_completed_focus = GER_revive_the_kaiserreich }
 				}
 				leave_faction = yes
-				GER = { country_event = { id = generic.2 } }
+				GER = {
+					country_event = {
+						id = generic.2
+					}
+				}
 			}
 			if = {
 				limit = {
 					is_in_faction = no
-					NOT = { has_war_with = GER }
+					NOT = {
+						has_war_with = GER
+					}
 					#GER = { has_completed_focus = GER_revive_the_kaiserreich }
 				}
-				GER = { country_event = { id = generic.2 } }
+				GER = {
+					country_event = {
+						id = generic.2
+					}
+				}
 			}
 			if = {
 				limit = {
 					has_war_with = GER
-					GER = { has_government = fascism }
+					GER = {
+						has_government = fascism
+					}
 				}
 				every_country = {
 					limit = {
@@ -5750,7 +5056,10 @@ focus_tree = {
 						}
 						has_government = democratic
 					}
-					add_opinion_modifier = { target = HOL modifier = HOL_wilhelminism }
+					add_opinion_modifier = {
+						target = HOL
+						modifier = HOL_wilhelminism
+					}
 					hidden_effect = {
 						add_ai_strategy = {
 							type = antagonize
@@ -5770,40 +5079,79 @@ focus_tree = {
 					}
 				}
 				custom_effect_tooltip = HOL_wilhelminism_tt
-				hidden_effect = { add_ideas = HOL_german_defectors_1 }
+				hidden_effect = {
+					add_ideas = HOL_german_defectors_1
+				}
 				division_template = {
 					name = "Hare Majesteits Duitse Legioen"
 					priority = 1
 					division_names_group = HOL_INF_01
 					is_locked = yes
 					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-			
-	    			   	infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-			
-	    			   	infantry = { x = 2 y = 0 }
-						artillery_brigade = { x = 2 y = 1 }
-						artillery_brigade = { x = 2 y = 2 }
+						infantry = {
+							x = 0
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+						infantry = {
+							x = 1
+							y = 0
+						}
+						infantry = {
+							x = 1
+							y = 1
+						}
+						infantry = {
+							x = 1
+							y = 2
+						}
+						infantry = {
+							x = 2
+							y = 0
+						}
+						artillery_brigade = {
+							x = 2
+							y = 1
+						}
+						artillery_brigade = {
+							x = 2
+							y = 2
+						}
 					}
-		
 					support = {
-						engineer = { x = 0 y = 0 }
-						recon = { x = 0 y = 1 }
-						artillery = { x = 0 y = 2 }
+						engineer = {
+							x = 0
+							y = 0
+						}
+						recon = {
+							x = 0
+							y = 1
+						}
+						artillery = {
+							x = 0
+							y = 2
+						}
 					}
 				}
 				GER = {
 					add_ideas = HOL_german_defectors_2
-					country_event = { id = mtg_netherlands.70 }
+					country_event = {
+						id = mtg_netherlands.70
+					}
 				}
 			}
 			if = {
 				limit = {
-					NOT = { has_war_with = GER }
+					NOT = {
+						has_war_with = GER
+					}
 					#NOT = { GER = { has_completed_focus = GER_revive_the_kaiserreich } }
 				}
 				effect_tooltip = {
@@ -5817,38 +5165,44 @@ focus_tree = {
 							}
 							has_government = democratic
 						}
-						add_opinion_modifier = { target = HOL modifier = HOL_wilhelminism }
+						add_opinion_modifier = {
+							target = HOL
+							modifier = HOL_wilhelminism
+						}
 					}
 					custom_effect_tooltip = HOL_wilhelminism_tt
 					GER = {
 						add_ideas = HOL_german_defectors_2
-						country_event = { id = mtg_netherlands.71 }
+						country_event = {
+							id = mtg_netherlands.71
+						}
 					}
 				}
 			}
 		}
 	}
-
-###  ### #   #  ##   ##  ###   ##  ### ###  ##  
-#  # #   ## ## #  # #  # #  # #  #  #   #  #  # 
-#  # ##  # # # #  # #    ###  ####  #   #  #    
-#  # #   #   # #  # #  # #  # #  #  #   #  #  # 
-###  ### #   #  ##   ##  #  # #  #  #  ###  ##  
-
+	###  ### #   #  ##   ##  ###   ##  ### ###  ##  
+	#  # #   ## ## #  # #  # #  # #  #  #   #  #  # 
+	#  # ##  # # # #  # #    ###  ####  #   #  #    
+	#  # #   #   # #  # #  # #  # #  #  #   #  #  # 
+	###  ### #   #  ##   ##  #  # #  #  #  ###  ##  
 	focus = {
 		id = HOL_unity_through_democracy
-		prerequisite = { focus = HOL_cave_to_the_british }
+		prerequisite = {
+			focus = HOL_cave_to_the_british
+		}
 		icon = GFX_goal_support_democracy
 		x = 3
 		y = 1
 		relative_position_id = HOL_cave_to_the_british
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_stability = 0.05
-			add_timed_idea = { idea = HOL_unity_through_democracy days = 1095 }
+			add_timed_idea = {
+				idea = HOL_unity_through_democracy
+				days = 1095
+			}
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = HOL_willem_schermerhorn
 			hidden_effect = {
@@ -5879,18 +5233,17 @@ focus_tree = {
 			}
 		}
 	}
-
- ##   ##      #   # ### ### #  #     ###  ###  ### ###  ##  ### #  # 
-#    #  #     #   #  #   #  #  #     #  # #  #  #   #  #  #  #  ## # 
-# ## #  #     # # #  #   #  ####     ###  ###   #   #  ####  #  # ## 
-#  # #  #     # # #  #   #  #  #     #  # #  #  #   #  #  #  #  #  # 
- ##   ##       # #  ###  #  #  #     ###  #  # ###  #  #  # ### #  # 
-
-
+	##   ##      #   # ### ### #  #     ###  ###  ### ###  ##  ### #  # 
+	#    #  #     #   #  #   #  #  #     #  # #  #  #   #  #  #  #  ## # 
+	# ## #  #     # # #  #   #  ####     ###  ###   #   #  ####  #  # ## 
+	#  # #  #     # # #  #   #  #  #     #  # #  #  #   #  #  #  #  #  # 
+	##   ##       # #  ###  #  #  #     ###  #  # ###  #  #  # ### #  # 
 	focus = {
 		id = HOL_go_with_britain
 		available = {
-			ENG = { has_government = democratic }
+			ENG = {
+				has_government = democratic
+			}
 			threat > 0.25
 		}
 		bypass = {
@@ -5902,39 +5255,47 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = HOL_oranje_boven focus = HOL_unity_through_democracy }
-		mutually_exclusive = { focus = HOL_lead_the_minor_democracies }
+		prerequisite = {
+			focus = HOL_oranje_boven
+			focus = HOL_unity_through_democracy
+		}
+		mutually_exclusive = {
+			focus = HOL_lead_the_minor_democracies
+		}
 		icon = GFX_focus_chi_british_cooperation
 		x = 3
 		y = 1
 		relative_position_id = HOL_oranje_boven
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			remove_ideas = HOL_aloof_neutrality
-			ENG = { country_event = { id = generic.2 hours = 6 } }
+			ENG = {
+				country_event = {
+					id = generic.2
+					hours = 6
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_de_vaarplicht
-		prerequisite = { focus = HOL_replace_the_defeatist_government }
-		prerequisite = { focus = HOL_go_with_britain }
+		prerequisite = {
+			focus = HOL_replace_the_defeatist_government
+		}
+		prerequisite = {
+			focus = HOL_go_with_britain
+		}
 		icon = GFX_goal_generic_propaganda
 		x = 1
 		y = 1
 		relative_position_id = HOL_replace_the_defeatist_government
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_de_vaarplicht
 		}
 	}
-
 	focus = {
 		id = HOL_request_allied_favors
 		available = {
@@ -5945,49 +5306,56 @@ focus_tree = {
 				has_legitimacy > 40
 			}
 		}
-		prerequisite = { focus = HOL_de_vaarplicht }
+		prerequisite = {
+			focus = HOL_de_vaarplicht
+		}
 		icon = GFX_goal_generic_major_alliance
 		x = 0
 		y = 2
 		relative_position_id = HOL_de_vaarplicht
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_political_power = 60
 			unlock_decision_category_tooltip = HOL_request_allied_favors
 			custom_effect_tooltip = HOL_request_allied_favors_tt
 		}
 	}
-
 	focus = {
 		id = HOL_the_singapore_conferences
-		prerequisite = { focus = HOL_go_with_britain }
+		prerequisite = {
+			focus = HOL_go_with_britain
+		}
 		available = {
 			has_completed_focus = HOL_unity_through_democracy
 			has_government = democratic
 			is_in_faction_with = ENG
 			is_in_faction_with = AST
 			is_in_faction_with = MAL
-			NOT = { has_war_with = USA }
+			NOT = {
+				has_war_with = USA
+			}
 			OR = {
-				MAL = { has_full_control_of_state = 336 }
-				ENG = { has_full_control_of_state = 336 }
+				MAL = {
+					has_full_control_of_state = 336
+				}
+				ENG = {
+					has_full_control_of_state = 336
+				}
 			}
 		}
 		bypass = {
 			has_war_with = JAP
-			NOT = { has_completed_focus = HOL_oranje_boven }
+			NOT = {
+				has_completed_focus = HOL_oranje_boven
+			}
 		}
 		icon = GFX_goal_generic_navy_doctrines_tactics
 		x = 1
 		y = 1
 		relative_position_id = HOL_go_with_britain
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = HOL_the_singapore_conferences
@@ -5997,31 +5365,31 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_ship_a_day_sinking_quotas
 		available = {
 			has_war = yes
 		}
-		prerequisite = { focus = HOL_de_vaarplicht focus = HOL_the_singapore_conferences }
+		prerequisite = {
+			focus = HOL_de_vaarplicht
+			focus = HOL_the_singapore_conferences
+		}
 		icon = GFX_goal_generic_navy_submarine
 		x = 1
 		y = 1
 		relative_position_id = HOL_de_vaarplicht
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = HOL_ship_a_day_sinking_quotas
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = ss_tech
 			}
 			add_tech_bonus = {
 				name = HOL_ship_a_day_sinking_quotas
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = submarine_doctrine
 			}
@@ -6035,39 +5403,41 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_allied_technological_developments
-		prerequisite = { focus = HOL_the_singapore_conferences }
+		prerequisite = {
+			focus = HOL_the_singapore_conferences
+		}
 		icon = GFX_goal_tfv_generic_tech_sharing
 		x = 1
 		y = 1
 		relative_position_id = HOL_the_singapore_conferences
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_allied_technological_developments
 		}
 	}
-
 	focus = {
 		id = HOL_american_west_indies_protectorate
 		available = {
 			has_war = yes
-			NOT = { has_war_with = USA }
+			NOT = {
+				has_war_with = USA
+			}
 		}
-		prerequisite = { focus = HOL_ship_a_day_sinking_quotas }
-		prerequisite = { focus = HOL_allied_technological_developments }
+		prerequisite = {
+			focus = HOL_ship_a_day_sinking_quotas
+		}
+		prerequisite = {
+			focus = HOL_allied_technological_developments
+		}
 		icon = GFX_focus_chi_mission_to_the_us
 		x = 1
 		y = 1
 		relative_position_id = HOL_ship_a_day_sinking_quotas
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			if = {
 				limit = {
@@ -6107,40 +5477,84 @@ focus_tree = {
 					division_names_group = USA_INF_01
 					is_locked = yes
 					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-						infantry = { x = 2 y = 0 }
-						infantry = { x = 2 y = 1 }
-						infantry = { x = 2 y = 2 }
-						infantry = { x = 3 y = 0 }
-						infantry = { x = 3 y = 1 }
-						infantry = { x = 3 y = 2 }
+						infantry = {
+							x = 0
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+						infantry = {
+							x = 1
+							y = 0
+						}
+						infantry = {
+							x = 1
+							y = 1
+						}
+						infantry = {
+							x = 1
+							y = 2
+						}
+						infantry = {
+							x = 2
+							y = 0
+						}
+						infantry = {
+							x = 2
+							y = 1
+						}
+						infantry = {
+							x = 2
+							y = 2
+						}
+						infantry = {
+							x = 3
+							y = 0
+						}
+						infantry = {
+							x = 3
+							y = 1
+						}
+						infantry = {
+							x = 3
+							y = 2
+						}
 					}
 					support = {
-					    artillery = { x = 0 y = 0 }
-					    engineer = { x = 0 y = 1 }
+						artillery = {
+							x = 0
+							y = 0
+						}
+						engineer = {
+							x = 0
+							y = 1
+						}
 					}
 				}
 				695 = {
 					create_unit = {
-						division = "name = \"1. American Garrison\" division_template = \"American Garrison\" start_experience_factor = 0.5" 
+						division = "name = \"1. American Garrison\" division_template = \"American Garrison\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 				}
 				309 = {
 					create_unit = {
-						division = "name = \"2. American Garrison\" division_template = \"American Garrison\" start_experience_factor = 0.5" 
+						division = "name = \"2. American Garrison\" division_template = \"American Garrison\" start_experience_factor = 0.5"
 						owner = HOL
 					}
 				}
 			}
 			if = {
 				limit = {
-					NOT = { is_in_faction_with = USA }
+					NOT = {
+						is_in_faction_with = USA
+					}
 				}
 				custom_effect_tooltip = HOL_american_west_indies_protectorate_tt
 				effect_tooltip = {
@@ -6149,11 +5563,14 @@ focus_tree = {
 						give_guarantee = HOL
 					}
 				}
-				USA = { country_event = { id = mtg_netherlands.26 } }
+				USA = {
+					country_event = {
+						id = mtg_netherlands.26
+					}
+				}
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_combined_chiefs_of_staff_representation
 		available = {
@@ -6165,40 +5582,43 @@ focus_tree = {
 				has_legitimacy > 80
 			}
 		}
-		prerequisite = { focus = HOL_request_allied_favors }
-		prerequisite = { focus = HOL_american_west_indies_protectorate }
+		prerequisite = {
+			focus = HOL_request_allied_favors
+		}
+		prerequisite = {
+			focus = HOL_american_west_indies_protectorate
+		}
 		icon = GFX_focus_generic_military_academy
 		x = 1
 		y = 1
 		relative_position_id = HOL_request_allied_favors
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_combined_chiefs_of_staff_representation
 		}
 	}
-
 	focus = {
 		id = HOL_the_fourth_ally
 		available = {
 			is_in_faction_with = ENG
 			is_in_faction_with = USA
 			has_war = yes
-			NOT = { has_war_with = SOV }
+			NOT = {
+				has_war_with = SOV
+			}
 			has_full_control_of_state = 335
 			has_full_control_of_state = 672
 		}
-		prerequisite = { focus = HOL_combined_chiefs_of_staff_representation }
+		prerequisite = {
+			focus = HOL_combined_chiefs_of_staff_representation
+		}
 		icon = GFX_focus_hol_the_fourth_ally
 		x = 0
 		y = 1
 		relative_position_id = HOL_combined_chiefs_of_staff_representation
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			335 = {
 				if = {
@@ -6213,9 +5633,9 @@ focus_tree = {
 					}
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
-							type = dockyard
-							level = 2
-							instant_build = yes
+						type = dockyard
+						level = 2
+						instant_build = yes
 					}
 				}
 			}
@@ -6232,16 +5652,15 @@ focus_tree = {
 					}
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
-							type = dockyard
-							level = 2
-							instant_build = yes
+						type = dockyard
+						level = 2
+						instant_build = yes
 					}
 				}
 			}
 			add_ideas = HOL_the_fourth_ally
 		}
 	}
-
 	focus = {
 		id = HOL_zandery_military_airport
 		available = {
@@ -6250,17 +5669,17 @@ focus_tree = {
 			has_full_control_of_state = 309
 			has_full_control_of_state = 695
 		}
-		prerequisite = { focus = HOL_american_west_indies_protectorate }
+		prerequisite = {
+			focus = HOL_american_west_indies_protectorate
+		}
 		icon = GFX_goal_generic_construct_military
 		x = 1
 		y = 2
 		relative_position_id = HOL_american_west_indies_protectorate
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			309 = {	
+			309 = {
 				add_building_construction = {
 					type = air_base
 					level = 8
@@ -6272,7 +5691,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			695 = {	
+			695 = {
 				add_building_construction = {
 					type = radar_station
 					level = 3
@@ -6281,29 +5700,29 @@ focus_tree = {
 			}
 		}
 	}
-
-#   ###  ##  ###      ### #  # ###     #   # ### #  #  ##  ###      ###  ### #   #  ##   ##  ###   ##   ##  ### ###  ## 
-#   #   #  # #  #      #  #  # #       ## ##  #  ## # #  # #  #     #  # #   ## ## #  # #  # #  # #  # #  #  #  #   #   
-#   ##  #### #  #      #  #### ##      # # #  #  # ## #  # ###      #  # ##  # # # #  # #    ###  #### #     #  ##   #  
-#   #   #  # #  #      #  #  # #       #   #  #  #  # #  # #  #     #  # #   #   # #  # #  # #  # #  # #  #  #  #     # 
-### ### #  # ###       #  #  # ###     #   # ### #  #  ##  #  #     ###  ### #   #  ##   ##  #  # #  #  ##  ### ### ##  
-
+	#   ###  ##  ###      ### #  # ###     #   # ### #  #  ##  ###      ###  ### #   #  ##   ##  ###   ##   ##  ### ###  ## 
+	#   #   #  # #  #      #  #  # #       ## ##  #  ## # #  # #  #     #  # #   ## ## #  # #  # #  # #  # #  #  #  #   #   
+	#   ##  #### #  #      #  #### ##      # # #  #  # ## #  # ###      #  # ##  # # # #  # #    ###  #### #     #  ##   #  
+	#   #   #  # #  #      #  #  # #       #   #  #  #  # #  # #  #     #  # #   #   # #  # #  # #  # #  # #  #  #  #     # 
+	### ### #  # ###       #  #  # ###     #   # ### #  #  ##  #  #     ###  ### #   #  ##   ##  #  # #  #  ##  ### ### ##  
 	focus = {
 		id = HOL_lead_the_minor_democracies
 		available = {
 			has_war = no
 			is_in_faction = no
 		}
-		prerequisite = { focus = HOL_unity_through_democracy }
-		mutually_exclusive = { focus = HOL_go_with_britain }
+		prerequisite = {
+			focus = HOL_unity_through_democracy
+		}
+		mutually_exclusive = {
+			focus = HOL_go_with_britain
+		}
 		icon = GFX_goal_generic_demand_territory
 		x = 2
 		y = 1
 		relative_position_id = HOL_unity_through_democracy
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_political_power = 120
 			remove_ideas = HOL_aloof_neutrality
@@ -6315,35 +5734,50 @@ focus_tree = {
 					is_major = no
 					has_government = democratic
 				}
-				add_opinion_modifier = { target = HOL modifier = HOL_lead_the_minor_democracies }
-				add_timed_idea = { idea = HOL_lead_the_minor_democracies days = 1095 }
+				add_opinion_modifier = {
+					target = HOL
+					modifier = HOL_lead_the_minor_democracies
+				}
+				add_timed_idea = {
+					idea = HOL_lead_the_minor_democracies
+					days = 1095
+				}
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_form_the_benelux
 		available = {
 			is_in_faction = no
 			is_subject = no
-			BEL = { is_in_faction = no }
-			LUX = { is_in_faction = no }
+			BEL = {
+				is_in_faction = no
+			}
+			LUX = {
+				is_in_faction = no
+			}
 		}
 		bypass = {
-			BEL = { exists = no }
-			LUX = { exists = no }
+			BEL = {
+				exists = no
+			}
+			LUX = {
+				exists = no
+			}
 		}
-		prerequisite = { focus = HOL_lead_the_minor_democracies }
+		prerequisite = {
+			focus = HOL_lead_the_minor_democracies
+		}
 		icon = GFX_goal_generic_position_armies
 		x = -1
 		y = 1
 		relative_position_id = HOL_lead_the_minor_democracies
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			set_rule = { can_create_factions = yes }
+			set_rule = {
+				can_create_factions = yes
+			}
 			create_faction = HOL_benelux
 			BEL = {
 				custom_effect_tooltip = HOL_form_the_benelux_bel_tt
@@ -6352,10 +5786,25 @@ focus_tree = {
 				custom_effect_tooltip = HOL_form_the_benelux_lux_tt
 			}
 			hidden_effect = {
-				BEL = { country_event = { id = generic.5 hours = 6 } }
-				LUX = { country_event = { id = generic.5 hours = 6 } }
+				BEL = {
+					country_event = {
+						id = generic.5
+						hours = 6
+					}
+				}
+				LUX = {
+					country_event = {
+						id = generic.5
+						hours = 6
+					}
+				}
 			}
-			hidden_effect = { news_event = { id = mtg_news.53 days = 1 } }
+			hidden_effect = {
+				news_event = {
+					id = mtg_news.53
+					days = 1
+				}
+			}
 			if = {
 				limit = {
 					has_idea = HOL_weak_government
@@ -6365,55 +5814,54 @@ focus_tree = {
 			unlock_decision_tooltip = HOL_propose_benelux_unification
 		}
 	}
-
 	focus = {
 		id = HOL_responsibility_for_our_own_defense
-		prerequisite = { focus = HOL_lead_the_minor_democracies }
+		prerequisite = {
+			focus = HOL_lead_the_minor_democracies
+		}
 		icon = GFX_goal_generic_build_tank
 		x = 1
 		y = 1
 		relative_position_id = HOL_lead_the_minor_democracies
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_war_support = 0.05
 			add_ideas = HOL_responsibility_for_our_own_defense
 		}
 	}
-
 	focus = {
 		id = HOL_lessons_from_the_low_countries
-		prerequisite = { focus = HOL_form_the_benelux }
-		prerequisite = { focus = HOL_responsibility_for_our_own_defense }
+		prerequisite = {
+			focus = HOL_form_the_benelux
+		}
+		prerequisite = {
+			focus = HOL_responsibility_for_our_own_defense
+		}
 		icon = GFX_goal_generic_construct_military
 		x = 1
 		y = 1
 		relative_position_id = HOL_form_the_benelux
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_ideas = HOL_lessons_from_the_low_countries
 		}
 	}
-
 	focus = {
 		id = HOL_foundations_for_a_european_union
 		available = {
 			is_faction_leader = yes
 		}
-		prerequisite = { focus = HOL_lessons_from_the_low_countries }
+		prerequisite = {
+			focus = HOL_lessons_from_the_low_countries
+		}
 		icon = GFX_goal_generic_national_unity
 		x = 0
 		y = 1
 		relative_position_id = HOL_lessons_from_the_low_countries
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			set_faction_name = european_union
 			every_other_country = {
@@ -6423,25 +5871,34 @@ focus_tree = {
 					}
 					is_major = no
 					has_government = democratic
-					NOT = { is_in_faction_with = ROOT }
+					NOT = {
+						is_in_faction_with = ROOT
+					}
 				}
-				country_event = { id = generic.5 hours = 6 }
+				country_event = {
+					id = generic.5
+					hours = 6
+				}
 			}
-			hidden_effect = { news_event = { id = mtg_news.54 days = 1 } }
+			hidden_effect = {
+				news_event = {
+					id = mtg_news.54
+					days = 1
+				}
+			}
 		}
 	}
-
 	focus = {
 		id = HOL_the_continents_best_and_brightest
-		prerequisite = { focus = HOL_foundations_for_a_european_union }
+		prerequisite = {
+			focus = HOL_foundations_for_a_european_union
+		}
 		icon = GFX_goal_tfv_generic_tech_sharing
 		x = -1
 		y = 1
 		relative_position_id = HOL_foundations_for_a_european_union
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_to_tech_sharing_group = HOL_europe_research
 			every_country = {
@@ -6452,14 +5909,19 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = HOL_the_best_defense
 		available = {
-			NOT = { is_in_faction_with = GER }
-			NOT = { is_in_faction_with = ENG }
+			NOT = {
+				is_in_faction_with = GER
+			}
+			NOT = {
+				is_in_faction_with = ENG
+			}
 		}
-		prerequisite = { focus = HOL_foundations_for_a_european_union }
+		prerequisite = {
+			focus = HOL_foundations_for_a_european_union
+		}
 		will_lead_to_war_with = GER
 		will_lead_to_war_with = ENG
 		icon = GFX_goal_generic_major_war
@@ -6467,22 +5929,18 @@ focus_tree = {
 		y = 1
 		relative_position_id = HOL_foundations_for_a_european_union
 		cost = 5
-
 		available_if_capitulated = yes
-
 		completion_reward = {
 			create_wargoal = {
-			    type = puppet_wargoal_focus
-			    target = GER
-			    expire = 0
+				type = puppet_wargoal_focus
+				target = GER
+				expire = 0
 			}
 			create_wargoal = {
-			    type = puppet_wargoal_focus
-			    target = ENG
-			    expire = 0
+				type = puppet_wargoal_focus
+				target = ENG
+				expire = 0
 			}
 		}
 	}
-
-
 }
