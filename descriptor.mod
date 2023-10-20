@@ -31,7 +31,7 @@ replace_path="common/difficulty_settings"
 ##replace_path="common/game_rules"
 ##replace_path="common/idea_tags"
 
-##replace_path="common/ideas"
+replace_path="common/ideas"
 ##replace_path="common/ideologies"
 
 replace_path="common/military_industrial_organization/organizations"
