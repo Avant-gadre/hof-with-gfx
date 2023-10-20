@@ -5,14 +5,16 @@ replace_path="common/abilities"
 ##replace_path="common/ai_areas"
 ##replace_path="common/ai_equipment"
 ##replace_path="common/ai_focuses"
-replace_path="common/ai_strategy"
 
-##replace_path="common/ai_strategy_plans"
+replace_path="common/ai_strategy"
+replace_path="common/ai_strategy_plans"
 
 ##replace_path="common/ai_templates"
 ##replace_path="common/autonomous_states"
 ##replace_path="common/bookmarks"
+
 replace_path="common/bop"
+
 ##replace_path="common/characters"
 ##replace_path="common/continuous_focus"
 ##replace_path="common/countries"
@@ -24,6 +26,7 @@ replace_path="common/bop"
 ##replace_path="common/decisions/categories"
 
 replace_path="common/difficulty_settings"
+
 ##replace_path="common/dynamic_modifiers"
 ##replace_path="common/game_rules"
 ##replace_path="common/idea_tags"
