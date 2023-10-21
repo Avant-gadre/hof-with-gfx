@@ -32,6 +32,7 @@ replace_path="common/difficulty_settings"
 ##replace_path="common/idea_tags"
 
 replace_path="common/ideas"
+
 ##replace_path="common/ideologies"
 
 replace_path="common/military_industrial_organization/organizations"
@@ -65,6 +66,7 @@ replace_path="common/military_industrial_organization/organizations"
 ##replace_path="common/units/names_ships"
 
 ##replace_path="events"
+
 replace_path="gfx/loadingscreens"
 
 ##replace_path="gfx/flags"
@@ -72,6 +74,7 @@ replace_path="gfx/loadingscreens"
 ##replace_path="history/general"
 
 replace_path="history/states"
+
 ##replace_path="history/units"
 
 version="0.1"
