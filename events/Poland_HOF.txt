@@ -193,6 +193,7 @@ country_event = {
 			limit = { 
 				set_temp_variable = { Sanacja_Repression = POL_Sanacja_repression }
 				subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
+				is_ai = no
 				check_variable = {
 					var = Sanacja_Repression
 					value = -20
@@ -245,6 +246,7 @@ country_event = {
 		}
 		hidden_effect = {
 			set_country_flag = POL_Sanacja_Government_democratized_flag
+			set_country_flag = POL_no_need_to_elect_flag
 			country_event = { id = poland_hof.6 days = 7 }
 		}
 	}
@@ -452,6 +454,10 @@ country_event = {
 				else = {
 					set_country_flag = POL_Nearl_Sanacja_flag
 				}
+				if = {
+					limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
+					clr_country_flag = POL_Sanacja_show_initial_flag
+				}
 				mark_focus_tree_layout_dirty = yes
 			}
 		}
@@ -481,7 +487,7 @@ country_event = {
 		add_stability = 0.05
 		set_politics = {
 			ruling_party = democratic
-			elections_allowed = yes
+			elections_allowed = no
 		}
 		hidden_effect = {
 			set_country_flag = POL_PSL_government_flag
@@ -512,10 +518,10 @@ country_event = {
 		add_stability = 0.05
 		set_politics = {
 			ruling_party = democratic
-			elections_allowed = yes
+			elections_allowed = no
 		}
 		hidden_effect = {
-			set_country_flag = POL_PSL_government_flag
+			# set_country_flag = POL_PSL_government_flag
 			set_country_flag = POL_peasant_strike_halted_election_flag
 			if = {
 				limit = {
@@ -571,8 +577,8 @@ country_event = {
 				subtract_from_temp_variable = { Sanacja_PSL_Compare = POL_PSL_Power }
 				check_variable = {
 					var = Sanacja_PSL_Compare
-					value = -11
-					compare = greater_than
+					value = 10
+					compare = less_than
 				}
 				NOT = { has_completed_focus = POL_woo_morges_staff_hof }
 			}
@@ -628,7 +634,7 @@ country_event = {
 		### TODO: Remove ideas
 		set_politics = {
 			ruling_party = fascism
-			elections_allowed = yes
+			elections_allowed = no
 		}
 		hidden_effect = {
 			set_country_flag = POL_peasant_strike_halted_election_flag
@@ -679,7 +685,7 @@ country_event = {
 		### TODO: Remove ideas
 		set_politics = {
 			ruling_party = neutrality
-			elections_allowed = yes
+			elections_allowed = no
 		}
 		add_country_leader_role = {
 			character = POL_natalia_kaminska
@@ -695,6 +701,7 @@ country_event = {
 			set_country_flag = POL_Sanacja_government_flag
 			set_country_flag = POL_Leftist_Sanacja_flag
 			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+			set_country_flag = POL_no_need_to_elect_flag
 			if = {
 				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
 				clr_country_flag = POL_Sanacja_show_initial_flag
@@ -724,7 +731,7 @@ country_event = {
 		### TODO: Remove ideas
 		set_politics = {
 			ruling_party = fascism
-			elections_allowed = yes
+			elections_allowed = no
 		}
 		hidden_effect = {
 			set_country_flag = POL_Endecja_government_flag
@@ -756,12 +763,20 @@ country_event = {
 			subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
 			check_variable = {
 				var = Sanacja_Repression
-				value = 21
+				value = 11
 				compare = less_than
 			}
 		}
 		hidden_effect = {
-			country_event = { id = poland_hof.10 days = 6 }
+			if = {
+				limit = {
+					is_ai = no
+				}
+				country_event = { id = poland_hof.10 days = 6 }
+			}
+			else = {
+				country_event = { id = poland_hof.19 days = 6 }
+			}
 		}
 
 	} 
@@ -773,7 +788,7 @@ country_event = {
 			subtract_from_temp_variable = { Sanacja_Repression = POL_PSL_Power }
 			check_variable = {
 				var = Sanacja_Repression
-				value = 20
+				value = 10
 				compare = greater_than
 			}
 		}
@@ -807,7 +822,7 @@ country_event = {
 		### TODO: Remove ideas
 		set_politics = {
 			ruling_party = neutrality
-			elections_allowed = yes
+			elections_allowed = no
 		}
 		hidden_effect = {
 			remove_country_leader_role = {
@@ -851,6 +866,7 @@ country_event = {
 			set_country_flag = POL_Sanacja_government_flag
 			set_country_flag = POL_Nationalist_Sanacja_flag
 			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+			set_country_flag = POL_no_need_to_elect_flag
 			if = {
 				limit = { has_country_flag = POL_Sanacja_show_initial_flag  }
 				clr_country_flag = POL_Sanacja_show_initial_flag
@@ -881,7 +897,7 @@ country_event = {
 			}
 			set_politics = {
 				ruling_party = democratic
-				elections_allowed = yes
+				elections_allowed = no
 			}
 		}
 		
@@ -1198,6 +1214,7 @@ country_event = {   ### POL: Conduct Prometeizm
 	trigger = {
 		has_completed_focus = POL_conduct_Prometeizm
 		date > 1937.1.1
+		UKR = { is_subject = no }
 		has_civil_war = no
 		is_subject = no
 		has_capitulated = no
@@ -1210,6 +1227,10 @@ country_event = {   ### POL: Conduct Prometeizm
 			type = take_state_focus
 			generator = { 207 241 206 204 194 }
 		}
+		hidden_effect = {
+			set_global_flag = POL_Prometeizm_started_flag
+		}
+		add_ideas = { POL_Prometeizm }
 		activate_mission = POL_Prometeizm_mission
 		SOV = { activate_mission = POL_Prometeizm_mission_SOV }
 	}
@@ -1435,7 +1456,7 @@ country_event = {   ### Doboszyński fought the police and then surrender
 	id = poland_hof.40
 	title = poland_hof.40.t
 	desc = poland_hof.40.d
-	picture = GFX_report_event_pol_police
+	picture = GFX_report_event_riot_police_poland
 	
 	is_triggered_only = yes
 	
@@ -2320,7 +2341,6 @@ country_event = {   ### PSL Election
 	option = {    ### Keep Sona as president
 		name = poland_hof.69.a
 		add_political_power = 25
-		
 	}
 
 	option = {    ### Let Valentine become president
@@ -2639,6 +2659,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = poland_diplo.5.b
+		unlock_decision_tooltip = POL_join_germany_faction_hof
 		#好的
 	}
 }
@@ -2684,6 +2705,19 @@ country_event = {##日本：波兰人来要饭了
 					category = land_doctrine
 				}
 			}
+		}
+		add_tech_bonus = {
+			name = JAP_support_to_POL
+			bonus = 0.5
+			uses = 1
+			category = cat_mechanized_equipment
+		}
+		add_tech_bonus = {
+			name = JAP_support_to_POL
+			bonus = 0.75
+			ahead_reduction = 0.5
+			uses = 1
+			category = synth_resources
 		}
 	}	
 	option = {

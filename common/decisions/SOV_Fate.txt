@@ -28,11 +28,11 @@ operations = {
 			}
 		}
 
-		days_remove = 60
+		days_remove = 120
 		fire_only_once = no
 
 		complete_effect = {
-            add_war_support = -0.025			
+            add_war_support = -0.01			
 		}
 
 		targeted_modifier = {
@@ -79,11 +79,11 @@ operations = {
 			}
 		}
 
-		days_remove = 60
+		days_remove = 120
 		fire_only_once = no
 
 		complete_effect = {
-            add_stability = -0.025			
+            add_stability = -0.01		
 		}
 
 		targeted_modifier = {
@@ -93,7 +93,7 @@ operations = {
 			industrial_capacity_factory = 0.10
 			supply_consumption_factor = -0.10	
 
-			MONTHLY_POPULATION = -0.05
+			MONTHLY_POPULATION = -0.1
 			research_speed_factor = -0.05
 		}
 
@@ -153,7 +153,7 @@ operations = {
 		targeted_modifier = {
 			tag = UKR
 			attack_bonus_against = 0.15
-			breakthrough_bonus_against = 0.20
+			breakthrough_bonus_against = 0.10
 		}
 		modifier = {
 
@@ -275,7 +275,7 @@ operations = {
 		targeted_modifier = {
 			tag = RUS
 			attack_bonus_against = 0.15
-			breakthrough_bonus_against = 0.20
+			breakthrough_bonus_against = 0.10
 		}
 		modifier = {
 
@@ -3332,6 +3332,29 @@ SOV_War_plan_decisions = {
 		ai_will_do = {
 			factor = 750
 			modifier = {
+				factor = 2
+				NOT = { has_global_flag = UKR_still_on_earth_flag }
+				or = {
+					POL = { is_in_faction = no }
+					POL = { is_faction_leader = yes }
+				}
+			}
+			modifier = {
+				factor = 2
+				has_global_flag = UKR_still_on_earth_flag
+				or = {
+					NOT = { POL = { has_war_with = GER } }
+					POL = { is_in_faction_with = GER }
+					AND = {
+						POL = { has_war_with = GER }
+						or = {
+							POL = { surrender_progress > 0.3 }
+							POL = { casualties > 500000 }
+						}
+					}
+				}
+			}
+			modifier = {
 				factor = 0
 				surrender_progress > 0
 			}
@@ -3346,6 +3369,16 @@ SOV_War_plan_decisions = {
 		complete_effect = {
 
       set_country_flag = SOV_claim_baltic_flag
+
+			if = {
+				limit = {
+					country_exists = EST
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = EST
+				}
+			}
 
       every_other_country = {
         limit = {
@@ -3623,6 +3656,14 @@ SOV_War_plan_decisions = {
 			factor = 750
 			modifier = {
 				factor = 2
+				NOT = { has_global_flag = UKR_still_on_earth_flag }
+				or = {
+					POL = { is_in_faction = no }
+					POL = { is_faction_leader = yes }
+				}
+			}
+			modifier = {
+				factor = 2
 				has_global_flag = UKR_still_on_earth_flag
 				or = {
 					NOT = { POL = { has_war_with = GER } }
@@ -3651,6 +3692,26 @@ SOV_War_plan_decisions = {
 		complete_effect = {
 
       set_country_flag = SOV_claim_poland_flag
+
+			if = {
+				limit = {
+					country_exists = POL
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = POL
+				}
+			}
+
+			if = {
+				limit = {
+					country_exists = BLR
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = BLR
+				}
+			}
 
       every_other_country = {
         limit = {
@@ -4781,16 +4842,6 @@ SOV_War_plan_decisions = {
 			modifier = {
 				factor = 0
 				has_country_flag = SOV_war_preparation_flag
-			}
-			modifier = {
-				factor = 0
-				surrender_progress > 0
-			}
-			modifier = {
-				factor = 0
-				any_home_area_neighbor_country = {
-				    has_war_with = ROOT
-				}
 			}
 			modifier = {
 				factor = 0

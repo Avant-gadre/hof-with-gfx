@@ -1,14 +1,23 @@
+@tier1 = 30
+@tier2 = 20
+@tier3 = 10
+
+@experience_gain_low = 0.03
+@experience_gain_medium = 0.06
+@experience_gain_high = 0.08
+
+@chief_experience_gain_low = 0.20
+@chief_experience_gain_medium = 0.30
+@chief_experience_gain_high = 0.40
+
 leader_traits = {
 
 	Flameheart = {
 		sprite = 5
 		random = no
-		# 陆军组织度恢复+15%，陆军训练时间-15%，计划速度+10%
-		my_morale_factor = 0.15
+		#陆军训练时间-15%，计划速度+10%
 		training_time_factor = -0.15
 		planning_speed = 0.1
-
-		command_cap = 20
 		ai_will_do = {
 			factor = 20
 		}
@@ -19,14 +28,18 @@ leader_traits = {
 		# 侦查+15%，步兵武器对人员杀伤+15%
 		recon_factor = 0.15 
 		# 侦查疑似是将领特质的效果
-		command_cap = 20
 		equipment_bonus = {
 			infantry_equipment = {
 				soft_attack = 0.15
-				
+				hard_attack = 0.10
 				instant = yes
 			}
 		}
+
+		experience_gain_army = @chief_experience_gain_medium
+
+		command_cap = @tier2
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -36,7 +49,6 @@ leader_traits = {
 		sprite = 7
 		random = no
 		# 侦查+15%，步兵武器对人员杀伤+15%
-		command_cap = 20
 		recon_factor = 0.15 
 		army_attack_factor = 0.05
 		army_infantry_attack_factor = 0.15
@@ -48,16 +60,21 @@ leader_traits = {
 		sprite = 9
 		random = no
 		# 最大堑壕+5，火炮软攻+15%，步兵、炮兵防御+10%
-		command_cap = 20
 		max_dig_in = 5
 		equipment_bonus = {
-			infantry_equipment = {
+			artillery_equipment = {
 				soft_attack = 0.15
+
 				instant = yes
 			}
 		}
 		army_infantry_defence_factor = 0.1
 		army_artillery_defence_factor = 0.1
+
+		experience_gain_army = @chief_experience_gain_medium
+
+		command_cap = @tier2
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -121,10 +138,9 @@ leader_traits = {
 		sprite = 7
 		random = no
 		# 陆军组织度+12, 步兵、骑兵攻击+15%
-		command_cap = 20
 		army_org_factor = 0.12	
 		army_infantry_attack_factor = 0.15
-		cavalry_attack_factor = 0.15
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -133,9 +149,11 @@ leader_traits = {
 		sprite = 5
 		random = no
 		# 单位速度+10%，陆军经验增长+15%
-		command_cap = 20
 		army_speed_factor = 0.1
 		experience_gain_army_factor = 0.15
+
+		command_cap = @tier3
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -144,7 +162,6 @@ leader_traits = {
 		sprite = 5
 		random = no
 		# 有经验的单位损失-15%，科研速度+5%，步兵武器可靠性+15%
-		command_cap = 20
 		experience_loss_factor = -0.15
 		research_speed_factor = 0.05
 		equipment_bonus = {
@@ -154,6 +171,9 @@ leader_traits = {
 				instant = yes
 			}
 		}
+
+		command_cap = @tier2
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -196,7 +216,6 @@ leader_traits = {
 		experience_loss_factor = -0.15
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.075
-		command_cap = 20
 		ai_will_do = {
 			factor = 20
 		}
@@ -209,7 +228,9 @@ leader_traits = {
 		special_forces_min = 5
 		air_cas_present_factor = 0.075
 		out_of_supply_factor = -0.15
-		command_cap = 20
+
+		command_cap = @tier3
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -218,7 +239,11 @@ leader_traits = {
 		sprite = 5
 		random = no
 		# 对德国攻击+10%，对德国防御+10%
-		
+		targeted_modifier = {
+			tag = GER
+			attack_bonus_against = 0.1
+			defense_bonus_against = 0.1
+		}
 		ai_will_do = {
 			factor = 20
 		}
@@ -227,11 +252,8 @@ leader_traits = {
 	Coercive_Charge = {
 		sprite = 5
 		random = no
-		army_attack_factor = 0.10
-		cavalry_attack_factor = 0.10
-		motorized_attack_factor = 0.10
-		mechanized_attack_factor = 0.10
-		command_cap = 20
+		army_attack_factor = 0.05
+
 		equipment_bonus = {
 			mechanized_equipment = {
 				breakthrough = 0.10
@@ -256,6 +278,16 @@ leader_traits = {
 		offensive_war_stability_factor = 0.10
 		defensive_war_stability_factor = 0.10
 	}
+	
+	Marshall_of_Poland_2 = {
+		random = no
+		training_time_factor = -0.15
+		army_attack_factor = 0.10
+		army_defence_factor = 0.05
+		production_speed_arms_factory_factor = 0.10
+		offensive_war_stability_factor = 0.10
+		defensive_war_stability_factor = 0.10
+	}
 
 	The_Left_Chairman = {
 		random = no
@@ -268,7 +300,7 @@ leader_traits = {
 	}
 
 	chemical_industry_specialist = {
-		sprite = 13
+		sprite = 5
 		production_speed_synthetic_refinery_factor = 0.40
 	}
 
@@ -282,7 +314,7 @@ leader_traits = {
 	}
 
 	national_hero_pol = {
-		stability = 0.075
+		stability_factor = 0.075
 		training_time_factor = -0.10
 	}
 	
@@ -331,10 +363,14 @@ leader_traits = {
 	Confessarius = {
 		sprite = 5
 		random = no
-		command_cap = 20
 		army_infantry_defence_factor = 0.15
 		experience_loss_factor = -0.10
 		attrition = -0.15
+
+		experience_gain_army = @chief_experience_gain_high
+
+		command_cap = @tier3
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -343,7 +379,6 @@ leader_traits = {
 	Nightingale_Arknights = {
 		sprite = 5
 		random = no
-		command_cap = 20
 		experience_loss_factor = -0.15
 		supply_consumption_factor = -0.15
 		ai_will_do = {
@@ -354,7 +389,7 @@ leader_traits = {
 	patriotic_bishop = {
 		sprite = 5
 		random = no
-		stability = 0.05
+		stability_factor = 0.05
 		army_core_attack_factor = 0.10
 		army_core_defence_factor = 0.10
 		ai_will_do = {
@@ -365,7 +400,7 @@ leader_traits = {
 	peasant_leader = {
 		sprite = 5
 		random = no
-		stability = 0.05
+		stability_factor = 0.05
 		production_speed_buildings_factor = 0.05
 		production_lack_of_resource_penalty_factor = -0.20
 		ai_will_do = {
@@ -376,12 +411,14 @@ leader_traits = {
 	Lazurite = {
 		sprite = 5
 		random = no
-		stability = 0.05
+		stability_factor = 0.05
 		intel_network_gain = 0.15
 		intel_from_operatives_factor = 0.15
 		special_forces_attack_factor = 0.10
 		special_forces_min = 20
-		command_cap = 20
+
+		command_cap = @tier3
+
 		ai_will_do = {
 			factor = 20
 		}
@@ -390,26 +427,40 @@ leader_traits = {
 	Lazurite_army = {
 		sprite = 5
 		random = no
-		stability = 0.05
-		command_cap = 20
+		stability_factor = 0.05
+		
 		equipment_bonus = {
 			infantry_equipment = {
-				lg_attack = 0.10
-				hg_armor_piercing = 0.10
-				lg_armor_piercing = 0.10
+				soft_attack = 0.10
+				hard_attack = 0.15
 				instant = yes
 			}
 
 			anti_tank_equipment = {
-				hg_attack = 0.10
-				hg_armor_piercing = 0.10
-				lg_armor_piercing = 0.10
+				soft_attack = 0.10
+				hard_attack = 0.15
 				instant = yes
 			}
 		}
 
+		experience_gain_army = @chief_experience_gain_medium
+
+		command_cap = @tier2
+
 		ai_will_do = {
 			factor = 20
 		}
+	}
+
+	the_king_of_the_castle_hof = {
+		sprite = 5
+		random = no
+		stability_factor = 0.10
+		production_speed_arms_factory_factor = 0.10
+		production_lack_of_resource_penalty_factor = -0.20
+		motorized_attack_factor = 0.10
+		mechanized_attack_factor = 0.10
+		experience_gain_army_factor = 0.15
+		neutrality_drift = 0.05
 	}
 }

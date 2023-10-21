@@ -364,6 +364,10 @@ country_event = {
 			base = 50
 			modifier = {
 				factor = 0
+				has_war_with = ENG
+			}
+			modifier = {
+				factor = 0
 					is_in_faction_with = GER
 			}
 			modifier = {
@@ -654,31 +658,7 @@ country_event = {
 			producer = GER 
 		}
 
-		if = {
-	limit = { is_researching_technology = advanced_battleship }
-	add_timed_idea = { idea = zuodehao days = 90 }
-}
-else = {
-	if = {
-	limit = { is_researching_technology =   gw_artillery }
-	add_timed_idea = { idea = zuodehao days = 90 }
-}
-else = {
-	if = {
-	limit = { is_researching_technology =    gw_artillery }
-	add_timed_idea = { idea = zuodehao days = 90 }
-}
-else = {
-	if = {
-					limit = { is_researching_technology =     gw_artillery }
-					add_timed_idea = { idea = zuodehao days = 90 }
-				}
-				else = {
-					set_technology = {     gw_artillery = 1 }
-				}
-}
-}
-}
+		set_technology = { gw_artillery = 1 }
 		
 		add_popularity = {
 			ideology = fascism
@@ -690,9 +670,9 @@ else = {
 			modifier = GER_CHI_HAPRO_op
 		}
 
-			GER = {
-				country_event = { id = germany.533 days = 2}
-			}
+		GER = {
+			country_event = { id = germany.533 days = 2}
+		}
 
 	}
 
@@ -702,9 +682,9 @@ else = {
 			base = 0
 		}
 
-			GER = {
-				country_event = { id = germany.534 days = 2}
-			}
+		GER = {
+			country_event = { id = germany.534 days = 2}
+		}
 	}
 }
 
@@ -722,32 +702,32 @@ country_event = {
 
 		}
 
-    64 = {      
-      add_resource = {
-        type = tungsten
-        amount = 2
-      }
-    }
+		64 = {      
+			add_resource = {
+				type = tungsten
+				amount = 2
+			}
+		}
 
-    602 = {      
-      add_resource = {
-        type = tungsten
-        amount = 3
-      }
-    }
+		602 = {      
+			add_resource = {
+				type = tungsten
+				amount = 3
+			}
+		}
 
-    add_timed_idea = { idea = GER_Fra_Eng_Deal_III days = 365 }
+		add_timed_idea = { idea = GER_Fra_Eng_Deal_III days = 365 }
 
-    CHI = {
-      country_event = { id = germany.571 days = 91 }
-    }				
+		CHI = {
+		    country_event = { id = germany.571 days = 91 }
+		}				
 
-    add_opinion_modifier = {
-      target = CHI
-      modifier = GER_CHI_HAPRO_op
-    }
+		add_opinion_modifier = {
+			target = CHI
+			modifier = GER_CHI_HAPRO_op
+		}
 
-    GER_increase_propaganda = yes
+		GER_increase_propaganda = yes
 
 	}
 
@@ -1292,6 +1272,26 @@ country_event = {
 
 		if = {
 			limit = {
+				GER = { is_ai = yes }
+			}
+			random_list = {
+				74 = { ### 
+					74 = {
+						create_unit = {
+							division = "division_template = \"mountaineers\" start_experience_factor = 0.7 start_equipment_factor= 1.0"
+							owner = GER
+							count = 2
+						}
+					}
+				}
+				26 = { ### 
+
+				}
+			}
+		}
+
+		if = {
+			limit = {
 				or = {
 					CZE = { controls_state = 72 }
 					HUN = { controls_state = 72 }
@@ -1300,6 +1300,26 @@ country_event = {
 			72 = {
 				damage_building = { type = bunker damage = 5.2 province = 9567 }
 				damage_building = { type = bunker damage = 3.6 province = 9551 }
+			}
+		}
+
+		if = {
+			limit = {
+				GER = { is_ai = yes }
+			}
+			random_list = {
+				72 = { ### 
+					72 = {
+						create_unit = {
+							division = "division_template = \"mountaineers\" start_experience_factor = 0.7 start_equipment_factor= 1.0"
+							owner = GER
+							count = 1
+						}
+					}
+				}
+				28 = { ### 
+
+				}
 			}
 		}
 
@@ -2812,19 +2832,22 @@ country_event = {
 		is_puppet = no
 
 		or = {
-      AND = {
-        AUS = { is_subject = yes }
-        has_war_with = AUS
-        AUS = { controls_state = 152 }
-      }
-      AND = {
-        has_war_with = ITA
-        ITA = { controls_state = 152 }
-      }
-      AND = {
-        has_war_with = HUN
-        HUN = { controls_state = 152 }
-      }
+			AND = {
+				AUS = { is_subject = yes }
+				has_war_with = AUS
+				AUS = { controls_state = 152 }
+				AUS = { owns_state = 152 }
+			}
+			AND = {
+				has_war_with = ITA
+				ITA = { controls_state = 152 }
+				ITA = { owns_state = 152 }
+			}
+			AND = {
+				has_war_with = HUN
+				HUN = { controls_state = 152 }
+				HUN = { owns_state = 152 }
+			}
 		}
 
 	}
@@ -3470,31 +3493,31 @@ country_event = {
 	trigger = {
 		tag = USA
 		is_puppet = no
-    is_in_faction = no
-    has_war = no
+		is_in_faction = no
+		has_war = no
 		has_government = democratic
 
 		ENG = {
-      is_puppet = no
-      NOT = { has_war_with = CHI }
-      OR = {
-        has_government = democratic
-        has_government = neutrality
-      }
+			is_puppet = no
+			NOT = { has_war_with = CHI }
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
 		}
 
-    CHI = { surrender_progress > 0.50 }
-    CHI = { has_war_with = JAP }
+		CHI = { surrender_progress > 0.30 }
+		CHI = { has_war_with = JAP }
 
 		JAP = {
-      is_puppet = no
-      NOT = { is_in_faction_with = ENG }
-      NOT = { has_war_with = ENG }
-      OR = {
-        has_offensive_war_with = CHI
-        has_government = neutrality
-        has_government = fascism
-      }
+			is_puppet = no
+			NOT = { is_in_faction_with = ENG }
+			NOT = { has_war_with = ENG }
+			OR = {
+				has_offensive_war_with = CHI
+				has_government = neutrality
+				has_government = fascism
+			}
 		}
 	}
 
@@ -3921,11 +3944,6 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
-
-    add_timed_idea = {
-      idea = JAP_tora_tora_tora_idea
-      days = 120
-    }
 
 			declare_war_on = {
 				target = USA
@@ -4370,18 +4388,7 @@ country_event = {
 		  set_country_flag = GER_Armaments_payment_promissory_note_2_flag
     }
 		
-		if = {
-			limit = {
-				has_dlc = "Death or Dishonor"
-				country_exists = YUG
-				YUG = { has_war = no }
-			}
-			country_event = {
-				id = DOD_yugoslavia.30
-				days = 4
-			}
-		}
-		hidden_effect = {
+	hidden_effect = {
 			news_event = { hours = 6 id = news.36 }
 		}
 	}
@@ -4390,69 +4397,7 @@ country_event = {
 #anti_comintern_pact
 # nations are asked to join pact, agreeing = relations with GER and hit with SOV 
 
-country_event = {
-	id = germany.5
-	title = germany.5.t
-	desc = germany.5.d
-	picture = GFX_report_event_japan_europe_pact
 
-	is_triggered_only = yes
-	
-	option = {
-		name = germany.5.a		#join
-		ai_chance = {
-			base = 75
-			modifier = {
-				factor = 2
-				has_opinion = {
-					target = SOV
-					value < -10
-				}
-			}
-			modifier = {
-				factor = 0.5
-				has_opinion = {
-					target = GER
-					value < -10
-				}
-			}
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
-			modifier = {
-				factor = 0
-				tag = JAP
-				has_completed_focus = JAP_the_unthinkable_option
-			}
-			modifier = {
-				factor = 0
-				is_literally_china = yes
-				JAP = { has_completed_focus = JAP_purge_the_kodoha_faction }
-			}
-			modifier = {
-				factor = 0
-				tag = JAP
-				has_completed_focus = JAP_purge_the_kodoha_faction
-				date < 1938.1.1
-			}
-		}
-		set_country_flag = anti_comintern_member
-		GER = { add_opinion_modifier = { target = ROOT modifier = anti_comintern_pact_opinion } }
-		add_opinion_modifier = { target = GER modifier = anti_comintern_pact_opinion }
-		SOV  = { add_opinion_modifier = { target = ROOT modifier = pact_against_us } }
-	}
-	
-	option = {
-		name = germany.5.b		#refuse
-		trigger = { NOT = { is_puppet_of = GER } }
-		ai_chance = { 
-			base = 25 
-		}
-		GER =  { add_opinion_modifier = { target = ROOT modifier = refused_anti_comintern_pact_opinion } }
-	}
-
-}
 
 # tripartite_pact
 # anti_comintern_pact nations are asked to join pact, agreeing = relations with GER and hit with SOV
@@ -5214,7 +5159,7 @@ country_event = {
 	option = { # Accept
 		name = germany.28.a
 		ai_chance = {
-			base = 30
+			base = 99
 			modifier = {
 				add = -25
 				GER = { has_army_size = { size < 32 } }
@@ -5236,7 +5181,7 @@ country_event = {
 	option = { # Refuse
 		name = germany.28.b
 		ai_chance = {
-			base = 10			
+			base = 1			
 			modifier = {
 				factor = 0
 				HUN = { is_in_faction_with = GER }
@@ -7089,90 +7034,6 @@ country_event = {
 }
 
 # Germany (France and Britain go to war)
-country_event = {
-	id = germany.65
-	title = germany.65.t
-	desc = germany.65.d
-	picture = GFX_report_event_british_artillery
-	
-	is_triggered_only = yes
-	
-	option = {
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 0
-				strength_ratio = {
-					tag = FRA
-					ratio < 1
-				}
-				strength_ratio = {
-					tag = ENG
-					ratio < 1
-				}
-			}
-		}
-		name = germany.65.a
-		FRA = {
-			declare_war_on = {
-				target = GER
-				type = take_state_focus
-				generator = { 42 51 } 
-			}
-			country_event = germany.92
-			if = {
-				limit = { 
-					has_idea = FRA_disjointed_government 
-					NOT = { has_government = communism }
-				}
-				start_civil_war = {
-					ideology = communism
-					size = 0.2
-				}
-			}
-			if = {
-				limit = { 
-					has_idea = FRA_disjointed_government 
-					has_government = communism
-				}
-				start_civil_war = {
-					ideology = democratic
-					size = 0.3
-				}
-			}
-		}
-		hidden_effect = {
-			news_event = { hours = 6 id = news.26 }
-		}
-	}
-	option = {
-		name = germany.65.b
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 0
-				strength_ratio = {
-					tag = FRA
-					ratio > 1
-				}
-				strength_ratio = {
-					tag = ENG
-					ratio > 1
-				}
-			}
-		}
-		hidden_effect = {
-			news_event = { hours = 6 id = news.151 }
-		}
-		set_country_flag = GER_rhineland_backed_down
-		42 = { set_demilitarized_zone = yes }
-		51 = { set_demilitarized_zone = yes }
-		add_timed_idea = {
-			idea = rhineland_challenge_met
-			days = 183
-		}
-	}
-}
 
 # Germany (France goes to war)
 country_event = {
@@ -7986,96 +7847,7 @@ country_event = {
 }
 
 # [From.GetName] Calls Pact Members to War
-country_event = {
-	id = germany.85
-	title = germany.85.t
-	title = {
-		text = germany.85.t.a
-		trigger = {
-			OR = {
-				NOT = { FROM = { original_tag = POL } }
-				NOT = { original_tag = GER }
-				NOT = { has_completed_focus = GER_danzig_for_guarantees }
-			}
-		}
-	}
-	title = {
-		text = germany.85.t.b
-		trigger = {
-			FROM = { original_tag = POL }
-			original_tag = GER
-			has_completed_focus = GER_danzig_for_guarantees
-		}
-	}
-	desc = { 
-		text = germany.85.desc.a
-		trigger = {
-			OR = {
-				NOT = { FROM = { original_tag = POL } }
-				NOT = { original_tag = GER }
-				NOT = { has_completed_focus = GER_danzig_for_guarantees }
-			}
-		}
-	}
-	desc = { 
-		text = germany.85.desc.b
-		trigger = {
-			FROM = { original_tag = POL }
-			original_tag = GER
-			has_completed_focus = GER_danzig_for_guarantees
-		}
-	}
-	picture = GFX_report_event_soviet_tanks
 
-	is_triggered_only = yes
-	
-	#immediate = {
-	#	remove_ideas = anti_soviet_pact
-	#}
-	
-	option = {
-		name = germany.85.a
-		ai_chance = {
-			factor = 10
-		}
-		add_to_war = {
-			targeted_alliance = FROM
-			enemy = SOV
-			hostility_reason = ally
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					original_tag = GER
-				}
-				country_event = { id = germany.127 days = 7 random = 7 }
-			}
-		}
-	}
-
-	option = {
-		name = germany.85.b
-		trigger = {
-			NOT = { FROM = { original_tag = POL } }
-			NOT = { original_tag = GER }
-			NOT = { has_completed_focus = GER_danzig_for_guarantees }
-		}
-		ai_chance = {
-			factor = 0
-		}
-		remove_ideas = anti_soviet_pact
-		FROM = { add_opinion_modifier = { target = ROOT modifier = anti_soviet_pact_call_refused } }
-		SOV = { remove_opinion_modifier = { target = SOV modifier = worse_pact_against_us } }
-		add_timed_idea = {
-			idea = anti_soviet_pact_refused_call
-			days = 365 
-		}
-		custom_effect_tooltip = germany.85.b_tt
-		hidden_effect = {
-			country_event = { id = germany.112 days = 3 } 
-		}
-	}
-}
 
 # Danzig or War (Poland)
 country_event = {

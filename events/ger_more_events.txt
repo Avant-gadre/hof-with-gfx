@@ -85,9 +85,13 @@ country_event = {
 	desc = more_ger.2.d
 	picture = GFX_report_event_german_detained_china
 	trigger = {
+		date > 1938.6.1
 		original_tag = GER
 		is_subject = no
 		has_idea = ger_cooperate_with_japan
+		NOT = {
+			has_idea = GER_Fra_Eng_Deal_III
+		}
 		CHI = {
 			has_idea = german_advisors
 		}
@@ -1039,13 +1043,7 @@ country_event = {
 				type = arms_factory
 				level = 2
 			}
-		}
-		random_owned_state = {
-			limit = {
-				is_fully_controlled_by = ROOT
-				arms_factory > 1
-			}
-			remove_building = {
+			add_offsite_building = {
 				type = arms_factory
 				level = 2
 			}
@@ -1056,6 +1054,24 @@ country_event = {
 				arms_factory > 1
 			}
 			remove_building = {
+				type = arms_factory
+				level = 2
+			}
+			add_offsite_building = {
+				type = arms_factory
+				level = 2
+			}
+		}
+		random_owned_state = {
+			limit = {
+				is_fully_controlled_by = ROOT
+				arms_factory > 1
+			}
+			remove_building = {
+				type = arms_factory
+				level = 2
+			}
+			add_offsite_building = {
 				type = arms_factory
 				level = 2
 			}
@@ -1746,19 +1762,14 @@ country_event = {
 		ai_chance = {
 			base = 15
 			modifier = {
-				factor = 0
-				NOT = {
-					has_tech = early_fighter
-				}
-			}
-			modifier = {
 				factor = 2
 				stockpile_ratio = {
-					archetype = fighter_equipment
+					archetype = small_plane_airframe
 					ratio < 0.76
 				}
 			}
 		}
+		set_variable = { GER_aircraft_type = token:small_plane_airframe }
 		set_country_flag = GER_purchase_fighter_equipment_flag
 	}
 	option = {
@@ -1766,19 +1777,14 @@ country_event = {
 		ai_chance = {
 			base = 10
 			modifier = {
-				factor = 0
-				NOT = {
-					has_tech = naval_bomber1
-				}
-			}
-			modifier = {
 				factor = 2
 				stockpile_ratio = {
-					archetype = nav_bomber_equipment
+					archetype = small_plane_naval_bomber_airframe
 					ratio < 0.76
 				}
 			}
 		}
+		set_variable = { GER_aircraft_type = token:small_plane_naval_bomber_airframe }
 		set_country_flag = GER_purchase_nav_bomber_equipment_flag
 	}
 	option = {
@@ -1786,19 +1792,14 @@ country_event = {
 		ai_chance = {
 			base = 10
 			modifier = {
-				factor = 0
-				NOT = {
-					has_tech = early_bomber
-				}
-			}
-			modifier = {
 				factor = 2
 				stockpile_ratio = {
-					archetype = tac_bomber_equipment
+					archetype = medium_plane_airframe
 					ratio < 0.76
 				}
 			}
 		}
+		set_variable = { GER_aircraft_type = token:medium_plane_airframe }
 		set_country_flag = GER_purchase_tac_bomber_equipment_flag
 	}
 }
@@ -2154,7 +2155,7 @@ country_event = {
 			}
 		}
 		ai_chance = {
-			factor = 65
+			factor = 100
 			modifier = {
 				factor = 2
 				ITA = {
@@ -2186,7 +2187,7 @@ country_event = {
 	option = {
 		name = more_ger.53.b
 		ai_chance = {
-			factor = 35
+			factor = 0
 			modifier = {
 				factor = 0.1
 				AUS = {
@@ -2569,8 +2570,8 @@ country_event = {
 			has_completed_focus = GER_Power_of_the_people
 		}
 		or = {
-			casualties > 750000
-			surrender_progress > 0.1
+			casualties > 1500000
+			surrender_progress > 0.2
 		}
 	}
 	mean_time_to_happen = {
@@ -2607,29 +2608,29 @@ country_event = {
 			AND = {
 				has_country_flag = GER_Siegfried_against_war_4_flag
 				or = {
-					casualties > 900000
-					surrender_progress > 0.11
+					casualties > 1500000
+					surrender_progress > 0.2
 				}
 			}
 			AND = {
 				has_country_flag = GER_Siegfried_against_war_3_flag
 				or = {
-					casualties > 1100000
-					surrender_progress > 0.14
+					casualties > 1800000
+					surrender_progress > 0.25
 				}
 			}
 			AND = {
 				has_country_flag = GER_Siegfried_against_war_2_flag
 				or = {
-					casualties > 1300000
-					surrender_progress > 0.17
+					casualties > 2100000
+					surrender_progress > 0.3
 				}
 			}
 			AND = {
 				has_country_flag = GER_Siegfried_against_war_1_flag
 				or = {
-					casualties > 1500000
-					surrender_progress > 0.2
+					casualties > 2400000
+					surrender_progress > 0.35
 				}
 			}
 		}

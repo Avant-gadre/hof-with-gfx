@@ -1154,7 +1154,7 @@ SOV_RUS_wants_moremoremoremoremoremore_arms = {
 	}
 
 	enable = {
-	    has_idea = SOV_great_patriotic_war_5
+	    has_idea = SOV_great_patriotic_war_3
 	}
 
 	abort = { 
@@ -1206,14 +1206,16 @@ SOV_RUS_Kaiserreich_Trench_warfare = {
 
 	ai_strategy = {
 		type = front_control
-		area = europe
-		ratio = 0
+		country_trigger = {
+			OR = {
+				tag = GER
+				is_in_faction_with = GER
+			}
+		}
 		ordertype = front
-		priority = 999
 		execution_type = careful
-		execute_order = no
 		manual_attack = yes
-	}			  
+	}		  
   
 }
 
@@ -1244,7 +1246,7 @@ SOV_RUS_Cling_to_Key_areas = {
 			195
 		}
 
-		ratio = 0.05
+		ratio = 0.50
 
 		area = europe
 
@@ -1280,7 +1282,7 @@ UKR_Cling_to_City = {
 			200
 		}
 
-		ratio = 0.05
+		ratio = 1.0
 
 		area = europe
 
@@ -1326,7 +1328,7 @@ SOV_RUS_AI_landed_in_Ukraine_to_die = {
 			218
 		}
 
-		ratio = 0.10
+		ratio = 0.25
 
 		area = europe
 
@@ -1364,7 +1366,7 @@ SOV_Defend_East_Ukraine_for_player = {
 			218
 		}
 
-		ratio = 0.20
+		ratio = 0.25
 
 		area = europe
 
@@ -1401,15 +1403,12 @@ SOV_Give_priority_to_Ukraine = {
 
 	ai_strategy = {
 		type = front_control
-
-		tag = UKR
-
-		ratio = 0.5
-
-		priority = 100
+		country_trigger = {
+			tag = UKR
+		}
 		ordertype = front
-		execution_type = rush_weak
-		execute_order = yes
+		execution_type = balanced
+		manual_attack = yes
 	}
 
 	ai_strategy = {
@@ -1458,15 +1457,12 @@ SOV_Give_priority_to_Russia = {
 
 	ai_strategy = {
 		type = front_control
-
-		tag = RUS
-
-		ratio = 0.5
-
-		priority = 100
+		country_trigger = {
+			tag = RUS
+		}
 		ordertype = front
 		execution_type = balanced
-		execute_order = yes
+		manual_attack = yes
 	}
 
 	ai_strategy = {
@@ -1596,76 +1592,100 @@ SOV_RUS_want_a_plane = {
 
 }
 
-SOV_RUS_want_a_improved_tank = {
-
+SOV_No_production_capacity_to_sustain_troops = {
 	allowed = {
 		OR = {
 			tag = SOV
 			tag = RUS
 		}
 	}
-
 	enable = {
-		has_tech = mechanised_infantry
-		has_tech = improved_medium_tank_chassis
+		date < 1937.1.1
 	}
-	
-	abort = {
-		has_tech = main_battle_tank_chassis
-	}
+
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = equipment_production_factor
+		type = build_army
 		id = infantry
-		value = -10
+		value = -1
 	}
 
-	ai_strategy = { 
-		type = equipment_production_min_factories       
-		id = motorized            
-		value = 5
+
+}
+
+SOV_RUS_Wipe_out_the_bandits = {
+	allowed = {
+		OR = {
+			tag = SOV
+			tag = RUS
+		}
+	}
+	enable = {
+		date > 1937.1.1
+		date < 1938.1.1
 	}
 
-	ai_strategy = { 
-		type = equipment_production_min_factories       
-		id = mechanized            
-		value = 4
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = 500
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = 300
 	}
 
-	ai_strategy = { 
-		type = equipment_variant_production_factor       
-		id = mechanized_equipment                
-		value = 30 
+
+}
+
+SOV_Wounds_of_war = {
+	allowed = {
+		OR = {
+			tag = SOV
+			tag = RUS
+		}
+	}
+	enable = {
+		date > 1938.1.1
+		date < 1938.9.1
 	}
 
-    ai_strategy = { 
-		type = equipment_variant_production_factor      
-		id = medium_tank_chassis 
-		value = 50 
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -1
 	}
 
-    ai_strategy = { 
-		type = equipment_variant_production_factor      
-		id = heavy_tank_chassis 
-		value = 10
+
+}
+
+SOV_RUS_Infantry_I_advise_yo_to_keep_building = {
+	allowed = {
+		OR = {
+			tag = SOV
+			tag = RUS
+		}
+	}
+	enable = {
+		date > 1939.6.1
 	}
 
-    ai_strategy = { 
-		type = equipment_variant_production_factor      
-		id = medium_tank_artillery_chassis
-		value = 25 
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = 500
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = 300
 	}
 
-    ai_strategy = { 
-		type = equipment_variant_production_factor      
-		id = medium_tank_destroyer_chassis
-		value = 25
-	}
-
-    ai_strategy = { 
-		type = equipment_variant_production_factor      
-		id = anti_air_equipment 
-		value = 15
-	}
 
 }

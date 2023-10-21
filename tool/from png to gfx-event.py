@@ -67,7 +67,7 @@ reportnamelist = []
 newsnamelist = []
 diffEvent(pngnames)
 print('事件图共有',len(reportnamelist),'个')
-print('事件图共有',len(newsnamelist),'个')
+print('新闻图共有',len(newsnamelist),'个')
 input('type any')
 interfacePath = '..\interface\\'
 if not os.path.exists(interfacePath):

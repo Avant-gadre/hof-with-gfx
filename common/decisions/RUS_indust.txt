@@ -17,7 +17,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -27,8 +27,10 @@ SOV_Industrial_Expansion_decisions = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		highlight_state_targets = { state = 263 } #Novgorod
+		
+		highlight_states = {
+			highlight_state_targets = { state = 263 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Novgorod target: [From.GetName]"
@@ -36,14 +38,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Novgorod target: [From.GetName]"
-			263 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					263 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			263 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Pskov
@@ -63,7 +111,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -74,7 +122,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 209 } #Pskov
+		highlight_states = {
+			highlight_state_targets = { state = 209 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Pskov target: [From.GetName]"
@@ -82,14 +132,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Pskov target: [From.GetName]"
-			209 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					209 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			209 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Kursk
@@ -109,7 +205,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -120,7 +216,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 220 } #Kursk
+		highlight_states = {
+			highlight_state_targets = { state = 220 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Kursk target: [From.GetName]"
@@ -129,26 +227,59 @@ SOV_Industrial_Expansion_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Kursk target: [From.GetName]"
 			if = {
-				limit = { has_completed_focus = rus_militarize_the_country }
-				220 = {
-					add_extra_state_shared_building_slots = 1
+				limit = {
+					220 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = arms_factory
-						level = 1
+						level = 3
 						instant_build = yes
 					}
 				}
 			}
-			else = {
-				220 = {
-					add_extra_state_shared_building_slots = 1
+			220 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
-						type = industrial_complex
-						level = 1
+						type = arms_factory
+						level = 3
 						instant_build = yes
 					}
 				}
 			}
+
 		}
 	}
 ##Yaroslavl
@@ -168,7 +299,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -179,7 +310,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 248 } #Yaroslavl
+		highlight_states = {
+			highlight_state_targets = { state = 248 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Yaroslavl target: [From.GetName]"
@@ -187,14 +320,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Yaroslavl target: [From.GetName]"
-			248 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					248 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			248 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Lerev
@@ -214,7 +393,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -225,7 +404,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 246 } #Lerev
+		highlight_states = {
+			highlight_state_targets = { state = 246 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Nizhny_Novgorod target: [From.GetName]"
@@ -233,14 +414,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Nizhny_Novgorod target: [From.GetName]"
-			246 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					246 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			246 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Kazan
@@ -260,7 +487,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -270,8 +497,9 @@ SOV_Industrial_Expansion_decisions = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		highlight_state_targets = { state = 249 } #Kazan
+		highlight_states = {
+			highlight_state_targets = { state = 249 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Kazan target: [From.GetName]"
@@ -280,26 +508,59 @@ SOV_Industrial_Expansion_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Kazan target: [From.GetName]"
 			if = {
-				limit = { has_completed_focus = rus_a_tough_industrialization }
-				249 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
+				limit = {
+					249 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
 					}
 				}
-			}
-			else = {
-				249 = {
-					add_extra_state_shared_building_slots = 1
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = arms_factory
-						level = 1
+						level = 3
 						instant_build = yes
 					}
 				}
 			}
+			249 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Ufa
@@ -319,7 +580,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -330,7 +591,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 651 } #Ufa
+		highlight_states = {
+			highlight_state_targets = { state = 651 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Ufa target: [From.GetName]"
@@ -338,14 +601,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Ufa target: [From.GetName]"
-			651 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					651 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			651 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Perm
@@ -365,7 +674,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -376,7 +685,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 398 } #Perm
+		highlight_states = {
+			highlight_state_targets = { state = 398 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Perm target: [From.GetName]"
@@ -385,26 +696,59 @@ SOV_Industrial_Expansion_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Perm target: [From.GetName]"
 			if = {
-				limit = { has_completed_focus = rus_a_tough_industrialization }
-				398 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
+				limit = {
+					398 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
 					}
 				}
-			}
-			else = {
-				398 = {
-					add_extra_state_shared_building_slots = 1
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = arms_factory
-						level = 1
+						level = 3
 						instant_build = yes
 					}
 				}
 			}
+			398 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Yekaterinburg
@@ -424,7 +768,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -435,7 +779,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 653 } #Yekaterinburg
+		highlight_states = {
+			highlight_state_targets = { state = 653 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Yekaterinburg target: [From.GetName]"
@@ -444,26 +790,59 @@ SOV_Industrial_Expansion_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Yekaterinburg target: [From.GetName]"
 			if = {
-				limit = { has_completed_focus = rus_rise_of_russian_industry }
-				653 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
+				limit = {
+					653 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
 					}
 				}
-			}
-			else = {
-				653 = {
-					add_extra_state_shared_building_slots = 1
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = arms_factory
-						level = 1
+						level = 3
 						instant_build = yes
 					}
 				}
 			}
+			653 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Chelyabinsk
@@ -483,7 +862,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -493,8 +872,9 @@ SOV_Industrial_Expansion_decisions = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		highlight_state_targets = { state = 572 } #Chelyabinsk
+		highlight_states = {
+			highlight_state_targets = { state = 572 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Chelyabinsk target: [From.GetName]"
@@ -502,14 +882,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Chelyabinsk target: [From.GetName]"
-			572 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					572 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			572 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Omsk
@@ -529,7 +955,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -540,7 +966,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 571 } #Omsk
+		highlight_states = {
+			highlight_state_targets = { state = 571 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Omsk target: [From.GetName]"
@@ -548,14 +976,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Omsk target: [From.GetName]"
-			571 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					571 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			571 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Novo_Nikolayevsk
@@ -575,7 +1049,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -585,8 +1059,9 @@ SOV_Industrial_Expansion_decisions = {
 		ai_will_do = {
 			factor = 50
 		}
-
-		highlight_state_targets = { state = 560 } #Novo-Nikolayevsk
+		highlight_states = {
+			highlight_state_targets = { state = 560 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Novo_Nikolayevsk target: [From.GetName]"
@@ -594,14 +1069,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Novo_Nikolayevsk target: [From.GetName]"
-			560 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					560 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			560 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Krasnoyarsk
@@ -621,7 +1142,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -632,7 +1153,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 568 } #Krasnoyarsk
+		highlight_states = {
+			highlight_state_targets = { state = 568 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Krasnoyarsk target: [From.GetName]"
@@ -640,14 +1163,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Krasnoyarsk target: [From.GetName]"
-			568 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					568 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 3
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			568 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 ##Irkutsk
@@ -667,7 +1236,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -678,7 +1247,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 50
 		}
 
-		highlight_state_targets = { state = 566 } #Irkutsk
+		highlight_states = {
+			highlight_state_targets = { state = 566 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Irkutsk target: [From.GetName]"
@@ -686,14 +1257,60 @@ SOV_Industrial_Expansion_decisions = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision remove RUS_Develop_Industry_In_Irkutsk target: [From.GetName]"
-			566 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					566 = {
+						OR = {
+							NOT = {
+								is_controlled_by = ROOT
+							}
+							AND = {
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = arms_factory
+									size < 2
+									include_locked = yes
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 3
+							include_locked = yes
+						}
+					}
+				    prioritize = { 219 254 253 248 247 398 195 208 244 263 202 206 217 245 265 226 228 227 221 246 220 209 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
+			566 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+
 		}
 	}
 
@@ -702,7 +1319,7 @@ SOV_Industrial_Expansion_decisions = {
 		icon = generic_construction
 
 		available = {
-			num_of_civilian_factories_available_for_projects > 15
+			num_of_civilian_factories_available_for_projects > 10
 		}
 
 		visible = {
@@ -718,14 +1335,16 @@ SOV_Industrial_Expansion_decisions = {
 		fire_only_once = yes
 
 		modifier = {
-			civilian_factory_use = 15
+			civilian_factory_use = 10
 		}
 
 		ai_will_do = {
 			factor = 500
 		}
 
-		highlight_state_targets = { state = 219 } #Moscow
+		highlight_states = {
+			highlight_state_targets = { state = 219 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Moscow target: [From.GetName]"
@@ -741,15 +1360,91 @@ SOV_Industrial_Expansion_decisions = {
 				add_political_power = 50
 			}
 
-			219 = {
-				#HOF_increase_city_level = yes
-				add_extra_state_shared_building_slots = 5
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 219 254 253 248 247 246 }
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 5
+					level = 2
 					instant_build = yes
 				}
 			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 219 254 253 248 247 246 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 219 254 253 248 247 246 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 219 254 253 248 247 246 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 219 254 253 248 247 246 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
 		}
 	}
 ##Petersburg
@@ -757,7 +1452,7 @@ SOV_Industrial_Expansion_decisions = {
 		icon = generic_construction
 
 		available = {
-			num_of_civilian_factories_available_for_projects > 15
+			num_of_civilian_factories_available_for_projects > 10
 		}
 
 		visible = {
@@ -773,14 +1468,16 @@ SOV_Industrial_Expansion_decisions = {
 		fire_only_once = yes
 
 		modifier = {
-			civilian_factory_use = 15
+			civilian_factory_use = 10
 		}
 
 		ai_will_do = {
 			factor = 500
 		}
 
-		highlight_state_targets = { state = 195 } #Petersburg
+		highlight_states = {
+			highlight_state_targets = { state = 195 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Petersburg target: [From.GetName]"
@@ -796,20 +1493,91 @@ SOV_Industrial_Expansion_decisions = {
 				add_political_power = 50
 			}
 
-			195 = {
-				#HOF_increase_city_level = yes
-				add_extra_state_shared_building_slots = 5
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 195 208 244 263 }
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 4
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = dockyard
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 195 208 244 263 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 195 208 244 263 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 195 208 244 263 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				prioritize = { 195 208 244 263 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
 		}
 	}
 ##Tsaritsyn
@@ -817,7 +1585,7 @@ SOV_Industrial_Expansion_decisions = {
 		icon = generic_construction
 
 		available = {
-			num_of_civilian_factories_available_for_projects > 15
+			num_of_civilian_factories_available_for_projects > 10
 		}
 
 		visible = {
@@ -833,14 +1601,16 @@ SOV_Industrial_Expansion_decisions = {
 		fire_only_once = yes
 
 		modifier = {
-			civilian_factory_use = 15
+			civilian_factory_use = 10
 		}
 
 		ai_will_do = {
 			factor = 400
 		}
 
-		highlight_state_targets = { state = 217 } #Tsaritsyn
+		highlight_states = {
+			highlight_state_targets = { state = 217 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Tsaritsyn target: [From.GetName]"
@@ -856,27 +1626,57 @@ SOV_Industrial_Expansion_decisions = {
 				add_political_power = 50
 			}
 
-			217 = {
-				#HOF_increase_city_level = yes
-				if = {
-					limit = { ROOT = { has_completed_focus = rus_russian_armor } }
-					add_extra_state_shared_building_slots = 5
-					add_building_construction = {
-						type = arms_factory
-						level = 6
-						instant_build = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 4
+						include_locked = yes
 					}
 				}
-				else = {
-					add_extra_state_shared_building_slots = 4
-					add_building_construction = {
-						type = industrial_complex
-						level = 4
-						instant_build = yes
-					}
+				prioritize = { 217 245 265 }
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
 				}
-				
 			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 4
+						include_locked = yes
+					}
+				}
+				prioritize = { 217 245 265 }
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 4
+						include_locked = yes
+					}
+				}
+				prioritize = { 217 245 265 }
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+
 		}
 	}
 
@@ -897,7 +1697,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 50
-		days_remove = 120
+		days_remove = 80
 		fire_only_once = yes
 
 		modifier = {
@@ -908,7 +1708,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 300
 		}
 
-		highlight_state_targets = { state = 221 } #Kharkov
+		highlight_states = {
+			highlight_state_targets = { state = 221 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Kharkov target: [From.GetName]"
@@ -926,10 +1728,10 @@ SOV_Industrial_Expansion_decisions = {
 
 			221 = {
 				#HOF_increase_city_level = yes
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 6
 				add_building_construction = {
 					type = industrial_complex
-					level = 3
+					level = 6
 					instant_build = yes
 				}
 			}
@@ -952,7 +1754,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 50
-		days_remove = 120
+		days_remove = 80
 		fire_only_once = yes
 
 		modifier = {
@@ -963,7 +1765,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 300
 		}
 
-		highlight_state_targets = { state = 227 } #Donetsk
+		highlight_states = {
+			highlight_state_targets = { state = 227 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Donetsk target: [From.GetName]"
@@ -981,10 +1785,10 @@ SOV_Industrial_Expansion_decisions = {
 
 			227 = {
 				#HOF_increase_city_level = yes
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 6
 				add_building_construction = {
 					type = industrial_complex
-					level = 3
+					level = 6
 					instant_build = yes
 				}
 			}
@@ -1007,7 +1811,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 50
-		days_remove = 120
+		days_remove = 80
 		fire_only_once = yes
 
 		modifier = {
@@ -1018,7 +1822,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 300
 		}
 
-		highlight_state_targets = { state = 228 } #Luhansk
+		highlight_states = {
+			highlight_state_targets = { state = 228 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Luhansk target: [From.GetName]"
@@ -1036,10 +1842,10 @@ SOV_Industrial_Expansion_decisions = {
 
 			228 = {
 				#HOF_increase_city_level = yes
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 6
 				add_building_construction = {
 					type = industrial_complex
-					level = 3
+					level = 6
 					instant_build = yes
 				}
 			}
@@ -1051,7 +1857,7 @@ SOV_Industrial_Expansion_decisions = {
 		icon = generic_construction
 
 		available = {
-			num_of_civilian_factories_available_for_projects > 15
+			num_of_civilian_factories_available_for_projects > 10
 		}
 
 		visible = {
@@ -1067,14 +1873,15 @@ SOV_Industrial_Expansion_decisions = {
 		fire_only_once = yes
 
 		modifier = {
-			civilian_factory_use = 15
+			civilian_factory_use = 10
 		}
 
 		ai_will_do = {
 			factor = 300
 		}
-
-		highlight_state_targets = { state = 202 } #Kyiv
+		highlight_states = {
+			highlight_state_targets = { state = 202 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Kyiv target: [From.GetName]"
@@ -1092,10 +1899,10 @@ SOV_Industrial_Expansion_decisions = {
 
 			202 = {
 				#HOF_increase_city_level = yes
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 8
 				add_building_construction = {
 					type = industrial_complex
-					level = 4
+					level = 8
 					instant_build = yes
 				}
 			}
@@ -1106,7 +1913,7 @@ SOV_Industrial_Expansion_decisions = {
 		icon = generic_construction
 
 		available = {
-			num_of_civilian_factories_available_for_projects > 15
+			num_of_civilian_factories_available_for_projects > 10
 		}
 
 		visible = {
@@ -1123,14 +1930,16 @@ SOV_Industrial_Expansion_decisions = {
 		fire_only_once = yes
 
 		modifier = {
-			civilian_factory_use = 15
+			civilian_factory_use = 10
 		}
 
 		ai_will_do = {
 			factor = 450
 		}
 
-		highlight_state_targets = { state = 226 } #Dnipro
+		highlight_states = {
+			highlight_state_targets = { state = 226 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Dnipro target: [From.GetName]"
@@ -1149,10 +1958,10 @@ SOV_Industrial_Expansion_decisions = {
 			add_ideas = SOV_RUS_DniproHES_idea
 			226 = {
 				#HOF_increase_city_level = yes
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 4
 					instant_build = yes
 				}
 			}
@@ -1183,7 +1992,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 100
-		days_remove = 90
+		days_remove = 60
 		fire_only_once = yes
 
 		modifier = {
@@ -1194,7 +2003,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 500
 		}
 
-		highlight_state_targets = { state = 202 } #Kyiv
+		highlight_states = {
+			highlight_state_targets = { state = 202 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Ukr target: [From.GetName]"
@@ -1229,7 +2040,7 @@ SOV_Industrial_Expansion_decisions = {
 		}
 
 		cost = 25
-		days_remove = 730
+		days_remove = 365
 		fire_only_once = yes
 
 		modifier = {
@@ -1241,7 +2052,9 @@ SOV_Industrial_Expansion_decisions = {
 			factor = 500
 		}
 
-		highlight_state_targets = { state = 202 } #Kyiv
+		highlight_states = {
+			highlight_state_targets = { state = 202 }
+		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RUS_Develop_Industry_In_Ukr target: [From.GetName]"

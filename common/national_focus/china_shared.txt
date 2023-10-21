@@ -1125,7 +1125,7 @@ shared_focus = {
 shared_focus = {
 	id = CHI_reach_out_to_france
 	icon = GFX_focus_chi_reach_out_to_france
-	mutually_exclusive = { focus = CHI_british_cooperation }
+
 	prerequisite = { focus = CHI_invite_foreign_investors }
 	x = 5
 	y = 0
@@ -1397,13 +1397,22 @@ shared_focus = {
 	available_if_capitulated = no
 
 	completion_reward = {
-		671 = { #Tonkin
-			set_state_flag = CHI_needed_for_hanoi_route
+
+		if = {
+			limit = {
+				JAP = { has_offensive_war_with = CHI }
+				has_equipment = { infantry_equipment < 5000 }
+				FRA = {
+					has_capitulated = no
+					is_subject = no
+					casualties < 500000
+				}
+				country_exists = FRA
+				NOT = { has_war_with = FRA }
+			}
+			activate_mission_tooltip = CHI_weapon_shipments_from_france
 		}
-		325 = { #Yunnan
-			set_state_flag = CHI_needed_for_hanoi_route
-		}	
-		set_variable = { CHI_hanoi_route_current_level = 3 }
+
 		add_offsite_building = { type = arms_factory level = 3 }
 	}
 }
@@ -2470,7 +2479,7 @@ shared_focus = {
 shared_focus = {
 	id = CHI_british_cooperation
 	icon = GFX_focus_chi_british_cooperation
-	mutually_exclusive = { focus = CHI_reach_out_to_france }
+
 	prerequisite = { focus = CHI_invite_foreign_investors }
 	x = 2
 	y = 0
@@ -2614,16 +2623,20 @@ shared_focus = {
 	available_if_capitulated = no
 
 	completion_reward = {
-		288 = { #Burma
-			set_state_flag = CHI_needed_for_burma_road
+		if = {
+			limit = {
+				JAP = { has_offensive_war_with = CHI }
+				has_equipment = { infantry_equipment < 5000 }
+				ENG = {
+					has_capitulated = no
+					is_subject = no
+				}
+				country_exists = ENG
+				NOT = { has_war_with = ENG }
+			}
+			activate_mission_tooltip = CHI_weapon_shipments_from_britain
 		}
-		325 = { #Yunnan
-			set_state_flag = CHI_needed_for_burma_road
-		}
-		640 = { #Mandalay
-			set_state_flag = CHI_needed_for_burma_road
-		}
-		set_variable = { CHI_burma_road_current_level = 2 }
+
 		add_offsite_building = { type = arms_factory level = 2 }
 	}
 }
@@ -2701,16 +2714,20 @@ shared_focus = {
 	available_if_capitulated = no
 
 	completion_reward = {
-		432 = { #Assam
-			set_state_flag = CHI_needed_for_ledo_road
+		if = {
+			limit = {
+				JAP = { has_offensive_war_with = CHI }
+				has_equipment = { infantry_equipment < 5000 }
+				ENG = {
+					has_capitulated = no
+					is_subject = no
+				}
+				country_exists = ENG
+				NOT = { has_war_with = ENG }
+			}
+			activate_mission_tooltip = CHI_weapon_shipments_from_britain_ledo
 		}
-		325 = { #Yunnan
-			set_state_flag = CHI_needed_for_ledo_road
-		}
-		640 = { #Mandalay
-			set_state_flag = CHI_needed_for_ledo_road
-		}
-		set_variable = { CHI_ledo_road_current_level = 1 }
+
 		add_offsite_building = { type = arms_factory level = 1 }
 	}
 }
@@ -2954,6 +2971,7 @@ shared_focus = {
 	}
 
 	available = {
+		USA = { is_in_faction_with = ENG }
 		OR = {
 			is_subject = no
 			is_subject_of = ENG
@@ -2998,13 +3016,20 @@ shared_focus = {
 	available_if_capitulated = no
 
 	completion_reward = {		
-		434 = { #Arunachal Pradesh
-			set_state_flag = CHI_needed_for_the_hump
+		if = {
+			limit = {
+				JAP = { has_offensive_war_with = CHI }
+				has_equipment = { infantry_equipment < 10000 }
+				USA = {
+					has_capitulated = no
+					is_subject = no
+				}
+				country_exists = USA
+				NOT = { has_war_with = USA }
+			}
+			activate_mission_tooltip = CHI_weapon_shipments_from_usa
 		}
-		601 = { #Xikang
-			set_state_flag = CHI_needed_for_the_hump
-		}	
-		set_variable = { CHI_the_hump_current_level = 1 }
+
 		add_offsite_building = { type = arms_factory level = 1 }
 	}
 }
