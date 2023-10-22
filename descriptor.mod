@@ -1,4 +1,4 @@
-name="Hearts of Fate tarn working"
+name="Hearts of Fate testing"
 
 replace_path="common/abilities"
 
