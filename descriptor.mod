@@ -1,4 +1,4 @@
-name="Hearts of Fate testing"
+name="Hearts of Fate testing with Kaiserreich Map"
 replace_path="common/abilities"
 replace_path="common/ai_areas"
 replace_path="common/ai_equipment"
@@ -12,14 +12,14 @@ replace_path="common/bop"
 replace_path="common/buildings"
 replace_path="common/characters"
 replace_path="common/continuous_focus"
-##replace_path="common/countries"
+##replace_path="common/countries" 里面这些文件是原版文件用来编辑地图的 载入用hof的文件再覆写
 replace_path="common/country_leader"
 replace_path="common/country_tag_aliases"
 ##replace_path="common/country_tags"
 replace_path="common/decisions"
 replace_path="common/decisions/categories"
 replace_path="common/difficulty_settings"
-##replace_path="common/dynamic_modifiers
+replace_path="common/dynamic_modifiers
 replace_path="common/ideas"
 replace_path="common/military_industrial_organization/organizations"
 replace_path="common/state_category"
@@ -35,5 +35,5 @@ tags={
 	"Map"
 	"National Focuses"
 }
+path = "D:\Documents\GitHub\Mio"
 supported_version="1.13.4"
-remote_file_id="3057387554"
