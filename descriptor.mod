@@ -11,6 +11,7 @@ replace_path="common/bop"
 replace_path="common/buildings"
 replace_path="common/characters"
 replace_path="common/continuous_focus"
+#replace_path="common/country
 replace_path="common/country_leader"
 replace_path="common/country_tag_aliases"
 replace_path="common/decisions"
