@@ -15,15 +15,11 @@
 #		example_effect = yes
 #	}
 #
-
 #####################################
 ### emergency_factory_conversion ####
 #####################################
-
 #This is going to give misleading and ugly tooltips. Making it nice will take effort. TODO_WTT_CD make nice or ignore and remove comment. Easiest solution is just making a custom tooltip that says "5 civilian factories will be converted to military factories" and ignore telling the player the states where it will happen.
-
 replace_civ_with_arms_factories = {
-
 	random_owned_controlled_state = {
 		limit = {
 			is_fully_controlled_by = ROOT
@@ -39,7 +35,6 @@ replace_civ_with_arms_factories = {
 			instant_build = yes
 		}
 	}
-
 	random_owned_controlled_state = {
 		limit = {
 			is_fully_controlled_by = ROOT
@@ -55,7 +50,6 @@ replace_civ_with_arms_factories = {
 			instant_build = yes
 		}
 	}
-
 	random_owned_controlled_state = {
 		limit = {
 			is_fully_controlled_by = ROOT
@@ -71,7 +65,6 @@ replace_civ_with_arms_factories = {
 			instant_build = yes
 		}
 	}
-
 	random_owned_controlled_state = {
 		limit = {
 			is_fully_controlled_by = ROOT
@@ -87,7 +80,6 @@ replace_civ_with_arms_factories = {
 			instant_build = yes
 		}
 	}
-
 	random_owned_controlled_state = {
 		limit = {
 			is_fully_controlled_by = ROOT
@@ -113,13 +105,21 @@ ROOT_inherit_current_scope_wars_effect = {
 			limit = {
 				has_defensive_war_with = PREV
 			}
-			ROOT = { declare_war_on = { target = PREV type = annex_everything } }
+			ROOT = {
+				declare_war_on = {
+					target = PREV
+					type = annex_everything
+				}
+			}
 		}
 		every_country = {
 			limit = {
 				has_offensive_war_with = PREV
 			}
-			declare_war_on = { target = ROOT type = annex_everything }
+			declare_war_on = {
+				target = ROOT
+				type = annex_everything
+			}
 		}
 	}
 }
@@ -482,16 +482,23 @@ print_variable_log_effect = {
 	}
 }
 
-get_best_alliance_match_democratic_effect = { #arguably a trigger, but it does stuff so we keep it in here. If this is your first time seeing this, welcome to my personal hell.
+get_best_alliance_match_democratic_effect = {
+	#arguably a trigger, but it does stuff so we keep it in here. If this is your first time seeing this, welcome to my personal hell.
 	if = {
 		limit = {
 			any_other_country = {
 				is_faction_leader = yes
 				is_major = yes
 				has_government = democratic
-				not = { has_war_with = ROOT }
-				set_temp_variable = { ROOT.best_leader = this }
-				set_temp_variable = { ROOT.best_leader_score = 0 }
+				not = {
+					has_war_with = ROOT
+				}
+				set_temp_variable = {
+					ROOT.best_leader = this
+				}
+				set_temp_variable = {
+					ROOT.best_leader_score = 0
+				}
 			}
 		}
 	}
@@ -501,13 +508,23 @@ get_best_alliance_match_democratic_effect = { #arguably a trigger, but it does s
 				is_faction_leader = yes
 				is_major = yes
 				has_government = democratic
-				not = { has_war_with = ROOT }
-				set_temp_variable = { this.leader_score = num_of_factories }
-				add_to_temp_variable = { this.leader_score = num_battalions }
+				not = {
+					has_war_with = ROOT
+				}
+				set_temp_variable = {
+					this.leader_score = num_of_factories
+				}
+				add_to_temp_variable = {
+					this.leader_score = num_battalions
+				}
 				all_of_scopes = {
 					array = allies
-					add_to_temp_variable = { PREV.leader_score = num_of_factories }
-					add_to_temp_variable = { PREV.leader_score = num_battalions }
+					add_to_temp_variable = {
+						PREV.leader_score = num_of_factories
+					}
+					add_to_temp_variable = {
+						PREV.leader_score = num_battalions
+					}
 				}
 				if = {
 					limit = {
@@ -515,19 +532,31 @@ get_best_alliance_match_democratic_effect = { #arguably a trigger, but it does s
 							is_on_continent = ROOT
 						}
 					}
-					multiply_temp_variable = { leader_score = 2 }
-				}
-				if = {
-					limit = {
-						any_neighbor_country = { tag = ROOT }
+					multiply_temp_variable = {
+						leader_score = 2
 					}
-					multiply_temp_variable = { leader_score = 1.25 }
 				}
 				if = {
 					limit = {
-						check_variable = { ROOT.best_leader_score < leader_score }
-						set_temp_variable = { ROOT.best_leader = this }
-						set_temp_variable = { ROOT.best_leader_score = leader_score }
+						any_neighbor_country = {
+							tag = ROOT
+						}
+					}
+					multiply_temp_variable = {
+						leader_score = 1.25
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							ROOT.best_leader_score < leader_score
+						}
+						set_temp_variable = {
+							ROOT.best_leader = this
+						}
+						set_temp_variable = {
+							ROOT.best_leader_score = leader_score
+						}
 					}
 				}
 			}
@@ -535,34 +564,49 @@ get_best_alliance_match_democratic_effect = { #arguably a trigger, but it does s
 	}
 }
 
-get_best_alliance_match_fascism_effect = { #arguably a trigger, but it does stuff so we keep it in here. If this is your first time seeing this, welcome to my personal hell.
+get_best_alliance_match_fascism_effect = {
+	#arguably a trigger, but it does stuff so we keep it in here. If this is your first time seeing this, welcome to my personal hell.
 	if = {
 		limit = {
 			any_other_country = {
 				is_faction_leader = yes
 				is_major = yes
 				has_government = fascism
-				not = { has_war_with = ROOT }
-				set_temp_variable = { ROOT.best_leader = this }
-				set_temp_variable = { ROOT.best_leader_score = 0 }
+				not = {
+					has_war_with = ROOT
+				}
+				set_temp_variable = {
+					ROOT.best_leader = this
+				}
+				set_temp_variable = {
+					ROOT.best_leader_score = 0
+				}
 			}
 		}
 	}
 	if = {
 		limit = {
 			all_other_country = {
-
 				is_faction_leader = yes
 				is_major = yes
 				has_government = fascism
-				not = { has_war_with = ROOT }
-
-				set_temp_variable = { this.leader_score = num_of_factories }
-				add_to_temp_variable = { this.leader_score = num_battalions }
+				not = {
+					has_war_with = ROOT
+				}
+				set_temp_variable = {
+					this.leader_score = num_of_factories
+				}
+				add_to_temp_variable = {
+					this.leader_score = num_battalions
+				}
 				all_of_scopes = {
 					array = allies
-					add_to_temp_variable = { PREV.leader_score = num_of_factories }
-					add_to_temp_variable = { PREV.leader_score = num_battalions }
+					add_to_temp_variable = {
+						PREV.leader_score = num_of_factories
+					}
+					add_to_temp_variable = {
+						PREV.leader_score = num_battalions
+					}
 				}
 				if = {
 					limit = {
@@ -570,36 +614,55 @@ get_best_alliance_match_fascism_effect = { #arguably a trigger, but it does stuf
 							is_on_continent = ROOT
 						}
 					}
-					multiply_temp_variable = { this.leader_score = 2 }
+					multiply_temp_variable = {
+						this.leader_score = 2
+					}
 				}
 				if = {
 					limit = {
-						any_neighbor_country = { tag = ROOT }
+						any_neighbor_country = {
+							tag = ROOT
+						}
 					}
-					multiply_temp_variable = { this.leader_score = 1.25 }
+					multiply_temp_variable = {
+						this.leader_score = 1.25
+					}
 				}
 				if = {
 					limit = {
-						check_variable = { ROOT.best_leader_score < this.leader_score }
+						check_variable = {
+							ROOT.best_leader_score < this.leader_score
+						}
 					}
-					set_temp_variable = { ROOT.best_leader = this }
-					set_temp_variable = { ROOT.best_leader_score = this.leader_score }
+					set_temp_variable = {
+						ROOT.best_leader = this
+					}
+					set_temp_variable = {
+						ROOT.best_leader_score = this.leader_score
+					}
 				}
 			}
 		}
 	}
 }
 
-get_best_alliance_match_communism_effect = { #arguably a trigger, but it does stuff so we keep it in here. If this is your first time seeing this, welcome to my personal hell.
+get_best_alliance_match_communism_effect = {
+	#arguably a trigger, but it does stuff so we keep it in here. If this is your first time seeing this, welcome to my personal hell.
 	if = {
 		limit = {
 			any_other_country = {
 				is_faction_leader = yes
 				is_major = yes
 				has_government = communism
-				not = { has_war_with = ROOT }
-				set_temp_variable = { ROOT.best_leader = this }
-				set_temp_variable = { ROOT.best_leader_score = 0 }
+				not = {
+					has_war_with = ROOT
+				}
+				set_temp_variable = {
+					ROOT.best_leader = this
+				}
+				set_temp_variable = {
+					ROOT.best_leader_score = 0
+				}
 			}
 		}
 	}
@@ -609,13 +672,23 @@ get_best_alliance_match_communism_effect = { #arguably a trigger, but it does st
 				is_faction_leader = yes
 				is_major = yes
 				has_government = communism
-				not = { has_war_with = ROOT }
-				set_temp_variable = { this.leader_score = num_of_factories }
-				add_to_temp_variable = { this.leader_score = num_battalions }
+				not = {
+					has_war_with = ROOT
+				}
+				set_temp_variable = {
+					this.leader_score = num_of_factories
+				}
+				add_to_temp_variable = {
+					this.leader_score = num_battalions
+				}
 				all_of_scopes = {
 					array = allies
-					add_to_temp_variable = { PREV.leader_score = num_of_factories }
-					add_to_temp_variable = { PREV.leader_score = num_battalions }
+					add_to_temp_variable = {
+						PREV.leader_score = num_of_factories
+					}
+					add_to_temp_variable = {
+						PREV.leader_score = num_battalions
+					}
 				}
 				if = {
 					limit = {
@@ -623,19 +696,31 @@ get_best_alliance_match_communism_effect = { #arguably a trigger, but it does st
 							is_on_continent = ROOT
 						}
 					}
-					multiply_temp_variable = { leader_score = 2 }
-				}
-				if = {
-					limit = {
-						any_neighbor_country = { tag = ROOT }
+					multiply_temp_variable = {
+						leader_score = 2
 					}
-					multiply_temp_variable = { leader_score = 1.25 }
 				}
 				if = {
 					limit = {
-						check_variable = { ROOT.best_leader_score < leader_score }
-						set_temp_variable = { ROOT.best_leader = this }
-						set_temp_variable = { ROOT.best_leader_score = leader_score }
+						any_neighbor_country = {
+							tag = ROOT
+						}
+					}
+					multiply_temp_variable = {
+						leader_score = 1.25
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							ROOT.best_leader_score < leader_score
+						}
+						set_temp_variable = {
+							ROOT.best_leader = this
+						}
+						set_temp_variable = {
+							ROOT.best_leader_score = leader_score
+						}
 					}
 				}
 			}
@@ -676,7 +761,7 @@ civil_war_anti_exploiter_punitive_action = {
 	if = {
 		limit = {
 			has_army_size = {
-			    size < 1
+				size < 1
 			}
 		}
 		division_template = {
@@ -685,22 +770,56 @@ civil_war_anti_exploiter_punitive_action = {
 			division_names_group = ENG_MAR_01
 			is_locked = yes
 			regiments = {
-				infantry = { x = 0 y = 0 }
-				infantry = { x = 0 y = 1 }
-				infantry = { x = 0 y = 2 }
-
-		   	   	infantry = { x = 1 y = 0 }
-				infantry = { x = 1 y = 1 }
-				infantry = { x = 1 y = 2 }
-
-		   	   	infantry = { x = 2 y = 0 }
-				artillery_brigade = { x = 2 y = 1 }
-				artillery_brigade = { x = 2 y = 2 }
+				infantry = {
+					x = 0
+					y = 0
+				}
+				infantry = {
+					x = 0
+					y = 1
+				}
+				infantry = {
+					x = 0
+					y = 2
+				}
+				infantry = {
+					x = 1
+					y = 0
+				}
+				infantry = {
+					x = 1
+					y = 1
+				}
+				infantry = {
+					x = 1
+					y = 2
+				}
+				infantry = {
+					x = 2
+					y = 0
+				}
+				artillery_brigade = {
+					x = 2
+					y = 1
+				}
+				artillery_brigade = {
+					x = 2
+					y = 2
+				}
 			}
 			support = {
-				engineer = { x = 0 y = 0 }
-				recon = { x = 0 y = 1 }
-				artillery = { x = 0 y = 2 }
+				engineer = {
+					x = 0
+					y = 0
+				}
+				recon = {
+					x = 0
+					y = 1
+				}
+				artillery = {
+					x = 0
+					y = 2
+				}
 			}
 		}
 		random_state = {
@@ -825,7 +944,6 @@ clear_sabotaged_resources_if_necesary = {
 				}
 			}
 		}
-
 		clear_variable = sabotaged_oil
 		clear_variable = sabotaged_aluminium
 		clear_variable = sabotaged_rubber
@@ -837,20 +955,36 @@ clear_sabotaged_resources_if_necesary = {
 
 remove_from_allowed_party = {
 	if = {
-		limit = { has_government = democratic }
-		set_temp_variable = { allowed_party_democratic = 0 }
+		limit = {
+			has_government = democratic
+		}
+		set_temp_variable = {
+			allowed_party_democratic = 0
+		}
 	}
 	else_if = {
-		limit = { has_government = fascism }
-		set_temp_variable = { allowed_party_fascism = 0 }
+		limit = {
+			has_government = fascism
+		}
+		set_temp_variable = {
+			allowed_party_fascism = 0
+		}
 	}
 	else_if = {
-		limit = { has_government = communism }
-		set_temp_variable = { allowed_party_communism = 0 }
+		limit = {
+			has_government = communism
+		}
+		set_temp_variable = {
+			allowed_party_communism = 0
+		}
 	}
 	else_if = {
-		limit = { has_government = neutrality }
-		set_temp_variable = { allowed_party_neutrality = 0 }
+		limit = {
+			has_government = neutrality
+		}
+		set_temp_variable = {
+			allowed_party_neutrality = 0
+		}
 	}
 }
 
@@ -858,8 +992,9 @@ remove_from_allowed_party = {
 instantiate_collaboration_government = {
 	custom_effect_tooltip = compliance_80_effect_tooltip
 	hidden_effect = {
-		set_variable = { collaboration_formed@var:country_to_initiate = 1 }
-
+		set_variable = {
+			collaboration_formed@var:country_to_initiate = 1
+		}
 		if = {
 			# if country_to_initiate does not exist, simply release it as a puppet
 			limit = {
@@ -867,7 +1002,11 @@ instantiate_collaboration_government = {
 					exists = no
 				}
 			}
-			var:country_to_initiate = { set_variable = { collaboration_formed_by = PREV } }
+			var:country_to_initiate = {
+				set_variable = {
+					collaboration_formed_by = PREV
+				}
+			}
 			release_autonomy = {
 				target = country_to_initiate
 				autonomy_state = autonomy_collaboration_government
@@ -877,24 +1016,24 @@ instantiate_collaboration_government = {
 		}
 		else = {
 			# if country_to_initiate exists, create a dynamic country as our new puppet
-
 			create_dynamic_country = {
 				original_tag = country_to_initiate
-
-				set_variable = { collaboration_formed_by = PREV }
-				set_temp_variable = { new_country = this }
-
+				set_variable = {
+					collaboration_formed_by = PREV
+				}
+				set_temp_variable = {
+					new_country = this
+				}
 				PREV = {
 					every_controlled_state = {
-						limit = { occupied_country_tag = country_to_initiate }
-
+						limit = {
+							occupied_country_tag = country_to_initiate
+						}
 						var:new_country = {
 							transfer_state = PREV
 						}
 					}
-
 					puppet = new_country
-
 					set_autonomy = {
 						target = new_country
 						autonomy_state = autonomy_collaboration_government
@@ -916,7 +1055,11 @@ abandon_colony_tag = {
 				original_tag = CAN
 			}
 			if = {
-				limit = { NOT = { has_dlc = "Together for Victory" } }
+				limit = {
+					NOT = {
+						has_dlc = "Together for Victory"
+					}
+				}
 				set_cosmetic_tag = CAN_ALY
 			}
 			else = {
@@ -987,7 +1130,8 @@ upgrade_economy_law = {
 	}
 }
 
-gain_random_agency_upgrade = { #Gives a random agency upgrade or grants a free agency if one has not yet been established
+gain_random_agency_upgrade = {
+	#Gives a random agency upgrade or grants a free agency if one has not yet been established
 	custom_effect_tooltip = free_agency_upgrade_tt
 	hidden_effect = {
 		if = {
@@ -1123,7 +1267,9 @@ gain_random_agency_upgrade = { #Gives a random agency upgrade or grants a free a
 						factor = 0
 						OR = {
 							has_done_agency_upgrade = upgrade_decryption_boost
-							NOT = { has_done_agency_upgrade = upgrade_form_department }
+							NOT = {
+								has_done_agency_upgrade = upgrade_form_department
+							}
 						}
 					}
 				}
@@ -1133,8 +1279,12 @@ gain_random_agency_upgrade = { #Gives a random agency upgrade or grants a free a
 						factor = 0
 						OR = {
 							has_done_agency_upgrade = upgrade_decryption_boost_2
-							NOT = { has_done_agency_upgrade = upgrade_form_department }
-							NOT = { has_done_agency_upgrade = upgrade_decryption_boost }
+							NOT = {
+								has_done_agency_upgrade = upgrade_form_department
+							}
+							NOT = {
+								has_done_agency_upgrade = upgrade_decryption_boost
+							}
 						}
 					}
 				}
@@ -1144,7 +1294,9 @@ gain_random_agency_upgrade = { #Gives a random agency upgrade or grants a free a
 						factor = 0
 						OR = {
 							has_done_agency_upgrade = upgrade_crypto_strength
-							NOT = { has_done_agency_upgrade = upgrade_form_department }
+							NOT = {
+								has_done_agency_upgrade = upgrade_form_department
+							}
 						}
 					}
 				}
@@ -1154,8 +1306,12 @@ gain_random_agency_upgrade = { #Gives a random agency upgrade or grants a free a
 						factor = 0
 						OR = {
 							has_done_agency_upgrade = upgrade_crypto_strength_2
-							NOT = { has_done_agency_upgrade = upgrade_form_department }
-							NOT = { has_done_agency_upgrade = upgrade_crypto_strength }
+							NOT = {
+								has_done_agency_upgrade = upgrade_form_department
+							}
+							NOT = {
+								has_done_agency_upgrade = upgrade_crypto_strength
+							}
 						}
 					}
 				}
@@ -1170,10 +1326,14 @@ join_allies_effect = {
 			ENG = {
 				is_faction_leader = yes
 				has_government = democratic
-				not = { has_war_with = ROOT }
+				not = {
+					has_war_with = ROOT
+				}
 			}
 		}
-		ENG = { country_event = generic.2 }
+		ENG = {
+			country_event = generic.2
+		}
 	}
 	else = {
 		get_best_alliance_match_democratic_effect = yes
@@ -1186,19 +1346,27 @@ join_allies_effect = {
 #Should remove any and all fascist foreign influence, to be updated
 remove_fascist_spirits_effect = {
 	if = {
-		limit = { has_idea = fascist_influence }
+		limit = {
+			has_idea = fascist_influence
+		}
 		remove_ideas = fascist_influence
 	}
 	if = {
-		limit = { has_idea = american_influence_drift_fascism }
+		limit = {
+			has_idea = american_influence_drift_fascism
+		}
 		remove_ideas = american_influence_drift_fascism
 	}
 	if = {
-		limit = { has_idea = GER_align_hungary }
+		limit = {
+			has_idea = GER_align_hungary
+		}
 		remove_ideas = GER_align_hungary
 	}
 	if = {
-		limit = { has_idea = GER_align_romania }
+		limit = {
+			has_idea = GER_align_romania
+		}
 		remove_ideas = GER_align_romania
 	}
 }
@@ -1206,40 +1374,57 @@ remove_fascist_spirits_effect = {
 #Should remove any and all communist foreign influence
 remove_communist_spirits_effect = {
 	if = {
-		limit = { has_idea = communist_pressure }
+		limit = {
+			has_idea = communist_pressure
+		}
 		remove_ideas = communist_pressure
 	}
 	if = {
-		limit = { has_idea = american_influence_drift_communism }
+		limit = {
+			has_idea = american_influence_drift_communism
+		}
 		remove_ideas = american_influence_drift_communism
 	}
 	if = {
-		limit = { has_idea = comintern_influence }
+		limit = {
+			has_idea = comintern_influence
+		}
 		remove_ideas = comintern_influence
 	}
 	if = {
-		limit = { has_idea = pan_slavic_propaganda }
+		limit = {
+			has_idea = pan_slavic_propaganda
+		}
 		remove_ideas = pan_slavic_propaganda
 	}
 	if = {
-		limit = { has_idea = agitated_peasants }
+		limit = {
+			has_idea = agitated_peasants
+		}
 		remove_ideas = agitated_peasants
 	}
 	if = {
-		limit = { has_idea = armed_communist_militants }
+		limit = {
+			has_idea = armed_communist_militants
+		}
 		remove_ideas = armed_communist_militants
 	}
 	if = {
-		limit = { has_idea = BALTIC_communist_propaganda }
+		limit = {
+			has_idea = BALTIC_communist_propaganda
+		}
 		remove_ideas = BALTIC_communist_propaganda
 	}
 	if = {
-		limit = { has_idea = BALTIC_communist_militancy }
+		limit = {
+			has_idea = BALTIC_communist_militancy
+		}
 		remove_ideas = BALTIC_communist_militancy
 	}
-
 	if = {
-		limit = { has_idea = SWE_foreign_communist_influence }
+		limit = {
+			has_idea = SWE_foreign_communist_influence
+		}
 		remove_ideas = SWE_foreign_communist_influence
 	}
 }
@@ -1247,7 +1432,9 @@ remove_communist_spirits_effect = {
 #Should remove any and all democratic foreign influence
 remove_democratic_spirits_effect = {
 	if = {
-		limit = { has_idea = democratic_influence }
+		limit = {
+			has_idea = democratic_influence
+		}
 		remove_ideas = democratic_influence
 	}
 }
@@ -1348,6 +1535,7 @@ add_ruling_to_dem = {
 		}
 	}
 }
+
 add_ruling_to_fas = {
 	custom_effect_tooltip = add_ruling_to_fas_tt
 	hidden_effect = {
@@ -1443,6 +1631,7 @@ add_ruling_to_fas = {
 		}
 	}
 }
+
 add_ruling_to_com = {
 	custom_effect_tooltip = add_ruling_to_com_tt
 	hidden_effect = {
@@ -1538,6 +1727,7 @@ add_ruling_to_com = {
 		}
 	}
 }
+
 add_ruling_to_neu = {
 	custom_effect_tooltip = add_ruling_to_neu_tt
 	hidden_effect = {
@@ -1634,18 +1824,14 @@ add_ruling_to_neu = {
 	}
 }
 
-
 on_daily = {
-
 }
 
 #on_daily_USA = {
 #	# you can specify an on daily action for a specific country
 #}
-
 ###Game weight variables for faction load balancing.
 ###We store these on germany because ... we have to
-
 set_add_fascist_game_weight_large = {
 	GER = {
 		if = {
@@ -1654,10 +1840,16 @@ set_add_fascist_game_weight_large = {
 					has_variable = fascist_game_weight
 				}
 			}
-			set_variable = { var = fascist_game_weight value = 20 }
+			set_variable = {
+				var = fascist_game_weight
+				value = 20
+			}
 		}
 		else = {
-			add_to_variable = { var = fascist_game_weight value = 20 }
+			add_to_variable = {
+				var = fascist_game_weight
+				value = 20
+			}
 		}
 	}
 }
@@ -1670,10 +1862,16 @@ set_add_democratic_game_weight_large = {
 					has_variable = democratic_game_weight
 				}
 			}
-			set_variable = { var = democratic_game_weight value = 20 }
+			set_variable = {
+				var = democratic_game_weight
+				value = 20
+			}
 		}
 		else = {
-			add_to_variable = { var = democratic_game_weight value = 20 }
+			add_to_variable = {
+				var = democratic_game_weight
+				value = 20
+			}
 		}
 	}
 }
@@ -1686,10 +1884,16 @@ set_add_unaligned_game_weight_large = {
 					has_variable = unaligned_game_weight
 				}
 			}
-			set_variable = { var = unaligned_game_weight value = 20 }
+			set_variable = {
+				var = unaligned_game_weight
+				value = 20
+			}
 		}
 		else = {
-			add_to_variable = { var = unaligned_game_weight value = 20 }
+			add_to_variable = {
+				var = unaligned_game_weight
+				value = 20
+			}
 		}
 	}
 }
@@ -1702,10 +1906,16 @@ set_add_communist_weight_large = {
 					has_variable = communist_game_weight
 				}
 			}
-			set_variable = { var = communist_game_weight value = 20 }
+			set_variable = {
+				var = communist_game_weight
+				value = 20
+			}
 		}
 		else = {
-			add_to_variable = { var = communist_game_weight value = 20 }
+			add_to_variable = {
+				var = communist_game_weight
+				value = 20
+			}
 		}
 	}
 }
@@ -1718,10 +1928,16 @@ set_add_fascist_weight_small = {
 					has_variable = fascist_game_weight
 				}
 			}
-			set_variable = { var = fascist_game_weight value = 8 }
+			set_variable = {
+				var = fascist_game_weight
+				value = 8
+			}
 		}
 		else = {
-			add_to_variable = { var = fascist_game_weight value = 8 }
+			add_to_variable = {
+				var = fascist_game_weight
+				value = 8
+			}
 		}
 	}
 }
@@ -1734,10 +1950,16 @@ set_add_democratic_weight_small = {
 					has_variable = democratic_game_weight
 				}
 			}
-			set_variable = { var = democratic_game_weight value = 8 }
+			set_variable = {
+				var = democratic_game_weight
+				value = 8
+			}
 		}
 		else = {
-			add_to_variable = { var = democratic_game_weight value = 8 }
+			add_to_variable = {
+				var = democratic_game_weight
+				value = 8
+			}
 		}
 	}
 }
@@ -1750,10 +1972,16 @@ set_add_unaligned_weight_small = {
 					has_variable = unaligned_game_weight
 				}
 			}
-			set_variable = { var = unaligned_game_weight value = 8 }
+			set_variable = {
+				var = unaligned_game_weight
+				value = 8
+			}
 		}
 		else = {
-			add_to_variable = { var = unaligned_game_weight value = 8 }
+			add_to_variable = {
+				var = unaligned_game_weight
+				value = 8
+			}
 		}
 	}
 }
@@ -1766,20 +1994,29 @@ set_add_communist_weight_small = {
 					has_variable = communist_game_weight
 				}
 			}
-			set_variable = { var = communist_game_weight value = 8 }
+			set_variable = {
+				var = communist_game_weight
+				value = 8
+			}
 		}
 		else = {
-			add_to_variable = { var = communist_game_weight value = 8 }
+			add_to_variable = {
+				var = communist_game_weight
+				value = 8
+			}
 		}
 	}
 }
 
 leave_the_league_of_nations = {
 	custom_effect_tooltip = leave_the_league_of_nations_tt
-	hidden_effect = { remove_ideas = league_of_nations_member_idea }
+	hidden_effect = {
+		remove_ideas = league_of_nations_member_idea
+	}
 }
 
-bba_get_fighter_GER_effect = { #creates a fighter design if necessary and exports a number of them to ROOT
+bba_get_fighter_GER_effect = {
+	#creates a fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			GER = {
@@ -1792,8 +2029,8 @@ bba_get_fighter_GER_effect = { #creates a fighter design if necessary and export
 		add_equipment_to_stockpile = {
 			type = small_plane_airframe_1
 			producer = GER
-			amount = fighter_buy_amount #set before the effect is invoked (they said I couldn't have arguments in my scripted effects, BUT LOOK WHOS LAUGHING NOW!!!!!)
-			variant_name = "Bf 109 D" #set up at game start
+			amount = fighter_buy_amount			#set before the effect is invoked (they said I couldn't have arguments in my scripted effects, BUT LOOK WHOS LAUGHING NOW!!!!!)
+			variant_name = "Bf 109 D"			#set up at game start
 		}
 	}
 	else_if = {
@@ -1807,13 +2044,17 @@ bba_get_fighter_GER_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_improved_export_fighter_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_improved_export_fighter_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Fw 190"
 					type = small_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -1822,7 +2063,7 @@ bba_get_fighter_GER_effect = { #creates a fighter design if necessary and export
 					}
 					icon = "GFX_GER_fighter2_medium"
 				}
-				set_country_flag = GER_improved_export_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = GER_improved_export_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -1840,13 +2081,17 @@ bba_get_fighter_GER_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_advanced_export_fighter_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_advanced_export_fighter_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Ta 152"
 					type = small_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_2_2x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_4x
@@ -1867,7 +2112,8 @@ bba_get_fighter_GER_effect = { #creates a fighter design if necessary and export
 	}
 }
 
-bba_get_cas_GER_effect = { #creates a CAS design if necessary and exports a number of them to ROOT
+bba_get_cas_GER_effect = {
+	#creates a CAS design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			GER = {
@@ -1881,7 +2127,7 @@ bba_get_cas_GER_effect = { #creates a CAS design if necessary and exports a numb
 			type = small_plane_cas_airframe_1
 			producer = GER
 			amount = cas_buy_amount
-			variant_name = "Ju 87" #set up at game start
+			variant_name = "Ju 87"			#set up at game start
 		}
 	}
 	else_if = {
@@ -1895,22 +2141,26 @@ bba_get_cas_GER_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_improved_export_cas_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_improved_export_cas_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Ju 87 G"
 					type = small_plane_cas_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (basic frame), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (basic frame), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = tank_buster_1
 						fixed_auxiliary_weapon_slot_1 = tank_buster_1
-						engine_type_slot = engine_3_1x #Increased tier due to thrust/weight issues
+						engine_type_slot = engine_3_1x						#Increased tier due to thrust/weight issues
 						special_type_slot_1 = empty
 					}
 					icon = "GFX_GER_CAS2_medium"
 				}
-				set_country_flag = GER_improved_export_cas_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = GER_improved_export_cas_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -1928,13 +2178,17 @@ bba_get_cas_GER_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_advanced_export_cas_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_advanced_export_cas_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Hs 129"
 					type = small_plane_cas_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = tank_buster_1
@@ -1955,7 +2209,8 @@ bba_get_cas_GER_effect = { #creates a CAS design if necessary and exports a numb
 	}
 }
 
-bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a number of them to ROOT
+bba_get_tac_GER_effect = {
+	#creates a tac design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			GER = {
@@ -1969,7 +2224,7 @@ bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a numb
 			type = medium_plane_airframe_0
 			producer = GER
 			amount = tac_buy_amount
-			variant_name = "Ju 86" #set up at game start
+			variant_name = "Ju 86"			#set up at game start
 		}
 	}
 	else_if = {
@@ -1983,13 +2238,17 @@ bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_improved_export_tac_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_improved_export_tac_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Ju 88"
 					type = medium_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -1998,7 +2257,7 @@ bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a numb
 					}
 					icon = "GFX_GER_tactical_bomber2_medium"
 				}
-				set_country_flag = GER_improved_export_tac_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = GER_improved_export_tac_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2016,13 +2275,17 @@ bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_advanced_export_tac_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_advanced_export_tac_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Ju 388"
 					type = medium_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
@@ -2045,7 +2308,8 @@ bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a numb
 	}
 }
 
-bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessary and exports a number of them to ROOT
+bba_get_heavy_fighter_GER_effect = {
+	#creates a heavy_fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			GER = {
@@ -2057,13 +2321,17 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_basic_export_heavy_fighter_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_basic_export_heavy_fighter_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Me 110"
 					type = medium_plane_fighter_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2073,7 +2341,7 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_GER_heavy_fighter1_medium"
 				}
-				set_country_flag = GER_basic_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = GER_basic_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2094,13 +2362,17 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_improved_export_heavy_fighter_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_improved_export_heavy_fighter_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Ju 88 C"
 					type = medium_plane_fighter_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2110,7 +2382,7 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_GER_tactical_bomber2_medium"
 				}
-				set_country_flag = GER_improved_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = GER_improved_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2128,13 +2400,17 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				GER = { NOT = { has_country_flag = GER_advanced_export_heavy_fighter_template } }
+				GER = {
+					NOT = {
+						has_country_flag = GER_advanced_export_heavy_fighter_template
+					}
+				}
 			}
 			GER = {
 				create_equipment_variant = {
 					name = "Me 410"
 					type = medium_plane_fighter_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2158,7 +2434,8 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 	}
 }
 
-bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and exports a number of them to ROOT
+bba_get_fighter_ENG_effect = {
+	#creates a fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ENG = {
@@ -2170,7 +2447,7 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 		add_equipment_to_stockpile = {
 			type = small_plane_airframe_0
 			producer = ENG
-			amount = fighter_buy_amount #set before the effect is invoked
+			amount = fighter_buy_amount			#set before the effect is invoked
 			variant_name = "Gloster Gladiator"
 		}
 	}
@@ -2185,13 +2462,17 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_basic_export_fighter_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_basic_export_fighter_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Hawker Hurricane"
 					type = small_plane_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2200,13 +2481,13 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 					}
 					icon = "GFX_ENG_fighter1_medium"
 				}
-				set_country_flag = ENG_basic_export_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ENG_basic_export_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
 			type = small_plane_airframe_1
 			producer = ENG
-			amount = fighter_buy_amount #set before the effect is invoked
+			amount = fighter_buy_amount			#set before the effect is invoked
 			variant_name = "Hawker Hurricane"
 		}
 	}
@@ -2221,13 +2502,17 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_improved_export_fighter_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_improved_export_fighter_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Supermarine Spitfire"
 					type = small_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2236,7 +2521,7 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 					}
 					icon = "GFX_ENG_fighter2_medium"
 				}
-				set_country_flag = ENG_improved_export_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ENG_improved_export_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2254,13 +2539,17 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_advanced_export_fighter_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_advanced_export_fighter_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Hawker Tempest"
 					type = small_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_2_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
@@ -2281,7 +2570,8 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 	}
 }
 
-bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a number of them to ROOT
+bba_get_cas_ENG_effect = {
+	#creates a CAS design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ENG = {
@@ -2293,13 +2583,17 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_basic_export_cas_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_basic_export_cas_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Fairey Battle"
 					type = small_plane_cas_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -2315,7 +2609,7 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 			type = small_plane_cas_airframe_1
 			producer = ENG
 			amount = cas_buy_amount
-			variant_name = "Fairey Battle" #set up at game start
+			variant_name = "Fairey Battle"			#set up at game start
 		}
 	}
 	else_if = {
@@ -2329,13 +2623,17 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_improved_export_cas_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_improved_export_cas_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Hawker Typhoon"
 					type = small_plane_cas_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = rocket_rails
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -2345,7 +2643,7 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 					}
 					icon = "GFX_ENG_CAS2_medium"
 				}
-				set_country_flag = ENG_improved_export_cas_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ENG_improved_export_cas_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2363,13 +2661,17 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_advanced_export_cas_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_advanced_export_cas_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Hawker Tempest"
 					type = small_plane_cas_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
@@ -2391,7 +2693,8 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 	}
 }
 
-bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a number of them to ROOT
+bba_get_tac_ENG_effect = {
+	#creates a tac design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ENG = {
@@ -2405,7 +2708,7 @@ bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a numb
 			type = medium_plane_airframe_1
 			producer = ENG
 			amount = tac_buy_amount
-			variant_name = "Bristol Blenheim" #set up at game start
+			variant_name = "Bristol Blenheim"			#set up at game start
 		}
 	}
 	else_if = {
@@ -2419,13 +2722,17 @@ bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_improved_export_tac_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_improved_export_tac_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Bristol Beaufort"
 					type = medium_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
@@ -2435,7 +2742,7 @@ bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a numb
 					}
 					icon = "GFX_ENG_tactical_bomber2_medium"
 				}
-				set_country_flag = ENG_improved_export_tac_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ENG_improved_export_tac_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2453,13 +2760,17 @@ bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_advanced_export_tac_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_advanced_export_tac_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "DH Mosquito"
 					type = medium_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
@@ -2483,7 +2794,8 @@ bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a numb
 	}
 }
 
-bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessary and exports a number of them to ROOT
+bba_get_heavy_fighter_ENG_effect = {
+	#creates a heavy_fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ENG = {
@@ -2495,13 +2807,17 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_basic_export_heavy_fighter_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_basic_export_heavy_fighter_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Blenheim IF"
 					type = medium_plane_fighter_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						engine_type_slot = engine_2_2x
@@ -2509,7 +2825,7 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_ENG_heavy_fighter1_medium"
 				}
-				set_country_flag = ENG_basic_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ENG_basic_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2530,13 +2846,17 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_improved_export_heavy_fighter_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_improved_export_heavy_fighter_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "Bristol Beaufighter"
 					type = medium_plane_fighter_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2547,7 +2867,7 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_ENG_heavy_fighter2_medium"
 				}
-				set_country_flag = ENG_improved_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ENG_improved_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2565,13 +2885,17 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				ENG = { NOT = { has_country_flag = ENG_advanced_export_heavy_fighter_template } }
+				ENG = {
+					NOT = {
+						has_country_flag = ENG_advanced_export_heavy_fighter_template
+					}
+				}
 			}
 			ENG = {
 				create_equipment_variant = {
 					name = "DH Mosquito"
 					type = medium_plane_fighter_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2595,7 +2919,8 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 	}
 }
 
-bba_get_fighter_USA_effect = { #creates a fighter design if necessary and exports a number of them to ROOT
+bba_get_fighter_USA_effect = {
+	#creates a fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			USA = {
@@ -2608,7 +2933,7 @@ bba_get_fighter_USA_effect = { #creates a fighter design if necessary and export
 		add_equipment_to_stockpile = {
 			type = small_plane_airframe_1
 			producer = USA
-			amount = fighter_buy_amount #set before the effect is invoked
+			amount = fighter_buy_amount			#set before the effect is invoked
 			variant_name = "P-36A"
 		}
 	}
@@ -2623,13 +2948,17 @@ bba_get_fighter_USA_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_improved_export_fighter_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_improved_export_fighter_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "P-39"
 					type = small_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_1x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_4x
@@ -2638,7 +2967,7 @@ bba_get_fighter_USA_effect = { #creates a fighter design if necessary and export
 					}
 					icon = "GFX_USA_fighter2_medium"
 				}
-				set_country_flag = USA_improved_export_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = USA_improved_export_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2656,13 +2985,17 @@ bba_get_fighter_USA_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_advanced_export_fighter_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_advanced_export_fighter_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "P-51"
 					type = small_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_4x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_2x
@@ -2684,7 +3017,8 @@ bba_get_fighter_USA_effect = { #creates a fighter design if necessary and export
 	}
 }
 
-bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a number of them to ROOT
+bba_get_cas_USA_effect = {
+	#creates a CAS design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			USA = {
@@ -2698,7 +3032,7 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 			type = small_plane_cas_airframe_1
 			producer = USA
 			amount = cas_buy_amount
-			variant_name = "A-17" #set up at game start
+			variant_name = "A-17"			#set up at game start
 		}
 	}
 	else_if = {
@@ -2712,13 +3046,17 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_improved_export_cas_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_improved_export_cas_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "A-20"
 					type = small_plane_cas_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = small_bomb_bay
@@ -2727,7 +3065,7 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 					}
 					icon = "GFX_USA_CAS2_medium"
 				}
-				set_country_flag = USA_improved_export_cas_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = USA_improved_export_cas_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2745,13 +3083,17 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_advanced_export_cas_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_advanced_export_cas_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "A-26"
 					type = small_plane_cas_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = small_bomb_bay
@@ -2773,7 +3115,8 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 	}
 }
 
-bba_get_tac_USA_effect = { #creates a tac design if necessary and exports a number of them to ROOT
+bba_get_tac_USA_effect = {
+	#creates a tac design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			USA = {
@@ -2787,7 +3130,7 @@ bba_get_tac_USA_effect = { #creates a tac design if necessary and exports a numb
 			type = medium_plane_airframe_1
 			producer = USA
 			amount = tac_buy_amount
-			variant_name = "B-10" #set up at game start
+			variant_name = "B-10"			#set up at game start
 		}
 	}
 	else_if = {
@@ -2801,23 +3144,27 @@ bba_get_tac_USA_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_improved_export_tac_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_improved_export_tac_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
-					name = "B-34" #aka Lockheed Ventura/Lockheed Hudson
+					name = "B-34"					#aka Lockheed Ventura/Lockheed Hudson
 					type = medium_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
 						fixed_auxiliary_weapon_slot_2 = empty
-						engine_type_slot = engine_3_2x #Increased tier due to thrust/weight issues
+						engine_type_slot = engine_3_2x						#Increased tier due to thrust/weight issues
 						special_type_slot_1 = hmg_defense_turret
 					}
 					icon = "GFX_USA_medium_plane_2_medium"
 				}
-				set_country_flag = USA_improved_export_tac_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = USA_improved_export_tac_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2835,13 +3182,17 @@ bba_get_tac_USA_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_advanced_export_tac_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_advanced_export_tac_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "B-25"
 					type = medium_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
@@ -2866,7 +3217,8 @@ bba_get_tac_USA_effect = { #creates a tac design if necessary and exports a numb
 	}
 }
 
-bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessary and exports a number of them to ROOT
+bba_get_heavy_fighter_USA_effect = {
+	#creates a heavy_fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			USA = {
@@ -2878,13 +3230,17 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_basic_export_heavy_fighter_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_basic_export_heavy_fighter_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "FM-2"
 					type = medium_plane_fighter_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						engine_type_slot = engine_2_2x
@@ -2892,7 +3248,7 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_USA_heavy_fighter1_medium"
 				}
-				set_country_flag = USA_basic_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = USA_basic_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2913,13 +3269,17 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_improved_export_heavy_fighter_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_improved_export_heavy_fighter_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "FM-1"
 					type = medium_plane_fighter_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_2x
@@ -2930,7 +3290,7 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_USA_medium_plane_3_medium"
 				}
-				set_country_flag = USA_improved_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = USA_improved_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -2948,13 +3308,17 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				USA = { NOT = { has_country_flag = USA_advanced_export_heavy_fighter_template } }
+				USA = {
+					NOT = {
+						has_country_flag = USA_advanced_export_heavy_fighter_template
+					}
+				}
 			}
 			USA = {
 				create_equipment_variant = {
 					name = "P-61"
 					type = medium_plane_fighter_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2977,7 +3341,9 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 		}
 	}
 }
-bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and exports a number of them to ROOT
+
+bba_get_fighter_ITA_effect = {
+	#creates a fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ITA = {
@@ -2989,7 +3355,7 @@ bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and export
 		add_equipment_to_stockpile = {
 			type = small_plane_airframe_0
 			producer = ITA
-			amount = fighter_buy_amount #set before the effect is invoked
+			amount = fighter_buy_amount			#set before the effect is invoked
 			variant_name = "CR.32"
 		}
 	}
@@ -3004,13 +3370,17 @@ bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_improved_export_fighter_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_improved_export_fighter_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "Re.2000"
 					type = small_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_2x
 						fixed_auxiliary_weapon_slot_1 = empty
@@ -3018,7 +3388,7 @@ bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and export
 						special_type_slot_1 = fuel_tanks_small
 					}
 				}
-				set_country_flag = ITA_improved_export_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ITA_improved_export_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3036,13 +3406,17 @@ bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_advanced_export_fighter_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_advanced_export_fighter_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "Re.2005"
 					type = small_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3064,7 +3438,8 @@ bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and export
 	}
 }
 
-bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a number of them to ROOT
+bba_get_cas_ITA_effect = {
+	#creates a CAS design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ITA = {
@@ -3078,7 +3453,7 @@ bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a numb
 			type = small_plane_cas_airframe_1
 			producer = ITA
 			amount = cas_buy_amount
-			variant_name = "Ba.65" #set up at game start
+			variant_name = "Ba.65"			#set up at game start
 		}
 	}
 	else_if = {
@@ -3092,13 +3467,17 @@ bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_improved_export_cas_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_improved_export_cas_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "Ba.88"
 					type = small_plane_cas_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_2x
@@ -3107,7 +3486,7 @@ bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a numb
 					}
 					icon = "GFX_ITA_CAS2_medium"
 				}
-				set_country_flag = ITA_improved_export_cas_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ITA_improved_export_cas_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3125,13 +3504,17 @@ bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_advanced_export_cas_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_advanced_export_cas_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "Ro.57"
 					type = small_plane_cas_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3153,7 +3536,8 @@ bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a numb
 	}
 }
 
-bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a number of them to ROOT
+bba_get_tac_ITA_effect = {
+	#creates a tac design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ITA = {
@@ -3167,7 +3551,7 @@ bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a numb
 			type = medium_plane_airframe_1
 			producer = ITA
 			amount = tac_buy_amount
-			variant_name = "SM.79" #set up at game start
+			variant_name = "SM.79"			#set up at game start
 		}
 	}
 	else_if = {
@@ -3181,13 +3565,17 @@ bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_improved_export_tac_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_improved_export_tac_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "SM.82"
 					type = medium_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
@@ -3198,7 +3586,7 @@ bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a numb
 					}
 					icon = "GFX_ITA_strategic_bomber2_medium"
 				}
-				set_country_flag = ITA_improved_export_tac_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ITA_improved_export_tac_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3216,13 +3604,17 @@ bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_advanced_export_tac_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_advanced_export_tac_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "SM.84"
 					type = medium_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
@@ -3247,7 +3639,8 @@ bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a numb
 	}
 }
 
-bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessary and exports a number of them to ROOT
+bba_get_heavy_fighter_ITA_effect = {
+	#creates a heavy_fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			ITA = {
@@ -3259,13 +3652,17 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_basic_export_heavy_fighter_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_basic_export_heavy_fighter_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "SM.88"
 					type = medium_plane_fighter_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_4x
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -3274,7 +3671,7 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_ITA_heavy_fighter1_medium"
 				}
-				set_country_flag = ITA_basic_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ITA_basic_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3295,13 +3692,17 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_improved_export_heavy_fighter_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_improved_export_heavy_fighter_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "Ro.58"
 					type = medium_plane_fighter_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3312,7 +3713,7 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_ITA_heavy_fighter2_medium"
 				}
-				set_country_flag = ITA_improved_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = ITA_improved_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3330,13 +3731,17 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				ITA = { NOT = { has_country_flag = ITA_advanced_export_heavy_fighter_template } }
+				ITA = {
+					NOT = {
+						has_country_flag = ITA_advanced_export_heavy_fighter_template
+					}
+				}
 			}
 			ITA = {
 				create_equipment_variant = {
 					name = "SM.91"
 					type = medium_plane_fighter_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3361,7 +3766,8 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 	}
 }
 
-bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and exports a number of them to ROOT
+bba_get_fighter_FRA_effect = {
+	#creates a fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			FRA = {
@@ -3373,7 +3779,7 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 		add_equipment_to_stockpile = {
 			type = small_plane_airframe_0
 			producer = FRA
-			amount = fighter_buy_amount #set before the effect is invoked
+			amount = fighter_buy_amount			#set before the effect is invoked
 			variant_name = "D.510"
 		}
 	}
@@ -3388,12 +3794,16 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_basic_export_fighter_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_basic_export_fighter_template
+					}
+				}
 			}
 			create_equipment_variant = {
-				name = "MS. 406" #
+				name = "MS. 406"				#
 				type = small_plane_airframe_1
-				allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+				allow_without_tech = yes				#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 				modules = {
 					fixed_main_weapon_slot = light_mg_2x
 					fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_1x
@@ -3402,12 +3812,12 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 				}
 				icon = "GFX_FRA_fighter1_medium"
 			}
-			set_country_flag = FRA_basic_export_fighter_template #to avoid double templates if this effect is run from different countries
+			set_country_flag = FRA_basic_export_fighter_template			#to avoid double templates if this effect is run from different countries
 		}
 		add_equipment_to_stockpile = {
 			type = small_plane_airframe_1
 			producer = FRA
-			amount = fighter_buy_amount #set before the effect is invoked
+			amount = fighter_buy_amount			#set before the effect is invoked
 			variant_name = "MS. 406"
 		}
 	}
@@ -3422,13 +3832,17 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_improved_export_fighter_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_improved_export_fighter_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
-					name = "D.520" #
+					name = "D.520"					#
 					type = small_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_1x
@@ -3437,7 +3851,7 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 					}
 					icon = "GFX_FRA_fighter2_medium"
 				}
-				set_country_flag = FRA_improved_export_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = FRA_improved_export_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3455,13 +3869,17 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_advanced_export_fighter_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_advanced_export_fighter_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
 					name = "SE.580"
 					type = small_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_4x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_2x
@@ -3482,7 +3900,8 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 	}
 }
 
-bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a number of them to ROOT
+bba_get_cas_FRA_effect = {
+	#creates a CAS design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			FRA = {
@@ -3495,7 +3914,7 @@ bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a numb
 			type = small_plane_cas_airframe_0
 			producer = FRA
 			amount = cas_buy_amount
-			variant_name = "Br.19" #set up at game start
+			variant_name = "Br.19"			#set up at game start
 		}
 	}
 	else_if = {
@@ -3509,13 +3928,17 @@ bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_improved_export_cas_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_improved_export_cas_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
-					name = "Br. 693" #
+					name = "Br. 693"					#
 					type = small_plane_cas_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_1x
@@ -3526,7 +3949,7 @@ bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a numb
 					}
 					icon = "GFX_FRA_CAS2_medium"
 				}
-				set_country_flag = FRA_improved_export_cas_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = FRA_improved_export_cas_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3544,13 +3967,17 @@ bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_advanced_export_cas_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_advanced_export_cas_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
 					name = "MB. 174"
 					type = small_plane_cas_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = small_bomb_bay
@@ -3572,7 +3999,8 @@ bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a numb
 	}
 }
 
-bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a number of them to ROOT
+bba_get_tac_FRA_effect = {
+	#creates a tac design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			FRA = {
@@ -3585,7 +4013,7 @@ bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a numb
 			type = medium_plane_airframe_0
 			producer = FRA
 			amount = tac_buy_amount
-			variant_name = "Amiot 143" #set up at game start
+			variant_name = "Amiot 143"			#set up at game start
 		}
 	}
 	else_if = {
@@ -3599,13 +4027,17 @@ bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_improved_export_tac_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_improved_export_tac_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
-					name = "LeO 451" #
+					name = "LeO 451"					#
 					type = medium_plane_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = empty
@@ -3615,7 +4047,7 @@ bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a numb
 					}
 					icon = "GFX_FRA_tactical_bomber2_medium"
 				}
-				set_country_flag = FRA_improved_export_tac_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = FRA_improved_export_tac_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3633,13 +4065,17 @@ bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a numb
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_advanced_export_tac_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_advanced_export_tac_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
 					name = "NC.150"
 					type = medium_plane_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
@@ -3664,7 +4100,8 @@ bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a numb
 	}
 }
 
-bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessary and exports a number of them to ROOT
+bba_get_heavy_fighter_FRA_effect = {
+	#creates a heavy_fighter design if necessary and exports a number of them to ROOT
 	if = {
 		limit = {
 			FRA = {
@@ -3676,13 +4113,17 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_basic_export_heavy_fighter_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_basic_export_heavy_fighter_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
-					name = "Potez 631" #
+					name = "Potez 631"					#
 					type = medium_plane_fighter_airframe_1
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3691,7 +4132,7 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_FRA_heavy_fighter1_medium"
 				}
-				set_country_flag = FRA_basic_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = FRA_basic_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3712,13 +4153,17 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_improved_export_heavy_fighter_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_improved_export_heavy_fighter_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
 					name = "SE.100"
 					type = medium_plane_fighter_airframe_2
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3729,7 +4174,7 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 					}
 					icon = "GFX_FRA_medium_plane_1_medium"
 				}
-				set_country_flag = FRA_improved_export_heavy_fighter_template #to avoid double templates if this effect is run from different countries
+				set_country_flag = FRA_improved_export_heavy_fighter_template				#to avoid double templates if this effect is run from different countries
 			}
 		}
 		add_equipment_to_stockpile = {
@@ -3747,13 +4192,17 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 		}
 		if = {
 			limit = {
-				FRA = { NOT = { has_country_flag = FRA_advanced_export_heavy_fighter_template } }
+				FRA = {
+					NOT = {
+						has_country_flag = FRA_advanced_export_heavy_fighter_template
+					}
+				}
 			}
 			FRA = {
 				create_equipment_variant = {
-					name = "SE.255" #fictional
+					name = "SE.255"					#fictional
 					type = medium_plane_fighter_airframe_3
-					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
+					allow_without_tech = yes					#Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_2_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
@@ -3778,7 +4227,8 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 	}
 }
 
-bba_create_cas_license_effect = { #this assumes that the corresponding get_cas_effect has run already to generate a design template if necessary
+bba_create_cas_license_effect = {
+	#this assumes that the corresponding get_cas_effect has run already to generate a design template if necessary
 	if = {
 		limit = {
 			has_tech = advanced_small_airframe
@@ -3817,7 +4267,8 @@ bba_create_cas_license_effect = { #this assumes that the corresponding get_cas_e
 	}
 }
 
-bba_create_fighter_license_effect = { #this assumes that the corresponding get_fighter_effect has run already to generate a design template if necessary
+bba_create_fighter_license_effect = {
+	#this assumes that the corresponding get_fighter_effect has run already to generate a design template if necessary
 	if = {
 		limit = {
 			has_tech = advanced_small_airframe
@@ -3856,7 +4307,8 @@ bba_create_fighter_license_effect = { #this assumes that the corresponding get_f
 	}
 }
 
-bba_create_tac_license_effect = { #this assumes that the corresponding get_tac_effect has run already to generate a design template if necessary
+bba_create_tac_license_effect = {
+	#this assumes that the corresponding get_tac_effect has run already to generate a design template if necessary
 	if = {
 		limit = {
 			has_tech = advanced_medium_airframe
@@ -3895,7 +4347,8 @@ bba_create_tac_license_effect = { #this assumes that the corresponding get_tac_e
 	}
 }
 
-bba_create_heavy_fighter_license_effect = { #this assumes that the corresponding get_fighter_effect has run already to generate a design template if necessary
+bba_create_heavy_fighter_license_effect = {
+	#this assumes that the corresponding get_fighter_effect has run already to generate a design template if necessary
 	if = {
 		limit = {
 			has_tech = advanced_medium_airframe
@@ -3934,48 +4387,62 @@ bba_create_heavy_fighter_license_effect = { #this assumes that the corresponding
 	}
 }
 
-remove_any_country_role_from_character = { #Expected to be used inside the character scope
+remove_any_country_role_from_character = {
+	#Expected to be used inside the character scope
 	#log = "I am [THIS.GetName]"
 	if = {
 		limit = {
 			is_character_slot = air_chief
 		}
-		remove_advisor_role = { slot = air_chief }
+		remove_advisor_role = {
+			slot = air_chief
+		}
 	}
 	if = {
 		limit = {
 			is_character_slot = army_chief
 		}
-		remove_advisor_role = { slot = army_chief }
+		remove_advisor_role = {
+			slot = army_chief
+		}
 	}
 	if = {
 		limit = {
 			is_character_slot = navy_chief
 		}
-		remove_advisor_role = { slot = navy_chief }
+		remove_advisor_role = {
+			slot = navy_chief
+		}
 	}
 	if = {
 		limit = {
 			is_character_slot = high_command
 		}
-		remove_advisor_role = { slot = high_command }
+		remove_advisor_role = {
+			slot = high_command
+		}
 	}
 	if = {
 		limit = {
 			is_character_slot = theorist
 		}
-		remove_advisor_role = { slot = theorist }
+		remove_advisor_role = {
+			slot = theorist
+		}
 	}
 	if = {
 		limit = {
 			is_character_slot = political_advisor
 		}
-		remove_advisor_role = { slot = political_advisor }
+		remove_advisor_role = {
+			slot = political_advisor
+		}
 	}
 }
 
 ### Paratroopers
-SF_PARA_sabotage_effect = { #When changing this, update the research tooltip
+SF_PARA_sabotage_effect = {
+	#When changing this, update the research tooltip
 	damage_building = {
 		type = infrastructure
 		damage = 2
@@ -3994,12 +4461,15 @@ SF_PARA_sabotage_effect = { #When changing this, update the research tooltip
 	}
 }
 
-SF_PARA_combat_effect = { #When changing this, update the research tooltip
+SF_PARA_combat_effect = {
+	#When changing this, update the research tooltip
 	every_state_division = {
-		limit = { 
-			OWNER = { has_war_with = FROM }
+		limit = {
+			OWNER = {
+				has_war_with = FROM
+			}
 		}
-		set_unit_organization = 0.50
+		set_unit_organization = 0.5
 	}
 	set_state_flag = {
 		flag = para_drop_effect
@@ -4008,7 +4478,8 @@ SF_PARA_combat_effect = { #When changing this, update the research tooltip
 }
 
 ### Muuuurrrriiinnnnneeeeessssss
-SF_marine_demoliton_effect = { #When changing this, update the research tooltip
+SF_marine_demoliton_effect = {
+	#When changing this, update the research tooltip
 	damage_building = {
 		type = radar_station
 		damage = 1
@@ -4042,20 +4513,18 @@ SF_marine_demoliton_effect = { #When changing this, update the research tooltip
 ###########################################################################################
 ###########################################################################################
 ###########################################################################################
-
-							########    ###       ###    ######## 
-							   ##      ## ##     ## ##      ##    
-							   ##     ##   ##   ##   ##     ##    
-							   ##    ##     ## ##     ##    ##    
-							   ##    ######### #########    ##    
-							   ##    ##     ## ##     ##    ##    
-							   ##    ##     ## ##     ##    ##    
-
+########    ###       ###    ######## 
+##      ## ##     ## ##      ##    
+##     ##   ##   ##   ##     ##    
+##    ##     ## ##     ##    ##    
+##    ######### #########    ##    
+##    ##     ## ##     ##    ##    
+##    ##     ## ##     ##    ##    
 ###########################################################################################
 ###########################################################################################
 ###########################################################################################
-
-find_global_platonic_countries = { # Look for the countries that meet the best criteria for the different platonic countries we expect in HoI 
+find_global_platonic_countries = {
+	# Look for the countries that meet the best criteria for the different platonic countries we expect in HoI 
 	find_biggest_fascist = yes
 	find_biggest_democrat = yes
 	find_biggest_communist = yes
@@ -4063,60 +4532,66 @@ find_global_platonic_countries = { # Look for the countries that meet the best c
 	find_biggest_fascist_bully = yes
 	find_best_democratic_ally_leader = yes
 	find_democratic_sleeping_giant = yes
-	find_local_dangerous_fascist = yes 
+	find_local_dangerous_fascist = yes
 }
 
-
-find_biggest_fascist_bully = { # Finds the biggest and/or meanest fascist country 
+find_biggest_fascist_bully = {
+	# Finds the biggest and/or meanest fascist country 
 	get_highest_scored_country = {
 		var = GLOBAL.platonic_fascist_bully
 		scorer = fascist_bully_scorer
 	}
 }
 
-find_best_democratic_ally_leader = { # Finds the most suitable democratic country to lead a faction
+find_best_democratic_ally_leader = {
+	# Finds the most suitable democratic country to lead a faction
 	get_highest_scored_country = {
 		var = GLOBAL.platonic_democratic_ally_leader
 		scorer = democratic_faction_leader_scorer
 	}
 }
 
-find_democratic_sleeping_giant = { # Finds biggest desarmed democratic nation. Expected to be USA 
+find_democratic_sleeping_giant = {
+	# Finds biggest desarmed democratic nation. Expected to be USA 
 	get_highest_scored_country = {
 		var = GLOBAL.platonic_democratic_sleeping_giant
 		scorer = democratic_sleeping_giant_scorer
 	}
 }
 
-find_biggest_fascist = { # Finds Nazi Germany, or the closest to it 
+find_biggest_fascist = {
+	# Finds Nazi Germany, or the closest to it 
 	get_highest_scored_country = {
 		var = GLOBAL.platonic_big_fascist
 		scorer = fascist_major_scorer
 	}
 }
 
-find_biggest_democrat = { # Finds biggest Democratic Nation
+find_biggest_democrat = {
+	# Finds biggest Democratic Nation
 	get_highest_scored_country = {
 		var = GLOBAL.platonic_big_democratic
 		scorer = democratic_major_scorer
 	}
 }
 
-find_biggest_communist = { # Finds biggest Communist
+find_biggest_communist = {
+	# Finds biggest Communist
 	get_highest_scored_country = {
 		var = GLOBAL.platonic_big_communist
 		scorer = communist_major_scorer
 	}
 }
 
-find_biggest_non_aligned = { # Finds biggest... anything else
+find_biggest_non_aligned = {
+	# Finds biggest... anything else
 	get_highest_scored_country = {
 		var = GLOBAL.platonic_big_non_aligned
 		scorer = non_aligned_major_scorer
 	}
 }
-# There are ideology scorers for each continent. If you need more check the generic_platonic_scorers file and make a new scripted effect 
 
+# There are ideology scorers for each continent. If you need more check the generic_platonic_scorers file and make a new scripted effect 
 find_local_dangerous_fascist = {
 	get_highest_scored_country = {
 		var = platonic_local_dangerous_fascist
@@ -4124,17 +4599,28 @@ find_local_dangerous_fascist = {
 	}
 }
 
-
 # The idea is that you can use these effects to store the party popularities (and, if desired, the ruling party) when puppeting or possibly when starting civil wars, and then use the "restore" effects to reset it after the puppeting has happened, so that you don't have to use the overlord's ideology if you don't want to. 
 get_current_ideology_popularities = {
-	set_variable = { ROOT.communist_support_before_change = ROOT.party_popularity_100@communism }
-	set_variable = { ROOT.democratic_support_before_change = ROOT.party_popularity_100@democratic }
-	set_variable = { ROOT.fascist_support_before_change = ROOT.party_popularity_100@fascism }
-	set_variable = { ROOT.neutrality_support_before_change = ROOT.party_popularity_100@neutrality }
+	set_variable = {
+		ROOT.communist_support_before_change = ROOT.party_popularity_100@communism
+	}
+	set_variable = {
+		ROOT.democratic_support_before_change = ROOT.party_popularity_100@democratic
+	}
+	set_variable = {
+		ROOT.fascist_support_before_change = ROOT.party_popularity_100@fascism
+	}
+	set_variable = {
+		ROOT.neutrality_support_before_change = ROOT.party_popularity_100@neutrality
+	}
 }
+
 get_current_ruling_party = {
-	set_variable = { ROOT.ruling_ideology_before_change = ROOT.current_party_ideology_group }
+	set_variable = {
+		ROOT.ruling_ideology_before_change = ROOT.current_party_ideology_group
+	}
 }
+
 restore_ideology_popularities = {
 	hidden_effect = {
 		# Reset popluarities to what they were before puppeting 
@@ -4150,6 +4636,7 @@ restore_ideology_popularities = {
 		clear_variable = ROOT.neutrality_support_before_change
 	}
 }
+
 restore_ruling_party = {
 	ROOT = {
 		set_politics = {
@@ -4158,84 +4645,153 @@ restore_ruling_party = {
 	}
 }
 
-
 #Upgrades state cat to the next valid level. Called from state scope
 increase_state_category = {
 	if = {
 		limit = {
-			has_state_category = tiny_island
+			has_state_category = zero_island
 		}
-		set_state_category = small_island
+		set_state_category = one_island
 		effect_tooltip = {
 			add_extra_state_shared_building_slots = 1
 		}
 	}
-
-	if = {
+	else_if = {
+		limit = {
+			has_state_category = one_island
+		}
+		set_state_category = port
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = port
+		}
+		set_state_category = major_port
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = major_port
+		}
+		set_state_category = five
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
 		limit = {
 			OR = {
 				has_state_category = wasteland
 				has_state_category = enclave
 			}
 		}
-		set_state_category = pastoral
+		set_state_category = one
 		effect_tooltip = {
 			add_extra_state_shared_building_slots = 1
 		}
 	}
 	else_if = {
 		limit = {
-			has_state_category = pastoral
+			has_state_category = one
 		}
-		set_state_category = rural
+		set_state_category = two
 		effect_tooltip = {
 			add_extra_state_shared_building_slots = 1
 		}
 	}
 	else_if = {
 		limit = {
-			has_state_category = rural
+			has_state_category = two
 		}
-		set_state_category = town
-		effect_tooltip = {
-			add_extra_state_shared_building_slots = 2
-		}
-	}
-	else_if = {
-		limit = {
-			has_state_category = town
-		}
-		set_state_category = large_town
+		set_state_category = three
 		effect_tooltip = {
 			add_extra_state_shared_building_slots = 1
 		}
 	}
 	else_if = {
 		limit = {
-			has_state_category = large_town
+			has_state_category = three
 		}
-		set_state_category = city
+		set_state_category = four
 		effect_tooltip = {
 			add_extra_state_shared_building_slots = 1
 		}
 	}
 	else_if = {
 		limit = {
-			has_state_category = city
+			has_state_category = four
 		}
-		set_state_category = metropolis
+		set_state_category = five
 		effect_tooltip = {
-			add_extra_state_shared_building_slots = 4
+			add_extra_state_shared_building_slots = 1
 		}
 	}
-
 	else_if = {
 		limit = {
-			has_state_category = metropolis
-		} 
-		set_state_category = megalopolis
+			has_state_category = five
+		}
+		set_state_category = six
 		effect_tooltip = {
-			add_extra_state_shared_building_slots = 2
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = six
+		}
+		set_state_category = seven
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = seven
+		}
+		set_state_category = eight
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = eight
+		}
+		set_state_category = nine
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = nine
+		}
+		set_state_category = ten
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = ten
+		}
+		set_state_category = eleven
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = eleven
+		}
+		set_state_category = twelve
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
 		}
 	}
 }
@@ -4243,25 +4799,42 @@ increase_state_category = {
 add_potential_special_forces_tree = {
 	custom_effect_tooltip = add_potential_special_forces_tree_tt
 	if = {
-		limit = { NOT = { has_variable = sf_trees } }
-		set_variable = { sf_trees = 2 }
+		limit = {
+			NOT = {
+				has_variable = sf_trees
+			}
+		}
+		set_variable = {
+			sf_trees = 2
+		}
 	}
 	else = {
-		add_to_variable = { sf_trees = 1 }
+		add_to_variable = {
+			sf_trees = 1
+		}
 	}
 }
 
 remove_potential_special_forces_tree = {
 	if = {
-		limit = { NOT = { has_variable = sf_trees } }
-		set_variable = { sf_trees = 0 }
+		limit = {
+			NOT = {
+				has_variable = sf_trees
+			}
+		}
+		set_variable = {
+			sf_trees = 0
+		}
 	}
 	else = {
-		subtract_from_variable = { sf_trees = 1 }
+		subtract_from_variable = {
+			sf_trees = 1
+		}
 	}
 }
 
-store_core_states_on_game_start = { #Should be called from history file
+store_core_states_on_game_start = {
+	#Should be called from history file
 	every_core_state = {
 		ROOT = {
 			add_to_array = {
