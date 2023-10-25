@@ -1,17 +1,13 @@
 ################
 #### SOVIET ####
 ################
-
 SOV_comecon_dec_cat = {
 	priority = 13
-
 	icon = SOV_civil_puppet_interaction
 	picture = GFX_decision_cat_picture_soviet_comecon
-
 	allowed = {
 		original_tag = SOV
 	}
-
 	visible = {
 		has_completed_focus = SOV_found_the_comecon
 	}
@@ -19,13 +15,10 @@ SOV_comecon_dec_cat = {
 
 SOV_military_engineering_university_bunk_category = {
 	priority = 11
-
 	icon = generic_construction
-
 	allowed = {
 		original_tag = SOV
 	}
-
 	visible = {
 		has_completed_focus = SOV_military_engineering_university
 	}
@@ -33,32 +26,26 @@ SOV_military_engineering_university_bunk_category = {
 
 SOV_propaganda_campaigns = {
 	priority = 100
-
 	icon = SOV_propaganda
-
 	scripted_gui = sov_propaganda_campaigns_ui
-
 	allowed = {
 		original_tag = SOV
 	}
-
 	visible = {
 		OR = {
 			has_completed_focus = SOV_expand_the_agitprop
-			has_country_flag = SOV_debug_show_propaganda_system_flag #Debug
+			has_country_flag = SOV_debug_show_propaganda_system_flag			#Debug
 		}
 	}
 }
 
 SOV_industry_relocation = {
-	
 	allowed = {
 		OR = {
 			original_tag = SOV
 			original_tag = RUS
 		}
 	}
-
 	visible = {
 		has_war = yes
 		OR = {
@@ -80,7 +67,50 @@ SOV_great_patriotic_war = {
 		OR = {
 			has_completed_focus = SOV_great_patriotic_war
 			has_completed_focus = rus_great_patriotic_war
-		}	
+		}
 	}
-		
+}
+
+SOV_soviet_aid_decision_category = {
+	#Dec cat for Sinkiang (mission dummies go here)
+	icon = decision_category_generic_communism
+	allowed = {
+		original_tag = SIK
+	}
+}
+
+SOV_diplomacy_asia_decision_category = {
+	priority = 22
+	icon = generic_foreign_policy
+	allowed = {
+		original_tag = SOV
+	}
+	visible = {
+		OR = {
+			AND = {
+				has_completed_focus = SOV_the_threat_from_the_land_of_the_rising_sun
+				any_country = {
+					OR = {
+						SOV_is_free_chinese_tag = yes
+					}
+					exists = yes
+				}
+			}
+			AND = {
+				has_completed_focus = SOV_reconcile_japan
+				any_country = {
+					OR = {
+						AND = {
+							tag = JAP
+							is_subject = no
+						}
+						AND = {
+							SOV_is_free_chinese_tag = yes
+							is_in_faction_with = JAP
+						}
+					}
+				}
+			}
+		}
+	}
 }
