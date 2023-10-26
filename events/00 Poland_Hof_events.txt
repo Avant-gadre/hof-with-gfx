@@ -1,0 +1,10107 @@
+###########################
+# Polish Events HOF, made by Entarogan
+###########################
+add_namespace = poland_hof
+add_namespace = poland_flavour
+add_namespace = poland_ai_cheating
+add_namespace = poland_diplo
+##### 1936 Polish Election
+country_event = {
+	id = poland_hof.1
+	title = poland_hof.1.t
+	desc = poland_hof.1.d
+	picture = GFX_report_event_pol_1936_election
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_country_flag = POL_election_triggered_flag
+		}
+	}
+	option = {
+		name = poland_hof.1.a
+		### PSL Elected
+		trigger = {
+			check_variable = {
+				var = POL_PSL_Power
+				value = POL_Sanacja_Power
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				var = POL_PSL_Power
+				value = POL_Endecja_Power
+				compare = greater_than_or_equals
+			}
+		}
+		country_event = {
+			id = poland_hof.13
+			hours = 12
+		}
+	}
+	option = {
+		name = poland_hof.1.b
+		### Sanacja Maintained
+		trigger = {
+			check_variable = {
+				var = POL_Sanacja_Power
+				value = POL_PSL_Power
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				var = POL_Sanacja_Power
+				value = POL_Endecja_Power
+				compare = greater_than_or_equals
+			}
+		}
+		country_event = {
+			id = poland_hof.14
+			hours = 12
+		}
+	}
+	option = {
+		name = poland_hof.1.c
+		### Endejca Elected
+		trigger = {
+			check_variable = {
+				var = POL_Endecja_Power
+				value = POL_Sanacja_Power
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				var = POL_Endecja_Power
+				value = POL_PSL_Power
+				compare = greater_than_or_equals
+			}
+		}
+		country_event = {
+			id = poland_hof.15
+			hours = 12
+		}
+	}
+}
+
+##### Conflicts between PPS and Endecja
+country_event = {
+	id = poland_hof.2
+	title = poland_hof.2.t
+	desc = poland_hof.2.d
+	picture = GFX_report_event_pol_conflict_pps_sn
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.3
+				days = 55
+			}
+		}
+	}
+	option = {
+		name = poland_hof.2.a
+		### PPS gained
+		POL_PPS_power_increase = yes
+		POL_Endecja_power_decrease = yes
+	}
+	option = {
+		name = poland_hof.2.b
+		### Endecja gained
+		POL_PPS_power_decrease = yes
+		POL_Endecja_power_increase = yes
+	}
+}
+
+##### PPS and PSL Coalition?
+country_event = {
+	id = poland_hof.3
+	title = poland_hof.3.t
+	desc = poland_hof.3.d
+	picture = GFX_report_event_pol_ally_pps_psl
+	is_triggered_only = yes
+	option = {
+		name = poland_hof.3.a
+		### PSL made a compromise
+		add_stability = -0.05
+		custom_effect_tooltip = POL_this_would_be_influential_tt
+		hidden_effect = {
+			set_country_flag = POL_PSL_PPS_deal_flag
+			add_to_variable = {
+				var = POL_PSL_Power
+				value = POL_PPS_Power
+			}
+		}
+	}
+	option = {
+		name = poland_hof.3.b
+		### No Deal
+		add_stability = 0.05
+	}
+}
+
+##### PSL Peasant Strike!
+country_event = {
+	id = poland_hof.4
+	title = poland_hof.4.t
+	desc = poland_hof.4.d
+	picture = GFX_report_event_pol_farmer_strike
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+		}
+	}
+	option = {
+		name = poland_hof.4.a
+		### 
+		add_stability = -0.1
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		custom_effect_tooltip = POL_what_happens_next_depends_on_chosen_options_tt
+		if = {
+			limit = {
+				has_country_flag = POL_PSL_PPS_deal_flag
+			}
+			### PPS joined Strike, Sanacja Collapsed
+			hidden_effect = {
+				country_event = {
+					id = poland_hof.5
+					days = 5
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				set_temp_variable = {
+					Sanacja_Repression = POL_Sanacja_repression
+				}
+				subtract_from_temp_variable = {
+					Sanacja_Repression = POL_PSL_Power
+				}
+				check_variable = {
+					var = Sanacja_Repression
+					value = -19
+					compare = less_than
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = poland_hof.9
+					days = 6
+				}
+				country_event = {
+					id = poland_hof.12
+					days = 6
+				}
+			}
+			### PPS refused to strike
+			### Repression failed, PSL made a government
+		}
+		else_if = {
+			limit = {
+				set_temp_variable = {
+					Sanacja_Repression = POL_Sanacja_repression
+				}
+				subtract_from_temp_variable = {
+					Sanacja_Repression = POL_PSL_Power
+				}
+				is_ai = no
+				check_variable = {
+					var = Sanacja_Repression
+					value = -20
+					compare = greater_than
+				}
+				check_variable = {
+					var = Sanacja_Repression
+					value = 11
+					compare = less_than
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = poland_hof.9
+					days = 6
+				}
+				country_event = {
+					id = poland_hof.10
+					days = 10
+				}
+			}
+			### PPS refused to strike
+			### Sanacja Repression lead to civil war
+		}
+		else = {
+			hidden_effect = {
+				country_event = {
+					id = poland_hof.9
+					days = 6
+				}
+				country_event = {
+					id = poland_hof.11
+					days = 10
+				}
+			}
+			### PPS refused to strike
+			### Sanacja Strike Cracked Down
+		}
+	}
+}
+
+##### PPS started a strike in City
+country_event = {
+	id = poland_hof.5
+	title = poland_hof.5.t
+	desc = poland_hof.5.d
+	picture = GFX_report_event_pol_farmer_strike_pps
+	is_triggered_only = yes
+	option = {
+		name = poland_hof.5.a
+		### PPS leads a government!
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+		hidden_effect = {
+			set_country_flag = POL_Sanacja_Government_democratized_flag
+			set_country_flag = POL_no_need_to_elect_flag
+			country_event = {
+				id = poland_hof.6
+				days = 7
+			}
+		}
+	}
+}
+
+##### PPS lead government, Centrolew
+country_event = {
+	id = poland_hof.6
+	title = poland_hof.6.t
+	desc = poland_hof.6.d
+	picture = GFX_report_event_pol_natalia_kaminski_01
+	is_triggered_only = yes
+	option = {
+		name = poland_hof.6.a
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = no
+		}
+		add_country_leader_role = {
+			character = POL_natalia_kaminska
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = {
+				}
+			}
+		}
+		### TODO: Set Natalya Kaminska as country leader
+		set_party_name = {
+			ideology = democratic
+			long_name = POL_PPS_name_Long
+			name = POL_PPS_name
+		}
+		hidden_effect = {
+			set_country_flag = POL_Centrolew_government_flag
+			if = {
+				limit = {
+					has_country_flag = POL_Sanacja_show_initial_flag
+				}
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+##### PSL Witos retired #####
+country_event = {
+	id = poland_hof.7
+	title = poland_hof.7.t
+	desc = poland_hof.7.d
+	picture = GFX_report_event_pol_witos
+	is_triggered_only = yes
+	option = {
+		name = poland_hof.7.a
+		### Set PSL Leaders to Sona
+		remove_country_leader_role = {
+			character = POL_wincenty_witos
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_sona_flametail
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {
+					Flameheart
+				}
+			}
+		}
+	}
+}
+
+##### Front Morges Established #####
+country_event = {
+	id = poland_hof.8
+	title = poland_hof.8.t
+	desc = poland_hof.8.d
+	picture = GFX_report_event_pol_morges
+	is_triggered_only = yes
+	option = {
+		name = poland_hof.8.a
+		### Maria leads the Front Morges
+		hidden_effect = {
+			set_country_flag = POL_Front_Morges_established
+			country_event = {
+				id = poland_hof.47
+				days = 50
+			}
+		}
+	}
+}
+
+##### PPS refused to strike! ######
+country_event = {
+	id = poland_hof.9
+	title = poland_hof.9.t
+	desc = poland_hof.9.d
+	picture = GFX_report_event_pol_pps
+	is_triggered_only = yes
+	option = {
+		name = poland_hof.9.a
+		### PPS refused to strike!
+		add_stability = 0.05
+		hidden_effect = {
+			set_country_flag = POL_PPS_Strike_refused
+		}
+	}
+}
+
+##### Incoming Sanacja Repression: Civil War #####
+country_event = {
+	id = poland_hof.10
+	title = poland_hof.10.t
+	desc = poland_hof.10.d
+	picture = GFX_report_event_pol_poland_army
+	is_triggered_only = yes
+	option = {
+		#### Go with PSL and peasants!
+		name = poland_hof.10.a
+		POL_Peasant_Strike_Civil_War_PSL = yes
+		hidden_effect = {
+			set_country_flag = POL_no_need_to_elect_flag
+		}
+	}
+	option = {
+		#### Go with Sanacja!
+		name = poland_hof.10.b
+		POL_Peasant_Strike_Civil_War_Sanacja = yes
+		hidden_effect = {
+			set_country_flag = POL_no_need_to_elect_flag
+		}
+	}
+}
+
+##### Incoming Sanacja Repression: Peasant Strike cracked down #####
+country_event = {
+	id = poland_hof.11
+	title = poland_hof.11.t
+	desc = poland_hof.11.d
+	picture = GFX_report_event_pol_poland_army
+	is_triggered_only = yes
+	option = {
+		#### Strike Cracked Down
+		name = poland_hof.11.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.1
+		}
+		add_stability = 0.05
+		hidden_effect = {
+			remove_country_leader_role = {
+				character = POL_sona_flametail
+				ideology = liberalism
+			}
+			add_country_leader_role = {
+				character = POL_wincenty_witos
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+					traits = {
+					}
+				}
+			}
+		}
+		### TODO: Remove ideas
+		retire_character = POL_sona_flametail
+		retire_character = POL_iwona_krukowska
+		retire_character = POL_greynuty_kaliska
+		retire_character = POL_justyna_valentine
+		hidden_effect = {
+			### set_country_flag = POL_Sanacja_government_flag
+			#### TODO: Which Sanacja？
+			### mark_focus_tree_layout_dirty = yes
+			POL_PSL_power_decrease = yes
+			POL_PSL_power_decrease = yes
+			POL_PSL_power_decrease = yes
+			POL_PSL_power_decrease = yes
+			if = {
+				limit = {
+					has_country_flag = POL_sanacja_elected_flag
+				}
+				set_country_flag = POL_Sanacja_government_flag
+				if = {
+					limit = {
+						has_completed_focus = POL_woo_morges_staff_hof
+					}
+					set_country_flag = POL_Morges_Sanacja_flag
+				}
+				else_if = {
+					limit = {
+						has_completed_focus = POL_ozon_hof
+					}
+					set_country_flag = POL_Nationalist_Sanacja_flag
+				}
+				else = {
+					set_country_flag = POL_Nearl_Sanacja_flag
+				}
+				if = {
+					limit = {
+						has_country_flag = POL_Sanacja_show_initial_flag
+					}
+					clr_country_flag = POL_Sanacja_show_initial_flag
+				}
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+}
+
+##### Incoming Sanacja Repression: Sanacja Collapsed #####
+country_event = {
+	id = poland_hof.12
+	title = poland_hof.12.t
+	desc = poland_hof.12.d
+	picture = GFX_report_event_pol_sanacja_02
+	is_triggered_only = yes
+	option = {
+		#### PSL government
+		name = poland_hof.12.a
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.15
+		}
+		add_stability = 0.05
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = no
+		}
+		hidden_effect = {
+			set_country_flag = POL_PSL_government_flag
+			country_event = {
+				id = poland_hof.20
+				days = 2
+			}
+		}
+		hidden_effect = {
+			set_country_flag = POL_no_need_to_elect_flag
+		}
+	}
+}
+
+##### PSL Elected:
+country_event = {
+	id = poland_hof.13
+	title = poland_hof.13.t
+	desc = poland_hof.13.d
+	picture = GFX_report_event_pol_psl_02
+	is_triggered_only = yes
+	option = {
+		#### PSL government
+		name = poland_hof.13.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		add_stability = 0.05
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = no
+		}
+		hidden_effect = {
+			# set_country_flag = POL_PSL_government_flag
+			set_country_flag = POL_peasant_strike_halted_election_flag
+			if = {
+				limit = {
+					set_temp_variable = {
+						Sanacja_Repression = POL_Sanacja_repression
+					}
+					subtract_from_temp_variable = {
+						Sanacja_Repression = POL_PSL_Power
+					}
+					OR = {
+						check_variable = {
+							var = Sanacja_Repression
+							value = -9
+							compare = less_than
+						}
+						has_completed_focus = POL_woo_morges_staff_hof
+					}
+				}
+				country_event = {
+					id = poland_hof.20
+					days = 1
+				}
+			}
+			else = {
+				country_event = {
+					id = poland_hof.18
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+##### Sanacja Elected:
+country_event = {
+	id = poland_hof.14
+	title = poland_hof.14.t
+	desc = poland_hof.14.d
+	picture = GFX_report_event_pol_sanacja_01
+	is_triggered_only = yes
+	option = {
+		#### Sanacja government
+		name = poland_hof.14.a
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+		add_stability = 0.05
+		### TODO: Remove ideas
+		hidden_effect = {
+			# set_country_flag = POL_Sanacja_government_flag
+			set_country_flag = POL_peasant_strike_halted_election_flag
+			set_country_flag = POL_sanacja_elected_flag
+			#### TODO: Which Sanacja？
+			### mark_focus_tree_layout_dirty = yes
+		}
+		if = {
+			limit = {
+				set_temp_variable = {
+					Sanacja_PSL_Compare = POL_Sanacja_power
+				}
+				subtract_from_temp_variable = {
+					Sanacja_PSL_Compare = POL_PSL_Power
+				}
+				check_variable = {
+					var = Sanacja_PSL_Compare
+					value = 10
+					compare = less_than
+				}
+				NOT = {
+					has_completed_focus = POL_woo_morges_staff_hof
+				}
+			}
+			### PSL defy the election if the margin is too close
+			hidden_effect = {
+				country_event = {
+					id = poland_hof.21
+					days = 1
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_country_flag = POL_Sanacja_government_flag
+				if = {
+					limit = {
+						has_completed_focus = POL_woo_morges_staff_hof
+					}
+					set_country_flag = POL_Morges_Sanacja_flag
+				}
+				else_if = {
+					limit = {
+						has_completed_focus = POL_ozon_hof
+					}
+					set_country_flag = POL_Nationalist_Sanacja_flag
+				}
+				else = {
+					set_country_flag = POL_Nearl_Sanacja_flag
+				}
+				if = {
+					limit = {
+						has_country_flag = POL_Sanacja_show_initial_flag
+					}
+					clr_country_flag = POL_Sanacja_show_initial_flag
+				}
+			}
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+}
+
+##### Endecja Elected:
+country_event = {
+	id = poland_hof.15
+	title = poland_hof.15.t
+	desc = poland_hof.15.d
+	picture = GFX_report_event_pol_dmowski
+	is_triggered_only = yes
+	option = {
+		#### Endecja government
+		name = poland_hof.15.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_stability = -0.05
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = no
+		}
+		hidden_effect = {
+			set_country_flag = POL_peasant_strike_halted_election_flag
+			if = {
+				limit = {
+					set_temp_variable = {
+						Sanacja_Repression = POL_Sanacja_repression
+					}
+					subtract_from_temp_variable = {
+						Sanacja_Repression = POL_Endecja_Power
+					}
+					check_variable = {
+						var = Sanacja_Repression
+						value = -5
+						compare = greater_than
+					}
+					NOT = {
+						has_country_flag = POL_OZON_formed_flag
+					}
+					NOT = {
+						has_completed_focus = POL_woo_morges_staff_hof
+					}
+					NOT = {
+						has_completed_focus = POL_ozon_hof
+					}
+				}
+				country_event = {
+					id = poland_hof.16
+					hours = 35
+				}
+			}
+			else = {
+				country_event = {
+					id = poland_hof.17
+					hours = 35
+				}
+				# set_country_flag = POL_Endecja_government_flag
+			}
+		}
+	}
+}
+
+##### Since Endecja Elected, Sanacja set a coup d'etat
+country_event = {
+	id = poland_hof.16
+	title = poland_hof.16.t
+	desc = poland_hof.16.d
+	picture = GFX_report_event_pol_natalia_kaminski_02
+	is_triggered_only = yes
+	option = {
+		#### Endecja government
+		name = poland_hof.16.a
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.1
+		}
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		add_country_leader_role = {
+			character = POL_natalia_kaminska
+			promote_leader = yes
+			country_leader = {
+				ideology = stratocracy
+				expire = "1965.1.1.1"
+				traits = {
+				}
+			}
+		}
+		hidden_effect = {
+			set_country_flag = POL_Sanacja_government_flag
+			set_country_flag = POL_Leftist_Sanacja_flag
+			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+			set_country_flag = POL_no_need_to_elect_flag
+			if = {
+				limit = {
+					has_country_flag = POL_Sanacja_show_initial_flag
+				}
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+##### Endecja Government confirmed
+country_event = {
+	id = poland_hof.17
+	title = poland_hof.17.t
+	desc = poland_hof.17.d
+	picture = GFX_report_event_pol_endecja
+	is_triggered_only = yes
+	option = {
+		#### Endecja government
+		name = poland_hof.17.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_stability = -0.05
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = no
+		}
+		hidden_effect = {
+			set_country_flag = POL_Endecja_government_flag
+			if = {
+				limit = {
+					has_country_flag = POL_Sanacja_show_initial_flag
+				}
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
+		}
+		retire_character = POL_natalia_kaminska
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+##### PSL elected, Sanacja defy the result
+country_event = {
+	id = poland_hof.18
+	title = poland_hof.18.t
+	desc = poland_hof.18.d
+	picture = GFX_report_event_pol_sanacja_01
+	is_triggered_only = yes
+	option = {
+		#### Civil War
+		name = poland_hof.18.a
+		trigger = {
+			set_temp_variable = {
+				Sanacja_Repression = POL_Sanacja_repression
+			}
+			subtract_from_temp_variable = {
+				Sanacja_Repression = POL_PSL_Power
+			}
+			check_variable = {
+				var = Sanacja_Repression
+				value = 11
+				compare = less_than
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				country_event = {
+					id = poland_hof.10
+					days = 6
+				}
+			}
+			else = {
+				country_event = {
+					id = poland_hof.19
+					days = 6
+				}
+			}
+		}
+	}
+	option = {
+		#### Sanacja Coup d'etat
+		name = poland_hof.18.b
+		trigger = {
+			set_temp_variable = {
+				Sanacja_Repression = POL_Sanacja_repression
+			}
+			subtract_from_temp_variable = {
+				Sanacja_Repression = POL_PSL_Power
+			}
+			check_variable = {
+				var = Sanacja_Repression
+				value = 10
+				compare = greater_than
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.19
+				days = 6
+			}
+		}
+	}
+}
+
+##### Sanacja set a coup d'etat against PSL
+country_event = {
+	id = poland_hof.19
+	title = poland_hof.19.t
+	desc = poland_hof.19.d
+	picture = GFX_report_event_pol_smigly_01
+	is_triggered_only = yes
+	option = {
+		#### Sanacja government
+		name = poland_hof.19.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.1
+		}
+		### TODO: Remove ideas
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		hidden_effect = {
+			remove_country_leader_role = {
+				character = POL_sona_flametail
+				ideology = liberalism
+			}
+			add_country_leader_role = {
+				character = POL_wincenty_witos
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+					traits = {
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_leader = {
+						character = POL_edward_rydzSmigly
+						ruling_only = yes
+					}
+				}
+			}
+			add_country_leader_role = {
+				character = POL_edward_rydzSmigly
+				promote_leader = yes
+				country_leader = {
+					ideology = stratocracy
+					expire = "1965.1.1.1"
+					traits = {
+					}
+				}
+			}
+		}
+		retire_character = POL_sona_flametail
+		retire_character = POL_greynuty_kaliska
+		retire_character = POL_iwona_krukowska
+		retire_character = POL_justyna_valentine
+		hidden_effect = {
+			set_country_flag = POL_Sanacja_government_flag
+			set_country_flag = POL_Nationalist_Sanacja_flag
+			set_country_flag = POL_Sanacja_overthrow_the_election_flag
+			set_country_flag = POL_no_need_to_elect_flag
+			if = {
+				limit = {
+					has_country_flag = POL_Sanacja_show_initial_flag
+				}
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+##### PSL government confirmed
+country_event = {
+	id = poland_hof.20
+	title = poland_hof.20.t
+	desc = poland_hof.20.d
+	picture = GFX_report_event_pol_psl_03
+	is_triggered_only = yes
+	option = {
+		#### PSL government
+		name = poland_hof.20.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = no
+			}
+		}
+		hidden_effect = {
+			set_country_flag = POL_PSL_government_flag
+			if = {
+				limit = {
+					has_country_flag = POL_Sanacja_show_initial_flag
+				}
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+##### PSL refused to confirm the election
+country_event = {
+	id = poland_hof.21
+	title = poland_hof.21.t
+	desc = poland_hof.21.d
+	picture = GFX_report_event_pol_psl_01
+	is_triggered_only = yes
+	option = {
+		#### PSL Strike
+		name = poland_hof.21.a
+		country_event = {
+			id = poland_hof.4
+			days = 3
+		}
+	}
+}
+
+#########################################
+##### 
+country_event = {
+	id = poland_hof.22
+	title = poland_hof.22.t
+	desc = poland_hof.22.d
+	picture = GFX_report_event_pol_oun_02
+	is_triggered_only = yes
+	option = {
+		#### The second Lwow Trial
+		name = poland_hof.22.a
+		unlock_national_focus = POL_the_second_lwow_trial
+		91 = {
+			add_resistance = -7.5
+		}
+		89 = {
+			add_resistance = -7.5
+		}
+		93 = {
+			add_resistance = -5
+		}
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = poland_hof.23
+	title = poland_hof.23.t
+	desc = poland_hof.23.d
+	picture = GFX_report_event_pol_oun_01
+	is_triggered_only = yes
+	option = {
+		#### The Third Lwow Trial
+		name = poland_hof.23.a
+		if = {
+			limit = {
+				has_idea = UKR_OUN_subversion_POL
+			}
+			remove_ideas = {
+				UKR_OUN_subversion_POL
+			}
+		}
+		if = {
+			limit = {
+				has_idea = UKR_OUN_subversion_POL_2
+			}
+			remove_ideas = {
+				UKR_OUN_subversion_POL_2
+			}
+		}
+	}
+}
+
+###################################################
+### The Second Brest Trial Series #################
+###################################################
+country_event = {
+	id = poland_hof.24
+	title = poland_hof.24.t
+	desc = poland_hof.24.d
+	picture = GFX_report_event_pol_meteorite
+	is_triggered_only = yes
+	option = {
+		### Anonymous Report Letter against Meteorite
+		name = poland_hof.24.a
+		add_stability = -0.015
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.25
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	id = poland_hof.25
+	title = poland_hof.25.t
+	desc = poland_hof.25.d
+	picture = GFX_report_event_pol_meteorite_arrested
+	is_triggered_only = yes
+	option = {
+		### Meteorite Arrested
+		name = poland_hof.25.a
+		add_stability = -0.015
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.26
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	### Czarny met with Firewatch
+	id = poland_hof.26
+	title = poland_hof.26.t
+	desc = poland_hof.26.d
+	picture = GFX_report_event_pol_czarny_firewatch
+	is_triggered_only = yes
+	option = {
+		### I trust Meteorite
+		name = poland_hof.26.a
+		add_stability = -0.015
+		hidden_effect = {
+			set_country_flag = POL_Firewatch_refused_to_testify_flag
+		}
+		country_event = {
+			id = poland_hof.27
+			days = 3
+		}
+	}
+	option = {
+		### I will testify
+		name = poland_hof.26.b
+		add_stability = -0.015
+		hidden_effect = {
+			set_country_flag = POL_Firewatch_chose_to_testify_flag
+		}
+		country_event = {
+			id = poland_hof.28
+			days = 3
+		}
+	}
+}
+
+country_event = {
+	### The Second Brest Trial: Meteorite innocent
+	id = poland_hof.27
+	title = poland_hof.27.t
+	desc = poland_hof.27.d
+	picture = GFX_report_event_pol_meteorite_02
+	is_triggered_only = yes
+	option = {
+		### What a farce!
+		name = poland_hof.27.a
+		add_political_power = 25
+		POL_Endecja_power_decrease = yes
+		unlock_national_focus = POL_the_second_brest_trial
+		hidden_effect = {
+			set_country_flag = POL_Meteorite_innocent_flag
+			country_event = {
+				id = poland_hof.29
+				days = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	### The Second Brest Trial: Meteorite Treason
+	id = poland_hof.28
+	title = poland_hof.28.t
+	desc = poland_hof.28.d
+	picture = GFX_report_event_pol_meteorite_02
+	is_triggered_only = yes
+	option = {
+		### What a shame!
+		name = poland_hof.28.a
+		POL_Endecja_power_increase = yes
+		retire_character = POL_meteorite
+		unlock_national_focus = POL_the_second_brest_trial
+		hidden_effect = {
+			set_country_flag = POL_Meteorite_treason_flag
+			country_event = {
+				id = poland_hof.30
+				days = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	### Antisemitic Waves (Innocent)
+	id = poland_hof.29
+	title = poland_hof.29.t
+	desc = poland_hof.29.d
+	picture = GFX_report_event_pol_jews_02
+	is_triggered_only = yes
+	option = {
+		### What a shame!
+		name = poland_hof.29.a
+		# POL_Endecja_power_increase_10 = yes
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.075
+		}
+	}
+}
+
+country_event = {
+	### Antisemitic Waves (Treason)
+	id = poland_hof.30
+	title = poland_hof.30.t
+	desc = poland_hof.30.d
+	picture = GFX_report_event_pol_jews_03
+	is_triggered_only = yes
+	option = {
+		### What a shame!
+		name = poland_hof.30.a
+		# POL_Endecja_power_increase_10 = yes
+		POL_Endecja_power_increase = yes
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.075
+		}
+	}
+}
+
+country_event = {
+	### Warsaw Riot
+	id = poland_hof.31
+	title = poland_hof.31.t
+	desc = poland_hof.31.d
+	picture = GFX_report_event_pol_riot_01
+	is_triggered_only = yes
+	option = {
+		### 
+		name = poland_hof.31.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							has_country_flag = POL_Meteorite_innocent_flags
+							check_variable = {
+								var = POL_Sanacja_repression
+								value = 25
+								compare = greater_than_or_equals
+							}
+						}
+						AND = {
+							has_country_flag = POL_Meteorite_treason_flag
+							check_variable = {
+								var = POL_Sanacja_repression
+								value = 40
+								compare = greater_than_or_equals
+							}
+						}
+					}
+				}
+				country_event = {
+					id = poland_hof.32
+					days = 1
+				}
+			}
+			else = {
+				country_event = {
+					id = poland_hof.33
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	### Warsaw Riot (Fail)
+	id = poland_hof.32
+	title = poland_hof.32.t
+	desc = poland_hof.32.d
+	picture = GFX_report_event_pol_poland_army
+	is_triggered_only = yes
+	option = {
+		### 
+		name = poland_hof.32.a
+		POL_Endecja_power_decrease_10 = yes
+	}
+}
+
+country_event = {
+	### Warsaw Riot
+	id = poland_hof.33
+	title = poland_hof.33.t
+	desc = poland_hof.33.d
+	picture = GFX_report_event_pol_riot_02
+	is_triggered_only = yes
+	option = {
+		### 
+		name = poland_hof.33.a
+		POL_Endecja_power_increase_10 = yes
+	}
+}
+
+country_event = {
+	### SOV/UKR: POL is preparing to attack
+	id = poland_hof.34
+	title = poland_hof.34.t
+	desc = poland_hof.34.d
+	picture = GFX_report_event_pol_assault
+	is_triggered_only = yes
+	option = {
+		### OK
+		name = poland_hof.34.a
+		add_ai_strategy = {
+			type = prepare_for_war
+			id = POL
+			value = 100
+		}
+	}
+}
+
+country_event = {
+	### POL: Conduct Prometeizm
+	id = poland_hof.35
+	title = poland_hof.35.t
+	desc = poland_hof.35.d
+	picture = GFX_report_event_pol_prometeizm
+	fire_only_once = yes
+	mean_time_to_happen = {
+		days = 1
+	}
+	trigger = {
+		has_completed_focus = POL_conduct_Prometeizm
+		date > 1937.1.1
+		UKR = {
+			is_subject = no
+		}
+		has_civil_war = no
+		is_subject = no
+		has_capitulated = no
+	}
+	option = {
+		### OK
+		name = poland_hof.35.a
+		declare_war_on = {
+			target = SOV
+			type = take_state_focus
+			generator = {
+				207
+				241
+				206
+				204
+				194
+			}
+		}
+		hidden_effect = {
+			set_global_flag = POL_Prometeizm_started_flag
+		}
+		add_ideas = {
+			POL_Prometeizm
+		}
+		activate_mission = POL_Prometeizm_mission
+		SOV = {
+			activate_mission = POL_Prometeizm_mission_SOV
+		}
+	}
+}
+
+country_event = {
+	### POL: The temporary president
+	id = poland_hof.36
+	title = poland_hof.36.t
+	desc = poland_hof.36.d
+	picture = GFX_report_event_pol_temp_president
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		### Loleta Russell
+		name = poland_hof.36.a
+		add_country_leader_role = {
+			character = POL_Loleta_Russell
+			promote_leader = yes
+			country_leader = {
+				ideology = authoritarian_democracy
+				expire = "1965.1.1.1"
+				traits = {
+					PSL_sympathizer
+				}
+			}
+		}
+		add_political_power = 75
+		POL_PSL_power_increase = yes
+		POL_Sanacja_power_increase = yes
+	}
+	option = {
+		### Mlynar Nearl
+		name = poland_hof.36.b
+		hidden_effect = {
+			remove_country_leader_role = {
+				character = POL_sanacja
+				ideology = authoritarian_democracy
+			}
+		}
+		add_country_leader_role = {
+			character = POL_mlynar_nearl
+			promote_leader = yes
+			country_leader = {
+				ideology = authoritarian_democracy
+				expire = "1965.1.1.1"
+				traits = {
+					Cynic
+					national_hero_pol
+				}
+			}
+		}
+		army_experience = 20
+		POL_Sanacja_power_increase = yes
+		POL_Sanacja_repression_decrease = yes
+	}
+	option = {
+		### McKee
+		name = poland_hof.36.c
+		hidden_effect = {
+			remove_country_leader_role = {
+				character = POL_sanacja
+				ideology = authoritarian_democracy
+			}
+		}
+		add_country_leader_role = {
+			character = POL_McKee
+			promote_leader = yes
+			country_leader = {
+				ideology = authoritarian_democracy
+				expire = "1965.1.1.1"
+				traits = {
+					Business_spokesperson
+				}
+			}
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 2
+		}
+		POL_Sanacja_power_decrease = yes
+		POL_Sanacja_repression_increase = yes
+	}
+}
+
+country_event = {
+	### POL: Death of Dmowski
+	id = poland_hof.37
+	title = poland_hof.37.t
+	desc = poland_hof.37.d
+	picture = GFX_report_event_pol_dmowski_death
+	fire_only_once = yes
+	trigger = {
+		tag = POL
+		date > 1938.3.2
+	}
+	option = {
+		### Roman Dmowski
+		name = poland_hof.37.a
+		remove_country_leader_role = {
+			character = POL_roman_dmowski
+			ideology = fascism_ideology
+		}
+		add_country_leader_role = {
+			character = POL_wladyslaw_grabski
+			promote_leader = yes
+			country_leader = {
+				ideology = fascism_ideology
+				expire = "1965.1.1.1"
+				traits = {
+				}
+			}
+		}
+		retire_character = POL_roman_dmowski
+		if = {
+			limit = {
+				is_subject = no
+				has_government = fascism
+			}
+			country_event = {
+				id = poland_hof.38
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	### POL: New President for SN
+	id = poland_hof.38
+	title = poland_hof.38.t
+	desc = poland_hof.38.d
+	picture = GFX_report_event_pol_election_sn
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		### Czarny
+		name = poland_hof.38.a
+		add_country_leader_role = {
+			character = POL_Czarny
+			promote_leader = yes
+			country_leader = {
+				ideology = fascism_ideology
+				expire = "1965.1.1.1"
+				traits = {
+					politial_broker
+				}
+			}
+		}
+		add_political_power = 100
+		hidden_effect = {
+			set_country_flag = POL_Firewatch_path_leader_open_flag
+			if = {
+				limit = {
+					has_completed_focus = POL_firewatch
+					has_country_flag = POL_Firewatch_chose_to_testify_flag
+					NOT = {
+						has_country_flag = POL_Falangist_early_purge_flag
+					}
+				}
+				country_event = {
+					id = poland_hof.67
+					days = 80
+				}
+			}
+		}
+	}
+	option = {
+		### Rybarski
+		name = poland_hof.38.b
+		add_country_leader_role = {
+			character = POL_roman_rybarski
+			promote_leader = yes
+			country_leader = {
+				ideology = fascism_ideology
+				expire = "1965.1.1.1"
+				traits = {
+					Nationalist_Austrian_School_Economist
+				}
+			}
+		}
+	}
+	option = {
+		### TODO: New leader Tadeusz Bielecki
+		name = poland_hof.38.c
+		add_country_leader_role = {
+			character = POL_tadeusz_bielecki
+			promote_leader = yes
+			country_leader = {
+				ideology = fascism_ideology
+				expire = "1965.1.1.1"
+				traits = {
+					nationalist_journalist
+				}
+			}
+		}
+	}
+	option = {
+		### Centaurea 
+		name = poland_hof.38.e
+		trigger = {
+			has_country_flag = POL_Plantium_Endecja_leader_enabled_flag
+		}
+		add_country_leader_role = {
+			character = POL_platinum
+			promote_leader = yes
+			country_leader = {
+				ideology = fascism_ideology
+				expire = "1965.1.1.1"
+				traits = {
+					Cold_Blooded_agent
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	### Doboszyński's Raid of Myślenice, for Wawrzyniec Sielski's dealth
+	id = poland_hof.39
+	title = poland_hof.39.t
+	desc = poland_hof.39.d
+	picture = GFX_report_event_pol_riot_03
+	is_triggered_only = yes
+	option = {
+		### The Police could handle this
+		name = poland_hof.39.a
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.40
+				days = 2
+			}
+		}
+	}
+	option = {
+		### Send the army and purge nationalist militia
+		name = poland_hof.39.b
+		army_experience = 10
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.41
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	### Doboszyński fought the police and then surrender
+	id = poland_hof.40
+	title = poland_hof.40.t
+	desc = poland_hof.40.d
+	picture = GFX_report_event_riot_police_poland
+	is_triggered_only = yes
+	option = {
+		### 
+		name = poland_hof.40.a
+		88 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+		}
+		POL_Endecja_power_increase = yes
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.42
+				days = 15
+			}
+		}
+	}
+}
+
+country_event = {
+	### Doboszyński forces purged
+	id = poland_hof.41
+	title = poland_hof.41.t
+	desc = poland_hof.41.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		###
+		name = poland_hof.41.a
+		88 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		POL_Endecja_power_decrease = yes
+		POL_Sanacja_repression_decrease = yes
+		hidden_effect = {
+			set_country_flag = POL_Falangist_early_purge_flag
+			country_event = {
+				id = poland_hof.42
+				days = 15
+			}
+		}
+	}
+}
+
+country_event = {
+	### Krakow Trial
+	id = poland_hof.42
+	title = poland_hof.42.t
+	desc = poland_hof.42.d
+	picture = GFX_report_event_pol_doboszynski
+	is_triggered_only = yes
+	option = {
+		### Innocent
+		name = poland_hof.42.a
+		unlock_national_focus = POL_the_krakow_trial
+		POL_PSL_power_increase = yes
+		POL_PPS_power_increase = yes
+	}
+	option = {
+		### Seizing Weapons
+		name = poland_hof.42.b
+		unlock_national_focus = POL_the_krakow_trial
+		add_stability = -0.05
+	}
+	option = {
+		### Full sentence
+		name = poland_hof.42.c
+		unlock_national_focus = POL_the_krakow_trial
+		POL_Endecja_power_increase = yes
+	}
+}
+
+country_event = {
+	### Land Reform legacy clear
+	id = poland_hof.43
+	title = poland_hof.43.t
+	desc = poland_hof.43.d
+	picture = GFX_report_event_pol_farmer_01
+	fire_only_once = yes
+	trigger = {
+		tag = POL
+		OR = {
+			has_idea = POL_PSL_land_reform
+			has_idea = POL_Sanation_land_reform
+			has_idea = POL_Sanacja_rent_tax
+			has_idea = POL_Endecja_land_reform
+		}
+		num_of_factories > 49
+	}
+	mean_time_to_happen = {
+		days = 7
+	}
+	option = {
+		###
+		name = poland_hof.43.a
+		if = {
+			limit = {
+				has_idea = POL_PSL_land_reform
+			}
+			remove_ideas = {
+				POL_PSL_land_reform
+			}
+		}
+		if = {
+			limit = {
+				has_idea = POL_Sanation_land_reform
+			}
+			remove_ideas = {
+				POL_Sanation_land_reform
+			}
+		}
+		if = {
+			limit = {
+				has_idea = POL_Sanacja_rent_tax
+			}
+			remove_ideas = {
+				POL_Sanacja_rent_tax
+			}
+		}
+		if = {
+			limit = {
+				has_idea = POL_Endecja_land_reform
+			}
+			remove_ideas = {
+				POL_Endecja_land_reform
+			}
+		}
+	}
+}
+
+country_event = {
+	### Land Reform General
+	id = poland_hof.44
+	title = poland_hof.44.t
+	desc = poland_hof.44.d
+	picture = GFX_report_event_pol_farmer_01
+	is_triggered_only = yes
+	option = {
+		###
+		name = poland_hof.44.a
+		if = {
+			limit = {
+				has_country_flag = POL_PSL_land_reform_flag
+			}
+			swap_ideas = {
+				remove_idea = POL_dissatisfaction_of_farmers
+				add_idea = POL_PSL_land_reform
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = POL_Sanation_land_reform_flag
+			}
+			swap_ideas = {
+				remove_idea = POL_dissatisfaction_of_farmers
+				add_idea = POL_Sanation_land_reform
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = POL_Sanation_tax_reform_flag
+			}
+			swap_ideas = {
+				remove_idea = POL_dissatisfaction_of_farmers
+				add_idea = POL_Sanacja_rent_tax
+			}
+		}
+	}
+}
+
+country_event = {
+	### Land Reform PPS
+	id = poland_hof.45
+	title = poland_hof.45.t
+	desc = poland_hof.45.d
+	picture = GFX_report_event_pol_farmer_02
+	is_triggered_only = yes
+	option = {
+		###
+		name = poland_hof.45.a
+		swap_ideas = {
+			remove_idea = POL_dissatisfaction_of_farmers
+			add_idea = POL_PPS_limited_collectivism
+		}
+		if = {
+			limit = {
+				has_idea = POL_PSL_land_reform
+			}
+			remove_ideas = {
+				POL_PSL_land_reform
+			}
+		}
+	}
+}
+
+country_event = {
+	### Land Reform Endecja
+	id = poland_hof.46
+	title = poland_hof.46.t
+	desc = poland_hof.46.d
+	picture = GFX_report_event_pol_farmer_02
+	is_triggered_only = yes
+	option = {
+		###
+		name = poland_hof.46.a
+		swap_ideas = {
+			remove_idea = POL_dissatisfaction_of_farmers
+			add_idea = POL_Endecja_land_reform
+		}
+		if = {
+			limit = {
+				has_idea = POL_PSL_land_reform
+			}
+			remove_ideas = {
+				POL_PSL_land_reform
+			}
+		}
+		if = {
+			limit = {
+				has_idea = POL_Sanation_land_reform
+			}
+			remove_ideas = {
+				POL_Sanation_land_reform
+			}
+		}
+		if = {
+			limit = {
+				has_idea = POL_Sanacja_rent_tax
+			}
+			remove_ideas = {
+				POL_Sanacja_rent_tax
+			}
+		}
+	}
+}
+
+country_event = {
+	### PPS Report: Platinum's assassination of Maria Nearl
+	id = poland_hof.47
+	title = poland_hof.47.t
+	desc = poland_hof.47.d
+	picture = GFX_report_event_pol_plan
+	is_triggered_only = yes
+	option = {
+		### Tell Kaminska
+		name = poland_hof.47.a
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.49
+				days = 5
+			}
+		}
+	}
+	option = {
+		### Tell PSL
+		name = poland_hof.47.b
+		trigger = {
+			has_country_flag = POL_PSL_PPS_deal_flag
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.50
+				days = 6
+			}
+		}
+	}
+	option = {
+		### Let the internecine war begin
+		name = poland_hof.47.c
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.51
+				days = 6
+			}
+		}
+	}
+	option = {
+		### Investigate who is that Platinum
+		name = poland_hof.47.e
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.48
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	### Platinum is Centaurea 
+	id = poland_hof.48
+	title = poland_hof.48.t
+	desc = poland_hof.48.d
+	picture = GFX_report_event_pol_platinum_01
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_country_flag = POL_Platinum_identity_confirmed_flag
+		}
+	}
+	option = {
+		### Tell Kaminska
+		name = poland_hof.48.a
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.49
+				days = 5
+			}
+		}
+	}
+	option = {
+		### Tell PSL
+		name = poland_hof.48.b
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.50
+				days = 6
+			}
+		}
+	}
+	option = {
+		### Let the internecine war begin
+		name = poland_hof.48.c
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.51
+				days = 6
+			}
+		}
+	}
+}
+
+country_event = {
+	### Kaminska's counter-attack
+	id = poland_hof.49
+	title = poland_hof.49.t
+	desc = poland_hof.49.d
+	picture = GFX_report_event_pol_natalia_kaminski_04
+	is_triggered_only = yes
+	option = {
+		### Warsaw suburban fight
+		name = poland_hof.49.a
+		trigger = {
+			NOT = {
+				has_country_flag = POL_Platinum_identity_confirmed_flag
+			}
+		}
+		add_stability = -0.05
+		POL_PPS_power_increase = yes
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.52
+				days = 1
+			}
+		}
+	}
+	option = {
+		### Centaurea captured
+		name = poland_hof.49.b
+		trigger = {
+			has_country_flag = POL_Platinum_identity_confirmed_flag
+		}
+		hidden_effect = {
+			set_country_flag = POL_Centaurea_captured_PPS
+			country_event = {
+				id = poland_hof.53
+				days = 1
+			}
+		}
+		POL_PPS_power_increase = yes
+	}
+}
+
+country_event = {
+	### PSL's counter-attack
+	id = poland_hof.50
+	title = poland_hof.50.t
+	desc = poland_hof.50.d
+	picture = GFX_report_event_pol_pinus_sylvestris
+	is_triggered_only = yes
+	option = {
+		### counter-attack 
+		name = poland_hof.50.a
+		trigger = {
+			NOT = {
+				has_country_flag = POL_Platinum_identity_confirmed_flag
+			}
+		}
+		POL_PSL_power_increase = yes
+		hidden_effect = {
+			country_event = {
+				id = poland_hof.52
+				days = 1
+			}
+		}
+	}
+	option = {
+		### Pre-emptive attack
+		name = poland_hof.50.b
+		trigger = {
+			has_country_flag = POL_Platinum_identity_confirmed_flag
+		}
+		hidden_effect = {
+			set_country_flag = POL_Centaurea_captured_PSL
+			country_event = {
+				id = poland_hof.54
+				days = 1
+			}
+		}
+		POL_PSL_power_increase = yes
+	}
+}
+
+country_event = {
+	### Failed attempt to assassinate Maria Nearl
+	id = poland_hof.51
+	title = poland_hof.51.t
+	desc = poland_hof.51.d
+	picture = GFX_report_event_pol_platinum_02
+	is_triggered_only = yes
+	option = {
+		### Centaurea's influence increased
+		name = poland_hof.51.a
+		add_stability = -0.05
+		POL_Endecja_power_increase = yes
+		POL_Sanacja_repression_increase = yes
+		hidden_effect = {
+			set_country_flag = POL_Plantium_Endecja_leader_enabled_flag
+		}
+	}
+}
+
+country_event = {
+	### Failed attempt to assassinate Maria Nearl (Counter Attack)
+	id = poland_hof.52
+	title = poland_hof.52.t
+	desc = poland_hof.52.d
+	picture = GFX_report_event_pol_platinum_02
+	is_triggered_only = yes
+	option = {
+		### Endecja's failure
+		name = poland_hof.52.a
+		add_stability = -0.05
+		POL_Endecja_power_decrease = yes
+		hidden_effect = {
+			set_country_flag = POL_Plantium_Endecja_leader_enabled_flag
+		}
+		retire_character = POL_platinum
+	}
+}
+
+country_event = {
+	### Centaurea's turn （PPS）
+	id = poland_hof.53
+	title = poland_hof.53.t
+	desc = poland_hof.53.d
+	picture = GFX_report_event_pol_platinum_03
+	is_triggered_only = yes
+	option = {
+		### Hopefully this will help
+		name = poland_hof.53.a
+		POL_Endecja_power_decrease = yes
+	}
+}
+
+country_event = {
+	### Centaurea's turn （PSL）
+	id = poland_hof.54
+	title = poland_hof.54.t
+	desc = poland_hof.54.d
+	picture = GFX_report_event_pol_platinum_01
+	is_triggered_only = yes
+	option = {
+		### Hopefully this will help
+		name = poland_hof.54.a
+		POL_Endecja_power_decrease = yes
+	}
+}
+
+country_event = {
+	### UKR: POL seeks reconcilation
+	id = poland_hof.55
+	title = poland_hof.55.t
+	desc = poland_hof.55.d
+	picture = GFX_report_event_pol_poland_ukraine_01
+	is_triggered_only = yes
+	option = {
+		### Sure
+		name = poland_hof.55.a
+		POL = {
+			country_event = {
+				id = poland_hof.56
+				days = 5
+			}
+		}
+		effect_tooltip = {
+			POL = {
+				remove_opinion_modifier = {
+					target = UKR
+					modifier = UKR_POL_hostility
+				}
+				add_opinion_modifier = {
+					target = UKR
+					modifier = UKR_POL_rapprochement
+				}
+			}
+			remove_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_hostility
+			}
+			add_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_rapprochement
+			}
+		}
+	}
+	option = {
+		name = poland_hof.55.b
+		ai_chance = {
+			base = 0
+		}
+		POL = {
+			country_event = {
+				id = poland_hof.57
+				days = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	### POL: UKR agrees
+	id = poland_hof.56
+	title = poland_hof.56.t
+	desc = poland_hof.56.d
+	picture = GFX_report_event_pol_poland_ukraine_02
+	is_triggered_only = yes
+	option = {
+		### Sure
+		name = poland_hof.56.a
+		remove_opinion_modifier = {
+			target = UKR
+			modifier = UKR_POL_hostility
+		}
+		add_opinion_modifier = {
+			target = UKR
+			modifier = UKR_POL_rapprochement
+		}
+		UKR = {
+			remove_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_hostility
+			}
+			add_opinion_modifier = {
+				target = FROM
+				modifier = UKR_POL_rapprochement
+			}
+		}
+		hidden_effect = {
+			add_ai_strategy = {
+				type = alliance
+				id = UKR
+				value = 800
+			}
+			UKR = {
+				add_ai_strategy = {
+					type = alliance
+					id = POL
+					value = 800
+				}
+			}
+			set_global_flag = UKR_POL_rapprochement_flag
+		}
+	}
+}
+
+country_event = {
+	### POL: UKR refuses
+	id = poland_hof.57
+	title = poland_hof.57.t
+	desc = poland_hof.57.d
+	# picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		### Bah
+		name = poland_hof.57.a
+		add_political_power = -5
+	}
+}
+
+country_event = {
+	### ISR: POL supports Zionism
+	id = poland_hof.58
+	title = poland_hof.58.t
+	desc = poland_hof.58.d
+	picture = GFX_report_event_pol_poland_israel2
+	is_triggered_only = yes
+	option = {
+		### Thank them!
+		name = poland_hof.58.a
+		add_manpower = 50000
+		add_offsite_building = {
+			type = industrial_complex
+			level = 5
+		}
+	}
+}
+
+country_event = {
+	### ISR: POL supports Zionism
+	id = poland_hof.59
+	title = poland_hof.59.t
+	desc = poland_hof.59.d
+	picture = GFX_report_event_pol_poland_israel2
+	is_triggered_only = yes
+	option = {
+		### Thank them!
+		name = poland_hof.59.a
+		add_timed_idea = {
+			idea = POL_ISR_support
+			days = 400
+		}
+	}
+}
+
+country_event = {
+	### Western Countries: POL seeks help
+	id = poland_hof.60
+	title = poland_hof.60.t
+	desc = poland_hof.60.d
+	# picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		### Send Aids
+		name = poland_hof.60.a
+		add_political_power = -125
+		ai_chance = {
+			base = 3
+		}
+		effect_tooltip = {
+			POL = {
+				if = {
+					limit = {
+						has_idea = POL_Polscy_Zydzi
+					}
+					swap_ideas = {
+						add_idea = POL_Polscy_Zydzi_relieved
+						remove_idea = POL_Polscy_Zydzi
+					}
+				}
+				else = {
+					add_political_power = 100
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland_hof.61
+				days = 3
+			}
+		}
+	}
+	option = {
+		### Accept Jewish immigration
+		name = poland_hof.60.b
+		add_stability = -0.065
+		add_manpower = 10000
+		ai_chance = {
+			base = 3
+		}
+		effect_tooltip = {
+			POL = {
+				if = {
+					limit = {
+						has_idea = POL_Polscy_Zydzi
+					}
+					swap_ideas = {
+						add_idea = POL_Polscy_Zydzi_relieved
+						remove_idea = POL_Polscy_Zydzi
+					}
+				}
+				else = {
+					add_stability = 0.05
+					add_manpower = -10000
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland_hof.62
+				days = 3
+			}
+		}
+	}
+	option = {
+		### Do nothing
+		name = poland_hof.60.b
+		ai_chance = {
+			base = 2
+		}
+		add_political_power = 2
+		FROM = {
+			country_event = {
+				id = poland_hof.63
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	### FROM provides financial aids
+	id = poland_hof.61
+	title = poland_hof.61.t
+	desc = poland_hof.61.d
+	# picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		### 
+		name = poland_hof.61.a
+		effect_tooltip = {
+			FROM = {
+				add_political_power = -125
+			}
+		}
+		if = {
+			limit = {
+				has_idea = POL_Polscy_Zydzi
+			}
+			swap_ideas = {
+				add_idea = POL_Polscy_Zydzi_relieved
+				remove_idea = POL_Polscy_Zydzi
+			}
+		}
+		else = {
+			add_political_power = 100
+		}
+	}
+}
+
+country_event = {
+	### FROM accepted Jewish immigrants
+	id = poland_hof.62
+	title = poland_hof.62.t
+	desc = poland_hof.62.d
+	picture = GFX_report_event_pol_jews_01
+	is_triggered_only = yes
+	option = {
+		### 
+		name = poland_hof.62.a
+		effect_tooltip = {
+			FROM = {
+				add_stability = -0.065
+				add_manpower = 10000
+			}
+		}
+		if = {
+			limit = {
+				has_idea = POL_Polscy_Zydzi
+			}
+			swap_ideas = {
+				add_idea = POL_Polscy_Zydzi_relieved
+				remove_idea = POL_Polscy_Zydzi
+			}
+		}
+		else = {
+			add_stability = 0.05
+			add_manpower = -10000
+		}
+	}
+}
+
+country_event = {
+	### FROM accepted Jewish immigrants
+	id = poland_hof.63
+	title = poland_hof.63.t
+	desc = poland_hof.63.d
+	picture = GFX_report_event_pol_jews_01
+	is_triggered_only = yes
+	option = {
+		### 
+		name = poland_hof.63.a
+		add_political_power = -5
+	}
+}
+
+country_event = {
+	### EST/FIN: POL invite us against Russia
+	id = poland_hof.64
+	title = poland_hof.64.t
+	desc = poland_hof.64.d
+	# picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		### OK
+		name = poland_hof.64.a
+		FROM = {
+			country_event = {
+				id = poland_hof.65
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			add_ideas = {
+				POL_Anti_Russia_Pact
+			}
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				POL = {
+					add_to_faction = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						is_faction_leader = yes
+						is_in_faction_with = POL
+					}
+				}
+				random_other_country = {
+					limit = {
+						is_faction_leader = yes
+						is_in_faction_with = POL
+					}
+					add_to_faction = ROOT
+				}
+			}
+		}
+	}
+	option = {
+		### NO
+		name = poland_hof.64.b
+		ai_chance = {
+			modifier = {
+				factor = 0
+				# NOT = { has_government = democratic }
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland_hof.66
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	### POL: EST/FIN in 
+	id = poland_hof.65
+	title = poland_hof.65.t
+	desc = poland_hof.65.d
+	# picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		### OK
+		name = poland_hof.65.a
+		FROM = {
+			add_ideas = {
+				POL_Anti_Russia_Pact
+			}
+		}
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			add_to_faction = FROM
+		}
+		else_if = {
+			limit = {
+				any_other_country = {
+					is_faction_leader = yes
+					is_in_faction_with = POL
+				}
+			}
+			random_other_country = {
+				limit = {
+					is_faction_leader = yes
+					is_in_faction_with = POL
+				}
+				add_to_faction = FROM
+			}
+		}
+	}
+}
+
+country_event = {
+	### POL: EST/FIN out
+	id = poland_hof.66
+	title = poland_hof.66.t
+	desc = poland_hof.66.d
+	# picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		### Bah!
+		name = poland_hof.66.a
+		add_political_power = -5
+	}
+	option = {
+		### Then force them in
+		name = poland_hof.66.b
+		add_political_power = -5
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = FROM
+		}
+	}
+}
+
+country_event = {
+	### POL: Firewatch Coup d'etat
+	id = poland_hof.67
+	title = poland_hof.67.t
+	desc = poland_hof.67.d
+	picture = GFX_report_event_pol_firewatch
+	is_triggered_only = yes
+	option = {
+		name = poland_hof.67.a
+		remove_country_leader_role = {
+			character = POL_Czarny
+			ideology = fascism_ideology
+		}
+		add_country_leader_role = {
+			character = POL_firewatcher
+			promote_leader = yes
+			country_leader = {
+				ideology = falangism
+				expire = "1965.1.1.1"
+				traits = {
+					green_death
+				}
+			}
+		}
+		hidden_effect = {
+			set_country_flag = POL_Firewatch_government_flag
+			if = {
+				limit = {
+					has_country_flag = POL_Sanacja_show_initial_flag
+				}
+				clr_country_flag = POL_Sanacja_show_initial_flag
+			}
+			if = {
+				limit = {
+					has_country_flag = POL_Endecja_government_flag
+				}
+				clr_country_flag = POL_Endecja_government_flag
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = {
+	### BMN join the goverment?
+	id = poland_hof.68
+	title = poland_hof.68.t
+	desc = poland_hof.68.d
+	# picture = GFX_report_event_pol_bmn
+	is_triggered_only = yes
+	option = {
+		### Join Coliation
+		name = poland_hof.68.a
+		add_political_power = 25
+		add_ideas = {
+			BMN_idea
+		}
+		hidden_effect = {
+			set_country_flag = POL_BMN_join_the_government_flag
+		}
+	}
+	option = {
+		### We could be without them
+		name = poland_hof.68.b
+		add_political_power = -50
+	}
+}
+
+country_event = {
+	### PSL Election 
+	id = poland_hof.69
+	title = poland_hof.69.t
+	desc = poland_hof.69.d
+	picture = GFX_report_event_pol_election_psl
+	is_triggered_only = yes
+	trigger = {
+		has_government = democratic
+		is_subject = no
+	}
+	option = {
+		### Keep Sona as president
+		name = poland_hof.69.a
+		add_political_power = 25
+	}
+	option = {
+		### Let Valentine become president
+		name = poland_hof.69.b
+		remove_country_leader_role = {
+			character = POL_sona_flametail
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_justyna_valentine
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {
+					Flexible_Assault_Leader
+				}
+			}
+		}
+	}
+	option = {
+		### Let Firewatch from BMN become president
+		name = poland_hof.69.c
+		trigger = {
+			has_country_flag = POL_Firewatch_refused_to_testify_flag
+			has_country_flag = POL_BMN_join_the_government_flag
+		}
+		remove_country_leader_role = {
+			character = POL_sona_flametail
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_firewatcher
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {
+					green_death
+				}
+			}
+		}
+	}
+	option = {
+		### Let Centaurea become president
+		name = poland_hof.69.e
+		trigger = {
+			has_country_flag = POL_Centaurea_captured_PSL
+		}
+		remove_country_leader_role = {
+			character = POL_sona_flametail
+			ideology = liberalism
+		}
+		add_country_leader_role = {
+			character = POL_platinum
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {
+					Cold_Blooded_agent
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	### PPS Election 
+	id = poland_hof.70
+	title = poland_hof.70.t
+	desc = poland_hof.70.d
+	picture = GFX_report_event_pol_election_pps
+	is_triggered_only = yes
+	trigger = {
+		has_government = democratic
+		is_subject = no
+	}
+	option = {
+		### Keep Kaminska as president
+		name = poland_hof.70.a
+		add_political_power = 25
+	}
+	option = {
+		### Let Krukowska become president
+		name = poland_hof.70.b
+		trigger = {
+			has_completed_focus = POL_Socialist_consolidate_Farmer_Labour_alliance
+		}
+		remove_country_leader_role = {
+			character = POL_natalia_kaminska
+			ideology = socialism
+		}
+		add_country_leader_role = {
+			character = POL_iwona_krukowska
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = {
+					Coercive_Charge_Leader
+				}
+			}
+		}
+	}
+	option = {
+		### Let Meteorite from Bund become president
+		name = poland_hof.70.c
+		trigger = {
+			has_country_flag = POL_Firewatch_refused_to_testify_flag
+			OR = {
+				has_country_flag = POL_BMN_join_the_government_flag
+				has_country_flag = POL_Centrolew_Cooperate_with_BUND
+			}
+		}
+		remove_country_leader_role = {
+			character = POL_natalia_kaminska
+			ideology = socialism
+		}
+		add_country_leader_role = {
+			character = POL_meteorite
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = {
+					Former_Freelancer
+				}
+			}
+		}
+	}
+	option = {
+		### Let Centaurea become president
+		name = poland_hof.70.e
+		trigger = {
+			has_country_flag = POL_Centaurea_captured_PPS
+		}
+		remove_country_leader_role = {
+			character = POL_natalia_kaminska
+			ideology = socialism
+		}
+		add_country_leader_role = {
+			character = POL_platinum
+			promote_leader = yes
+			country_leader = {
+				ideology = socialism
+				expire = "1965.1.1.1"
+				traits = {
+					Cold_Blooded_agent
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = poland_diplo.1
+	title = poland_diplo.1.t
+	desc = poland_diplo.1.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.1.a
+		#同意
+		ai_chance = {
+			base = 100
+		}
+		## 互不侵犯
+		set_global_flag = RUS_POL_rapprochement_flag
+		diplomatic_relation = {
+			country = POL
+			relation = non_aggression_pact
+			active = yes
+		}
+		add_opinion_modifier = {
+			target = POL
+			modifier = POL_anti_germans_abroad
+		}
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = POL_anti_germans_abroad
+		}
+		FROM = {
+			country_event = {
+				id = poland_diplo.6
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = poland_diplo.1.b
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 对德外交转向 德国触发
+	id = poland_diplo.2
+	title = poland_diplo.2.t
+	desc = poland_diplo.2.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.2.a
+		#同意
+		ai_chance = {
+			base = 10
+		}
+		## 互不侵犯
+		set_global_flag = GER_POL_rapprochement_flag
+		unlock_decision_tooltip = POL_join_germany_faction_hof
+		# 解锁一个加入德国阵营的决议
+		# 德国同意（概率10）和德国关系加，互不侵犯条约签署，
+		add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		diplomatic_relation = {
+			country = POL
+			relation = non_aggression_pact
+			active = yes
+		}
+	}
+	option = {
+		name = poland_diplo.2.b
+		# 向波兰索要波兹南
+		ai_chance = {
+			base = 90
+		}
+		POL = {
+			country_event = poland_diplo.3
+		}
+	}
+	option = {
+		name = poland_diplo.2.c
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 波兰：德国索取波兹南
+	id = poland_diplo.3
+	title = poland_diplo.3.t
+	desc = poland_diplo.3.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.3.a
+		#同意 
+		ai_chance = {
+			base = 100
+		}
+		GER = {
+			country_event = poland_diplo.4
+		}
+	}
+	option = {
+		name = poland_diplo.3.b
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 德国：波兰同意交出波兹南
+	id = poland_diplo.4
+	title = poland_diplo.4.t
+	desc = poland_diplo.4.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.4.a
+		#同意 互不侵犯
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 86
+		add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = ger_pol_diplomacy_focus
+		}
+		diplomatic_relation = {
+			country = POL
+			relation = non_aggression_pact
+			active = yes
+		}
+		POL = {
+			country_event = poland_diplo.5
+		}
+		set_global_flag = GER_POL_rapprochement_flag
+		unlock_decision_tooltip = POL_join_germany_faction_hof
+		# 解锁一个加入德国阵营的决议
+		# 德国同意（概率10）和德国关系加，互不侵犯条约签署，
+		## 互不侵犯
+	}
+	option = {
+		name = poland_diplo.3.b
+		#拒绝
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = {
+	# 波兰收到德国同意的消息
+	id = poland_diplo.5
+	title = poland_diplo.5.t
+	desc = poland_diplo.5.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.5.b
+		unlock_decision_tooltip = POL_join_germany_faction_hof
+		#好的
+	}
+}
+
+country_event = {
+	# 波兰收到俄国同意的消息（互不侵犯
+	id = poland_diplo.6
+	title = poland_diplo.6.t
+	desc = poland_diplo.6.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.6.b
+		#好的
+	}
+}
+
+country_event = {
+	##日本：波兰人来要饭了
+	id = poland_diplo.7
+	title = poland_diplo.7.t
+	desc = poland_diplo.7.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.7.a
+		#同意 
+		ai_chance = {
+			base = 100
+		}
+		POL = {
+			country_event = poland_diplo.8
+			effect_tooltip = {
+				add_tech_bonus = {
+					name = JAP_support_to_POL
+					bonus = 1
+					uses = 1
+					category = infantry_weapons
+				}
+				add_doctrine_cost_reduction = {
+					name = JAP_support_to_POL
+					cost_reduction = 0.5
+					uses = 1
+					category = land_doctrine
+				}
+			}
+		}
+		add_tech_bonus = {
+			name = JAP_support_to_POL
+			bonus = 0.5
+			uses = 1
+			category = cat_mechanized_equipment
+		}
+		add_tech_bonus = {
+			name = JAP_support_to_POL
+			bonus = 0.75
+			ahead_reduction = 0.5
+			uses = 1
+			category = synth_resources
+		}
+	}
+	option = {
+		name = poland_diplo.7.b
+		#你好 谢谢 小笼包 再见 
+		ai_chance = {
+			base = 0
+		}
+		POL = {
+			country_event = poland_diplo.9
+		}
+	}
+}
+
+country_event = {
+	# 波兰收到日本同意的消息
+	id = poland_diplo.8
+	title = poland_diplo.8.t
+	desc = poland_diplo.8.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.8.a
+		##
+		add_tech_bonus = {
+			name = JAP_support_to_POL
+			bonus = 1
+			uses = 1
+			category = infantry_weapons
+		}
+		add_doctrine_cost_reduction = {
+			name = JAP_support_to_POL
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+
+country_event = {
+	# 波兰收到日本拒绝的消息
+	id = poland_diplo.9
+	title = poland_diplo.9.t
+	desc = poland_diplo.9.d
+	# picture = 
+	is_triggered_only = yes
+	option = {
+		name = poland_diplo.9.a
+		#唉 日本
+	}
+}
+
+country_event = {
+	id = poland_ai_cheating.1001
+	title = poland_ai_cheating.1001.t
+	desc = poland_ai_cheating.1001.d
+	picture = GFX_report_event_polish_tanks_01
+	trigger = {
+		tag = POL
+		is_ai = yes
+		is_subject = no
+		has_capitulated = no
+		date > 1937.3.1
+	}
+	fire_only_once = yes
+	option = {
+		#### 
+		name = poland_hof.1001.a
+		add_state_core = 94
+		add_state_core = 95
+		add_state_core = 96
+	}
+}
+
+country_event = {
+	id = poland_ai_cheating.1002
+	title = poland_ai_cheating.1002.t
+	desc = poland_ai_cheating.1002.d
+	picture = GFX_report_event_polish_tanks_01
+	trigger = {
+		tag = POL
+		is_ai = yes
+		is_subject = no
+		has_capitulated = no
+		date > 1938.3.1
+	}
+	fire_only_once = yes
+	option = {
+		#### 
+		name = poland_hof.1002.a
+		add_state_core = 93
+	}
+}
+
+country_event = {
+	id = poland_ai_cheating.1003
+	title = poland_ai_cheating.1003.t
+	desc = poland_ai_cheating.1003.d
+	picture = GFX_report_event_polish_tanks_01
+	trigger = {
+		tag = POL
+		is_ai = yes
+		is_subject = no
+		has_capitulated = no
+		date > 1939.3.1
+	}
+	fire_only_once = yes
+	option = {
+		#### 
+		name = poland_hof.1003.a
+		add_state_core = 89
+		add_state_core = 91
+	}
+}
+
+###########################
+# Polish Events by 瑞典猪
+###########################
+add_namespace = poland
+# Eastward Expansion (Danzig Ceded)
+country_event = {
+	id = poland.1
+	title = poland.1.t
+	desc = poland.1.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.1.a
+		ai_chance = {
+			factor = 10
+		}
+		add_ideas = fascist_influence
+		add_state_claim = 198
+		add_state_claim = 199
+		add_state_claim = 201
+	}
+	option = {
+		name = poland.1.b
+		ai_chance = {
+			factor = 10
+		}
+		add_opinion_modifier = {
+			target = SOV
+			modifier = medium_increase
+		}
+	}
+}
+
+# Soviet Union Demands the East
+country_event = {
+	id = poland.2
+	title = poland.2.t
+	desc = poland.2.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.2.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				OR = {
+					any_other_country = {
+						is_major = yes
+						OR = {
+							is_in_faction_with = POL
+							has_guaranteed = POL
+						}
+					}
+					has_idea = anti_soviet_pact
+				}
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				if = {
+					limit = {
+						POL = {
+							owns_state = 96
+							controls_state = 96
+						}
+					}
+					transfer_state = 96
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 95
+							controls_state = 95
+						}
+					}
+					transfer_state = 95
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 94
+							controls_state = 94
+						}
+					}
+					transfer_state = 94
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 93
+							controls_state = 93
+						}
+					}
+					transfer_state = 93
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 91
+							controls_state = 91
+						}
+					}
+					transfer_state = 91
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 89
+							controls_state = 89
+						}
+					}
+					transfer_state = 89
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 97
+							controls_state = 97
+						}
+					}
+					transfer_state = 97
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 784
+							controls_state = 784
+						}
+					}
+					transfer_state = 784
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland.3
+			}
+		}
+	}
+	option = {
+		name = poland.2.b
+		ai_chance = {
+			factor = 70
+		}
+		effect_tooltip = {
+			FROM = {
+				create_wargoal = {
+					type = take_state_focus
+					target = POL
+					generator = {
+						96
+						95
+						94
+						93
+						91
+						89
+						97
+						784
+					}
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland.4
+			}
+		}
+	}
+}
+
+# Poland Cedes the East
+country_event = {
+	id = poland.3
+	title = poland.3.t
+	desc = poland.3.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.3.a
+		if = {
+			limit = {
+				POL = {
+					owns_state = 96
+					controls_state = 96
+				}
+			}
+			transfer_state = 96
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 95
+					controls_state = 95
+				}
+			}
+			transfer_state = 95
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 94
+					controls_state = 94
+				}
+			}
+			transfer_state = 94
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 93
+					controls_state = 93
+				}
+			}
+			transfer_state = 93
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 91
+					controls_state = 91
+				}
+			}
+			transfer_state = 91
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 89
+					controls_state = 89
+				}
+			}
+			transfer_state = 89
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 97
+					controls_state = 97
+				}
+			}
+			transfer_state = 97
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 784
+					controls_state = 784
+				}
+			}
+			transfer_state = 784
+		}
+		hidden_effect = {
+			news_event = {
+				id = news.194
+			}
+		}
+	}
+}
+
+# Poland Refuses to Cede the East
+country_event = {
+	id = poland.4
+	title = poland.4.t
+	desc = poland.4.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.4.a
+		create_wargoal = {
+			type = take_state_focus
+			target = POL
+			generator = {
+				96
+				95
+				94
+				93
+				91
+				89
+				784
+			}
+		}
+	}
+}
+
+# Soviet Union Offers Protection
+country_event = {
+	id = poland.5
+	title = poland.5.t
+	desc = poland.5.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.5.a
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0
+				is_subject = yes
+				NOT = {
+					is_subject_of = FROM
+				}
+			}
+		}
+		effect_tooltip = {
+			add_state_claim = 5
+			add_state_claim = 63
+			add_state_claim = 68
+			add_state_claim = 66
+			add_state_claim = 67
+			custom_effect_tooltip = SOV_offer_poland_protection_tt
+			FROM = {
+				if = {
+					limit = {
+						POL = {
+							owns_state = 96
+							controls_state = 96
+						}
+					}
+					transfer_state = 96
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 95
+							controls_state = 95
+						}
+					}
+					transfer_state = 95
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 94
+							controls_state = 94
+						}
+					}
+					transfer_state = 94
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 93
+							controls_state = 93
+						}
+					}
+					transfer_state = 93
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 91
+							controls_state = 91
+						}
+					}
+					transfer_state = 91
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 89
+							controls_state = 89
+						}
+					}
+					transfer_state = 89
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 784
+							controls_state = 784
+						}
+					}
+					transfer_state = 784
+				}
+			}
+		}
+		hidden_effect = {
+			#SOV and POL more keen on cooperation
+			add_ai_strategy = {
+				type = alliance
+				id = FROM
+				value = 10
+			}
+			add_ai_strategy = {
+				type = befriend
+				id = FROM
+				value = 5
+			}
+			FROM = {
+				add_ai_strategy = {
+					type = alliance
+					id = ROOT
+					value = 10
+				}
+				add_ai_strategy = {
+					type = befriend
+					id = ROOT
+					value = 5
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland.6
+			}
+		}
+	}
+	option = {
+		name = poland.5.b
+		ai_chance = {
+			base = 60
+			modifier = {
+				factor = 0
+				is_in_faction_with = FROM
+				OR = {
+					is_subject = no
+					is_subject_of = FROM
+				}
+				is_faction_leader = no
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				create_wargoal = {
+					type = take_state_focus
+					target = POL
+					generator = {
+						96
+						95
+						94
+						93
+						91
+						89
+						784
+					}
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland.7
+			}
+		}
+	}
+}
+
+# Poland Accepts Protection
+country_event = {
+	id = poland.6
+	title = poland.6.t
+	desc = poland.6.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.6.a
+		POL = {
+			add_state_claim = 5
+			add_state_claim = 63
+			add_state_claim = 68
+			add_state_claim = 66
+			add_state_claim = 67
+			set_country_flag = POL_accepted_soviet_protection
+		}
+		custom_effect_tooltip = SOV_offer_poland_protection_tt
+		if = {
+			limit = {
+				POL = {
+					owns_state = 96
+				}
+			}
+			transfer_state = 96
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 95
+				}
+			}
+			transfer_state = 95
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 94
+				}
+			}
+			transfer_state = 94
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 93
+				}
+			}
+			transfer_state = 93
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 91
+				}
+			}
+			transfer_state = 91
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 89
+				}
+			}
+			transfer_state = 89
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 784
+				}
+			}
+			transfer_state = 784
+		}
+		hidden_effect = {
+			news_event = {
+				id = news.194
+			}
+		}
+	}
+}
+
+# Poland Refuses Protection
+country_event = {
+	id = poland.7
+	title = poland.7.t
+	desc = poland.7.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.7.a
+		create_wargoal = {
+			type = take_state_focus
+			target = POL
+			generator = {
+				96
+				95
+				94
+				93
+				91
+				89
+			}
+		}
+	}
+}
+
+# Poland Granted Eastern Germany
+country_event = {
+	id = poland.8
+	title = poland.8.t
+	desc = poland.8.d
+	picture = GFX_report_event_polish_tanks_01
+	trigger = {
+		POL = {
+			has_country_flag = POL_accepted_soviet_protection
+		}
+		tag = POL
+		SOV = {
+			OR = {
+				owns_state = 5
+				owns_state = 63
+				owns_state = 68
+				owns_state = 66
+				owns_state = 67
+			}
+		}
+	}
+	immediate = {
+		clr_country_flag = POL_accepted_soviet_protection
+	}
+	fire_only_once = yes
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = poland.8.a
+		if = {
+			limit = {
+				SOV = {
+					owns_state = 5
+				}
+			}
+			transfer_state = 5
+		}
+		if = {
+			limit = {
+				SOV = {
+					owns_state = 63
+				}
+			}
+			transfer_state = 63
+		}
+		if = {
+			limit = {
+				SOV = {
+					owns_state = 68
+				}
+			}
+			transfer_state = 68
+		}
+		if = {
+			limit = {
+				SOV = {
+					owns_state = 66
+				}
+			}
+			transfer_state = 66
+		}
+		if = {
+			limit = {
+				SOV = {
+					owns_state = 67
+				}
+			}
+			transfer_state = 67
+		}
+		SOV = {
+			country_event = {
+				id = poland.9
+			}
+		}
+	}
+}
+
+country_event = {
+	id = poland.9
+	title = poland.8.t
+	desc = poland.8.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.9.a
+		effect_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						SOV = {
+							owns_state = 5
+						}
+						POL = {
+							owns_state = 5
+						}
+					}
+				}
+				POL = {
+					transfer_state = 5
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = {
+							owns_state = 63
+						}
+						POL = {
+							owns_state = 63
+						}
+					}
+				}
+				POL = {
+					transfer_state = 63
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = {
+							owns_state = 68
+						}
+						POL = {
+							owns_state = 68
+						}
+					}
+				}
+				POL = {
+					transfer_state = 68
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = {
+							owns_state = 66
+						}
+						POL = {
+							owns_state = 66
+						}
+					}
+				}
+				POL = {
+					transfer_state = 66
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = {
+							owns_state = 67
+						}
+						POL = {
+							owns_state = 67
+						}
+					}
+				}
+				POL = {
+					transfer_state = 67
+				}
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = news.195
+			}
+		}
+	}
+}
+
+country_event = {
+	id = poland.10
+	title = poland.10.t
+	desc = poland.10.d
+	picture = GFX_report_event_romania_poland_visit
+	is_triggered_only = yes
+	option = {
+		name = poland.10.a
+	}
+}
+
+country_event = {
+	id = poland.11
+	title = poland.11.t
+	desc = poland.11.d
+	picture = GFX_report_event_polish_tanks_01
+	is_triggered_only = yes
+	option = {
+		name = poland.11.a
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = FROM
+		}
+	}
+}
+
+country_event = {
+	id = poland.12
+	title = poland.12.t
+	desc = poland.12.d
+	picture = GFX_report_event_polish_tanks_01
+	trigger = {
+		tag = POL
+		has_completed_focus = POL_artillery_modernisation
+		has_government = neutrality
+		has_war_with = ITA
+		NOT = {
+			is_in_faction_with = SOV
+		}
+		417 = {
+			controller = {
+				OR = {
+					tag = POL
+					is_in_faction_with = POL
+				}
+				has_war_with = ITA
+			}
+		}
+		OR = {
+			divisions_in_state = {
+				state = 162
+				size > 0
+			}
+			divisions_in_state = {
+				state = 157
+				size > 0
+			}
+			divisions_in_state = {
+				state = 2
+				size > 0
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	fire_only_once = yes
+	option = {
+		name = poland.12.a
+		custom_effect_tooltip = WOJTEK_COMMANDER
+		hidden_effect = {
+			set_country_flag = POL_vojtek_commander
+		}
+	}
+}
+
+#Poland wants to add Romania to the Allies
+country_event = {
+	id = poland.13
+	title = poland.13.t
+	desc = poland.13.d
+	picture = GFX_report_event_romania_poland_visit
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = poland.13.a
+		ai_chance = {
+			factor = 10
+		}
+		event_target:faction_invitee_target = {
+			country_event = {
+				id = poland.1301
+			}
+		}
+	}
+	option = {
+		name = poland.13.b
+		ai_chance = {
+			factor = 0
+		}
+		FROM = {
+			country_event = {
+				id = poland.1302
+			}
+		}
+	}
+}
+
+#Romania recieves invitation to the Allies
+country_event = {
+	id = poland.1301
+	title = poland.1301.t
+	desc = poland.1301.d
+	picture = GFX_report_event_romania_poland_visit
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = poland.1301.a
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 2
+				has_same_ideology = yes
+			}
+		}
+		FROM = {
+			add_to_faction = PREV
+		}
+		add_ai_strategy = {
+			type = alliance
+			id = ROOT
+			value = 200
+		}
+	}
+	option = {
+		name = poland.1301.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				has_opinion = {
+					target = FROM
+					value > 65
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = {
+					target = FROM
+					value > 35
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = {
+					target = FROM
+					value > 5
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < 35
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < 65
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_war = yes
+				FROM = {
+					has_war = no
+				}
+			}
+			modifier = {
+				factor = 0.1
+				FROM = {
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 10
+				FROM = {
+					OR = {
+						is_subject = yes
+						is_in_faction = yes
+					}
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland.1303
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					NOT = {
+						tag = FROM
+					}
+				}
+			}
+			ROOT = {
+				country_event = {
+					id = poland.1303
+				}
+			}
+		}
+	}
+}
+
+#Faction leader says no
+country_event = {
+	id = poland.1302
+	title = poland.1302.t
+	desc = poland.1302.d
+	picture = GFX_report_event_british_inspect_troops
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Sad times
+		name = poland.1302.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+#Romania says no
+country_event = {
+	id = poland.1303
+	title = poland.1303.t
+	desc = poland.1303.d
+	picture = GFX_report_event_romania_poland_visit
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Sad times
+		name = poland.1303.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+#Poland asks for peace
+country_event = {
+	id = poland.14
+	title = LIT_events.2.t
+	desc = LIT_events.2.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Sure!
+		name = LIT_events.2.a
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 2
+				has_same_ideology = yes
+			}
+		}
+		diplomatic_relation = {
+			country = POL
+			relation = guarantee
+			active = yes
+		}
+		POL = {
+			diplomatic_relation = {
+				country = LIT
+				relation = guarantee
+				active = yes
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = {
+					days = 10
+					id = LIT_events.201
+				}
+			}
+		}
+	}
+	option = {
+		#Peace was never an option
+		name = LIT_events.2.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				has_same_ideology = no
+				NOT = {
+					has_government = neutrality
+				}
+			}
+			modifier = {
+				factor = 10
+				has_government = fascism
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = {
+					days = 10
+					id = LIT_events.202
+				}
+			}
+		}
+	}
+}
+
+#Poland demands Lithuanian annexation
+country_event = {
+	id = poland.15
+	title = poland.15.t
+	desc = {
+		text = poland.15.d
+		trigger = {
+			tag = LIT
+		}
+	}
+	desc = {
+		text = poland.15.d.notlit
+		trigger = {
+			NOT = {
+				tag = LIT
+			}
+		}
+	}
+	picture = GFX_report_event_lithuanian_ultimatum
+	is_triggered_only = yes
+	option = {
+		#Sure!
+		name = poland.15.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -25
+				POL = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				is_in_faction_with = POL
+			}
+			modifier = {
+				factor = 0.1
+				is_in_faction = yes
+			}
+		}
+		POL = {
+			country_event = {
+				hours = 2
+				id = poland.1501
+			}
+		}
+		custom_effect_tooltip = GAME_OVER_TT
+	}
+	option = {
+		#No thank you
+		name = poland.15.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+				factor = 0.5
+			}
+			modifier = {
+				add = 20
+				POL = {
+					has_army_size = {
+						size < 30
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = POL
+				}
+			}
+			modifier = {
+				any_other_country = {
+					has_guaranteed = LIT
+				}
+				factor = 5				#i've got friends
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					has_guaranteed = LIT
+				}
+				factor = 5				#i've got big friends
+			}
+		}
+		POL = {
+			add_opinion_modifier = {
+				target = PREV
+				modifier = POL_annexation_refused
+			}
+			country_event = {
+				hours = 2
+				id = poland.1502
+			}
+			if = {
+				limit = {
+					is_in_faction_with = LIT
+				}
+				remove_from_faction = LIT
+			}
+		}
+	}
+}
+
+#Lithuania says yes
+country_event = {
+	id = poland.1501
+	title = poland.1501.t
+	desc = poland.1501.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		#Awesome!
+		name = poland.1501.a
+		ai_chance = {
+			base = 30
+		}
+		annex_country = {
+			target = FROM
+			transfer_troops = yes
+		}
+		FROM = {
+			every_unit_leader = {
+				limit = {
+					has_unit_leader_flag = POL_monarchy_sympathies_flag
+				}
+				set_nationality = POL
+			}
+		}
+	}
+}
+
+#Lithuania says no
+country_event = {
+	id = poland.1502
+	title = poland.1502.t
+	desc = poland.1502.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		#How 'bout I do anyway
+		name = poland.1502.a
+		ai_chance = {
+			base = 30
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
+		}
+	}
+}
+
+###MIEDZYMORZE###
+country_event = {
+	id = poland.16
+	title = poland.16.t
+	desc = {
+		# FROM and ROOT are Democratic
+		text = generic.5.d.a
+		trigger = {
+			AND = {
+				FROM = {
+					has_government = democratic
+				}
+				has_government = democratic
+			}
+		}
+	}
+	desc = {
+		# FROM and ROOT are Fascist
+		text = generic.5.d.b
+		trigger = {
+			AND = {
+				FROM = {
+					has_government = fascism
+				}
+				has_government = fascism
+			}
+		}
+	}
+	desc = {
+		# FROM and ROOT are Communist
+		text = generic.5.d.c
+		trigger = {
+			AND = {
+				FROM = {
+					has_government = communism
+				}
+				has_government = communism
+			}
+		}
+	}
+	desc = {
+		# FROM and ROOT are different ideologies
+		text = generic.5.d.e
+		trigger = {
+			NOT = {
+				AND = {
+					FROM = {
+						has_government = democratic
+					}
+					has_government = democratic
+				}
+				AND = {
+					FROM = {
+						has_government = fascism
+					}
+					has_government = fascism
+				}
+				AND = {
+					FROM = {
+						has_government = communism
+					}
+					has_government = communism
+				}
+			}
+		}
+	}
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	fire_only_once = no
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = alliance_applicant
+			FROM = {
+				save_event_target_as = alliance_inviter
+			}
+		}
+	}
+	option = {
+		name = poland.16.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				has_same_ideology = yes
+			}
+			modifier = {
+				factor = 200
+				original_tag = SPR				#Falangist International focus, Spain should usually say yes
+			}
+			modifier = {
+				factor = 0.25
+				original_tag = SWE
+				FROM = {
+					NOT = {
+						AND = {
+							is_in_faction_with = DEN
+							is_in_faction_with = NOR
+							is_in_faction_with = FIN
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				original_tag = SWE
+				FROM = {
+					is_in_faction_with = DEN
+					is_in_faction_with = NOR
+					is_in_faction_with = FIN
+				}
+			}
+			modifier = {
+				factor = 4
+				has_country_flag = delegation_recieved_flag
+			}
+			modifier = {
+				factor = 0.1
+				NOT = {
+					FROM = {
+						has_government = neutrality
+					}
+				}
+				NOT = {
+					has_government = neutrality
+				}
+				has_same_ideology = no
+			}
+			modifier = {
+				factor = 0.1
+				FROM = {
+					has_government = fascism
+				}
+				has_same_ideology = no
+			}
+			modifier = {
+				factor = 0.001
+				original_tag = ITA
+				has_government = fascism
+				has_same_ideology = no
+			}
+		}
+		hidden_effect = {
+			set_country_flag = alliance_applicant@ROOT
+			FROM = {
+				set_country_flag = alliance_inviter@ROOT
+			}
+		}
+		FROM = {
+			add_to_faction = PREV
+			country_event = {
+				id = generic.6
+				hours = 6
+			}
+			add_ai_strategy = {
+				type = alliance
+				id = FROM
+				value = 200
+			}
+		}
+		add_ai_strategy = {
+			type = alliance
+			id = POL
+			value = 200
+		}
+		if = {
+			limit = {
+				original_tag = SPR
+			}
+			hidden_effect = {
+				news_event = {
+					id = news.289
+					hours = 12
+				}
+			}
+		}
+	}
+	option = {
+		name = poland.16.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 200
+				original_tag = ITA
+				has_government = fascism
+				has_same_ideology = no
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					has_government = fascism
+				}
+				has_same_ideology = no
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					FROM = {
+						has_government = neutrality
+					}
+				}
+				NOT = {
+					has_government = neutrality
+				}
+				has_same_ideology = no
+			}
+			modifier = {
+				add = -5
+				has_opinion = {
+					target = FROM
+					value > 65
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < 35
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < 65
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_war = yes
+				FROM = {
+					has_war = no
+				}
+			}
+			modifier = {
+				factor = 0.1
+				FROM = {
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 10
+				FROM = {
+					OR = {
+						is_subject = yes
+						is_in_faction = yes
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			set_country_flag = rejected_miedzymorze_flag
+		}
+		FROM = {
+			country_event = {
+				id = poland.1602
+			}
+		}
+	}
+}
+
+country_event = {
+	id = poland.1602
+	title = poland.11.t
+	desc = poland.11.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = poland.11.a
+	}
+}
+
+country_event = {
+	id = poland.19
+	title = poland.19.t
+	desc = poland.19.d
+	picture = GFX_report_event_poland_funeral
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = poland.19.a
+		ai_chance = {
+			factor = 50
+		}
+		add_stability = -0.2
+		add_war_support = -0.1
+		POL_sanation_left_opposition_remove = yes
+		set_country_flag = walery_slawek_is_dead
+	}
+}
+
+country_event = {
+	id = poland.20
+	title = poland.20.t
+	desc = {
+		# Four Year Plan went poorly
+		text = poland.20.desc.a
+		trigger = {
+			check_variable = {
+				POL_investments_var < 6
+			}
+		}
+	}
+	desc = {
+		# Four Year Plan went okay
+		text = poland.20.desc.b
+		trigger = {
+			check_variable = {
+				POL_investments_var < 14
+			}
+			check_variable = {
+				POL_investments_var > 5
+			}
+		}
+	}
+	desc = {
+		# Four Year Plan went well
+		text = poland.20.desc.c
+		trigger = {
+			check_variable = {
+				POL_investments_var > 15
+			}
+		}
+	}
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = poland.20.a
+		trigger = {
+			check_variable = {
+				POL_investments_var < 6
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_timed_idea = {
+			idea = POL_four_year_plan_complete_1
+			days = 1460
+		}
+	}
+	option = {
+		name = poland.20.b
+		trigger = {
+			check_variable = {
+				POL_investments_var < 11
+			}
+			check_variable = {
+				POL_investments_var > 5
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_timed_idea = {
+			idea = POL_four_year_plan_complete_2
+			days = 1460
+		}
+	}
+	option = {
+		name = poland.20.c
+		trigger = {
+			check_variable = {
+				POL_investments_var < 14
+			}
+			check_variable = {
+				POL_investments_var > 10
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_timed_idea = {
+			idea = POL_four_year_plan_complete_3
+			days = 1460
+		}
+	}
+	option = {
+		name = poland.20.d
+		trigger = {
+			#has_completed_focus = POL_complete_the_plan
+			check_variable = {
+				POL_investments_var > 15
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_timed_idea = {
+			idea = POL_four_year_plan_complete_4
+			days = 1460
+		}
+	}
+	option = {
+		name = poland.20.e
+		trigger = {
+			#NOT = { #has_completed_focus = POL_complete_the_plan }
+			check_variable = {
+				POL_investments_var > 9
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_timed_idea = {
+			idea = POL_four_year_plan_complete_1
+			days = 1460
+		}
+	}
+	option = {
+		name = poland.20.f
+		trigger = {
+			#NOT = { #has_completed_focus = POL_complete_the_plan }
+			check_variable = {
+				POL_investments_var < 10
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_timed_idea = {
+			idea = POL_four_year_plan_complete_bad
+			days = 730
+		}
+	}
+}
+
+state_event = {
+	#Event for Polish sabotage
+	id = poland.23
+	title = poland.23.t
+	desc = poland.23.d
+	picture = GFX_report_event_generic_battle
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_state = {
+				limit = {
+					NOT = {
+						has_state_flag = already_sabotaged_flag
+					}
+					has_state_flag = poland_state_withdrawn
+				}
+				clr_state_flag = poland_state_withdrawn
+				save_event_target_as = poland_state_withdrawn
+			}
+			event_target:poland_state_withdrawn = {
+				damage_building = {
+					type = industrial_complex
+					damage = 2.5
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 2.5
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 2.5
+				}
+				set_state_flag = already_sabotaged_flag
+			}
+		}
+	}
+	# Hey! That's a Russian tactic, you bastards!
+	option = {
+		name = poland.23.a
+		effect_tooltip = {
+			event_target:poland_state_withdrawn = {
+				damage_building = {
+					type = industrial_complex
+					damage = 2.5
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 2.5
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 2.5
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	#Event to alert Germany/Soviets of Warsaw Uprising potentially happening
+	id = poland.26
+	title = poland.26.t
+	desc = poland.26.d
+	picture = GFX_report_event_french_resistance_02
+	is_triggered_only = yes
+	option = {
+		name = poland.26.a
+		ai_chance = {
+			factor = 50
+		}
+		custom_effect_tooltip = POL_keep_resistance_low_tt
+	}
+}
+
+###########################
+# Polish Events old
+###########################
+
+add_namespace = poland_old
+
+country_event = {
+	id = poland_old.13
+	title = poland_old.13.t
+	desc = poland_old.13.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		tag = POL
+		or = {
+			date > 1937.6.1
+			threat > 0.25
+		}
+		has_government = democratic
+		has_war = no
+		always = no  ### Obsoleted
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = poland_old.13.a
+
+      add_political_power = 50
+
+		set_country_flag = {
+          flag = POL_support_democratic
+          value = 0
+        }
+
+		set_country_flag = {
+          flag = POL_support_Sanacja
+          value = 0
+        }
+
+			hidden_effect = {
+            country_event = { id = poland_old.14 hours = 1 } 
+			}
+
+	}
+
+}
+
+country_event = { #少民问题
+	id = poland_old.14
+	title = poland_old.14.t
+	desc = poland_old.14.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.14.a
+
+      add_political_power = 25
+
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+
+		modify_country_flag = {
+			flag = POL_support_democratic
+			value = 1
+		}
+
+			hidden_effect = {
+            country_event = { id = poland_old.15 hours = 1 } 
+			}
+
+	}
+
+	option = {
+		name = poland_old.14.b
+
+      add_political_power = -25
+
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+
+		modify_country_flag = {
+			flag = POL_support_Sanacja
+			value = 1
+		}
+
+			hidden_effect = {
+            country_event = { id = poland_old.15 hours = 1 } 
+			}
+
+	}
+
+}
+
+country_event = { #对外政策
+	id = poland_old.15
+	title = poland_old.15.t
+	desc = poland_old.15.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.15.a
+
+      add_political_power = -25
+
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+
+		modify_country_flag = {
+			flag = POL_support_democratic
+			value = 1
+		}
+
+			hidden_effect = {
+            country_event = { id = poland_old.16 hours = 1 } 
+			}
+
+	}
+
+	option = {
+		name = poland_old.15.b
+
+      add_political_power = 25
+
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+
+		modify_country_flag = {
+			flag = POL_support_Sanacja
+			value = 1
+		}
+
+			hidden_effect = {
+            country_event = { id = poland_old.16 hours = 1 } 
+			}
+
+	}
+
+}
+
+country_event = { #民主存续
+	id = poland_old.16
+	title = poland_old.16.t
+	desc = poland_old.16.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.16.a
+
+
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+
+		modify_country_flag = {
+			flag = POL_support_democratic
+			value = 1
+		}
+
+			hidden_effect = {
+            country_event = { id = poland_old.17 hours = 24 } 
+			}
+
+	}
+
+	option = {
+		name = poland_old.16.b
+
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+
+		modify_country_flag = {
+			flag = POL_support_Sanacja
+			value = 1
+		}
+
+			hidden_effect = {
+            country_event = { id = poland_old.17 hours = 24 } 
+			}
+
+	}
+
+}
+
+country_event = { #最终结果
+	id = poland_old.17
+	title = poland_old.17.t
+	desc = poland_old.17.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.17.a
+
+
+			if = {
+				limit = {
+
+          has_country_flag = {
+            flag = POL_support_democratic
+            value > 1
+          }
+
+				}
+
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+
+			hidden_effect = {
+            country_event = { id = poland_old.35 hours = 24 } 
+			}
+
+			}
+
+			if = {
+				limit = {
+
+          has_country_flag = {
+            flag = POL_support_Sanacja
+            value > 1
+          }
+
+				}
+
+          set_country_flag = POL_Stable_regime 
+
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+
+        set_politics = {
+          ruling_party = neutrality
+        }  
+
+			}
+
+	}
+
+
+}
+
+country_event = { #萨纳奇政变？
+	id = poland_old.35
+	title = poland_old.35.t
+	desc = poland_old.35.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.35.a
+
+		ai_chance = {
+			base = 50
+		}
+
+            country_event = { id = poland_old.32 hours = 24 } 
+
+	}
+
+	option = {
+		name = poland_old.35.b
+
+		ai_chance = {
+			base = 50
+		}
+
+          set_country_flag = POL_Stable_regime 
+
+	}
+
+}
+
+country_event = { #萨纳奇政变
+	id = poland_old.32
+	title = poland_old.32.t
+	desc = poland_old.32.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.32.a
+
+		ai_chance = {
+			base = 75
+		}
+
+          set_country_flag = POL_Stable_regime 
+
+            kill_country_leader = yes
+
+        remove_unit_leader = 2003
+        remove_unit_leader = 2004
+
+
+create_country_leader = {
+	name = "Sanacja"
+	desc = "DESC_Sanacja"
+    picture = "gfx/leaders/POL/POL_Sanacja.dds"
+	expire = "1965.1.1"
+	ideology = stratocracy
+	traits = {
+		#
+	}
+}
+
+      add_ideas = POL_authoritarianism_focus
+
+      add_political_power = -100
+
+		add_stability = -0.10
+
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.30
+		}
+
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.10
+		}
+
+        set_politics = {
+          ruling_party = neutrality
+        }  
+
+	}
+
+	option = {
+		name = poland_old.32.b
+
+		ai_chance = {
+			base = 25
+		}
+
+          set_country_flag = POL_Stable_regime 
+
+          set_country_flag = POL_smigly_NOT
+
+        remove_unit_leader = 2000
+        remove_unit_leader = 2001
+        remove_unit_leader = 2002
+
+        add_political_power = 50
+
+		add_stability = 0.05
+
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.20
+		}
+
+	}
+
+}
+
+country_event = { #索要马达加斯加
+	id = poland_old.18
+	title = poland_old.18.t
+	desc = poland_old.18.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.18.a
+
+		ai_chance = {
+			base = 99
+		}
+
+			POL = {
+            country_event = { id = poland_old.19 hours = 24 } 
+			}
+
+
+	}
+
+	option = {
+		name = poland_old.18.b
+
+		ai_chance = {
+			base = 1
+		}
+
+      add_political_power = -100
+
+			POL = {
+            country_event = { id = poland_old.20 hours = 24 } 
+			}
+
+
+	}
+
+}
+
+country_event = { #给
+	id = poland_old.19
+	title = poland_old.19.t
+	desc = poland_old.19.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.19.a
+
+      add_political_power = 100
+
+		reverse_add_opinion_modifier = { target = FRA modifier = FRA_Transfer_Madagascar_op }
+        add_opinion_modifier = { target = FRA modifier = FRA_Transfer_Madagascar_op }
+
+							add_ideas = POL_poland_Osadnictwo_idea
+
+			transfer_state = 708
+			transfer_state = 543 
+			transfer_state = 706 
+			transfer_state = 713
+
+	}
+
+
+}
+
+country_event = { #不给
+	id = poland_old.20
+	title = poland_old.20.t
+	desc = poland_old.20.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.20.a
+
+		reverse_add_opinion_modifier = { target = FRA modifier = FRA_ref_Transfer_Madagascar_op }
+        add_opinion_modifier = { target = FRA modifier = FRA_ref_Transfer_Madagascar_op }
+
+
+	}
+
+
+}
+
+country_event = { #切欣或战争
+	id = poland_old.21
+	title = poland_old.21.t
+	desc = poland_old.21.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.21.a
+
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 2
+        has_government = democratic
+			}
+		}
+
+			POL = {
+            country_event = { id = poland_old.22 hours = 24 } 
+			}
+
+
+	}
+
+	option = {
+		name = poland_old.21.b
+
+		ai_chance = {
+			base = 25
+			modifier = {
+       			has_government = communism
+			}
+			modifier = {
+				factor = 0
+       			has_war = yes
+			}
+		}
+
+			POL = {
+            country_event = { id = poland_old.23 hours = 24 } 
+			}
+
+
+	}
+
+}
+
+country_event = { #CZE认输
+	id = poland_old.22
+	title = poland_old.22.t
+	desc = poland_old.22.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.22.a
+
+			transfer_state = 72
+			add_state_core = 72
+
+	}
+
+
+}
+
+country_event = { #CZE拒绝
+	id = poland_old.23
+	title = poland_old.23.t
+	desc = poland_old.23.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.23.a
+
+				declare_war_on = {
+					target = CZE
+					type = annex_everything
+				}
+
+	}
+
+
+}
+
+country_event = { #隔离线
+	id = poland_old.24
+	title = poland_old.24.t
+	desc = poland_old.24.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.24.a
+
+		ai_chance = {
+			base = 50
+		}
+
+			set_major = yes
+
+			POL = {
+            country_event = { id = poland_old.25 hours = 24 } 
+			}
+
+
+	}
+
+	option = {
+		name = poland_old.24.b
+
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+                has_war = yes
+			}
+		}
+
+			POL = {
+            country_event = { id = poland_old.26 hours = 24 } 
+			}
+
+
+	}
+
+}
+
+country_event = { #ROM同意
+	id = poland_old.25
+	title = poland_old.25.t
+	desc = poland_old.25.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.25.a
+
+			add_to_faction = ROM
+
+	}
+
+
+}
+
+country_event = { #ROM拒绝
+	id = poland_old.26
+	title = poland_old.26.t
+	desc = poland_old.26.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.26.a
+
+	}
+
+
+}
+
+country_event = { #POL的领土交换协议
+	id = poland_old.27
+	title = poland_old.27.t
+	desc = poland_old.27.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.27.a
+
+		ai_chance = {
+			base = 99
+		}
+
+			transfer_state = 86
+			transfer_state = 188
+			transfer_state = 762
+
+			POL = {
+            country_event = { id = poland_old.28 hours = 24 } 
+			}
+
+
+	}
+
+	option = {
+		name = poland_old.27.b
+
+		ai_chance = {
+			base = 1
+		}
+
+			POL = {
+            country_event = { id = poland_old.29 hours = 24 } 
+			}
+
+
+	}
+
+}
+
+country_event = { #GER同意
+	id = poland_old.28
+	title = poland_old.28.t
+	desc = poland_old.28.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.28.a
+
+        add_political_power = -100
+
+		add_stability = -0.05
+
+		set_global_flag = GER_POL_Territorial_exchange_pact
+
+        remove_state_core = 85
+        remove_state_core = 5
+        remove_state_core = 763
+
+        remove_state_core = 86
+        remove_state_core = 188
+        remove_state_core = 762
+
+			GER = {
+			add_to_faction = POL
+			}
+
+	}
+
+
+}
+
+country_event = { #GER拒绝
+	id = poland_old.29
+	title = poland_old.29.t
+	desc = poland_old.29.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.29.a
+		add_political_power = -100
+		add_ideas = POL_polish_revanchism_focus
+		set_rule = {
+			can_create_factions = yes
+		}
+		create_faction = miedzymorze_faction
+		hidden_effect = {
+			news_event = {
+				hours = 6
+				id = news.214
+			}
+		}
+
+	}
+
+
+}
+
+country_event = { #转让斯洛伐克
+	id = poland_old.30
+	title = poland_old.30.t
+	desc = poland_old.30.d
+	picture = GFX_report_event_german_troops
+	
+	fire_only_once = yes
+
+	trigger = {
+		always = no
+		tag = GER
+		is_subject = no
+		POL = { exists = yes }
+        POL = { is_subject = no }
+		NOT =  { has_war_with = POL }
+		has_global_flag = GER_POL_Territorial_exchange_pact
+
+				OR = {
+					POL = { owns_state = 72 }
+					GER = { owns_state = 72 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 72
+					}
+				}
+				OR = {
+					POL = { owns_state = 70 }
+					GER = { owns_state = 70 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 70
+					}
+				}
+				OR = {
+					POL = { owns_state = 664 }
+					GER = { owns_state = 664 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 664
+					}
+				}
+				OR = {
+					POL = { owns_state = 71 }
+					GER = { owns_state = 71 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 71
+					}
+				}
+				OR = {
+					POL = { owns_state = 73 }
+					GER = { owns_state = 73 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 73
+					}
+				}
+
+
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+	}
+	
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		name = poland_old.30.a
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 72 } }
+			}
+			POL = { transfer_state = 72 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 70 } }
+			}
+			POL = { transfer_state = 70 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 664 } }
+			}
+			POL = { transfer_state = 664 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 71 } }
+			}
+			POL = { transfer_state = 71 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 73 } }
+			}
+			POL = { transfer_state = 73 }
+		}
+
+	}
+
+}
+
+country_event = { #转让波兰的东方宣称
+	id = poland_old.31
+	title = poland_old.31.t
+	desc = poland_old.31.d
+	picture = GFX_report_event_german_troops
+	
+	fire_only_once = yes
+
+	trigger = {
+		tag = GER
+		is_subject = no
+		POL = { exists = yes }
+        POL = { is_subject = no }
+		NOT =  { has_war_with = POL }
+		has_global_flag = GER_POL_Territorial_exchange_pact
+
+				OR = {
+					POL = { owns_state = 190 }
+					GER = { owns_state = 190 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 190
+					}
+				}
+				OR = {
+					POL = { owns_state = 12 }
+					GER = { owns_state = 12 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 12
+					}
+				}
+				OR = {
+					POL = { owns_state = 207 }
+					GER = { owns_state = 207 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 207
+					}
+				}
+				OR = {
+					POL = { owns_state = 242 }
+					GER = { owns_state = 242 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 242
+					}
+				}
+				OR = {
+					POL = { owns_state = 206 }
+					GER = { owns_state = 206 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 206
+					}
+				}
+				OR = {
+					POL = { owns_state = 241 }
+					GER = { owns_state = 241 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 241
+					}
+				}
+				OR = {
+					POL = { owns_state = 243 }
+					GER = { owns_state = 243 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 243
+					}
+				}
+				OR = {
+					POL = { owns_state = 204 }
+					GER = { owns_state = 204 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 204
+					}
+				}
+				OR = {
+					POL = { owns_state = 194 }
+					GER = { owns_state = 194 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 194
+					}
+				}
+				OR = {
+					POL = { owns_state = 201 }
+					GER = { owns_state = 201 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 201
+					}
+				}
+				OR = {
+					POL = { owns_state = 199 }
+					GER = { owns_state = 199 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 199
+					}
+				}
+				OR = {
+					POL = { owns_state = 198 }
+					GER = { owns_state = 198 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 198
+					}
+				}
+				OR = {
+					POL = { owns_state = 202 }
+					GER = { owns_state = 202 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 202
+					}
+				}
+				OR = {
+					POL = { owns_state = 203 }
+					GER = { owns_state = 203 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 203
+					}
+				}
+				OR = {
+					POL = { owns_state = 193 }
+					GER = { owns_state = 193 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 193
+					}
+				}
+				OR = {
+					POL = { owns_state = 259 }
+					GER = { owns_state = 259 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 259
+					}
+				}
+				OR = {
+					POL = { owns_state = 762 }
+					GER = { owns_state = 762 }
+					any_other_country = {
+						is_in_faction_with = GER
+						owns_state = 762
+					}
+				}
+
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+	}
+	
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		name = poland_old.31.a
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 190 } }
+			}
+			POL = { transfer_state = 190 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 12 } }
+			}
+			POL = { transfer_state = 12 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 207 } }
+			}
+			POL = { transfer_state = 207 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 242 } }
+			}
+			POL = { transfer_state = 242 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 206 } }
+			}
+			POL = { transfer_state = 206 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 241 } }
+			}
+			POL = { transfer_state = 241 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 243 } }
+			}
+			POL = { transfer_state = 243 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 204 } }
+			}
+			POL = { transfer_state = 204 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 194 } }
+			}
+			POL = { transfer_state = 194 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 201 } }
+			}
+			POL = { transfer_state = 201 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 199 } }
+			}
+			POL = { transfer_state = 199 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 198 } }
+			}
+			POL = { transfer_state = 198 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 202 } }
+			}
+			POL = { transfer_state = 202 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 203 } }
+			}
+			POL = { transfer_state = 203 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 193 } }
+			}
+			POL = { transfer_state = 193 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 259 } }
+			}
+			POL = { transfer_state = 259 }
+		}
+
+		if = {
+			limit = {
+			NOT = { POL = { owns_state = 762 } }
+			}
+			POL = { transfer_state = 762 }
+		}
+
+	}
+
+}
+
+country_event = {
+	id = poland_old.33
+	title = poland_old.33.t
+	desc = poland_old.33.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		tag = POL
+		date > 1936.2.1
+		has_war = no
+		always = no
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = poland_old.33.a
+
+      add_political_power = 50
+
+		annex_country = { target = LIT transfer_troops = yes }
+
+	}
+
+}
+
+country_event = { #学习外国坦克设计
+	id = poland_old.34
+	title = poland_old.34.t
+	desc = poland_old.34.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = poland_old.34.a
+
+      add_ideas = POL_study_fra_tanks
+
+	}
+
+	option = {
+		name = poland_old.34.b
+
+      add_ideas = POL_study_ger_tanks
+
+	}
+
+}
+
+###########################
+# NSB Polish Events
+###########################
+add_namespace = NSB_poland_events
+#Poland demands Slovakia
+country_event = {
+	id = NSB_poland_events.1
+	title = NSB_poland_events.1.t
+	desc = NSB_poland_events.1.desc
+	picture = GFX_report_event_lithuanian_ultimatum
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Getting annexed by Poland? Sounds like a great idea!
+		name = NSB_poland_events.1.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -25
+				POL = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				is_in_faction_with = POL
+			}
+			modifier = {
+				factor = 0.1
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = POL
+				}
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = {
+					hours = 2
+					id = NSB_poland_events.101
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_idea = CZE_divided_nation
+			}
+			remove_ideas = CZE_divided_nation
+		}
+		effect_tooltip = {
+			if = {
+				limit = {
+					owns_state = 70
+				}
+				POL = {
+					transfer_state = 70
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 71
+				}
+				POL = {
+					transfer_state = 71
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 72
+				}
+				POL = {
+					transfer_state = 72
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 73
+				}
+				POL = {
+					transfer_state = 73
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 664
+				}
+				POL = {
+					transfer_state = 664
+				}
+			}
+		}
+		if = {
+			limit = {
+				original_tag = CZE
+			}
+			set_cosmetic_tag = CZE_ONLY
+		}
+		if = {
+			limit = {
+				original_tag = SLO
+			}
+			custom_effect_tooltip = GAME_OVER_TT
+		}
+	}
+	option = {
+		#No thank you
+		name = NSB_poland_events.1.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+				factor = 0.5
+			}
+			modifier = {
+				add = 20
+				POL = {
+					has_army_size = {
+						size < 30
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = POL
+				}
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					is_in_faction_with = ROOT
+				}
+				factor = 50				#I'm Slovakia and I'm in the axis
+			}
+			modifier = {
+				any_other_country = {
+					has_guaranteed = ROOT
+				}
+				factor = 5				#i've got friends
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					has_guaranteed = ROOT
+				}
+				factor = 5				#i've got big friends
+			}
+		}
+		POL = {
+			add_opinion_modifier = {
+				target = PREV
+				modifier = POL_annexation_refused
+			}
+			country_event = {
+				hours = 2
+				id = NSB_poland_events.102
+			}
+			if = {
+				limit = {
+					is_in_faction_with = ROOT
+				}
+				remove_from_faction = ROOT
+			}
+		}
+	}
+}
+
+#Slovakia/Czechoslovakia says yes, gain Slovakia
+country_event = {
+	id = NSB_poland_events.101
+	title = NSB_poland_events.101.t
+	desc = NSB_poland_events.101.desc
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Slovakia is ceded to Poland
+		name = NSB_poland_events.101.a
+		ai_chance = {
+			base = 10
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = SLO
+				}
+			}
+			annex_country = {
+				target = FROM
+				transfer_troops = yes
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					FROM = {
+						owns_state = 70
+					}
+				}
+				transfer_state = 70
+			}
+			if = {
+				limit = {
+					FROM = {
+						owns_state = 71
+					}
+				}
+				transfer_state = 71
+			}
+			if = {
+				limit = {
+					FROM = {
+						owns_state = 72
+					}
+				}
+				transfer_state = 72
+			}
+			if = {
+				limit = {
+					FROM = {
+						owns_state = 73
+					}
+				}
+				transfer_state = 73
+			}
+			if = {
+				limit = {
+					FROM = {
+						owns_state = 664
+					}
+				}
+				transfer_state = 664
+			}
+		}
+	}
+}
+
+#Slovakia/Czechoslovakia says no, gain a wargoal
+country_event = {
+	id = NSB_poland_events.102
+	title = NSB_poland_events.102.t
+	desc = NSB_poland_events.102.desc
+	picture = GFX_report_event_poland_rejects
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Getting annexed by Poland? Sounds like a great idea!
+		name = NSB_poland_events.102.a
+		ai_chance = {
+			base = 10
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
+		}
+	}
+}
+
+#Poland claims the throne of Hungary
+country_event = {
+	id = NSB_poland_events.2
+	title = NSB_poland_events.2.t
+	desc = NSB_poland_events.2.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Sure!
+		name = NSB_poland_events.2.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -25
+				POL = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				is_in_faction_with = POL
+			}
+			modifier = {
+				factor = 0.1
+				is_in_faction = yes
+			}
+		}
+		POL = {
+			country_event = {
+				hours = 2
+				id = NSB_poland_events.201
+			}
+		}
+		effect_tooltip = {
+			POL = {
+				set_autonomy = {
+					target = HUN
+					autonomy_state = autonomy_personal_union
+				}
+			}
+		}
+	}
+	option = {
+		#No thank you
+		name = NSB_poland_events.2.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+				factor = 0.5
+			}
+			modifier = {
+				add = 20
+				POL = {
+					has_army_size = {
+						size < 30
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = POL
+				}
+			}
+			modifier = {
+				any_other_country = {
+					has_guaranteed = HUN
+				}
+				factor = 5				#i've got friends
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					has_guaranteed = HUN
+				}
+				factor = 5				#i've got big friends
+			}
+		}
+		POL = {
+			add_opinion_modifier = {
+				target = PREV
+				modifier = POL_annexation_refused
+			}
+			country_event = {
+				hours = 2
+				id = NSB_poland_events.202
+			}
+			if = {
+				limit = {
+					is_in_faction_with = HUN
+				}
+				remove_from_faction = HUN
+			}
+		}
+	}
+}
+
+#Hungary says yes, Hungary becomes a puppet
+country_event = {
+	id = NSB_poland_events.201
+	title = NSB_poland_events.201.t
+	desc = NSB_poland_events.201.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Hungary is ceded to Poland
+		name = NSB_poland_events.201.a
+		ai_chance = {
+			base = 10
+		}
+		set_autonomy = {
+			target = HUN
+			autonomy_state = autonomy_personal_union
+		}
+	}
+}
+
+#Hungary says no, gain a wargoal
+country_event = {
+	id = NSB_poland_events.202
+	title = NSB_poland_events.202.t
+	desc = NSB_poland_events.202.desc
+	picture = GFX_report_event_military_planning
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Getting annexed by Poland? Sounds like a great idea!
+		name = NSB_poland_events.202.a
+		ai_chance = {
+			base = 10
+		}
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = FROM
+		}
+	}
+}
+
+#Poland proposes alliance with the Kaiser, but kaiser is not in a faction already.
+country_event = {
+	id = NSB_poland_events.3
+	title = NSB_poland_events.3.t
+	desc = NSB_poland_events.3.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Accept, Poland forms a faction
+		name = NSB_poland_events.3.a
+		ai_chance = {
+			factor = 70
+			modifier = {
+				threat > 0.3
+				add = 30
+			}
+		}
+		add_ai_strategy = {
+			type = alliance
+			id = "POL"
+			value = 200
+		}
+		FROM = {
+			country_event = NSB_poland_events.301
+		}
+	}
+	option = {
+		#no
+		name = NSB_poland_events.3.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				has_wargoal_against = POL
+				factor = 0
+			}
+		}
+		FROM = {
+			country_event = NSB_poland_events.302
+		}
+	}
+	option = {
+		#Germany agrees with the caviat that Poland cedes Danzig because I'm player Germany and if I don't get Danzig the game is literally unplayable, the devs should spend less time making a Polish focus tree and more time fixing the ai.
+		name = NSB_poland_events.3.c
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+			OR = {
+				POL = {
+					owns_state = 807
+				}
+				POL = {
+					owns_state = 85
+				}
+			}
+		}
+		FROM = {
+			country_event = NSB_poland_events.303
+		}
+	}
+}
+
+#Germany accepts
+country_event = {
+	id = NSB_poland_events.301
+	title = NSB_poland_events.301.t
+	desc = NSB_poland_events.301.desc
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Accept, Poland forms a faction
+		name = NSB_poland_events.301.a
+		set_rule = {
+			can_create_factions = yes
+		}
+		create_faction = POL_GER_ALLIANCE
+		add_to_faction = GER
+	}
+}
+
+#Germany refuses
+country_event = {
+	id = NSB_poland_events.302
+	title = NSB_poland_events.302.t
+	desc = NSB_poland_events.302.desc
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = NSB_poland_events.302.a
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = GER
+		}
+	}
+}
+
+#Germany asks for Danzig in ecxhange for Alliance  
+country_event = {
+	id = NSB_poland_events.303
+	title = NSB_poland_events.303.t
+	desc = NSB_poland_events.303.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Accept, Poland cedes Danzig and Germany joins the faction.
+		name = NSB_poland_events.303.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				add = -25
+				GER = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				GER = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+		}
+		set_rule = {
+			can_create_factions = yes
+		}
+		create_faction = POL_GER_ALLIANCE
+		add_to_faction = GER
+		if = {
+			limit = {
+				owns_state = 807
+			}
+			807 = {
+				add_core_of = GER
+			}
+			GER = {
+				transfer_state = 807
+			}
+		}
+		if = {
+			limit = {
+				owns_state = 85
+			}
+			85 = {
+				add_core_of = GER
+			}
+			GER = {
+				transfer_state = 85
+			}
+		}
+	}
+	option = {
+		#Refuse, don't give Germany Danzig but they get a wargoal to stop players from ragequitting over Danzig. Again.
+		name = germany.86.b
+		ai_chance = {
+			factor = 40
+		}
+		effect_tooltip = {
+			GER = {
+				create_wargoal = {
+					type = take_state
+					target = POL
+					generator = {
+						85
+						807
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			GER = {
+				country_event = {
+					id = NSB_poland_events.304
+					days = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = NSB_poland_events.304
+	title = NSB_poland_events.304.t
+	desc = NSB_poland_events.304.desc
+	picture = GFX_report_event_military_planning
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Danzig or war
+		name = NSB_poland_events.304.a
+		ai_chance = {
+			factor = 40
+		}
+		create_wargoal = {
+			type = take_state
+			target = POL
+			generator = {
+				85
+				807
+			}
+		}
+	}
+}
+
+#Poland wants to buy Madagascar
+country_event = {
+	id = NSB_poland_events.4
+	title = NSB_poland_events.4.t
+	desc = NSB_poland_events.4.desc
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Sell the island(s) to Poland
+		name = NSB_poland_events.4.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				#Shouldn't sell Madagascar if that is all they have left.
+				factor = 0
+				has_capitulated = yes
+				NOT = {
+					any_controlled_state = {
+						NOT = {
+							state = 543
+							state = 708
+							state = 706
+						}
+					}
+				}
+			}
+		}
+		POL = {
+			transfer_state = 543
+		}
+		if = {
+			limit = {
+				owns_state = 708
+				controls_state = 708
+			}
+			POL = {
+				transfer_state = 708
+			}
+		}
+		if = {
+			limit = {
+				owns_state = 706
+				controls_state = 706
+			}
+			POL = {
+				transfer_state = 706
+			}
+		}
+		add_timed_idea = {
+			idea = POL_sold_colony_expensive
+			days = 720
+		}
+		POL = {
+			country_event = {
+				id = NSB_poland_events.401
+			}
+		}
+	}
+	option = {
+		#Refuse to sell the islands
+		name = NSB_poland_events.4.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				#Should generally be okay with selling Madagascar if they have other territory left.
+				factor = 0.5
+				any_controlled_state = {
+					NOT = {
+						OR = {
+							state = 543
+							state = 708
+							state = 706
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			543 = {
+				set_state_flag = rejected_purchase_flag
+			}
+		}
+		POL = {
+			country_event = {
+				id = NSB_poland_events.402
+			}
+		}
+	}
+}
+
+#Madagascar sale goes through
+country_event = {
+	id = NSB_poland_events.401
+	title = NSB_poland_events.401.t
+	desc = {
+		text = NSB_poland_events.401.desc.dem
+		trigger = {
+			POL = {
+				NOT = {
+					has_government = communism
+				}
+			}
+		}
+	}
+	desc = {
+		text = NSB_poland_events.401.desc.com
+		trigger = {
+			POL = {
+				has_government = communism
+			}
+		}
+	}
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Sell the island(s) to Poland
+		name = NSB_poland_events.401.a
+		ai_chance = {
+			base = 10
+		}
+		transfer_state = 543
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 708
+					controls_state = 708
+				}
+			}
+			transfer_state = 708
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 706
+					controls_state = 706
+				}
+			}
+			POL = {
+				transfer_state = 706
+			}
+		}
+	}
+}
+
+#France refuses to sell Madagascar
+country_event = {
+	id = NSB_poland_events.402
+	title = NSB_poland_events.402.t
+	desc = NSB_poland_events.402.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	option = {
+		#Sell the island(s) to Poland
+		name = NSB_poland_events.402.a
+		ai_chance = {
+			base = 10
+		}
+		remove_decision_on_cooldown = POL_purchase_madagascar
+	}
+}
+
+#Poland wants to buy other colonies
+country_event = {
+	id = NSB_poland_events.5
+	title = NSB_poland_events.4.t
+	desc = NSB_poland_events.4.desc
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		#Sell the island(s) to Poland
+		name = NSB_poland_events.4.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				#Shouldn't sell their colony if that is all they have left.
+				factor = 0
+				has_capitulated = yes
+				NOT = {
+					any_controlled_state = {
+						NOT = {
+							state = POL_colony_purchase
+						}
+					}
+				}
+			}
+		}
+		POL = {
+			transfer_state = event_target:POL_colony_purchase
+		}
+		if = {
+			limit = {
+				event_target:POL_colony_purchase = {
+					state = 546
+				}
+			}
+			add_timed_idea = {
+				idea = POL_sold_colony_expensive
+				days = 720
+			}
+		}
+		else = {
+			add_timed_idea = {
+				idea = POL_sold_colony_cheap
+				days = 720
+			}
+		}
+		POL = {
+			country_event = {
+				id = NSB_poland_events.501
+			}
+		}
+	}
+	option = {
+		#Refuse to sell the colony
+		name = NSB_poland_events.4.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				#Should generally be okay with selling their colonies if they have other territory left.
+				factor = 0.5
+				any_controlled_state = {
+					NOT = {
+						state = POL_colony_purchase
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:POL_colony_purchase = {
+				set_state_flag = rejected_purchase_flag
+			}
+		}
+		POL = {
+			country_event = {
+				id = NSB_poland_events.502
+			}
+		}
+	}
+}
+
+#Colony sale succeeds
+country_event = {
+	id = NSB_poland_events.501
+	title = NSB_poland_events.401.t
+	desc = {
+		text = NSB_poland_events.401.desc.dem
+		trigger = {
+			POL = {
+				NOT = {
+					has_government = communism
+				}
+			}
+		}
+	}
+	desc = {
+		text = NSB_poland_events.401.desc.com
+		trigger = {
+			POL = {
+				has_government = communism
+			}
+		}
+	}
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#Sell the island(s) to Poland
+		name = NSB_poland_events.401.a
+		ai_chance = {
+			base = 10
+		}
+		effect_tooltip = {
+			transfer_state = event_target:POL_colony_purchase
+		}
+	}
+}
+
+#Colony sale fails
+country_event = {
+	id = NSB_poland_events.502
+	title = NSB_poland_events.402.t
+	desc = NSB_poland_events.402.desc
+	picture = GFX_report_event_journalists_speech
+	is_triggered_only = yes
+	option = {
+		#Decision is removed so Poland is not throwing civ factories down the drain for nothing.
+		name = NSB_poland_events.402.a
+		ai_chance = {
+			base = 10
+		}
+		custom_effect_tooltip = POL_remove_colony_purchase_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					event_target:POL_colony_purchase = {
+						state = 701
+					}
+				}
+				remove_decision_on_cooldown = POL_purchase_gambia
+			}
+			if = {
+				limit = {
+					event_target:POL_colony_purchase = {
+						state = 773
+					}
+				}
+				remove_decision_on_cooldown = POL_purchase_cheap_colony
+			}
+			if = {
+				limit = {
+					event_target:POL_colony_purchase = {
+						state = 546
+					}
+				}
+				remove_decision_on_cooldown = POL_purchase_cheap_colony
+			}
+			if = {
+				limit = {
+					event_target:POL_colony_purchase = {
+						state = 454
+					}
+				}
+				remove_decision_on_cooldown = POL_purchase_cheap_colony
+			}
+		}
+	}
+}
+
+#Poland asks Liberia to become a puppet
+country_event = {
+	id = NSB_poland_events.6
+	title = NSB_poland_events.6.t
+	desc = NSB_poland_events.6.desc
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Liberia agrees
+		name = NSB_poland_events.6.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = 25
+				strength_ratio = {
+					tag = FROM
+					ratio < 0.3
+				}
+			}
+			modifier = {
+				add = 15
+				has_opinion = {
+					target = FROM
+					value > 40
+				}
+			}
+			modifier = {
+				add = 25
+				any_country = {
+					is_major = yes
+					is_in_faction_with = FROM
+				}
+			}
+			modifier = {
+				factor = 0.1
+				any_country = {
+					is_major = yes
+					OR = {
+						has_guaranteed = ROOT
+						is_in_faction_with = ROOT
+					}
+					NOT = {
+						is_in_faction_with = FROM
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			POL = {
+				set_autonomy = {
+					target = LIB
+					autonomy_state = autonomy_colony
+				}
+			}
+		}
+		else = {
+			POL = {
+				set_autonomy = {
+					target = LIB
+					autonomy_state = autonomy_puppet
+				}
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = nsb_news.2
+				days = 1
+			}
+		}
+	}
+	option = {
+		#Liberia refuses
+		name = NSB_poland_events.6.b
+		ai_chance = {
+			base = 5
+		}
+		effect_tooltip = {
+			POL = {
+				create_wargoal = {
+					target = LIB
+					type = puppet_wargoal_focus
+				}
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = {
+					id = NSB_poland_events.601
+				}
+			}
+		}
+	}
+}
+
+#Poland is told no by Liberia
+country_event = {
+	id = NSB_poland_events.601
+	title = NSB_poland_events.601.t
+	desc = NSB_poland_events.601.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Gain a wargoal on Liberia. Good luck naval invading.
+		name = NSB_poland_events.601.a
+		ai_chance = {
+			base = 10
+		}
+		create_wargoal = {
+			target = LIB
+			type = puppet_wargoal_focus
+		}
+	}
+	option = {
+		#Just let it slide, gain nothing.
+		name = NSB_poland_events.601.b
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+#Poland asks France to form the Morges Pact
+country_event = {
+	id = NSB_poland_events.7
+	title = NSB_poland_events.7.t
+	desc = NSB_poland_events.7.desc
+	picture = GFX_report_event_french_british_officers
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = alliance_applicant
+			FROM = {
+				save_event_target_as = alliance_inviter
+			}
+		}
+	}
+	option = {
+		#France agrees
+		name = NSB_poland_events.7.a
+		ai_chance = {
+			base = 10
+		}
+		FROM = {
+			add_to_faction = PREV
+			country_event = {
+				id = generic.6
+				hours = 6
+			}
+			add_ai_strategy = {
+				type = alliance
+				id = FROM
+				value = 200
+			}
+		}
+		add_ai_strategy = {
+			type = alliance
+			id = FROM
+			value = 200
+		}
+		hidden_effect = {
+			set_country_flag = alliance_applicant@ROOT
+			FROM = {
+				set_country_flag = alliance_inviter@ROOT
+			}
+			news_event = {
+				id = news.289
+				hours = 12
+			}
+		}
+	}
+	option = {
+		#France refuses
+		name = NSB_poland_events.7.b
+		ai_chance = {
+			base = 0			#If France gets this event, they should never say no as an AI.
+		}
+		hidden_effect = {
+			POL = {
+				country_event = {
+					id = NSB_poland_events.701
+				}
+			}
+		}
+	}
+}
+
+#
+country_event = {
+	id = NSB_poland_events.8
+	title = NSB_poland_events.8.t
+	desc = NSB_poland_events.8.d
+	picture = GFX_report_event_royal_parade
+	trigger = {
+		tag = POL
+		has_country_leader = {
+			character = POL_anna_andersson
+			ruling_only = yes
+		}
+		has_country_flag = POL_vojtek_commander
+		NOT = {
+			is_in_faction_with = SOV
+		}
+		219 = {
+			controller = {
+				OR = {
+					tag = POL
+					is_in_faction_with = POL
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	fire_only_once = yes
+	option = {
+		name = NSB_poland_events.8.a
+		add_political_power = -100
+	}
+	option = {
+		name = NSB_poland_events.8.b
+		promote_character = POL_wojtek
+	}
+}
+
+#Release Don Republic
+country_event = {
+	id = pavel_events.1
+	title = pavel_events.1.t
+	desc = pavel_events.1.desc
+	picture = GFX_report_event_generic_military_parade
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			218 = {
+				add_core_of = DON
+			}
+			245 = {
+				add_core_of = DON
+			}
+			238 = {
+				add_core_of = DON
+			}
+			217 = {
+				add_core_of = DON
+			}
+			265 = {
+				add_core_of = DON
+			}
+			237 = {
+				add_core_of = DON
+			}
+			236 = {
+				add_core_of = DON
+			}
+		}
+	}
+	option = {
+		name = pavel_events.1.a
+		ai_chance = {
+			base = 10
+		}
+		DON = {
+			transfer_state = 218
+			transfer_state = 245
+			transfer_state = 238
+			transfer_state = 217
+			transfer_state = 265
+			if = {
+				limit = {
+					PREV = {
+						controls_state = 236
+					}
+				}
+				transfer_state = 236
+			}
+			if = {
+				limit = {
+					PREV = {
+						controls_state = 237
+					}
+				}
+				transfer_state = 237
+			}
+			custom_effect_tooltip = spawn_cossacks_tt
+			hidden_effect = {
+				load_oob = "DON_cossack_host"
+				set_politics = {
+					ruling_party = fascism
+				}
+				add_popularity = {
+					ideology = fascism
+					popularity = 0.5
+				}
+			}
+		}
+		add_to_faction = DON
+		# Make sure Don Republic is added to the Soviet war.
+		if = {
+			limit = {
+				has_war_with = SOV
+			}
+			DON = {
+				add_to_war = {
+					targeted_alliance = PREV
+					enemy = SOV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+	option = {
+		name = pavel_events.1.b
+		ai_chance = {
+			base = 10
+		}
+		DON = {
+			transfer_state = 218
+			transfer_state = 245
+			transfer_state = 238
+			transfer_state = 217
+			transfer_state = 265
+			if = {
+				limit = {
+					PREV = {
+						controls_state = 236
+					}
+				}
+				transfer_state = 236
+			}
+			if = {
+				limit = {
+					PREV = {
+						controls_state = 237
+					}
+				}
+				transfer_state = 237
+			}
+			custom_effect_tooltip = spawn_cossacks_tt
+			hidden_effect = {
+				load_oob = "DON_cossack_host"
+			}
+		}
+		add_to_faction = DON
+		puppet = DON
+		# Make sure Don Republic is added to the Soviet war.
+		if = {
+			limit = {
+				has_war_with = SOV
+			}
+			DON = {
+				add_to_war = {
+					targeted_alliance = PREV
+					enemy = SOV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+}
+
+#Release Kuban Republic
+country_event = {
+	id = pavel_events.2
+	title = pavel_events.2.t
+	desc = pavel_events.2.desc
+	picture = GFX_report_event_generic_military_parade
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			234 = {
+				add_core_of = KUB
+			}
+			235 = {
+				add_core_of = KUB
+			}
+			233 = {
+				add_core_of = KUB
+			}
+			232 = {
+				add_core_of = KUB
+			}
+			137 = {
+				add_core_of = KUB
+			}
+		}
+	}
+	option = {
+		name = pavel_events.2.a
+		ai_chance = {
+			base = 10
+		}
+		KUB = {
+			transfer_state = 234
+			transfer_state = 235
+			transfer_state = 233
+			transfer_state = 232
+			if = {
+				limit = {
+					PREV = {
+						controls_state = 137
+					}
+				}
+				transfer_state = 137
+			}
+			custom_effect_tooltip = spawn_cossacks_tt
+			hidden_effect = {
+				load_oob = "KUB_cossack_host"
+				set_politics = {
+					ruling_party = fascism
+				}
+				add_popularity = {
+					ideology = fascism
+					popularity = 0.5
+				}
+			}
+		}
+		add_to_faction = KUB
+		# Make sure Kuban Republic is added to the Soviet war.
+		if = {
+			limit = {
+				has_war_with = SOV
+			}
+			KUB = {
+				add_to_war = {
+					targeted_alliance = PREV
+					enemy = SOV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+	option = {
+		name = pavel_events.2.b
+		ai_chance = {
+			base = 10
+		}
+		KUB = {
+			transfer_state = 234
+			transfer_state = 235
+			transfer_state = 233
+			transfer_state = 232
+			if = {
+				limit = {
+					PREV = {
+						controls_state = 137
+					}
+				}
+				transfer_state = 137
+			}
+			custom_effect_tooltip = spawn_cossacks_tt
+			hidden_effect = {
+				load_oob = "KUB_cossack_host"
+			}
+		}
+		add_to_faction = KUB
+		puppet = KUB
+		# Make sure Kuban Republic is added to the Soviet war.
+		if = {
+			limit = {
+				has_war_with = SOV
+			}
+			KUB = {
+				add_to_war = {
+					targeted_alliance = PREV
+					enemy = SOV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+}
+
+#Demand Pomerania and Silesia, event for Germany
+country_event = {
+	id = pavel_events.3
+	title = pavel_events.3.t
+	desc = pavel_events.3.desc
+	picture = GFX_report_event_generic_panzer_attack
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		#Cede the territory
+		name = pavel_events.3.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						is_puppet_of = POL
+						is_in_faction_with = POL
+					}
+				}
+				POL = {
+					surrender_progress > 0.09
+				}
+			}
+			modifier = {
+				factor = 0
+				any_other_country = {
+					is_in_faction_with = ROOT
+					has_war_with = POL
+				}
+			}
+			modifier = {
+				factor = 0
+				any_other_country = {
+					#Puppets shouldn't cede territory
+					NOT = {
+						tag = POL
+					}
+					has_subject = ROOT
+				}
+			}
+		}
+		effect_tooltip = {
+			if = {
+				limit = {
+					owns_state = 67
+				}
+				FROM = {
+					transfer_state = 67
+					67 = {
+						add_core_of = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 66
+				}
+				FROM = {
+					transfer_state = 66
+					66 = {
+						add_core_of = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 68
+				}
+				FROM = {
+					transfer_state = 68
+					68 = {
+						add_core_of = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 63
+				}
+				FROM = {
+					transfer_state = 63
+					63 = {
+						add_core_of = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 5
+				}
+				FROM = {
+					transfer_state = 5
+					5 = {
+						add_core_of = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 763
+				}
+				FROM = {
+					transfer_state = 763
+					763 = {
+						add_core_of = PREV
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = {
+					id = pavel_events.301
+				}
+			}
+		}
+	}
+	option = {
+		#Don't cede the territory
+		name = pavel_events.3.b
+		ai_chance = {
+			base = 90			#Germany should be unlikely to cede territory to Poland
+			modifier = {
+				factor = 0.5
+				strength_ratio = {
+					tag = POL
+					ratio > 1
+				}
+			}
+			modifier = {
+				#If Germany has basically no army and they're not in a faction, they shouldn't really refuse.
+				factor = 0
+				strength_ratio = {
+					tag = POL
+					ratio > 10
+				}
+				is_in_faction = no
+			}
+			modifier = {
+				#German subjects shouldn't give up territory.
+				factor = 0
+				is_subject = yes
+				NOT = {
+					is_subject_of = POL
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					is_in_faction_with = POL
+					is_subject_of = POL
+				}
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				create_wargoal = {
+					type = take_state_focus
+					target = GER
+					generator = {
+						67
+						66
+						68
+						63
+						5
+						763
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = {
+					id = pavel_events.302
+				}
+			}
+		}
+	}
+}
+
+#Poland is informed, given the territory
+country_event = {
+	id = pavel_events.301
+	title = pavel_events.301.t
+	desc = pavel_events.301.desc
+	picture = GFX_report_event_generic_peaceful_annexation
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = pavel_events.301.a
+		ai_chance = {
+			base = 10
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 67
+				}
+			}
+			transfer_state = 67
+			67 = {
+				add_core_of = PREV
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 66
+				}
+			}
+			transfer_state = 66
+			66 = {
+				add_core_of = PREV
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 68
+				}
+			}
+			transfer_state = 68
+			68 = {
+				add_core_of = PREV
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 63
+				}
+			}
+			transfer_state = 63
+			63 = {
+				add_core_of = PREV
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 5
+				}
+			}
+			transfer_state = 5
+			5 = {
+				add_core_of = PREV
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 763
+				}
+			}
+			transfer_state = 763
+			763 = {
+				add_core_of = PREV
+			}
+		}
+	}
+}
+
+#Poland informed of German rejection, gain wargoal
+country_event = {
+	id = pavel_events.302
+	title = pavel_events.302.t
+	desc = pavel_events.302.desc
+	picture = GFX_report_event_military_planning
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = pavel_events.302.a
+		ai_chance = {
+			base = 10
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = GER
+			generator = {
+				67
+				66
+				68
+				63
+				5
+				763
+			}
+		}
+	}
+}
+
+add_namespace = NSB_poland_communist_events
+#Event for deciding if the KPP should be anti or pro USSR
+country_event = {
+	id = NSB_poland_communist_events.1
+	title = NSB_poland_communist_events.1.t
+	desc = NSB_poland_communist_events.1.desc
+	picture = GFX_report_event_sanation_left_victory
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.1.a
+		ai_chance = {
+			base = 55
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = SOV
+					value < 50
+				}
+			}
+			modifier = {
+				factor = 0
+				#AI strategy stuff TODO
+				always = no
+			}
+		}
+		#custom_effect_tooltip = anti_soviet_path_tt
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		promote_character = POL_maria_koszutska
+	}
+	option = {
+		name = NSB_poland_communist_events.1.b
+		trigger = {
+			SOV = {
+				exists = yes
+				has_government = communism
+			}
+		}
+		ai_chance = {
+			base = 45
+			modifier = {
+				factor = 0
+				#AI strategy stuff 	
+				always = no
+			}
+		}
+		#custom_effect_tooltip = pro_soviet_path_tt
+		if = {
+			limit = {
+				has_cosmetic_tag = POL_PEASANT
+			}
+			drop_cosmetic_tag = yes
+		}
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		promote_character = POL_wladyslaw_gomulka
+	}
+}
+
+#Event for Baltic States being offered to become a Polish subject
+country_event = {
+	id = NSB_poland_communist_events.2
+	title = NSB_poland_communist_events.2.t
+	desc = NSB_poland_communist_events.2.desc
+	picture = GFX_report_event_lithuanian_ultimatum
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Yes, become puppet
+		name = NSB_poland_communist_events.2.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -25
+				POL = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				is_in_faction_with = POL
+			}
+			modifier = {
+				factor = 0.1
+				is_in_faction = yes
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				puppet = ROOT
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = NSB_poland_communist_events.201
+			}
+		}
+	}
+	option = {
+		#No, Poland gets wargoal
+		name = NSB_poland_communist_events.2.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+				factor = 0.5
+			}
+			modifier = {
+				add = 20
+				POL = {
+					has_army_size = {
+						size < 30
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = POL
+				}
+			}
+			modifier = {
+				any_other_country = {
+					has_guaranteed = LIT
+				}
+				factor = 5				#i've got friends
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					has_guaranteed = LIT
+				}
+				factor = 5				#i've got big friends
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = ROOT
+				}
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = NSB_poland_communist_events.202
+			}
+		}
+	}
+}
+
+#Poland informed they said yes
+country_event = {
+	id = NSB_poland_communist_events.201
+	title = NSB_poland_communist_events.201.t
+	desc = NSB_poland_communist_events.201.desc
+	picture = GFX_report_event_generic_peaceful_annexation
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Yes, become puppet
+		name = NSB_poland_communist_events.201.a
+		puppet = FROM
+	}
+}
+
+#Poland informed they said no
+country_event = {
+	id = NSB_poland_communist_events.202
+	title = NSB_poland_communist_events.202.t
+	desc = NSB_poland_communist_events.202.desc
+	picture = GFX_report_event_polish_tanks_01
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Gain wargoal
+		name = NSB_poland_communist_events.202.a
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = ROOT
+		}
+	}
+}
+
+#Event for Baltic States being annexed by Poland
+country_event = {
+	id = NSB_poland_communist_events.3
+	title = NSB_poland_communist_events.3.t
+	desc = NSB_poland_communist_events.3.desc
+	picture = GFX_report_event_generic_peaceful_annexation
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Yes, become annexed
+		name = NSB_poland_communist_events.3.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -25
+				POL = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				is_in_faction_with = POL
+			}
+			modifier = {
+				factor = 0.1
+				is_in_faction = yes
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				annex_country = {
+					target = ROOT
+					transfer_troops = yes
+				}
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = NSB_poland_communist_events.301
+			}
+		}
+		custom_effect_tooltip = GAME_OVER_TT
+	}
+	option = {
+		#No, Poland gets wargoal
+		name = NSB_poland_communist_events.3.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+				factor = 0.5
+			}
+			modifier = {
+				add = 20
+				POL = {
+					has_army_size = {
+						size < 30
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = POL
+				}
+			}
+			modifier = {
+				any_other_country = {
+					has_guaranteed = ROOT
+				}
+				factor = 5				#i've got friends
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					has_guaranteed = ROOT
+				}
+				factor = 5				#i've got big friends
+			}
+			modifier = {
+				is_subject_of = POL
+				factor = 0				#Subjects shouldn't refuse
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				create_wargoal = {
+					type = annex_everything
+					target = ROOT
+				}
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = NSB_poland_communist_events.302
+			}
+		}
+	}
+}
+
+#Baltic State is annexed
+country_event = {
+	id = NSB_poland_communist_events.301
+	title = NSB_poland_communist_events.301.t
+	desc = NSB_poland_communist_events.301.desc
+	picture = GFX_report_event_poland_rejects
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Yes, become annexed
+		name = NSB_poland_communist_events.301.a
+		ai_chance = {
+			base = 10
+		}
+		annex_country = {
+			target = FROM
+			transfer_troops = yes
+		}
+	}
+}
+
+#Poland gains a wargoal
+country_event = {
+	id = NSB_poland_communist_events.302
+	title = NSB_poland_communist_events.302.t
+	desc = NSB_poland_communist_events.302.desc
+	picture = GFX_report_event_generic_peaceful_annexation
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Yes, become annexed
+		name = NSB_poland_communist_events.302.a
+		ai_chance = {
+			base = 10
+		}
+		if = {
+			limit = {
+				ROOT = {
+					is_faction_leader = yes
+				}
+				FROM = {
+					is_in_faction_with = ROOT
+				}
+			}
+			remove_from_faction = FROM
+		}
+		if = {
+			limit = {
+				FROM = {
+					is_subject_of = ROOT
+				}
+			}
+			set_autonomy = {
+				target = FROM
+				autonomy_state = autonomy_free
+			}
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = ROOT
+		}
+	}
+}
+
+#Soviet event; Poland wants to surrender Eastern Poland and become a Soviet puppet
+country_event = {
+	id = NSB_poland_communist_events.4
+	title = NSB_poland_communist_events.4.t
+	desc = NSB_poland_communist_events.4.desc
+	picture = GFX_report_event_sanation_left_victory
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.4.a
+		ai_chance = {
+			base = 50			#Why would they say no?
+			modifier = {
+				#They are at war with someone I'm not
+				factor = 0.5
+				any_other_country = {
+					is_major = yes
+					has_war_with = POL
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+			}
+			modifier = {
+				#They are at war with the Allies and I am not
+				factor = 0.1
+				any_other_country = {
+					is_major = yes
+					has_government = democratic
+					has_war_with = POL
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+			}
+			modifier = {
+				#I have already signed Molotov-Ribbentrop
+				factor = 0.2
+				has_global_flag = sov_yes_pact
+			}
+			modifier = {
+				#I refused Molotov-Ribbentrop
+				factor = 2
+				has_global_flag = sov_no_pact
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_poland_communist_events.401
+			}
+		}
+		96 = {
+			add_core_of = SOV
+		}
+		95 = {
+			add_core_of = SOV
+		}
+		94 = {
+			add_core_of = SOV
+		}
+		93 = {
+			add_core_of = SOV
+		}
+		91 = {
+			add_core_of = SOV
+		}
+		89 = {
+			add_core_of = SOV
+		}
+		97 = {
+			add_core_of = SOV
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 96
+					controls_state = 96
+				}
+			}
+			transfer_state = 96
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 95
+					controls_state = 95
+				}
+			}
+			transfer_state = 95
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 94
+					controls_state = 94
+				}
+			}
+			transfer_state = 94
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 93
+					controls_state = 93
+				}
+			}
+			transfer_state = 93
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 91
+					controls_state = 91
+				}
+			}
+			transfer_state = 91
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 89
+					controls_state = 89
+				}
+			}
+			transfer_state = 89
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 97
+					controls_state = 97
+				}
+			}
+			transfer_state = 97
+		}
+		if = {
+			limit = {
+				POL = {
+					owns_state = 784
+					controls_state = 784
+				}
+			}
+			transfer_state = 784
+			784 = {
+				add_core_of = SOV
+			}
+		}
+		set_autonomy = {
+			target = POL
+			autonomy_state = autonomy_puppet
+		}
+	}
+	option = {
+		name = NSB_poland_communist_events.4.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				POL = {
+					is_ai = no
+				}
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_poland_communist_events.402
+			}
+		}
+	}
+}
+
+#Poland informed Soviets are okay with them becoming a puppet
+country_event = {
+	id = NSB_poland_communist_events.401
+	title = NSB_poland_communist_events.401.t
+	desc = NSB_poland_communist_events.401.desc
+	picture = GFX_report_event_sanation_left_victory
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Poland is told what the effects are again
+		name = NSB_poland_communist_events.401.a
+		ai_chance = {
+			base = 10
+		}
+		effect_tooltip = {
+			96 = {
+				add_core_of = SOV
+			}
+			95 = {
+				add_core_of = SOV
+			}
+			94 = {
+				add_core_of = SOV
+			}
+			93 = {
+				add_core_of = SOV
+			}
+			91 = {
+				add_core_of = SOV
+			}
+			89 = {
+				add_core_of = SOV
+			}
+			97 = {
+				add_core_of = SOV
+			}
+			SOV = {
+				if = {
+					limit = {
+						POL = {
+							owns_state = 96
+							controls_state = 96
+						}
+					}
+					transfer_state = 96
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 95
+							controls_state = 95
+						}
+					}
+					transfer_state = 95
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 94
+							controls_state = 94
+						}
+					}
+					transfer_state = 94
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 93
+							controls_state = 93
+						}
+					}
+					transfer_state = 93
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 91
+							controls_state = 91
+						}
+					}
+					transfer_state = 91
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 89
+							controls_state = 89
+						}
+					}
+					transfer_state = 89
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 97
+							controls_state = 97
+						}
+					}
+					transfer_state = 97
+				}
+				if = {
+					limit = {
+						POL = {
+							owns_state = 784
+							controls_state = 784
+						}
+					}
+					transfer_state = 784
+					784 = {
+						add_core_of = SOV
+					}
+				}
+				set_autonomy = {
+					target = POL
+					autonomy_state = autonomy_puppet
+				}
+			}
+		}
+	}
+}
+
+#Poland informed Soviets said no, move to Maria Koszutska's path
+country_event = {
+	id = NSB_poland_communist_events.402
+	title = NSB_poland_communist_events.402.t
+	desc = NSB_poland_communist_events.402.desc
+	picture = GFX_report_event_sanation_left_victory
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Poland moves to the independent Communist path
+		name = NSB_poland_communist_events.402.a
+		ai_chance = {
+			base = 10
+		}
+		#Switch focus path to Maria's path
+		uncomplete_national_focus = {
+			focus = POL_surrender_the_east
+			uncomplete_children = yes
+			refund_political_power = no
+		}
+		complete_national_focus = POL_polish_path_to_socialism
+	}
+}
+
+#Soviet event; Poland declares independence
+country_event = {
+	id = NSB_poland_communist_events.5
+	title = NSB_poland_communist_events.5.t
+	desc = NSB_poland_communist_events.5.desc
+	picture = GFX_report_event_poland_rejects
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.5.a
+		ai_chance = {
+			base = 50			#They shouldn't usually accept this
+			modifier = {
+				#Oh they may actually be able to beat me
+				factor = 0.5
+				strength_ratio = {
+					tag = POL
+					ratio > 1
+				}
+			}
+			modifier = {
+				#Oh they may actually be able to beat me
+				factor = 0.75
+				strength_ratio = {
+					tag = POL
+					ratio > 2
+				}
+			}
+			modifier = {
+				#Oh they can definitely beat me
+				factor = 0.1
+				strength_ratio = {
+					tag = POL
+					ratio > 10
+				}
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_poland_communist_events.501
+				leave_faction = yes
+			}
+		}
+		effect_tooltip = {
+			set_autonomy = {
+				target = POL
+				autonomy_state = autonomy_free
+			}
+			POL = {
+				leave_faction = yes
+			}
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
+		}
+	}
+	option = {
+		name = NSB_poland_communist_events.5.b
+		ai_chance = {
+			base = 10
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_poland_communist_events.502
+			}
+		}
+		effect_tooltip = {
+			set_autonomy = {
+				target = POL
+				autonomy_state = autonomy_free
+			}
+		}
+	}
+}
+
+#Poland told Soviets are declaring war
+country_event = {
+	id = NSB_poland_communist_events.501
+	title = NSB_poland_communist_events.501.t
+	desc = NSB_poland_communist_events.501.desc
+	picture = GFX_report_event_polish_tanks_01
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.501.a
+		ai_chance = {
+			base = 50
+		}
+		leave_faction = yes
+		FROM = {
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
+		}
+	}
+}
+
+#Poland told former overlord accepts their independence
+country_event = {
+	id = NSB_poland_communist_events.502
+	title = NSB_poland_communist_events.502.t
+	desc = NSB_poland_communist_events.502.desc
+	picture = GFX_report_event_sanation_left_victory
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.502.a
+		ai_chance = {
+			base = 10
+		}
+	}
+	option = {
+		name = NSB_poland_communist_events.502.b
+		ai_chance = {
+			base = 0
+		}
+		leave_faction = yes
+	}
+}
+
+#Poland asks for East Poland
+country_event = {
+	id = NSB_poland_communist_events.6
+	title = NSB_poland_communist_events.6.t
+	desc = NSB_poland_communist_events.6.desc
+	picture = GFX_report_event_sanation_left_victory
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.6.a
+		ai_chance = {
+			base = 50			#They should usually be okay with this for the player
+			modifier = {
+				factor = 0
+				POL = {
+					is_ai = yes
+				}
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = NSB_poland_communist_events.601
+			}
+		}
+		effect_tooltip = {
+			96 = {
+				add_core_of = POL
+			}
+			95 = {
+				add_core_of = POL
+			}
+			94 = {
+				add_core_of = POL
+			}
+			93 = {
+				add_core_of = POL
+			}
+			91 = {
+				add_core_of = POL
+			}
+			89 = {
+				add_core_of = POL
+			}
+			97 = {
+				add_core_of = POL
+			}
+			POL = {
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 96
+							controls_state = 96
+						}
+					}
+					transfer_state = 96
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 95
+							controls_state = 95
+						}
+					}
+					transfer_state = 95
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 94
+							controls_state = 94
+						}
+					}
+					transfer_state = 94
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 93
+							controls_state = 93
+						}
+					}
+					transfer_state = 93
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 91
+							controls_state = 91
+						}
+					}
+					transfer_state = 91
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 89
+							controls_state = 89
+						}
+					}
+					transfer_state = 89
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 97
+							controls_state = 97
+						}
+					}
+					transfer_state = 97
+				}
+				#Lithuanian states
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 784
+							controls_state = 784
+						}
+					}
+					transfer_state = 784
+					784 = {
+						add_core_of = POL
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 11
+							controls_state = 11
+						}
+					}
+					transfer_state = 11
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 188
+							controls_state = 188
+						}
+					}
+					transfer_state = 188
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 189
+							controls_state = 189
+						}
+					}
+					transfer_state = 189
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 814
+							controls_state = 814
+						}
+					}
+					transfer_state = 814
+				}
+				if = {
+					limit = {
+						ROOT = {
+							owns_state = 815
+							controls_state = 815
+						}
+					}
+					transfer_state = 815
+				}
+			}
+		}
+	}
+	option = {
+		name = NSB_poland_communist_events.6.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				POL = {
+					is_ai = no
+				}
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_poland_communist_events.602
+			}
+		}
+	}
+}
+
+#Soviets said yes, Poland gets East Poland
+country_event = {
+	id = NSB_poland_communist_events.601
+	title = NSB_poland_communist_events.601.t
+	desc = NSB_poland_communist_events.601.desc
+	picture = GFX_report_event_generic_peaceful_annexation
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.601.a
+		ai_chance = {
+			base = 10
+		}
+		96 = {
+			add_core_of = POL
+		}
+		95 = {
+			add_core_of = POL
+		}
+		94 = {
+			add_core_of = POL
+		}
+		93 = {
+			add_core_of = POL
+		}
+		91 = {
+			add_core_of = POL
+		}
+		89 = {
+			add_core_of = POL
+		}
+		97 = {
+			add_core_of = POL
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 96
+					controls_state = 96
+				}
+			}
+			transfer_state = 96
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 95
+					controls_state = 95
+				}
+			}
+			transfer_state = 95
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 94
+					controls_state = 94
+				}
+			}
+			transfer_state = 94
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 93
+					controls_state = 93
+				}
+			}
+			transfer_state = 93
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 91
+					controls_state = 91
+				}
+			}
+			transfer_state = 91
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 89
+					controls_state = 89
+				}
+			}
+			transfer_state = 89
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 97
+					controls_state = 97
+				}
+			}
+			transfer_state = 97
+		}
+		#Lithuanian states
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 784
+					controls_state = 784
+				}
+			}
+			transfer_state = 784
+			784 = {
+				add_core_of = POL
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 11
+					controls_state = 11
+				}
+			}
+			transfer_state = 11
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 188
+					controls_state = 188
+				}
+			}
+			transfer_state = 188
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 189
+					controls_state = 189
+				}
+			}
+			transfer_state = 189
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 814
+					controls_state = 814
+				}
+			}
+			transfer_state = 814
+		}
+		if = {
+			limit = {
+				FROM = {
+					owns_state = 815
+					controls_state = 815
+				}
+			}
+			transfer_state = 815
+		}
+	}
+}
+
+#Soviets said no, Poland gets nothing
+country_event = {
+	id = NSB_poland_communist_events.602
+	title = NSB_poland_communist_events.602.t
+	desc = NSB_poland_communist_events.602.desc
+	picture = GFX_report_event_sanation_left_victory
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_communist_events.602.a
+		ai_chance = {
+			base = 10
+		}
+	}
+	option = {
+		#No Eastern Poland? I declare independence!
+		name = NSB_poland_communist_events.602.b
+		ai_chance = {
+			#The AI shouldn't do this
+			base = 0
+		}
+		uncomplete_national_focus = {
+			focus = POL_greater_polish_SSR
+			uncomplete_children = yes
+			refund_political_power = no
+		}
+		complete_national_focus = POL_com_independence
+	}
+}
+
+add_namespace = NSB_poland_democratic_events
+#Event for deciding if Poland should be lead by Wincenty Witos or Stanisław Mikołajczyk
+country_event = {
+	id = NSB_poland_democratic_events.1
+	title = NSB_poland_democratic_events.1.t
+	desc = NSB_poland_democratic_events.1.desc
+	picture = GFX_report_event_sanation_revolt
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_poland_democratic_events.1.a
+		ai_chance = {
+			base = 10
+		}
+		if = {
+			limit = {
+				has_cosmetic_tag = POL_PEASANT
+			}
+			drop_cosmetic_tag = yes
+		}
+		promote_character = POL_wincenty_witos
+	}
+	option = {
+		name = NSB_poland_democratic_events.1.b
+		ai_chance = {
+			base = 40
+		}
+		promote_character = POL_stanislaw_mikolajczyk
+	}
+}
+
+add_namespace = NSB_polish_fascist_events
+#German event; Poland wants to surrender Western Poland and become a German puppet
+country_event = {
+	id = NSB_polish_fascist_events.1
+	title = NSB_polish_fascist_events.1.t
+	desc = NSB_polish_fascist_events.1.desc
+	picture = GFX_report_event_danzig_joins_nazis
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.1.a
+		ai_chance = {
+			base = 50			#Why would they say no?
+			modifier = {
+				#They are at war with someone I'm not
+				factor = 0.5
+				any_other_country = {
+					is_major = yes
+					has_war_with = POL
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+			}
+			modifier = {
+				#They are at war with the Allies and I am not
+				factor = 0.1
+				any_other_country = {
+					is_major = yes
+					has_government = democratic
+					has_war_with = POL
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+			}
+			modifier = {
+				#I have already signed Molotov-Ribbentrop
+				factor = 0.2
+				has_global_flag = sov_yes_pact
+			}
+			modifier = {
+				#Soviets refused MR Pact
+				factor = 2
+				has_global_flag = sov_no_pact
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_polish_fascist_events.101
+			}
+		}
+		if = {
+			limit = {
+				has_global_flag = sov_yes_pact
+			}
+			SOV = {
+				country_event = germany.16
+			}
+			clr_global_flag = sov_yes_pact
+			diplomatic_relation = {
+				country = SOV
+				relation = non_aggression_pact
+				active = no
+			}
+			SOV = {
+				add_state_claim = 96
+				add_state_claim = 95
+				add_state_claim = 94
+				add_state_claim = 93
+				add_state_claim = 91
+				add_state_claim = 97
+				add_state_claim = 89
+				add_state_claim = 784
+				effect_tooltip = {
+					create_wargoal = {
+						type = annex_everything
+						target = GER
+					}
+				}
+			}
+		}
+		POL_become_german_puppet_effect = yes
+		set_global_flag = beck_ribbentrop_signed
+	}
+	option = {
+		name = NSB_polish_fascist_events.1.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0				#If the player is doing this, the AI should always say yes.
+				POL = {
+					is_ai = no
+				}
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_polish_fascist_events.102
+			}
+		}
+	}
+}
+
+#Inform Poland of Germany saying yes
+country_event = {
+	id = NSB_polish_fascist_events.101
+	title = NSB_polish_fascist_events.101.t
+	desc = NSB_polish_fascist_events.101.desc
+	picture = GFX_report_event_nazis_in_danzig
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.101.a
+		ai_chance = {
+			base = 10
+		}
+		effect_tooltip = {
+			POL_become_german_puppet_effect = yes
+		}
+	}
+}
+
+#Inform Poland of Germany saying no
+country_event = {
+	id = NSB_polish_fascist_events.102
+	title = NSB_polish_fascist_events.102.t
+	desc = NSB_polish_fascist_events.102.desc
+	picture = GFX_report_event_poland_rejects
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.102.a
+		ai_chance = {
+			base = 10
+		}
+		uncomplete_national_focus = {
+			focus = POL_beck_ribbentrop
+			uncomplete_children = yes
+			refund_political_power = no
+		}
+		complete_national_focus = POL_reassert_silesian_claims
+	}
+}
+
+#German event; Poland wants to invade Lithuania
+country_event = {
+	id = NSB_polish_fascist_events.2
+	title = NSB_polish_fascist_events.2.t
+	desc = NSB_polish_fascist_events.2.desc
+	picture = GFX_report_event_lithuanian_ultimatum
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.2.a
+		trigger = {
+			LIT = {
+				exists = yes
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				#Lithuania is in a faction
+				factor = 0.75
+				LIT = {
+					is_in_faction = yes
+				}
+			}
+			modifier = {
+				#Lithuania is in a big faction
+				factor = 0.5
+				LIT = {
+					is_in_faction = yes
+				}
+				any_other_country = {
+					is_major = yes
+					is_in_faction_with = LIT
+				}
+			}
+		}
+		LIT = {
+			country_event = NSB_polish_fascist_events.201
+		}
+		custom_effect_tooltip = if_they_accept_tt
+		effect_tooltip = {
+			POL_divide_lithuania_effect = yes
+		}
+	}
+	option = {
+		#I have already annexed Lithuania
+		name = NSB_polish_fascist_events.2.b
+		trigger = {
+			#If Lithuania does not exist, just divide the occupation
+			LIT = {
+				exists = no
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_polish_fascist_events.203
+			}
+		}
+		effect_tooltip = {
+			POL_divide_lithuania_effect = yes
+		}
+	}
+	option = {
+		#No
+		name = NSB_polish_fascist_events.2.c
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0				#If the player is doing this, the AI should always say yes.
+				POL = {
+					is_ai = no
+				}
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_polish_fascist_events.202
+			}
+		}
+	}
+}
+
+#Lithuania recieves the demand
+country_event = {
+	id = NSB_polish_fascist_events.201
+	title = NSB_polish_fascist_events.201.t
+	desc = NSB_polish_fascist_events.201.desc
+	picture = GFX_report_event_lithuanian_ultimatum
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Sure!
+		name = NSB_polish_fascist_events.201.a
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -25
+				POL = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+			modifier = {
+				add = -25
+				GER = {
+					has_army_size = {
+						size < 40
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				GER = {
+					has_army_size = {
+						size > 39
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				is_in_faction = yes
+			}
+		}
+		hidden_effect = {
+			POL = {
+				country_event = NSB_polish_fascist_events.203
+			}
+			GER = {
+				country_event = NSB_polish_fascist_events.203
+			}
+		}
+		POL_divide_lithuania_effect = yes
+		custom_effect_tooltip = GAME_OVER_TT
+	}
+	option = {
+		#No thank you
+		name = NSB_polish_fascist_events.201.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				POL = {
+					has_army_size = {
+						size > 39
+					}
+				}
+				factor = 0.5
+			}
+			modifier = {
+				add = 20
+				POL = {
+					has_army_size = {
+						size < 30
+					}
+				}
+			}
+			modifier = {
+				GER = {
+					has_army_size = {
+						size > 39
+					}
+				}
+				factor = 0.5
+			}
+			modifier = {
+				add = 20
+				GER = {
+					has_army_size = {
+						size < 30
+					}
+				}
+			}
+			modifier = {
+				any_other_country = {
+					has_guaranteed = LIT
+				}
+				factor = 5				#i've got friends
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					has_guaranteed = LIT
+				}
+				factor = 5				#i've got big friends
+			}
+		}
+		hidden_effect = {
+			GER = {
+				add_opinion_modifier = {
+					target = PREV
+					modifier = POL_annexation_refused
+				}
+				country_event = NSB_polish_fascist_events.204
+			}
+			POL = {
+				add_opinion_modifier = {
+					target = PREV
+					modifier = POL_annexation_refused
+				}
+				country_event = NSB_polish_fascist_events.204
+			}
+		}
+		POL_lithuania_wargoal_claims_effect = yes
+	}
+}
+
+#Inform Poland of Germany saying no
+country_event = {
+	id = NSB_polish_fascist_events.202
+	title = NSB_polish_fascist_events.202.t
+	desc = NSB_polish_fascist_events.202.desc
+	picture = GFX_report_event_generic_conference
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.202.a
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+#Inform Poland/Germany of Lithuania saying yes
+country_event = {
+	id = NSB_polish_fascist_events.203
+	title = NSB_polish_fascist_events.203.t
+	desc = NSB_polish_fascist_events.203.desc
+	picture = GFX_report_event_lithuanian_ultimatum
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.203.a
+		ai_chance = {
+			base = 10
+		}
+		effect_tooltip = {
+			POL_divide_lithuania_effect = yes
+		}
+	}
+}
+
+#Inform Poland/Germany of Lithuania saying no
+country_event = {
+	id = NSB_polish_fascist_events.204
+	title = NSB_polish_fascist_events.204.t
+	desc = NSB_polish_fascist_events.204.desc
+	picture = GFX_report_event_military_planning
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.204.a
+		ai_chance = {
+			base = 10
+		}
+		effect_tooltip = {
+			POL_lithuania_wargoal_claims_effect = yes
+		}
+	}
+}
+
+#Poland asks Germany to become more autonomous
+country_event = {
+	id = NSB_polish_fascist_events.3
+	title = NSB_polish_fascist_events.3.t
+	desc = NSB_polish_fascist_events.3.desc
+	picture = GFX_report_event_danzig_joins_nazis
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		#Yes 
+		name = NSB_polish_fascist_events.3.a
+		ai_chance = {
+			base = 10
+		}
+		set_autonomy = {
+			target = POL
+			autonomy_state = autonomy_satellite
+		}
+		hidden_effect = {
+			POL = {
+				country_event = {
+					id = NSB_polish_fascist_events.301
+					hours = 3
+				}
+			}
+		}
+	}
+	option = {
+		#No, Poland is Ours  
+		name = NSB_polish_fascist_events.3.b
+		ai_chance = {
+			base = 0			#The AI should basically always say yes
+		}
+		hidden_effect = {
+			POL = {
+				country_event = {
+					id = NSB_polish_fascist_events.302
+					hours = 3
+				}
+			}
+		}
+	}
+}
+
+#Poland becomes more autonomous
+country_event = {
+	id = NSB_polish_fascist_events.301
+	title = NSB_polish_fascist_events.301.t
+	desc = NSB_polish_fascist_events.301.desc
+	picture = GFX_report_event_generic_communist_congress
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.301.a
+		ai_chance = {
+			base = 10
+		}
+		effect_tooltip = {
+			GER = {
+				set_autonomy = {
+					target = POL
+					autonomy_state = autonomy_satellite
+				}
+			}
+		}
+	}
+}
+
+#Poland is told no to being more autonomous
+country_event = {
+	id = NSB_polish_fascist_events.302
+	title = NSB_polish_fascist_events.302.t
+	desc = NSB_polish_fascist_events.302.desc
+	picture = GFX_report_event_nazis_in_danzig
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.302.a		#Accept it, nothing happens
+		ai_chance = {
+			base = 40
+		}
+	}
+	option = {
+		name = NSB_polish_fascist_events.302.b		#Screw Germany, I'm going to reach out to the resistance
+		ai_chance = {
+			base = 20
+		}
+		uncomplete_national_focus = {
+			focus = POL_request_autonomous_status
+			uncomplete_children = no
+			refund_political_power = no
+		}
+		complete_national_focus = POL_reach_out_to_underground_state
+	}
+}
+
+#Poland tries to decide post-war borders
+country_event = {
+	id = NSB_polish_fascist_events.4
+	title = NSB_polish_fascist_events.4.t
+	desc = {
+		text = NSB_polish_fascist_events.4.desc.rejected
+		trigger = {
+			OR = {
+				has_global_flag = POL_rejected_baltics
+				has_global_flag = POL_rejected_belarus_ukraine
+				has_global_flag = POL_rejected_black_sea
+			}
+		}
+	}
+	desc = {
+		text = NSB_polish_fascist_events.4.desc.first
+		trigger = {
+			NOT = {
+				has_global_flag = POL_rejected_baltics
+			}
+			NOT = {
+				has_global_flag = POL_rejected_belarus_ukraine
+			}
+			NOT = {
+				has_global_flag = POL_rejected_black_sea
+			}
+		}
+	}
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.4.a		#We want to move up into the Baltic
+		ai_chance = {
+			base = 40
+		}
+		trigger = {
+			NOT = {
+				has_global_flag = POL_rejected_baltics
+			}
+		}
+		set_country_flag = asking_for_baltics_flag
+		overlord = {
+			country_event = {
+				id = NSB_polish_fascist_events.401
+				hours = 5
+			}
+		}
+		custom_effect_tooltip = if_they_accept_tt
+		custom_effect_tooltip = form_country_estonia_coring_states_tt
+		custom_effect_tooltip = form_country_latvia_coring_states_tt
+		custom_effect_tooltip = form_country_lithuania_coring_states_tt
+	}
+	option = {
+		name = NSB_polish_fascist_events.4.b		#We want to move east into Belarus and Ukraine
+		ai_chance = {
+			base = 60
+		}
+		trigger = {
+			NOT = {
+				has_global_flag = POL_rejected_belarus_ukraine
+			}
+		}
+		set_country_flag = asking_for_belarus_and_ukraine_flag
+		overlord = {
+			country_event = {
+				id = NSB_polish_fascist_events.401
+				hours = 5
+			}
+		}
+		custom_effect_tooltip = if_they_accept_tt
+		custom_effect_tooltip = form_country_ukraine_coring_states_tt
+		custom_effect_tooltip = form_country_belarus_coring_states_tt
+	}
+	option = {
+		name = NSB_polish_fascist_events.4.c		#We want to move south into the Black Sea
+		ai_chance = {
+			base = 20
+		}
+		trigger = {
+			NOT = {
+				has_global_flag = POL_rejected_black_sea
+			}
+		}
+		set_country_flag = asking_for_black_sea_flag
+		overlord = {
+			country_event = {
+				id = NSB_polish_fascist_events.401
+				hours = 5
+			}
+		}
+		custom_effect_tooltip = if_they_accept_tt
+		custom_effect_tooltip = form_country_ukraine_coring_states_tt
+		custom_effect_tooltip = core_black_sea_tt
+	}
+}
+
+#Germany deliberates on post-war borders
+country_event = {
+	id = NSB_polish_fascist_events.401
+	title = NSB_polish_fascist_events.4.t
+	desc = {
+		text = NSB_polish_fascist_events.401.desc.baltics
+		trigger = {
+			FROM = {
+				has_country_flag = asking_for_baltics_flag
+			}
+		}
+	}
+	desc = {
+		text = NSB_polish_fascist_events.401.desc.ukraine
+		trigger = {
+			FROM = {
+				has_country_flag = asking_for_belarus_and_ukraine_flag
+			}
+		}
+	}
+	desc = {
+		text = NSB_polish_fascist_events.401.desc.blacksea
+		trigger = {
+			FROM = {
+				has_country_flag = asking_for_black_sea_flag
+			}
+		}
+	}
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.401.a		#Germany agrees to post-war borders
+		ai_chance = {
+			base = 40
+		}
+		FROM = {
+			country_event = {
+				id = NSB_polish_fascist_events.402
+				hours = 8
+			}
+		}
+	}
+	option = {
+		name = NSB_polish_fascist_events.401.b		#We disagree
+		ai_chance = {
+			base = 60
+		}
+		trigger = {
+			#Can't say no if it's the last option
+			OR = {
+				AND = {
+					NOT = {
+						has_global_flag = POL_rejected_baltics
+					}
+					NOT = {
+						has_global_flag = POL_rejected_belarus_ukraine
+					}
+				}
+				AND = {
+					NOT = {
+						has_global_flag = POL_rejected_baltics
+					}
+					NOT = {
+						has_global_flag = POL_rejected_black_sea
+					}
+				}
+				AND = {
+					NOT = {
+						has_global_flag = POL_rejected_belarus_ukraine
+					}
+					NOT = {
+						has_global_flag = POL_rejected_black_sea
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					FROM = {
+						has_country_flag = asking_for_baltics_flag
+					}
+				}
+				set_global_flag = POL_rejected_baltics
+			}
+			if = {
+				limit = {
+					FROM = {
+						has_country_flag = asking_for_belarus_and_ukraine_flag
+					}
+				}
+				set_global_flag = POL_rejected_belarus_ukraine
+			}
+			if = {
+				limit = {
+					FROM = {
+						has_country_flag = asking_for_black_sea_flag
+					}
+				}
+				set_global_flag = POL_rejected_black_sea
+			}
+			FROM = {
+				clr_country_flag = asking_for_baltics_flag
+				clr_country_flag = asking_for_belarus_and_ukraine_flag
+				clr_country_flag = asking_for_black_sea_flag
+				country_event = {
+					id = NSB_polish_fascist_events.4
+					hours = 3
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = NSB_polish_fascist_events.402
+	title = NSB_poland_communist_events.401.t
+	desc = NSB_polish_fascist_events.402.desc
+	picture = GFX_report_event_generic_peaceful_annexation
+	is_triggered_only = yes
+	option = {
+		name = NSB_polish_fascist_events.402.a		#Germany agrees to post-war borders
+		ai_chance = {
+			base = 40
+		}
+		if = {
+			limit = {
+				has_country_flag = asking_for_baltics_flag
+			}
+			custom_effect_tooltip = form_country_estonia_coring_states_tt
+			custom_effect_tooltip = form_country_latvia_coring_states_tt
+			custom_effect_tooltip = form_country_lithuania_coring_states_tt
+			hidden_effect = {
+				#Estonia
+				13 = {
+					add_core_of = ROOT
+				}
+				191 = {
+					add_core_of = ROOT
+				}
+				811 = {
+					add_core_of = ROOT
+				}
+				812 = {
+					add_core_of = ROOT
+				}
+				813 = {
+					add_core_of = ROOT
+				}
+				# Latvia
+				12 = {
+					add_core_of = ROOT
+				}
+				190 = {
+					add_core_of = ROOT
+				}
+				808 = {
+					add_core_of = ROOT
+				}
+				809 = {
+					add_core_of = ROOT
+				}
+				810 = {
+					add_core_of = ROOT
+				}
+				# Lithuania
+				11 = {
+					add_core_of = ROOT
+				}
+				189 = {
+					add_core_of = ROOT
+				}
+				188 = {
+					add_core_of = ROOT
+				}
+				784 = {
+					add_core_of = ROOT
+				}
+				814 = {
+					add_core_of = ROOT
+				}
+				815 = {
+					add_core_of = ROOT
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = asking_for_belarus_and_ukraine_flag
+			}
+			custom_effect_tooltip = form_country_ukraine_coring_states_tt
+			custom_effect_tooltip = form_country_belarus_coring_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = BLR
+							is_core_of = UKR
+						}
+					}
+					add_core_of = POL
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = asking_for_black_sea_flag
+			}
+			custom_effect_tooltip = form_country_ukraine_coring_states_tt
+			custom_effect_tooltip = core_black_sea_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						is_core_of = UKR
+					}
+					add_core_of = POL
+				}
+				137 = {
+					add_core_of = POL
+				}
+				218 = {
+					add_core_of = POL
+				}
+				234 = {
+					add_core_of = POL
+				}
+				233 = {
+					add_core_of = POL
+				}
+				231 = {
+					add_core_of = POL
+				}
+				238 = {
+					add_core_of = POL
+				}
+				235 = {
+					add_core_of = POL
+				}
+				232 = {
+					add_core_of = POL
+				}
+				230 = {
+					add_core_of = POL
+				}
+				229 = {
+					add_core_of = POL
+				}
+				821 = {
+					add_core_of = POL
+				}
+				826 = {
+					add_core_of = POL
+				}
+				827 = {
+					add_core_of = POL
+				}
+				828 = {
+					add_core_of = POL
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = NSB_polish_fascist_events.5
+	title = NSB_polish_fascist_events.5.t
+	desc = NSB_polish_fascist_events.5.desc
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = alliance_applicant
+			FROM = {
+				save_event_target_as = alliance_inviter
+			}
+		}
+	}
+	option = {
+		name = NSB_polish_fascist_events.5.a
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 2
+				has_same_ideology = yes
+			}
+			modifier = {
+				factor = 4
+				has_country_flag = delegation_recieved_flag
+			}
+			modifier = {
+				factor = 0.3
+				has_same_ideology = no
+			}
+			modifier = {
+				factor = 2
+				fascism > 0.4
+			}
+		}
+		FROM = {
+			add_to_faction = PREV
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.35
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_elections = yes
+				}
+			}
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = yes
+			}
+		}
+		else = {
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+		}
+		if = {
+			limit = {
+				has_focus_tree = netherlands_focus
+			}
+			if = {
+				limit = {
+					has_completed_focus = HOL_maintain_trade_neutrality
+				}
+				uncomplete_national_focus = {
+					focus = HOL_maintain_trade_neutrality
+					uncomplete_children = yes
+				}
+				unlock_national_focus = HOL_cave_to_the_germans
+			}
+			if = {
+				limit = {
+					has_completed_focus = HOL_cave_to_the_british
+				}
+				uncomplete_national_focus = {
+					focus = HOL_cave_to_the_british
+					uncomplete_children = yes
+				}
+				unlock_national_focus = HOL_cave_to_the_germans
+			}
+		}
+		hidden_effect = {
+			set_country_flag = alliance_applicant@ROOT
+			FROM = {
+				set_country_flag = alliance_inviter@ROOT
+			}
+			FROM = {
+				country_event = generic.6
+			}
+			news_event = {
+				id = news.289
+				hours = 12
+			}
+		}
+		add_ai_strategy = {
+			type = alliance
+			id = POL
+			value = 200
+		}
+	}
+	option = {
+		name = NSB_polish_fascist_events.5.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				fascism < 0.2
+			}
+			modifier = {
+				factor = 2
+				has_same_ideology = no
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = {
+					target = FROM
+					value > 65
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = {
+					target = FROM
+					value > 35
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = {
+					target = FROM
+					value > 5
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < 35
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < 65
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_war = yes
+				FROM = {
+					has_war = no
+				}
+			}
+			modifier = {
+				factor = 0.5
+				FROM = {
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 10
+				FROM = {
+					OR = {
+						is_subject = yes
+						AND = {
+							is_in_faction = yes
+							is_faction_leader = no
+						}
+					}
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = poland.1602
+			}
+		}
+	}
+}
+
+#Piasecki taking control of the government
+country_event = {
+	id = NSB_polish_fascist_events.6
+	title = NSB_polish_fascist_events.6.t
+	desc = NSB_polish_fascist_events.6.desc
+	picture = GFX_report_event_sanation_revolt
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = NSB_polish_fascist_events.6.a
+		ai_chance = {
+			factor = 10
+		}
+		add_stability = -0.1
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = no
+		}
+	}
+}
+
+#National-Democrats winning the "election"
+country_event = {
+	id = NSB_polish_fascist_events.7
+	title = NSB_polish_fascist_events.7.t
+	desc = NSB_polish_fascist_events.7.desc
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = NSB_polish_fascist_events.7.a
+		ai_chance = {
+			factor = 10
+		}
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+			election_frequency = 60
+			long_name = POL_natdem_party_long
+			name = POL_natdem_party
+		}
+		promote_character = POL_roman_dmowski
+	}
+}

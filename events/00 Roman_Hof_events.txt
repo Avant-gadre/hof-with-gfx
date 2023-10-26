@@ -1,0 +1,4192 @@
+﻿###########################
+# Italian Events
+###########################
+add_namespace = italy
+# Albania Yields
+country_event = {
+	id = italy.1
+	title = italy.1.t
+	desc = italy.1.d
+	picture = GFX_report_event_royal_parade
+	is_triggered_only = yes
+	option = {
+		name = italy.1.a
+		annex_country = {
+			target = ALB
+		}
+		add_named_threat = {
+			threat = 2
+			name = ITA_albania_war_goal
+		}
+		USA = {
+			set_country_flag = {
+				flag = USA_albania_window
+				days = 60
+				value = 1
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				days = 1
+				id = news.22
+			}
+		}
+	}
+}
+
+# Zog Rejects Ultimatum
+country_event = {
+	id = italy.2
+	title = italy.2.t
+	desc = italy.2.d
+	picture = GFX_report_event_albanian_partisans
+	is_triggered_only = yes
+	option = {
+		name = italy.2.a
+		create_wargoal = {
+			type = take_state_focus
+			target = ALB
+			generator = {
+				44
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				days = 1
+				id = news.23
+			}
+		}
+	}
+}
+
+# Albania Receives Ultimatum
+country_event = {
+	id = italy.3
+	title = italy.3.t
+	desc = italy.3.d
+	picture = GFX_report_event_albanian_king_zog
+	is_triggered_only = yes
+	option = {
+		# Yield
+		name = italy.3.a
+		ai_chance = {
+			base = 0
+			modifier = {
+				factor = 0
+				OR = {
+					any_other_country = {
+						OR = {
+							is_major = yes
+							tag = YUG
+						}
+						NOT = {
+							tag = ITA
+						}
+						OR = {
+							has_guaranteed = ROOT
+							is_in_faction_with = ROOT
+						}
+					}
+					AND = {
+						is_subject = yes
+						NOT = {
+							is_subject_of = ITA
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_government = communism
+					has_government = fascism					#glorious Albania will never yield!
+				}
+			}
+			modifier = {
+				factor = 5
+				is_subject_of = ITA
+			}
+		}
+		ITA = {
+			country_event = {
+				days = 1
+				id = italy.1
+			}
+		}
+		custom_effect_tooltip = GAME_OVER_TT
+	}
+	option = {
+		# Resist
+		name = italy.3.b
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 0
+				OR = {
+					AND = {
+						is_in_faction_with = ITA
+						ITA = {
+							is_faction_leader = yes
+						}
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = ITA
+				}
+			}
+			modifier = {
+				add = 100
+				is_subject = yes
+				NOT = {
+					is_subject_of = ITA
+				}
+			}
+		}
+		ITA = {
+			effect_tooltip = {
+				create_wargoal = {
+					type = take_state_focus
+					target = ALB
+					generator = {
+						44
+					}
+				}
+			}
+			country_event = {
+				days = 1
+				id = italy.2
+			}
+		}
+	}
+}
+
+# Extension of the Vallo Alpino
+country_event = {
+	id = italy.4
+	title = italy.4.t
+	desc = italy.4.d
+	picture = GFX_report_event_bunker_01
+	is_triggered_only = yes
+	option = {
+		name = italy.4.a
+		158 = {
+			add_building_construction = {
+				type = bunker
+				province = 11891
+				level = 3
+			}
+			add_building_construction = {
+				type = bunker
+				province = 11721
+				level = 3
+			}
+			add_building_construction = {
+				type = bunker
+				province = 9738
+				level = 3
+			}
+		}
+		160 = {
+			add_building_construction = {
+				type = bunker
+				province = 3657
+				level = 3
+			}
+			add_building_construction = {
+				type = bunker
+				province = 9613
+				level = 3
+			}
+			add_building_construction = {
+				type = bunker
+				province = 11595
+				level = 3
+			}
+		}
+	}
+}
+
+# Italian-German Treaty (Germans)
+country_event = {
+	id = italy.5
+	title = italy.5.t
+	desc = italy.5.d
+	picture = GFX_report_event_german_italian_pact
+	is_triggered_only = yes
+	option = {
+		name = italy.5.a		#sounds good
+		ITA = {
+			country_event = {
+				days = 1
+				id = italy.6
+			}
+		}
+		# REVISIT Balance research bonus, also in event below
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			technology = tech_mountaineers2
+		}
+		add_doctrine_cost_reduction = {
+			cost_reduction = 0.5
+			uses = 2
+			category = naval_doctrine
+		}
+	}
+	option = {
+		name = italy.5.b		#no way 
+		ai_chance = {
+			factor = 0
+		}
+		add_political_power = -10
+		ITA = {
+			country_event = {
+				days = 1
+				id = italy.7
+			}
+		}
+	}
+}
+
+# Germans Accept Italian-German Treaty
+country_event = {
+	id = italy.6
+	title = italy.6.t
+	desc = italy.6.d
+	picture = GFX_report_event_physics_lab_01
+	is_triggered_only = yes
+	option = {
+		name = italy.6.a
+		# REVISIT Balance research bonus
+		add_tech_bonus = {
+			name = synth_bonus
+			bonus = 1
+			uses = 1
+			category = synth_resources
+		}
+		add_tech_bonus = {
+			name = armor_bonus
+			bonus = 1
+			uses = 2
+			category = armor
+		}
+		ITA = {
+			add_opinion_modifier = {
+				target = GER
+				modifier = ger_ita_tech_treaty
+			}
+		}
+	}
+}
+
+# Germans Reject Italian-German Treaty
+country_event = {
+	id = italy.7
+	title = italy.7.t
+	desc = italy.7.d
+	picture = GFX_report_event_physics_lab_01
+	is_triggered_only = yes
+	option = {
+		name = italy.7.a
+		ITA = {
+			add_opinion_modifier = {
+				target = GER
+				modifier = ger_ita_tech_treaty_rejected
+			}
+		}
+	}
+}
+
+# French national focus - French asks Italy to join french faction
+country_event = {
+	id = italy.8
+	title = italy.8.t
+	desc = italy.8.d
+	picture = GFX_report_event_german_parade_paris
+	is_triggered_only = yes
+	option = {
+		name = italy.8.a
+		FRA = {
+			if = {
+				limit = {
+					is_in_faction = no
+				}
+				set_rule = {
+					can_create_factions = yes
+				}
+				create_faction = "domination_francaise"
+			}
+		}
+		FRA = {
+			add_to_faction = ITA
+		}
+		ITA = {
+			add_ai_strategy = {
+				type = alliance
+				id = "FRA"
+				value = 200
+			}
+		}
+		FRA = {
+			add_ai_strategy = {
+				type = alliance
+				id = "ITA"
+				value = 200
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				hours = 6
+				id = news.181
+			}
+		}
+	}
+	option = {
+		name = italy.8.b
+		ai_chance = {
+			factor = 0
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = ITA
+				modifier = ITA_FRA_woo_italy_reject
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				hours = 6
+				id = news.183
+			}
+		}
+	}
+}
+
+# Request Balearic Islands from Spain
+country_event = {
+	id = italy.9
+	title = italy.9.t
+	desc = italy.9.d
+	picture = GFX_report_event_merchant_ship_01
+	is_triggered_only = yes
+	option = {
+		name = italy.9.a
+		ITA = {
+			country_event = {
+				id = italy.10
+			}
+		}
+		effect_tooltip = {
+			ITA = {
+				transfer_state = 177
+			}
+			remove_opinion_modifier = {
+				target = ITA
+				modifier = ita_supported_spain_civil_war
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = news.190
+			}
+		}
+	}
+	option = {
+		name = italy.9.b
+		ai_chance = {
+			factor = 0
+		}
+		ITA = {
+			country_event = {
+				id = italy.11
+			}
+		}
+		effect_tooltip = {
+			ITA = {
+				add_state_claim = 177
+			}
+		}
+	}
+}
+
+# Spain Gives Up Balearic Islands
+country_event = {
+	id = italy.10
+	title = italy.10.t
+	desc = italy.10.d
+	picture = GFX_report_event_merchant_ship_01
+	is_triggered_only = yes
+	option = {
+		name = italy.10.a
+		ITA = {
+			transfer_state = 177
+		}
+		remove_opinion_modifier = {
+			target = ITA
+			modifier = ita_supported_spain_civil_war
+		}
+	}
+}
+
+# Spain Refuses to Give Up Islands
+country_event = {
+	id = italy.11
+	title = italy.11.t
+	desc = italy.11.d
+	picture = GFX_report_event_merchant_ship_01
+	is_triggered_only = yes
+	option = {
+		name = italy.11.a
+		ITA = {
+			add_state_claim = 177
+		}
+	}
+}
+
+# Germany want to claim Slovenia from Yugoslavia
+country_event = {
+	id = italy.12
+	title = italy.12.t
+	desc = italy.12.d
+	picture = GFX_report_event_hitler_croatia_handshake
+	is_triggered_only = yes
+	option = {
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_army_size = {
+					size > 75
+				}
+			}
+		}
+		name = italy.12.a
+		ITA = {
+			add_political_power = -100
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				add_to_faction = YUG
+				YUG = {
+					add_ai_strategy = {
+						type = alliance
+						id = "ITA"
+						value = 200
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							is_faction_leader = no
+							is_in_faction = yes
+						}
+						is_in_faction = no
+					}
+				}
+				create_faction = italy_empire_faction
+				add_to_faction = YUG
+				YUG = {
+					add_ai_strategy = {
+						type = alliance
+						id = "ITA"
+						value = 200
+					}
+				}
+			}
+		}
+		GER = {
+			country_event = {
+				id = germany.96
+				hours = 6
+			}
+		}
+	}
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = italy.12.b
+		YUG = {
+			add_opinion_modifier = {
+				target = ITA
+				modifier = western_betrayal
+			}
+		}
+	}
+}
+
+# Italy (First Ljubljana Award) from german focus
+# Italy Germany rejects demands for Vichy territory
+country_event = {
+	id = italy.14
+	title = italy.14.t
+	desc = italy.14.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		ai_chance = {
+			factor = 25
+		}
+		name = italy.14.a
+		GER = {
+			remove_from_faction = ITA
+			country_event = germany.105
+		}
+	}
+	option = {
+		ai_chance = {
+			factor = 75
+		}
+		name = italy.14.b
+	}
+}
+
+# Italy Germany accepts demands for Vichy territory
+country_event = {
+	id = italy.15
+	title = italy.15.t
+	desc = {
+		text = italy.15.d
+		trigger = {
+			has_global_flag = ITA_claims_on_france_735
+			has_global_flag = ITA_claims_on_france_1
+		}
+	}
+	desc = {
+		text = italy.15.d_Corsica
+		trigger = {
+			NOT = {
+				has_global_flag = ITA_claims_on_france_735
+			}
+			has_global_flag = ITA_claims_on_france_1
+		}
+	}
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = italy.15.a
+		if = {
+			limit = {
+				has_global_flag = ITA_claims_on_france_735
+			}
+			ITA = {
+				transfer_state = 735
+			}
+		}
+		if = {
+			limit = {
+				has_global_flag = ITA_claims_on_france_1
+			}
+			ITA = {
+				transfer_state = 1
+			}
+		}
+	}
+}
+
+# Italy Germany accepts some of demands for Vichy territory
+country_event = {
+	id = italy.16
+	title = italy.16.t
+	desc = italy.16.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = italy.16.a
+		transfer_state = 735
+	}
+}
+
+###########################
+# BBA Italian Events
+###########################
+add_namespace = HOF_italo_ethiopian_war_events
+add_namespace = HOF_italy_nero
+#########################
+###### MISSIOLINIS ######
+#########################
+### RANDOM MISSION DISPATCHER ###
+#你随机你妈妈呢，傻逼P社，整的这么多判定，一看效果全是小丑
+country_event = {
+	id = BBA_italy_missiolinis.00
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			if = {
+				#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY AND NOT TOO MANY MISSIONS ACTIVE, GO AHEAD
+				limit = {
+					ITA_nero_cd_ready = yes
+					ITA_missiolinis_can_have_a_new_mission = yes
+				}
+				#Trigger a random missiolini
+				random_list = {
+					10 = {
+						#STOCKPILE TRUCKS
+						modifier = {
+							factor = 10
+							has_equipment = {
+								motorized_equipment_1 < 50
+							}
+						}
+						modifier = {
+							#Trigger only once
+							factor = 0
+							has_country_flag = ITA_missiolini_stockpile_trucks_triggered_flag
+						}
+						modifier = {
+							#Do not re-roll same missiolini
+							factor = 0
+							check_variable = {
+								ITA_missiolini_reroll_from = 1
+							}							#STOCKPILE TRUCKS
+						}
+						country_event = BBA_italy_missiolinis.51
+					}
+					10 = {
+						#STOCKPILE FUEL
+						modifier = {
+							factor = 10
+							has_fuel < 60000
+						}
+						modifier = {
+							#Trigger only once
+							factor = 0
+							has_country_flag = ITA_missiolini_stockpile_fuel_triggered_flag
+						}
+						modifier = {
+							#Do not re-roll same missiolini
+							factor = 0
+							check_variable = {
+								ITA_missiolini_reroll_from = 2
+							}							#STOCKPILE FUEL
+						}
+						country_event = BBA_italy_missiolinis.61
+					}
+					10 = {
+						#STRENGTHEN THE AIRFORCE
+						modifier = {
+							factor = 10
+							has_equipment = {
+								small_plane_airframe < 100
+							}
+						}
+						modifier = {
+							factor = 5
+							has_equipment = {
+								medium_plane_airframe < 100
+							}
+							has_equipment = {
+								small_plane_cas_airframe < 100
+							}
+							has_equipment = {
+								small_plane_naval_bomber_airframe < 100
+							}
+						}
+						modifier = {
+							#Rare to have it twice
+							factor = 0.1
+							has_country_flag = ITA_missiolini_strengthen_the_airforce_triggered_flag
+						}
+						modifier = {
+							#Do not re-roll same missiolini
+							factor = 0
+							check_variable = {
+								ITA_missiolini_reroll_from = 3
+							}							#STRENGTHEN THE AIRFORCE
+						}
+						country_event = BBA_italy_missiolinis.71
+					}
+					10 = {
+						#INDUSTRIAL RESEARCH
+						modifier = {
+							factor = 0
+							OR = {
+								#date < 1939.1.1 #MM: Shouldn't be necessary (and makes it harder to test)
+								AND = {
+									#Potentially 1943+
+									OR = {
+										has_tech = flexible_line
+										has_tech = streamlined_line
+										is_researching_technology = flexible_line
+										is_researching_technology = streamlined_line
+									}
+									OR = {
+										has_tech = concentrated_industry5
+										has_tech = dispersed_industry5
+										is_researching_technology = concentrated_industry5
+										is_researching_technology = dispersed_industry5
+									}
+									OR = {
+										has_tech = construction5
+										is_researching_technology = construction5
+									}
+								}
+								AND = {
+									#1941-1943
+									date < 1943.1.1
+									OR = {
+										has_tech = assembly_line_production
+										is_researching_technology = assembly_line_production
+									}
+									OR = {
+										has_tech = concentrated_industry4
+										has_tech = dispersed_industry4
+										is_researching_technology = concentrated_industry4
+										is_researching_technology = dispersed_industry4
+									}
+									OR = {
+										has_tech = construction4
+										is_researching_technology = construction4
+									}
+								}
+								AND = {
+									#1939-1941
+									date < 1941.1.1
+									OR = {
+										has_tech = advanced_machine_tools
+										is_researching_technology = advanced_machine_tools
+									}
+									OR = {
+										has_tech = concentrated_industry3
+										has_tech = dispersed_industry3
+										is_researching_technology = concentrated_industry3
+										is_researching_technology = dispersed_industry3
+									}
+									OR = {
+										has_tech = construction3
+										is_researching_technology = construction3
+									}
+								}
+							}
+						}
+						modifier = {
+							factor = 10
+							OR = {
+								AND = {
+									date > 1940.1.1
+									OR = {
+										NOT = {
+											has_tech = advanced_machine_tools
+										}
+										AND = {
+											NOT = {
+												has_tech = concentrated_industry3
+											}
+											NOT = {
+												has_tech = dispersed_industry3
+											}
+										}
+										NOT = {
+											has_tech = construction3
+										}
+									}
+								}
+								AND = {
+									date > 1942.1.1
+									OR = {
+										NOT = {
+											has_tech = assembly_line_production
+										}
+										AND = {
+											NOT = {
+												has_tech = concentrated_industry4
+											}
+											NOT = {
+												has_tech = dispersed_industry4
+											}
+										}
+										NOT = {
+											has_tech = construction4
+										}
+									}
+								}
+								AND = {
+									date > 1944.1.1
+									OR = {
+										AND = {
+											NOT = {
+												has_tech = flexible_line
+											}
+											NOT = {
+												has_tech = streamlined_line
+											}
+										}
+										AND = {
+											NOT = {
+												has_tech = concentrated_industry5
+											}
+											NOT = {
+												has_tech = dispersed_industry5
+											}
+										}
+										NOT = {
+											has_tech = construction5
+										}
+									}
+								}
+							}
+						}
+						modifier = {
+							#Less probable to have it twice
+							factor = 0.5
+							has_country_flag = ITA_missiolini_industrial_research_triggered_flag
+						}
+						modifier = {
+							#Do not re-roll same missiolini
+							factor = 0
+							check_variable = {
+								ITA_missiolini_reroll_from = 4
+							}							#INDUSTRIAL RESEARCH
+						}
+						country_event = BBA_italy_missiolinis.81
+					}
+				}
+			}
+			else = {
+				log = "NO MISSIOLINI PER TE BAMBINO"
+			}
+			country_event = {
+				id = BBA_italy_missiolinis.00
+				days = 180
+			}
+			#Re-set vars and flags if re-rolling
+			if = {
+				limit = {
+					has_country_flag = ITA_missiolinis_rerolling_flag
+				}
+				#clr_country_flag = ITA_missiolinis_rerolling_flag #Clearing this flag in the actual new missiolini so that option to re-roll again doesn't show up
+				set_variable = {
+					ITA_missiolini_reroll_from = 0
+				}
+			}
+		}
+	}
+}
+
+### MUSSOLINI AMBITION SYSTEM STARTS AS CHRISTMAS OFFENSIVE ENDS ###
+# Event for ITA 
+unit_leader_event = {
+	# THIS IS ACTUALLY THE FIRST NERO! 
+	id = HOF_italo_ethiopian_war_events.01
+	title = HOF_BBA_italo_ethiopian_war_events.01.t
+	desc = HOF_BBA_italo_ethiopian_war_events.01.desc
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		# INITIALIZE NERO SYSTEM
+		hidden_effect = {
+			HOF_ITA_nero_initialize_nero_system = yes
+			#First time it's two missions at once
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+		}
+	}
+	trigger = {
+		has_war_with = ETH
+		has_country_leader = {
+			character = ITA_nero_claudius
+			ruling_only = yes
+		}
+	}
+	# Lets go on the offensive!
+	option = {
+		name = BBA_italo_ethiopian_war_events.01.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0.5
+				NOT = {
+					has_government = fascism
+				}
+			}
+		}
+		# Set Mission Timers 
+		#这玩意是他现场搓的一个变量，用来设置征服埃塞任务的时间
+		set_variable = {
+			ETH.ETH_hold_the_north_time = 120
+		}		# Timer for Holding/Conquering northern Ethiopia
+		set_variable = {
+			ETH.ETH_hold_the_south_time = 120
+		}		# Timer for Holding/Conquering southern Ethiopia and Harar
+		#if = { # Effects to Ethiopia and LoN stuff only for BBA
+		#limit = {
+		#	has_dlc = "By Blood Alone"
+		#}
+		# Increase War escalation and trigger loc for GUI
+		#ETH = { set_country_flag = italian_major_offensive_against_ethiopia_flag }
+		# ETH_escalate_the_war_effect = yes 
+		#ITA = {
+		#	add_named_threat = { 
+		#		threat = 0.6
+		#		name = ETH_major_offensive_threat
+		#	}
+		#}
+		#hidden_effect = { # Ethiopian missions activated only with BBA
+		#	ETH = { activate_mission = ETH_hold_the_north_mission }
+		#	ETH = { activate_mission = ETH_hold_the_south_mission }
+		#}
+		#}
+		#START NERO SYSTEM
+		set_country_flag = HOF_ITA_nero_active_flag
+		hidden_effect = {
+			ITA = {
+				activate_mission = HOF_ITA_conquer_the_north_mission
+				activate_mission = HOF_ITA_conquer_the_south_mission
+			}
+		}
+		# other effects for ITA 
+		add_timed_idea = {
+			idea = ITA_offensive_in_ethiopia
+			days = 180
+		}
+		ETH = {
+			add_timed_idea = {
+				idea = ETH_italian_offensive_idea
+				days = 180
+			}
+		}
+	}
+	# We need to be more cautious .... 
+	option = {
+		name = BBA_italo_ethiopian_war_events.01.b
+		ai_chance = {
+			base = 2
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		# No escalation of war
+		# Set Mission Timers 
+		set_variable = {
+			ETH.ETH_hold_the_north_time = 180
+		}		# Timer for Holding/Conquering northern Ethiopia
+		set_variable = {
+			ETH.ETH_hold_the_south_time = 180
+		}		# Timer for Holding/Conquering southern Ethiopia and Harar
+		hidden_effect = {
+			ITA = {
+				activate_mission = HOF_ITA_conquer_the_north_mission
+			}
+			ITA = {
+				activate_mission = HOF_ITA_conquer_the_south_mission
+			}
+		}
+		# other effects for ITA
+		add_timed_idea = {
+			idea = ITA_logistics_in_ethiopia
+			days = 240
+		}
+	}
+}
+
+# Progress in Ethiopia - FAILURE (North)
+country_event = {
+	id = HOF_italy_nero.02_north	#First Missiolini is in the Italo-Ethiopian War file
+	title = HOF_BBA_italy_missiolinis.02_north.t
+	desc = HOF_BBA_italy_missiolinis.02_north.desc
+	picture = GFX_report_event_generic_soldiers_surrendering
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Oops (No focus to complete)
+	option = {
+		name = BBA_italy_missiolinis.02_north.a
+		trigger = {
+			NOT = {
+				has_country_flag = ITA_nero_conquer_the_north_failed_flag
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+		HOF_ITA_nero_progress_in_ethiopia_failure_effect = yes
+	}
+}
+
+# Progress in Ethiopia - FAILURE (South)
+country_event = {
+	id = HOF_italy_nero.04_south	#First Missiolini is in the Italo-Ethiopian War file
+	title = HOF_BBA_italy_missiolinis.04_south.t
+	desc = HOF_BBA_italy_missiolinis.04_south.desc
+	picture = GFX_report_event_generic_soldiers_surrendering
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Oops (No focus to complete)
+	option = {
+		name = BBA_italy_missiolinis.04_south.a
+		trigger = {
+			NOT = {
+				has_country_flag = ITA_nero_conquer_the_south_failed_flag
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+		HOF_ITA_nero_progress_in_ethiopia_failure_effect = yes
+	}
+}
+
+# Progress in Ethiopia - SUCCESS (North)
+country_event = {
+	id = HOF_italy_nero.03_north
+	title = HOF_BBA_italy_missiolinis.03_north.t
+	desc = HOF_BBA_italy_missiolinis.03_north.desc
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.03_north.a
+		ai_chance = {
+			base = 10
+		}
+		HOF_ITA_nero_progress_in_ethiopia_success_effect = yes
+	}
+}
+
+# Progress in Ethiopia - SUCCESS (South)
+country_event = {
+	id = HOF_italy_nero.05_south
+	title = HOF_BBA_italy_missiolinis.05_south.t
+	desc = HOF_BBA_italy_missiolinis.05_south.desc
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.05_south.a
+		ai_chance = {
+			base = 10
+		}
+		HOF_ITA_nero_progress_in_ethiopia_success_effect = yes
+	}
+}
+
+### CONQUER ETHIOPIA ###
+#南边北边都胜利之后触发
+# Conquer Ethiopia - Missiolini
+unit_leader_event = {
+	id = HOF_italy_nero.11
+	title = HOF_BBA_italy_missiolinis.11.t
+	desc = HOF_BBA_italy_missiolinis.11.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	fire_only_once = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		has_global_flag = HOF_second_italo_ethiopian_war_flag
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.11.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = HOF_ITA_conquer_ethiopia
+	}
+}
+
+# Conquer Ethiopia - FAILURE 
+country_event = {
+	id = HOF_italy_nero.12
+	title = HOF_BBA_italy_missiolinis.12.t
+	desc = HOF_BBA_italy_missiolinis.12.desc
+	picture = GFX_report_event_generic_destroyed_vehicles
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.12.a
+		ai_chance = {
+			base = 10
+		}
+		HOF_ITA_nero_conquer_ethiopia_failure_effect = yes
+	}
+}
+
+# Conquer Ethiopia - SUCCESS 
+country_event = {
+	id = HOF_italy_nero.13
+	title = HOF_BBA_italy_missiolinis.13.t
+	desc = HOF_BBA_italy_missiolinis.13.desc
+	picture = GFX_report_event_generic_italian_celebration
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.13.a
+		ai_chance = {
+			base = 10
+		}
+		HOF_ITA_nero_conquer_ethiopia_success_effect = yes
+	}
+}
+
+### INDUSTRIALIZATION ###
+#这玩意是国策皇帝特权触发
+# Industrialization - Missiolini
+unit_leader_event = {
+	id = HOF_italy_nero.31
+	title = HOF_BBA_italy_missiolinis.31.t
+	desc = HOF_BBA_italy_missiolinis.31.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			#Get number of civs to build
+			#HOF_ITA_missiolinis_number_of_civs_goal变量在历史文件里面设置为4，看不起意大利是吧
+			set_variable = {
+				ITA_missiolinis_required_civs = ROOT.num_of_civilian_factories
+			}
+			add_to_variable = {
+				ITA_missiolinis_required_civs = HOF_ITA_missiolinis_number_of_civs_goal
+			}
+			add_to_variable = {
+				ITA_missiolinis_required_civs = -1
+			}			#So that the trigger in the mission works properly (can only use >, and not >=)
+			#TODO_Manu: Probably this will be a fixed amount of civs in the future. Then we'll have a generic randomly-triggered mission for building factories in general.
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.31.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = HOF_ITA_nero_strengthen_heavy_industry
+	}
+}
+
+# Industrialization - FAILURE 
+country_event = {
+	id = HOF_italy_nero.32
+	title = HOF_BBA_italy_missiolinis.32.t
+	desc = HOF_BBA_italy_missiolinis.32.desc
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.32.a
+		HOF_ITA_nero_strengthen_heavy_industry_failure_effect = yes
+	}
+}
+
+# Industrialization - SUCCESS 
+country_event = {
+	id = HOF_italy_nero.33
+	title = HOF_BBA_italy_missiolinis.33.t
+	desc = HOF_BBA_italy_missiolinis.33.desc
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.33.a
+		HOF_ITA_nero_strengthen_heavy_industry_success_effect = yes
+	}
+}
+
+### STRENGTHEN THE ARMY ###
+#这玩意是国策重视陆军触发
+# Strengthen the army - Missiolini
+unit_leader_event = {
+	id = HOF_italy_nero.41
+	title = HOF_BBA_italy_missiolinis.41.t
+	desc = HOF_BBA_italy_missiolinis.41.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.41.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = HOF_ITA_nero_strengthen_the_army
+	}
+}
+
+# Strengthen the army - FAILURE 
+country_event = {
+	id = HOF_italy_nero.42
+	title = HOF_BBA_italy_missiolinis.42.t
+	desc = HOF_BBA_italy_missiolinis.42.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.42.a
+		HOF_ITA_nero_strengthen_the_army_failure_effect = yes
+	}
+}
+
+# Strengthen the army - SUCCESS 
+country_event = {
+	id = HOF_italy_nero.43
+	title = HOF_BBA_italy_missiolinis.43.t
+	desc = HOF_BBA_italy_missiolinis.43.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.43.a
+		HOF_ITA_nero_strengthen_the_army_success_effect = yes
+	}
+}
+
+### STRENGTHEN THE NAVY ###
+#这玩意是国策重视海军触发
+# Strengthen the navy - Missiolini
+unit_leader_event = {
+	id = HOF_italy_nero.1000
+	title = HOF_BBA_italy_missiolinis.1000.t
+	desc = HOF_BBA_italy_missiolinis.1000.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.1000.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = HOF_ITA_nero_strengthen_the_navy
+	}
+}
+
+# Strengthen the navy - FAILURE 
+country_event = {
+	id = HOF_italy_nero.1001
+	title = HOF_BBA_italy_missiolinis.1001.t
+	desc = HOF_BBA_italy_missiolinis.1001.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.1001.a
+		HOF_ITA_nero_strengthen_the_navy_failure_effect = yes
+	}
+}
+
+# Strengthen the navy - SUCCESS 
+country_event = {
+	id = HOF_italy_nero.1002
+	title = HOF_BBA_italy_missiolinis.1002.t
+	desc = HOF_BBA_italy_missiolinis.1002.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.1002.a
+		HOF_ITA_nero_strengthen_the_navy_success_effect = yes
+	}
+}
+
+### STOCKPILE TRUCKS ###
+#这玩意是个随机任务
+# Stockpile Trucks - Missiolini
+unit_leader_event = {
+	id = BBA_italy_missiolinis.51
+	title = BBA_italy_missiolinis.51.t
+	desc = BBA_italy_missiolinis.51.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			set_country_flag = ITA_missiolini_stockpile_trucks_triggered_flag			#Trigger only once
+			#Establish goal
+			set_variable = {
+				ITA_missiolinis_stockpile_trucks_goal = num_equipment@motorized_equipment_1
+			}
+			add_to_variable = {
+				ITA_missiolinis_stockpile_trucks_goal = ITA_missiolinis_trucks_to_produce
+			}			#历史文件里面设定为500
+			add_to_variable = {
+				ITA_missiolinis_stockpile_trucks_goal = -1
+			}			#So that the trigger in the mission works properly (can only use >, and not >=)
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.51.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = ITA_missiolini_stockpile_trucks
+		ITA_mussolinis_reroll_cleanup_if_necessary = yes		#To clear stuff if coming from a reroll
+	}
+	# Re-roll
+	option = {
+		name = BBA_italy_missiolinis.council
+		ai_chance = {
+			base = 0
+		}
+		trigger = {
+			has_completed_focus = ITA_boost_the_grand_council_of_fascism
+			NOT = {
+				has_country_flag = ITA_missiolinis_rerolling_flag
+			}
+		}
+		ITA_missiolinis_reroll_cost = yes
+		hidden_effect = {
+			#Revert mission initialization from immediate effect
+			ITA_missiolinis_revert_new_mission_initialization_effect = yes
+			#Revert other stuff in the immediate effect
+			clr_country_flag = ITA_missiolini_stockpile_trucks_triggered_flag
+			set_variable = {
+				ITA_missiolinis_stockpile_trucks_goal = 0
+			}
+			#Re-roll
+			set_variable = {
+				ITA_missiolini_reroll_from = 1
+			}			#STOCKPILE TRUCKS
+			country_event = {
+				id = BBA_italy_missiolinis.00
+				hours = 20
+			}
+		}
+	}
+}
+
+# Stockpile Trucks - FAILURE 
+country_event = {
+	id = BBA_italy_missiolinis.52
+	title = BBA_italy_missiolinis.52.t
+	desc = BBA_italy_missiolinis.52.desc
+	picture = GFX_report_event_generic_truck
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.52.a
+		ITA_missiolini_stockpile_trucks_failure_effect = yes
+	}
+}
+
+# Stockpile Trucks - SUCCESS 
+country_event = {
+	id = BBA_italy_missiolinis.53
+	title = BBA_italy_missiolinis.53.t
+	desc = BBA_italy_missiolinis.53.desc
+	picture = GFX_report_event_generic_truck
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.53.a
+		ITA_missiolini_stockpile_trucks_success_effect = yes
+	}
+}
+
+### STOCKPILE FUEL ###
+#这玩意是个随机任务
+# Stockpile Fuel - Missiolini
+unit_leader_event = {
+	id = BBA_italy_missiolinis.61
+	title = BBA_italy_missiolinis.61.t
+	desc = BBA_italy_missiolinis.61.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			set_country_flag = ITA_missiolini_stockpile_fuel_triggered_flag			#Trigger only once
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.61.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = ITA_missiolini_stockpile_fuel
+		ITA_mussolinis_reroll_cleanup_if_necessary = yes		#To clear stuff if coming from a reroll
+	}
+	# Re-roll
+	option = {
+		name = BBA_italy_missiolinis.council
+		ai_chance = {
+			base = 0
+		}
+		trigger = {
+			has_completed_focus = ITA_boost_the_grand_council_of_fascism
+			NOT = {
+				has_country_flag = ITA_missiolinis_rerolling_flag
+			}
+		}
+		ITA_missiolinis_reroll_cost = yes
+		hidden_effect = {
+			#Revert mission initialization from immediate effect
+			ITA_missiolinis_revert_new_mission_initialization_effect = yes
+			#Revert other stuff in the immediate effect
+			clr_country_flag = ITA_missiolini_stockpile_fuel_triggered_flag
+			#Re-roll
+			set_variable = {
+				ITA_missiolini_reroll_from = 2
+			}			#STOCKPILE FUEL
+			country_event = {
+				id = BBA_italy_missiolinis.00
+				hours = 20
+			}
+		}
+	}
+}
+
+# Stockpile Fuel - FAILURE 
+country_event = {
+	id = BBA_italy_missiolinis.62
+	title = BBA_italy_missiolinis.62.t
+	desc = BBA_italy_missiolinis.62.desc
+	picture = GFX_report_event_tank_factory
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.62.a
+		ITA_missiolini_stockpile_fuel_failure_effect = yes
+	}
+}
+
+# Stockpile Fuel - SUCCESS 
+country_event = {
+	id = BBA_italy_missiolinis.63
+	title = BBA_italy_missiolinis.63.t
+	desc = BBA_italy_missiolinis.63.desc
+	picture = GFX_report_event_tank_factory
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.63.a
+		ITA_missiolini_stockpile_fuel_success_effect = yes
+	}
+}
+
+### STRENGTHEN THE AIRFORCE ###
+# Strengthen the Airforce - Missiolini
+unit_leader_event = {
+	id = BBA_italy_missiolinis.71
+	title = BBA_italy_missiolinis.71.t
+	desc = BBA_italy_missiolinis.71.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			set_country_flag = ITA_missiolini_strengthen_the_airforce_triggered_flag			#Less probable to have this more than once
+			#Establish goal - Figthers
+			#log = "Fighters in stockpile = [?ROOT.num_equipment@small_plane_airframe]"
+			set_variable = {
+				ITA_missiolinis_fighters_goal = num_equipment@small_plane_airframe
+			}
+			#log = "Fighters deployed = [?ROOT.num_deployed_planes_with_type@small_plane_airframe]"
+			add_to_variable = {
+				ITA_missiolinis_fighters_goal = num_deployed_planes_with_type@small_plane_airframe
+			}
+			#log = "Total figthers in country = [?ROOT.ITA_missiolinis_fighters_goal]"
+			#Add to goal - CV Figthers
+			#log = "CV Fighters in stockpile = [?ROOT.num_equipment@cv_small_plane_airframe]"
+			#add_to_variable = { ITA_missiolinis_fighters_goal = num_equipment@cv_small_plane_airframe }
+			#log = "CV Fighters deployed = [?ROOT.num_deployed_planes_with_type@cv_small_plane_airframe]"
+			#add_to_variable = { ITA_missiolinis_fighters_goal = num_deployed_planes_with_type@cv_small_plane_airframe }
+			add_to_variable = {
+				ITA_missiolinis_fighters_goal = ITA_missiolinis_fighters_to_produce
+			}
+			#log = "Total figthers to produce = [?ROOT.ITA_missiolinis_fighters_goal]"
+			#Establish goal - Bombers (CAS)
+			#log = "CAS in stockpile = [?ROOT.num_equipment@small_plane_cas_airframe]"
+			set_variable = {
+				ITA_missiolinis_cas_goal = num_equipment@small_plane_cas_airframe
+			}
+			#log = "CAS deployed = [?ROOT.num_deployed_planes_with_type@small_plane_cas_airframe]"
+			add_to_variable = {
+				ITA_missiolinis_cas_goal = num_deployed_planes_with_type@small_plane_cas_airframe
+			}
+			#Add to goal - Bombers (CV CAS)
+			#log = "CV CAS in stockpile = [?ROOT.num_equipment@cv_small_plane_cas_airframe]"
+			#add_to_variable = { ITA_missiolinis_cas_goal = num_equipment@cv_small_plane_cas_airframe }
+			#log = "CV CAS deployed = [?ROOT.num_deployed_planes_with_type@cv_small_plane_cas_airframe]"
+			#add_to_variable = { ITA_missiolinis_cas_goal = num_deployed_planes_with_type@cv_small_plane_cas_airframe }
+			#log = "Total CAS in country = [?ROOT.ITA_missiolinis_cas_goal]"
+			add_to_variable = {
+				ITA_missiolinis_cas_goal = ITA_missiolinis_bombers_to_produce
+			}
+			#log = "Total CAS to produce = [?ROOT.ITA_missiolinis_cas_goal]"
+			#Establish goal - Bombers (Nav)
+			#log = "Naval Bombers in stockpile = [?ROOT.num_equipment@nav_bomber_equipment]"
+			set_variable = {
+				ITA_missiolinis_naval_bombers_goal = num_equipment@nav_bomber_equipment
+			}
+			#log = "Naval Bombers deployed = [?ROOT.num_deployed_planes_with_type@nav_bomber_equipment]"
+			add_to_variable = {
+				ITA_missiolinis_naval_bombers_goal = num_deployed_planes_with_type@nav_bomber_equipment
+			}
+			#Add to goal - Bombers (CV Nav)
+			#log = "Naval Bombers in stockpile = [?ROOT.num_equipment@nav_bomber_equipment]"
+			#add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_equipment@nav_bomber_equipment }
+			#log = "Naval Bombers deployed = [?ROOT.num_deployed_planes_with_type@nav_bomber_equipment]"
+			#add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_deployed_planes_with_type@nav_bomber_equipment }
+			#log = "Total naval bombers in country = [?ROOT.ITA_missiolinis_naval_bombers_goal]"
+			add_to_variable = {
+				ITA_missiolinis_naval_bombers_goal = ITA_missiolinis_bombers_to_produce
+			}
+			#log = "Total naval bombers to produce = [?ROOT.ITA_missiolinis_naval_bombers_goal]"
+			#Establish goal - Bombers (Tac)
+			#log = "Tactical Bombers in stockpile = [?ROOT.num_equipment@tac_bomber_equipment]"
+			set_variable = {
+				ITA_missiolinis_tactical_bombers_goal = num_equipment@tac_bomber_equipment
+			}
+			#log = "Tactical Bombers deployed = [?ROOT.num_deployed_planes_with_type@tac_bomber_equipment]"
+			add_to_variable = {
+				ITA_missiolinis_tactical_bombers_goal = num_deployed_planes_with_type@tac_bomber_equipment
+			}
+			#log = "Total tactical bombers in country = [?ROOT.ITA_missiolinis_tactical_bombers_goal]"
+			add_to_variable = {
+				ITA_missiolinis_tactical_bombers_goal = ITA_missiolinis_bombers_to_produce
+			}
+			#log = "Total tactical bombers to produce = [?ROOT.ITA_missiolinis_tactical_bombers_goal]"
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.71.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = ITA_missiolini_strengthen_the_airforce
+		ITA_mussolinis_reroll_cleanup_if_necessary = yes		#To clear stuff if coming from a reroll
+	}
+	# Re-roll
+	option = {
+		name = BBA_italy_missiolinis.council
+		ai_chance = {
+			base = 0
+		}
+		trigger = {
+			has_completed_focus = ITA_boost_the_grand_council_of_fascism
+			NOT = {
+				has_country_flag = ITA_missiolinis_rerolling_flag
+			}
+		}
+		ITA_missiolinis_reroll_cost = yes
+		hidden_effect = {
+			#Revert mission initialization from immediate effect
+			ITA_missiolinis_revert_new_mission_initialization_effect = yes
+			#Revert other stuff in the immediate effect
+			clr_country_flag = ITA_missiolini_strengthen_the_airforce_triggered_flag
+			set_variable = {
+				ITA_missiolinis_fighters_goal = 0
+			}
+			set_variable = {
+				ITA_missiolinis_cas_goal = 0
+			}
+			set_variable = {
+				ITA_missiolinis_naval_bombers_goal = 0
+			}
+			set_variable = {
+				ITA_missiolinis_tactical_bombers_goal = 0
+			}
+			#Re-roll
+			set_variable = {
+				ITA_missiolini_reroll_from = 3
+			}			#STRENGTHEN THE AIRFORCE
+			country_event = {
+				id = BBA_italy_missiolinis.00
+				hours = 20
+			}
+		}
+	}
+}
+
+# Strengthen the Airforce - FAILURE 
+country_event = {
+	id = BBA_italy_missiolinis.72
+	title = BBA_italy_missiolinis.72.t
+	desc = BBA_italy_missiolinis.72.desc
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.72.a
+		ITA_missiolini_strengthen_the_airforce_failure_effect = yes
+	}
+}
+
+# Strengthen the Airforce - SUCCESS 
+country_event = {
+	id = BBA_italy_missiolinis.73
+	title = BBA_italy_missiolinis.73.t
+	desc = BBA_italy_missiolinis.73.desc
+	picture = GFX_report_event_fighters
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.73.a
+		ITA_missiolini_strengthen_the_airforce_success_effect = yes
+	}
+}
+
+### INDUSTRIAL RESEARCH ###
+# Industrial Research - Missiolini
+unit_leader_event = {
+	id = BBA_italy_missiolinis.81
+	title = BBA_italy_missiolinis.81.t
+	desc = BBA_italy_missiolinis.81.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			set_country_flag = ITA_missiolini_industrial_research_triggered_flag			#Less probable to have this more than once
+			if = {
+				limit = {
+					date > 1943.1.1
+				}
+				random_list = {
+					30 = {
+						#PORDUCTION BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = flexible_line
+								has_tech = streamlined_line
+								is_researching_technology = flexible_line
+								is_researching_technology = streamlined_line
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = assembly_line_production
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_production_flag
+							value = 3
+						}
+					}
+					20 = {
+						#INDUSTRY BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = concentrated_industry5
+								has_tech = dispersed_industry5
+								is_researching_technology = concentrated_industry5
+								is_researching_technology = dispersed_industry5
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = concentrated_industry4
+							}
+							NOT = {
+								has_tech = dispersed_industry4
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_industry_flag
+							value = 3
+						}
+					}
+					10 = {
+						#CONSTRUCTION BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = construction5
+								is_researching_technology = construction5
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = construction4
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_construction_flag
+							value = 3
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					date > 1941.1.1
+				}
+				random_list = {
+					30 = {
+						#PORDUCTION BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = assembly_line_production
+								is_researching_technology = assembly_line_production
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = advanced_machine_tools
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_production_flag
+							value = 2
+						}
+					}
+					20 = {
+						#INDUSTRY BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = concentrated_industry4
+								has_tech = dispersed_industry4
+								is_researching_technology = concentrated_industry4
+								is_researching_technology = dispersed_industry4
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = concentrated_industry3
+							}
+							NOT = {
+								has_tech = dispersed_industry3
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_industry_flag
+							value = 2
+						}
+					}
+					10 = {
+						#CONSTRUCTION BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = construction4
+								is_researching_technology = construction4
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = construction3
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_construction_flag
+							value = 2
+						}
+					}
+				}
+			}
+			else = {
+				#Safe to assume that it's date > 1939.1.1
+				random_list = {
+					30 = {
+						#PORDUCTION BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = advanced_machine_tools
+								is_researching_technology = advanced_machine_tools
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = improved_machine_tools
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_production_flag
+							value = 1
+						}
+					}
+					20 = {
+						#INDUSTRY BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = concentrated_industry3
+								has_tech = dispersed_industry3
+								is_researching_technology = concentrated_industry3
+								is_researching_technology = dispersed_industry3
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = concentrated_industry2
+							}
+							NOT = {
+								has_tech = dispersed_industry2
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_industry_flag
+							value = 1
+						}
+					}
+					10 = {
+						#CONSTRUCTION BRANCH
+						modifier = {
+							#If tech is already researched then this makes no sense
+							factor = 0
+							OR = {
+								has_tech = construction3
+								is_researching_technology = construction3
+							}
+						}
+						modifier = {
+							#If lagging behind, then it's more likely
+							factor = 1.5
+							NOT = {
+								has_tech = construction2
+							}
+						}
+						set_country_flag = {
+							flag = ITA_missiolini_research_construction_flag
+							value = 1
+						}
+					}
+				}
+			}
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.81.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = ITA_missiolini_industrial_research
+		ITA_mussolinis_reroll_cleanup_if_necessary = yes		#To clear stuff if coming from a reroll
+	}
+	# Re-roll
+	option = {
+		name = BBA_italy_missiolinis.council
+		ai_chance = {
+			base = 0
+		}
+		trigger = {
+			has_completed_focus = ITA_boost_the_grand_council_of_fascism
+			NOT = {
+				has_country_flag = ITA_missiolinis_rerolling_flag
+			}
+		}
+		ITA_missiolinis_reroll_cost = yes
+		hidden_effect = {
+			#Revert mission initialization from immediate effect
+			ITA_missiolinis_revert_new_mission_initialization_effect = yes
+			#Revert other stuff in the immediate effect
+			if = {
+				limit = {
+					has_country_flag = ITA_missiolini_research_production_flag
+				}
+				clr_country_flag = ITA_missiolini_research_production_flag
+			}
+			if = {
+				limit = {
+					has_country_flag = ITA_missiolini_research_industry_flag
+				}
+				clr_country_flag = ITA_missiolini_research_industry_flag
+			}
+			if = {
+				limit = {
+					has_country_flag = ITA_missiolini_research_construction_flag
+				}
+				clr_country_flag = ITA_missiolini_research_construction_flag
+			}
+			#Re-roll
+			set_variable = {
+				ITA_missiolini_reroll_from = 4
+			}			#INDUSTRIAL RESEARCH
+			country_event = {
+				id = BBA_italy_missiolinis.00
+				hours = 20
+			}
+		}
+	}
+}
+
+# Industrial Research - FAILURE 
+country_event = {
+	id = BBA_italy_missiolinis.82
+	title = BBA_italy_missiolinis.82.t
+	desc = BBA_italy_missiolinis.82.desc
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.82.a
+		ITA_missiolini_industrial_research_failure_effect = yes
+	}
+}
+
+# Industrial Research - SUCCESS 
+country_event = {
+	id = BBA_italy_missiolinis.83
+	title = BBA_italy_missiolinis.83.t
+	desc = BBA_italy_missiolinis.83.desc
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.83.a
+		ITA_missiolini_industrial_research_success_effect = yes
+	}
+}
+
+### OCCUPY ALBANIA ###
+# Occupy Albania - Missiolini
+unit_leader_event = {
+	id = HOF_italy_nero.101
+	title = HOF_BBA_italy_missiolinis.101.t
+	desc = HOF_BBA_italy_missiolinis.101.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			set_country_flag = ITA_missiolini_occupy_albania_triggered_flag			#Trigger only once
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.101.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = HOF_ITA_nero_occupy_albania
+	}
+}
+
+# Occupy Albania - FAILURE 
+country_event = {
+	id = HOF_italy_nero.102
+	title = HOF_BBA_italy_missiolinis.102.t
+	desc = HOF_BBA_italy_missiolinis.102.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.102.a
+		HOF_ITA_nero_occupy_albania_failure_effect = yes
+	}
+}
+
+# Occupy Albania - SUCCESS 
+country_event = {
+	id = HOF_italy_nero.103
+	title = HOF_BBA_italy_missiolinis.103.t
+	desc = HOF_BBA_italy_missiolinis.103.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.103.a
+		HOF_ITA_nero_occupy_albania_success_effect = yes
+	}
+}
+
+### OCCUPY DALMATIA ###
+# Occupy Dalmatia - Missiolini
+unit_leader_event = {
+	id = HOF_italy_nero.111
+	title = HOF_BBA_italy_missiolinis.111.t
+	desc = HOF_BBA_italy_missiolinis.111.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			set_country_flag = ITA_missiolini_occupy_dalmatia_triggered_flag			#Trigger only once
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.111.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = HOF_ITA_nero_occupy_dalmatia
+	}
+}
+
+# Occupy Dalmatia - FAILURE 
+country_event = {
+	id = HOF_italy_nero.112
+	title = HOF_BBA_italy_missiolinis.112.t
+	desc = HOF_BBA_italy_missiolinis.112.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.112.a
+		HOF_ITA_nero_occupy_dalmatia_failure_effect = yes
+	}
+}
+
+# Occupy Dalmatia - SUCCESS 
+country_event = {
+	id = HOF_italy_nero.113
+	title = HOF_BBA_italy_missiolinis.113.t
+	desc = HOF_BBA_italy_missiolinis.113.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = HOF_BBA_italy_missiolinis.113.a
+		HOF_ITA_nero_occupy_dalmatia_success_effect = yes
+	}
+}
+
+### OCCUPY GREECE ###
+# Occupy Greece - Missiolini
+unit_leader_event = {
+	id = HOF_italy_nero.121
+	title = HOF_BBA_italy_missiolinis.121.t
+	desc = HOF_BBA_italy_missiolinis.121.desc
+	picture = GFX_report_event_generic_mussolini
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_initialize_new_mission_effect = yes
+			set_country_flag = ITA_missiolini_occupy_greece_triggered_flag			#Trigger only once
+		}
+	}
+	# OK dude
+	option = {
+		name = BBA_italy_missiolinis.121.a
+		ai_chance = {
+			base = 10
+		}
+		activate_mission = HOF_ITA_nero_occupy_greece
+	}
+}
+
+# Occupy Greece - FAILURE 
+country_event = {
+	id = HOF_italy_nero.122
+	title = HOF_BBA_italy_missiolinis.122.t
+	desc = HOF_BBA_italy_missiolinis.122.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_failed_missions = yes
+		}
+	}
+	# Ooops
+	option = {
+		name = BBA_italy_missiolinis.122.a
+		HOF_ITA_nero_occupy_greece_failure_effect = yes
+	}
+}
+
+# Occupy Greece - SUCCESS 
+country_event = {
+	id = HOF_italy_nero.123
+	title = HOF_BBA_italy_missiolinis.123.t
+	desc = HOF_BBA_italy_missiolinis.123.desc
+	picture = GFX_report_event_soldiers_marching
+	is_triggered_only = yes
+	trigger = {
+		ITA_nero_system_available = yes
+	}
+	immediate = {
+		hidden_effect = {
+			HOF_ITA_nero_finalize_mission_effect = yes
+			HOF_ITA_nero_add_to_successful_missions = yes
+		}
+	}
+	# Nice
+	option = {
+		name = BBA_italy_missiolinis.123.a
+		HOF_ITA_nero_occupy_greece_success_effect = yes
+	}
+}
+
+###########################
+# GSK Britain Events
+###########################
+add_namespace = more_italy
+country_event = {
+	# Italy: Rename Constantinople
+	id = more_italy.1
+	title = more_italy.1.t
+	desc = more_italy.1.d
+	picture = GFX_report_event_generic_nero
+	trigger = {
+		original_tag = ITA
+		has_completed_focus = ita_recover_eastern_roma
+		has_civil_war = no
+		341 = {
+			CONTROLLER = {
+				tag = ITA
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 30
+	}
+	fire_only_once = yes
+	# Great
+	option = {
+		name = more_italy.1.a
+		ai_chance = {
+			base = 111
+		}
+		set_province_name = {
+			id = 9833
+			name = Constantinople
+		}
+		add_political_power = -100
+	}
+	# No
+	option = {
+		name = more_italy.1.b
+		ai_chance = {
+			base = 0
+		}
+		add_stability = -0.05
+	}
+}
+
+country_event = {
+	id = more_italy.3
+	title = more_italy.3.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.3.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.3.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -25
+		hidden_effect = {
+			country_event = {
+				id = more_italy.4
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.4
+	title = more_italy.4.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.4.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -5
+		hidden_effect = {
+			country_event = {
+				id = more_italy.5
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.5
+	title = more_italy.5.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.5.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.5.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -15
+		hidden_effect = {
+			country_event = {
+				id = more_italy.6
+				hours = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.6
+	title = more_italy.6.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.6.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.6.a
+		ai_chance = {
+			base = 25
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_MARCH_INTO_ROME_DANNUNZIO
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = MARCH_INTO_ROME_DANNUNZIO
+					}
+				}
+			}
+		}
+		add_political_power = 25
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.7
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = more_italy.6.b
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_SPARTACUS
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = SPARTACUS
+					}
+				}
+			}
+		}
+		add_political_power = -50
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+		set_country_flag = Spartacus_Suppress
+		hidden_effect = {
+			country_event = {
+				id = more_italy.7
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.7
+	title = more_italy.7.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.7.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.7.a
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_SPARTACUS
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = SPARTACUS
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_RESTORE_THE_REPUBLIC
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = RESTORE_THE_REPUBLIC
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_MARCH_INTO_ROME_BALBO
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = MARCH_INTO_ROME_BALBO
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_MARCH_INTO_ROME_DANNUNZIO
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = MARCH_INTO_ROME_DANNUNZIO
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.8
+				days = 30
+			}
+		}
+	}
+	option = {
+		name = more_italy.7.b
+		ai_chance = {
+			base = 20
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_SPARTACUS
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = SPARTACUS
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_COMPROMISE_WITH_THE_SENATE
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = COMPROMISE_WITH_THE_SENATE
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_MARCH_INTO_ROME_BALBO
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = MARCH_INTO_ROME_BALBO
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_MARCH_INTO_ROME_DANNUNZIO
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = MARCH_INTO_ROME_DANNUNZIO
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.11
+				days = 30
+			}
+		}
+	}
+	option = {
+		name = more_italy.7.c
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_COMPROMISE_WITH_THE_SENATE
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = COMPROMISE_WITH_THE_SENATE
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_RESTORE_THE_REPUBLIC
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = RESTORE_THE_REPUBLIC
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.15
+				days = 30
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.8
+	title = more_italy.8.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.8.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.8.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -100
+		hidden_effect = {
+			country_event = {
+				id = more_italy.9
+				days = 15
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.9
+	title = more_italy.9.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.9.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.9.a
+		ai_chance = {
+			base = 99
+		}
+		remove_ideas = ita_Colonial_war
+		army_experience = 5
+		add_political_power = 150
+		add_war_support = 0.05
+		random_army_leader = {
+			limit = {
+				has_id = 3000
+			}
+			add_unit_leader_trait = trickster
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.10
+				hours = 1
+			}
+		}
+	}
+	option = {
+		name = more_italy.9.b
+		ai_chance = {
+			base = 1
+		}
+		remove_ideas = ita_Colonial_war
+		army_experience = 5
+		add_political_power = -50
+		hidden_effect = {
+			country_event = {
+				id = more_italy.10
+				hours = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.10
+	title = more_italy.10.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.10.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.10.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 25
+		set_country_flag = ita_regroup_senatus_flag
+		custom_effect_tooltip = ita_regroup_senatus_tt
+	}
+}
+
+country_event = {
+	id = more_italy.11
+	title = more_italy.11.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.11.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.11.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 25
+		hidden_effect = {
+			country_event = {
+				id = more_italy.12
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.12
+	title = more_italy.12.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.12.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.12.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -25
+		hidden_effect = {
+			country_event = {
+				id = more_italy.13
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.13
+	title = more_italy.13.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.13.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.13.a
+		ai_chance = {
+			base = 100
+		}
+		remove_ideas = ita_Colonial_war
+		add_political_power = 150
+		add_stability = 0.1
+		random_army_leader = {
+			limit = {
+				has_id = 843
+			}
+			add_unit_leader_trait = commando
+		}
+		add_tech_bonus = {
+			name = special_bonus
+			bonus = 1
+			ahead_reduction = 2
+			uses = 1
+			technology = paratroopers
+			technology = paratroopers2
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.14
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.14
+	title = more_italy.14.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.14.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.14.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 25
+		set_country_flag = ita_towards_republic_flag
+		custom_effect_tooltip = ita_towards_republic_tt
+	}
+}
+
+country_event = {
+	id = more_italy.15
+	title = more_italy.15.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.15.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.15.a
+		ai_chance = {
+			base = 75
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_MARCH_INTO_ROME_BALBO
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = MARCH_INTO_ROME_BALBO
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.16
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = more_italy.15.b
+		ai_chance = {
+			base = 25
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_SPARTACUS
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = SPARTACUS
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = ITA_AI_RANDOM_MARCH_INTO_ROME_DANNUNZIO
+					has_game_rule = {
+						rule = ITA_ai_behavior
+						option = MARCH_INTO_ROME_DANNUNZIO
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.17
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.16
+	title = more_italy.16.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.16.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.16.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.18
+				hours = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.17
+	title = more_italy.17.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.17.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.17.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = more_italy.20
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.18
+	title = more_italy.18.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.18.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.18.a
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = ita_Repubblica_Sociale_flag
+		if = {
+			limit = {
+				has_country_flag = Spartacus_Suppress
+			}
+			hidden_effect = {
+				country_event = {
+					id = more_italy.21
+					days = 7
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = Spartacus_Suppress
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = more_italy.19
+					days = 7
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = more_italy.19
+	title = more_italy.19.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.19.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.19.a
+		ai_chance = {
+			base = 100
+		}
+		remove_ideas = ita_Colonial_war
+		add_political_power = -100
+		add_stability = -0.1
+		set_country_flag = ita_political_turmoil_flag
+		custom_effect_tooltip = ita_political_turmoil_tt
+	}
+}
+
+country_event = {
+	id = more_italy.20
+	title = more_italy.20.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.20.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.20.a
+		ai_chance = {
+			base = 100
+		}
+		remove_ideas = ita_Colonial_war
+		air_experience = 15
+		add_political_power = 150
+		add_war_support = 0.1
+		random_army_leader = {
+			limit = {
+				has_id = 3001
+			}
+			add_attack = 1
+		}
+		set_country_flag = ita_regoup_fascist_flag
+		custom_effect_tooltip = ita_regoup_fascist_tt
+	}
+}
+
+country_event = {
+	id = more_italy.21
+	title = more_italy.21.t
+	picture = GFX_report_event_generic_nero
+	desc = more_italy.21.desc
+	is_triggered_only = yes
+	option = {
+		name = more_italy.21.a
+		ai_chance = {
+			base = 100
+		}
+		remove_ideas = ita_Colonial_war
+		army_experience = 5
+		add_political_power = 150
+		add_war_support = 0.1
+		random_army_leader = {
+			limit = {
+				has_id = 3000
+			}
+			add_unit_leader_trait = trickster
+		}
+		set_country_flag = ita_regoup_fascist_flag
+		custom_effect_tooltip = ita_regoup_fascist_tt
+	}
+}
+
+add_namespace = ror
+country_event = {
+	id = ror.0
+	title = ror.0.t
+	picture = GFX_event_test
+	desc = ror.0.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.0.a
+		ai_chance = {
+			base = 15
+		}
+		add_political_power = -150
+		add_stability = -0.15
+	}
+	option = {
+		name = ror.0.b
+		ai_chance = {
+			base = 85
+		}
+		trigger = {
+			GER = {
+				has_government = fascism
+			}
+		}
+		GER = {
+			add_ideas = {
+				ita_exiled_tyrant
+			}
+			create_field_marshal = {
+				name = "Nero Claudius"
+				picture = "Portrait_Nero.dds"
+				traits = {
+					politically_connected
+					harsh_leader
+					brilliant_strategist
+					infantry_leader
+					substance_abuser
+				}
+				skill = 5
+				attack_skill = 5
+				defense_skill = 5
+				planning_skill = 5
+				logistics_skill = 5
+			}
+			create_corps_commander = {
+				name = "Achille Starace"
+				picture = "Portrait_Achille_Starace.png"
+				traits = {
+					politically_connected
+					harsh_leader
+					cavalry_officer
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 1
+				id = 3510
+			}
+			create_corps_commander = {
+				name = "Italo Balbo"
+				picture = "portrait_italy_italo_balbo.dds"
+				traits = {
+					career_officer
+					politically_connected
+				}
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 1
+			}
+			create_corps_commander = {
+				name = "Rodolfo Graziani"
+				picture = "portrait_italy_radolfo_graziani.dds"
+				traits = {
+					politically_connected
+					trait_cautious
+					armor_officer
+				}
+				skill = 3
+				attack_skill = 4
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+}
+
+# Italy ask to annex Greece
+country_event = {
+	id = ror.1
+	title = ror.1.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.1.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.1.a
+		ROOT = {
+			every_unit_leader = {
+				set_unit_leader_flag = flag_former_greek_general
+				set_nationality = ITA
+			}
+		}
+		ITA = {
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+			hidden_effect = {
+				news_event = {
+					id = more_news.16
+					hours = 3
+				}
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 0
+				AND = {
+					is_subject = yes
+					NOT = {
+						is_subject_of = ITA
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				is_in_faction = yes
+			}
+		}
+	}
+	option = {
+		name = ror.1.b
+		ITA = {
+			puppet = ROOT
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				AND = {
+					is_subject = yes
+					NOT = {
+						is_subject_of = ITA
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				is_in_faction = yes
+			}
+		}
+		if = {
+			limit = {
+				has_government = neutrality
+			}
+			create_country_leader = {
+				name = "Atalanta"
+				desc = "POLITICS_ATALANTA_DESC"
+				picture = "Portrait_Atalanta.dds"
+				expire = "1965.1.1"
+				ideology = oligarchism
+				traits = {
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government = fascism
+			}
+			create_country_leader = {
+				name = "Atalanta(Alter)"
+				desc = "POLITICS_ATALANTA_ALTER_DESC"
+				picture = "Portrait_Atalanta_Alter.dds"
+				expire = "1965.1.1"
+				ideology = nazism
+				traits = {
+				}
+			}
+			remove_unit_leader = 845
+			create_corps_commander = {
+				name = "Atalanta(Alter)"
+				picture = "Portrait_Atalanta_Alter.dds"
+				traits = {
+					commando
+					brilliant_strategist
+					reduced_land
+					offensive_doctrine
+					hill_fighter
+				}
+				skill = 2
+				attack_skill = 4
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = more_news.17
+				hours = 3
+			}
+		}
+	}
+	option = {
+		name = ror.1.c
+		ITA = {
+			country_event = {
+				id = ror.2
+				hours = 3
+			}
+		}
+		ai_chance = {
+			base = 80
+		}
+	}
+}
+
+# Greece refused
+country_event = {
+	id = ror.2
+	title = ror.2.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.2.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.2.a
+		add_political_power = -100
+		create_wargoal = {
+			type = annex_everything
+			target = GRE
+		}
+	}
+	option = {
+		name = ror.2.b
+		add_stability = -0.05
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+# Italy ask to annex Yugoslavia
+country_event = {
+	id = ror.3
+	title = ror.3.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.3.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.3.a
+		ai_chance = {
+			base = 5
+			modifier = {
+				factor = 0
+				AND = {
+					is_subject = yes
+					NOT = {
+						is_subject_of = ITA
+					}
+				}
+			}
+		}
+		release = CRO
+		release = SLV
+		CRO = {
+			declare_war_on = {
+				target = ITA
+				type = puppet_wargoal_focus
+			}
+			transfer_state = 103
+			hidden_effect = {
+				load_oob = "CRO_YUG_independence"
+			}
+		}
+		SLV = {
+			declare_war_on = {
+				target = ITA
+				type = puppet_wargoal_focus
+			}
+		}
+		ITA = {
+			country_event = {
+				id = ror.4
+				hours = 3
+			}
+		}
+		ITA = {
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+		}
+	}
+	option = {
+		name = ror.3.c
+		ITA = {
+			country_event = {
+				id = ror.5
+				hours = 3
+			}
+		}
+		ai_chance = {
+			base = 95
+		}
+		effect_tooltip = {
+			ITA = {
+				create_wargoal = {
+					type = annex_everything
+					target = YUG
+				}
+			}
+		}
+	}
+}
+
+# Yugoslavia gives in but Crotia and Slovenia uprise
+country_event = {
+	id = ror.4
+	title = ror.4.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.4.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.4.a
+		add_stability = -0.05
+	}
+}
+
+# Yugoslavia refused
+country_event = {
+	id = ror.5
+	title = ror.5.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.5.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.5.a
+		create_wargoal = {
+			type = annex_everything
+			target = YUG
+		}
+	}
+}
+
+# France: Italy occupied the Vatican!
+country_event = {
+	id = ror.6
+	title = ror.6.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.6.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.6.a
+		add_stability = -0.1
+		set_global_flag = FRA_angry_Vatican_flag
+		ai_chance = {
+			factor = 70
+		}
+	}
+	option = {
+		name = ror.6.b
+		add_stability = -0.05
+		set_global_flag = FRA_angry_Vatican_flag
+		set_country_flag = {
+			flag = FRA_Fight_for_the_Pope_flag
+			days = 60
+			value = 1
+		}
+		unlock_decision_tooltip = FRA_Fight_for_the_pope_decisions
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+country_event = {
+	id = ror.7
+	title = ror.7.t
+	desc = ror.7.d
+	picture = GFX_report_event_pact_agravain
+	is_triggered_only = yes
+	option = {
+		name = ror.7.a
+		effect_tooltip = {
+			if = {
+				limit = {
+					ROOT = {
+						is_faction_leader = yes
+					}
+				}
+				add_to_faction = ITA
+			}
+			else_if = {
+				limit = {
+					ITA = {
+						is_faction_leader = yes
+					}
+				}
+				ITA = {
+					add_to_faction = ROOT
+				}
+				else = {
+					ITA = {
+						set_rule = {
+							can_create_factions = yes
+						}
+						create_faction = Roman_Allies
+						add_to_faction = ROOT
+					}
+				}
+			}
+		}
+		FROM = {
+			add_ai_strategy = {
+				type = alliance
+				id = "ROOT"
+				value = 200
+			}
+		}
+		add_ai_strategy = {
+			type = alliance
+			id = "ITA"
+			value = 200
+		}
+		FROM = {
+			country_event = {
+				id = ror.8
+			}
+		}
+		hidden_effect = {
+		}
+	}
+	option = {
+		name = ror.7.b
+		ai_chance = {
+			factor = 0
+		}
+		FROM = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = FRA_go_with_britain_reject
+			}
+			country_event = {
+				id = ror.9
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ror.8
+	title = gsk_britain.7.t
+	desc = gsk_britain.7.d
+	picture = GFX_report_event_pact_agravain
+	is_triggered_only = yes
+	option = {
+		name = excellent
+		if = {
+			limit = {
+				ITA = {
+					is_faction_leader = yes
+				}
+			}
+			ITA = {
+				add_to_faction = ENG
+			}
+		}
+		else_if = {
+			limit = {
+				ENG = {
+					is_faction_leader = yes
+				}
+			}
+			ENG = {
+				add_to_faction = ITA
+			}
+			else = {
+				ROOT = {
+					set_rule = {
+						can_create_factions = yes
+					}
+					create_faction = Roman_Allies
+					add_to_faction = ENG
+				}
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = more_news.13
+				hours = 12
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ror.9
+	title = gsk_britain.8.t
+	desc = gsk_britain.8.d
+	picture = GFX_report_event_pact_agravain
+	is_triggered_only = yes
+	option = {
+		name = unfortunate
+	}
+}
+
+# Try to puppet a Balkan Country
+country_event = {
+	id = ror.10
+	title = ror.10.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.10.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.10.a
+		ITA = {
+			country_event = {
+				id = ror.11
+				hours = 3
+			}
+		}
+		effect_tooltip = {
+			ITA = {
+				puppet = ROOT
+			}
+		}
+		ai_chance = {
+			base = 20
+			modifier = {
+				original_tag = ROM
+				factor = 0.1
+			}
+			modifier = {
+				AND = {
+					original_tag = ROM
+					OR = {
+						has_completed_focus = ROM_the_third_letter
+						has_government = fascism
+						has_government = democratic
+					}
+				}
+				factor = 0
+			}
+			modifier = {
+				original_tag = HUN
+				factor = 0.1
+			}
+			modifier = {
+				original_tag = BUL
+				factor = 4
+			}
+		}
+	}
+	option = {
+		name = ror.10.b
+		ITA = {
+			country_event = {
+				id = ror.12
+				hours = 3
+			}
+		}
+		ai_chance = {
+			base = 80
+		}
+		effect_tooltip = {
+			ITA = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = ROOT
+				}
+			}
+		}
+	}
+}
+
+# XXXX gives in
+country_event = {
+	id = ror.11
+	title = ror.11.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.11.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.11.a
+		puppet = FROM
+	}
+}
+
+# XXXX refused
+country_event = {
+	id = ror.12
+	title = ror.12.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.12.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.12.a
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = FROM
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				OR = {
+					is_historical_focus_on = yes
+					ITA = {
+						has_idea = GER_rom_non_aggression_idea
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ror.12.b
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+country_event = {
+	id = ror.13
+	title = ror.13.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.13.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.13.a
+		ai_chance = {
+			factor = 99
+		}
+		give_guarantee = ITA
+	}
+	option = {
+		name = ror.13.b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = {
+	id = ror.14
+	title = ror.14.t
+	picture = GFX_report_event_generic_nero
+	desc = ror.14.desc
+	is_triggered_only = yes
+	option = {
+		name = ror.14.a
+		ai_chance = {
+			factor = 100
+		}
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = ITA
+		}
+	}
+}
+
+country_event = {
+	id = ror.15
+	title = ror.15.t
+	desc = ror.15.d
+	picture = GFX_report_event_generic_nero
+	fire_only_once = yes
+	trigger = {
+		tag = ITA
+		GER = {
+			is_faction_leader = yes
+		}
+		GER = {
+			has_government = fascism
+		}
+		GER = {
+			is_subject = no
+		}
+		ITA = {
+			is_subject = no
+		}
+		country_exists = GER
+		NOT = {
+			has_war_with = GER
+		}
+		ITA = {
+			surrender_progress > 0.5
+		}
+		or = {
+			ITA = {
+				is_faction_leader = yes
+			}
+			ITA = {
+				is_in_faction = no
+			}
+		}
+		or = {
+			has_government = fascism
+			ITA = {
+				has_idea = GER_rom_non_aggression_idea
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = ror.15.a
+		ai_chance = {
+			factor = 100
+		}
+		GER = {
+			country_event = {
+				id = ror.16
+				hours = 6
+			}
+		}
+	}
+	option = {
+		name = ror.15.b
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = ror.16
+	title = ror.16.t
+	desc = ror.16.d
+	picture = GFX_report_event_generic_nero
+	is_triggered_only = yes
+	option = {
+		name = ror.16.a
+		ai_chance = {
+			factor = 99
+			modifier = {
+				factor = 0
+				GER = {
+					surrender_progress > 0.3
+				}
+			}
+		}
+		set_country_flag = GER_pre_attack_FLAG
+		every_country = {
+			limit = {
+				has_war_with = ITA
+			}
+			country_event = {
+				id = ror.19
+				hours = 1
+			}
+		}
+		ITA = {
+			country_event = {
+				id = ror.17
+				days = 2
+			}
+		}
+	}
+	option = {
+		name = ror.16.b
+		ai_chance = {
+			factor = 1
+		}
+		ITA = {
+			country_event = {
+				id = ror.18
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ror.17
+	title = ror.17.t
+	desc = ror.17.d
+	picture = GFX_report_event_generic_nero
+	is_triggered_only = yes
+	option = {
+		name = ror.17.a
+		ai_chance = {
+			factor = 100
+		}
+		set_global_flag = ITA_caxie_flag
+		if = {
+			limit = {
+				ITA = {
+					has_war_with = ENG
+				}
+			}
+			GER = {
+				add_to_war = {
+					targeted_alliance = ITA
+					enemy = ENG
+				}
+			}
+		}
+		if = {
+			limit = {
+				ITA = {
+					has_war_with = FRA
+				}
+			}
+			GER = {
+				add_to_war = {
+					targeted_alliance = ITA
+					enemy = FRA
+				}
+			}
+		}
+		if = {
+			limit = {
+				ITA = {
+					has_war_with = HUN
+				}
+			}
+			GER = {
+				add_to_war = {
+					targeted_alliance = ITA
+					enemy = HUN
+				}
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					is_faction_leader = yes
+				}
+			}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					is_subject = no
+				}
+				leave_faction = yes
+				GER = {
+					add_to_faction = PREV
+				}
+			}
+			ROOT = {
+				dismantle_faction = yes
+			}
+		}
+		GER = {
+			add_to_faction = ROOT
+		}
+	}
+	option = {
+		name = ror.17.b
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = ror.18
+	title = ror.18.t
+	desc = ror.18.d
+	picture = GFX_report_event_generic_nero
+	is_triggered_only = yes
+	option = {
+		name = ror.18.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = GER_pre_defebce_FLAG
+	}
+}
+
+country_event = {
+	id = ror.19
+	title = ror.19.t
+	desc = ror.19.d
+	picture = GFX_report_event_generic_nero
+	is_triggered_only = yes
+	option = {
+		name = ror.19.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+country_event = {
+	id = ror.20
+	title = ror.20.t
+	desc = ror.20.d
+	picture = GFX_report_event_generic_nero
+	fire_only_once = no
+	trigger = {
+		tag = GER
+		ITA = {
+			is_in_faction_with = GER
+		}
+		GER = {
+			is_subject = no
+		}
+		ITA = {
+			is_subject = no
+		}
+		set_global_flag = ITA_caxie_flag
+		OR = {
+			39 = {
+				OR = {
+					is_controlled_by = ITA
+					any_other_country = {
+						controls_state = 39
+						is_subject_of = ITA
+					}
+				}
+			}
+			4 = {
+				OR = {
+					is_controlled_by = ITA
+					any_other_country = {
+						controls_state = 4
+						is_subject_of = ITA
+					}
+				}
+			}
+			152 = {
+				OR = {
+					is_controlled_by = ITA
+					any_other_country = {
+						controls_state = 152
+						is_subject_of = ITA
+					}
+				}
+			}
+			153 = {
+				OR = {
+					is_controlled_by = ITA
+					any_other_country = {
+						controls_state = 153
+						is_subject_of = ITA
+					}
+				}
+			}
+			69 = {
+				OR = {
+					is_controlled_by = ITA
+					any_other_country = {
+						controls_state = 69
+						is_subject_of = ITA
+					}
+				}
+			}
+			74 = {
+				OR = {
+					is_controlled_by = ITA
+					any_other_country = {
+						controls_state = 74
+						is_subject_of = ITA
+					}
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = ror.20.a
+		ai_chance = {
+			factor = 100
+		}
+		if = {
+			limit = {
+				39 = {
+					OR = {
+						is_controlled_by = ITA
+						any_other_country = {
+							controls_state = 39
+							is_puppet_of = ITA
+						}
+					}
+				}
+			}
+			transfer_state = 39
+		}
+		if = {
+			limit = {
+				4 = {
+					OR = {
+						is_controlled_by = ITA
+						any_other_country = {
+							controls_state = 4
+							is_puppet_of = ITA
+						}
+					}
+				}
+			}
+			transfer_state = 4
+		}
+		if = {
+			limit = {
+				152 = {
+					OR = {
+						is_controlled_by = ITA
+						any_other_country = {
+							controls_state = 152
+							is_puppet_of = ITA
+						}
+					}
+				}
+			}
+			transfer_state = 152
+		}
+		if = {
+			limit = {
+				153 = {
+					OR = {
+						is_controlled_by = ITA
+						any_other_country = {
+							controls_state = 153
+							is_puppet_of = ITA
+						}
+					}
+				}
+			}
+			transfer_state = 153
+		}
+		if = {
+			limit = {
+				69 = {
+					OR = {
+						is_controlled_by = ITA
+						any_other_country = {
+							controls_state = 69
+							is_puppet_of = ITA
+						}
+					}
+				}
+			}
+			transfer_state = 69
+		}
+		if = {
+			limit = {
+				74 = {
+					OR = {
+						is_controlled_by = ITA
+						any_other_country = {
+							controls_state = 74
+							is_puppet_of = ITA
+						}
+					}
+				}
+			}
+			transfer_state = 74
+		}
+	}
+}
