@@ -468,9 +468,7 @@ UKR_elite_troops_cate = {
 					}
 				}
 				create_unit = {
-					division = "name = \"Special Operations Detachment "
-					Nightingale
-					"\" division_template = \"Nightingale Division\" start_experience_factor = 0.9"
+					division = "name = \"Special Operations Detachment 'Nightingale'\" division_template = \"Nightingale Division\" start_experience_factor = 0.9"
 					owner = UKR
 				}
 			}
@@ -532,7 +530,6 @@ UKR_elite_troops_cate = {
 			}
 			division_template = {
 				name = "Sich Division"
-				division_names_group = UKR_Mnt_01
 				regiments = {
 					mountaineers = {
 						x = 0
@@ -838,14 +835,20 @@ UKR_Greater_Ukraine_cate = {
 		state_target = yes
 		target_trigger = {
 			FROM = {
-				is_owned_by = ROOT
-				is_claimed_by = ROOT
+				is_controlled_by = ROOT
 				is_on_continent = europe
 			}
 		}
 		targets = {
+			194
+			241
+			791
+			220
 			234
+			240
 			218
+			1006
+			1080
 		}
 		available = {
 			FROM = {
@@ -864,32 +867,20 @@ UKR_Greater_Ukraine_cate = {
 		fire_only_once = no
 		cost = 25
 		days_remove = 60
-		modifier = {
-			max_command_power = -30
-			political_power_cost = 0.3
-			production_speed_buildings_factor = -0.3
-			industrial_capacity_factory = -0.3
-			consumer_goods_factor = 0.3
-		}
 		complete_effect = {
 			set_country_flag = {
 				value = 1
 				days = 60
 				flag = GER_Integrating_core_flag
 			}
+			add_timed_idea = {
+				idea = Integrate_medium_ideas
+				days = 60
+			}
 		}
 		remove_effect = {
 			FROM = {
-				limit = {
-					is_claimed_by = ROOT
-				}
-				remove_claim_by = ROOT
-			}
-			FROM = {
-				limit = {
-					is_fully_controlled_by = ROOT
-				}
-				add_core_of = ROOT
+				remove_claim_and_add_core_and_transfer_of_ROOT = yes
 			}
 		}
 		ai_will_do = {
@@ -1049,22 +1040,30 @@ UKR_OUN_policy_cate = {
 			}
 		}
 		targets = {
-			203
-			197
-			192
-			834
 			193
 			225
 			259
 			221
 			228
-			226
 			227
+			821
+			220
 			196
-			200
-			218
-			234
 			137
+			192
+			203
+			202
+			226
+			197
+			201
+			198
+			199
+			792
+			89
+			91
+			89
+			73
+			80
 		}
 		available = {
 			FROM = {
@@ -1078,8 +1077,10 @@ UKR_OUN_policy_cate = {
 			is_subject = no
 			has_completed_focus = UKR_Cleaning_the_Imperial_Russian_Clown
 			FROM = {
-				is_core_of = SOV
-				is_core_of = RUS
+				OR = {
+					is_core_of = SOV
+					is_core_of = RUS
+				}
 			}
 		}
 		ai_will_do = {
@@ -1088,23 +1089,17 @@ UKR_OUN_policy_cate = {
 		cost = 0
 		days_remove = 30
 		fire_only_once = no
-		modifier = {
-			max_command_power = -20
-			political_power_cost = 0.2
-			production_speed_buildings_factor = -0.1
-			industrial_capacity_factory = -0.1
-			consumer_goods_factor = 0.05
-		}
 		complete_effect = {
 			set_country_flag = {
 				value = 1
 				days = 30
 				flag = UKR_Cleaning_Russian_flag
 			}
+			add_timed_idea = {
+				idea = Integrate_minor_ideas
+				days = 30
+			}
 			FROM = {
-				limit = {
-					is_fully_controlled_by = ROOT
-				}
 				add_dynamic_modifier = {
 					modifier = UKR_clean_russian
 				}
@@ -1112,9 +1107,6 @@ UKR_OUN_policy_cate = {
 		}
 		remove_effect = {
 			FROM = {
-				limit = {
-					is_fully_controlled_by = ROOT
-				}
 				remove_dynamic_modifier = {
 					modifier = UKR_clean_russian
 				}
@@ -1127,67 +1119,33 @@ UKR_OUN_policy_cate = {
 		icon = generic_army_support
 		available = {
 			NOT = {
-				203 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				197 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				192 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				834 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				193 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				225 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				259 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				221 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				228 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				226 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				227 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				196 = {
-					is_core_of = SOV
-				}
-			}
-			NOT = {
-				200 = {
+				any_owned_state = {
+					OR = {
+						state = 193
+						state = 225
+						state = 259
+						state = 221
+						state = 228
+						state = 227
+						state = 821
+						state = 220
+						state = 196
+						state = 137
+						state = 192
+						state = 203
+						state = 202
+						state = 226
+						state = 197
+						state = 201
+						state = 198
+						state = 199
+						state = 792
+						state = 89
+						state = 91
+						state = 89
+						state = 73
+						state = 80
+					}
 					is_core_of = SOV
 				}
 			}
@@ -1217,7 +1175,9 @@ SOVRUS_Anti_OUN_policy_cate = {
 
 operations = {
 	UKR_load_talula_national_focus_debug = {
-		allowed = { tag = UKR }
+		allowed = {
+			tag = UKR
+		}
 		visible = {
 			is_debug = yes
 			always = no
@@ -1227,217 +1187,395 @@ operations = {
 			load_focus_tree = ukr_focus_talula
 		}
 	}
-
 	UKRRUS_UKR_still_on_earth = {
-		allowed = { tag = UKR }
-		available = { #### 乌克兰赢麻了
-			or = {
+		allowed = {
+			tag = UKR
+		}
+		available = {
+			#### 乌克兰赢麻了
+			OR = {
 				count_triggers = {
 					amount = 6
-					NOT = { 221 = { is_controlled_by = SOV } } #### 哈尔科夫
-					NOT = { 227 = { is_controlled_by = SOV } } #### 佐尔根格勒
-					NOT = { 228 = { is_controlled_by = SOV } } #### 伏罗希洛夫格勒
-					NOT = { 224 = { is_controlled_by = SOV } } #### 布良斯克
-					NOT = { 220 = { is_controlled_by = SOV } } #### 库尔斯克
-					NOT = { 137 = { is_controlled_by = SOV } } #### 克里米亚
-					NOT = { 218 = { is_controlled_by = SOV } } #### 罗斯托夫
-					NOT = { 234 = { is_controlled_by = SOV } } #### 克拉斯诺达尔
-					AND = {
-						NOT = { 573 = { is_controlled_by = SOV } } 
-						NOT = { 582 = { is_controlled_by = SOV } } 
-						NOT = { 402 = { is_controlled_by = SOV } } 
+					NOT = {
+						221 = {
+							is_controlled_by = SOV
+						}
 					}
-					SOV = { surrender_progress > 0.3 }
+					#### 哈尔科夫
+					NOT = {
+						227 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 佐尔根格勒
+					NOT = {
+						228 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 伏罗希洛夫格勒
+					NOT = {
+						224 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 布良斯克
+					NOT = {
+						220 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 库尔斯克
+					NOT = {
+						137 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 克里米亚
+					NOT = {
+						218 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 罗斯托夫
+					NOT = {
+						234 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 克拉斯诺达尔
+					AND = {
+						NOT = {
+							573 = {
+								is_controlled_by = SOV
+							}
+						}
+						NOT = {
+							582 = {
+								is_controlled_by = SOV
+							}
+						}
+						NOT = {
+							652 = {
+								is_controlled_by = SOV
+							}
+						}
+					}
+					SOV = {
+						surrender_progress > 0.3
+					}
 				}
-				SOV = { surrender_progress > 0.6 }
+				SOV = {
+					surrender_progress > 0.6
+				}
 			}
 		}
 		activation = {
-			always = no #triggered by event
+			always = no			#triggered by event
 		}
-		cancel_trigger = { #### 没有和谈的机会了？
+		cancel_trigger = {
+			#### 没有和谈的机会了？
 			or = {
 				count_triggers = {
 					amount = 3
-					NOT = { 202 = { is_controlled_by = UKR } } #### 基辅
-					NOT = { 226 = { is_controlled_by = UKR } } #### 第聂伯
-					NOT = { 198 = { is_controlled_by = UKR } } #### 文尼察
-					UKR = { surrender_progress > 0.45 }
+					NOT = {
+						202 = {
+							is_controlled_by = UKR
+						}
+					}
+					#### 基辅
+					NOT = {
+						226 = {
+							is_controlled_by = UKR
+						}
+					}
+					#### 第聂伯
+					NOT = {
+						198 = {
+							is_controlled_by = UKR
+						}
+					}
+					#### 文尼察
+					UKR = {
+						surrender_progress > 0.45
+					}
 				}
-				UKR = { surrender_progress > 0.7 }
+				UKR = {
+					surrender_progress > 0.7
+				}
 			}
 		}
 		is_good = no
 		days_mission_timeout = 250
-		timeout_effect = { #ceasefire
-
+		timeout_effect = {
+			#ceasefire
 			set_global_flag = UKR_still_on_earth_flag
-
 			if = {
 				limit = {
-				    has_war_with = SOV
+					has_war_with = SOV
 				}
 				white_peace = SOV
-				else = { effect_tooltip = { white_peace = SOV } }
+				else = {
+					effect_tooltip = {
+						white_peace = SOV
+					}
+				}
 			}
-
 			transfer_state = 221
 			transfer_state = 227
 			transfer_state = 228
-
-			if = {
-				limit = {
-				    has_war_with = KAZ
-				}
-				white_peace = KAZ
-				else = { effect_tooltip = { white_peace = KAZ } }
-			}
-
-			if = {
-				limit = {
-				    has_war_with = TMS
-				}
-				white_peace = TMS
-				else = { effect_tooltip = { white_peace = TMS } }
-			}
-
-
-		}
-		complete_effect = { #UKR WIN
-
-			set_global_flag = UKR_still_on_earth_flag
-
-			if = {
-				limit = {
-				    has_war_with = SOV
-				}
-				white_peace = SOV
-				else = { effect_tooltip = { white_peace = SOV } }
-			}
-
-			transfer_state = 221
-			transfer_state = 227
-			transfer_state = 228
-
-			add_state_claim = 234
-			add_state_claim = 137
-			add_state_claim = 218
-			transfer_state = 234
-			transfer_state = 137
-			transfer_state = 218
-
 			if = {
 				limit = {
 					has_war_with = KAZ
 				}
 				white_peace = KAZ
-				else = { effect_tooltip = { white_peace = KAZ } }
+				else = {
+					effect_tooltip = {
+						white_peace = KAZ
+					}
+				}
 			}
-
 			if = {
 				limit = {
 					has_war_with = TMS
 				}
 				white_peace = TMS
-				else = { effect_tooltip = { white_peace = TMS } }
+				else = {
+					effect_tooltip = {
+						white_peace = TMS
+					}
+				}
 			}
-
 		}
-		cancel_effect = { #UKR will fall
-			add_stability = -0.10
-			add_war_support = -0.10
+		complete_effect = {
+			#UKR WIN
+			set_global_flag = UKR_still_on_earth_flag
+			if = {
+				limit = {
+					has_war_with = SOV
+				}
+				white_peace = SOV
+				else = {
+					effect_tooltip = {
+						white_peace = SOV
+					}
+				}
+			}
+			transfer_state = 221
+			transfer_state = 227
+			transfer_state = 228
+			add_state_claim = 234
+			add_state_claim = 240
+			add_state_claim = 137
+			add_state_claim = 218
+			add_state_claim = 1006
+			transfer_state = 234
+			transfer_state = 240
+			transfer_state = 137
+			transfer_state = 218
+			transfer_state = 1006
+			if = {
+				limit = {
+					has_war_with = KAZ
+				}
+				white_peace = KAZ
+				else = {
+					effect_tooltip = {
+						white_peace = KAZ
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_war_with = TMS
+				}
+				white_peace = TMS
+				else = {
+					effect_tooltip = {
+						white_peace = TMS
+					}
+				}
+			}
+		}
+		cancel_effect = {
+			#UKR will fall
+			add_stability = -0.1
+			add_war_support = -0.1
 		}
 	}
 	UKRRUS_SOV_special_military_operations = {
-		allowed = { tag = SOV }
+		allowed = {
+			tag = SOV
+		}
 		available = {
 			or = {
 				count_triggers = {
 					amount = 3
-					NOT = { 202 = { is_controlled_by = UKR } } #### 基辅
-					NOT = { 226 = { is_controlled_by = UKR } } #### 第聂伯
-					NOT = { 198 = { is_controlled_by = UKR } } #### 文尼察
-					UKR = { surrender_progress > 0.45 }
+					NOT = {
+						202 = {
+							is_controlled_by = UKR
+						}
+					}
+					#### 基辅
+					NOT = {
+						226 = {
+							is_controlled_by = UKR
+						}
+					}
+					#### 第聂伯
+					NOT = {
+						198 = {
+							is_controlled_by = UKR
+						}
+					}
+					#### 文尼察
+					UKR = {
+						surrender_progress > 0.45
+					}
 				}
-				UKR = { surrender_progress > 0.7 }
+				UKR = {
+					surrender_progress > 0.7
+				}
 			}
 		}
 		activation = {
-			always = no #triggered by event
+			always = no			#triggered by event
 		}
 		cancel_trigger = {
 			or = {
 				count_triggers = {
 					amount = 6
-					NOT = { 221 = { is_controlled_by = SOV } } #### 哈尔科夫
-					NOT = { 227 = { is_controlled_by = SOV } } #### 佐尔根格勒
-					NOT = { 228 = { is_controlled_by = SOV } } #### 伏罗希洛夫格勒
-					NOT = { 224 = { is_controlled_by = SOV } } #### 布良斯克
-					NOT = { 220 = { is_controlled_by = SOV } } #### 库尔斯克
-					NOT = { 137 = { is_controlled_by = SOV } } #### 克里米亚
-					NOT = { 218 = { is_controlled_by = SOV } } #### 罗斯托夫
-					NOT = { 234 = { is_controlled_by = SOV } } #### 克拉斯诺达尔
-					AND = {
-						NOT = { 573 = { is_controlled_by = SOV } } 
-						NOT = { 582 = { is_controlled_by = SOV } } 
-						NOT = { 402 = { is_controlled_by = SOV } } 
+					NOT = {
+						221 = {
+							is_controlled_by = SOV
+						}
 					}
-					SOV = { surrender_progress > 0.3 }
+					#### 哈尔科夫
+					NOT = {
+						227 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 佐尔根格勒
+					NOT = {
+						228 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 伏罗希洛夫格勒
+					NOT = {
+						224 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 布良斯克
+					NOT = {
+						220 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 库尔斯克
+					NOT = {
+						137 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 克里米亚
+					NOT = {
+						218 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 罗斯托夫
+					NOT = {
+						234 = {
+							is_controlled_by = SOV
+						}
+					}
+					#### 克拉斯诺达尔
+					AND = {
+						NOT = {
+							573 = {
+								is_controlled_by = SOV
+							}
+						}
+						NOT = {
+							582 = {
+								is_controlled_by = SOV
+							}
+						}
+						NOT = {
+							402 = {
+								is_controlled_by = SOV
+							}
+						}
+					}
+					SOV = {
+						surrender_progress > 0.3
+					}
 				}
-				SOV = { surrender_progress > 0.6 }
+				SOV = {
+					surrender_progress > 0.6
+				}
 			}
 		}
 		is_good = no
 		days_mission_timeout = 250
-		timeout_effect = { #ceasefire
-
-			effect_tooltip = { 
+		timeout_effect = {
+			#ceasefire
+			effect_tooltip = {
 				set_global_flag = UKR_still_on_earth_flag
-
 				UKR = {
 					if = {
 						limit = {
 							has_war_with = SOV
 						}
 						white_peace = SOV
-						else = { effect_tooltip = { white_peace = SOV } }
+						else = {
+							effect_tooltip = {
+								white_peace = SOV
+							}
+						}
 					}
-
 					add_state_claim = 234
 					add_state_claim = 137
 					add_state_claim = 218
 					transfer_state = 221
 					transfer_state = 227
 					transfer_state = 228
-
 					if = {
 						limit = {
 							has_war_with = KAZ
 						}
 						white_peace = KAZ
-						else = { effect_tooltip = { white_peace = KAZ } }
+						else = {
+							effect_tooltip = {
+								white_peace = KAZ
+							}
+						}
 					}
-
 					if = {
 						limit = {
 							has_war_with = TMS
 						}
 						white_peace = TMS
-						else = { effect_tooltip = { white_peace = TMS } }
+						else = {
+							effect_tooltip = {
+								white_peace = TMS
+							}
+						}
 					}
 				}
-		    }
-
+			}
 		}
-		complete_effect = { #SOV will win
-
-			add_stability = 0.10
-			add_war_support = 0.10
-
+		complete_effect = {
+			#SOV will win
+			add_stability = 0.1
+			add_war_support = 0.1
 		}
-		cancel_effect = { #UKR WIN
-
-			effect_tooltip = { 
+		cancel_effect = {
+			#UKR WIN
+			effect_tooltip = {
 				set_global_flag = UKR_still_on_earth_flag
 				UKR = {
 					if = {
@@ -1445,56 +1583,65 @@ operations = {
 							has_war_with = SOV
 						}
 						white_peace = SOV
-						else = { effect_tooltip = { white_peace = SOV } }
+						else = {
+							effect_tooltip = {
+								white_peace = SOV
+							}
+						}
 					}
-
 					transfer_state = 221
 					transfer_state = 227
 					transfer_state = 228
-					transfer_state = 234
 					transfer_state = 137
+					transfer_state = 234
+					transfer_state = 240
 					transfer_state = 218
-
+					transfer_state = 1006
 					if = {
 						limit = {
 							has_war_with = KAZ
 						}
 						white_peace = KAZ
-						else = { effect_tooltip = { white_peace = KAZ } }
+						else = {
+							effect_tooltip = {
+								white_peace = KAZ
+							}
+						}
 					}
-
 					if = {
 						limit = {
 							has_war_with = TMS
 						}
 						white_peace = TMS
-						else = { effect_tooltip = { white_peace = TMS } }
+						else = {
+							effect_tooltip = {
+								white_peace = TMS
+							}
+						}
 					}
-
 				}
-		    }
+			}
 		}
 	}
-
-
 	UKR_Reunion_Patroit_COUP = {
-		allowed = { tag = UKR }
+		allowed = {
+			tag = UKR
+		}
 		available = {
 			always = no
 		}
 		activation = {
-			always = no #triggered by event
+			always = no			#triggered by event
 		}
 		cancel_trigger = {
 			OR = {
 				has_completed_focus = UKR_Anarchist_remove_Buldrokkastee
 				is_subject = yes
 			}
-			
 		}
 		is_good = no
 		days_mission_timeout = 150
-		timeout_effect = { 
+		timeout_effect = {
 			add_popularity = {
 				ideology = neutrality
 				popularity = 0.45
@@ -1503,14 +1650,19 @@ operations = {
 				ruling_party = neutrality
 			}
 			if = {
-				limit = { NOT = { UKR_Buldrokkastee = { is_country_leader = yes } } }
+				limit = {
+					NOT = {
+						UKR_Buldrokkastee = {
+							is_country_leader = yes
+						}
+					}
+				}
 				add_country_leader_role = {
 					Character = UKR_Buldrokkastee
 					Promote_leader = yes
 					Country_leader = {
 						ideology = stratocracy
 						traits = {
-							
 						}
 					}
 				}
@@ -1529,15 +1681,17 @@ operations = {
 							}
 						}
 					}
-					country_event = { id = ukr_reunion.18 days = 12 }
+					country_event = {
+						id = ukr_reunion.18
+						days = 12
+					}
 				}
 			}
-			
 		}
-		complete_effect = { 
-
+		complete_effect = {
 		}
-		cancel_effect = { #UKR WIN
+		cancel_effect = {
+			#UKR WIN
 			add_stability = 0.05
 			add_political_power = 150
 		}
