@@ -2018,6 +2018,7 @@ country_event = {
 			factor = 100
 		}
 		add_state_claim = 613
+		add_state_claim = 591
 	}
 }
 
@@ -2029,6 +2030,7 @@ country_event = {
 	picture = GFX_report_event_generic_funeral
 	fire_only_once = no
 	trigger = {
+		date > 1940.1.1
 		tag = JAP
 		is_ai = yes
 		is_subject = no
@@ -2038,7 +2040,10 @@ country_event = {
 		NOT = {
 			has_war_with = CHI
 		}
-		owns_state = 613
+		OR = {
+			owns_state = 613
+			owns_state = 591
+		}
 	}
 	mean_time_to_happen = {
 		days = 2
@@ -2131,9 +2136,10 @@ country_event = {
 	title = martian.64.t
 	desc = martian.64.d
 	picture = GFX_report_event_generic_funeral
-	fire_only_once = yes
+	fire_only_once = no
 	trigger = {
 		is_ai = yes
+        NOT = { has_country_flag = martian_fuel_flag }
 		OR = {
 			tag = GER
 			tag = FRA
@@ -2152,6 +2158,9 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
+
+		set_country_flag = martian_fuel_flag
+
 		random_core_state = {
 			limit = {
 				is_controlled_by = ROOT
