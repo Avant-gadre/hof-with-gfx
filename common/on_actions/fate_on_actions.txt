@@ -1,141 +1,45 @@
 on_actions = {
+
+	##开局介绍事件
 	on_startup = {
 		effect = {
 			every_country = {
 				if = {
 					limit = {
 						OR = {
-							original_tag = ENG
-							original_tag = FRA
-							original_tag = ITA
-							original_tag = JAP
-							original_tag = POL
-							original_tag = UKR
-							original_tag = SWE
-							original_tag = BRA
-							original_tag = CHI
-							original_tag = PER
-							original_tag = SOV
-							original_tag = USA
-							original_tag = FIC
-							original_tag = RUS
-							original_tag = XSM
+							is_HOF_tags = yes
+							is_important_tags = yes
 						}
 					}
 					country_event = {
 						id = intro.0
-						# days = 5
-						# random = 1
 					}
 				}
 			}
+		}
+	}
+
+	##农业地区
+	on_startup = {
+		effect = {
+				every_state = {
+					if = {
+						limit = {
+							is_Agraian_state = yes
+						}
+					add_dynamic_modifier = {
+						modifier = agrarian_state
+					}
+				}
+			}
+		}
+	}
+
+	##工业地区
+	on_startup = {
+		effect = {
 			every_state = {
-				limit = {
-					OR = {
-						is_core_of = MON
-						is_core_of = CHI
-						is_core_of = PHI
-						is_core_of = MAL
-						is_core_of = INS
-						is_core_of = NEP
-						is_core_of = BHU
-						is_core_of = TIB
-						is_core_of = PAK
-						is_core_of = RAJ
-						is_core_of = PNG
-						is_core_of = SIA
-						is_core_of = VIN
-						is_core_of = CAM
-						is_core_of = LAO
-						is_core_of = PER
-						is_core_of = SAU
-						is_core_of = YEM
-						is_core_of = OMA
-						is_core_of = AFG
-						is_core_of = BRM
-						is_on_continent = africa
-						is_on_continent = south_america
-						state = 721
-						state = 658
-						state = 765
-						state = 656
-						state = 453
-						state = 680
-					}
-					# EGY
-					NOT = {
-						state = 907
-					}
-					# ITA
-					NOT = {
-						state = 449
-					}
-					# JAP
-					NOT = {
-						state = 745
-					}
-					NOT = {
-						state = 743
-					}
-					NOT = {
-						state = 716
-					}
-					NOT = {
-						state = 328
-					}
-					# CHI
-					NOT = {
-						state = 613
-					}
-					NOT = {
-						state = 598
-					}
-					NOT = {
-						state = 608
-					}
-					#
-					NOT = {
-						state = 446
-					}
-					NOT = {
-						state = 447
-					}
-					NOT = {
-						state = 452
-					}
-					NOT = {
-						state = 451
-					}
-					NOT = {
-						state = 450
-					}
-					NOT = {
-						state = 448
-					}
-					NOT = {
-						state = 458
-					}
-					NOT = {
-						state = 460
-					}
-					NOT = {
-						state = 459
-					}
-					NOT = {
-						state = 461
-					}
-					NOT = {
-						state = 663
-					}
-					NOT = {
-						state = 327
-					}
-				}
-				add_dynamic_modifier = {
-					modifier = agrarian_state
-				}
-			}
-			GER = {
+				GER = {
 				57 = {
 					#威斯特法伦
 					add_dynamic_modifier = {
@@ -523,9 +427,17 @@ on_actions = {
 				# country_event = { id = poland_hof.2  days = 35 }  ### PPS vs Endecja Conflicts -> PPS event chain
 				# country_event = { id = poland_hof.7  days = 71 }  ### PSL Witos retire ->PLS event chain
 			}
+			}
+
+		}
+	}
 
 
-			# resource
+	##资源
+	on_startup = {
+		effect = {
+			every_state = {
+							# resource
 			MAN = {
 				give_resource_rights = {
 					receiver = JAP
@@ -628,8 +540,10 @@ on_actions = {
 					state = 413
 				}
 			}
+			}
 		}
 	}
+
 	on_new_term_election = {
 		random_events = {
 			100 = rw_jap_election.1
@@ -649,6 +563,8 @@ on_actions = {
 			USA_congress_update_from_factions = yes
 		}
 	}
+
+	##命名
 	on_weekly = {
 		effect = {
 			JAP = {
@@ -780,11 +696,14 @@ on_actions = {
 			}
 		}
 	}
+
 	on_monthly_TMS = {
 		effect = {
 			subject_situation_change_list = yes
 		}
 	}
+
+	##罗胸/苏德/俄德战
 	on_declare_war = {
 		effect = {
 			if = {
