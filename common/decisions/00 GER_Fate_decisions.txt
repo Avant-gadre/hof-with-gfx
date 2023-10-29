@@ -7480,9 +7480,9 @@ GER_reclaim_our_lands = {
 			924
 			1090
 			784
-			39 ##北蒂罗尔
-			759 ##南蒂罗尔
-			783 ##弗留利
+			39			##北蒂罗尔
+			759			##南蒂罗尔
+			783			##弗留利
 			8
 		}
 		target_trigger = {
@@ -7598,7 +7598,6 @@ GER_reclaim_our_lands = {
 			}
 		}
 	}
-
 	GER_Integrating_AUS_decisions = {
 		icon = eng_trade_unions_demand
 		on_map_mode = map_only
@@ -7656,7 +7655,6 @@ GER_reclaim_our_lands = {
 			}
 		}
 	}
-	
 	##Hyrd
 	##Czech
 	GER_Integrating_cze_decisions = {
@@ -7762,9 +7760,15 @@ GER_reclaim_our_lands = {
 		}
 		days_remove = 160
 		remove_effect = {
-			87 = { remove_claim_and_add_core_and_transfer_of_ROOT = yes }
-			98 = { remove_claim_and_add_core_and_transfer_of_ROOT = yes }
-			97 = { remove_claim_and_add_core_and_transfer_of_ROOT = yes }
+			87 = {
+				remove_claim_and_add_core_and_transfer_of_ROOT = yes
+			}
+			98 = {
+				remove_claim_and_add_core_and_transfer_of_ROOT = yes
+			}
+			97 = {
+				remove_claim_and_add_core_and_transfer_of_ROOT = yes
+			}
 		}
 		ai_will_do = {
 			factor = 50
@@ -7782,7 +7786,6 @@ GER_reclaim_our_lands = {
 			}
 		}
 	}
-
 	GER_Integrating_decisions_generic_hyrd = {
 		icon = eng_trade_unions_demand
 		state_target = yes
@@ -7982,13 +7985,14 @@ GER_reichskommissariats = {
 			}
 		}
 	}
-
-	##GEA
+	## GEA
 	GER_qingdao = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			744 = { is_controlled_by_ROOT_or_subject = yes }
+			744 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8035,15 +8039,13 @@ GER_reichskommissariats = {
 			}
 		}
 	}
-
-	##Holland
+	## Holland
 	GER_great_HOL = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
 			has_country_flag = Formation_rk_RKF
 			GER_can_form_great_HOL = yes
-
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8059,14 +8061,13 @@ GER_reichskommissariats = {
 			GER_form_great_HOL = yes
 		}
 	}
-
-	##Baltic State to sweden
+	## Baltic State to sweden
 	GER_great_SWE = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			has_country_flag = ostland
-			GER_can_great_SWE_baltic = yes
+			has_country_flag = set_rk_ostland
+			GER_can_give_great_SWE_baltic = yes
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8078,19 +8079,20 @@ GER_reichskommissariats = {
 			has_government = fascism
 			is_subject = no
 			is_in_faction_with = SWE
-			SWE = { has_government = fascism }
+			SWE = {
+				has_government = fascism
+			}
 		}
 		complete_effect = {
 			GER_give_great_SWE_baltic = yes
 		}
 	}
-
-	##Finland to Sweden
+	## Finland to Sweden
 	GER_great_SWE_north = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			GER_can_great_SWE_north = yes
+			GER_can_give_great_SWE_north = yes
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8106,12 +8108,12 @@ GER_reichskommissariats = {
 			GER_give_great_SWE_north = yes
 		}
 	}
-
+	## Poland
 	GER_reichskommissariat_poland = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			GER_can_rk_POL = yes
+			GER_can_set_rk_POL = yes
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8128,12 +8130,12 @@ GER_reichskommissariats = {
 			GER_set_rk_POL = yes
 		}
 	}
-
+	## Ostland
 	GER_reichskommissariat_ostland = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			GER_can_rk_OST = yes
+			GER_can_set_rk_OST = yes
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8145,117 +8147,17 @@ GER_reichskommissariats = {
 			is_subject = no
 		}
 		complete_effect = {
-			set_country_flag = ostland
+			set_country_flag = set_rk_ostland
 			GER_increase_propaganda = yes
 			GER_set_rk_OST = yes
 		}
 	}
-
+	## Ukr
 	GER_reichskommissariat_ukraine = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			OR = {
-				NOT = {
-					is_in_faction_with = UKR
-				}
-				UKR = {
-					is_subject = yes
-				}
-				NOT = {
-					UKR = {
-						owns_state = 202
-					}
-				}
-			}
-			OR = {
-				GER = {
-					controls_state = 199
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 199
-				}
-			}
-			OR = {
-				GER = {
-					controls_state = 202
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 202
-				}
-			}
-			OR = {
-				GER = {
-					controls_state = 226
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 226
-				}
-			}
-			OR = {
-				GER = {
-					controls_state = 228
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 228
-				}
-			}
+			GER_can_set_rk_UKR = yes
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8265,218 +8167,14 @@ GER_reichskommissariats = {
 		visible = {
 			has_government = fascism
 			is_subject = no
-			or = {
-				NOT = {
-					is_in_faction_with = UKR
-				}
-				AND = {
-					is_in_faction_with = UKR
-					UKR = {
-						is_subject = yes
-					}
-				}
-				AND = {
-					is_in_faction_with = UKR
-					UKR = {
-						is_subject = no
-					}
-					NOT = {
-						UKR = {
-							owns_state = 202
-						}
-					}
-				}
-				NOT = {
-					is_in_faction_with = SOV
-				}
-				AND = {
-					is_in_faction_with = SOV
-					SOV = {
-						is_subject = yes
-					}
-				}
-				AND = {
-					is_in_faction_with = SOV
-					SOV = {
-						is_subject = no
-					}
-					NOT = {
-						SOV = {
-							owns_state = 219
-						}
-					}
-				}
-				NOT = {
-					is_in_faction_with = RUS
-				}
-				AND = {
-					is_in_faction_with = RUS
-					RUS = {
-						is_subject = yes
-					}
-				}
-				AND = {
-					is_in_faction_with = RUS
-					RUS = {
-						is_subject = no
-					}
-					NOT = {
-						RUS = {
-							owns_state = 219
-						}
-					}
-				}
-			}
 		}
 		complete_effect = {
+			set_country_flag = set_rk_ukraine
 			GER_increase_propaganda = yes
-			if = {
-				limit = {
-					ROM = {
-						is_in_faction_with = GER
-					}
-					ROM = {
-						is_subject = no
-					}
-				}
-				ROM = {
-					transfer_state = 198
-				}
-				ROM = {
-					transfer_state = 192
-				}
-			}
-			every_state = {
-				limit = {
-					is_core_of = UKR
-				}
-				add_core_of = RKU
-			}
-			RKU = {
-				transfer_state = 202
-				GER = {
-					puppet = RKU
-					if = {
-						limit = {
-							NOT = {
-								has_dlc = "Death or Dishonor"
-							}
-						}
-						set_autonomy = {
-							target = RKU
-							autonomy_state = autonomy_integrated_puppet
-						}
-					}
-					else = {
-						set_autonomy = {
-							target = RKU
-							autonomy_state = autonomy_reichskommissariat
-						}
-					}
-				}
-				random_country = {
-					limit = {
-						is_faction_leader = yes
-						is_in_faction_with = RKU
-					}
-					random_enemy_country = {
-						limit = {
-							NOT = {
-								has_war_with = RKU
-							}
-						}
-						RKU = {
-							add_to_war = {
-								targeted_alliance = PREV.PREV
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-				if = {
-					limit = {
-						or = {
-							GER = {
-								has_country_flag = GER_Strasser_becomes_the_leader_flag
-							}
-							GER = {
-								has_country_flag = GER_Heydrich_becomes_the_leader_flag
-							}
-						}
-					}
-					create_country_leader = {
-						name = "Erich Koch"
-						desc = "POLITICS_HINRICH_LOHSE_DESC"
-						picture = "gfx/leaders/RKU/leader_UKR_Erich_Koch.dds"
-						expire = "1965.1.1"
-						ideology = valkist
-						traits = {
-							Unwelcome_commissioner
-						}
-					}
-				}
-			}
-			every_state = {
-				limit = {
-					is_core_of = UKR
-					NOT = {
-						is_claimed_by = GER
-					}
-					NOT = {
-						is_core_of = GER
-					}
-					NOT = {
-						is_core_of = ROM
-					}
-					OR = {
-						is_fully_controlled_by = GER
-						any_other_country = {
-							is_ai = yes
-							has_full_control_of_state = PREV
-							is_in_faction_with = GER
-						}
-					}
-				}
-				RKU = {
-					transfer_state = PREV
-				}
-			}
-			if = {
-				limit = {
-					has_global_flag = GER_POL_Territorial_exchange_pact
-					POL = {
-						is_in_faction_with = GER
-					}
-					POL = {
-						is_subject = no
-					}
-				}
-				POL = {
-					transfer_state = 93
-				}
-				POL = {
-					transfer_state = 91
-				}
-				POL = {
-					transfer_state = 89
-				}
-			}
-			if = {
-				limit = {
-					country_exists = UKR
-					UKR = {
-						is_subject_of = GER
-					}
-				}
-				RKU = {
-					annex_country = {
-						target = UKR
-					}
-				}
-			}
+			GER_set_rk_UKR = yes
 		}
 	}
+	## Moscow
 	GER_reichskommissariat_moskau = {
 		icon = ger_reichskommissariats
 		available = {
@@ -8687,55 +8385,12 @@ GER_reichskommissariats = {
 			}
 		}
 	}
+	## Caucasian
 	GER_reichskommissariat_Caucasian = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			has_country_flag = Formation_rk_RKR
-			OR = {
-				GER = {
-					controls_state = 234
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 234
-				}
-			}
-			OR = {
-				GER = {
-					controls_state = 229
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 229
-				}
-			}
+			GER_can_set_rk_CAU = yes
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8748,173 +8403,14 @@ GER_reichskommissariats = {
 		}
 		complete_effect = {
 			GER_increase_propaganda = yes
-			RKA = {
-				add_state_core = 229
-				add_state_core = 234
-				add_state_core = 235
-				add_state_core = 232
-				add_state_core = 233
-				add_state_core = 231
-				add_state_core = 230
-			}
-			every_state = {
-				limit = {
-					is_core_of = RKA
-					is_core_of = RKR
-				}
-				remove_core_of = RKR
-			}
-			RKA = {
-				transfer_state = 229
-				GER = {
-					puppet = RKA
-					if = {
-						limit = {
-							NOT = {
-								has_dlc = "Death or Dishonor"
-							}
-						}
-						set_autonomy = {
-							target = RKA
-							autonomy_state = autonomy_integrated_puppet
-						}
-					}
-					else = {
-						set_autonomy = {
-							target = RKA
-							autonomy_state = autonomy_reichskommissariat
-						}
-					}
-				}
-				random_country = {
-					limit = {
-						is_faction_leader = yes
-						is_in_faction_with = RKA
-					}
-					random_enemy_country = {
-						limit = {
-							NOT = {
-								has_war_with = RKA
-							}
-						}
-						RKA = {
-							add_to_war = {
-								targeted_alliance = PREV.PREV
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			every_state = {
-				limit = {
-					is_core_of = RKA
-					NOT = {
-						is_claimed_by = GER
-					}
-					NOT = {
-						is_core_of = GER
-					}
-					OR = {
-						is_fully_controlled_by = GER
-						any_other_country = {
-							is_ai = yes
-							has_full_control_of_state = PREV
-							is_in_faction_with = GER
-						}
-					}
-				}
-				RKA = {
-					transfer_state = PREV
-				}
-			}
-			if = {
-				limit = {
-					UKR = {
-						is_in_faction_with = GER
-					}
-					UKR = {
-						is_subject = no
-					}
-				}
-				UKR = {
-					transfer_state = 234
-				}
-			}
+			GER_set_rk_CAU = yes
 		}
 	}
+	## Ural
 	GER_reichskommissariat_Ural = {
 		icon = ger_reichskommissariats
 		available = {
 			has_government = fascism
-			has_country_flag = Formation_rk_RKR
-			OR = {
-				GER = {
-					controls_state = 249
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 249
-				}
-			}
-			OR = {
-				GER = {
-					controls_state = 573
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 573
-				}
-			}
-			OR = {
-				GER = {
-					controls_state = 582
-				}
-				any_other_country = {
-					is_ai = yes
-					OR = {
-						is_subject = no
-						AND = {
-							is_subject = yes
-							OVERLORD = {
-								or = {
-									is_ai = yes
-									tag = GER
-								}
-							}
-						}
-					}
-					is_in_faction_with = GER
-					controls_state = 582
-				}
-			}
 		}
 		cost = 0
 		fire_only_once = yes
@@ -8927,94 +8423,6 @@ GER_reichskommissariats = {
 		}
 		complete_effect = {
 			GER_increase_propaganda = yes
-			RUL = {
-				add_state_core = 262
-				add_state_core = 397
-				add_state_core = 400
-				add_state_core = 256
-				add_state_core = 249
-				add_state_core = 250
-				add_state_core = 398
-				add_state_core = 399
-				add_state_core = 651
-				add_state_core = 652
-				add_state_core = 581
-				add_state_core = 573
-				add_state_core = 582
-				add_state_core = 251
-			}
-			every_state = {
-				limit = {
-					is_core_of = RUL
-					is_core_of = RKR
-				}
-				remove_core_of = RKR
-			}
-			RUL = {
-				transfer_state = 249
-				GER = {
-					puppet = RUL
-					if = {
-						limit = {
-							NOT = {
-								has_dlc = "Death or Dishonor"
-							}
-						}
-						set_autonomy = {
-							target = RUL
-							autonomy_state = autonomy_integrated_puppet
-						}
-					}
-					else = {
-						set_autonomy = {
-							target = RUL
-							autonomy_state = autonomy_reichskommissariat
-						}
-					}
-				}
-				random_country = {
-					limit = {
-						is_faction_leader = yes
-						is_in_faction_with = RUL
-					}
-					random_enemy_country = {
-						limit = {
-							NOT = {
-								has_war_with = RUL
-							}
-						}
-						RUL = {
-							add_to_war = {
-								targeted_alliance = PREV.PREV
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			every_state = {
-				limit = {
-					is_core_of = RUL
-					NOT = {
-						is_claimed_by = GER
-					}
-					NOT = {
-						is_core_of = GER
-					}
-					OR = {
-						is_fully_controlled_by = GER
-						any_other_country = {
-							is_ai = yes
-							has_full_control_of_state = PREV
-							is_in_faction_with = GER
-						}
-					}
-				}
-				RUL = {
-					transfer_state = PREV
-				}
-			}
 		}
 	}
 	GER_reichskommissariat_Turkista = {
