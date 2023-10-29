@@ -2897,7 +2897,8 @@ ITA_nero_category = {
 			has_global_flag = HOF_second_italo_ethiopian_war_flag
 			NOT = {
 				has_country_flag = HOF_ITA_victory_in_ethiopia_flag
-			}			#If Italy peaces out with ETH, the mission just cancels instead of failing
+			}
+			#If Italy peaces out with ETH, the mission just cancels instead of failing
 		}
 		highlight_states = {
 			highlight_state_targets = {
@@ -3078,7 +3079,8 @@ ITA_nero_category = {
 			has_global_flag = HOF_second_italo_ethiopian_war_flag
 			NOT = {
 				has_country_flag = HOF_ITA_victory_in_ethiopia_flag
-			}			#If Italy peaces out with ETH, the mission just cancels instead of failing
+			}
+			#If Italy peaces out with ETH, the mission just cancels instead of failing
 		}
 		highlight_states = {
 			highlight_states_trigger = {
@@ -3172,7 +3174,8 @@ ITA_nero_category = {
 				country_event = {
 					id = HOF_italy_nero.04_south
 					hours = 1
-				}				#Triggered one hour later for event options purposes
+				}
+				#Triggered one hour later for event options purposes
 			}
 		}
 		complete_effect = {
@@ -3380,7 +3383,8 @@ ITA_nero_category = {
 			#else = {
 			has_army_manpower = {
 				size > 500000
-			}			#500k
+			}
+			#500k
 			#}
 			#}
 			#else = { #IF REPEATING
@@ -3814,3 +3818,1260 @@ ITA_nero_category = {
 	}
 }
 
+ITA_Nero_Emperor_Privilege_category = {
+	ITA_Nero_Camicie_Rosse = {
+		icon = generic_army_support
+		available = {
+			has_completed_focus = ITA_moschettieri_del_duce
+			has_war = yes
+			any_enemy_country = {
+				is_major = yes
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			has_army_experience > 49
+			OR = {
+				has_army_manpower = {
+					size < 1000000
+				}
+				num_divisions < 100
+			}
+		}
+		visible = {
+			is_subject = no
+		}
+		cost = 25
+		days_remove = 210
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 200
+		}
+		complete_effect = {
+			army_experience = -50
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		remove_effect = {
+			capital_scope = {
+				create_unit = {
+					division = "division_template = \"Camicie Rosse\" start_experience_factor = 0.2 start_equipment_factor= 1.0"
+					owner = ITA
+					count = 3
+				}
+			}
+		}
+	}
+	Nero_Emperor_Privilege_Init_army = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+					has_country_leader_with_trait = Emperor_Privilege_armor
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+			}
+		}
+		available = {
+			AND = {
+				NOT = {
+					OR = {
+						has_country_flag = ITA_Nero_Emperor_Privilege_infantry_flag
+						has_country_flag = ITA_Nero_Emperor_Privilege_armor_flag
+						has_country_flag = ITA_Nero_Emperor_Privilege_artillery_flag
+						has_country_flag = ITA_Nero_Emperor_Privilege_special_forces_flag
+						has_country_flag = ITA_Nero_Emperor_Privilege_motorized_flag
+					}
+				}
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+					has_country_leader_with_trait = Emperor_Privilege_armor
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+			}
+		}
+		cost = 0
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+				}
+				add_country_leader_trait = Emperor_Privilege_init_army
+				remove_country_leader_trait = Emperor_Privilege_infantry
+				clr_country_flag = ITA_Nero_Emperor_Privilege_infantry_flag
+			}
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_armor
+				}
+				add_country_leader_trait = Emperor_Privilege_init_army
+				remove_country_leader_trait = Emperor_Privilege_armor
+				clr_country_flag = ITA_Nero_Emperor_Privilege_armor_flag
+			}
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+				}
+				add_country_leader_trait = Emperor_Privilege_init_army
+				remove_country_leader_trait = Emperor_Privilege_artillery
+				clr_country_flag = ITA_Nero_Emperor_Privilege_artillery_flag
+			}
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+				}
+				add_country_leader_trait = Emperor_Privilege_init_army
+				remove_country_leader_trait = Emperor_Privilege_special_forces
+				clr_country_flag = ITA_Nero_Emperor_Privilege_special_forces_flag
+			}
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+				add_country_leader_trait = Emperor_Privilege_init_army
+				remove_country_leader_trait = Emperor_Privilege_motorized
+				clr_country_flag = ITA_Nero_Emperor_Privilege_motorized_flag
+			}
+		}
+	}
+	Nero_Emperor_Privilege_infantry = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_infantry
+						has_country_leader_with_trait = Emperor_Privilege_armor
+						has_country_leader_with_trait = Emperor_Privilege_artillery
+						has_country_leader_with_trait = Emperor_Privilege_special_forces
+						has_country_leader_with_trait = Emperor_Privilege_motorized
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+					has_country_leader_with_trait = Emperor_Privilege_armor
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_infantry_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_army
+			add_country_leader_trait = Emperor_Privilege_infantry
+		}
+	}
+	Nero_Emperor_Privilege_armor = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_infantry
+						has_country_leader_with_trait = Emperor_Privilege_armor
+						has_country_leader_with_trait = Emperor_Privilege_artillery
+						has_country_leader_with_trait = Emperor_Privilege_special_forces
+						has_country_leader_with_trait = Emperor_Privilege_motorized
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+					has_country_leader_with_trait = Emperor_Privilege_armor
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_armor_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_army
+			add_country_leader_trait = Emperor_Privilege_armor
+		}
+	}
+	Nero_Emperor_Privilege_artillery = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_infantry
+						has_country_leader_with_trait = Emperor_Privilege_armor
+						has_country_leader_with_trait = Emperor_Privilege_artillery
+						has_country_leader_with_trait = Emperor_Privilege_special_forces
+						has_country_leader_with_trait = Emperor_Privilege_motorized
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+					has_country_leader_with_trait = Emperor_Privilege_armor
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_artillery_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_army
+			add_country_leader_trait = Emperor_Privilege_artillery
+		}
+	}
+	Nero_Emperor_Privilege_special_forces = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_infantry
+						has_country_leader_with_trait = Emperor_Privilege_armor
+						has_country_leader_with_trait = Emperor_Privilege_artillery
+						has_country_leader_with_trait = Emperor_Privilege_special_forces
+						has_country_leader_with_trait = Emperor_Privilege_motorized
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+					has_country_leader_with_trait = Emperor_Privilege_armor
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_special_forces_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_army
+			add_country_leader_trait = Emperor_Privilege_special_forces
+		}
+	}
+	Nero_Emperor_Privilege_motorized = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_infantry
+						has_country_leader_with_trait = Emperor_Privilege_armor
+						has_country_leader_with_trait = Emperor_Privilege_artillery
+						has_country_leader_with_trait = Emperor_Privilege_special_forces
+						has_country_leader_with_trait = Emperor_Privilege_motorized
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_infantry
+					has_country_leader_with_trait = Emperor_Privilege_armor
+					has_country_leader_with_trait = Emperor_Privilege_artillery
+					has_country_leader_with_trait = Emperor_Privilege_special_forces
+					has_country_leader_with_trait = Emperor_Privilege_motorized
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_motorized_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_army
+			add_country_leader_trait = Emperor_Privilege_motorized
+		}
+	}
+	Nero_Emperor_Privilege_Init_air = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_air_superiority
+					has_country_leader_with_trait = Emperor_Privilege_air_close_air
+					has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+				}
+			}
+		}
+		available = {
+			AND = {
+				NOT = {
+					OR = {
+						has_country_flag = ITA_Nero_Emperor_Privilege_air_superiority_flag
+						has_country_flag = ITA_Nero_Emperor_Privilege_air_close_air_flag
+						has_country_flag = ITA_Nero_Emperor_Privilege_air_naval_strike_flag
+					}
+				}
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_air_superiority
+					has_country_leader_with_trait = Emperor_Privilege_air_close_air
+					has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+				}
+			}
+		}
+		cost = 0
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_air_superiority
+				}
+				add_country_leader_trait = Emperor_Privilege_init_air
+				remove_country_leader_trait = Emperor_Privilege_air_superiority
+				clr_country_flag = ITA_Nero_Emperor_Privilege_air_superiority_flag
+			}
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_air_close_air
+				}
+				add_country_leader_trait = Emperor_Privilege_init_air
+				remove_country_leader_trait = Emperor_Privilege_air_close_air
+				clr_country_flag = ITA_Nero_Emperor_Privilege_air_close_air_flag
+			}
+			if = {
+				limit = {
+					has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+				}
+				add_country_leader_trait = Emperor_Privilege_init_air
+				remove_country_leader_trait = Emperor_Privilege_air_naval_strike
+				clr_country_flag = ITA_Nero_Emperor_Privilege_air_naval_strike_flag
+			}
+		}
+	}
+	Nero_Emperor_Privilege_air_superiority = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_air_superiority
+						has_country_leader_with_trait = Emperor_Privilege_air_close_air
+						has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_air_superiority
+					has_country_leader_with_trait = Emperor_Privilege_air_close_air
+					has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_air_superiority_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_air
+			add_country_leader_trait = Emperor_Privilege_air_superiority
+		}
+	}
+	Nero_Emperor_Privilege_air_close_air = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_air_superiority
+						has_country_leader_with_trait = Emperor_Privilege_air_close_air
+						has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_air_superiority
+					has_country_leader_with_trait = Emperor_Privilege_air_close_air
+					has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_air_close_air_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_air
+			add_country_leader_trait = Emperor_Privilege_air_close_air
+		}
+	}
+	Nero_Emperor_Privilege_air_naval_strike = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ITA
+		}
+		visible = {
+			AND = {
+				has_country_leader = {
+					character = ITA_nero_claudius
+				}
+				NOT = {
+					OR = {
+						has_country_leader_with_trait = Emperor_Privilege_air_superiority
+						has_country_leader_with_trait = Emperor_Privilege_air_close_air
+						has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_leader_with_trait = Emperor_Privilege_air_superiority
+					has_country_leader_with_trait = Emperor_Privilege_air_close_air
+					has_country_leader_with_trait = Emperor_Privilege_air_naval_strike
+				}
+			}
+			has_political_power > 50
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 1
+		complete_effect = {
+			set_country_flag = {
+				flag = ITA_Nero_Emperor_Privilege_air_naval_strike_flag
+				value = 1
+				days = 90
+			}
+			remove_country_leader_trait = Emperor_Privilege_init_air
+			add_country_leader_trait = Emperor_Privilege_air_naval_strike
+		}
+	}
+}
+
+Roman_integration = {
+	integrate_YUG = {
+		# YUG
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = ita_darmcia_problem
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = YUG
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = YUG
+			}
+			any_state = {
+				is_core_of = YUG
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = YUG
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -50
+			political_power_cost = 1
+			monthly_population = -0.4
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.3
+			consumer_goods_factor = 0.4
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = YUG
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_GRE = {
+		# GRE
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = ita_protect_archaea
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = GRE
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = GRE
+			}
+			any_state = {
+				is_core_of = GRE
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = GRE
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -50
+			political_power_cost = 1
+			monthly_population = -0.4
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.3
+			consumer_goods_factor = 0.4
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = GRE
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_TUR = {
+		# TUR
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = ita_recover_eastern_roma
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = TUR
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = TUR
+			}
+			any_state = {
+				is_core_of = TUR
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = TUR
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -50
+			political_power_cost = 1
+			monthly_population = -0.4
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.3
+			consumer_goods_factor = 0.4
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = TUR
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_FRA = {
+		# FRA
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = ita_conquer_gaul
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = FRA
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = FRA
+			}
+			any_state = {
+				is_core_of = FRA
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = FRA
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -100
+			political_power_cost = 2
+			monthly_population = -0.6
+			production_speed_buildings_factor = -0.4
+			industrial_capacity_factory = -0.4
+			min_export = 0.6
+			consumer_goods_factor = 0.8
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = FRA
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_SPR = {
+		# SPR
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = ita_recover_hispania
+			FROM = {
+				NOT = {
+					any_state = {
+						is_spainish_state = yes
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = SPR
+			}
+			any_state = {
+				is_spainish_state = yes
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_spainish_state = yes
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -50
+			political_power_cost = 1
+			monthly_population = -0.4
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.3
+			consumer_goods_factor = 0.4
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_spainish_state = yes
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_EGY = {
+		# EGY
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = EGY
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = EGY
+			}
+			any_state = {
+				is_core_of = EGY
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = EGY
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -50
+			political_power_cost = 1
+			monthly_population = -0.4
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.3
+			consumer_goods_factor = 0.2
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = EGY
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_BUL = {
+		# BUL
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = itabalkan_problem
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = BUL
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = BUL
+			}
+			any_state = {
+				is_core_of = BUL
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = BUL
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -20
+			political_power_cost = 0.4
+			monthly_population = -0.15
+			production_speed_buildings_factor = -0.1
+			industrial_capacity_factory = -0.1
+			min_export = 0.1
+			consumer_goods_factor = 0.1
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = BUL
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_HUN = {
+		# HUN
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = itabalkan_problem
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = HUN
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = HUN
+			}
+			any_state = {
+				is_core_of = HUN
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = HUN
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -75
+			political_power_cost = 1.5
+			monthly_population = -0.6
+			production_speed_buildings_factor = -0.5
+			industrial_capacity_factory = -0.5
+			min_export = 0.5
+			consumer_goods_factor = 0.5
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = HUN
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_ROM = {
+		# ROM
+		icon = generic_political_discourse
+		cost = 250
+		fire_only_once = yes
+		days_remove = 180
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = itabalkan_problem
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = ROM
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			NOT = {
+				original_tag = ROM
+			}
+			any_state = {
+				is_core_of = ROM
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = ROM
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -50
+			political_power_cost = 1
+			monthly_population = -0.4
+			production_speed_buildings_factor = -0.2
+			industrial_capacity_factory = -0.2
+			min_export = 0.3
+			consumer_goods_factor = 0.4
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = ROM
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+	integrate_ALB = {
+		# ALB
+		icon = generic_political_discourse
+		cost = 150
+		fire_only_once = yes
+		days_remove = 120
+		ai_will_do = {
+			factor = 150
+		}
+		available = {
+			NOT = {
+				has_country_flag = ITA_Integrating_core_flag
+			}
+			has_completed_focus = itabalkan_problem
+			FROM = {
+				NOT = {
+					any_state = {
+						is_core_of = ALB
+						NOT = {
+							ROOT = {
+								has_full_control_of_state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			any_state = {
+				is_core_of = ALB
+				NOT = {
+					is_core_of = FROM
+				}
+			}
+			any_state = {
+				is_core_of = ALB
+				FROM = {
+					has_full_control_of_state = PREV
+				}
+			}
+		}
+		modifier = {
+			max_command_power = -10
+			political_power_cost = 0.2
+			monthly_population = -0.1
+			production_speed_buildings_factor = -0.1
+			industrial_capacity_factory = -0.1
+			min_export = 0.1
+			consumer_goods_factor = 0.1
+		}
+		complete_effect = {
+			set_country_flag = {
+				value = 1
+				days = 120
+				flag = ITA_Integrating_core_flag
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = ALB
+				}
+				add_core_of = FROM
+			}
+		}
+	}
+}
