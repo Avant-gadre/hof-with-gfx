@@ -74,6 +74,26 @@ remove_claim_and_add_core_and_transfer_of_PREV = {
 	}
 }
 
+controlled_for_transfer_and_add_core_of_PREV = {
+	if = {
+		limit = {
+			OR = {
+				controller = { is_subject_of = PREV.OVERLORD }
+				controller = { tag = PREV.OVERLORD }
+			}
+		}
+		transfer_state_to = PREV
+	}
+	if = {
+		limit = {
+			NOT = {
+				is_core_of = PREV
+			}
+		}
+		add_core_of = PREV
+	}
+}
+
 add_claim_and_transfer_of_PREV = {
 	if = {
 		limit = {
@@ -442,15 +462,57 @@ GER_set_rk_POL = {
 
 ##车万
 GER_set_rk_OST = {
-	every_state = {
+	if = {
 		limit = {
-			or = {
-				is_core_of = LIT
-				is_core_of = EST
-				is_core_of = BLR
+			country_exists = LIT
+			LIT = {
+				is_subject_of = GER
 			}
 		}
-		add_core_of = RKO
+		GER = {
+			annex_country = {
+				target = LIT
+			}
+		}
+	}
+	if = {
+		limit = {
+			country_exists = EST
+			EST = {
+				is_subject_of = GER
+			}
+		}
+		GER = {
+			annex_country = {
+				target = EST
+			}
+		}
+	}
+	if = {
+		limit = {
+			country_exists = BLR
+			BLR = {
+				is_subject_of = GER
+			}
+		}
+		GER = {
+			annex_country = {
+				target = BLR
+			}
+		}
+	}
+	if = {
+		limit = {
+			country_exists = BAT
+			BLR = {
+				is_subject_of = GER
+			}
+		}
+		RKO = {
+			annex_country = {
+				target = BLR
+			}
+		}
 	}
 	RKO = {
 		189 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
@@ -524,58 +586,241 @@ GER_set_rk_OST = {
 	}
 	if = {
 		limit = {
-			country_exists = LIT
-			LIT = {
-				is_subject_of = GER
+			if = { 
+				is_in_faction_with = UKR
+				NOT = { UKR = { is_subject_of = GER } }
 			}
-		}
-		RKO = {
-			annex_country = {
-				target = LIT
-			}
-		}
-	}
-	if = {
-		limit = {
-			country_exists = EST
-			EST = {
-				is_subject_of = GER
-			}
-		}
-		RKO = {
-			annex_country = {
-				target = EST
-			}
-		}
-	}
-	if = {
-		limit = {
-			country_exists = BLR
-			BLR = {
-				is_subject_of = GER
-			}
-		}
-		RKO = {
-			annex_country = {
-				target = BLR
-			}
-		}
-	}
-	if = {
-		limit = {
-			country_exists = BAT
-			BLR = {
-				is_subject_of = GER
-			}
-		}
-		RKO = {
-			annex_country = {
-				target = BLR
+			UKR = {	
+				93 = { transfer_state_to = PREV }
+				95 = { transfer_state_to = PREV }
+				194 = { transfer_state_to = PREV }
+				241 = { transfer_state_to = PREV }
+				791 = { transfer_state_to = PREV }
+				997 = { transfer_state_to = PREV }
 			}
 		}
 	}
 }
 
+##乌克兰 东边给莫斯科
+GER_set_rk_UKR = {
+	if = {
+		limit = {
+			country_exists = UKR
+			UKR = {
+				is_subject_of = GER
+			}
+		}
+		GER = {
+			annex_country = {
+				target = UKR
+			}
+		}
+	}
+	RKU = {
+		92 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		792 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		997 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		95 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		194 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		201 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		199 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		198 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		192 = { remove_claim_and_add_core_and_transfer_of_PREV = yes } ##Odesa
+		202 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		203 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		197 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		226 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		193 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		259 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		821 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		200 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		196 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		random_country = {
+			limit = {
+				is_faction_leader = yes
+				is_in_faction_with = RKU
+			}
+			random_enemy_country = {
+				limit = {
+					NOT = {
+						has_war_with = RKU
+					}
+				}
+				RKU = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					GER = {
+						has_country_flag = GER_Strasser_becomes_the_leader_flag
+					}
+					GER = {
+						has_country_flag = GER_Heydrich_becomes_the_leader_flag
+					}
+				}
+			}
+			create_country_leader = {
+				name = "Erich Koch"
+				desc = "POLITICS_HINRICH_LOHSE_DESC"
+				picture = "gfx/leaders/RKU/leader_UKR_Erich_Koch.dds"
+				expire = "1965.1.1"
+				ideology = valkist
+				traits = {
+					Unwelcome_commissioner
+				}
+			}
+		}
+	}
+	GER = {
+		puppet = RKU
+		set_autonomy = {
+			target = RKU
+			autonomy_state = autonomy_reichskommissariat
+		}
+	}
+	##给罗马尼亚
+	if = {
+		limit = {
+			if = { 
+				is_in_faction_with = ROM
+				NOT = { ROM = { is_subject_of = GER } }
+			}
+			ROM = {
+				91 = { 
+					transfer_state_to = PREV 
+					remove_core_of = RKU 
+				}
+			}
+		}
+	}
+}
+
+##糕加索
+GER_set_rk_CAU = {
+	RKA = {
+		1001 = { controlled_for_transfer_and_add_core_of_PREV = yes }
+		585 = { controlled_for_transfer_and_add_core_of_PREV = yes }
+		1000 = { controlled_for_transfer_and_add_core_of_PREV = yes }
+
+		218 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		234 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		1006= { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		1080 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		238 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		237 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		235 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		787 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		233 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		961 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		232 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		231 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		230 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		998 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		229 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		random_country = {
+			limit = {
+				is_faction_leader = yes
+				is_in_faction_with = RKA
+			}
+			random_enemy_country = {
+				limit = {
+					NOT = {
+						has_war_with = RKA
+					}
+				}
+				RKA = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
+				}
+			}
+		}
+	}
+	GER = {
+		puppet = RKA
+		set_autonomy = {
+			target = RKA
+			autonomy_state = autonomy_reichskommissariat
+		}
+	}
+	if = {
+		limit = {
+			UKR = {
+				is_in_faction_with = GER
+			}
+			UKR = {
+				is_subject = no
+			}
+		}
+		UKR = {
+			1080 = { add_claim_and_transfer_of_PREV = yes }
+			1006 = { add_claim_and_transfer_of_PREV = yes }
+			218 = { add_claim_and_transfer_of_PREV = yes }
+			234 = { add_claim_and_transfer_of_PREV = yes }
+		}
+	}
+}
+
+GER_set_rk_URAL = {
+	RUL = {
+		262 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		397 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		400 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		256 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		249 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		250 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		398 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		251 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		399 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		651 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		652 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		582 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		573 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		582 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		580 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		653 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		572 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+	}
+	RUL = {
+		random_country = {
+			limit = {
+				is_faction_leader = yes
+				is_in_faction_with = RUL
+			}
+			random_enemy_country = {
+				limit = {
+					NOT = {
+						has_war_with = RUL
+					}
+				}
+				RUL = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
+				}
+			}
+		}
+	}
+	GER = {
+		puppet = RUL
+		set_autonomy = {
+			target = RUL
+			autonomy_state = autonomy_reichskommissariat
+		}
+	}
+}
 ##Indochina
 JAP_establish_INA = {
 	custom_effect_tooltip = JAP_establish_INA_tt
