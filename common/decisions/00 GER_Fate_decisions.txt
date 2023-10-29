@@ -7548,7 +7548,7 @@ GER_reclaim_our_lands = {
 	##Swiz
 	GER_Integrating_swi_decisions = {
 		icon = eng_trade_unions_demand
-		on_map_mode = map_only
+		on_map_mode = map_and_decisions_view
 		highlight_states = {
 			highlight_state_targets = {
 				state = 3
@@ -7558,6 +7558,7 @@ GER_reclaim_our_lands = {
 		visible = {
 			tag = GER
 			is_subject = no
+			GER_can_integrate_SWI = yes
 		}
 		available = {
 			GER_can_integrate_SWI = yes
@@ -7600,7 +7601,7 @@ GER_reclaim_our_lands = {
 	}
 	GER_Integrating_AUS_decisions = {
 		icon = eng_trade_unions_demand
-		on_map_mode = map_only
+		on_map_mode = map_and_decisions_view
 		highlight_states = {
 			highlight_state_targets = {
 				state = 4
@@ -7615,6 +7616,7 @@ GER_reclaim_our_lands = {
 		visible = {
 			tag = GER
 			is_subject = no
+			GER_can_integrate_AUS = yes
 		}
 		available = {
 			GER_can_integrate_AUS = yes
@@ -9276,6 +9278,172 @@ GER_reichskommissariats = {
 		complete_effect = {
 			GER_increase_propaganda = yes
 			GER_set_RIB = yes
+		}
+	}
+}
+
+RK_Administrative_jurisdiction = {
+	RK_Suppress_resistance = {
+		icon = generic_prepare_civil_war
+		available = {
+			has_capitulated = no
+		}
+		cost = 0
+		ai_will_do = {
+			factor = 5000
+		}
+		days_remove = 180
+		visible = {
+			or = {
+				has_idea = GER_resistance_idea_1
+				has_idea = GER_resistance_idea_2
+				has_idea = GER_resistance_idea_3
+				has_idea = GER_resistance_idea_4
+				has_idea = GER_resistance_idea_5
+			}
+		}
+		modifier = {
+			political_power_cost = 0.5
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = GER_resistance_idea_1
+				}
+				swap_ideas = {
+					remove_idea = GER_resistance_idea_1
+					add_idea = GER_resistance_idea_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_resistance_idea_2
+				}
+				swap_ideas = {
+					remove_idea = GER_resistance_idea_2
+					add_idea = GER_resistance_idea_3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_resistance_idea_3
+				}
+				swap_ideas = {
+					remove_idea = GER_resistance_idea_3
+					add_idea = GER_resistance_idea_4
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_resistance_idea_4
+				}
+				swap_ideas = {
+					remove_idea = GER_resistance_idea_4
+					add_idea = GER_resistance_idea_5
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_resistance_idea_5
+				}
+				remove_ideas = GER_resistance_idea_5
+			}
+		}
+		complete_effect = {
+			add_stability = 0.05
+			army_experience = 15
+		}
+	}
+	RK_Claim_core_territory = {
+		icon = generic_political_actions
+		available = {
+			has_capitulated = no
+		}
+		cost = 0
+		ai_will_do = {
+			factor = 5000
+		}
+		days_remove = 90
+		visible = {
+			any_state = {
+				is_core_of = root
+				NOT = {
+					is_core_of = GER
+				}
+				NOT = {
+					is_claimed_by = GER
+				}
+				is_fully_controlled_by = GER
+			}
+		}
+		modifier = {
+			political_power_cost = 0.1
+		}
+		complete_effect = {
+			every_state = {
+				limit = {
+					is_core_of = root
+					NOT = {
+						is_core_of = GER
+					}
+					NOT = {
+						is_claimed_by = GER
+					}
+					is_fully_controlled_by = GER
+				}
+				root = {
+					transfer_state = PREV
+				}
+			}
+		}
+	}
+	RK_Claim_core_territory_RKR = {
+		icon = generic_political_actions
+		available = {
+			has_capitulated = no
+		}
+		cost = 0
+		ai_will_do = {
+			factor = 5000
+		}
+		days_remove = 90
+		visible = {
+			OR = {
+				original_tag = RKM
+				original_tag = RKA
+				original_tag = RUL
+				original_tag = RTK
+			}
+			any_state = {
+				is_core_of = root
+				NOT = {
+					is_core_of = RKR
+				}
+				NOT = {
+					is_claimed_by = RKR
+				}
+				is_fully_controlled_by = RKR
+			}
+		}
+		modifier = {
+			political_power_cost = 0.1
+		}
+		complete_effect = {
+			every_state = {
+				limit = {
+					is_core_of = root
+					NOT = {
+						is_core_of = RKR
+					}
+					NOT = {
+						is_claimed_by = RKR
+					}
+					is_fully_controlled_by = RKR
+				}
+				root = {
+					transfer_state = PREV
+				}
+			}
 		}
 	}
 }
