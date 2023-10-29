@@ -163,29 +163,50 @@ GER_can_form_great_HOL = {
 
 GER_can_great_SWE_baltic = {
 	is_in_faction_with = SWE
-	SWE = { has_government = fascism }
-	NOT = {
-		is_in_faction_with = BAT
+	SWE = {
+		has_government = fascism
+	}
+	if = {
+		limit = {
+			is_in_faction_with = BAT
+		}
+		NOT = {
+			BAT = {
+				has_country_flag = GER_Accept_economic_integration
+			}
+		}
 		BAT = {
-			is_puppet =  no
+			is_subject_of = GER
 		}
 	}
-	NOT = {
-		is_in_faction_with = EST
+	if = {
+		limit = {
+			is_in_faction_with = EST
+		}
+		NOT = {
+			EST = {
+				has_country_flag = GER_Accept_economic_integration
+			}
+		}
 		EST = {
-			is_puppet = no
+			is_subject_of = GER
 		}
 	}
-	NOT = {
-		is_in_faction_with = RUS
+	##跟俄/苏一起
+	if = {
+		limit = {
+			is_in_faction_with = RUS
+		}
 		RUS = {
-			is_puppet = no
+			is_subject = yes
 		}
 	}
-	NOT = {
-		is_in_faction_with = SOV
+	if = {
+		limit = {
+			is_in_faction_with = SOV
+		}
 		SOV = {
-			is_puppet = no
+			is_subject = yes
 		}
 	}
 	109 = {
@@ -213,31 +234,36 @@ GER_can_great_SWE_baltic = {
 
 GER_can_great_SWE_north = {
 	is_in_faction_with = SWE
-	SWE = { has_government = fascism }
-	OR = {
-		NOT = { is_in_faction_with = FIN }
-		AND = {
+	SWE = {
+		has_government = fascism
+	}
+	if = {
+		limit = {
 			is_in_faction_with = FIN
+		}
+		NOT = {
 			FIN = {
-				NOT = {
-					is_puppet = no
-					is_puppet_of = SWE
-					is_puppet_of = RUS
-					is_puppet_of = SOV
-				}
+				has_country_flag = GER_Accept_economic_integration
 			}
 		}
-	}
-	NOT = {
-		is_in_faction_with = RUS
-		RUS = {
-			is_puppet = no
+		FIN = {
+			is_subject_of = GER
 		}
 	}
-	NOT = {
-		is_in_faction_with = SOV
+	if = {
+		limit = {
+			is_in_faction_with = RUS
+		}
+		RUS = {
+			is_subject = yes
+		}
+	}
+	if = {
+		limit = {
+			is_in_faction_with = SOV
+		}
 		SOV = {
-			is_puppet = no
+			is_subject = yes
 		}
 	}
 	148 = {
@@ -278,34 +304,160 @@ GER_can_great_SWE_north = {
 	}
 }
 
+##直接傀儡可能收益更高
+##波兰总督辖区 没和波兰同盟
 GER_can_rk_POL = {
-	OR = {
+	if = {
+		limit = {
+			is_in_faction_with = POL
+		}
 		NOT = {
-			is_in_faction_with = POL
-		}
-		AND = {
-			is_in_faction_with = POL
 			POL = {
-				is_subject = yes
-			}
-			NOT = {
-				POL = {
-					has_country_flag = GER_Accept_economic_integration
-				}
+				has_country_flag = GER_Accept_economic_integration
 			}
 		}
-		AND = {
-			is_in_faction_with = POL
+		POL = {
+			is_subject_of = GER
+		}
+	}
+	else = {
+		OR = {
 			POL = {
-				is_subject = no
+				exists = no
 			}
-			NOT = {
-				POL = {
-					owns_state = 10
-				}
+			POL = {
+				has_capitulated = yes
 			}
 		}
 	}
+	10 = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+	90 = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+	92 = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+	88 = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+	1088 = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+	91 = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+	##Galicia
+	89 = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+	##Galicia
+}
+
+##车万总督辖区 没和EST/BAT/POL/RUS/SOV同盟
+GER_can_rk_OST = {
+	if = {
+		limit = {
+			is_in_faction_with = POL
+		}
+		NOT = {
+			POL = {
+				has_country_flag = GER_Accept_economic_integration
+			}
+		}
+		POL = {
+			is_subject_of = GER
+		}
+	}
+	if = {
+		limit = {
+			is_in_faction_with = EST
+		}
+		NOT = {
+			EST = {
+				has_country_flag = GER_Accept_economic_integration
+			}
+		}
+		EST = {
+			is_subject_of = GER
+		}
+	}
+	if = {
+		limit = {
+			is_in_faction_with = BAT
+		}
+		NOT = {
+			BAT = {
+				has_country_flag = GER_Accept_economic_integration
+			}
+		}
+		BAT = {
+			is_subject_of = GER
+		}
+	}
+	if = {
+		limit = {
+			is_in_faction_with = SOV
+		}
+		NOT = {
+			SOV = {
+				has_country_flag = GER_Accept_economic_integration
+			}
+		}
+		OR = {
+			SOV = {
+				is_subject_of = GER
+			}
+			NOT = { SOV = { owns_state = 219 } }
+		}
+	}
+	if = {
+		limit = {
+			is_in_faction_with = RUS
+		}
+		NOT = {
+			RUS = {
+				has_country_flag = GER_Accept_economic_integration
+			}
+		}
+		OR = {
+			RUS = {
+				is_subject_of = GER
+			}
+			NOT = { RUS = { owns_state = 219 } }
+		}
+	}
+	##Lit
+	189 = { is_controlled_by_ROOT_or_ally = yes }
+	11 = { is_controlled_by_ROOT_or_ally = yes }
+	655 = { is_controlled_by_ROOT_or_ally = yes } ##苏多维亚 要给德国
+	96 = { is_controlled_by_ROOT_or_ally = yes }
+	94 = { is_controlled_by_ROOT_or_ally = yes }
+
+	190 = { is_controlled_by_ROOT_or_ally = yes }
+	842 = { is_controlled_by_ROOT_or_ally = yes }
+	12 = { is_controlled_by_ROOT_or_ally = yes }
+	880 = { is_controlled_by_ROOT_or_ally = yes }
+
+	13 = { is_controlled_by_ROOT_or_ally = yes }
+	191 = { is_controlled_by_ROOT_or_ally = yes }
+
+	208 = { is_controlled_by_ROOT_or_ally = yes }
+	209 = { is_controlled_by_ROOT_or_ally = yes }
+	210 = { is_controlled_by_ROOT_or_ally = yes }
+	755 = { is_controlled_by_ROOT_or_ally = yes }
+	
+	243 = { is_controlled_by_ROOT_or_ally = yes }
+	791 = { is_controlled_by_ROOT_or_ally = yes }
+	241 = { is_controlled_by_ROOT_or_ally = yes }
+	1087 = { is_controlled_by_ROOT_or_ally = yes }
+	206 = { is_controlled_by_ROOT_or_ally = yes }
+	204 = { is_controlled_by_ROOT_or_ally = yes }
+	207 = { is_controlled_by_ROOT_or_ally = yes }
+}
+
+GER_can_great_BAT = {
 }
 
 JAP_can_establish_INA = {
@@ -386,10 +538,12 @@ JAP_can_establish_INI = {
 	}
 	828 = {
 		is_controlled_by_ROOT_or_ally = yes
-	}	##Sabah
+	}
+	##Sabah
 	336 = {
 		is_controlled_by_ROOT_or_ally = yes
-	}	##Singapore
+	}
+	##Singapore
 	1002 = {
 		is_controlled_by_ROOT_or_ally = yes
 	}
@@ -398,10 +552,12 @@ JAP_can_establish_INI = {
 	}
 	751 = {
 		is_controlled_by_ROOT_or_ally = yes
-	}	##Kelantan
+	}
+	##Kelantan
 	999 = {
 		is_controlled_by_ROOT_or_ally = yes
-	}	##Kedah
+	}
+	##Kedah
 	1023 = {
 		is_controlled_by_ROOT_or_ally = yes
 	}

@@ -220,6 +220,7 @@ GER_integrate_CZE = {
 	}
 }
 
+##大河南
 GER_form_great_HOL = {
 	custom_effect_tooltip = GER_form_great_HOL_tt
 	HOL = {
@@ -271,6 +272,7 @@ GER_form_great_HOL = {
 	}
 }
 
+##大瑞典
 GER_give_great_SWE_baltic = {
 	SWE = {
 		109 = {
@@ -334,6 +336,242 @@ GER_give_great_SWE_north = {
 		}
 		863 = {
 			add_claim_and_transfer_of_PREV = yes
+		}
+	}
+}
+
+##波兰
+GER_set_rk_POL = {
+	GER = {
+		add_state_claim = 87
+		add_state_claim = 98
+		add_state_claim = 97
+	}
+	RKP = {
+		10 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		90 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		88 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		92 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		1088 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		91 = { remove_claim_and_add_core_and_transfer_of_PREV = yes } ##galicia
+		89 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		random_country = {
+			limit = {
+				is_faction_leader = yes
+				is_in_faction_with = RKP
+			}
+			random_enemy_country = {
+				limit = {
+					NOT = {
+						has_war_with = RKP
+					}
+				}
+				RKP = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					GER = {
+						has_country_flag = GER_Strasser_becomes_the_leader_flag
+					}
+					GER = {
+						has_country_flag = GER_Heydrich_becomes_the_leader_flag
+					}
+				}
+			}
+			create_country_leader = {
+				name = "Hans Frank"
+				desc = "POLITICS_HANS_FRANK_DESC"
+				picture = "Portrait_General_Gouvernment_Hans_Frank.dds"
+				expire = "1974.4.4"
+				ideology = nazism
+				traits = {
+					Unwelcome_commissioner
+				}
+			}
+		}
+	}
+	GER = {
+		puppet = RKP
+		set_autonomy = {
+			target = RKP
+			autonomy_state = autonomy_reichskommissariat
+		}
+	}
+	if = {
+		limit = {
+			country_exists = POL
+			POL = {
+				is_subject_of = GER
+			}
+		}
+		GER = {
+			annex_country = {
+				target = POL
+			}
+		}
+	}
+
+	##给乌克兰
+	if = {
+		limit = {
+			if = { 
+				is_in_faction_with = UKR
+				NOT = { UKR = { is_subject_of = GER } }
+			}
+			UKR = {
+				91 = { 
+					transfer_state_to = PREV 
+					remove_core_of = RKP 
+				} ##galicia
+				89 = { 
+					transfer_state_to = PREV 
+					remove_core_of = RKP
+				}
+			}
+		}
+	}
+}
+
+##车万
+GER_set_rk_OST = {
+	every_state = {
+		limit = {
+			or = {
+				is_core_of = LIT
+				is_core_of = EST
+				is_core_of = BLR
+			}
+		}
+		add_core_of = RKO
+	}
+	RKO = {
+		189 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		11 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		##655 = { remove_claim_and_add_core_and_transfer_of_PREV = yes } ##苏多维亚 要给德国
+		96 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		94 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+
+		190 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		842 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		12 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		880 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+
+		13 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		191 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		208 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		209 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		210 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		755 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		243 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		791 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		241 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		1087 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		206 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		204 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		207 = { remove_claim_and_add_core_and_transfer_of_PREV = yes }
+		random_country = {
+			limit = {
+				is_faction_leader = yes
+				is_in_faction_with = RKO
+			}
+			random_enemy_country = {
+				limit = {
+					NOT = {
+						has_war_with = RKO
+					}
+				}
+				RKO = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					has_country_flag = GER_Dismissal_Rosenberg_flag
+				}
+			}
+			RKO = {
+				create_country_leader = {
+					name = "Erwin von Scheubner Richter"
+					desc = ""
+					picture = "gfx/leaders/GER/Portrait_Baltic_Max_Erwin_von_Scheubner_Richter.tga"
+					expire = "1983.4.24"
+					ideology = valkist
+				}
+			}
+		}
+	}
+	GER = {
+		puppet = RKO
+		set_autonomy = {
+			target = RKO
+			autonomy_state = autonomy_reichskommissariat
+		}
+		655 = { add_claim_and_transfer_of_PREV = yes } ##苏多维亚 要给德国
+	}
+	if = {
+		limit = {
+			country_exists = LIT
+			LIT = {
+				is_subject_of = GER
+			}
+		}
+		RKO = {
+			annex_country = {
+				target = LIT
+			}
+		}
+	}
+	if = {
+		limit = {
+			country_exists = EST
+			EST = {
+				is_subject_of = GER
+			}
+		}
+		RKO = {
+			annex_country = {
+				target = EST
+			}
+		}
+	}
+	if = {
+		limit = {
+			country_exists = BLR
+			BLR = {
+				is_subject_of = GER
+			}
+		}
+		RKO = {
+			annex_country = {
+				target = BLR
+			}
+		}
+	}
+	if = {
+		limit = {
+			country_exists = BAT
+			BLR = {
+				is_subject_of = GER
+			}
+		}
+		RKO = {
+			annex_country = {
+				target = BLR
+			}
 		}
 	}
 }
