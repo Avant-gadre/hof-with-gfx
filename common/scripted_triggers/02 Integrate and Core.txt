@@ -7,10 +7,14 @@ is_owned_by_ROOT_or_subject = {
 	}
 }
 
+##除了玩具
 is_controlled_by_ROOT_or_ally = {
 	controller = {
 		OR = {
-			is_ally_with = ROOT
+			AND = {
+				is_ally_with = ROOT
+				is_ai = yes
+			}
 			tag = ROOT
 		}
 	}
@@ -211,7 +215,7 @@ GER_can_great_SWE_north = {
 	is_in_faction_with = SWE
 	SWE = { has_government = fascism }
 	OR = {
-		NOT = { is_in_faction_with = FIN }}
+		NOT = { is_in_faction_with = FIN }
 		AND = {
 			is_in_faction_with = FIN
 			FIN = {
@@ -271,6 +275,36 @@ GER_can_great_SWE_north = {
 	}
 	863 = {
 		is_controlled_by_ROOT_or_ally = yes
+	}
+}
+
+GER_can_rk_POL = {
+	OR = {
+		NOT = {
+			is_in_faction_with = POL
+		}
+		AND = {
+			is_in_faction_with = POL
+			POL = {
+				is_subject = yes
+			}
+			NOT = {
+				POL = {
+					has_country_flag = GER_Accept_economic_integration
+				}
+			}
+		}
+		AND = {
+			is_in_faction_with = POL
+			POL = {
+				is_subject = no
+			}
+			NOT = {
+				POL = {
+					owns_state = 10
+				}
+			}
+		}
 	}
 }
 
