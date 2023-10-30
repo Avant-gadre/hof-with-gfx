@@ -327,10 +327,14 @@ can_developed_industrial_region = {
 	custom_trigger_tooltip = {
 		tooltip = can_developed_industrial_region_tt
 		is_owned_controlled_and_cored_by_ROOT = yes
-		NOT = {
-			has_state_flag = infrastructure_building_slot_flag
-		}
 		is_fully_controlled_by = ROOT
+		NOT = {
+			has_state_flag = Generic_industrializing_flag
+		}
+		NOT = {
+			has_state_flag = Generic_urbanizing_flag
+		}
+		state_population > 3000000
 		NOT = {
 			has_dynamic_modifier = {
 				modifier = agrarian_state
@@ -346,7 +350,7 @@ can_developed_industrial_region = {
 				modifier = industrial_area_Lv3
 			}
 		}
-		infrastructure > 3
+		infrastructure > 4
 		OR = {
 			has_state_category = six
 			has_state_category = seven
@@ -356,21 +360,6 @@ can_developed_industrial_region = {
 			has_state_category = eleven
 			has_state_category = twelve
 		}
-		any_neighbor_state = {
-			is_developed_industrial_region = yes
-		}
-		if = {
-			limit = {
-				is_on_continent = europe
-			}
-			state_population > 3000000
-		}
-		if = {
-			limit = {
-				is_on_continent = asia
-			}
-			state_population > 6000000
-		}
 	}
 }
 
@@ -378,6 +367,12 @@ can_urbanize_region = {
 	custom_trigger_tooltip = {
 		tooltip = can_urbanize_region_tt
 		is_owned_controlled_and_cored_by_ROOT = yes
+		NOT = {
+			has_state_flag = Generic_industrializing_flag
+		}
+		NOT = {
+			has_state_flag = Generic_urbanizing_flag
+		}
 		NOT = {
 			has_dynamic_modifier = {
 				modifier = agrarian_state
@@ -398,17 +393,40 @@ can_urbanize_region = {
 			has_state_category = ten
 			has_state_category = eleven
 		}
-		if = {
-			limit = {
-				is_on_continent = europe
+		state_population > 3000000
+	}
+}
+
+is_Japan_home_area = {
+	OR = {
+		state = 1102
+		state = 528
+		state = 529
+		state = 530
+		state = 1104
+		state = 531
+		state = 532
+		state = 535
+		state = 534
+		state = 1105
+		state = 282
+		state = 1101
+		state = 533
+		state = 1106
+	}
+}
+
+JAP_can_enact_land_reform = {
+	NOT = {
+		has_country_flag = JAP_complete_land_reform_flag
+	}
+	all_owned_state = {
+		OR = {
+			AND = {
+				is_Japan_home_area = yes
+				infrastructure > 4
 			}
-			state_population > 3000000
-		}
-		if = {
-			limit = {
-				is_on_continent = asia
-			}
-			state_population > 6000000
+			is_Japan_home_area = no
 		}
 	}
 }

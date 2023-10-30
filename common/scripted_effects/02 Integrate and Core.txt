@@ -474,10 +474,11 @@ GER_set_RKP = {
 	##给乌克兰
 	if = {
 		limit = {
-				is_in_faction_with = UKR
-				NOT = {
-					UKR = {
-						is_subject_of = GER
+			is_in_faction_with = UKR
+			NOT = {
+				UKR = {
+					is_subject_of = GER
+				}
 			}
 		}
 		91 = {
@@ -1276,6 +1277,19 @@ GER_set_RKM = {
 GER_set_RKC = {
 	add_state_claim = 9
 	add_state_claim = 75
+	if = {
+		limit = {
+			country_exists = CZE
+			CZE = {
+				is_subject_of = GER
+			}
+		}
+		GER = {
+			annex_country = {
+				target = CZE
+			}
+		}
+	}
 	RKC = {
 		9 = {
 			remove_claim_and_add_core_and_transfer_of_PREV = yes
@@ -1291,23 +1305,24 @@ GER_set_RKC = {
 			autonomy_state = autonomy_reichskommissariat
 		}
 	}
+}
+
+GER_set_SLO = {
 	if = {
 		limit = {
-			country_exists = CZE
-			CZE = {
+			country_exists = SLO
+			SLO = {
 				is_subject_of = GER
 			}
 		}
-		RKC = {
+		SLO = {
 			annex_country = {
 				target = CZE
 			}
 		}
 	}
-}
-
-GER_set_SLO = {
 	SLO = {
+		transfer_state = 70
 		70 = {
 			remove_claim_and_add_core_and_transfer_of_PREV = yes
 		}
@@ -1320,36 +1335,34 @@ GER_set_SLO = {
 		664 = {
 			remove_claim_and_add_core_and_transfer_of_PREV = yes
 		}
-		GER = {
-			puppet = SLO
-			set_autonomy = {
-				target = SLO
-				autonomy_state = autonomy_reichskommissariat
-			}
+	}
+	GER = {
+		puppet = SLO
+		set_autonomy = {
+			target = SLO
+			autonomy_state = autonomy_reichskommissariat
 		}
 	}
 }
 
 GER_set_RIB = {
+	118 = {
+		add_claim_by = GER
+	}
+	every_state = {
+		if = {
+			limit = {
+				is_on_continent = europe
+				OR = {
+					is_core_of = SPR
+					is_core_of = POR
+				}
+			}
+			add_core_of = RIB
+		}
+	}
 	RIB = {
 		transfer_state = 41
-	}
-	GER = {
-		puppet = RIB
-		set_autonomy = {
-			target = RIB
-			autonomy_state = autonomy_reichskommissariat
-		}
-	}
-	POR = {
-		every_core_state = {
-			add_core_of = RIB
-		}
-	}
-	SPR = {
-		every_core_state = {
-			add_core_of = RIB
-		}
 	}
 	RIB = {
 		every_core_state = {
@@ -1359,34 +1372,53 @@ GER_set_RIB = {
 			transfer_state_to = RIB
 		}
 	}
+	RKF = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = GER
+					is_claimed_by = GER
+				}
+			}
+			transfer_state_to = GER
+		}
+	}
+	GER = {
+		puppet = RIB
+		set_autonomy = {
+			target = RIB
+			autonomy_state = autonomy_reichskommissariat
+		}
+	}
 }
 
-##Model
 GER_set_RKE = {
-	123 = {
-		add_claim_by = GER
-	}
-	ENG = {
-		every_core_state = {
-			if = {
-				limit = {
-					is_on_continent = europe
-					NOT = {
-						is_core_of = FRA
-					}
-				}
-				add_core_of = RKE
+	if = {
+		limit = {
+			country_exists = ENG
+			ENG = {
+				is_subject_of = GER
+			}
+		}
+		GER = {
+			annex_country = {
+				target = ENG
 			}
 		}
 	}
-	IRE = {
-		every_core_state = {
-			if = {
-				limit = {
-					is_on_continent = europe
+	123 = {
+		add_claim_by = GER
+	}
+	every_state = {
+		if = {
+			limit = {
+				is_on_continent = europe
+				OR = {
+					is_core_of = ENG
+					is_core_of = IRE
 				}
-				add_core_of = RKE
 			}
+			add_core_of = RKE
 		}
 	}
 	RKE = {
@@ -1416,19 +1448,6 @@ GER_set_RKE = {
 			autonomy_state = autonomy_reichskommissariat
 		}
 	}
-	if = {
-		limit = {
-			country_exists = ENG
-			ENG = {
-				is_subject_of = GER
-			}
-		}
-		GER = {
-			annex_country = {
-				target = ENG
-			}
-		}
-	}
 }
 
 GER_set_RKF = {
@@ -1440,25 +1459,20 @@ GER_set_RKF = {
 		add_claim_by = GER
 	}
 	##A-L
-	FRA = {
-		every_core_state = {
-			if = {
-				limit = {
-					is_on_continent = europe
-					NOT = {
-						is_core_of = FRA
-					}
-					NOT = {
-						state = 1
-					}
-					##Corica
-					NOT = {
-						state = 28
-					}
-					##
+	every_state = {
+		if = {
+			limit = {
+				is_on_continent = europe
+				is_core_of = FRA
+				NOT = {
+					state = 1
 				}
-				add_core_of = RKF
+				##Corica
+				NOT = {
+					state = 28
+				}
 			}
+			add_core_of = RKF
 		}
 	}
 	if = {
@@ -1649,7 +1663,9 @@ GER_set_RKI = {
 	}
 	RKI = {
 		every_core_state = {
-			limit = { is_controlled_by_ROOT_or_ally = yes }
+			limit = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
 			transfer_state_to = RKI
 		}
 	}
