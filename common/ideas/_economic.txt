@@ -26,10 +26,21 @@ ideas = {
 				fuel_gain_factor = -0.6
 			}
 			allowed_to_remove = {
-				OR = {
-					has_war_support > 0.5
-					has_war = yes
-					has_completed_focus = USA_limited_intervention
+				if = {
+					limit = {
+						original_tag = USA
+					}
+					OR = {
+						has_war_support > 0.5
+						has_war = yes
+						has_completed_focus = USA_limited_intervention
+					}
+				}
+				else = {
+					OR = {
+						has_war_support > 0.5
+						has_war = yes
+					}
 				}
 			}
 			cancel_if_invalid = no
@@ -427,6 +438,9 @@ ideas = {
 			}
 		}
 	}
+}
+
+ideas = {
 	##Trade Laws
 	trade_laws = {
 		law = yes
@@ -482,14 +496,6 @@ ideas = {
 		}
 		export_focus = {
 			available = {
-				if = {
-					limit = {
-						original_tag = CHI
-					}
-					NOT = {
-						has_idea = CHI_nine_power_treaty
-					}
-				}
 				if = {
 					limit = {
 						original_tag = GER
@@ -560,32 +566,6 @@ ideas = {
 						}
 					}
 				}
-				if = {
-					limit = {
-						original_tag = CHI
-						has_dlc = "Waking the Tiger"
-					}
-					NOT = {
-						has_idea = CHI_nine_power_treaty
-					}
-				}
-				if = {
-					limit = {
-						original_tag = SPR
-						has_dlc = "La Resistance"
-					}
-					NOT = {
-						has_completed_focus = SPR_all_must_bear_the_torch
-					}
-				}
-				if = {
-					limit = {
-						original_tag = SWE
-					}
-					NOT = {
-						has_idea = swe_guarantee_iron_export
-					}
-				}
 			}
 			cost = 150
 			removal_cost = -1
@@ -643,23 +623,6 @@ ideas = {
 					}
 					NOT = {
 						has_opinion_modifier = MR_pact
-					}
-				}
-				if = {
-					limit = {
-						original_tag = CHI
-						has_dlc = "Waking the Tiger"
-					}
-					NOT = {
-						has_idea = CHI_nine_power_treaty
-					}
-				}
-				if = {
-					limit = {
-						original_tag = SWE
-					}
-					NOT = {
-						has_idea = swe_guarantee_iron_export
 					}
 				}
 			}
