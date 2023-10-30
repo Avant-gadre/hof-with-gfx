@@ -6,22 +6,6 @@ propaganda_efforts = {
 				has_country_flag = war_propaganda_campaign_running
 			}
 			has_war_support < 0.5
-			if = {
-				limit = {
-					tag = SPR
-					has_dlc = "La Resistance"
-				}
-				NOT = {
-					has_idea = SPR_political_violence
-				}
-			}
-			if = {
-				limit = {
-					original_tag = SPR
-					has_dlc = "La Resistance"
-				}
-				has_global_flag = scw_over
-			}
 		}
 		visible = {
 			OR = {
@@ -72,23 +56,6 @@ propaganda_efforts = {
 					has_offensive_war = yes
 				}
 			}
-			if = {
-				limit = {
-					tag = SPR
-					has_dlc = "La Resistance"
-				}
-				NOT = {
-					has_idea = SPR_political_violence
-				}
-			}
-			if = {
-				limit = {
-					original_tag = SPR
-					has_dlc = "La Resistance"
-				}
-				has_global_flag = scw_over
-			}
-			# lower the cost for neighbors
 			if = {
 				limit = {
 					FROM = {
@@ -195,11 +162,9 @@ propaganda_efforts = {
 	war_propaganda_casualties = {
 		icon = generic_prepare_civil_war
 		available = {
-			#NOT = { has_country_flag = war_propaganda_campaign_running }
 			has_casualties_war_support < 0
 		}
 		visible = {
-			# has_war = yes
 			has_war_with_non_exiled_country = yes
 		}
 		fire_only_once = no
@@ -211,12 +176,6 @@ propaganda_efforts = {
 		modifier = {
 			weekly_casualties_war_support = 0.006
 		}
-		#complete_effect = {
-		#	set_country_flag = war_propaganda_campaign_running
-		#}
-		#remove_effect = {
-		#	clr_country_flag = war_propaganda_campaign_running
-		#}
 		ai_will_do = {
 			base = 0
 			modifier = {
@@ -254,11 +213,9 @@ propaganda_efforts = {
 	war_propaganda_convoys = {
 		icon = GFX_decision_generic_naval
 		available = {
-			#NOT = { has_country_flag = war_propaganda_campaign_running }
 			has_convoys_war_support < 0
 		}
 		visible = {
-			# has_war = yes
 			has_war_with_non_exiled_country = yes
 		}
 		fire_only_once = no
@@ -270,12 +227,6 @@ propaganda_efforts = {
 		modifier = {
 			weekly_convoys_war_support = 0.006
 		}
-		#complete_effect = {
-		#	set_country_flag = war_propaganda_campaign_running
-		#}
-		#remove_effect = {
-		#	clr_country_flag = war_propaganda_campaign_running
-		#}
 		ai_will_do = {
 			base = 0
 			modifier = {
@@ -298,7 +249,6 @@ propaganda_efforts = {
 	war_propaganda_bombing = {
 		icon = GFX_decision_generic_air
 		available = {
-			#	NOT = { has_country_flag = war_propaganda_campaign_running }
 			has_bombing_war_support < 0
 		}
 		visible = {
@@ -314,12 +264,6 @@ propaganda_efforts = {
 		modifier = {
 			weekly_bombing_war_support = 0.006
 		}
-		#complete_effect = {
-		#	set_country_flag = war_propaganda_campaign_running
-		#}
-		#remove_effect = {
-		#	clr_country_flag = war_propaganda_campaign_running
-		#}
 		ai_will_do = {
 			base = 0
 			modifier = {
@@ -694,7 +638,7 @@ economy_decisions = {
 			industrial_capacity_factory = -0.1
 		}
 		days_remove = 180
-		days_re_enable = 540
+		days_re_enable = 360
 		cost = 100
 		complete_effect = {
 		}
@@ -744,6 +688,45 @@ economy_decisions = {
 			FROM = {
 				urbanizing_region = yes
 				upgrade_industrial_region = yes
+			}
+		}
+	}
+	generic_urbanize = {
+		icon = generic_construction
+		allowed = {
+			NOT = { has_country_flag = Generic_urbanizing_flag }
+		}
+		visible = {
+			NOT = { has_country_flag = Generic_urbanizing_flag }
+		}
+		target_array = core_states
+		target_trigger = {
+			FROM = {
+				can_urbanize_region = yes
+			}
+		}
+		cost = 100
+		on_map_mode = map_only
+		state_target = yes
+		fire_only_once = no
+		days_re_enable = 180
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				has_political_power > 300
+			}
+		}
+		complete_effect = {
+			set_country_flag = {
+				flag = Generic_urbanizing_flag
+				days = 180
+			}
+		}
+		days_remove = 180
+		remove_effect = {
+			FROM = {
+				urbanizing_region = yes
 			}
 		}
 	}
