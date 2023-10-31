@@ -1,4 +1,4 @@
-call cd /d E:\download\github download\hof-with-gfx\tool
+@REM call cd /d E:\download\github download\hof-with-gfx\tool
 
 @REM call python "eventpic_gfxmaker.py"
 call python "from png to gfx-advisor.py"
