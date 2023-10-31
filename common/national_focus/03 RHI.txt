@@ -1,0 +1,1159 @@
+#!gfx:interface\goals\KR_goals.gfx
+#!gfx:interface\goals\goal_KR1.gfx
+#!gfx:interface\goals\goal_generic.gfx
+#!gfx:interface\goals\goal_GER.gfx
+
+focus_tree = {
+	id = RHI_Civilian
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = RHI
+		}
+	}
+	default = no
+	continuous_Focus_position = { x = 2500 y = 1350 }
+
+#		available = {
+#			always = no
+#		}
+#		bypass = {
+#		}
+#		ai_will_Do = { factor = 10 }
+#		search_Filters = { FOCUS_FILTER_POLITICAL }
+#		completion_reward = {
+#			log = "[GetDateText]: [Root.GetName]: Focus SER_Moralistic_Democracy"
+#			custom_Effect_tooltip = tooltip_Focus_unlocked_By_Event
+#		}
+
+##Government
+	focus = {
+		id = RHI_Empower_Civil_Government
+		icon = GFX_focus_generic_parliament2
+		cost = 3.00
+		x = 10
+		y = 1
+		ai_will_Do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			RHI_Increase_Stability = yes
+		}
+	}
+
+	focus = {
+		id = RHI_Strengthen_Democracy
+		icon = GFX_focus_generic_microphone_diplomacy
+		cost = 3.00
+		prerequisite = {
+			focus = RHI_Empower_Civil_Government
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Empower_Civil_Government
+		completion_reward = {
+			RHI_Increase_Stability = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.10
+			}
+		}
+	}
+
+	focus = {
+		id = RHI_Decentralization
+		icon = GFX_goal_OTT_constitution
+		cost = 3.00
+		prerequisite = {
+			focus = RHI_Strengthen_Democracy
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Strengthen_Democracy
+		completion_reward = {
+			RHI_Increase_Stability = yes
+		}
+	}
+
+	focus = {
+		id = RHI_Negotiate_With_Striker
+		icon = GFX_focus_generic_workers_democracy
+		cost = 3.00
+		prerequisite = {
+			focus = RHI_Empower_Civil_Government
+		}
+		x = 3
+		y = 1
+		relative_position_id = RHI_Empower_Civil_Government
+		completion_reward = {
+			country_Event = { id = Rhineland.xxx }
+		}
+	}
+	
+	focus = {
+		id = RHI_Public_Construction 
+		icon = GFX_focus_generic_invest_in_our_weaker_allies
+		cost = 3.00
+		prerequisite = {
+			focus = RHI_Negotiate_With_Striker
+			focus = RHI_Economic_Reorganization
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Negotiate_With_Striker
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					is_Core_of = ROOT
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_Construction = {
+					type = infrastructure
+					level = 1
+					instant_Build = yes
+				}
+			}
+			add_stability = 0.05
+			RHI_Increase_Stability = yes
+		}
+	}
+
+	focus = {
+		id = RHI_Fate_Of_Freikrops
+		icon = GFX_goal_HOL_ban_paramilitary
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Empower_Civil_Government
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Empower_Civil_Government
+		completion_reward = {
+			country_Event = Rhineland.xxx
+		}
+	}
+
+	focus = {
+		id = RHI_Propaganda_Effort
+		icon = GFX_goal_imperial_legacy
+		cost = 3.00
+		prerequisite = {
+			focus = RHI_Fate_Of_Freikrops
+		}
+		prerequisite = {
+			focus = RHI_Strengthen_Democracy
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Fate_Of_Freikrops
+		completion_reward = {
+			country_Event = Rhineland.xxx
+		}
+	}
+
+	focus = {
+		id = RHI_Return_To_Stage
+		icon = GFX_focus_generic_ban_the_radicals
+		cost = 2.00
+		prerequisite = {
+			focus = RHI_Propaganda_Effort
+		}
+		available = {
+			RHI_Political_Stability = yes
+			RHI_Economic_Recovery = yes
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Propaganda_Effort
+		completion_reward = {
+			RHI_Increase_Stability = yes
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = RHI_Return_Of_Exiles
+		icon = GFX_goal_GER_SPD_agreement
+		cost = 3.00
+		prerequisite = {
+			focus = RHI_Empower_Civil_Government
+		}
+		x = -3
+		y = 1
+		relative_position_id = RHI_Empower_Civil_Government
+		completion_reward  = {
+			RHI_Increase_Stability = yes
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = otto_Strasser_advisor
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = xxx
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = xxx
+		}
+	}
+
+	focus = {
+		id = RHI_Supress_Valksit
+		icon = GFX_focus_GER_Reconstruction_of_faith
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Fate_Of_Freikrops
+		}
+		prerequisite = {
+			focus = RHI_propaganda_Effort
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Fate_Of_Freikrops
+
+	}
+
+	focus = {
+		id = RHI_Public_House_Project
+		icon = GFX_goal_generic_build_housing
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Public_Construction 
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_Public_Construction 
+
+	}
+
+	focus = {
+		id = RHI_War_Bonds
+		icon = GFX_focus_generic_royal_bonds
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Reconstruction_Finance_Corporation
+		}
+		x = -2
+		y = 2
+		relative_position_id = RHI_Public_House_Project
+
+	}
+
+	focus = {
+		id = RHI_Reorganize_Police
+		icon = GFX_goal_generic_police_state
+		cost = 3.00
+		prerequisite = {
+			focus = RHI_Fate_Of_Freikrops
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Fate_Of_Freikrops
+
+	}
+
+	focus = {
+		id = RHI_Social_Security_Act
+		icon = GFX_goal_National_Security_Act
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Reorganize_Police
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Reorganize_Police
+
+	}
+
+	focus = {
+		id = RHI_War_For_Germany
+		icon = GFX_focus_attack_germany
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Return_To_Stage
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_Return_To_Stage
+
+	}
+
+	focus = {
+		id = RHI_Burgfriedenspolitik
+		icon = GFX_goal_generic_castle
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Return_Of_Exiles
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Return_Of_Exiles
+
+	}
+##Economic
+	focus = {
+		id = RHI_Economic_Reorganization 
+		icon = GFX_goal_economic_control
+		cost = 3.00
+		x = 19
+		y = 2
+		completion_reward = {
+			add_political_power = 100
+			RHI_Reduce_Depression = yes
+		}
+	}
+
+	focus = {
+		id = RHI_Institutionalize_Trade_Union
+		icon = GFX_focus_generic_syndicalist_workers
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Negotiate_With_Striker
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Negotiate_With_Striker
+
+	}
+
+	focus = {
+		id = RHI_Rural_Electrification
+		icon = GFX_focus_generic_electricity
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Economic_Reorganization 
+		}
+		x = -3
+		y = 1
+		relative_position_id = RHI_Economic_Reorganization 
+
+	}
+
+	focus = {
+		id = RHI_Ruhr_Industrial_Center
+		icon = GFX_focus_generic_ITA_urban
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Economic_Reorganization 
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Economic_Reorganization 
+
+	}
+
+	focus = {
+		id = RHI_Light_Industry
+		icon = GFX_goal_generic_lightbulb
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Economic_Reorganization 
+		}
+		x = 2
+		y = 1
+		relative_position_id = RHI_Economic_Reorganization 
+
+	}
+
+	focus = {
+		id = RHI_Western_Economic_Tie
+		icon = GFX_goal_FRA_paris
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Entente_Committee
+			focus = RHI_Economic_Reorganization
+		}
+
+		x = 1
+		y = 2
+		relative_position_id = RHI_Economic_Reorganization 
+
+	}
+
+	focus = {
+		id = RHI_Autobahn
+		icon = GFX_goal_generic_road_construction
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Rural_Electrification
+			focus = RHI_Ruhr_Industrial_Center
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Ruhr_Industrial_Center
+
+	}
+
+	focus = {
+		id = RHI_Reconstruction_Finance_Corporation
+		icon = GFX_goal_generic_financial_markets
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Institutionalize_Trade_Union
+		}
+		prerequisite = {
+			focus = RHI_Public_Construction 
+		}
+		x = 1
+		y = 2
+		relative_position_id = RHI_Institutionalize_Trade_Union
+
+	}
+
+	focus = {
+		id = RHI_National_Radio_Stations
+		icon = GFX_focus_generic_Radio_Free_Cairo
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Rural_Electrification
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Rural_Electrification
+
+	}
+
+	focus = {
+		id = RHI_Renovate_Koblenz
+		icon = GFX_focus_generic_advanced_assembly_line
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Ruhr_Industrial_Center
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Ruhr_Industrial_Center
+
+	}
+
+	focus = {
+		id = RHI_University_Network
+		icon = GFX_focus_generic_science_research
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Renovate_Koblenz
+		}
+		prerequisite = {
+			focus = RHI_Reconstruction_Finance_Corporation
+		}
+		prerequisite = {
+			focus = RHI_Coal_Steel_Treaty
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_Renovate_Koblenz
+
+	}
+
+	focus = {
+		id = RHI_Radio_Frier_Deutschland
+		#icon = GFX_RHI_Deutsche_Welle
+		icon = GFX_goal_Fight_for_Freedom
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_National_Radio_Stations
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_National_Radio_Stations
+
+	}
+
+	focus = {
+		id = RHI_Coal_Steel_Treaty
+		icon = GFX_goal_generic_coal_mining
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Western_Economic_Tie
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_Western_Economic_Tie
+
+	}
+
+	focus = {
+		id = RHI_Cooperate_With_Solvay
+		icon = GFX_focus_research2
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Western_Economic_Tie
+		}
+		x = 1
+		y = 2
+		relative_position_id = RHI_Western_Economic_Tie
+
+	}
+##Military
+	focus = {
+		id = RHI_Minerva 
+		icon = GFX_goal_BEL_minerva
+		cost = 4.00
+		x = -1
+		y = 1
+		relative_position_id = RHI_Fokker
+		prerequisite = {
+			focus = RHI_French_Cooperation
+		}
+		completion_reward = {
+		add_tech_Bonus = {
+				name = RHI_Truck
+				bonus = 1
+				uses = 2
+				category = truck
+			}
+		custom_Effect_tooltip = available_Designer
+		show_ideas_tooltip = Minerva
+		}
+	}
+
+	focus = {
+		id = RHI_Landeswher
+		#icon = GFX_RHI_Landswher
+		icon = GFX_goal_PER_army
+		cost = 2.00
+		x = 29
+		y = 3
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = RHI_Landeswher_1
+		}
+	}
+
+	focus = {
+		id = RHI_Trench_And_Fort
+		icon = GFX_focus_generic_invincible
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Landeswher
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Landeswher
+
+	}
+
+	focus = {
+		id = RHI_Entente_Committee
+		icon = GFX_goal_NFA_Army
+		cost = 10.00
+		x = -5
+		y = 0
+		relative_position_id = RHI_Landeswher
+	}
+
+	focus = {
+		id = RHI_Wartime_Production
+		icon = GFX_goal_production
+		cost = 10.00
+		x = -7
+		y = 1
+		relative_position_id = RHI_Landeswher
+		prerequisite = {
+			focus = RHI_Economic_Reorganization
+		}
+
+	}
+
+	focus = {
+		id = RHI_Air_Defense
+		icon = GFX_focus_generic_air_defense2
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Landeswher
+		}
+		x = -2
+		y = 1
+		relative_position_id = RHI_Landeswher
+
+	}
+
+	focus = {
+		id = RHI_Helker_Koch
+		#icon = GFX_RHI_Helker_Koch
+		icon = GFX_goal_industry_air
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Modernize_infantry
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_Modernize_infantry
+
+	}
+
+	focus = {
+		id = RHI_Military_Training
+		icon = GFX_focus_generic_army_guy_2
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Landeswher
+		}
+		x = 3
+		y = 1
+		relative_position_id = RHI_Landeswher
+
+	}
+
+	focus = {
+		id = RHI_Luxembourg_Field_Hospital
+		icon = GFX_focus_generic_promote_the_red_cross
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Women_In_Factory
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Women_In_Factory
+
+	}
+
+	focus = {
+		id = RHI_French_Cooperation
+		icon = GFX_focus_chi_reach_out_to_france
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Entente_Committee
+		}
+
+		x = 0
+		y = 2
+		relative_position_id = RHI_Entente_Committee
+	}
+
+	focus = {
+		id = RHI_MP5
+		icon = GFX_focus_ETH_freedom_at_gunpoint
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Helker_Koch
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Helker_Koch
+
+	}
+
+	focus = {
+		id = RHI_Women_In_Factory
+		icon = GFX_focus_generic_female_workers
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Wartime_Production
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_Wartime_Production
+
+	}
+
+	focus = {
+		id = RHI_Arsenal_Of_Democracy
+		icon = GFX_goal_munitions_factories
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Wartime_Production
+		}
+		x = 0
+		y = 3
+		relative_position_id = RHI_Wartime_Production
+
+	}
+
+	focus = {
+		id = RHI_Mobile_Warfare
+		icon = GFX_goal_generic_army_mobile_warfare
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Landeswher
+		}
+		x = -1
+		y = 2
+		relative_position_id = RHI_Landeswher
+
+	}
+
+	focus = {
+		id = RHI_Fokker
+		icon = GFX_goal_ELS_Plane_Lease
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Air_Defense
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Air_Defense
+
+	}
+
+	focus = {
+		id = RHI_Forest_Ranger
+		icon = GFX_SIA_jungletraining
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_promote_Officers
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_promote_Officers
+
+	}
+
+	focus = {
+		id = RHI_promote_Officers
+		icon = GFX_goal_officers
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Military_Training
+		}
+		x = -2
+		y = 1
+		relative_position_id = RHI_Military_Training
+
+	}
+
+	focus = {
+		id = RHI_Begin_Mechanization 
+		icon = GFX_goal_generic_mechanized_infantry
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Mobile_Warfare
+		}
+		prerequisite = {
+			focus = RHI_Minerva 
+		}
+		x = -2
+		y = 2
+		relative_position_id = RHI_Mobile_Warfare
+
+	}
+
+	focus = {
+		id = RHI_Modernize_infantry
+		icon = GFX_goal_PER_modernist_campaign
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Military_Training
+		}
+		x = 2
+		y = 1
+		relative_position_id = RHI_Military_Training
+
+	}
+
+	focus = {
+		id = RHI_Defensive_Engineer
+		icon = GFX_goal_nested_fortifications
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Military_Training
+		}
+		x = 0
+		y = 1
+		relative_position_id = RHI_Military_Training
+
+	}
+
+	focus = {
+		id = RHI_Tank_Destroyer
+		icon = GFX_focus_generic_tank_destroyer
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Mobile_Warfare
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Mobile_Warfare
+
+	}
+
+	focus = {
+		id = RHI_Tank
+		icon = GFX_goal_generic_army_tanks2
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Mobile_Warfare
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Mobile_Warfare
+
+	}
+
+
+	focus = {
+		id = RHI_Simplify_Production
+		icon = GFX_focus_generic_military_equipment
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Arsenal_Of_Democracy
+		}
+		mutually_Exclusive = {
+			focus = RHI_Focus_Quality
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Arsenal_Of_Democracy
+
+	}
+
+	focus = {
+		id = RHI_Focus_Quality
+		icon = GFX_goal_Focus_Military_Mobilisation
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Arsenal_Of_Democracy
+		}
+		mutually_Exclusive = {
+			focus = RHI_Simplify_Production
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Arsenal_Of_Democracy
+
+	}
+
+	focus = {
+		id = RHI_Organize_Millita
+		icon = GFX_goal_generic_paramilitary
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Defensive_Engineer
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Military_Training
+
+	}
+
+	focus = {
+		id = RHI_industry_Revocation
+		icon = GFX_DAH_FR_Prod
+		cost = 10.00
+		x = 1
+		y = -1
+		relative_position_id = RHI_French_Cooperation
+		prerequisite = {
+			focus = RHI_Entente_Committee
+		}
+
+	}
+
+	focus = {
+		id = RHI_City_Defense
+		icon = GFX_EGY_Palestine_Defence
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Organize_Millita
+		}
+		prerequisite = {
+			focus = RHI_Forest_Ranger
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Organize_Millita
+
+	}
+
+	focus = {
+		id = RHI_Military_Fund
+		icon = GFX_goal_military_research
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_City_Defense
+			focus = RHI_MP5
+		}
+		prerequisite = {
+			focus = RHI_Tank_Destroyer
+			focus = RHI_Begin_Mechanization
+		}
+		x = 1
+		y = 5
+		relative_position_id = RHI_Landeswher
+
+	}
+##Reconstruction
+	focus = {
+		id = RHI_Begin_Reconstruction
+		icon = GFX_goal_generic_recovery
+		cost = 10.00
+		x = 12
+		y = 8
+
+	}
+
+	focus = {
+		id = RHI_Our_Place
+		icon = GFX_goal_OTT_Railroad
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Begin_Reconstruction
+		}
+		x = 5
+		y = 1
+		relative_position_id = RHI_Begin_Reconstruction
+
+	}
+
+	focus = {
+		id = RHI_Anschluss
+		icon = GFX_goal_AUS_republican
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_OstPolitk
+		}
+		prerequisite = {
+			focus = RHI_End_Reconstruction
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_OstPolitk
+
+	}
+
+	focus = {
+		id = RHI_Federialism
+		icon = GFX_focus_generic_elections
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_End_Reconstruction
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_End_Reconstruction
+
+	}
+
+	focus = {
+		id = RHI_Paneurope
+		icon = GFX_goal_AUS_paneuropa
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Our_Place
+		}
+		x = 2
+		y = 1
+		relative_position_id = RHI_Our_Place
+
+	}
+
+	focus = {
+		id = RHI_Renew_Treaty
+		icon = GFX_goal_new_treaty
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Paneurope
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Paneurope
+
+	}
+
+	focus = {
+		id = RHI_Economical_Union
+		icon = GFX_goal_SWI_international_aid
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Renew_Treaty
+		}
+		prerequisite = {
+			focus = RHI_Military_Council
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Paneurope
+
+	}
+	focus = {
+		id = RHI_Military_Council
+		icon = GFX_goal_generic_council
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Paneurope
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Paneurope
+
+	}
+	focus = {
+		id = RHI_Peace_In_Our_Time
+		icon = GFX_HON_peace_in_our_time
+		cost = 10.00
+
+		prerequisite = {
+			focus = RHI_Economical_Union
+		}
+		prerequisite = {
+			focus = RHI_OstPolitk
+		}
+		x = -1
+		y = 3
+		relative_position_id = RHI_Paneurope
+
+	}
+	focus = {
+		id = RHI_OstPolitk
+		icon = GFX_goal_planning_bonus
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Our_Place
+		}
+		x = 0
+		y = 3
+		relative_position_id = RHI_Our_Place
+
+	}
+
+	focus = {
+		id = RHI_Transformation_Justice
+		icon = GFX_goal_ideology_social_liberal
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Nuremberg_Trial
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Nuremberg_Trial
+
+	}
+	focus = {
+		id = RHI_Destory_Radicalism
+		icon = GFX_HOL_crackdown_natpop
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Nuremberg_Trial
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Nuremberg_Trial
+
+	}
+	focus = {
+		id = RHI_Nuremberg_Trial
+		icon = GFX_goal_generic_trial
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Begin_Reconstruction
+		}
+		x = -2
+		y = 1
+		relative_position_id = RHI_Begin_Reconstruction
+
+	}
+
+	focus = {
+		id = RHI_Restore_Legimacy
+		icon = GFX_goal_AUS_german_austria
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Transformation_Justice
+		}
+		prerequisite = {
+			focus = RHI_Destory_Radicalism
+		}
+		prerequisite = {
+			focus = RHI_Defend_Democracy
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Destory_Radicalism
+
+	}
+	focus = {
+		id = RHI_Reconstruction_Bureau
+		icon = GFX_focus_generic_social_reforms
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Begin_Reconstruction
+		}
+		x = 2
+		y = 1
+		relative_position_id = RHI_Begin_Reconstruction
+
+	}
+	focus = {
+		id = RHI_Religion_Reconciliation
+		icon = GFX_focus_generic_Federalism
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Reconstruction_Bureau
+		}
+		x = -2
+		y = 2
+		relative_position_id = RHI_Reconstruction_Bureau
+
+	}
+	focus = {
+		id = RHI_Agriculture
+		icon = GFX_focus_generic_agriculture
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Reconstruction_Bureau
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Reconstruction_Bureau
+
+	}
+
+	focus = {
+		id = RHI_Women_Right
+		icon = GFX_focus_generic_female_voting
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Reconstruction_Bureau
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Reconstruction_Bureau
+
+	}
+	focus = {
+		id = RHI_Fair_Labour
+		icon = GFX_goal_generic_labour_legislation
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Reconstruction_Bureau
+		}
+		x = 0
+		y = 2
+		relative_position_id = RHI_Reconstruction_Bureau
+
+	}
+	focus = {
+		id = RHI_Land_Reform
+		icon = GFX_goal_generic_land_reform
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Reconstruction_Bureau
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Agriculture
+
+	}
+	focus = {
+		id = RHI_End_Reconstruction
+		icon = GFX_focus_generic_economic_prosperity
+		cost = 10.00
+		prerequisite = {
+			focus = RHI_Religion_Reconciliation
+		}
+		prerequisite = {
+			focus = RHI_Fair_Labour
+		}
+		prerequisite = {
+			focus = RHI_Land_Reform
+		}
+		prerequisite = {
+			focus = RHI_Restore_Legimacy
+		}
+		x = -1
+		y = 1
+		relative_position_id = RHI_Fair_Labour
+
+	}
+##
+}
