@@ -14,7 +14,28 @@ focus_tree = {
 		y = 2400
 	}
 	default = no
-
+		## Industry
+		focus = {
+			id = uk_industrial_focus
+			text = industrial_effort
+			icon = GFX_goal_generic_construct_civ_factory
+			cost = 5
+			x = 3
+			y = 1
+			ai_will_do = {
+				factor = 10
+			}
+			available_if_capitulated = yes
+			completion_reward = {
+				add_tech_bonus = {
+					name = industrial_bonus
+					bonus = 1
+					ahead_reduction = 0.75
+					uses = 2
+					category = industry
+				}
+			}
+		}
 	focus = {
 		id = crypto_bomb_focus
 		icon = GFX_focus_generic_cryptologic_bomb
@@ -30,13 +51,12 @@ focus_tree = {
 				}
 			}
 		}
-		#We assume POL will help vs Germany unless they are allied to them
 		bypass = {
 			OR = {
 				AND = {
 					has_war_with = GER
 					POL = {
-						is_in_faction_with = GER						# If POL is in GER's faction, no help for us
+						is_in_faction_with = GER
 					}
 				}
 				AND = {
@@ -53,24 +73,12 @@ focus_tree = {
 		}
 		available_if_capitulated = yes
 		completion_reward = {
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
-				add_tech_bonus = {
-					name = codebreaking_bonus
-					bonus = 1.0
-					uses = 3
-					category = decryption_tech
-					category = computing_tech
+			hidden_effect = {
+				set_technology = {
+					lar_decryption_bonus_tech = 1
 				}
 			}
-			else = {
-				hidden_effect = {
-					set_technology = { lar_decryption_bonus_tech = 1 }
-				}
-				custom_effect_tooltip = lar_decryption_bonus_tt
-			}
+			custom_effect_tooltip = lar_decryption_bonus_tt
 		}
 	}
 	focus = {
@@ -180,6 +188,8 @@ focus_tree = {
 			}
 		}
 	}
+
+	#####
 	focus = {
 		id = ENG_steady_as_she_goes
 		icon = GFX_goal_support_democracy
@@ -187,7 +197,9 @@ focus_tree = {
 		x = 32
 		y = 1
 		available = {
-			NOT = { has_completed_focus = uk_round_table_focus  }
+			NOT = {
+				has_completed_focus = uk_round_table_focus
+			}
 		}
 		continue_if_invalid = yes
 		ai_will_do = {
@@ -239,7 +251,9 @@ focus_tree = {
 				ruling_party = democratic
 				elections_allowed = yes
 			}
-			set_capital = { state = 126 }
+			set_capital = {
+				state = 126
+			}
 			hidden_effect = {
 				if = {
 					limit = {
@@ -265,7 +279,9 @@ focus_tree = {
 		y = 1
 		available = {
 			has_government = neutrality
-			NOT = { has_completed_focus = uk_round_table_focus  }
+			NOT = {
+				has_completed_focus = uk_round_table_focus
+			}
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
@@ -660,29 +676,6 @@ focus_tree = {
 			}
 		}
 	}
-
-	## Industry
-	focus = {
-		id = uk_industrial_focus
-		text = industrial_effort
-		icon = GFX_goal_generic_construct_civ_factory
-		cost = 5
-		x = 3
-		y = 1
-		ai_will_do = {
-			factor = 10
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			add_tech_bonus = {
-				name = industrial_bonus
-				bonus = 1
-				ahead_reduction = 0.75
-				uses = 2
-				category = industry
-			}
-		}
-	}
 	focus = {
 		id = tizard_mission_focus
 		icon = GFX_goal_generic_scientific_exchange
@@ -943,8 +936,8 @@ focus_tree = {
 			factor = 400
 		}
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -984,8 +977,8 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -4851,8 +4844,8 @@ focus_tree = {
 		y = 1
 		relative_position_id = uk_enforce_animusphere
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -4932,8 +4925,8 @@ focus_tree = {
 				country_exists = HOL
 			}
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -4944,22 +4937,21 @@ focus_tree = {
 		}
 		will_lead_to_war_with = IRQ
 		will_lead_to_war_with = PER
-
 		continue_if_invalid = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-
 			if = {
-				limit = { has_guaranteed = PER }
+				limit = {
+					has_guaranteed = PER
+				}
 				diplomatic_relation = {
 					country = PER
 					relation = guarantee
 					active = no
 				}
 			}
-
 			create_wargoal = {
 				target = IRQ
 				type = puppet_wargoal_focus
@@ -5176,7 +5168,7 @@ focus_tree = {
 				cost_reduction = 0.5
 				uses = 2
 				category = land_doctrine
-			} 
+			}
 			GER = {
 				if = {
 					limit = {
@@ -5246,8 +5238,8 @@ focus_tree = {
 			is_subject = no
 			date > 1938.6.1
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -5386,8 +5378,8 @@ focus_tree = {
 				ENG_focus_available_embargo_sanction = yes
 			}
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -5484,8 +5476,8 @@ focus_tree = {
 			GER = {
 				ENG_focus_available_war = yes
 			}
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -5732,8 +5724,8 @@ focus_tree = {
 		y = 1
 		relative_position_id = uk_enforce_animusphere
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -5902,7 +5894,9 @@ focus_tree = {
 			NOT = {
 				has_government = communism
 			}
-			NOT = { has_completed_focus = uk_darkened_focus }
+			NOT = {
+				has_completed_focus = uk_darkened_focus
+			}
 		}
 		ai_will_do = {
 			factor = 15
@@ -6481,7 +6475,9 @@ focus_tree = {
 				has_government = communism
 			}
 			date < 1937.1.1
-			NOT = { has_completed_focus = uk_reinforce_the_king_focus }
+			NOT = {
+				has_completed_focus = uk_reinforce_the_king_focus
+			}
 		}
 		ai_will_do = {
 			factor = 0
@@ -6601,7 +6597,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = industrial_bonus
 				bonus = 2
-				ahead_reduction = 1.0
+				ahead_reduction = 1
 				uses = 1
 				category = industry
 			}
@@ -6688,7 +6684,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = uk_arturia_production_focus
 		available = {
-            has_war = yes
+			has_war = yes
 		}
 		ai_will_do = {
 			factor = 3
@@ -6926,9 +6922,10 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
-
-			add_named_threat = { threat = 10 name = ENG_appeal_to_imperial_loyalists }
-
+			add_named_threat = {
+				threat = 10
+				name = ENG_appeal_to_imperial_loyalists
+			}
 			custom_effect_tooltip = ENG_appeal_to_imperial_loyalists_tt
 		}
 	}
@@ -7789,7 +7786,9 @@ focus_tree = {
 		complete_tooltip = {
 		}
 		completion_reward = {
-			set_capital = { state = 454 }
+			set_capital = {
+				state = 454
+			}
 			add_stability = 0.15
 			add_ideas = ARTURIA_new_capital_idea
 		}
@@ -7838,7 +7837,7 @@ focus_tree = {
 			factor = 10
 		}
 		available = {
-      has_government = neutrality
+			has_government = neutrality
 			has_war = yes
 		}
 		bypass = {
@@ -8091,8 +8090,8 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = UK_triple_hermes
-				bonus = 1.0
-        ahead_reduction = 2.0
+				bonus = 1
+				ahead_reduction = 2
 				uses = 2
 				category = computing_tech
 			}
@@ -8799,8 +8798,8 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -8830,8 +8829,8 @@ focus_tree = {
 		relative_position_id = uk_el_melloi_classroom
 		available = {
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -8873,8 +8872,8 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9092,8 +9091,8 @@ focus_tree = {
 				}
 			}
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9125,14 +9124,14 @@ focus_tree = {
 		y = 2
 		relative_position_id = uk_tohsaka_el_melloi
 		available = {
-      always = no
+			always = no
 			is_faction_leader = yes
 			JAP = {
 				is_in_faction = no
 			}
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9176,8 +9175,8 @@ focus_tree = {
 				has_war_with = CHI
 			}
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9202,8 +9201,8 @@ focus_tree = {
 				CHI = {
 					add_tech_bonus = {
 						name = gsk_britain.11
-						bonus = 1.0
-						ahead_reduction = 1.0
+						bonus = 1
+						ahead_reduction = 1
 						uses = 3
 						category = dd_tech
 						category = cl_tech
@@ -9239,8 +9238,8 @@ focus_tree = {
 				is_in_faction = no
 			}
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9277,8 +9276,8 @@ focus_tree = {
 				is_fully_controlled_by = ROOT
 			}
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9318,8 +9317,8 @@ focus_tree = {
 		relative_position_id = uk_el_melloi_classroom
 		available = {
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9352,8 +9351,8 @@ focus_tree = {
 		relative_position_id = ENG_secure_the_oil_imports
 		available = {
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9384,8 +9383,8 @@ focus_tree = {
 		relative_position_id = uk_modernized_lab
 		available = {
 			OR = {
-				has_country_leader  = {
-					ruling_only  = yes 
+				has_country_leader = {
+					ruling_only = yes
 					character = ENG_Waver
 				}
 				has_country_leader = {
@@ -9401,7 +9400,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = uk_modernized_support_system
 				bonus = 1
-				ahead_reduction = 1.0
+				ahead_reduction = 1
 				uses = 2
 				category = support_tech
 			}
@@ -9421,8 +9420,8 @@ focus_tree = {
 			factor = 4
 		}
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9443,8 +9442,8 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_prepare_for_the_inevitable
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9472,8 +9471,8 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_prepare_for_the_inevitable
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9511,8 +9510,8 @@ focus_tree = {
 			factor = 3
 		}
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9539,8 +9538,8 @@ focus_tree = {
 			factor = 15
 		}
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 			is_subject = no
@@ -9802,8 +9801,8 @@ focus_tree = {
 			factor = 3
 		}
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9835,8 +9834,8 @@ focus_tree = {
 		available = {
 			has_government = democratic
 			has_full_control_of_state = 299
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9877,8 +9876,8 @@ focus_tree = {
 		y = 2
 		relative_position_id = uk_elite_appealling
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9902,8 +9901,8 @@ focus_tree = {
 		y = 1
 		relative_position_id = uk_chaledean
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9927,8 +9926,8 @@ focus_tree = {
 		y = 2
 		relative_position_id = uk_enhance_overseas_territory
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -9962,8 +9961,8 @@ focus_tree = {
 					has_government = democratic
 				}
 			}
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 			NOT = {
@@ -10001,8 +10000,8 @@ focus_tree = {
 					has_government = democratic
 				}
 			}
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 			NOT = {
@@ -10030,8 +10029,8 @@ focus_tree = {
 		y = 1
 		relative_position_id = uk_imperial_special_service
 		available = {
-			has_country_leader  = {
-				ruling_only  = yes 
+			has_country_leader = {
+				ruling_only = yes
 				character = ENG_Olga_Marie_Animusphere
 			}
 		}
@@ -10098,11 +10097,9 @@ focus_tree = {
 		prerequisite = {
 			focus = uk_clock_tower_research
 		}
-
 		available = {
-		  date > 1938.6.1
+			date > 1938.6.1
 		}
-
 		x = 0
 		y = 1
 		relative_position_id = uk_clock_tower_research
@@ -11117,19 +11114,31 @@ focus_tree = {
 		}
 		bypass = {
 			or = {
-        SWE = { exists = no	}
-        has_war_with = SWE
-        SWE = { is_in_faction_with = ROOT }
+				SWE = {
+					exists = no
+				}
+				has_war_with = SWE
+				SWE = {
+					is_in_faction_with = ROOT
+				}
 			}
 			or = {
-        NOR = { exists = no	}
-        has_war_with = NOR
-        NOR = { is_in_faction_with = ROOT }
+				NOR = {
+					exists = no
+				}
+				has_war_with = NOR
+				NOR = {
+					is_in_faction_with = ROOT
+				}
 			}
 			or = {
-        DEN = { exists = no	}
-        has_war_with = DEN
-        DEN = { is_in_faction_with = ROOT }
+				DEN = {
+					exists = no
+				}
+				has_war_with = DEN
+				DEN = {
+					is_in_faction_with = ROOT
+				}
 			}
 		}
 		completion_reward = {
@@ -11324,7 +11333,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = uk_landing_preparation
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = tp_tech
 				category = marine_tech
@@ -11546,7 +11555,7 @@ focus_tree = {
 				add_tech_bonus = {
 					name = uk_imperial_engineering_school
 					bonus = 1.5
-					ahead_reduction = 1.0
+					ahead_reduction = 1
 					uses = 2
 					category = engineers_tech
 				}
@@ -11555,7 +11564,7 @@ focus_tree = {
 				add_tech_bonus = {
 					name = uk_imperial_engineering_school
 					bonus = 1.5
-					ahead_reduction = 1.0
+					ahead_reduction = 1
 					uses = 2
 					category = engineers_tech
 				}
@@ -11584,7 +11593,7 @@ focus_tree = {
 				add_tech_bonus = {
 					name = uk_no_empty_hand
 					bonus = 1.5
-					ahead_reduction = 1.0
+					ahead_reduction = 1
 					uses = 2
 					category = maintenance_company_tech
 				}
@@ -11593,7 +11602,7 @@ focus_tree = {
 				add_tech_bonus = {
 					name = uk_no_empty_hand
 					bonus = 1.5
-					ahead_reduction = 1.0
+					ahead_reduction = 1
 					uses = 2
 					category = maintenance_company_tech
 				}
@@ -11612,12 +11621,10 @@ focus_tree = {
 		}
 		x = 0
 		y = 2
-
 		available = {
 			has_idea = tot_economic_mobilisation
 			has_completed_focus = ENG_motorized_focus
 		}
-
 		relative_position_id = uk_no_empty_hand
 		completion_reward = {
 			swap_ideas = {
