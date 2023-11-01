@@ -20,7 +20,7 @@ focus_tree = {
 			text = industrial_effort
 			icon = GFX_goal_generic_construct_civ_factory
 			cost = 5
-			x = 3
+			x = 5
 			y = 1
 			ai_will_do = {
 				factor = 10
@@ -85,9 +85,8 @@ focus_tree = {
 		id = limited_rearmament_focus
 		icon = GFX_goal_generic_build_tank
 		cost = 7
-		relative_position_id = uk_industrial_focus
-		x = 3
-		y = 0
+		x = 10
+		y = 1
 		ai_will_do = {
 			factor = 8
 		}
@@ -194,11 +193,16 @@ focus_tree = {
 		id = ENG_steady_as_she_goes
 		icon = GFX_goal_support_democracy
 		cost = 5
-		x = 32
+		x = 40
 		y = 1
 		available = {
 			NOT = {
 				has_completed_focus = uk_round_table_focus
+			}
+		}
+		allow_branch = {
+			NOT = {
+				has_country_flag = uk_round_table_focus_flag
 			}
 		}
 		continue_if_invalid = yes
@@ -254,6 +258,8 @@ focus_tree = {
 			set_capital = {
 				state = 126
 			}
+			mark_focus_tree_layout_dirty = yes
+			set_country_flag = ENG_steady_as_she_goes_flag
 			hidden_effect = {
 				if = {
 					limit = {
@@ -275,12 +281,24 @@ focus_tree = {
 		id = uk_round_table_focus
 		icon = GFX_goal_generic_defence
 		cost = 5
-		x = 58
+		x = 64
 		y = 1
+		offset = {
+			x = -25
+			y = 0
+			trigger = {
+				has_country_flag = uk_round_table_focus_flag
+			}
+		}
 		available = {
 			has_government = neutrality
 			NOT = {
-				has_completed_focus = uk_round_table_focus
+				has_completed_focus = ENG_steady_as_she_goes
+			}
+		}
+		allow_branch = {
+			NOT = {
+				has_country_flag = ENG_steady_as_she_goes_flag
 			}
 		}
 		available_if_capitulated = yes
@@ -308,6 +326,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			set_country_flag = uk_round_table_focus_flag
+			mark_focus_tree_layout_dirty = yes
 			add_stability = 0.05
 			add_political_power = 100
 		}
@@ -390,10 +410,8 @@ focus_tree = {
 	focus = {
 		id = ENG_motorized_focus
 		icon = GFX_goal_generic_army_motorized
-		cost = 5
-		relative_position_id = uk_industrial_focus
-		x = 12
-		y = 0
+		x = 18
+		y = 1
 		available = {
 		}
 		ai_will_do = {
@@ -1081,6 +1099,9 @@ focus_tree = {
 		prerequisite = {
 			focus = uk_small_arms_focus
 		}
+		prerequisite = {
+			focus = general_rearmament_focus
+		}
 		x = 0
 		y = 1
 		relative_position_id = uk_small_arms_focus
@@ -1110,17 +1131,14 @@ focus_tree = {
 		icon = GFX_focus_research
 		cost = 10
 		prerequisite = {
-			focus = uk_new_design_standard
+			focus = general_rearmament_focus
 		}
 		ai_will_do = {
 			factor = 10
 		}
-		prerequisite = {
-			focus = uk_new_design_standard
-		}
 		x = 0
 		y = 1
-		relative_position_id = uk_new_design_standard
+		relative_position_id = general_rearmament_focus
 		available_if_capitulated = yes
 		completion_reward = {
 			add_research_slot = 1
@@ -1130,12 +1148,12 @@ focus_tree = {
 		id = ENG_special_air_service
 		icon = GFX_focus_eng_special_air_service
 		cost = 5
-		prerequisite = {
-			focus = general_rearmament_focus
-		}
-		x = 0
+		x = -2
 		y = 1
-		relative_position_id = general_rearmament_focus
+		relative_position_id = ENG_motorized_focus
+		prerequisite = {
+			focus = ENG_motorized_focus
+		}
 		available = {
 		}
 		continue_if_invalid = yes
@@ -1258,7 +1276,7 @@ focus_tree = {
 		prerequisite = {
 			focus = general_rearmament_focus
 		}
-		x = -2
+		x = -3
 		y = 1
 		relative_position_id = general_rearmament_focus
 		ai_will_do = {
@@ -1611,8 +1629,8 @@ focus_tree = {
 		prerequisite = {
 			focus = general_rearmament_focus
 		}
-		x = 2
-		y = 1
+		x = 3
+		y = 2
 		relative_position_id = general_rearmament_focus
 		ai_will_do = {
 			factor = 3
@@ -1792,9 +1810,7 @@ focus_tree = {
 			factor = 1
 		}
 		available_if_capitulated = yes
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
+
 		completion_reward = {
 			add_tech_bonus = {
 				name = ENG_asw_warfare
@@ -1929,11 +1945,11 @@ focus_tree = {
 		icon = GFX_goal_generic_amphibious_assault
 		cost = 5
 		prerequisite = {
-			focus = naval_rearmament_focus
+			focus = ENG_secure_the_imperial_shipping_routes
 		}
 		x = 0
-		y = 1
-		relative_position_id = naval_rearmament_focus
+		y = 2
+		relative_position_id = ENG_secure_the_imperial_shipping_routes
 		ai_will_do = {
 			factor = 1
 		}
@@ -1967,9 +1983,7 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
+
 		available_if_capitulated = yes
 		complete_tooltip = {
 			every_state = {
@@ -2019,9 +2033,7 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
+
 		available = {
 			date > 1944.1.1
 			has_tech = advanced_ship_hull_heavy
@@ -4403,9 +4415,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = uk_india_focus
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
+
 		available = {
 			RAJ = {
 				is_subject_of = ENG
@@ -4444,9 +4454,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = uk_south_africa_focus
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
+
 		available = {
 			always = no
 			CAN = {
@@ -4695,9 +4703,6 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ENG_steady_as_she_goes
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
 		available = {
 		}
 		continue_if_invalid = yes
@@ -5370,9 +5375,6 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = ENG_maintaining_the_balance_of_power
-		allow_branch = {
-			always = yes
-		}
 		available = {
 			SOV = {
 				ENG_focus_available_embargo_sanction = yes
@@ -8595,15 +8597,12 @@ focus_tree = {
 		id = uk_rocket_experiment
 		icon = GFX_focus_rocketry
 		cost = 5
-		prerequisite = {
-			focus = uk_extra_tech_slot
-		}
+		x = 0
+		y = 3
 		prerequisite = {
 			focus = uk_imperial_engineering_school
 		}
-		x = 0
-		y = 2
-		relative_position_id = uk_extra_tech_slot
+		relative_position_id = uk_new_design_standard
 		completion_reward = {
 			add_tech_bonus = {
 				name = uk_wild_hunt
@@ -8618,12 +8617,12 @@ focus_tree = {
 		id = uk_rocket_base
 		icon = GFX_goal_generic_position_armies
 		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = fighter_command_focus
 		prerequisite = {
 			focus = uk_rocket_experiment
 		}
-		x = 0
-		y = 1
-		relative_position_id = uk_rocket_experiment
 		available = {
 			has_tech = experimental_rockets
 			122 = {
@@ -8699,8 +8698,9 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = uk_rocket_base
+			focus = uk_jet_focus
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = uk_rocket_base
 		completion_reward = {
@@ -8714,14 +8714,11 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_cruiser
 		cost = 5
 		prerequisite = {
-			focus = uk_rhongomyniad
-		}
-		prerequisite = {
 			focus = uk_wild_hunt
 		}
-		x = 1.5
+		x = -1
 		y = 1
-		relative_position_id = uk_rhongomyniad
+		relative_position_id = uk_wild_hunt
 		completion_reward = {
 			set_technology = {
 				rhongomyniad_cruiser = 1
@@ -8759,7 +8756,7 @@ focus_tree = {
 		prerequisite = {
 			focus = uk_wild_hunt
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = uk_wild_hunt
 		available = {
@@ -11492,9 +11489,6 @@ focus_tree = {
 			factor = 3
 		}
 		prerequisite = {
-			focus = ENG_motorized_focus
-		}
-		prerequisite = {
 			focus = limited_rearmament_focus
 		}
 		ai_will_do = {
@@ -11506,9 +11500,9 @@ focus_tree = {
 		bypass = {
 			has_war = yes
 		}
-		x = -2
+		x = 2
 		y = 1
-		relative_position_id = ENG_motorized_focus
+		relative_position_id = limited_rearmament_focus
 		completion_reward = {
 			add_ideas = {
 				uk_local_game
@@ -11523,11 +11517,17 @@ focus_tree = {
 			factor = 10
 		}
 		prerequisite = {
+			focus = general_rearmament_focus
+		}
+		prerequisite = {
+			focus = uk_CBI
+		}
+		prerequisite = {
 			focus = royal_ordinance_focus
 		}
-		x = 0
+		x = -6
 		y = 1
-		relative_position_id = royal_ordinance_focus
+		relative_position_id = general_rearmament_focus
 		completion_reward = {
 			add_ideas = {
 				new_standard_uk
@@ -11541,15 +11541,12 @@ focus_tree = {
 		ai_will_do = {
 			factor = 3
 		}
+		relative_position_id = uk_new_design_standard
+		x = 0
+		y = 1
 		prerequisite = {
 			focus = uk_new_design_standard
 		}
-		prerequisite = {
-			focus = shadow_scheme_focus
-		}
-		relative_position_id = uk_new_design_standard
-		x = -2
-		y = 1
 		completion_reward = {
 			hidden_effect = {
 				add_tech_bonus = {
@@ -11585,8 +11582,8 @@ focus_tree = {
 				factor = 4
 			}
 		}
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = uk_imperial_engineering_school
 		completion_reward = {
 			hidden_effect = {
@@ -11614,18 +11611,18 @@ focus_tree = {
 		icon = GFX_goal_generic_cavalry
 		cost = 5
 		prerequisite = {
-			focus = uk_no_empty_hand
+			focus = uk_modern_knight
 		}
 		ai_will_do = {
 			factor = 4
 		}
 		x = 0
-		y = 2
+		y = 1
 		available = {
 			has_idea = tot_economic_mobilisation
 			has_completed_focus = ENG_motorized_focus
 		}
-		relative_position_id = uk_no_empty_hand
+		relative_position_id = uk_modern_knight
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = ENG_motorized_focus
@@ -11648,11 +11645,11 @@ focus_tree = {
 			factor = 6
 		}
 		prerequisite = {
-			focus = shadow_scheme_focus
+			focus = naval_rearmament_focus
 		}
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = shadow_scheme_focus
+		relative_position_id = naval_rearmament_focus
 		completion_reward = {
 			130 = {
 				add_extra_state_shared_building_slots = 1
@@ -11700,14 +11697,11 @@ focus_tree = {
 		id = ENG_expand_Scotland_shipbuilding
 		icon = GFX_focus_ENG_scotland_navy
 		cost = 7
-		prerequisite = {
-			focus = uk_workshop_of_the_empire
-		}
-		prerequisite = {
-			focus = uk_Expand_english_shipbuilding
-		}
 		ai_will_do = {
 			factor = 5
+		}
+		prerequisite = {
+			focus = naval_rearmament_focus
 		}
 		available = {
 			controls_state = 120
@@ -11715,9 +11709,9 @@ focus_tree = {
 			controls_state = 133
 			controls_state = 136
 		}
-		x = 1
+		x = -3
 		y = 1
-		relative_position_id = uk_workshop_of_the_empire
+		relative_position_id = naval_rearmament_focus
 		completion_reward = {
 			120 = {
 				add_extra_state_shared_building_slots = 2
@@ -11769,8 +11763,8 @@ focus_tree = {
 		ai_will_do = {
 			factor = 8
 		}
-		x = 0
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = shadow_scheme_focus
 		completion_reward = {
 			120 = {
@@ -11869,12 +11863,6 @@ focus_tree = {
 		id = uk_coal_export_docks
 		icon = GFX_focus_ENG_wales_navy
 		cost = 5
-		prerequisite = {
-			focus = uk_exploit_welsh
-		}
-		prerequisite = {
-			focus = ENG_expand_Scotland_shipbuilding
-		}
 		ai_will_do = {
 			factor = 6
 		}
@@ -11950,14 +11938,14 @@ focus_tree = {
 		icon = GFX_focus_generic_lucha_libre
 		cost = 5
 		prerequisite = {
-			focus = uk_Gringolet
+			focus = uk_no_empty_hand
 		}
 		ai_will_do = {
 			factor = 4
 		}
 		x = 0
-		y = 1.5
-		relative_position_id = uk_Gringolet
+		y = 3
+		relative_position_id = uk_no_empty_hand
 		completion_reward = {
 			set_technology = {
 				concentrated_fire = 1
@@ -11979,7 +11967,7 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
-		x = 1.5
+		x = 1
 		y = 1
 		relative_position_id = uk_industrial_focus
 		completion_reward = {
