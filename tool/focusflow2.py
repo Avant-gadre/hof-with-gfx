@@ -6,7 +6,7 @@ import os.path
 inputpath = '..\common\\national_focus\\'
 outputpath = '.\\focus_flow\\'
 # inputfilename = input()
-inputfilename = '00 ROM_Fate_focus'
+inputfilename = '01 FRA_Fate_focus'
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
 if not os.path.exists(outputpath):
@@ -59,7 +59,7 @@ for line in lines:
         filestart.append(line)
     elif focusnum > 0:
         focuslist.append(line)
-        if counter_leave == 2 and '}' in line:
+        if counter_leave == 2 and '\t}' in line:
             fullfocuslist.append(focuslist)
     if counter_leave == 2 and '\tid' in line and '=' in line:
         # 这是这个国策的id
