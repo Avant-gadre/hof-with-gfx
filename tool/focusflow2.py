@@ -6,7 +6,7 @@ import os.path
 inputpath = '..\common\\national_focus\\'
 outputpath = '.\\focus_flow\\'
 # inputfilename = input()
-inputfilename = '00 FRA_Fate_focus'
+inputfilename = '00 ROM_Fate_focus'
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
 if not os.path.exists(outputpath):
@@ -46,13 +46,12 @@ filestart = []
 # print(lines[0])
 for line in lines:
     templine = line
-    if counter_leave == 1 and '}' in line:
+    if counter_leave == 1 and '}' in line :
         # 到结尾了
         continue
         # 这是一个国策的结尾
-    if counter_leave == 1 and '\tfocus = {' in line and '{' in line and '=' in line:
+    if counter_leave == 1 and '\tfocus' in line and '{' in line:
         # 这是一个国策的开头
-        # print(line)
         focusnum += 1
         focuslist = []
         focuslist.append(line)
@@ -60,7 +59,7 @@ for line in lines:
         filestart.append(line)
     elif focusnum > 0:
         focuslist.append(line)
-        if counter_leave == 2 and '\t}' in line:
+        if counter_leave == 2 and '}' in line:
             fullfocuslist.append(focuslist)
     if counter_leave == 2 and '\tid' in line and '=' in line:
         # 这是这个国策的id
@@ -75,14 +74,14 @@ for id in idlist:
     relativeid = GetRelative(tempfocus)
     relativelist.append(relativeid)
 
-print(len(idlist),len(fullfocuslist),len(relativelist),focusnum)
+print(len(idlist),len(fullfocuslist),len(relativelist))
 reorderlist = []
 for id in idlist:
     if relativelist[idlist.index(id)] == '':
         reorderlist.append(id)
         # 把0排进去
 
-for ii in range(len(idlist)*5):
+for cont in range(len(idlist)):
     for id in idlist:
         if relativelist[idlist.index(id)] in reorderlist and id not in reorderlist:
             temp1 = relativelist[idlist.index(id)]
@@ -91,12 +90,6 @@ for ii in range(len(idlist)*5):
 # 输出
 f = open(outputpath + inputfilename, 'w', encoding='utf-8')
 f.write('\n'.join(filestart))
-i = 0
-# for fous in fullfocuslist:
-#     if i < 233:
-#         f.write('\t#'+ idlist[i] + '\n')
-#     f.write('\n'.join(fous))
-#     i += 1
 for reorder in reorderlist:
 
     fo = fullfocuslist[idlist.index(reorder)]
