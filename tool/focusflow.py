@@ -6,7 +6,7 @@ import os.path
 inputpath = '..\common\\national_focus\\'
 outputpath = '.\\focus_flow\\'
 # inputfilename = input()
-inputfilename = '00 RUS_Fate_focus'
+inputfilename = '01 FRA_Fate_focus'
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
 if not os.path.exists(outputpath):
@@ -15,10 +15,7 @@ counter_leave = 0
 # 遇到{ +1  遇到} -1
 # counter_leave = 1 时 为id
 # counter_leave = 2 且name = 时为名字
-class FocusClass:
-    id = ''
-    relativeid = ''
-    context = ''
+
 def GetRelative(lines):
     temp = ''
     for line in lines:
@@ -45,10 +42,10 @@ idlist = []
 templine = ''
 focusnum = 0
 focusblock = ''
+filestart = []
 # print(lines[0])
 for line in lines:
     templine = line
-
     if counter_leave == 1 and '}' in line :
         # 到结尾了
         continue
@@ -58,9 +55,11 @@ for line in lines:
         focusnum += 1
         focuslist = []
         focuslist.append(line)
-    elif focusnum >0:
+    elif focusnum == 0:
+        filestart.append(line)
+    elif focusnum > 0:
         focuslist.append(line)
-        if counter_leave == 2 and '}' in line:
+        if counter_leave == 2 and '\t}' in line:
             fullfocuslist.append(focuslist)
     if counter_leave == 2 and '\tid' in line and '=' in line:
         # 这是这个国策的id
@@ -76,40 +75,26 @@ for id in idlist:
     relativelist.append(relativeid)
 
 print(len(idlist),len(fullfocuslist),len(relativelist))
-# print(relativelist[56])
+reorderlist = []
+for id in idlist:
+    if relativelist[idlist.index(id)] == '':
+        reorderlist.append(id)
+        # 把0排进去
 
-# 统计结束，下面是排序
-tempidlist = idlist
-idkeylist = [0]*len(tempidlist)
-tot = 0
-
-while(1):
-
-    # 对id进行赋值
-    for id in tempidlist:
-        if relativelist[tempidlist.index(id)] == '':
-            continue
-        else:
-            idkeylist[tempidlist.index(id)] = idkeylist[tempidlist.index(relativelist[tempidlist.index(id)])] + 1
-    totlast = tot
-    tot = sum(idkeylist)
-    delat = tot - totlast
-    if delat < 1:
-        break
-# print(max(idkeylist))
-tempidkeylist = idkeylist
-for i in range(1, len(tempidkeylist)):
-    for j in range(0, len(tempidkeylist)-i):
-        # 判定条件
-        if tempidkeylist[j] > tempidkeylist[j + 1]:
-            tempidkeylist[j], tempidkeylist[j + 1] = tempidkeylist[j + 1], tempidkeylist[j]
-            idlist[j], idlist[j + 1] = idlist[j + 1], idlist[j]
-            fullfocuslist[j], fullfocuslist[j + 1] = fullfocuslist[j + 1], fullfocuslist[j]
+for cont in range(len(idlist)):
+    for id in idlist:
+        if relativelist[idlist.index(id)] in reorderlist and id not in reorderlist:
+            temp1 = relativelist[idlist.index(id)]
+            i = reorderlist.index(temp1) + 1
+            reorderlist.insert(i,id)
 # 输出
 f = open(outputpath + inputfilename, 'w', encoding='utf-8')
-for focuscon in fullfocuslist:
+f.write('\n'.join(filestart))
+for reorder in reorderlist:
 
-    f.write('\n'.join(focuscon))
+    fo = fullfocuslist[idlist.index(reorder)]
+    f.write('\n'.join(fo))
     f.write('\n')
+f.write('}')
 f.close()
-
+print(reorderlist)

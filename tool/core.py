@@ -14,5 +14,12 @@ def getDir(path):
             taglist.append(tag)
     return taglist
 
-
+def getTxtName(path):
+    # 获取指定路径内所有txt文件名
+    list0 = os.listdir(path)
+    listout = []
+    for name in list0:
+        if '.txt' in name:
+            listout.append(name)
+    return listout
 # print(path1)
