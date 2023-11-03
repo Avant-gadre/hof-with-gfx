@@ -3,6 +3,7 @@ import os
 import io
 import os.path
 
+# 用于将pdx的角色进行分类存放
 inputpath = '..\characters\input\\'
 outputpath = '.\characters\output\\'
 if not os.path.exists(outputpath):
