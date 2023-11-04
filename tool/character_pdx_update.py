@@ -5,8 +5,8 @@ import os.path
 import core
 
 # 用于将pdx的角色进行分类存放
-inputpath = '.\\characters\\input\\'
-outputpath = '.\\characters\\output\\'
+inputpath = './characters/input/'
+outputpath = './characters/output/'
 if not os.path.exists(inputpath):
     os.makedirs(inputpath)
 if not os.path.exists(outputpath):
