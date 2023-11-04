@@ -2,8 +2,8 @@ autonomy_state = {
 	id = autonomy_personal_union
 	is_puppet = yes
 	##use_overlord_color = yes
-	min_freedom_level = 0.0
-	manpower_influence = 1.0
+	min_freedom_level = 0
+	manpower_influence = 1
 	rule = {
 		desc = "RULE_DESC_IS_A_SUBJECT"
 		can_not_declare_war = yes
@@ -13,34 +13,68 @@ autonomy_state = {
 		contributes_operatives = yes
 		can_create_collaboration_government = no
 	}
-	
 	modifier = {
-		autonomy_manpower_share = 0.0
+		autonomy_manpower_share = 0
 		extra_trade_to_overlord_factor = 0.5
 		overlord_trade_cost_factor = -0.5
 		can_master_build_for_us = 1
 		peace_score_ratio_transferred_to_overlord = 0.05
-		lend_lease_tension_with_overlord = -0.10
+		lend_lease_tension_with_overlord = -0.1
 	}
 	ai_subject_wants_higher = {
-		factor = 10.0
+		factor = 10
 	}
 	ai_overlord_wants_lower = {
-		factor = 0.0
+		factor = 0
 	}
 	allowed_levels_filter = {
 		autonomy_personal_union
 	}
-
 	allowed = {
-		has_dlc = "No Step Back"
 		OR = {
 			is_subject = no
 			has_autonomy_state = autonomy_personal_union
 		}
 	}
-	
 	can_lose_level = {
 		always = no
+	}
+}
+
+autonomy_state = {
+	id = nominal_puppet
+	is_puppet = yes
+	min_freedom_level = 0.9
+	manpower_influence = 0.2
+	rule = {
+		desc = RULE_DESC_IS_A_SUBJECT
+		can_decline_call_to_war = yes
+		can_be_spymaster = no
+		can_create_collaboration_government = no
+	}
+	modifier = {
+		autonomy_manpower_share = 0
+		research_sharing_per_country_bonus_factor = -0.25
+	}
+	ai_subject_wants_higher = {
+		factor = 0
+	}
+	ai_overlord_wants_lower = {
+		factor = 0
+	}
+	ai_overlord_wants_garrison = {
+		always = no
+	}
+	can_take_level = {
+		custom_trigger_tooltip = {
+			tooltip = puppet_can_become_free
+			always = no
+		}
+	}
+	can_lose_level = {
+		custom_trigger_tooltip = {
+			tooltip = can_lower_autonomy_level
+			always = no
+		}
 	}
 }

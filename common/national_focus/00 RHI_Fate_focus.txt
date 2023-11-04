@@ -371,7 +371,7 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Economic_Reorganization
 		}
-		x = 2
+		x = 1
 		y = 1
 		available = {
 			has_political_power > 100
@@ -402,7 +402,7 @@ focus_tree = {
 		available = {
 			has_political_power > 100
 		}
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = RHI_Economic_Reorganization
 		completion_reward = {
@@ -545,7 +545,7 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Western_Economic_Tie
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = RHI_Western_Economic_Tie
 		completion_reward = {
@@ -555,14 +555,15 @@ focus_tree = {
 	##Military
 	focus = {
 		id = RHI_Landeswher
-		#icon = GFX_RHI_Landswher
 		icon = GFX_focus_GER_Rhineland_French
 		cost = 2
 		x = 25
 		y = 2
+		available = {
+			num_of_factories > 30
+		}
 		completion_reward = {
 			add_political_power = 100
-			add_ideas = RHI_Landeswher_1
 		}
 	}
 	focus = {
@@ -611,7 +612,7 @@ focus_tree = {
 		icon = GFX_focus_ROM_Emergent_arms_order
 		cost = 3
 		x = 3
-		y = 2
+		y = 3
 		available = {
 			has_war = yes
 			num_of_factories > 36
@@ -629,14 +630,11 @@ focus_tree = {
 		icon = GFX_focus_generic_air_defense2
 		cost = 5
 		prerequisite = {
-			focus = RHI_Landeswher
+			focus = RHI_The_Looming_War
 		}
-		available = {
-			has_completed_focus = RHI_The_Looming_War
-		}
-		x = 5
-		y = 1
-		relative_position_id = RHI_Landeswher
+		x = 0
+		y = 2
+		relative_position_id = RHI_The_Looming_War
 		completion_reward = {
 			add_tech_bonus = {
 				name = HUN_Air_defense_array
@@ -671,7 +669,7 @@ focus_tree = {
 			focus = RHI_Modernize_infantry
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = RHI_Modernize_infantry
 	}
 	focus = {
@@ -693,7 +691,7 @@ focus_tree = {
 			focus = RHI_Reform_Entente_Committee
 		}
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = RHI_Reform_Entente_Committee
 		completion_reward = {
 			add_ideas = RHI_French_Cooperation_idea
@@ -704,14 +702,14 @@ focus_tree = {
 		icon = GFX_focus_HUN_consolidation_of_production_lines
 		cost = 5
 		prerequisite = {
-			focus = RHI_Helker_Koch
+			focus = RHI_Wartime_Production
 		}
 		available = {
 			date > 1940.1.1
 		}
-		x = -1
+		x = 1
 		y = 1
-		relative_position_id = RHI_Helker_Koch
+		relative_position_id = RHI_Wartime_Production
 	}
 	focus = {
 		id = RHI_Arsenal_Of_Democracy
@@ -750,12 +748,12 @@ focus_tree = {
 		id = RHI_Forest_Ranger
 		icon = GFX_focus_generic_jungletraining
 		cost = 5
-		prerequisite = {
-			focus = RHI_promote_Officers
-		}
-		x = 0
+		x = -1
 		y = 1
-		relative_position_id = RHI_promote_Officers
+		relative_position_id = RHI_Defensive_Engineer
+		prerequisite = {
+			focus = RHI_Defensive_Engineer
+		}
 	}
 	focus = {
 		id = RHI_promote_Officers
@@ -764,9 +762,19 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Military_Training
 		}
-		x = -2
-		y = 1
+		x = 1
+		y = 2
 		relative_position_id = RHI_Military_Training
+		completion_reward = {
+			every_unit_leader = {
+				add_max_trait = 1
+				add_skill_level = 1
+				add_logistics = 1
+				add_planning = 1
+				add_defense = 1
+				add_attack = 1
+			}
+		}
 	}
 	focus = {
 		id = RHI_Begin_Mechanization
@@ -811,7 +819,7 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Military_Training
 		}
-		x = 2
+		x = 0
 		y = 1
 		relative_position_id = RHI_Military_Training
 	}
@@ -822,9 +830,12 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Military_Training
 		}
+		prerequisite = {
+			focus = RHI_Trench_And_Fort
+		}
 		x = 0
 		y = 1
-		relative_position_id = RHI_Military_Training
+		relative_position_id = RHI_Trench_And_Fort
 	}
 	focus = {
 		id = RHI_Tank_Destroyer
@@ -833,9 +844,13 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Tank
 		}
-		x = 1
+		x = 0
 		y = 3
 		relative_position_id = RHI_Mobile_Warfare
+		swap_ideas = {
+			remove_idea = RHI_Mobile_Warfare_idea_2
+			add_idea = RHI_Mobile_Warfare_idea_3
+		}
 	}
 	focus = {
 		id = RHI_Tank
@@ -844,7 +859,7 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Begin_Mechanization
 		}
-		x = 0
+		x = -1
 		y = 2
 		relative_position_id = RHI_Mobile_Warfare
 		completion_reward = {
@@ -880,16 +895,19 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Defensive_Engineer
 		}
-		x = 0
-		y = 2
-		relative_position_id = RHI_Military_Training
+		prerequisite = {
+			focus = RHI_Modernize_infantry
+		}
+		x = 1
+		y = 1
+		relative_position_id = RHI_Defensive_Engineer
 	}
 	focus = {
 		id = RHI_industry_Revocation
 		icon = GFX_focus_FRA_national_relief_agency
 		cost = 3
 		x = -2
-		y = 3
+		y = 1
 		available = {
 			always = no
 		}
@@ -917,15 +935,12 @@ focus_tree = {
 		icon = GFX_focus_generic_research3
 		cost = 5
 		prerequisite = {
-			focus = RHI_MP5
-		}
-		prerequisite = {
 			focus = RHI_Tank_Destroyer
 		}
 		prerequisite = {
 			focus = RHI_City_Defense
 		}
-		x = 2
+		x = 0
 		y = 5
 		relative_position_id = RHI_Landeswher
 	}
@@ -1305,6 +1320,12 @@ focus_tree = {
 		relative_position_id = RHI_Maintain_Occupation
 		prerequisite = {
 			focus = RHI_Maintain_Occupation
+		}
+		available = {
+			has_completed_focus = RHI_Martial_Law
+		}
+		allow_branch = {
+			NOT = { has_country_flag = RHI_Charlemagne_Seize_Power_flag }
 		}
 	}
 	focus = {
