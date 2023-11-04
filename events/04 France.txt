@@ -178,18 +178,10 @@ country_event = {
 	picture = GFX_report_event_french_resistance_02
 	fire_only_once = yes
 	trigger = {
-		TAG = FRA
+		tag = FRA
 		16 = {
-			controller = {
-				NOT = {
-					TAG = FRA
-				}
-			}
+			NOT = { is_controlled_by = ROOT }
 		}
-		#16 = { is_owned_by = FRA }
-	}
-	mean_time_to_happen = {
-		days = 4
 	}
 	option = {
 		name = france.16.a
@@ -1327,18 +1319,15 @@ country_event = {
 	title = france.91.t
 	desc = france.91.d
 	picture = GFX_report_event_generic_black_pluviose
-	trigger = {
-		tag = FRA
-		date > 1936.1.10
-	}
 	fire_only_once = yes
-	mean_time_to_happen = {
-		days = 2
-	}
 	option = {
 		name = france.91.a
 		add_ideas = FRA_Economic_crisis_idea
 		hidden_effect = {
+			country_event = {
+				id = france.92
+				days = 15
+			}
 			set_global_flag = FRA_Economic_crisis_flag
 			news_event = {
 				id = news.911
@@ -1397,32 +1386,14 @@ country_event = {
 	desc = france.912.d
 	picture = GFX_report_event_gathering_protest
 	fire_only_once = yes
-	trigger = {
-		has_global_flag = FRA_Economic_crisis_flag
-		tag = FRA
-		FRA = {
-			NOT = {
-				has_government = communism
-			}
-		}
-	}
-	mean_time_to_happen = {
-		days = 15
-	}
 	option = {
 		name = france.912.a
 		FRA = {
 			add_ideas = FRA_army_out_of_control_idea
 		}
-		if = {
-			limit = {
-				has_idea = FRA_Anti_royal_family_idea
-				always = no
-			}
-			country_event = {
-				id = lr_france.1
-				days = 3
-			}
+		country_event = {
+			id = lr_france.1
+			days = 3
 		}
 		hidden_effect = {
 			set_global_flag = FRA_army_out_of_control_flag
@@ -1437,13 +1408,6 @@ country_event = {
 	desc = france.915.d
 	picture = GFX_report_event_generic_jeanne_darc
 	fire_only_once = yes
-	trigger = {
-		has_global_flag = FRA_Royal_military_parade_flag
-		tag = FRA
-	}
-	mean_time_to_happen = {
-		days = 15
-	}
 	option = {
 		name = france.915.a
 		FRA = {
