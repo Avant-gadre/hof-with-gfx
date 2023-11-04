@@ -77,13 +77,7 @@ for num in rangelist:
     # 提取属性定义中的元素
     def extract_elements(property_definition):
         if property_definition:
-<<<<<<< Updated upstream
             elements = property_definition.split("{")[1].split("}")[0].strip().split()
-=======
-            elements = property_definition.split(" ")[2].strip('{').strip('}').strip().split('\n')
-            for i in elements:
-                elements[elements.index(i)] = i.strip()
->>>>>>> Stashed changes
             return set(elements)
         return set()
 
@@ -94,14 +88,6 @@ for num in rangelist:
     # 判断是否有交集
     has_intersection = bool(elements1 & elements2)
 
-<<<<<<< Updated upstream
     if not has_intersection:
         with open("output.txt", "a") as file: 
             file.write(f"false in'{filename1}'and'{filename2}'")
-=======
-    if has_intersection:
-        # print('true')
-        continue
-    else:
-        print(f"false in'{filename1}'and'{filename2}'")
->>>>>>> Stashed changes
