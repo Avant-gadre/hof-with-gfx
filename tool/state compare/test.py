@@ -74,7 +74,7 @@ for num in rangelist:
     # 提取属性定义中的元素
     def extract_elements(property_definition):
         if property_definition:
-            elements = property_definition.split(" ")[1].strip("{}").split()
+            elements = property_definition.split("  ")[1].strip("{}").split()
             return set(elements)
         return set()
 
