@@ -266,19 +266,12 @@ focus_tree = {
 		x = 18
 		y = 2
 		available = {
+			date > 1936.6.1
 			is_ally_with = FRA
-			OR = {
-				FRA = {
-					has_completed_focus = FRA_Out_of_the_darkness
-				}
-				FRA = {
-					has_completed_focus = FRA_Miraculous_recovery
-				}
-			}
+			NOT = { has_idea = FRA_Economic_crisis_influence_idea }
 		}
 		completion_reward = {
 			add_political_power = 100
-			RHI_Reduce_Depression = yes
 		}
 	}
 	focus = {
@@ -477,6 +470,9 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Ruhr_Industrial_Center
 		}
+		prerequisite = {
+			focus = RHI_Western_Economic_Tie
+		}
 		x = 0
 		y = 2
 		available = {
@@ -569,13 +565,21 @@ focus_tree = {
 	focus = {
 		id = RHI_Trench_And_Fort
 		icon = GFX_focus_generic_invincible
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = RHI_Landeswher
 		}
 		x = 1
 		y = 1
 		relative_position_id = RHI_Landeswher
+		completion_reward = {
+			add_ideas = RHI_Trench_And_Fort_idea_0
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 1
+				category = engineers_tech
+			}
+		}
 	}
 	focus = {
 		id = RHI_Reform_Entente_Committee
@@ -666,22 +670,49 @@ focus_tree = {
 		icon = GFX_goal_industry_air
 		cost = 5
 		prerequisite = {
-			focus = RHI_Modernize_infantry
+			focus = RHI_Modernize_Infantry
 		}
 		x = 0
 		y = 2
-		relative_position_id = RHI_Modernize_infantry
+		relative_position_id = RHI_Modernize_Infantry
 	}
 	focus = {
 		id = RHI_Military_Training
 		icon = GFX_focus_generic_join_faction
-		cost = 5
+		cost = 6
 		prerequisite = {
 			focus = RHI_Landeswher
 		}
 		x = 3
 		y = 1
 		relative_position_id = RHI_Landeswher
+		completion_reward = {
+			RHI = {
+				army_experience = 40
+				add_manpower = 20000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 7000
+					producer = FRA
+				}
+				every_owned_state = {
+					limit = {
+						any_neighbor_state = {
+							is_owned_by = GER
+						}
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+					}
+				}
+			}
+		}
 	}
 	focus = {
 		id = RHI_French_Cooperation
@@ -705,7 +736,8 @@ focus_tree = {
 			focus = RHI_Wartime_Production
 		}
 		available = {
-			date > 1940.1.1
+			date > 1939.1.1
+			has_completed_focus = RHI_Modernize_Infantry
 		}
 		x = 1
 		y = 1
@@ -753,6 +785,11 @@ focus_tree = {
 		relative_position_id = RHI_Defensive_Engineer
 		prerequisite = {
 			focus = RHI_Defensive_Engineer
+		}
+		prerequisite = {
+			focus = RHI_Modernize_Infantry
+		}
+		completion_reward = {
 		}
 	}
 	focus = {
@@ -813,7 +850,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = RHI_Modernize_infantry
+		id = RHI_Modernize_Infantry
 		icon = GFX_RHI_modernize_army
 		cost = 5
 		prerequisite = {
@@ -822,6 +859,9 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = RHI_Military_Training
+		completion_reward = {
+			add_ideas = RHI_Modernize_Infantry_idea_0
+		}
 	}
 	focus = {
 		id = RHI_Defensive_Engineer
@@ -833,9 +873,37 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Trench_And_Fort
 		}
+		available = {
+			has_tech = tech_engineers2
+		}
 		x = 0
 		y = 1
 		relative_position_id = RHI_Trench_And_Fort
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = RHI_Trench_And_Fort_idea_0
+				add_idea = RHI_Trench_And_Fort_idea_1
+			}
+			set_technology = {
+				RHI_Fortify_tech = 1
+			}
+			every_owned_state = {
+				limit = {
+					any_neighbor_state = {
+						is_owned_by = GER
+					}
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
+		}
 	}
 	focus = {
 		id = RHI_Tank_Destroyer
@@ -847,9 +915,11 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = RHI_Mobile_Warfare
-		swap_ideas = {
-			remove_idea = RHI_Mobile_Warfare_idea_2
-			add_idea = RHI_Mobile_Warfare_idea_3
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = RHI_Mobile_Warfare_idea_2
+				add_idea = RHI_Mobile_Warfare_idea_3
+			}
 		}
 	}
 	focus = {
@@ -896,7 +966,7 @@ focus_tree = {
 			focus = RHI_Defensive_Engineer
 		}
 		prerequisite = {
-			focus = RHI_Modernize_infantry
+			focus = RHI_Modernize_Infantry
 		}
 		x = 1
 		y = 1
@@ -952,8 +1022,7 @@ focus_tree = {
 		x = 12
 		y = 10
 		allow_branch = {
-			has_country_flag = RHI_democracy_revive_flag
-			has_country_flag = RHI_defeat_germany
+			has_country_flag = RHI_Defeat_Germany
 		}
 	}
 	focus = {
@@ -996,9 +1065,6 @@ focus_tree = {
 		id = RHI_Paneurope
 		icon = GFX_goal_AUS_paneuropa
 		cost = 5
-		prerequisite = {
-			focus = RHI_Our_Place
-		}
 		x = 2
 		y = 1
 		relative_position_id = RHI_Our_Place
@@ -1098,23 +1164,6 @@ focus_tree = {
 		relative_position_id = RHI_Begin_Reconstruction
 	}
 	focus = {
-		id = RHI_Restore_Legimacy
-		icon = GFX_goal_AUS_german_austria
-		cost = 5
-		prerequisite = {
-			focus = RHI_Transformation_Justice
-		}
-		prerequisite = {
-			focus = RHI_Destory_Radicalism
-		}
-		prerequisite = {
-			focus = RHI_Defend_Democracy
-		}
-		x = -1
-		y = 1
-		relative_position_id = RHI_Destory_Radicalism
-	}
-	focus = {
 		id = RHI_Reconstruction_Bureau
 		icon = GFX_focus_generic_social_reforms
 		cost = 5
@@ -1137,17 +1186,6 @@ focus_tree = {
 		relative_position_id = RHI_Reconstruction_Bureau
 	}
 	focus = {
-		id = RHI_Agriculture
-		icon = GFX_focus_generic_agriculture
-		cost = 5
-		prerequisite = {
-			focus = RHI_Reconstruction_Bureau
-		}
-		x = 1
-		y = 1
-		relative_position_id = RHI_Reconstruction_Bureau
-	}
-	focus = {
 		id = RHI_Women_Right
 		icon = GFX_focus_generic_female_voting
 		cost = 5
@@ -1165,7 +1203,7 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Reconstruction_Bureau
 		}
-		x = 0
+		x = 2
 		y = 2
 		relative_position_id = RHI_Reconstruction_Bureau
 	}
@@ -1178,7 +1216,7 @@ focus_tree = {
 		}
 		x = 1
 		y = 1
-		relative_position_id = RHI_Agriculture
+		relative_position_id = RHI_Reconstruction_Bureau
 	}
 	focus = {
 		id = RHI_End_Reconstruction
@@ -1194,9 +1232,9 @@ focus_tree = {
 			focus = RHI_Land_Reform
 		}
 		prerequisite = {
-			focus = RHI_Restore_Legimacy
+			focus = RHI_Women_Right
 		}
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = RHI_Fair_Labour
 	}
@@ -1290,6 +1328,9 @@ focus_tree = {
 			focus = RHI_Deal_With_Striker
 			focus = RHI_Request_Recovery_Budget
 		}
+		available = {
+			
+		}
 		completion_reward = {
 			custom_effect_tooltip = RHI_Centralized_Government_tt
 		}
@@ -1306,6 +1347,9 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = RHI_Control_All_The_Newspapers
+		}
+		available = {
+			has_country_flag = RHI_can_centralize_flag	
 		}
 		x = 0
 		y = 2
@@ -1337,6 +1381,9 @@ focus_tree = {
 		prerequisite = {
 			focus = RHI_Centralized_Government
 		}
+		available = {
+			has_country_flag = RHI_can_centralize_flag	
+		}
 		relative_position_id = RHI_Centralized_Government
 		completion_reward = {
 		}
@@ -1347,6 +1394,9 @@ focus_tree = {
 		cost = 5
 		x = -1
 		y = 1
+		available = {
+			has_country_flag = RHI_can_centralize_flag	
+		}
 		prerequisite = {
 			focus = RHI_Centralized_Government
 		}
