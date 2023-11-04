@@ -89,5 +89,5 @@ for num in rangelist:
     has_intersection = bool(elements1 & elements2)
 
     if not has_intersection:
-        with open("output.txt", "a") as file: 
-            file.write(f"false in'{filename1}'and'{filename2}'")
+        with open("output.txt", "a",encoding='utf - 8') as file:
+            file.write(f'false in' + filename1 + 'and' + filename2 + '\n')
