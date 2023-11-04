@@ -91,3 +91,6 @@ for num in rangelist:
     if not has_intersection:
         with open("output.txt", "a",encoding='utf - 8') as file:
             file.write(f'false in' + filename1 + 'and' + filename2 + '\n')
+            #file.write('\n'.join(str(item) for item in elements2)+'\n')
+            #file.write('\n')
+            #file.write('\n'.join(str(item) for item in elements1)+'\n')
