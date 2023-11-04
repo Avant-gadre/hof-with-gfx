@@ -30,6 +30,9 @@ def extract_prefix(file_name):
 folder_path1 = './Test1'
 folder_path2 = './Test2'
 
+with open("output.txt", "w") as file:
+    file.write("")
+
 # 初始化一个空列表来存储文件名
 #用前缀进行排序
 file_list1 = sorted(getTxtName(folder_path1),key=extract_prefix)
@@ -74,7 +77,7 @@ for num in rangelist:
     # 提取属性定义中的元素
     def extract_elements(property_definition):
         if property_definition:
-            elements = property_definition.split("  ")[1].strip("{}").split()
+            elements = property_definition.split("{")[1].split("}")[0].strip().split()
             return set(elements)
         return set()
 
@@ -84,10 +87,7 @@ for num in rangelist:
 
     # 判断是否有交集
     has_intersection = bool(elements1 & elements2)
-    #print(elements1)
-    #print(elements2)
 
-    if has_intersection:
-        print('true')
-    else:
-        print(f"false in'{filename1}'and'{filename2}'")
+    if not has_intersection:
+        with open("output.txt", "a") as file: 
+            file.write(f"false in'{filename1}'and'{filename2}'")
