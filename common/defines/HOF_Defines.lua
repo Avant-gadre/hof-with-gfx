@@ -1,20 +1,21 @@
 NDefines.NDiplomacy.OPINION_FOR_DEMO_FROM_WT_GENERATION = 0					-- Vanilla is -2.0
-
+NDefines.NProduction.MAX_CIV_FACTORIES_PER_LINE = 20                        -- Vanilla is 15
+NDefines.NCountry.MIN_STABILITY = -0.5										-- Vanilla is 0.0
 -- Peace Conferences
 NDefines.NDiplomacy.PEACE_SCORE_SCALE_FACTOR = 2.15							-- Vanilla is 1.35
 NDefines.NDiplomacy.PEACE_SCORE_DISTRIBUTION = { 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2 } -- Vanilla is 0.2 in the first five turns
 NDefines.NAI.PEACE_AI_EVALUATE_OTHER_ALWAYS = true							-- Vanilla is false
 
-NDefines.NDiplomacy.EMBARGO_COST = 50 -- Vanilla is 100
-NDefines.NDiplomacy.EMBARGO_THREAT_THRESHOLD = -1 -- Vanilla is 30
-NDefines.NAI.EMBARGO_WORLD_TENSION_THREAT_DIVISOR = 0 -- Vanilla is 2.5
+NDefines.NDiplomacy.EMBARGO_COST = 50                                       -- Vanilla is 100
+NDefines.NDiplomacy.EMBARGO_THREAT_THRESHOLD = -1                           -- Vanilla is 30
+NDefines.NAI.EMBARGO_WORLD_TENSION_THREAT_DIVISOR = 0                       -- Vanilla is 2.5
 
 NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30								-- Vanilla is 10
 NDefines.NGame.LAG_DAYS_FOR_PAUSE = 60										-- Vanilla is 25
 NDefines.NCountry.EVENT_PROCESS_OFFSET = 5									-- Vanilla is 20
 
 NDefines.NGame.END_DATE = "1959.1.1.1"										-- Vanilla is 1949.1.1.1
-NDefines.NGame.HANDS_OFF_START_TAG = "BHU"									-- Vanilla is URG 乌拉圭没了
+NDefines.NGame.HANDS_OFF_START_TAG = "BHU"									-- Vanilla is URG： Uraguay is disapparing
 
 -- General AI
 NDefines.NAI.RESEARCH_BONUS_FACTOR = 1.5									-- Vanilla is 0.9
@@ -57,7 +58,7 @@ NDefines.NAI.FASCISTS_ANTAGONIZE_DEMOCRACIES = 0							-- Vanilla is 100
 
 NDefines.NAI.FASCISTS_BEFRIEND_COMMUNISTS = -25								-- Vanilla is -25
 NDefines.NAI.FASCISTS_ALLY_COMMUNISTS = -100								-- Vanilla is -100
-NDefines.NAI.FASCISTS_ANTAGONIZE_COMMUNISTS = 0							-- Vanilla is 100
+NDefines.NAI.FASCISTS_ANTAGONIZE_COMMUNISTS = 0							    -- Vanilla is 100
 
 NDefines.NAI.DEMOCRACIES_BEFRIEND_FASCISTS = 0								-- Vanilla is -25
 NDefines.NAI.DEMOCRACIES_ALLY_FASCISTS = 0									-- Vanilla is -50
@@ -79,6 +80,6 @@ NDefines.NAI.COMMUNISTS_BEFRIEND_DEMOCRACIES = 0							-- Vanilla is -25
 NDefines.NAI.COMMUNISTS_ALLY_DEMOCRACIES = 0								-- Vanilla is -50
 NDefines.NAI.COMMUNISTS_ANTAGONIZE_DEMOCRACIES = 0							-- Vanilla is 10
 
-NDefines.NAI.COMMUNISTS_BEFRIEND_COMMUNISTS = 0							-- Vanilla is 25
-NDefines.NAI.COMMUNISTS_ALLY_COMMUNISTS = 0								-- Vanilla is 0
+NDefines.NAI.COMMUNISTS_BEFRIEND_COMMUNISTS = 0							    -- Vanilla is 25
+NDefines.NAI.COMMUNISTS_ALLY_COMMUNISTS = 0								    -- Vanilla is 0
 NDefines.NAI.COMMUNISTS_ANTAGONIZE_COMMUNISTS = -25							-- Vanilla is -10
