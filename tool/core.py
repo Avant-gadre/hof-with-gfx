@@ -3,6 +3,13 @@ import os
 import io
 import os.path
 
+import ctypes.wintypes
+
+def getDocPath():
+    '''path=5: My Documents'''
+    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+    ctypes.windll.shell32.SHGetFolderPathW(None, 5, None, 0, buf)
+    return buf.value
 
 # 根据文件夹，获得其中所有文件的文件名
 def getDir(path):
