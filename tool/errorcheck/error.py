@@ -13,7 +13,7 @@ portraitError = []
 gfxError = []
 for line in errorC:
     line.lower()
-    if 'gfx/' in line and 'font' not in line:
+    if 'gfx' in line and 'font' not in line:
         gfxError.append(line)
     if 'portrait' in line:
         portraitError.append(line)
