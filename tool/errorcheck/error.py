@@ -19,8 +19,8 @@ for line in errorC:
         portraitError.append(line)
     elif 'gfx/leader' in line:
         portraitError.append(line)
-print(len(gfxError))
-for error in gfxError:
+print(len(portraitError))
+for error in portraitError:
     print(error)
 
 
