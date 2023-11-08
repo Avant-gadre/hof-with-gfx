@@ -271,8 +271,20 @@ JAP_enact_land_reform = {
 		limit = {
 			is_Japan_home_area = yes
 		}
-		FROM = {
+		if = {
+			limit = {
+				OR = {
+					has_dynamic_modifier = {
+						modifier = half_industrial_state
+					}
+					has_dynamic_modifier = {
+						modifier = agrarian_state
+					}
+				}
+			}
 			upgrade_industrial_region = yes
+		}
+		else = {
 			urbanizing_region = yes
 		}
 	}
@@ -351,7 +363,8 @@ construction_build_in_best_random_state_effect = {
 						}
 						set_temp_variable = {
 							break = 1
-						}						#this is the perfect state, no need to loop any further
+						}
+						#this is the perfect state, no need to loop any further
 					}
 					else_if = {
 						limit = {
