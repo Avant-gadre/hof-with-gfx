@@ -1,4 +1,7 @@
 import os
+
+dir0 = "d:\\Documents\\GitHub\\Test\\gfx\\leaders\\CHI"
+dir1 = "d:\\Documents\\GitHub\\Test\\gfx\\interface\\advisor\\CHI"
 def rename_files_in_directory(directory):
     for filename in os.listdir(directory):
         if any(filename.endswith(ext) for ext in ('.png', '.tga', '.dds')):
@@ -6,8 +9,9 @@ def rename_files_in_directory(directory):
             parts = filename[:-4].split('_')
             
             # Capitalize the first letter of each part
-            parts = [parts[0], parts[1].upper()] + [part.capitalize() for part in parts[2:]]
+            parts = [parts[0], parts[1].upper()] + [part.capitalize() for part in parts[3:]]
             
+            parts[0] = 'CHI'
             # Create the new filename
             new_filename = '_'.join(parts) + '.png'
             
@@ -16,5 +20,5 @@ def rename_files_in_directory(directory):
 
 
 if __name__ == "__main__":
-    directory = "d:\\Documents\\GitHub\\Test\\gfx\\leaders\\CHI"
+    directory = dir1
     rename_files_in_directory(directory)
