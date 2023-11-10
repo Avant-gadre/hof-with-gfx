@@ -1,28 +1,36 @@
+# 读取文件内容
+local_path = 'D:\\Documents\\GitHub\\Test\\common\\characters\\CHI_Fate_Characters.txt'
+# 读取文件内容
+with open(local_path, 'r') as file:
+    content = file.read()
 
-import json
-import os
+# 使用正则表达式来匹配characters元素和name元素
+import re
 
-# 从文件中读取字符字典
-file_path = "D:\\Documents\\GitHub\\Test\\common\\characters\\CHI_Fate_Characters.txt"  # 替换为实际文件路径
-characters = {}
-with open(file_path, "r") as file:
-    for line in file:
-        if '=' in line:
-            key, value = line.strip().split('=')
-            characters[key.strip()] = {"name": value.strip()}
+# 使用正则表达式匹配characters元素
+character_blocks = re.findall(r'characters = {(.*?)}', content, re.DOTALL)
 
-def transform_string(s):
-    parts = s.split('_')
-    parts[0] = parts[0].upper()
-    for i in range(1, len(parts)):
-        parts[i] = parts[i].capitalize()
-    return "_".join(parts)
+# 创建一个字典来存储替换后的内容
+replacement_dict = {}
 
-# 转换字典中的字符元素
-for key, value in characters.items():
-    characters[key]["name"] = transform_string(value["name"])
+# 循环处理每个character块
+for character_block in character_blocks:
+    # 使用正则表达式匹配name元素和其值
+    character_name_values = re.findall(r'(\w+)\s*=\s*{\s*name\s*=\s*(\w+)\s*}', character_block)
+    
+    # 处理每个name元素
+    for character_name, name_value in character_name_values:
+        # 分割name值
+        parts = name_value.split('_')
+        formatted_name = '_'.join([part.upper() if i == 0 else part.capitalize() for i, part in enumerate(parts)])
+        
+        # 存储替换后的内容到字典
+        replacement_dict[name_value] = formatted_name
 
-# 将转换后的字符字典写回文件
-with open(file_path, "w") as file:
-    for key, value in characters.items():
-        file.write(f"{key} = {value['name']}\n")
+# 执行替换操作
+for original, replacement in replacement_dict.items():
+    content = content.replace(original, replacement)
+
+# 将处理后的内容写回原文件
+with open(local_path, 'w') as output_file:
+    output_file.write(content)
