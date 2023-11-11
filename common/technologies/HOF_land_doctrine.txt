@@ -1,9 +1,15 @@
+﻿@xp_cost_small = 90
+@xp_cost_medium = 120
+@xp_cost_high = 150
+@xp_cost_veryhigh = 180
+
 technologies = {
 	##一战学说 WWI
+	##机枪阵地
 	fate_machine_gun_position = {
-		#doctrine_name = doctrine_machine_gun_position_desc
+		doctrine_name = "fate_machine_gun_position_desc"
 		xp_research_type = army
-		xp_unlock_cost = 120
+		xp_unlock_cost = 100
 		path = {
 			research_cost_coeff = 1
 			leads_to_tech = fate_trench_warfare
@@ -17,18 +23,10 @@ technologies = {
 		}
 		categories = {
 			land_doctrine
+			#
 		}
 		ai_will_do = {
 			factor = 20
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-		}
-		ai_research_weights = {
-			armor = 4
 		}
 	}
 	fate_trench_warfare = {
@@ -624,7 +622,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 0
-				y = 15
+				y = 14
 			}
 		}
 		path = {
@@ -645,8 +643,8 @@ technologies = {
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = -2
-				y = 17
+				x = -3
+				y = 16
 			}
 		}
 	}
@@ -655,7 +653,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 0
-				y = 17
+				y = 16
 			}
 		}
 	}
@@ -663,8 +661,8 @@ technologies = {
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = 2
-				y = 17
+				x = 3
+				y = 16
 			}
 		}
 	}
@@ -710,18 +708,34 @@ technologies = {
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = -2
-				y = 3
+				x = -3
+				y = 4
 			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_widefront_antitank
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_antitank
 		}
 	}
 	fate_widefront_support = {
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = 2
-				y = 3
+				x = 3
+				y = 4
 			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_widefront_antitank
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_antitank
 		}
 	}
 	#
@@ -730,8 +744,16 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = -2
-				y = 5
+				y = 6
 			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_fire_coverage
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_slow_fire
 		}
 	}
 	fate_concentrated_antitank = {
@@ -739,8 +761,16 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 2
-				y = 5
+				y = 6
 			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_fire_coverage
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_slow_fire
 		}
 	}
 	#
@@ -748,46 +778,192 @@ technologies = {
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = -2
-				y = 7
+				x = -3
+				y = 8
 			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_front_blocking
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_flank_ambushing
 		}
 	}
 	fate_slow_fire = {
 		folder = {
 			name = land_doctrine_folder
 			position = {
+				x = 3
+				y = 8
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_front_blocking
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_flank_ambushing
+		}
+	}
+	##正面拦阻
+	fate_front_blocking = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 10
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_grouping
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_flatting
+		}
+	}
+	##侧翼伏击
+	fate_flank_ambushing = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
 				x = 2
-				y = 7
+				y = 10
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_grouping
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_flatting
+		}
+	}
+	##防空火力网
+	fate_antiair_grouping = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 12
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_superior_firepower
+		}
+	}
+	##防空炮平射
+	fate_antiair_flatting = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 12
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_superior_firepower
+		}
+	}
+	##优势火力
+	fate_superior_firepower = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 13
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_moblie_firepower
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_stationary_firepower
+		}
+	}
+	##机动火炮
+	fate_moblie_firepower = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_continuing_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_raiding_fire
+		}
+	}
+	##持续炮击
+	fate_continuing_fire = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 16
 			}
 		}
 	}
-	#
-	fate_front_blocking = {
-	}
-	fate_flank_ambushing = {
-	}
-	#
-	fate_antiair_grouping = {
-	}
-	fate_antiair_flatting = {
-	}
-	#
-	fate_superior_firepower = {
-	}
-	#
-	fate_moblie_firepower = {
-	}
-	#
-	fate_continuing_fire = {
-	}
+	##袭扰炮击
 	fate_raiding_fire = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -1
+				y = 16
+			}
+		}
 	}
-	#
+	##固定火力
 	fate_stationary_firepower = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_commanded_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_supportive_fire
+		}
 	}
+	##指令射击
 	fate_commanded_fire = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 1
+				y = 16
+			}
+		}
 	}
+	##支援射击
 	fate_supportive_fire = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 16
+			}
+		}
 	}
 }
