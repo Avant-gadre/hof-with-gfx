@@ -226,92 +226,91 @@ economy_decisions = {
 		}
 	}
 	#Copy from kr ukraine
-	CHI_evacuate_industry = {
-		#should this be made dynamic and repeatable?
-		icon = GFX_decision_factories
-		allowed = {
-			tag = CHI
-		}
-		available = {
-			threat > 0.1
-			any_owned_state = {
-				is_owned_and_controlled_by = ROOT
-				any_neighbor_state = {
-					is_controlled_by = 282.owner
-				}				#Tokyo
-				is_in_array = {
-					CHI.CHI_states_east_of_china_array = THIS
-				}
-				arms_factory > 0
-			}
-			custom_trigger_tooltip = {
-				tooltip = CHI_the_war_of_resistance
-				any_of_scopes = {
-					array = CHI.CHI_states_east_of_china_array
-					is_controlled_by = ROOT
-					is_in_home_area = yes
-				}
-			}
-		}
-		visible = {
-			var:282.owner = {
-				is_subject = no
-				NOT = {
-					is_in_faction_with = ROOT
-				}
-				OR = {
-					tag = JAP
-				}
-			}
-		}
-		days_remove = 30
-	
-		cost = 5
-		ai_will_do = {
-			factor = 100
-		}
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete CHI_evacuate_industry"
-			random_owned_controlled_state = {
-				limit = {
-					any_neighbor_state = {
-						is_owned_and_controlled_by = 219.owner
-					}					#Tokyo
-					arms_factory > 0
-				}
-				remove_building = {
-					type = arms_factory
-					level = 1
-				}
-			}
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision remove CHI_evacuate_industry"
-			random_owned_controlled_state = {
-				limit = {
-					OR = {
-						state = 650						#Chunking
-						state = 603						#Guichou
-						state = 1051						#Guixi
-						state = 325						#Kunming
-						state = 605						#Chengdu
-						state = 816						#Dali
-						state = 661						#Eastern Sichuan
-					}
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
+	# CHI_evacuate_industry = {
+	# 	#should this be made dynamic and repeatable?
+	# 	icon = GFX_decision_factories
+	# 	allowed = {
+	# 		tag = CHI
+	# 	}
+	# 	available = {
+	# 		threat > 0.1
+	# 		any_owned_state = {
+	# 			is_owned_and_controlled_by = ROOT
+	# 			any_neighbor_state = {
+	# 				is_controlled_by = 282.owner
+	# 			}				#Tokyo
+	# 			is_in_array = {
+	# 				CHI.CHI_states_east_of_china_array = THIS
+	# 			}
+	# 			arms_factory > 0
+	# 		}
+	# 		custom_trigger_tooltip = {
+	# 			tooltip = CHI_the_war_of_resistance
+	# 			any_of_scopes = {
+	# 				array = CHI.CHI_states_east_of_china_array
+	# 				is_controlled_by = ROOT
+	# 				is_in_home_area = yes
+	# 			}
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		var:282.owner = {
+	# 			is_subject = no
+	# 			NOT = {
+	# 				is_in_faction_with = ROOT
+	# 			}
+	# 			OR = {
+	# 				tag = JAP
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	cost = 5
+	# 	ai_will_do = {
+	# 		factor = 100
+	# 	}
+	# 	complete_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Decision complete CHI_evacuate_industry"
+	# 		random_owned_controlled_state = {
+	# 			limit = {
+	# 				any_neighbor_state = {
+	# 					is_owned_and_controlled_by = 219.owner
+	# 				}					#Tokyo
+	# 				arms_factory > 0
+	# 			}
+	# 			remove_building = {
+	# 				type = arms_factory
+	# 				level = 1
+	# 			}
+	# 		}
+	# 	}
+	# 	remove_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Decision remove CHI_evacuate_industry"
+	# 		random_owned_controlled_state = {
+	# 			limit = {
+	# 				OR = {
+	# 					state = 650						#Chunking
+	# 					state = 603						#Guichou
+	# 					state = 1051						#Guixi
+	# 					state = 325						#Kunming
+	# 					state = 605						#Chengdu
+	# 					state = 816						#Dali
+	# 					state = 661						#Eastern Sichuan
+	# 				}
+	# 				free_building_slots = {
+	# 					building = arms_factory
+	# 					size > 0
+	# 					include_locked = yes
+	# 				}
+	# 			}
+	# 			add_building_construction = {
+	# 				type = arms_factory
+	# 				level = 1
+	# 				instant_build = yes
+	# 			}
+	# 		}
+	# 	}
+	# }
 }
 
 war_measures = {
@@ -818,10 +817,8 @@ foreign_support = {
 		complete_effect = {
 			if = {
 				limit = {
-					AND = {
-						has_war = no
-						has_war_support < 0.6
-					}
+					has_war = no
+					has_war_support < 0.6
 				}
 				add_war_support = 0.05
 			}
@@ -1148,5 +1145,3 @@ political_actions = {
 		}
 	}
 }
-
-
