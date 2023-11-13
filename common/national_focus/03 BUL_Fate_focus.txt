@@ -2432,137 +2432,8 @@ focus_tree = {
 	##     ## ##       ##     ## ##     ## ##       ##   ##   #########    ##     ##  ##          ##     ## ##   ##   ######### ##  #### ##       ##     ## 
 	##     ## ##       ##     ## ##     ## ##    ## ##    ##  ##     ##    ##     ##  ##    ##    ##     ## ##    ##  ##     ## ##   ### ##    ## ##     ## 
 	########  ######## ##     ##  #######   ######  ##     ## ##     ##    ##    ####  ######     ########  ##     ## ##     ## ##    ##  ######  ##     ##
-	focus = {
-		id = BUL_oppose_the_royal_dictatorship
-		icon = GFX_focus_BUL_oppose_the_royal_dictatorship
-		relative_position_id = BUL_acquire_modern_tools
-		x = 17
-		y = 0
-		cost = 10
-		mutually_exclusive = {
-			focus = BUL_power_to_the_tsar
-		}
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_popularity = {
-				ideology = communism
-				popularity = 0.05
-			}
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-			add_stability = -0.05
-			add_ideas = BUL_tsar_boris_negative_01
-			BUL_zveno_low_loyalty_increase_effect = yes
-			BUL_bs_low_loyalty_increase_effect = yes
-			BUL_bzns_low_loyalty_increase_effect = yes
-			BUL_nsm_low_loyalty_decrease_effect = yes
-			custom_effect_tooltip = BUL_oppose_the_royal_dictatorship_tt
-			custom_effect_tooltip = remove_political_advisor
-			show_ideas_tooltip = BUL_ivan_dochev
-			show_ideas_tooltip = BUL_dobri_bozhilov
-		}
-	}
-	focus = {
-		id = BUL_democratic_principles
-		prerequisite = {
-			focus = BUL_oppose_the_royal_dictatorship
-		}
-		icon = GFX_goal_support_democracy
-		relative_position_id = BUL_oppose_the_royal_dictatorship
-		x = 0
-		y = 2
-		cost = 10
-		mutually_exclusive = {
-			focus = BUL_appoint_communist_ministers
-		}
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_political_power = 70
-			add_stability = 0.05
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = BUL_stefan_stefanov
-			show_ideas_tooltip = BUL_konstantin_muraviev
-			BUL_zveno_low_loyalty_decrease_effect = yes
-			BUL_bs_low_loyalty_increase_effect = yes
-			BUL_bzns_low_loyalty_increase_effect = yes
-			BUL_nsm_low_loyalty_decrease_effect = yes
-		}
-	}
-	focus = {
-		id = BUL_legalize_the_agrarian_party
-		prerequisite = {
-			focus = BUL_democratic_principles
-		}
-		icon = GFX_goal_generic_improve_relations
-		relative_position_id = BUL_democratic_principles
-		x = -1
-		y = 1
-		cost = 10
-		mutually_exclusive = {
-			focus = BUL_seek_cooperation_with_the_tsar
-		}
-		bypass = {
-			has_country_flag = BUL_bzns_integrated_flag
-		}
-		available = {
-			NOT = {
-				has_country_flag = BUL_bzns_destroyed_flag
-			}
-			NOT = {
-				has_country_flag = BUL_bzns_media_banned_flag
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_political_power = 120
-			add_stability = 0.1
-			add_war_support = -0.05
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-			BUL_bzns_medium_loyalty_increase_effect = yes
-			BUL_bzns_medium_popularity_increase_effect = yes
-			if = {
-				limit = {
-					NOT = {
-						has_country_flag = BUL_bzns_legalized_flag
-					}
-				}
-				set_country_flag = BUL_bzns_legalized_flag
-				custom_effect_tooltip = BUL_legalize_the_agrarian_party_legalize_bzns_tt
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						has_government = democratic
-					}
-					set_country_leader_ideology = socialism
-				}
-			}
-		}
-	}
+
+
 	focus = {
 		id = BUL_form_a_popular_bloc
 		prerequisite = {
@@ -2570,7 +2441,7 @@ focus_tree = {
 		}
 		icon = GFX_goal_generic_demand_territory
 		relative_position_id = BUL_freedom_of_press
-		x = 1
+		x = -1
 		y = 1
 		cost = 10
 		available = {
@@ -2599,496 +2470,16 @@ focus_tree = {
 			BUL_nsm_low_loyalty_decrease_effect = yes
 		}
 	}
-	focus = {
-		id = BUL_abolish_the_monarchy
-		prerequisite = {
-			focus = BUL_legalize_the_agrarian_party
-		}
-		icon = GFX_focus_rom_handle_king
-		relative_position_id = BUL_legalize_the_agrarian_party
-		x = 1
-		y = 1
-		cost = 10
-		bypass = {
-			has_completed_focus = BUL_legalize_the_agrarian_party
-			has_country_flag = BUL_tsar_boris_is_dead_flag
-		}
-		available = {
-			democratic > 0.3
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_political_power = 70
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-			remove_ideas = BUL_tsar_boris_negative_01
-			if = {
-				limit = {
-					has_idea = BUL_georgi_ivanov_kyoseivanov
-				}
-				remove_ideas = BUL_georgi_ivanov_kyoseivanov
-			}
-			if = {
-				#Low Stability triggers a Civil War
-				limit = {
-					has_stability < 0.3
-				}
-				set_temp_variable = {
-					BUL_democratic_cw_opposition = party_popularity@neutrality
-				}
-				multiply_temp_variable = {
-					BUL_democratic_cw_opposition = 0.5
-				}
-				add_to_temp_variable = {
-					BUL_democratic_cw_opposition = party_popularity@fascism
-				}
-				set_politics = {
-					ruling_party = democratic
-				}
-				hidden_effect = {
-					start_civil_war = {
-						ideology = neutrality
-						size = BUL_democratic_cw_opposition
-						capital = 48
-						states = {
-							212
-						}
-						keep_unit_leaders_trigger = {
-							NOT = {
-								has_trait = trait_BUL_tsar_loyalist
-							}
-						}
-					}
-					every_unit_leader = {
-						limit = {
-							has_trait = trait_BUL_tsar_loyalist
-						}
-						random_other_country = {
-							limit = {
-								original_tag = BUL
-								has_government = neutrality
-							}
-							PREV = {
-								set_nationality = PREV
-							}
-						}
-					}
-					random_other_country = {
-						limit = {
-							original_tag = BUL
-							has_government = neutrality
-						}
-						promote_character = {
-							character = BUL_georgi_ivanov_kyoseivanov
-							ideology = moderatism
-						}
-					}
-					#Operatives
-					if = {
-						limit = {
-							has_dlc = "La Resistance"
-						}
-						every_operative = {
-							limit = {
-								has_trait = trait_BUL_tsar_loyalist
-							}
-							retire = yes
-						}
-					}
-				}
-				custom_effect_tooltip = BUL_depose_the_tsar_cw_tt
-				clr_country_flag = BUL_factions_unlocked_flag
-			}
-			else = {
-				every_unit_leader = {
-					limit = {
-						NOT = {
-							has_id = 1204
-						}						#Boydev
-						has_trait = trait_BUL_tsar_loyalist
-					}
-					custom_effect_tooltip = BUL_remove_tsar_loyalist_trait_tt
-					remove_unit_leader_trait = trait_BUL_tsar_loyalist
-				}
-				random_unit_leader = {
-					limit = {
-						has_id = 1204						#Boydev
-					}
-					retire = yes
-				}
-				add_stability = -0.1
-				if = {
-					limit = {
-						has_country_leader = {
-							character = BUL_boris_iii
-							ruling_only = yes
-						}
-					}
-					retire_country_leader = yes
-				}
-				promote_character = {
-					character = BUL_georgi_ivanov_kyoseivanov
-					ideology = moderatism
-				}
-			}
-			BUL_zveno_low_loyalty_increase_effect = yes
-			BUL_bs_low_loyalty_increase_effect = yes
-			BUL_bzns_low_loyalty_increase_effect = yes
-			BUL_nsm_low_loyalty_decrease_effect = yes
-			custom_effect_tooltip = BUL_potential_civil_war_low_requirement_tt
-			hidden_effect = {
-				if = {
-					limit = {
-						has_government = democratic
-					}
-					set_cosmetic_tag = BUL_democratic
-				}
-			}
-		}
-	}
-	focus = {
-		id = BUL_seek_cooperation_with_the_tsar
-		prerequisite = {
-			focus = BUL_democratic_principles
-		}
-		icon = GFX_goal_tfv_strengthen_commonwealth_ties
-		relative_position_id = BUL_democratic_principles
-		x = 1
-		y = 1
-		cost = 10
-		mutually_exclusive = {
-			focus = BUL_legalize_the_agrarian_party
-		}
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.05
-			}
-			add_stability = 0.05
-			swap_ideas = {
-				remove_idea = BUL_tsar_boris_negative_01
-				add_idea = BUL_tsar_boris_negative_02
-			}
-			divide_variable = {
-				BUL_faction_interaction_cost_standard = 2
-			}
-			divide_variable = {
-				BUL_broad_socialist_opression_cost_standard = 2
-			}
-			custom_effect_tooltip = BUL_reduced_faction_interaction_cost_tt
-		}
-	}
-	focus = {
-		id = BUL_legislative_elections
-		prerequisite = {
-			focus = BUL_abolish_the_monarchy
-			focus = BUL_seek_cooperation_with_the_tsar
-		}
-		icon = GFX_goal_generic_neutrality_focus
-		relative_position_id = BUL_abolish_the_monarchy
-		x = 0
-		y = 1
-		cost = 10
-		available = {
-			democratic > 0.4
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = BUL_the_fatherland_front_bzns_support_requirement_tt
-					check_variable = {
-						BUL_bzns_loyalty = 50
-						compare = greater_than
-					}
-				}
-				has_country_flag = BUL_bzns_destroyed_flag
-				has_country_flag = BUL_bzns_integrated_flag
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_political_power = 70
-			add_stability = 0.1
-			if = {
-				limit = {
-					has_idea = BUL_second_national_catastrophe
-				}
-				swap_ideas = {
-					remove_idea = BUL_second_national_catastrophe
-					add_idea = BUL_second_national_catastrophe_02
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_government = democratic
-					}
-				}
-				set_politics = {
-					ruling_party = democratic
-					last_election = "1936.1.1"
-					election_frequency = 48
-					elections_allowed = yes
-				}
-			}
-			BUL_bs_low_loyalty_increase_effect = yes
-			BUL_bzns_low_loyalty_increase_effect = yes
-		}
-	}
-	focus = {
-		id = BUL_petorka
-		prerequisite = {
-			focus = BUL_seek_cooperation_with_the_tsar
-		}
-		icon = GFX_goal_tripartite_pact
-		relative_position_id = BUL_seek_cooperation_with_the_tsar
-		x = 1
-		y = 1
-		cost = 10
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_political_power = 50
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-			add_ideas = BUL_petorka
-			BUL_bzns_low_loyalty_decrease_effect = yes
-			BUL_nsm_low_loyalty_decrease_effect = yes
-		}
-	}
-	focus = {
-		id = BUL_land_reorganization
-		prerequisite = {
-			focus = BUL_legislative_elections
-		}
-		icon = GFX_focus_generic_the_giant_wakes
-		relative_position_id = BUL_legislative_elections
-		x = -2
-		y = 1
-		cost = 10
-		available = {
-			has_stability > 0.5
-			democratic > 0.7
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			custom_effect_tooltip = BUL_land_reorganization_tt
-			every_owned_state = {
-				limit = {
-					is_core_of = ROOT
-					is_fully_controlled_by = ROOT
-				}
-				add_extra_state_shared_building_slots = 2
-			}
-		}
-	}
-	focus = {
-		id = BUL_agrarian_cooperative_movement
-		prerequisite = {
-			focus = BUL_land_reorganization
-		}
-		icon = GFX_goal_generic_consumer_goods
-		relative_position_id = BUL_land_reorganization
-		x = -1
-		y = 1
-		cost = 10
-		mutually_exclusive = {
-			focus = BUL_modernize_the_industry
-		}
-		available = {
-			democratic > 0.8
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = BUL_agrarian_cooperative_movement_bzns_support_requirement_tt
-					check_variable = {
-						BUL_bzns_loyalty = 80
-						compare = greater_than
-					}
-				}
-				has_country_flag = BUL_bzns_destroyed_flag
-				has_country_flag = BUL_bzns_integrated_flag
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_WAR_SUPPORT
-			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_war_support = 0.1
-			add_ideas = BUL_government_reforms_democratic_01
-			BUL_bzns_low_loyalty_increase_effect = yes
-		}
-	}
-	focus = {
-		id = BUL_modernize_the_industry
-		prerequisite = {
-			focus = BUL_land_reorganization
-		}
-		icon = GFX_goal_generic_production
-		relative_position_id = BUL_land_reorganization
-		x = 1
-		y = 1
-		cost = 10
-		mutually_exclusive = {
-			focus = BUL_agrarian_cooperative_movement
-		}
-		available = {
-			democratic > 0.8
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = BUL_modernize_the_industry_bs_support_requirement_tt
-					check_variable = {
-						BUL_bs_loyalty = 80
-						compare = greater_than
-					}
-				}
-				has_country_flag = BUL_bs_destroyed_flag
-				has_country_flag = BUL_bs_integrated_flag
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_ideas = BUL_government_reforms_democratic_02
-			BUL_bs_low_loyalty_increase_effect = yes
-		}
-	}
-	focus = {
-		id = BUL_the_salonika_agreement
-		prerequisite = {
-			focus = BUL_legislative_elections
-		}
-		icon = GFX_focus_generic_befriend_greece
-		relative_position_id = BUL_legislative_elections
-		x = 0
-		y = 1
-		cost = 10
-		bypass = {
-			OR = {
-				NOT = {
-					country_exists = GRE
-				}
-				GRE = {
-					is_subject = yes
-				}
-				GRE = {
-					has_capitulated = yes
-				}
-			}
-		}
-		available = {
-			country_exists = GRE
-			NOT = {
-				has_war_with = GRE
-			}
-			GRE = {
-				NOT = {
-					is_justifying_wargoal_against = ROOT
-				}
-				has_opinion = {
-					target = ROOT
-					value > 24
-				}
-			}
-			OR = {
-				is_in_faction = no
-				is_in_faction_with = GRE
-			}
-		}
-		completion_reward = {
-			GRE = {
-				country_event = {
-					id = bftb_bulgaria_greek_influence.1
-					hours = 4
-					random_hours = 4
-				}
-			}
-			custom_effect_tooltip = BUL_the_salonika_agreement_event_effects_tt
-			effect_tooltip = {
-				GRE = {
-					diplomatic_relation = {
-						country = ROOT
-						relation = non_aggression_pact
-						active = yes
-					}
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = BUL_strengthened_relations_with_us
-					}
-				}
-				add_opinion_modifier = {
-					target = GRE
-					modifier = BUL_strengthened_relations_with_us
-				}
-				every_country = {
-					limit = {
-						BUL_country_can_influence_bulgaria = yes
-						NOT = {
-							is_in_faction_with = ROOT
-						}
-						NOT = {
-							is_in_faction_with = GRE
-						}
-					}
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = BUL_approached_greece
-					}
-				}
-			}
-			GRE = {
-				add_ai_strategy = {
-					type = befriend
-					id = ROOT
-					value = 20
-				}
-			}
-			add_ai_strategy = {
-				type = befriend
-				id = GRE
-				value = 20
-			}
-		}
-	}
+
+
 	focus = {
 		id = BUL_approach_the_united_kingdom
 		prerequisite = {
-			focus = BUL_legislative_elections
 			focus = BUL_liberalization_of_trade_policies
 		}
 		icon = GFX_focus_chi_british_cooperation
-		relative_position_id = BUL_legislative_elections
-		x = 2
+		relative_position_id = BUL_liberalization_of_trade_policies
+		x = -2
 		y = 1
 		cost = 10
 		bypass = {
@@ -3366,7 +2757,7 @@ focus_tree = {
 		}
 		icon = GFX_focus_BUL_consolidate_the_third_bulgarian_state
 		relative_position_id = BUL_join_the_allies
-		x = -3
+		x = 3
 		y = 1
 		cost = 10
 		available = {
@@ -3761,13 +3152,11 @@ focus_tree = {
 	focus = {
 		id = BUL_power_to_the_tsar
 		icon = GFX_focus_BUL_power_to_the_tsar
-		relative_position_id = BUL_oppose_the_royal_dictatorship
-		x = 12
+		# relative_position_id = BUL_oppose_the_royal_dictatorship
+		x = 36
 		y = 0
 		cost = 10
-		mutually_exclusive = {
-			focus = BUL_oppose_the_royal_dictatorship
-		}
+
 		available = {
 		}
 		search_filters = {
@@ -3791,239 +3180,8 @@ focus_tree = {
 			show_ideas_tooltip = BUL_vasil_kolarov
 		}
 	}
-	focus = {
-		id = BUL_condemn_macedonian_organizations
-		prerequisite = {
-			focus = BUL_power_to_the_tsar
-			focus = BUL_oppose_the_royal_dictatorship
-		}
-		icon = GFX_focus_BUL_condemn_macedonian_organizations
-		relative_position_id = BUL_oppose_the_royal_dictatorship
-		x = 1
-		y = 1
-		cost = 5
-		mutually_exclusive = {
-			focus = BUL_support_macedonian_organizations
-		}
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_threat = -1
-			add_stability = 0.1
-			add_political_power = 35
-			BUL_zveno_low_loyalty_increase_effect = yes
-			BUL_bs_low_loyalty_increase_effect = yes
-			BUL_bzns_low_loyalty_increase_effect = yes
-			BUL_nsm_low_loyalty_decrease_effect = yes
-			custom_effect_tooltip = BUL_condemn_macedonian_organizations_tt
-			every_country = {
-				limit = {
-					BUL_country_seeks_macedonian_stability = yes
-				}
-				add_opinion_modifier = {
-					target = BUL
-					modifier = BUL_condemned_imro
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_idea = BUL_army_restrictions_aat
-						has_idea = BUL_army_restrictions
-					}
-				}
-				custom_effect_tooltip = BUL_condemn_macedonian_organizations_rearmament_tt
-			}
-			hidden_effect = {
-				news_event = {
-					id = bftb_news.1
-					hours = 8
-					random_hours = 4
-				}
-			}
-		}
-	}
-	focus = {
-		id = BUL_support_macedonian_organizations
-		prerequisite = {
-			focus = BUL_power_to_the_tsar
-			focus = BUL_oppose_the_royal_dictatorship
-		}
-		icon = GFX_focus_BUL_support_macedonian_organizations
-		relative_position_id = BUL_condemn_macedonian_organizations
-		x = 2
-		y = 0
-		cost = 5
-		mutually_exclusive = {
-			focus = BUL_condemn_macedonian_organizations
-		}
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_threat = 1
-			BUL_zveno_low_loyalty_decrease_effect = yes
-			BUL_bs_low_loyalty_decrease_effect = yes
-			BUL_bzns_low_loyalty_decrease_effect = yes
-			BUL_nsm_low_loyalty_increase_effect = yes
-			custom_effect_tooltip = BUL_support_macedonian_organizations_tt
-			every_country = {
-				limit = {
-					BUL_country_seeks_macedonian_stability = yes
-				}
-				add_opinion_modifier = {
-					target = BUL
-					modifier = BUL_supported_imro
-				}
-			}
-			#If all Macedonia is already controlled by BUL, update NS and unlock the appropriate decisions
-			if = {
-				limit = {
-					NOT = {
-						any_state = {
-							BUL_is_macedonian_state = yes
-							NOT = {
-								is_fully_controlled_by = ROOT
-							}
-						}
-					}
-				}
-				hidden_effect = {
-					set_country_flag = {
-						flag = BUL_support_imro_flag
-						value = 3
-					}
-				}
-				if = {
-					limit = {
-						has_idea = BUL_imro_01
-					}
-					swap_ideas = {
-						remove_idea = BUL_imro_01
-						add_idea = BUL_imro_05
-					}
-				}
-				else_if = {
-					limit = {
-						has_idea = BUL_imro_04
-					}
-					swap_ideas = {
-						remove_idea = BUL_imro_04
-						add_idea = BUL_imro_05
-					}
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_idea = BUL_army_restrictions_aat
-						has_idea = BUL_army_restrictions
-					}
-				}
-				custom_effect_tooltip = BUL_support_macedonian_organizations_rearmament_tt
-			}
-			set_country_flag = {
-				flag = BUL_rearmament_flag
-				value = 2
-			}			#Unlock Pressure to Lift Arms Restrictions decision
-			hidden_effect = {
-				news_event = {
-					id = bftb_news.2
-					hours = 8
-					random_hours = 4
-				}
-			}
-		}
-	}
-	focus = {
-		id = BUL_dissolve_the_military_union
-		prerequisite = {
-			focus = BUL_power_to_the_tsar
-			focus = BUL_oppose_the_royal_dictatorship
-		}
-		icon = GFX_focus_BUL_destroy_the_zveno
-		relative_position_id = BUL_power_to_the_tsar
-		x = -1
-		y = 1
-		cost = 5
-		mutually_exclusive = {
-			focus = BUL_cooperate_with_the_zveno
-		}
-		available = {
-			NOT = {
-				has_country_flag = BUL_zveno_destroyed_flag
-			}			#Zveno is not destroyed
-			hidden_trigger = {
-				NOT = {
-					has_country_flag = BUL_zveno_coup_flag
-				}				#Zveno CW has not started
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_political_power = 70
-			add_stability = 0.15
-			add_ideas = BUL_zveno_ns
-			BUL_zveno_high_loyalty_decrease_effect = yes
-			BUL_zveno_medium_popularity_decrease_effect = yes
-			custom_effect_tooltip = BUL_dissolve_the_military_union_tt
-			custom_effect_tooltip = BUL_dissolve_the_military_union_zveno_coup_tt
-		}
-	}
-	focus = {
-		id = BUL_cooperate_with_the_zveno
-		prerequisite = {
-			focus = BUL_power_to_the_tsar
-			focus = BUL_oppose_the_royal_dictatorship
-		}
-		icon = GFX_focus_BUL_cooperate_with_the_zveno
-		relative_position_id = BUL_power_to_the_tsar
-		x = -3
-		y = 1
-		cost = 5
-		mutually_exclusive = {
-			focus = BUL_dissolve_the_military_union
-		}
-		available = {
-			NOT = {
-				has_country_flag = BUL_zveno_destroyed_flag
-			}			#Zveno is not destroyed
-			hidden_trigger = {
-				NOT = {
-					has_active_mission = BUL_impending_zveno_coup
-				}				#Zveno coup mission is not ongoing
-				NOT = {
-					has_country_flag = BUL_zveno_coup_flag
-				}				#Zveno CW has not started
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_WAR_SUPPORT
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_political_power = 50
-			add_war_support = 0.05
-			BUL_zveno_low_loyalty_increase_effect = yes
-			BUL_zveno_low_popularity_increase_effect = yes
-			BUL_bzns_low_loyalty_decrease_effect = yes
-			BUL_nsm_low_loyalty_decrease_effect = yes
-			custom_effect_tooltip = BUL_cooperate_with_the_zveno_tt
-			custom_effect_tooltip = BUL_cooperate_with_the_zveno_coup_tt
-		}
-	}
+
+
 	focus = {
 		id = BUL_the_tsars_regime
 		prerequisite = {
@@ -4031,7 +3189,7 @@ focus_tree = {
 		}
 		icon = GFX_focus_generic_monarchy_1
 		relative_position_id = BUL_power_to_the_tsar
-		x = -6
+		x = -3
 		y = 2
 		cost = 10
 		mutually_exclusive = {
@@ -4056,90 +3214,16 @@ focus_tree = {
 			BUL_nsm_low_loyalty_increase_effect = yes
 		}
 	}
-	focus = {
-		id = BUL_restrained_paramilitary_organizations
-		prerequisite = {
-			focus = BUL_power_to_the_tsar
-			focus = BUL_oppose_the_royal_dictatorship
-		}
-		icon = GFX_goal_demand_sudetenland
-		relative_position_id = BUL_oppose_the_royal_dictatorship
-		x = 7
-		y = 1
-		cost = 10
-		mutually_exclusive = {
-			focus = BUL_ban_far_right_organizations
-		}
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_WAR_SUPPORT
-			FOCUS_FILTER_MANPOWER
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.05
-			}
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.05
-			}
-			add_war_support = 0.1
-			add_ideas = BUL_paramilitary_organizations
-			BUL_bs_low_loyalty_decrease_effect = yes
-			BUL_bzns_low_loyalty_decrease_effect = yes
-			BUL_nsm_low_loyalty_increase_effect = yes
-			BUL_nsm_low_popularity_increase_effect = yes
-			custom_effect_tooltip = BUL_restrained_paramilitary_organizations_tt
-		}
-	}
-	focus = {
-		id = BUL_ban_far_right_organizations
-		prerequisite = {
-			focus = BUL_power_to_the_tsar
-			focus = BUL_oppose_the_royal_dictatorship
-		}
-		icon = GFX_focus_eng_move_to_secure_the_dominions
-		relative_position_id = BUL_oppose_the_royal_dictatorship
-		x = 5
-		y = 1
-		cost = 5
-		mutually_exclusive = {
-			focus = BUL_restrained_paramilitary_organizations
-		}
-		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INTERNAL_AFFAIRS
-		}
-		completion_reward = {
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.1
-			}
-			add_stability = 0.1
-			add_war_support = -0.05
-			BUL_bs_low_loyalty_increase_effect = yes
-			BUL_bzns_low_loyalty_increase_effect = yes
-			BUL_nsm_high_loyalty_decrease_effect = yes
-			BUL_nsm_medium_popularity_decrease_effect = yes
-			custom_effect_tooltip = BUL_ban_far_right_organizations_tt
-		}
-	}
+
+
 	focus = {
 		id = BUL_restore_the_tarnovo_constitution
 		prerequisite = {
 			focus = BUL_the_tsars_regime
-			focus = BUL_democratic_principles
 		}
 		icon = GFX_focus_hol_the_foundations_of_defense
 		relative_position_id = BUL_the_tsars_regime
-		x = -1
+		x = -3
 		y = 1
 		cost = 10
 		available = {
@@ -4162,12 +3246,11 @@ focus_tree = {
 	focus = {
 		id = BUL_freedom_of_press
 		prerequisite = {
-			focus = BUL_democratic_principles
 			focus = BUL_the_tsars_regime
 		}
 		icon = GFX_focus_generic_treaty
-		relative_position_id = BUL_democratic_principles
-		x = 3
+		relative_position_id = BUL_the_tsars_regime
+		x = -1
 		y = 1
 		cost = 10
 		available = {
@@ -4568,7 +3651,6 @@ focus_tree = {
 		id = BUL_liberalization_of_trade_policies
 		prerequisite = {
 			focus = BUL_illusions_of_a_non_partisan_system
-			focus = BUL_petorka
 		}
 		icon = GFX_goal_generic_trade
 		relative_position_id = BUL_illusions_of_a_non_partisan_system
@@ -4624,8 +3706,8 @@ focus_tree = {
 		}
 		icon = GFX_focus_BUL_the_return_of_ferdinand
 		relative_position_id = BUL_plot_against_boris
-		x = -1
-		y = 1
+		x =  1
+		y =1
 		cost = 10
 		mutually_exclusive = {
 			focus = BUL_form_a_regency_council
@@ -4883,7 +3965,7 @@ focus_tree = {
 		}
 		icon = GFX_focus_BUL_form_a_regency_council
 		relative_position_id = BUL_plot_against_boris
-		x = 1
+		x = -1
 		y = 1
 		cost = 10
 		mutually_exclusive = {
@@ -4991,7 +4073,7 @@ focus_tree = {
 		}
 		icon = GFX_focus_generic_diplomatic_treaty
 		relative_position_id = BUL_power_to_the_tsar
-		x = 0
+		x = 3
 		y = 2
 		cost = 10
 		mutually_exclusive = {
@@ -6186,8 +5268,8 @@ focus_tree = {
 		}
 		icon = GFX_focus_BUL_the_third_bulgarian_empire
 		relative_position_id = BUL_join_the_tripartite_pact
-		x = 0
-		y = 2
+		x = 3
+		y = 1
 		cost = 10
 		available = {
 			is_subject = no

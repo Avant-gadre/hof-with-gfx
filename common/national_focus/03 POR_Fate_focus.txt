@@ -12,7 +12,6 @@ focus_tree = {
 		modifier = {
 			add = 10
 			tag = POR
-			has_dlc = "La Resistance"
 		}
 	}
 	default = no
@@ -43,527 +42,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = POR_colonial_army
-		available = {
-			any_owned_state = {
-				NOT = {
-					is_core_of = ROOT
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_colonial_assimilation_policy
-		}
-		icon = GFX_focus_generic_little_entente
-		x = -2
-		y = 1
-		relative_position_id = POR_colonial_assimilation_policy
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
-		}
-		completion_reward = {
-			add_ideas = POR_colonial_army
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = POR_francisco_craveiro_lopes
-		}
-	}
-	focus = {
-		id = POR_luso_tropicalism
-		available = {
-			NOT = {
-				has_government = fascism
-			}
-			OR = {
-				has_full_control_of_state = 796				#North Angola
-				has_full_control_of_state = 540				#Luanda
-				has_full_control_of_state = 891				#South West Angola
-				has_full_control_of_state = 892				#Zambesi
-				has_full_control_of_state = 544				#Mozambique
-				has_full_control_of_state = 896				#Manica e Sofala
-				has_full_control_of_state = 897				#Zambeziá-Mozambique
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				add = 1
-				OR = {
-					has_government = neutrality
-					has_government = fascism
-					has_government = communism
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_colonial_army
-		}
-		mutually_exclusive = {
-			focus = POR_limited_self_rule
-		}
-		icon = GFX_focus_por_luso_tropicalism
-		x = -1
-		y = 1
-		relative_position_id = POR_colonial_army
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION
-		}
-		completion_reward = {
-			unlock_decision_tooltip = POR_mozambique_overseas_territory
-			unlock_decision_tooltip = POR_angola_overseas_province
-		}
-	}
-	focus = {
-		id = POR_limited_self_rule
-		available = {
-			OR = {
-				has_full_control_of_state = 796				#North Angola
-				has_full_control_of_state = 540				#Luanda
-				has_full_control_of_state = 891				#Zambesi
-				has_full_control_of_state = 892				#Southwest Angola
-				has_full_control_of_state = 544				#Mozambique
-				has_full_control_of_state = 896				#Manica e Sofala
-				has_full_control_of_state = 897				#Zambezia
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				OR = {
-					has_government = fascism
-					has_government = neutrality
-				}
-			}
-			modifier = {
-				add = 1
-				OR = {
-					has_government = democratic
-					any_country = {
-						is_in_faction_with = ROOT
-						is_faction_leader = yes
-						has_government = democratic
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_colonial_army
-		}
-		mutually_exclusive = {
-			focus = POR_luso_tropicalism
-		}
-		icon = GFX_focus_por_limited_self_rule
-		x = 1
-		y = 1
-		relative_position_id = POR_colonial_army
-		cost = 10
-		completion_reward = {
-			add_political_power = 120
-			add_manpower = 30000
-			ANG = {
-				if = {
-					limit = {
-						POR = {
-							has_full_control_of_state = 796
-						}
-					}
-					transfer_state = 796
-					POR = {
-						set_country_flag = POR_released_angola_flag
-					}
-				}
-				if = {
-					limit = {
-						POR = {
-							has_full_control_of_state = 540
-						}
-					}
-					transfer_state = 540
-					POR = {
-						set_country_flag = POR_released_angola_flag
-					}
-				}
-				if = {
-					limit = {
-						POR = {
-							has_full_control_of_state = 891
-						}
-					}
-					transfer_state = 891
-					POR = {
-						set_country_flag = POR_released_angola_flag
-					}
-				}
-				if = {
-					limit = {
-						POR = {
-							has_full_control_of_state = 892
-						}
-					}
-					transfer_state = 892
-					POR = {
-						set_country_flag = POR_released_angola_flag
-					}
-				}
-			}
-			MZB = {
-				if = {
-					limit = {
-						POR = {
-							has_full_control_of_state = 544
-						}
-					}
-					transfer_state = 544
-					POR = {
-						set_country_flag = POR_released_mozambique_flag
-					}
-				}
-				if = {
-					limit = {
-						POR = {
-							has_full_control_of_state = 896
-						}
-					}
-					transfer_state = 896
-					POR = {
-						set_country_flag = POR_released_mozambique_flag
-					}
-				}
-				if = {
-					limit = {
-						POR = {
-							has_full_control_of_state = 897
-						}
-					}
-					transfer_state = 897
-					POR = {
-						set_country_flag = POR_released_mozambique_flag
-					}
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_dlc = "Together for Victory"
-						has_dlc = "Man the Guns"
-					}
-				}
-				POR = {
-					if = {
-						limit = {
-							has_country_flag = POR_released_angola_flag
-						}
-						set_autonomy = {
-							target = ANG
-							autonomy_state = autonomy_integrated_puppet
-						}
-					}
-					if = {
-						limit = {
-							has_country_flag = POR_released_mozambique_flag
-						}
-						set_autonomy = {
-							target = MZB
-							autonomy_state = autonomy_integrated_puppet
-						}
-					}
-				}
-			}
-			else = {
-				if = {
-					limit = {
-						has_country_flag = POR_released_angola_flag
-					}
-					POR = {
-						puppet = ANG
-					}
-				}
-				if = {
-					limit = {
-						has_country_flag = POR_released_mozambique_flag
-					}
-					POR = {
-						puppet = MZB
-					}
-				}
-			}
-			every_other_country = {
-				limit = {
-					has_government = democratic
-				}
-				add_opinion_modifier = {
-					target = POR
-					modifier = democratic_leanings_good
-				}
-			}
-			if = {
-				limit = {
-					has_completed_focus = POR_allow_free_elections
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = POR_francisco_da_cunha_leal
-			}
-		}
-	}
-	focus = {
-		id = POR_infrastructure_in_angola
-		available = {
-			OR = {
-				has_full_control_of_state = 796
-				796 = {
-					owner = {
-						is_subject_of = ROOT
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_colonial_assimilation_policy
-		}
-		icon = GFX_focus_generic_africa_infrastructure
-		x = 2
-		y = 0
-		relative_position_id = POR_limited_self_rule
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			796 = {
-				add_building_construction = {
-					type = naval_base
-					level = 2
-					province = 2115
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_extra_state_shared_building_slots = 1
-			}
-			540 = {
-				add_building_construction = {
-					type = naval_base
-					level = 3
-					province = 8248
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_extra_state_shared_building_slots = 1
-			}
-		}
-	}
-	focus = {
-		id = POR_develop_north_angola
-		available = {
-			OR = {
-				has_full_control_of_state = 796
-				796 = {
-					owner = {
-						is_subject_of = ROOT
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_infrastructure_in_angola
-		}
-		prerequisite = {
-			focus = POR_roads_bridges_and_dams
-		}
-		icon = GFX_focus_generic_africa_factory
-		x = 0
-		y = 1
-		relative_position_id = POR_infrastructure_in_angola
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			796 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_resource = {
-					type = steel
-					amount = 8
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_develop_south_angola
-		available = {
-			OR = {
-				has_full_control_of_state = 540
-				540 = {
-					owner = {
-						is_subject_of = ROOT
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_develop_north_angola
-		}
-		icon = GFX_focus_generic_africa_production
-		x = 0
-		y = 1
-		relative_position_id = POR_develop_north_angola
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			540 = {
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = naval_base
-					level = 2
-					province = 8248
-					instant_build = yes
-				}
-				add_resource = {
-					type = steel
-					amount = 8
-				}
-				add_resource = {
-					type = rubber
-					amount = 4
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_portuguese_oil
-		available = {
-			OR = {
-				has_full_control_of_state = 796
-				796 = {
-					owner = {
-						is_subject_of = ROOT
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_develop_south_angola
-		}
-		icon = GFX_goal_generic_oil_refinery
-		x = -1
-		y = 1
-		relative_position_id = POR_develop_south_angola
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			796 = {
-				add_resource = {
-					type = oil
-					amount = 12
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_develop_mozambique
-		available = {
-			OR = {
-				has_full_control_of_state = 544
-				544 = {
-					owner = {
-						is_subject_of = ROOT
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_develop_south_angola
-		}
-		icon = GFX_focus_generic_africa_naval
-		x = 1
-		y = 1
-		relative_position_id = POR_develop_south_angola
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			544 = {
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = naval_base
-					level = 2
-					province = 2123
-					instant_build = yes
-				}
-				add_resource = {
-					type = aluminium
-					amount = 12
-				}
-			}
-		}
-	}
-	focus = {
 		id = POR_continue_the_public_works
 		available = {
 			OR = {
 				has_full_control_of_state = 180				#PORTO
 				has_full_control_of_state = 181				#GUARDA
-				has_full_control_of_state = 795				#SANTAREM
+				has_full_control_of_state = 939				#SANTAREM
 				has_full_control_of_state = 179				#BEJA
 				has_full_control_of_state = 112				#LISBON
 			}
@@ -607,9 +91,9 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_full_control_of_state = 795
+					has_full_control_of_state = 939
 				}
-				795 = {
+				939 = {
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = infrastructure
@@ -654,790 +138,31 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = POR_instituto_superior_tecnico
+		id = POR_british_industrial_investments
 		available = {
+			has_capitulated = no
+			ENG = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+				has_civil_war = no
+				has_capitulated = no
+				owns_state = 126				#Owns London
+			}
 		}
 		bypass = {
+			NOT = {
+				country_exists = ENG
+			}
 		}
 		prerequisite = {
 			focus = POR_continue_the_public_works
-		}
-		icon = GFX_focus_research
-		x = -2
-		y = 1
-		relative_position_id = POR_continue_the_public_works
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_research_slot = 1
-		}
-	}
-	focus = {
-		id = POR_ogme
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_instituto_superior_tecnico
-		}
-		icon = GFX_goal_generic_build_airforce
-		x = -3
-		y = 1
-		relative_position_id = POR_instituto_superior_tecnico
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = POR_ogme_organization
-				mio:POR_ogme_organization = {
-					add_mio_funds = 500
-				}
-			}
-			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = ogme
-			}
-		}
-	}
-	focus = {
-		id = POR_ogma
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_instituto_superior_tecnico
-		}
-		icon = GFX_goal_generic_air_production
-		x = -1
-		y = 1
-		relative_position_id = POR_instituto_superior_tecnico
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = POR_ogma_organization
-				mio:POR_ogma_organization = {
-					add_mio_funds = 500
-				}
-			}
-			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = ogma
-			}
-		}
-	}
-	focus = {
-		id = POR_roads_bridges_and_dams
-		available = {
-			OR = {
-				has_full_control_of_state = 181				#GUARDA
-				has_full_control_of_state = 795				#SANTAREM
-				has_full_control_of_state = 179				#BEJA
-				has_full_control_of_state = 180				#PORTO
-				has_full_control_of_state = 112				#LISBON
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_instituto_superior_tecnico
-		}
-		icon = GFX_goal_generic_construct_infrastructure
-		x = 2
-		y = 0
-		relative_position_id = POR_infrastructure_in_angola
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 181
-				}
-				181 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 795
-				}
-				795 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 179
-				}
-				179 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 180
-				}
-				180 = {
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = naval_base
-						level = 2
-						province = 9817
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_extraction_industries
-		available = {
-			OR = {
-				has_full_control_of_state = 112
-				has_full_control_of_state = 795
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_roads_bridges_and_dams
-		}
-		icon = GFX_goal_generic_construction2
-		x = 0
-		y = 1
-		relative_position_id = POR_roads_bridges_and_dams
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				unlock_decision_tooltip = POR_develop_lisbon_tungsten_deposits
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 795
-				}
-				unlock_decision_tooltip = POR_develop_santarem_chromium_deposits
-			}
-		}
-	}
-	focus = {
-		id = POR_hydroelectricity
-		available = {
-			OR = {
-				has_full_control_of_state = 180				#PORTO
-				has_full_control_of_state = 181				#GUARDA
-				has_full_control_of_state = 179				#BEJA
-				has_full_control_of_state = 112				#LISBON
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_extraction_industries
-		}
-		icon = GFX_goal_generic_construction
-		x = 0
-		y = 1
-		relative_position_id = POR_extraction_industries
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_ideas = POR_hydroelectric_power
-			if = {
-				limit = {
-					has_full_control_of_state = 180
-				}
-				180 = {
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					add_extra_state_shared_building_slots = 1
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 181
-				}
-				181 = {
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					add_extra_state_shared_building_slots = 1
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_military_vehicles
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_ogme
-		}
-		icon = GFX_goal_generic_army_motorized
-		x = 0
-		y = 1
-		relative_position_id = POR_ogme
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_military_vehicles
-				bonus = 1
-				uses = 1
-				category = motorized_equipment
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_portuguese_artillery
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_military_vehicles
-		}
-		icon = GFX_goal_generic_army_artillery
-		x = -1
-		y = 1
-		relative_position_id = POR_military_vehicles
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_portuguese_artillery
-				bonus = 1
-				uses = 1
-				category = artillery
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 179
-				}
-				179 = {
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = arms_factory
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 2
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = arms_factory
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = POR_fma_organization
-				mio:HOL_daf_organization = {
-					add_mio_funds = 500
-				}
-			}
-			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = fma
-			}
-		}
-	}
-	focus = {
-		id = POR_advanced_artillery
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_portuguese_artillery
-		}
-		icon = GFX_goal_generic_army_artillery2
-		x = 0
-		y = 1
-		relative_position_id = POR_portuguese_artillery
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_advanced_artillery
-				bonus = 1
-				uses = 2
-				category = artillery
-			}
-			add_doctrine_cost_reduction = {
-				name = POR_advanced_artillery
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-				category = naval_doctrine
-				category = air_doctrine
-			}
-		}
-	}
-	focus = {
-		id = POR_military_research_facilities
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_military_vehicles
-			focus = POR_portuguese_artillery
-			focus = POR_light_aircraft_focus
-		}
-		icon = GFX_focus_research
-		x = 1
-		y = 1
-		relative_position_id = POR_military_vehicles
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_research_slot = 1
-		}
-	}
-	focus = {
-		id = POR_armor_focus
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_military_research_facilities
-		}
-		mutually_exclusive = {
-			focus = POR_advanced_light_aircraft
-		}
-		icon = GFX_goal_generic_army_tanks
-		x = 0
-		y = 1
-		relative_position_id = POR_military_research_facilities
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			add_tech_bonus = {
-				name = POR_armor_focus
-				bonus = 1
-				uses = 1
-				category = armor
-			}
-		}
-	}
-	focus = {
-		id = POR_mechanized_focus
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_armor_focus
-		}
-		icon = GFX_goal_generic_build_tank
-		x = 0
-		y = 1
-		relative_position_id = POR_armor_focus
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_mechanized_focus
-				bonus = 1
-				uses = 1
-				category = cat_mechanized_equipment
-			}
-		}
-	}
-	focus = {
-		id = POR_light_aircraft_focus
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_ogma
-		}
-		icon = GFX_goal_generic_air_fighter2
-		x = 0
-		y = 1
-		relative_position_id = POR_ogma
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_light_aircraft_focus
-				bonus = 1
-				uses = 1
-				category = light_air
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			air_experience = 25
-		}
-	}
-	focus = {
-		id = POR_advanced_light_aircraft
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_light_aircraft_focus
-		}
-		mutually_exclusive = {
-			focus = POR_armor_focus
-		}
-		icon = GFX_goal_generic_air_bomber
-		x = 1
-		y = 2
-		relative_position_id = POR_light_aircraft_focus
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_advanced_light_aircraft
-				bonus = 1
-				uses = 1
-				category = light_air
-			}
-			air_experience = 50
-			add_ideas = POR_advanced_light_aircraft
-		}
-	}
-	focus = {
-		id = POR_jet_research
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_advanced_light_aircraft
-		}
-		icon = GFX_goal_generic_air_fighter
-		x = 0
-		y = 1
-		relative_position_id = POR_advanced_light_aircraft
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_jet_research
-				bonus = 1
-				uses = 1
-				category = jet_technology
-			}
-		}
-	}
-	focus = {
-		id = POR_industrial_modernization
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_instituto_superior_tecnico
-		}
-		mutually_exclusive = {
-			focus = POR_food_industries
-		}
-		icon = GFX_goal_generic_construct_civ_factory
-		x = 1
-		y = 1
-		relative_position_id = POR_instituto_superior_tecnico
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_industrial_modernization
-				bonus = 1
-				uses = 2
-				category = industry
-			}
-		}
-	}
-	focus = {
-		id = POR_a_new_industry
-		available = {
-			has_tech = advanced_machine_tools
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_industrial_modernization
 		}
 		icon = GFX_focus_generic_industry_3
 		x = 0
 		y = 1
-		relative_position_id = POR_industrial_modernization
+		relative_position_id = POR_continue_the_public_works
 		cost = 10
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
@@ -1448,6 +173,7 @@ focus_tree = {
 					has_full_control_of_state = 112
 				}
 				112 = {
+					#Lisbon
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
@@ -1456,71 +182,12 @@ focus_tree = {
 					}
 				}
 			}
-			if = {
-				limit = {
-					has_full_control_of_state = 795
-				}
-				795 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-						free_building_slots = {
-							building = industrial_complex
-							size > 2
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			add_ideas = POR_a_new_industry
-		}
-	}
-	focus = {
-		id = POR_food_industries
-		available = {
-			OR = {
-				has_full_control_of_state = 180
-				has_full_control_of_state = 181
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_continue_the_public_works
-		}
-		mutually_exclusive = {
-			focus = POR_industrial_modernization
-		}
-		icon = GFX_goal_generic_consumer_goods
-		x = 1
-		y = 2
-		relative_position_id = POR_continue_the_public_works
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
 			if = {
 				limit = {
 					has_full_control_of_state = 180
 				}
 				180 = {
+					#Porto
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
@@ -1534,59 +201,351 @@ focus_tree = {
 					has_full_control_of_state = 181
 				}
 				181 = {
+					#Guarda
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
 						level = 1
 						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 179
+				}
+				179 = {
+					#Beja
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_completed_focus = POR_estado_novo
+				}
+				remove_ideas = POR_estado_novo
+			}
+			hidden_effect = {
+				add_ai_strategy = {
+					type = befriend
+					id = ENG
+					value = 100
+				}
+				ENG = {
+					add_ai_strategy = {
+						type = befriend
+						id = ROOT
+						value = 100
 					}
 				}
 			}
 		}
 	}
 	focus = {
-		id = POR_textile_industry
+		id = POR_british_investment_in_mines
 		available = {
-			OR = {
-				has_full_control_of_state = 179
-				has_full_control_of_state = 112
+			NOT = {
+				has_government = communism
 			}
+			ENG = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+				has_civil_war = no
+				has_capitulated = no
+				owns_state = 126				#Owns London
+			}
+		}
+		bypass = {
+			NOT = {
+				country_exists = ENG
+			}
+		}
+		prerequisite = {
+			focus = POR_continue_the_public_works
+		}
+		icon = GFX_goal_generic_construct_civilian
+		x = 2
+		y = 1
+		relative_position_id = POR_continue_the_public_works
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				add_resource = {
+					type = tungsten
+					amount = 50
+					state = 112					#Lisbon
+				}
+			}
+			add_tech_bonus = {
+				name = POR_british_investment_in_mines
+				bonus = 1
+				uses = 2
+				category = industry
+			}
+			add_timed_idea = {
+				idea = POR_british_influence
+				days = 1460
+			}
+			hidden_effect = {
+				add_ai_strategy = {
+					type = befriend
+					id = ENG
+					value = 50
+				}
+				ENG = {
+					add_ai_strategy = {
+						type = befriend
+						id = ROOT
+						value = 50
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_army_reorganization
+		available = {
 		}
 		bypass = {
 		}
 		prerequisite = {
-			focus = POR_food_industries
 		}
-		icon = GFX_goal_generic_trade
-		x = 0
+		icon = GFX_focus_generic_combined_arms
+		x = -8
+		y = 0
+		relative_position_id = POR_continue_the_public_works
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		completion_reward = {
+			# remove_ideas = POR_unreliable_army
+			army_experience = 15
+			add_stability = -0.05
+		}
+	}
+	focus = {
+		id = POR_field_maneuvers
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_army_reorganization
+		}
+		icon = GFX_focus_generic_manpower
+		x = 3
 		y = 1
-		relative_position_id = POR_food_industries
+		relative_position_id = POR_army_reorganization
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			army_experience = 15
+			add_doctrine_cost_reduction = {
+				name = POR_field_maneuvers
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = POR_corpo_do_estado_maior
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_army_reorganization
+		}
+		icon = GFX_goal_generic_army_doctrines
+		x = 1
+		y = 1
+		relative_position_id = POR_army_reorganization
+		cost = 10
+		completion_reward = {
+			add_ideas = POR_corpo_do_estado_maior
+			army_experience = 20
+		}
+	}
+	focus = {
+		id = POR_staff_wargames
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_corpo_do_estado_maior
+		}
+		icon = GFX_focus_generic_license_production
+		x = -2
+		y = 1
+		relative_position_id = POR_corpo_do_estado_maior
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = POR_staff_wargames
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = POR_metropolitan_army
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_army_reorganization
+		}
+		icon = GFX_focus_eng_move_to_secure_the_dominions
+		x = -1
+		y = 1
+		relative_position_id = POR_army_reorganization
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			army_experience = 20
+			add_tech_bonus = {
+				name = POR_metropolitan_army
+				bonus = 1
+				uses = 2
+				category = infantry_weapons
+				category = armor
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = POR_standardization
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_metropolitan_army
+		}
+		icon = GFX_focus_generic_rubber
+		x = 2
+		y = 1
+		relative_position_id = POR_metropolitan_army
 		cost = 10
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 179
-				}
-				179 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
+			add_ideas = POR_standardization
+		}
+	}
+	focus = {
+		id = POR_rebuild_the_lines_of_torres_vedras
+		available = {
+			has_full_control_of_state = 112
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_standardization
+		}
+		mutually_exclusive = {
+			focus = POR_defend_the_borders
+		}
+		icon = GFX_goal_generic_defence
+		x = 0
+		y = 1
+		relative_position_id = POR_standardization
+		cost = 10
+		completion_reward = {
+			112 = {
+				#Lisbon
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
 					}
 				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = 11805
+				}
 			}
+		}
+	}
+	focus = {
+		id = POR_defend_the_borders
+		available = {
+			OR = {
+				has_full_control_of_state = 112
+				has_full_control_of_state = 180
+				has_full_control_of_state = 179
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_standardization
+		}
+		mutually_exclusive = {
+			focus = POR_rebuild_the_lines_of_torres_vedras
+		}
+		icon = GFX_focus_generic_provoke_border_clashes
+		x = -2
+		y = 1
+		relative_position_id = POR_standardization
+		cost = 10
+		completion_reward = {
+			#Add coastal fort to each port
 			if = {
 				limit = {
 					has_full_control_of_state = 112
 				}
 				112 = {
-					add_extra_state_shared_building_slots = 1
+					#Lisbon
 					add_building_construction = {
-						type = industrial_complex
+						type = coastal_bunker
+						province = {
+							all_provinces = yes
+							limit_to_naval_base = yes
+						}
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
 						level = 1
 						instant_build = yes
 					}
@@ -1594,16 +553,114 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_full_control_of_state = 795
+					has_full_control_of_state = 180
 				}
-				795 = {
-					add_extra_state_shared_building_slots = 1
+				180 = {
+					#Porto
 					add_building_construction = {
-						type = industrial_complex
+						type = coastal_bunker
+						province = {
+							all_provinces = yes
+							limit_to_naval_base = yes
+						}
 						level = 1
 						instant_build = yes
 					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+					}
 				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 179
+				}
+				179 = {
+					#Beja
+					add_building_construction = {
+						type = coastal_bunker
+						province = {
+							all_provinces = yes
+							limit_to_naval_base = yes
+						}
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_tropas_paraquedistas
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_defend_the_borders
+			focus = POR_rebuild_the_lines_of_torres_vedras
+		}
+		icon = GFX_focus_generic_paratrooper
+		x = 1
+		y = 1
+		relative_position_id = POR_defend_the_borders
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_tropas_paraquedistas
+				bonus = 2
+				uses = 1
+				category = para_tech
+			}
+		}
+	}
+	focus = {
+		id = POR_regimento_de_comandos
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_tropas_paraquedistas
+		}
+		icon = GFX_goal_generic_special_forces
+		x = 0
+		y = 1
+		relative_position_id = POR_tropas_paraquedistas
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_ideas = special_forces
+			add_tech_bonus = {
+				name = POR_regimento_de_comandos
+				bonus = 1
+				uses = 2
+				technology = paratroopers
+				technology = paratroopers2
+				technology = marines
+				technology = marines2
+				technology = tech_mountaineers
+				technology = tech_mountaineers2
 			}
 		}
 	}
@@ -1658,6 +715,450 @@ focus_tree = {
 			}
 			unlock_decision_tooltip = POR_buy_ships_britain
 			unlock_decision_tooltip = POR_buy_ships_italy
+		}
+	}
+	focus = {
+		id = POR_national_cruiser_production
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_second_navy_reequipment
+		}
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 2
+		y = 1
+		relative_position_id = POR_second_navy_reequipment
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_national_cruiser_production
+				bonus = 1
+				uses = 1
+				category = ca_tech
+			}
+			add_tech_bonus = {
+				name = POR_national_cruiser_production
+				bonus = 1
+				uses = 1
+				category = cl_tech
+			}
+			navy_experience = 50
+		}
+	}
+	focus = {
+		id = POR_endless_sea
+		available = {
+			OR = {
+				has_full_control_of_state = 321
+				has_full_control_of_state = 729
+				has_full_control_of_state = 721
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_national_cruiser_production
+		}
+		icon = GFX_focus_generic_coastal_fort
+		x = -2
+		y = 2
+		relative_position_id = POR_national_cruiser_production
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_ideas = POR_endless_sea
+			if = {
+				limit = {
+					has_full_control_of_state = 321
+				}
+				321 = {
+					#Goa
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						province = 1273
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 1273
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 729
+				}
+				729 = {
+					#Macau
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						province = 4189
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 4189
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 721
+				}
+				721 = {
+					#Portuguese Timor
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						province = 12190
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 12190
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_atlantic_defense_strategy
+		available = {
+			OR = {
+				has_full_control_of_state = 698
+				has_full_control_of_state = 697
+				has_full_control_of_state = 702
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_national_cruiser_production
+		}
+		icon = GFX_focus_generic_destroyer
+		x = 0
+		y = 2
+		relative_position_id = POR_national_cruiser_production
+		cost = 10
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 698
+				}
+				698 = {
+					#Azores
+					add_building_construction = {
+						type = coastal_bunker
+						level = 2
+						province = 1751
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 697
+				}
+				697 = {
+					#Madeira
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						province = 3118
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 702
+				}
+				702 = {
+					#Cape Verde
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						province = 13014
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_carrier_effort
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_national_cruiser_production
+		}
+		icon = GFX_goal_generic_navy_carrier
+		x = 1
+		y = 1
+		relative_position_id = POR_national_cruiser_production
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_carrier_effort
+				bonus = 1
+				uses = 2
+				category = cv_tech
+			}
+			add_doctrine_cost_reduction = {
+				name = POR_carrier_effort
+				cost_reduction = 0.5
+				uses = 1
+				category = base_strike_main
+			}
+		}
+	}
+	focus = {
+		id = POR_battleship_effort
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_national_cruiser_production
+		}
+		icon = GFX_focus_generic_navy_battleship2
+		x = -1
+		y = 1
+		relative_position_id = POR_national_cruiser_production
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_battleship_effort
+				bonus = 1
+				uses = 2
+				category = bb_tech
+			}
+			add_doctrine_cost_reduction = {
+				name = POR_battleship_effort
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_fleet_in_being
+			}
+		}
+	}
+	focus = {
+		id = POR_arsenal_do_alfeite
+		available = {
+			has_full_control_of_state = 112
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_second_navy_reequipment
+		}
+		icon = GFX_goal_generic_navy_cruiser
+		x = 0
+		y = 1
+		relative_position_id = POR_second_navy_reequipment
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_arsenal_do_alfeite
+				bonus = 1
+				uses = 1
+				category = ca_tech
+			}
+			add_tech_bonus = {
+				name = POR_arsenal_do_alfeite
+				bonus = 1
+				uses = 1
+				category = cl_tech
+			}
+			112 = {
+				#Lisbon
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 11805
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_naval_research_institute
+		available = {
+			num_of_naval_factories > 15
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_second_navy_reequipment
+		}
+		icon = GFX_focus_research
+		x = -4
+		y = 1
+		relative_position_id = POR_second_navy_reequipment
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			navy_experience = 50
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = POR_air_naval_research
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_naval_research_institute
+		}
+		prerequisite = {
+			focus = POR_advanced_light_aircraft
+		}
+		icon = GFX_goal_generic_air_naval_bomber
+		x = 0
+		y = 3
+		relative_position_id = POR_naval_research_institute
+		cost = 10
+		completion_reward = {
+			navy_experience = 50
+			air_experience = 50
+		}
+	}
+	focus = {
+		id = POR_submarine_effort
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_second_navy_reequipment
+		}
+		icon = GFX_goal_generic_navy_submarine
+		x = -3
+		y = 2
+		relative_position_id = POR_second_navy_reequipment
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = POR_submarine_effort
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_trade_interdiction
+			}
+			add_tech_bonus = {
+				name = POR_submarine_effort
+				bonus = 1
+				uses = 2
+				category = ss_tech
+			}
+		}
+	}
+	focus = {
+		id = POR_fuzileiros
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_submarine_effort
+		}
+		prerequisite = {
+			focus = POR_merchant_marine_protection
+		}
+		icon = GFX_goal_generic_occupy_states_coastal
+		x = 1
+		y = 1
+		relative_position_id = POR_submarine_effort
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_fuzileiros
+				bonus = 1
+				uses = 2
+				category = marine_tech
+			}
+			add_tech_bonus = {
+				name = POR_fuzileiros
+				bonus = 1
+				uses = 2
+				category = tp_tech
+			}
+			# AI will build the required docks for the next focus
+			add_ai_strategy = {
+				type = building_target
+				id = dockyard
+				value = 15
+			}
 		}
 	}
 	focus = {
@@ -1792,892 +1293,24 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = POR_submarine_effort
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_second_navy_reequipment
-		}
-		icon = GFX_goal_generic_navy_submarine
-		x = -3
-		y = 2
-		relative_position_id = POR_second_navy_reequipment
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = POR_submarine_effort
-				cost_reduction = 0.5
-				uses = 1
-				category = cat_trade_interdiction
-			}
-			add_tech_bonus = {
-				name = POR_submarine_effort
-				bonus = 1
-				uses = 2
-				category = ss_tech
-			}
-		}
-	}
-	focus = {
-		id = POR_fuzileiros
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_submarine_effort
-		}
-		prerequisite = {
-			focus = POR_merchant_marine_protection
-		}
-		icon = GFX_goal_generic_occupy_states_coastal
-		x = 1
-		y = 1
-		relative_position_id = POR_submarine_effort
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_fuzileiros
-				bonus = 1
-				uses = 2
-				category = marine_tech
-			}
-			add_tech_bonus = {
-				name = POR_fuzileiros
-				bonus = 1
-				uses = 2
-				category = tp_tech
-			}
-			# AI will build the required docks for the next focus
-			add_ai_strategy = {
-				type = building_target
-				id = dockyard
-				value = 15
-			}
-		}
-	}
-	focus = {
-		id = POR_naval_research_institute
-		available = {
-			num_of_naval_factories > 15
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_second_navy_reequipment
-		}
-		icon = GFX_focus_research
-		x = -4
-		y = 1
-		relative_position_id = POR_second_navy_reequipment
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			navy_experience = 50
-			add_research_slot = 1
-		}
-	}
-	focus = {
-		id = POR_air_naval_research
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_naval_research_institute
-		}
-		prerequisite = {
-			focus = POR_advanced_light_aircraft
-		}
-		icon = GFX_goal_generic_air_naval_bomber
-		x = 0
-		y = 3
-		relative_position_id = POR_naval_research_institute
-		cost = 10
-		completion_reward = {
-			navy_experience = 50
-			air_experience = 50
-		}
-	}
-	focus = {
-		id = POR_arsenal_do_alfeite
-		available = {
-			has_full_control_of_state = 112
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_second_navy_reequipment
-		}
-		icon = GFX_goal_generic_navy_cruiser
-		x = 0
-		y = 1
-		relative_position_id = POR_second_navy_reequipment
-		cost = 20
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_arsenal_do_alfeite
-				bonus = 1
-				uses = 1
-				category = ca_tech
-			}
-			add_tech_bonus = {
-				name = POR_arsenal_do_alfeite
-				bonus = 1
-				uses = 1
-				category = cl_tech
-			}
-			112 = {
-				#Lisbon
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = naval_base
-					level = 2
-					instant_build = yes
-					province = 11805
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_national_cruiser_production
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_second_navy_reequipment
-		}
-		icon = GFX_goal_generic_construct_naval_dockyard
-		x = 2
-		y = 1
-		relative_position_id = POR_second_navy_reequipment
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_national_cruiser_production
-				bonus = 1
-				uses = 1
-				category = ca_tech
-			}
-			add_tech_bonus = {
-				name = POR_national_cruiser_production
-				bonus = 1
-				uses = 1
-				category = cl_tech
-			}
-			navy_experience = 50
-		}
-	}
-	focus = {
-		id = POR_battleship_effort
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_national_cruiser_production
-		}
-		icon = GFX_focus_generic_navy_battleship2
-		x = -1
-		y = 1
-		relative_position_id = POR_national_cruiser_production
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_battleship_effort
-				bonus = 1
-				uses = 2
-				category = bb_tech
-			}
-			add_doctrine_cost_reduction = {
-				name = POR_battleship_effort
-				cost_reduction = 0.5
-				uses = 1
-				category = cat_fleet_in_being
-			}
-		}
-	}
-	focus = {
-		id = POR_carrier_effort
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_national_cruiser_production
-		}
-		icon = GFX_goal_generic_navy_carrier
-		x = 1
-		y = 1
-		relative_position_id = POR_national_cruiser_production
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_carrier_effort
-				bonus = 1
-				uses = 2
-				category = cv_tech
-			}
-			add_doctrine_cost_reduction = {
-				name = POR_carrier_effort
-				cost_reduction = 0.5
-				uses = 1
-				category = base_strike_main
-			}
-		}
-	}
-	focus = {
-		id = POR_atlantic_defense_strategy
+		id = POR_food_industries
 		available = {
 			OR = {
-				has_full_control_of_state = 698
-				has_full_control_of_state = 697
-				has_full_control_of_state = 702
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_national_cruiser_production
-		}
-		icon = GFX_focus_generic_destroyer
-		x = 0
-		y = 2
-		relative_position_id = POR_national_cruiser_production
-		cost = 10
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 698
-				}
-				698 = {
-					#Azores
-					add_building_construction = {
-						type = coastal_bunker
-						level = 2
-						province = 1751
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 697
-				}
-				697 = {
-					#Madeira
-					add_building_construction = {
-						type = coastal_bunker
-						level = 1
-						province = 3118
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 702
-				}
-				702 = {
-					#Cape Verde
-					add_building_construction = {
-						type = coastal_bunker
-						level = 1
-						province = 13014
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_endless_sea
-		available = {
-			OR = {
-				has_full_control_of_state = 321
-				has_full_control_of_state = 729
-				has_full_control_of_state = 721
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_national_cruiser_production
-		}
-		icon = GFX_focus_generic_coastal_fort
-		x = -2
-		y = 2
-		relative_position_id = POR_national_cruiser_production
-		cost = 20
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_ideas = POR_endless_sea
-			if = {
-				limit = {
-					has_full_control_of_state = 321
-				}
-				321 = {
-					#Goa
-					add_building_construction = {
-						type = coastal_bunker
-						level = 1
-						province = 1273
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						level = 1
-						province = 1273
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 729
-				}
-				729 = {
-					#Macau
-					add_building_construction = {
-						type = coastal_bunker
-						level = 1
-						province = 4189
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						level = 1
-						province = 4189
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 721
-				}
-				721 = {
-					#Portuguese Timor
-					add_building_construction = {
-						type = coastal_bunker
-						level = 1
-						province = 12190
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						level = 1
-						province = 12190
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_army_reorganization
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-		}
-		icon = GFX_focus_generic_combined_arms
-		x = -8
-		y = 0
-		relative_position_id = POR_continue_the_public_works
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
-			FOCUS_FILTER_WAR_SUPPORT
-		}
-		completion_reward = {
-			remove_ideas = POR_unreliable_army
-			army_experience = 15
-			add_stability = -0.05
-		}
-	}
-	focus = {
-		id = POR_metropolitan_army
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_army_reorganization
-		}
-		icon = GFX_focus_eng_move_to_secure_the_dominions
-		x = -1
-		y = 1
-		relative_position_id = POR_army_reorganization
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			army_experience = 20
-			add_tech_bonus = {
-				name = POR_metropolitan_army
-				bonus = 1
-				uses = 2
-				category = infantry_weapons
-				category = armor
-				category = artillery
-			}
-		}
-	}
-	focus = {
-		id = POR_standardization
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_metropolitan_army
-		}
-		icon = GFX_focus_generic_rubber
-		x = 2
-		y = 1
-		relative_position_id = POR_metropolitan_army
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_ideas = POR_standardization
-		}
-	}
-	focus = {
-		id = POR_defend_the_borders
-		available = {
-			OR = {
-				has_full_control_of_state = 112
 				has_full_control_of_state = 180
-				has_full_control_of_state = 179
+				has_full_control_of_state = 181
 			}
 		}
 		bypass = {
-		}
-		prerequisite = {
-			focus = POR_standardization
-		}
-		mutually_exclusive = {
-			focus = POR_rebuild_the_lines_of_torres_vedras
-		}
-		icon = GFX_focus_generic_provoke_border_clashes
-		x = -2
-		y = 1
-		relative_position_id = POR_standardization
-		cost = 10
-		completion_reward = {
-			#Add coastal fort to each port
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					#Lisbon
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_naval_base = yes
-						}
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-						}
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 180
-				}
-				180 = {
-					#Porto
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_naval_base = yes
-						}
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						level = 1
-						instant_build = yes
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 179
-				}
-				179 = {
-					#Beja
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_naval_base = yes
-						}
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						level = 1
-						instant_build = yes
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-						}
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_rebuild_the_lines_of_torres_vedras
-		available = {
-			has_full_control_of_state = 112
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_standardization
-		}
-		mutually_exclusive = {
-			focus = POR_defend_the_borders
-		}
-		icon = GFX_goal_generic_defence
-		x = 0
-		y = 1
-		relative_position_id = POR_standardization
-		cost = 10
-		completion_reward = {
-			112 = {
-				#Lisbon
-				add_building_construction = {
-					type = bunker
-					level = 3
-					instant_build = yes
-					province = {
-						all_provinces = yes
-						limit_to_border = yes
-					}
-				}
-				add_building_construction = {
-					type = coastal_bunker
-					level = 2
-					instant_build = yes
-					province = 11805
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_tropas_paraquedistas
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_defend_the_borders
-			focus = POR_rebuild_the_lines_of_torres_vedras
-		}
-		icon = GFX_focus_generic_paratrooper
-		x = 1
-		y = 1
-		relative_position_id = POR_defend_the_borders
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = POR_tropas_paraquedistas
-				bonus = 2
-				uses = 1
-				category = para_tech
-			}
-		}
-	}
-	focus = {
-		id = POR_regimento_de_comandos
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_tropas_paraquedistas
-		}
-		icon = GFX_goal_generic_special_forces
-		x = 0
-		y = 1
-		relative_position_id = POR_tropas_paraquedistas
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_ideas = special_forces
-			add_tech_bonus = {
-				name = POR_regimento_de_comandos
-				bonus = 1
-				uses = 2
-				technology = paratroopers
-				technology = paratroopers2
-				technology = marines
-				technology = marines2
-				technology = tech_mountaineers
-				technology = tech_mountaineers2
-			}
-		}
-	}
-	focus = {
-		id = POR_corpo_do_estado_maior
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_army_reorganization
-		}
-		icon = GFX_goal_generic_army_doctrines
-		x = 1
-		y = 1
-		relative_position_id = POR_army_reorganization
-		cost = 10
-		completion_reward = {
-			add_ideas = POR_corpo_do_estado_maior
-			army_experience = 20
-		}
-	}
-	focus = {
-		id = POR_staff_wargames
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_corpo_do_estado_maior
-		}
-		icon = GFX_focus_generic_license_production
-		x = -2
-		y = 1
-		relative_position_id = POR_corpo_do_estado_maior
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = POR_staff_wargames
-				cost_reduction = 0.5
-				uses = 2
-				category = land_doctrine
-			}
-		}
-	}
-	focus = {
-		id = POR_field_maneuvers
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_army_reorganization
-		}
-		icon = GFX_focus_generic_manpower
-		x = 3
-		y = 1
-		relative_position_id = POR_army_reorganization
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			army_experience = 15
-			add_doctrine_cost_reduction = {
-				name = POR_field_maneuvers
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
-		}
-	}
-	focus = {
-		id = POR_british_investment_in_mines
-		available = {
-			NOT = {
-				has_government = communism
-			}
-			ENG = {
-				exists = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-				has_civil_war = no
-				has_capitulated = no
-				owns_state = 126				#Owns London
-			}
-		}
-		bypass = {
-			NOT = {
-				country_exists = ENG
-			}
 		}
 		prerequisite = {
 			focus = POR_continue_the_public_works
 		}
-		icon = GFX_goal_generic_construct_civilian
-		x = 2
-		y = 1
-		relative_position_id = POR_continue_the_public_works
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_RESEARCH
-			FOCUS_FILTER_POLITICAL
+		mutually_exclusive = {
+			focus = POR_industrial_modernization
 		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 112
-				}
-				add_resource = {
-					type = tungsten
-					amount = 50
-					state = 112					#Lisbon
-				}
-			}
-			add_tech_bonus = {
-				name = POR_british_investment_in_mines
-				bonus = 1
-				uses = 2
-				category = industry
-			}
-			add_timed_idea = {
-				idea = POR_british_influence
-				days = 1460
-			}
-			hidden_effect = {
-				add_ai_strategy = {
-					type = befriend
-					id = ENG
-					value = 50
-				}
-				ENG = {
-					add_ai_strategy = {
-						type = befriend
-						id = ROOT
-						value = 50
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_british_industrial_investments
-		available = {
-			has_capitulated = no
-			ENG = {
-				exists = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-				has_civil_war = no
-				has_capitulated = no
-				owns_state = 126				#Owns London
-			}
-		}
-		bypass = {
-			NOT = {
-				country_exists = ENG
-			}
-		}
-		prerequisite = {
-			focus = POR_continue_the_public_works
-		}
-		icon = GFX_focus_generic_industry_3
-		x = 0
-		y = 1
+		icon = GFX_goal_generic_consumer_goods
+		x = 1
+		y = 2
 		relative_position_id = POR_continue_the_public_works
 		cost = 10
 		search_filters = {
@@ -2686,24 +1319,9 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					has_full_control_of_state = 112
-				}
-				112 = {
-					#Lisbon
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
 					has_full_control_of_state = 180
 				}
 				180 = {
-					#Porto
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
@@ -2717,10 +1335,995 @@ focus_tree = {
 					has_full_control_of_state = 181
 				}
 				181 = {
-					#Guarda
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_textile_industry
+		available = {
+			OR = {
+				has_full_control_of_state = 179
+				has_full_control_of_state = 112
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_food_industries
+		}
+		icon = GFX_goal_generic_trade
+		x = 0
+		y = 1
+		relative_position_id = POR_food_industries
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 179
+				}
+				179 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				112 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 795
+				}
+				795 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_instituto_superior_tecnico
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_continue_the_public_works
+		}
+		icon = GFX_focus_research
+		x = -2
+		y = 1
+		relative_position_id = POR_continue_the_public_works
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = POR_industrial_modernization
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_instituto_superior_tecnico
+		}
+		mutually_exclusive = {
+			focus = POR_food_industries
+		}
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 1
+		y = 1
+		relative_position_id = POR_instituto_superior_tecnico
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_industrial_modernization
+				bonus = 1
+				uses = 2
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = POR_a_new_industry
+		available = {
+			has_tech = advanced_machine_tools
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_industrial_modernization
+		}
+		icon = GFX_focus_generic_industry_3
+		x = 0
+		y = 1
+		relative_position_id = POR_industrial_modernization
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				112 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 939
+				}
+				939 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+						is_core_of = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			add_ideas = POR_a_new_industry
+		}
+	}
+	focus = {
+		id = POR_ogma
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_instituto_superior_tecnico
+		}
+		icon = GFX_goal_generic_air_production
+		x = -1
+		y = 1
+		relative_position_id = POR_instituto_superior_tecnico
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				112 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = POR_ogma_organization
+				mio:POR_ogma_organization = {
+					add_mio_funds = 500
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = ogma
+			}
+		}
+	}
+	focus = {
+		id = POR_light_aircraft_focus
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_ogma
+		}
+		icon = GFX_goal_generic_air_fighter2
+		x = 0
+		y = 1
+		relative_position_id = POR_ogma
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_light_aircraft_focus
+				bonus = 1
+				uses = 1
+				category = light_air
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				112 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			air_experience = 25
+		}
+	}
+	focus = {
+		id = POR_advanced_light_aircraft
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_light_aircraft_focus
+		}
+		mutually_exclusive = {
+			focus = POR_armor_focus
+		}
+		icon = GFX_goal_generic_air_bomber
+		x = 1
+		y = 2
+		relative_position_id = POR_light_aircraft_focus
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_advanced_light_aircraft
+				bonus = 1
+				uses = 1
+				category = light_air
+			}
+			air_experience = 50
+			add_ideas = POR_advanced_light_aircraft
+		}
+	}
+	focus = {
+		id = POR_jet_research
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_advanced_light_aircraft
+		}
+		icon = GFX_goal_generic_air_fighter
+		x = 0
+		y = 1
+		relative_position_id = POR_advanced_light_aircraft
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_jet_research
+				bonus = 1
+				uses = 1
+				category = jet_technology
+			}
+		}
+	}
+	focus = {
+		id = POR_ogme
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_instituto_superior_tecnico
+		}
+		icon = GFX_goal_generic_build_airforce
+		x = -3
+		y = 1
+		relative_position_id = POR_instituto_superior_tecnico
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				112 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = POR_ogme_organization
+				mio:POR_ogme_organization = {
+					add_mio_funds = 500
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = ogme
+			}
+		}
+	}
+	focus = {
+		id = POR_military_vehicles
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_ogme
+		}
+		icon = GFX_goal_generic_army_motorized
+		x = 0
+		y = 1
+		relative_position_id = POR_ogme
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_military_vehicles
+				bonus = 1
+				uses = 1
+				category = motorized_equipment
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				112 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_military_research_facilities
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_military_vehicles
+			focus = POR_portuguese_artillery
+			focus = POR_light_aircraft_focus
+		}
+		icon = GFX_focus_research
+		x = 1
+		y = 1
+		relative_position_id = POR_military_vehicles
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = POR_armor_focus
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_military_research_facilities
+		}
+		mutually_exclusive = {
+			focus = POR_advanced_light_aircraft
+		}
+		icon = GFX_goal_generic_army_tanks
+		x = 0
+		y = 1
+		relative_position_id = POR_military_research_facilities
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 112
+				}
+				112 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			add_tech_bonus = {
+				name = POR_armor_focus
+				bonus = 1
+				uses = 1
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = POR_mechanized_focus
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_armor_focus
+		}
+		icon = GFX_goal_generic_build_tank
+		x = 0
+		y = 1
+		relative_position_id = POR_armor_focus
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_mechanized_focus
+				bonus = 1
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+	focus = {
+		id = POR_portuguese_artillery
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_military_vehicles
+		}
+		icon = GFX_goal_generic_army_artillery
+		x = -1
+		y = 1
+		relative_position_id = POR_military_vehicles
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_portuguese_artillery
+				bonus = 1
+				uses = 1
+				category = artillery
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 179
+				}
+				179 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = POR_fma_organization
+				mio:HOL_daf_organization = {
+					add_mio_funds = 500
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = fma
+			}
+		}
+	}
+	focus = {
+		id = POR_advanced_artillery
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_portuguese_artillery
+		}
+		icon = GFX_goal_generic_army_artillery2
+		x = 0
+		y = 1
+		relative_position_id = POR_portuguese_artillery
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = POR_advanced_artillery
+				bonus = 1
+				uses = 2
+				category = artillery
+			}
+			add_doctrine_cost_reduction = {
+				name = POR_advanced_artillery
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+				category = naval_doctrine
+				category = air_doctrine
+			}
+		}
+	}
+	focus = {
+		id = POR_colonial_army
+		available = {
+			any_owned_state = {
+				NOT = {
+					is_core_of = ROOT
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_colonial_assimilation_policy
+		}
+		icon = GFX_focus_generic_little_entente
+		x = -2
+		y = 1
+		relative_position_id = POR_colonial_assimilation_policy
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		completion_reward = {
+			add_ideas = POR_colonial_army
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = POR_francisco_craveiro_lopes
+		}
+	}
+	focus = {
+		id = POR_limited_self_rule
+		available = {
+			OR = {
+				has_full_control_of_state = 914				
+				has_full_control_of_state = 881				
+				has_full_control_of_state = 916				
+				has_full_control_of_state = 540				
+				has_full_control_of_state = 917				
+				has_full_control_of_state = 959				
+				has_full_control_of_state = 544				
+				has_full_control_of_state = 954				
+				has_full_control_of_state = 950				
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+			}
+			modifier = {
+				add = 1
+				OR = {
+					has_government = democratic
+					any_country = {
+						is_in_faction_with = ROOT
+						is_faction_leader = yes
+						has_government = democratic
+					}
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_colonial_army
+		}
+		mutually_exclusive = {
+			focus = POR_luso_tropicalism
+		}
+		icon = GFX_focus_por_limited_self_rule
+		x = 1
+		y = 1
+		relative_position_id = POR_colonial_army
+		cost = 10
+		completion_reward = {
+			add_political_power = 120
+			add_manpower = 30000
+			every_controlled_state = {
+				limit = {
+					is_core_of = ANG
+					POR = {
+						has_full_control_of_state = PREV
+					}
+				}
+				transfer_state_to = ANG
+				POR = {
+					set_country_flag = POR_released_angola_flag
+				}
+			}
+			every_controlled_state = {
+				limit = {
+					is_core_of = MZB
+					POR = {
+						has_full_control_of_state = PREV
+					}
+				}
+				transfer_state_to = MZB
+				POR = {
+					set_country_flag = POR_released_mozambique_flag
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Together for Victory"
+						has_dlc = "Man the Guns"
+					}
+				}
+				POR = {
+					if = {
+						limit = {
+							has_country_flag = POR_released_angola_flag
+						}
+						set_autonomy = {
+							target = ANG
+							autonomy_state = autonomy_integrated_puppet
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = POR_released_mozambique_flag
+						}
+						set_autonomy = {
+							target = MZB
+							autonomy_state = autonomy_integrated_puppet
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						has_country_flag = POR_released_angola_flag
+					}
+					POR = {
+						puppet = ANG
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = POR_released_mozambique_flag
+					}
+					POR = {
+						puppet = MZB
+					}
+				}
+			}
+			every_other_country = {
+				limit = {
+					has_government = democratic
+				}
+				add_opinion_modifier = {
+					target = POR
+					modifier = democratic_leanings_good
+				}
+			}
+			if = {
+				limit = {
+					has_completed_focus = POR_allow_free_elections
+				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = POR_francisco_da_cunha_leal
+			}
+		}
+	}
+	focus = {
+		id = POR_infrastructure_in_angola
+		available = {
+			OR = {
+				has_full_control_of_state = 914
+				914 = {
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_colonial_assimilation_policy
+		}
+		icon = GFX_focus_generic_africa_infrastructure
+		x = 2
+		y = 0
+		relative_position_id = POR_limited_self_rule
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			914 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 2115
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			540 = {
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					province = 8248
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	focus = {
+		id = POR_roads_bridges_and_dams
+		available = {
+			OR = {
+				has_full_control_of_state = 181				#GUARDA
+				has_full_control_of_state = 939				#SANTAREM
+				has_full_control_of_state = 179				#BEJA
+				has_full_control_of_state = 180				#PORTO
+				has_full_control_of_state = 112				#LISBON
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_instituto_superior_tecnico
+		}
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 2
+		y = 0
+		relative_position_id = POR_infrastructure_in_angola
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 181
+				}
+				181 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 939
+				}
+				795 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
@@ -2731,10 +2334,9 @@ focus_tree = {
 					has_full_control_of_state = 179
 				}
 				179 = {
-					#Beja
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
-						type = industrial_complex
+						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
@@ -2742,343 +2344,294 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_completed_focus = POR_estado_novo
+					has_full_control_of_state = 180
 				}
-				remove_ideas = POR_estado_novo
+				180 = {
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = naval_base
+						level = 2
+						province = 9817
+						instant_build = yes
+					}
+				}
 			}
-			hidden_effect = {
-				add_ai_strategy = {
-					type = befriend
-					id = ENG
-					value = 100
+			if = {
+				limit = {
+					has_full_control_of_state = 112
 				}
-				ENG = {
-					add_ai_strategy = {
-						type = befriend
-						id = ROOT
-						value = 100
+				112 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 			}
 		}
 	}
 	focus = {
-		id = POR_allow_free_elections
+		id = POR_extraction_industries
 		available = {
-			democratic > 0.5
-			has_war = no
+			OR = {
+				has_full_control_of_state = 112
+				has_full_control_of_state = 939
+			}
 		}
 		bypass = {
 		}
 		prerequisite = {
-			focus = POR_estado_novo
+			focus = POR_roads_bridges_and_dams
 		}
-		icon = GFX_goal_support_democracy
-		x = -2
+		icon = GFX_goal_generic_construction2
+		x = 0
 		y = 1
-		relative_position_id = POR_estado_novo
+		relative_position_id = POR_roads_bridges_and_dams
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
 			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_STABILITY
 		}
 		completion_reward = {
-			every_other_country = {
-				limit = {
-					has_government = democratic
-				}
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_election_opinion_democratic
-				}
-			}
-			remove_ideas = POR_unstable_republic
 			if = {
 				limit = {
-					has_idea = internationalism
+					has_full_control_of_state = 112
 				}
-				remove_ideas = internationalism
-			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = POR_jaime_cortesao
-			custom_effect_tooltip = available_theorist
-			show_ideas_tooltip = POR_jose_manuel_sarmento_de_beires
-			if = {
-				limit = {
-					has_completed_focus = POR_limited_self_rule
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = POR_francisco_da_cunha_leal
-			}
-			create_corps_commander = {
-				name = "José Mendes dos Reis"
-				portrait_path = GFX_portrait_Jose_Mendes_dos_Reis
-				traits = {
-					war_hero
-					infantry_officer
-				}
-				skill = 3
-				attack_skill = 3
-				defense_skill = 2
-				planning_skill = 3
-				logistics_skill = 3
-			}
-			create_navy_leader = {
-				name = "Armando Pereira de Castro Agatão Lança"
-				portrait_path = GFX_portrait_Armando_Pereira_de_Castro_Agatao_Lanca
-				traits = {
-					spotter
-					bold
-				}
-				skill = 3
-				attack_skill = 2
-				defense_skill = 4
-				maneuvering_skill = 3
-				coordination_skill = 2
+				unlock_decision_tooltip = POR_develop_lisbon_tungsten_deposits
 			}
 			if = {
 				limit = {
-					NOT = {
-						has_government = democratic
-					}
+					has_full_control_of_state = 939
 				}
-				set_politics = {
-					ruling_party = democratic
-					elections_allowed = yes
-				}
-				if = {
-					#Low Stability triggers a Civil War
-					limit = {
-						has_stability < 0.4
-					}
-					set_temp_variable = {
-						POR_democratic_cw_opposition = party_popularity@neutrality
-					}
-					multiply_temp_variable = {
-						POR_democratic_cw_opposition = 0.6
-					}
-					add_to_temp_variable = {
-						POR_democratic_cw_opposition = party_popularity@fascism
-					}
-					start_civil_war = {
-						ideology = fascism
-						size = POR_democratic_cw_opposition
-						capital = 180
-						states = {
-							181
-						}
-					}
-				}
-				else = {
-					add_stability = -0.1
-				}
-				custom_effect_tooltip = POR_potential_civil_war_low_requirement_tt
-			}
-			else = {
-				add_political_power = 120
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.05
-				}
+				unlock_decision_tooltip = POR_develop_santarem_chromium_deposits
 			}
 		}
 	}
 	focus = {
-		id = POR_join_the_allies
+		id = POR_hydroelectricity
 		available = {
-			is_in_faction = no
-			any_other_country = {
-				NOT = {
-					has_war_with = ROOT
-				}
-				is_faction_leader = yes
-				is_major = yes
-				has_government = democratic
-			}
-			NOT = {
-				any_other_country = {
-					is_in_faction_with = ENG
-					has_war_with = POR
-				}
-			}
-		}
-		bypass = {
 			OR = {
-				is_in_faction_with = ENG
-				AND = {
-					is_in_faction = yes
-					any_other_country = {
-						is_faction_leader = yes
-						is_in_faction_with = ROOT
-						has_government = democratic
-					}
-				}
+				has_full_control_of_state = 180				#PORTO
+				has_full_control_of_state = 181				#GUARDA
+				has_full_control_of_state = 179				#BEJA
+				has_full_control_of_state = 112				#LISBON
 			}
+		}
+		bypass = {
 		}
 		prerequisite = {
-			focus = POR_send_assistance
+			focus = POR_extraction_industries
 		}
-		icon = GFX_focus_chi_british_cooperation
+		icon = GFX_goal_generic_construction
 		x = 0
-		y = 2
-		relative_position_id = POR_send_assistance
+		y = 1
+		relative_position_id = POR_extraction_industries
 		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		completion_reward = {
+			add_ideas = POR_hydroelectric_power
 			if = {
 				limit = {
-					ENG = {
-						is_faction_leader = yes
-						has_government = democratic
-						not = {
-							has_war_with = ROOT
-						}
-					}
+					has_full_control_of_state = 180
 				}
-				ENG = {
-					country_event = {
-						id = generic.2
-						hours = 4
+				180 = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
+					add_extra_state_shared_building_slots = 1
 				}
 			}
-			else = {
-				get_best_alliance_match_democratic_effect = yes
-				var:best_leader = {
-					country_event = {
-						id = generic.2
-						hours = 4
+			if = {
+				limit = {
+					has_full_control_of_state = 181
+				}
+				181 = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
+					add_extra_state_shared_building_slots = 1
 				}
 			}
 		}
 	}
 	focus = {
-		id = POR_research_sharing
+		id = POR_develop_north_angola
 		available = {
-			is_in_faction_with = ENG
+			OR = {
+				has_full_control_of_state = 914
+				914 = {
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
 		}
 		bypass = {
 		}
 		prerequisite = {
-			focus = POR_join_the_allies
-			focus = POR_honor_anglo_portuguese_alliance
+			focus = POR_infrastructure_in_angola
 		}
-		icon = GFX_focus_research2
+		prerequisite = {
+			focus = POR_roads_bridges_and_dams
+		}
+		icon = GFX_focus_generic_africa_factory
+		x = 0
+		y = 1
+		relative_position_id = POR_infrastructure_in_angola
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			914 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_develop_south_angola
+		available = {
+			OR = {
+				has_full_control_of_state = 540
+				540 = {
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_develop_north_angola
+		}
+		icon = GFX_focus_generic_africa_production
+		x = 0
+		y = 1
+		relative_position_id = POR_develop_north_angola
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			540 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 8248
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+				add_resource = {
+					type = rubber
+					amount = 4
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_develop_mozambique
+		available = {
+			OR = {
+				has_full_control_of_state = 544
+				544 = {
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_develop_south_angola
+		}
+		icon = GFX_focus_generic_africa_naval
 		x = 1
 		y = 1
-		relative_position_id = POR_join_the_allies
+		relative_position_id = POR_develop_south_angola
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			ENG = {
-				add_to_tech_sharing_group = commonwealth_research
-			}
-			add_to_tech_sharing_group = commonwealth_research
-		}
-	}
-	focus = {
-		id = POR_oppose_germany
-		will_lead_to_war_with = GER
-		select_effect = {
-			add_ai_strategy = {
-				type = prepare_for_war
-				id = GER
-				value = 100
-			}
-		}
-		available = {
-			country_exists = GER
-			GER = {
-				has_government = fascism
-				has_capitulated = no
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_join_the_allies
-			focus = POR_honor_anglo_portuguese_alliance
-		}
-		icon = GFX_focus_ger_oppose_hitler
-		x = 3
-		y = 1
-		relative_position_id = POR_join_the_allies
-		cost = 10
-		completion_reward = {
-			create_wargoal = {
-				target = GER
-				type = topple_government
-				expire = 0
-			}
-			hidden_effect = {
-				add_ai_strategy = {
-					type = declare_war
-					id = GER
-					value = 100
+			544 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 2123
+					instant_build = yes
+				}
+				add_resource = {
+					type = aluminium
+					amount = 12
 				}
 			}
 		}
 	}
 	focus = {
-		id = POR_iberian_summit
+		id = POR_portuguese_oil
 		available = {
-			has_global_flag = scw_over
-			has_war = no
-			is_in_faction = no
-			NOT = {
-				has_government = communism
-			}
 			OR = {
-				if = {
-					limit = {
-						NOT = {
-							has_global_flag = spanish_civil_war
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = POR_spr_tooltip_country_exist_tt
-						country_exists = SPR
-					}
-					custom_trigger_tooltip = {
-						tooltip = POR_spr_tooltip_at_peace_tt
-						NOT = {
-							has_war_with = SPR
-						}
-					}
-					SPR = {
-						has_completed_focus = SPR_maintain_the_second_republic
-						has_government = democratic
-					}
-				}
-				else = {
-					AND = {
-						country_exists = SPD
-						SPD = {
-							has_war = no
-							is_in_faction = no
-							has_completed_focus = SPR_maintain_the_second_republic
-							has_government = democratic
-						}
-					}
-				}
-				AND = {
-					country_exists = SPA
-					SPA = {
-						has_war = no
-						is_in_faction = no
-						OR = {
-							has_completed_focus = SPA_the_phalanx_ascendant
-							AND = {
-								has_completed_focus = SPA_unify_the_nationalist_front
-								NOT = {
-									has_completed_focus = SPA_the_iberian_pact
-								}
-							}
-						}
+				has_full_control_of_state = 914
+				914 = {
+					owner = {
+						is_subject_of = ROOT
 					}
 				}
 			}
@@ -3086,19 +2639,71 @@ focus_tree = {
 		bypass = {
 		}
 		prerequisite = {
-			focus = POR_send_assistance
+			focus = POR_develop_south_angola
 		}
-		mutually_exclusive = {
-			focus = POR_nationalist_intervention
-		}
-		icon = GFX_focus_por_iberian_summit
+		icon = GFX_goal_generic_oil_refinery
 		x = -1
 		y = 1
-		relative_position_id = POR_send_assistance
+		relative_position_id = POR_develop_south_angola
 		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		completion_reward = {
-			unlock_decision_tooltip = POR_iberian_summit_pro_axis
-			unlock_decision_tooltip = POR_iberian_summit_pro_allies
+			914 = {
+				add_resource = {
+					type = oil
+					amount = 12
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_luso_tropicalism
+		available = {
+			NOT = {
+				has_government = fascism
+			}
+			OR = {
+				has_full_control_of_state = 796				#North Angola
+				has_full_control_of_state = 540				#Luanda
+				has_full_control_of_state = 891				#South West Angola
+				has_full_control_of_state = 892				#Zambesi
+				has_full_control_of_state = 544				#Mozambique
+				has_full_control_of_state = 896				#Manica e Sofala
+				has_full_control_of_state = 897				#Zambeziá-Mozambique
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				add = 1
+				OR = {
+					has_government = neutrality
+					has_government = fascism
+					has_government = communism
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_colonial_army
+		}
+		mutually_exclusive = {
+			focus = POR_limited_self_rule
+		}
+		icon = GFX_focus_por_luso_tropicalism
+		x = -1
+		y = 1
+		relative_position_id = POR_colonial_army
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			unlock_decision_tooltip = POR_mozambique_overseas_territory
+			unlock_decision_tooltip = POR_angola_overseas_province
 		}
 	}
 	focus = {
@@ -3107,13 +2712,10 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		mutually_exclusive = {
-			focus = POR_a_royal_wedding
-		}
 		prerequisite = {
 		}
 		icon = GFX_focus_por_estado_novo
-		x = 38
+		x = 33
 		y = 0
 		cost = 10
 		search_filters = {
@@ -3133,602 +2735,9 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = POR_observation_mission
-		available = {
-			SPR_scw_in_progress = yes
-			country_exists = SPA
-			NOT = {
-				has_war_with = SPA
-			}
-		}
-		bypass = {
-			has_global_flag = scw_over
-		}
-		prerequisite = {
-			focus = POR_estado_novo
-			focus = POR_a_royal_wedding
-		}
-		icon = GFX_goal_generic_position_armies
-		x = -4
-		y = 1
-		relative_position_id = POR_estado_novo
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = POR_observation_mission
-				cost_reduction = 0.5
-				uses = 1
-				category = air_doctrine
-			}
-			add_tech_bonus = {
-				name = POR_observation_mission
-				bonus = 0.5
-				uses = 1
-				category = light_air
-			}
-			add_tech_bonus = {
-				name = POR_observation_mission
-				bonus = 0.5
-				uses = 1
-				category = cat_light_armor
-			}
-			army_experience = 10
-			air_experience = 20
-			hidden_effect = {
-				add_ai_strategy = {
-					type = befriend
-					id = SPA
-					value = 100
-				}
-				SPA = {
-					add_ai_strategy = {
-						type = befriend
-						id = POR
-						value = 100
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_send_assistance
-		select_effect = {
-			if = {
-				limit = {
-					country_exists = SPD
-					is_neighbor_of = SPD
-				}
-				add_ai_strategy = {
-					type = prepare_for_war
-					id = SPD
-					value = 100
-				}
-			}
-			if = {
-				limit = {
-					country_exists = SPB
-					is_neighbor_of = SPB
-				}
-				add_ai_strategy = {
-					type = prepare_for_war
-					id = SPB
-					value = 100
-				}
-			}
-			if = {
-				limit = {
-					country_exists = SPC
-					is_neighbor_of = SPC
-				}
-				add_ai_strategy = {
-					type = prepare_for_war
-					id = SPC
-					value = 100
-				}
-			}
-		}
-		available = {
-			has_civil_war = no
-			SPR_scw_in_progress = yes
-			country_exists = SPA
-			NOT = {
-				has_war_with = SPA
-			}
-			is_puppet = no
-		}
-		bypass = {
-			has_global_flag = scw_over
-		}
-		prerequisite = {
-			focus = POR_observation_mission
-		}
-		icon = GFX_focus_intervention_spain_nationalists
-		x = 0
-		y = 1
-		relative_position_id = POR_observation_mission
-		cost = 10
-		completion_reward = {
-			unlock_decision_tooltip = POR_fight_alongside_the_nationalists
-			if = {
-				limit = {
-					country_exists = SPD
-				}
-				SPD = {
-					country_event = {
-						id = lar_portugal_spanish_civil_war.2
-					}
-				}
-			}
-			if = {
-				limit = {
-					country_exists = SPB
-				}
-				SPB = {
-					country_event = {
-						id = lar_portugal_spanish_civil_war.2
-					}
-				}
-			}
-			if = {
-				limit = {
-					country_exists = SPC
-				}
-				SPC = {
-					country_event = {
-						id = lar_portugal_spanish_civil_war.2
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_nationalist_intervention
-		select_effect = {
-			every_country = {
-				limit = {
-					original_tag = SPR
-					NOT = {
-						has_government = ROOT
-					}
-					NOT = {
-						is_in_faction_with = ROOT
-					}
-				}
-				POR = {
-					add_ai_strategy = {
-						type = befriend
-						id = PREV
-						value = -100
-					}
-					add_ai_strategy = {
-						type = alliance
-						id = PREV
-						value = -100
-					}
-					add_ai_strategy = {
-						type = prepare_for_war
-						id = PREV
-						value = 100
-					}
-				}
-			}
-		}
-		available = {
-			has_global_flag = scw_over
-			any_country = {
-				original_tag = SPR
-				NOT = {
-					has_government = ROOT
-				}
-				NOT = {
-					is_in_faction_with = ROOT
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_send_assistance
-		}
-		mutually_exclusive = {
-			focus = POR_iberian_summit
-		}
-		icon = GFX_goal_generic_major_war
-		x = 1
-		y = 1
-		relative_position_id = POR_send_assistance
-		cost = 10
-		completion_reward = {
-			hidden_effect = {
-				every_country = {
-					limit = {
-						original_tag = SPR
-						NOT = {
-							has_government = ROOT
-						}
-						NOT = {
-							is_in_faction_with = ROOT
-						}
-					}
-					POR = {
-						create_wargoal = {
-							target = PREV
-							type = topple_government
-						}
-					}
-				}
-			}
-			custom_effect_tooltip = POR_nationalist_intervention_tt
-			hidden_effect = {
-				every_country = {
-					limit = {
-						original_tag = SPR
-						NOT = {
-							has_government = ROOT
-						}
-						NOT = {
-							is_in_faction_with = ROOT
-						}
-					}
-					POR = {
-						add_ai_strategy = {
-							type = declare_war
-							id = PREV
-							value = 100
-						}
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_strengthen_the_regime
-		available = {
-			has_country_leader = {
-				character = POR_antonio_de_oliveira_salazar
-				ruling_only = yes
-			}
-			has_manpower > 80000
-			has_equipment = {
-				support_equipment > 799
-			}
-			has_equipment = {
-				infantry_equipment > 799
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_estado_novo
-		}
-		mutually_exclusive = {
-			focus = POR_national_syndicalism
-		}
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 1
-		relative_position_id = POR_estado_novo
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_manpower = -3000
-			add_equipment_to_stockpile = {
-				type = support_equipment
-				amount = -800
-				producer = POR
-			}
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = -800
-				producer = POR
-			}
-			add_stability = -0.1
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.1
-			}
-			swap_ideas = {
-				remove_idea = POR_estado_novo
-				add_idea = POR_estado_novo_2
-			}
-			custom_effect_tooltip = remove_chief_of_army
-			show_ideas_tooltip = POR_rolao_preto
-		}
-	}
-	focus = {
-		id = POR_the_capital_of_espionage
-		available = {
-			owns_state = 112
-			has_war = no
-			OR = {
-				AND = {
-					ENG = {
-						exists = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					any_country = {
-						is_major = yes
-						has_war_with = ENG
-					}
-				}
-				AND = {
-					GER = {
-						exists = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					any_country = {
-						is_major = yes
-						has_war_with = GER
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_strengthen_the_regime
-		}
-		icon = GFX_goal_generic_intelligence_exchange
-		x = -2
-		y = 1
-		relative_position_id = POR_strengthen_the_regime
-		cost = 10
-		completion_reward = {
-			add_ideas = POR_the_capital_of_espionage
-		}
-	}
-	focus = {
-		id = POR_appease_monarchists
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_strengthen_the_regime
-		}
-		icon = GFX_goal_tfv_strengthen_commonwealth_ties
-		x = 0
-		y = 1
-		relative_position_id = POR_strengthen_the_regime
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_political_power = 70
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.05
-			}
-			swap_ideas = {
-				remove_idea = POR_estado_novo_2
-				add_idea = POR_estado_novo_3
-			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = POR_joao_de_azevedo_coutinho
-			show_ideas_tooltip = POR_joao_francisco_de_barbosa_azevedo
-		}
-	}
-	focus = {
-		id = POR_concordat_with_the_holy_see
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_appease_monarchists
-		}
-		icon = GFX_focus_por_concordat
-		x = -1
-		y = 1
-		relative_position_id = POR_appease_monarchists
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_STABILITY
-		}
-		completion_reward = {
-			add_political_power = 120
-			swap_ideas = {
-				remove_idea = POR_estado_novo_3
-				add_idea = POR_estado_novo_4
-			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = POR_manuel_goncalves_cerejeira
-		}
-	}
-	focus = {
-		id = POR_honor_anglo_portuguese_alliance
-		available = {
-			is_in_faction = no
-			has_war = no
-			ENG = {
-				exists = yes
-				NOT = {
-					has_war_with = ROOT
-					any_other_country = {
-						is_in_faction_with = ENG
-						has_war_with = ROOT
-					}
-				}
-			}
-			any_country = {
-				is_major = yes
-				has_war_with = ENG
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_concordat_with_the_holy_see
-		}
-		mutually_exclusive = {
-			focus = POR_proudly_alone
-		}
-		icon = GFX_goal_generic_alliance
-		x = -1
-		y = 1
-		relative_position_id = POR_concordat_with_the_holy_see
-		cost = 10
-		completion_reward = {
-			remove_ideas = POR_national_gold_reserves
-			remove_ideas = POR_unstable_republic
-			if = {
-				limit = {
-					ENG = {
-						is_faction_leader = yes
-						has_government = democratic
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				ENG = {
-					country_event = {
-						id = generic.2
-						hours = 4
-					}
-				}
-			}
-			else = {
-				get_best_alliance_match_democratic_effect = yes
-				var:best_leader = {
-					country_event = {
-						id = generic.2
-						hours = 4
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_national_gold_reserves
-		available = {
-			has_war = no
-			OR = {
-				AND = {
-					ENG = {
-						exists = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					any_country = {
-						is_major = yes
-						has_war_with = ENG
-					}
-				}
-				AND = {
-					GER = {
-						exists = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					any_country = {
-						is_major = yes
-						has_war_with = GER
-					}
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_appease_monarchists
-		}
-		icon = GFX_focus_usa_reestablish_the_gold_standard
-		x = 1
-		y = 1
-		relative_position_id = POR_appease_monarchists
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_ideas = POR_national_gold_reserves
-			ENG = {
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_portuguese_trade
-				}
-			}
-			GER = {
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_portuguese_trade
-				}
-			}
-			every_other_country = {
-				limit = {
-					NOT = {
-						tag = GER
-					}
-					NOT = {
-						tag = ENG
-					}
-					OR = {
-						is_in_faction_with = ENG
-						is_in_faction_with = GER
-					}
-				}
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_portuguese_trade_minor
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_proudly_alone
-		available = {
-			has_government = neutrality
-			has_war = no
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_national_gold_reserves
-		}
-		prerequisite = {
-			focus = POR_concordat_with_the_holy_see
-		}
-		mutually_exclusive = {
-			focus = POR_honor_anglo_portuguese_alliance
-		}
-		icon = GFX_focus_por_salazar
-		x = 1
-		y = 1
-		relative_position_id = POR_concordat_with_the_holy_see
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_WAR_SUPPORT
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = POR_estado_novo_4
-				add_idea = POR_estado_novo_5
-			}
-			remove_ideas = POR_unstable_republic
-		}
-	}
-	focus = {
 		id = POR_national_syndicalism
 		available = {
+			always = no
 		}
 		bypass = {
 		}
@@ -3739,7 +2748,7 @@ focus_tree = {
 			focus = POR_strengthen_the_regime
 		}
 		icon = GFX_focus_generic_strike_at_democracy2
-		x = 2
+		x = 3
 		y = 1
 		relative_position_id = POR_estado_novo
 		cost = 10
@@ -3800,36 +2809,7 @@ focus_tree = {
 				set_politics = {
 					ruling_party = fascism
 				}
-				if = {
-					#Low Stability triggers a Civil War
-					limit = {
-						has_stability < 0.6
-					}
-					set_temp_variable = {
-						POR_fascist_cw_opposition = party_popularity@neutrality
-					}
-					multiply_temp_variable = {
-						POR_fascist_cw_opposition = 0.6
-					}
-					add_to_temp_variable = {
-						POR_fascist_cw_opposition = party_popularity@democratic
-					}
-					add_to_temp_variable = {
-						POR_fascist_cw_opposition = party_popularity@communism
-					}
-					start_civil_war = {
-						ideology = neutrality
-						size = POR_fascist_cw_opposition
-						capital = 180
-						states = {
-							181
-						}
-					}
-				}
-				else = {
-					add_stability = -0.2
-				}
-				custom_effect_tooltip = POR_potential_civil_war_high_requirement_tt
+				add_stability = -0.2
 			}
 			else = {
 				add_political_power = 120
@@ -3906,31 +2886,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = POR_research_agreements
-		available = {
-			is_in_faction_with = GER
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_join_the_axis
-		}
-		icon = GFX_goal_generic_scientific_exchange
-		x = -1
-		y = 1
-		relative_position_id = POR_join_the_axis
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			GER = {
-				add_to_tech_sharing_group = axis_research
-			}
-			add_to_tech_sharing_group = axis_research
-		}
-	}
-	focus = {
 		id = POR_expand_the_chinese_territories
 		select_effect = {
 			every_country = {
@@ -3963,7 +2918,6 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = POR_join_the_axis
-			focus = POR_the_fifth_empire
 		}
 		icon = GFX_focus_usa_focus_on_asia
 		x = 1
@@ -4137,6 +3091,433 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = POR_research_agreements
+		available = {
+			is_in_faction_with = GER
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_join_the_axis
+		}
+		icon = GFX_goal_generic_scientific_exchange
+		x = -1
+		y = 1
+		relative_position_id = POR_join_the_axis
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			GER = {
+				add_to_tech_sharing_group = axis_research
+			}
+			add_to_tech_sharing_group = axis_research
+		}
+	}
+	focus = {
+		id = POR_strengthen_the_regime
+		available = {
+			has_country_leader = {
+				character = POR_antonio_de_oliveira_salazar
+				ruling_only = yes
+			}
+			has_manpower > 80000
+			has_equipment = {
+				support_equipment > 799
+			}
+			has_equipment = {
+				infantry_equipment > 799
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_estado_novo
+		}
+		mutually_exclusive = {
+			focus = POR_national_syndicalism
+		}
+		icon = GFX_goal_generic_political_pressure
+		x = 1
+		y = 1
+		relative_position_id = POR_estado_novo
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_manpower = -3000
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -800
+				producer = POR
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -800
+				producer = POR
+			}
+			add_stability = -0.1
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+			swap_ideas = {
+				remove_idea = POR_estado_novo
+				add_idea = POR_estado_novo_2
+			}
+			custom_effect_tooltip = remove_chief_of_army
+			show_ideas_tooltip = POR_rolao_preto
+		}
+	}
+	focus = {
+		id = POR_appease_monarchists
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_strengthen_the_regime
+		}
+		icon = GFX_goal_tfv_strengthen_commonwealth_ties
+		x = 0
+		y = 1
+		relative_position_id = POR_strengthen_the_regime
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_political_power = 70
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			swap_ideas = {
+				remove_idea = POR_estado_novo_2
+				add_idea = POR_estado_novo_3
+			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = POR_joao_de_azevedo_coutinho
+			show_ideas_tooltip = POR_joao_francisco_de_barbosa_azevedo
+		}
+	}
+	focus = {
+		id = POR_national_gold_reserves
+		available = {
+			has_war = no
+			OR = {
+				AND = {
+					ENG = {
+						exists = yes
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+					any_country = {
+						is_major = yes
+						has_war_with = ENG
+					}
+				}
+				AND = {
+					GER = {
+						exists = yes
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+					any_country = {
+						is_major = yes
+						has_war_with = GER
+					}
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_appease_monarchists
+		}
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		x = 1
+		y = 1
+		relative_position_id = POR_appease_monarchists
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_ideas = POR_national_gold_reserves
+			ENG = {
+				add_opinion_modifier = {
+					target = POR
+					modifier = POR_portuguese_trade
+				}
+			}
+			GER = {
+				add_opinion_modifier = {
+					target = POR
+					modifier = POR_portuguese_trade
+				}
+			}
+			every_other_country = {
+				limit = {
+					NOT = {
+						tag = GER
+					}
+					NOT = {
+						tag = ENG
+					}
+					OR = {
+						is_in_faction_with = ENG
+						is_in_faction_with = GER
+					}
+				}
+				add_opinion_modifier = {
+					target = POR
+					modifier = POR_portuguese_trade_minor
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_concordat_with_the_holy_see
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_appease_monarchists
+		}
+		icon = GFX_focus_por_concordat
+		x = -1
+		y = 1
+		relative_position_id = POR_appease_monarchists
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_STABILITY
+		}
+		completion_reward = {
+			add_political_power = 120
+			swap_ideas = {
+				remove_idea = POR_estado_novo_3
+				add_idea = POR_estado_novo_4
+			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = POR_manuel_goncalves_cerejeira
+		}
+	}
+	focus = {
+		id = POR_proudly_alone
+		available = {
+			has_government = neutrality
+			has_war = no
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_national_gold_reserves
+		}
+		prerequisite = {
+			focus = POR_concordat_with_the_holy_see
+		}
+		mutually_exclusive = {
+			focus = POR_honor_anglo_portuguese_alliance
+		}
+		icon = GFX_focus_por_salazar
+		x = 1
+		y = 1
+		relative_position_id = POR_concordat_with_the_holy_see
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_WAR_SUPPORT
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = POR_estado_novo_4
+				add_idea = POR_estado_novo_5
+			}
+			remove_ideas = POR_unstable_republic
+		}
+	}
+	focus = {
+		id = POR_honor_anglo_portuguese_alliance
+		available = {
+			is_in_faction = no
+			has_war = no
+			ENG = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+					any_other_country = {
+						is_in_faction_with = ENG
+						has_war_with = ROOT
+					}
+				}
+			}
+			any_country = {
+				is_major = yes
+				has_war_with = ENG
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_concordat_with_the_holy_see
+		}
+		mutually_exclusive = {
+			focus = POR_proudly_alone
+		}
+		icon = GFX_goal_generic_alliance
+		x = -1
+		y = 1
+		relative_position_id = POR_concordat_with_the_holy_see
+		cost = 10
+		completion_reward = {
+			remove_ideas = POR_national_gold_reserves
+			remove_ideas = POR_unstable_republic
+			if = {
+				limit = {
+					ENG = {
+						is_faction_leader = yes
+						has_government = democratic
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+				}
+				ENG = {
+					country_event = {
+						id = generic.2
+						hours = 4
+					}
+				}
+			}
+			else = {
+				get_best_alliance_match_democratic_effect = yes
+				var:best_leader = {
+					country_event = {
+						id = generic.2
+						hours = 4
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_the_capital_of_espionage
+		available = {
+			owns_state = 112
+			has_war = no
+			OR = {
+				AND = {
+					ENG = {
+						exists = yes
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+					any_country = {
+						is_major = yes
+						has_war_with = ENG
+					}
+				}
+				AND = {
+					GER = {
+						exists = yes
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+					any_country = {
+						is_major = yes
+						has_war_with = GER
+					}
+				}
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_strengthen_the_regime
+		}
+		icon = GFX_goal_generic_intelligence_exchange
+		x = -2
+		y = 1
+		relative_position_id = POR_strengthen_the_regime
+		cost = 10
+		completion_reward = {
+			add_ideas = POR_the_capital_of_espionage
+		}
+	}
+	focus = {
+		id = POR_observation_mission
+		available = {
+			SPR_scw_in_progress = yes
+			country_exists = SPA
+			NOT = {
+				has_war_with = SPA
+			}
+		}
+		bypass = {
+			has_global_flag = scw_over
+		}
+		prerequisite = {
+			focus = POR_estado_novo
+		}
+		icon = GFX_goal_generic_position_armies
+		x = -3
+		y = 1
+		relative_position_id = POR_estado_novo
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = POR_observation_mission
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+			add_tech_bonus = {
+				name = POR_observation_mission
+				bonus = 0.5
+				uses = 1
+				category = light_air
+			}
+			add_tech_bonus = {
+				name = POR_observation_mission
+				bonus = 0.5
+				uses = 1
+				category = cat_light_armor
+			}
+			army_experience = 10
+			air_experience = 20
+			hidden_effect = {
+				add_ai_strategy = {
+					type = befriend
+					id = SPA
+					value = 100
+				}
+				SPA = {
+					add_ai_strategy = {
+						type = befriend
+						id = POR
+						value = 100
+					}
+				}
+			}
+		}
+	}
+	focus = {
 		id = POR_refuse_the_naval_blockade
 		available = {
 			has_equipment = {
@@ -4162,9 +3543,9 @@ focus_tree = {
 			focus = POR_observation_mission
 		}
 		icon = GFX_goal_generic_navy_anti_submarine
-		x = 2
-		y = 1
-		relative_position_id = POR_the_return_of_duarte
+		x = -1
+		y = 2
+		relative_position_id = POR_observation_mission
 		cost = 10
 		completion_reward = {
 			every_other_country = {
@@ -4191,433 +3572,424 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = POR_mapa_cor_de_rosa
+		id = POR_send_assistance
 		select_effect = {
-			every_country = {
+			if = {
 				limit = {
-					OR = {
-						controls_state = 770
-						controls_state = 545
-						controls_state = 771
-					}
+					country_exists = SPD
+					is_neighbor_of = SPD
 				}
-				ROOT = {
-					add_ai_strategy = {
-						type = prepare_for_war
-						id = PREV
-						value = 100
-					}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = SPD
+					value = 100
 				}
-			}
-		}
-		available = {
-		}
-		bypass = {
-			AND = {
-				owns_state = 770
-				owns_state = 545
-				owns_state = 771
-			}
-		}
-		prerequisite = {
-			focus = POR_refuse_the_naval_blockade
-		}
-		icon = GFX_focus_por_the_pink_map
-		x = 0
-		y = 2
-		relative_position_id = POR_refuse_the_naval_blockade
-		cost = 10
-		completion_reward = {
-			add_state_claim = 770			#Malawi
-			add_state_claim = 545			#Rhodesia
-			add_state_claim = 771			#Zambia
-			hidden_effect = {
-				random_country = {
-					limit = {
-						OR = {
-							controls_state = 770
-							controls_state = 545
-							controls_state = 771
-						}
-					}
-					ROOT = {
-						add_ai_strategy = {
-							type = declare_war
-							id = PREV
-							value = 100
-						}
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_recover_the_east_indies
-		select_effect = {
-			random_country = {
-				limit = {
-					controls_state = 336
-				}
-				ROOT = {
-					add_ai_strategy = {
-						type = prepare_for_war
-						id = PREV
-						value = 100
-					}
-				}
-			}
-			random_country = {
-				limit = {
-					controls_state = 667
-				}
-				ROOT = {
-					add_ai_strategy = {
-						type = prepare_for_war
-						id = PREV
-						value = 100
-					}
-				}
-			}
-		}
-		available = {
-		}
-		bypass = {
-			owns_state = 336
-			owns_state = 667
-		}
-		prerequisite = {
-			focus = POR_mapa_cor_de_rosa
-		}
-		icon = GFX_focus_RAJ_seek_help_from_germany
-		x = 0
-		y = 1
-		relative_position_id = POR_mapa_cor_de_rosa
-		cost = 10
-		completion_reward = {
-			add_state_claim = 336			# Singapore
-			add_state_claim = 667			# Lesser Sunda
-			hidden_effect = {
-				random_country = {
-					limit = {
-						controls_state = 336
-					}
-					ROOT = {
-						add_ai_strategy = {
-							type = declare_war
-							id = PREV
-							value = 100
-						}
-					}
-				}
-				random_country = {
-					limit = {
-						controls_state = 667
-					}
-					ROOT = {
-						add_ai_strategy = {
-							type = declare_war
-							id = PREV
-							value = 100
-						}
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_a_royal_wedding
-		available = {
-		}
-		bypass = {
-		}
-		mutually_exclusive = {
-			focus = POR_estado_novo
-		}
-		icon = GFX_focus_generic_royal_wedding
-		x = -8
-		y = 0
-		relative_position_id = POR_estado_novo
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			hidden_effect = {
-				news_event = {
-					id = lar_news.25
-					days = 3
-					random_days = 5
-				}
-			}
-			add_political_power = 120
-			unlock_decision_tooltip = POR_stir_monarchist_sentiment_in_brazil
-			unlock_decision_tooltip = POR_stir_monarchist_sentiment_in_portugal
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = POR_joao_de_azevedo_coutinho
-			show_ideas_tooltip = POR_joao_francisco_de_barbosa_azevedo
-		}
-	}
-	focus = {
-		id = POR_the_return_of_duarte
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_a_royal_wedding
-		}
-		icon = GFX_focus_generic_monarchy_1
-		x = 0
-		y = 1
-		relative_position_id = POR_a_royal_wedding
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			set_party_name = {
-				ideology = neutrality
-				long_name = POR_monarchy_party_long
-				name = POR_monarchy_party
-			}
-			hidden_effect = {
-				set_temp_variable = {
-					dem_pop = party_popularity_100@democratic
-				}
-				set_temp_variable = {
-					fas_pop = party_popularity_100@fascism
-				}
-				set_temp_variable = {
-					neu_pop = party_popularity_100@neutrality
-				}
-				set_temp_variable = {
-					com_pop = party_popularity_100@communism
-				}
-				subtract_from_temp_variable = {
-					neu_pop = 20
-				}
-				add_to_temp_variable = {
-					dem_pop = 10
-				}
-				add_to_temp_variable = {
-					fas_pop = 10
-				}
-				set_popularities = {
-					communism = com_pop
-					democratic = dem_pop
-					fascism = fas_pop
-					neutrality = neu_pop
-				}
-			}
-			effect_tooltip = {
-				add_popularity = {
-					ideology = neutrality
-					popularity = -0.2
-				}
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.1
-				}
-				add_popularity = {
-					ideology = fascism
-					popularity = 0.1
-				}
-			}
-			add_stability = -0.2
-		}
-	}
-	focus = {
-		id = POR_the_royal_iberian_alliance
-		available = {
-			is_in_faction = no
-			has_country_leader = {
-				name = "Dom Duarte Nuno"
-			}
-			has_global_flag = scw_over
-			has_completed_focus = POR_restoration_of_the_monarchy
-			country_exists = SPB
-			NOT = {
-				has_war_with = SPB
-			}
-			SPB = {
-				has_completed_focus = SPA_restore_the_monarchy
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 100
-				has_idea = POR_volunteers_in_the_war_carlist
-			}
-			modifier = {
-				factor = 2
-				has_opinion = {
-					target = SPB
-					value > 30
-				}
-			}
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_restoration_of_the_monarchy
-		}
-		icon = GFX_goal_tfv_strengthen_commonwealth_ties
-		x = -1
-		y = 1
-		relative_position_id = POR_restoration_of_the_monarchy
-		cost = 10
-		completion_reward = {
-			SPB = {
-				country_event = {
-					id = lar_portugal_royal_iberian_alliance.1
-					hours = 6
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_promote_the_monarchist_cause_in_portugal
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_the_return_of_duarte
-		}
-		icon = GFX_focus_generic_monarchy_2
-		x = 0
-		y = 1
-		relative_position_id = POR_the_return_of_duarte
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			add_timed_idea = {
-				idea = POR_monarchists_on_the_rise2
-				days = 730
-			}
-		}
-	}
-	focus = {
-		id = POR_restoration_of_the_monarchy
-		available = {
-			has_government = neutrality
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = POR_promote_the_monarchist_cause_in_portugal
-		}
-		icon = GFX_focus_rom_royal_dictatorship
-		x = 0
-		y = 1
-		relative_position_id = POR_promote_the_monarchist_cause_in_portugal
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_INDUSTRY
-			FOCUS_FILTER_STABILITY
-		}
-		completion_reward = {
-			remove_ideas = POR_estado_novo
-			swap_ideas = {
-				remove_idea = POR_unstable_republic
-				add_idea = POR_unstable_monarchy
 			}
 			if = {
-				#Low Stability triggers a Civil War
 				limit = {
-					has_stability < 0.4
+					country_exists = SPB
+					is_neighbor_of = SPB
 				}
-				set_temp_variable = {
-					POR_monarchist_cw_opposition = party_popularity@fascism
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = SPB
+					value = 100
 				}
-				add_to_temp_variable = {
-					POR_monarchist_cw_opposition = party_popularity@communism
+			}
+			if = {
+				limit = {
+					country_exists = SPC
+					is_neighbor_of = SPC
 				}
-				add_to_temp_variable = {
-					POR_monarchist_cw_opposition = party_popularity@democratic
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = SPC
+					value = 100
 				}
-				start_civil_war = {
-					ideology = fascism
-					size = POR_monarchist_cw_opposition
-					capital = 180
-					states = {
-						181
+			}
+		}
+		available = {
+			has_civil_war = no
+			SPR_scw_in_progress = yes
+			country_exists = SPA
+			NOT = {
+				has_war_with = SPA
+			}
+			is_puppet = no
+		}
+		bypass = {
+			has_global_flag = scw_over
+		}
+		prerequisite = {
+			focus = POR_observation_mission
+		}
+		icon = GFX_focus_intervention_spain_nationalists
+		x = 0
+		y = 1
+		relative_position_id = POR_observation_mission
+		cost = 10
+		completion_reward = {
+			unlock_decision_tooltip = POR_fight_alongside_the_nationalists
+			if = {
+				limit = {
+					country_exists = SPD
+				}
+				SPD = {
+					country_event = {
+						id = lar_portugal_spanish_civil_war.2
+					}
+				}
+			}
+			if = {
+				limit = {
+					country_exists = SPB
+				}
+				SPB = {
+					country_event = {
+						id = lar_portugal_spanish_civil_war.2
+					}
+				}
+			}
+			if = {
+				limit = {
+					country_exists = SPC
+				}
+				SPC = {
+					country_event = {
+						id = lar_portugal_spanish_civil_war.2
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_join_the_allies
+		available = {
+			is_in_faction = no
+			any_other_country = {
+				NOT = {
+					has_war_with = ROOT
+				}
+				is_faction_leader = yes
+				is_major = yes
+				has_government = democratic
+			}
+			NOT = {
+				any_other_country = {
+					is_in_faction_with = ENG
+					has_war_with = POR
+				}
+			}
+		}
+		bypass = {
+			OR = {
+				is_in_faction_with = ENG
+				AND = {
+					is_in_faction = yes
+					any_other_country = {
+						is_faction_leader = yes
+						is_in_faction_with = ROOT
+						has_government = democratic
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = POR_send_assistance
+		}
+		icon = GFX_focus_chi_british_cooperation
+		x = 0
+		y = 2
+		relative_position_id = POR_send_assistance
+		cost = 10
+		completion_reward = {
+			if = {
+				limit = {
+					ENG = {
+						is_faction_leader = yes
+						has_government = democratic
+						not = {
+							has_war_with = ROOT
+						}
+					}
+				}
+				ENG = {
+					country_event = {
+						id = generic.2
+						hours = 4
 					}
 				}
 			}
 			else = {
-				add_stability = -0.1
-			}
-			set_country_flag = KOP_kingdom_of_portugal_flag
-			set_cosmetic_tag = KOP_kingdom_portugal
-			create_country_leader = {
-				name = "Dom Duarte Nuno"
-				desc = "POLITICS_DOM_DUARTE_NUNO_DESC"
-				picture = GFX_portrait_Dom_Duarte_Nuno
-				expire = "1976.12.24"
-				ideology = despotism
-				traits = {
-					constitutional_monarch_minor
+				get_best_alliance_match_democratic_effect = yes
+				var:best_leader = {
+					country_event = {
+						id = generic.2
+						hours = 4
+					}
 				}
 			}
-			custom_effect_tooltip = POR_potential_civil_war_low_requirement_tt
 		}
 	}
 	focus = {
-		id = POR_remember_olivenca
-		available = {
+		id = POR_oppose_germany
+		will_lead_to_war_with = GER
+		select_effect = {
+			add_ai_strategy = {
+				type = prepare_for_war
+				id = GER
+				value = 100
+			}
 		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 10
-				has_opinion = {
-					target = SPB
-					value < 0
+		available = {
+			country_exists = GER
+			GER = {
+				has_government = fascism
+				has_capitulated = no
+			}
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_join_the_allies
+			focus = POR_honor_anglo_portuguese_alliance
+		}
+		icon = GFX_focus_ger_oppose_hitler
+		x = 2
+		y = 1
+		relative_position_id = POR_join_the_allies
+		cost = 10
+		completion_reward = {
+			create_wargoal = {
+				target = GER
+				type = topple_government
+				expire = 0
+			}
+			hidden_effect = {
+				add_ai_strategy = {
+					type = declare_war
+					id = GER
+					value = 100
 				}
 			}
-			modifier = {
-				factor = 2
-				has_government = neutrality
-				SPB = {
+		}
+	}
+	focus = {
+		id = POR_research_sharing
+		available = {
+			is_in_faction_with = ENG
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_join_the_allies
+			focus = POR_honor_anglo_portuguese_alliance
+		}
+		icon = GFX_focus_research2
+		x = 0
+		y = 1
+		relative_position_id = POR_join_the_allies
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			ENG = {
+				add_to_tech_sharing_group = commonwealth_research
+			}
+			add_to_tech_sharing_group = commonwealth_research
+		}
+	}
+	focus = {
+		id = POR_nationalist_intervention
+		select_effect = {
+			every_country = {
+				limit = {
+					original_tag = SPR
 					NOT = {
-						has_government = neutrality
+						has_government = ROOT
 					}
+					NOT = {
+						is_in_faction_with = ROOT
+					}
+				}
+				POR = {
+					add_ai_strategy = {
+						type = befriend
+						id = PREV
+						value = -100
+					}
+					add_ai_strategy = {
+						type = alliance
+						id = PREV
+						value = -100
+					}
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = 100
+					}
+				}
+			}
+		}
+		available = {
+			has_global_flag = scw_over
+			any_country = {
+				original_tag = SPR
+				NOT = {
+					has_government = ROOT
+				}
+				NOT = {
+					is_in_faction_with = ROOT
 				}
 			}
 		}
 		bypass = {
-			owns_state = 170
-			owns_state = 169
 		}
 		prerequisite = {
-			focus = POR_restoration_of_the_monarchy
+			focus = POR_send_assistance
 		}
-		icon = GFX_focus_por_remember_olivenca
-		x = 0
-		y = 2
-		relative_position_id = POR_restoration_of_the_monarchy
+		icon = GFX_goal_generic_major_war
+		x = 1
+		y = 1
+		relative_position_id = POR_send_assistance
 		cost = 10
 		completion_reward = {
-			add_state_claim = 170
-			add_state_claim = 169
 			hidden_effect = {
-				random_country = {
+				every_country = {
 					limit = {
-						controls_state = 170
+						original_tag = SPR
+						NOT = {
+							has_government = ROOT
+						}
+						NOT = {
+							is_in_faction_with = ROOT
+						}
 					}
-					ROOT = {
+					POR = {
+						create_wargoal = {
+							target = PREV
+							type = topple_government
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = POR_nationalist_intervention_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						original_tag = SPR
+						NOT = {
+							has_government = ROOT
+						}
+						NOT = {
+							is_in_faction_with = ROOT
+						}
+					}
+					POR = {
 						add_ai_strategy = {
-							type = prepare_for_war
+							type = declare_war
 							id = PREV
 							value = 100
 						}
 					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = POR_allow_free_elections
+		available = {
+			democratic > 0.5
+			has_war = no
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = POR_estado_novo
+		}
+		icon = GFX_goal_support_democracy
+		x = -1
+		y = 1
+		relative_position_id = POR_estado_novo
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_STABILITY
+		}
+		completion_reward = {
+			every_other_country = {
+				limit = {
+					has_government = democratic
+				}
+				add_opinion_modifier = {
+					target = POR
+					modifier = POR_election_opinion_democratic
+				}
+			}
+			remove_ideas = POR_unstable_republic
+			if = {
+				limit = {
+					has_idea = internationalism
+				}
+				remove_ideas = internationalism
+			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = POR_jaime_cortesao
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = POR_jose_manuel_sarmento_de_beires
+			if = {
+				limit = {
+					has_completed_focus = POR_limited_self_rule
+				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = POR_francisco_da_cunha_leal
+			}
+			create_corps_commander = {
+				name = "José Mendes dos Reis"
+				portrait_path = GFX_portrait_Jose_Mendes_dos_Reis
+				traits = {
+					war_hero
+					infantry_officer
+				}
+				skill = 3
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			create_navy_leader = {
+				name = "Armando Pereira de Castro Agatão Lança"
+				portrait_path = GFX_portrait_Armando_Pereira_de_Castro_Agatao_Lanca
+				traits = {
+					spotter
+					bold
+				}
+				skill = 3
+				attack_skill = 2
+				defense_skill = 4
+				maneuvering_skill = 3
+				coordination_skill = 2
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_government = democratic
+					}
+				}
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = yes
+				}
+				add_stability = -0.1
+			}
+			else = {
+				add_political_power = 120
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.05
 				}
 			}
 		}
