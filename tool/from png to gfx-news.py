@@ -34,7 +34,7 @@ def outputNews(text):
     txtfile.write('}\n')
     txtfile.close()
     print("news event.gfx文件已输出")
-pngpathfirst = '..\gfx\\news_events\\'
+pngpathfirst = '..\gfx\\news_event\\'
 newsnamelist = getPngName(pngpathfirst)
 
 
