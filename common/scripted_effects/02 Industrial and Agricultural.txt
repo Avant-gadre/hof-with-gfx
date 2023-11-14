@@ -651,3 +651,92 @@ add_one_random_fuel_silo = {
 	}
 	construction_build_in_best_random_state_effect = yes
 }
+
+swap_to_free_trade = {
+	if = {
+		limit = {
+			has_idea = export_focus
+		}
+		swap_ideas = {
+			remove_idea = export_focus
+			add_idea = free_trade
+		}
+	}
+	if = {
+		limit = {
+			has_idea = limited_exports
+		}
+		swap_ideas = {
+			remove_idea = limited_exports
+			add_idea = free_trade
+		}
+	}
+	if = {
+		limit = {
+			has_idea = closed_economy
+		}
+		swap_ideas = {
+			remove_idea = closed_economy
+			add_idea = free_trade
+		}
+	}
+}
+
+add_one_infrastructure_for_every_cored_state = {
+	every_owned_state = {
+		limit = {
+			is_core_of = ROOT
+		}
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+		add_extra_state_shared_building_slots = 1
+	}
+}
+
+add_random_air_base = {
+	if = {
+		limit = {
+			capital_scope = {
+				NOT = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 1
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+	if = {
+		limit = {
+			capital_scope = {
+				free_building_slots = {
+					building = air_base
+					size > 1
+				}
+			}
+		}
+		capital_scope = {
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}

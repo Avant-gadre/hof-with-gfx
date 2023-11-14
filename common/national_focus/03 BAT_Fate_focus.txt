@@ -35,21 +35,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			every_owned_state = {
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = infrastructure
-						size > 1
-					}
-					is_capital = no
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
+			add_one_infrastructure_for_every_cored_state = yes
 		}
 	}
 	#Axis investments
@@ -71,15 +57,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = fascism
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
+			tag = BAT
 		}
 		bypass = {
 		}
@@ -92,146 +70,6 @@ focus_tree = {
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.05
-			}
-			if = {
-				limit = {
-					GER = {
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						is_faction_leader = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				GER = {
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					suitable_fascist_major_in_europe = yes
-				}
-				random_other_country = {
-					limit = {
-						is_major = yes
-						capital_scope = {
-							is_on_continent = europe
-						}
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					JAP = {
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				JAP = {
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					suitable_fascist_major_in_europe = yes
-				}
-				random_other_country = {
-					limit = {
-						is_major = yes
-						capital_scope = {
-							is_on_continent = europe
-						}
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					any_other_country = {
-						is_faction_leader = yes
-						has_government = fascism
-					}
-				}
-				get_best_alliance_match_fascism_effect = yes
-				var:best_leader = {
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					any_other_country = {
-						is_major = yes
-						has_government = fascism
-					}
-				}
-				random_other_country = {
-					limit = {
-						is_major = yes
-						has_government = fascism
-					}
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
 			}
 		}
 	}
@@ -250,15 +88,6 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = fascism
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
 		}
 		bypass = {
 		}
@@ -275,36 +104,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-					OR = {
-						is_in_home_area = yes
-						NOT = {
-							owner = {
-								any_owned_state = {
-									free_building_slots = {
-										building = arms_factory
-										size > 0
-										include_locked = yes
-									}
-									is_in_home_area = yes
-								}
-							}
-						}
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -316,8 +116,8 @@ focus_tree = {
 		prerequisite = {
 			focus = BALTIC_german_tank_licences
 		}
-		x = 0
-		y = 1
+		x = 1
+		y = 2
 		relative_position_id = BALTIC_german_war_economics
 		cost = 10
 		ai_will_do = {
@@ -348,47 +148,8 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			every_owned_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_extra_state_shared_building_slots = 1
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_capital = no
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-					OR = {
-						is_in_home_area = yes
-						NOT = {
-							owner = {
-								any_owned_state = {
-									free_building_slots = {
-										building = industrial_complex
-										size > 0
-										include_locked = yes
-									}
-									is_in_home_area = yes
-								}
-							}
-						}
-					}
-				}
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
+			add_one_infrastructure_for_every_cored_state = yes
 		}
 	}
 	focus = {
@@ -400,7 +161,7 @@ focus_tree = {
 		prerequisite = {
 			focus = BALTIC_german_tank_licences
 		}
-		x = -2
+		x = 0
 		y = 1
 		relative_position_id = BALTIC_german_war_economics
 		cost = 10
@@ -408,195 +169,10 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = fascism
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					tag = LIT
-				}
-				814 = {
-					add_building_construction = {
-						type = bunker
-						province = 6281
-						level = 1
-						instant_build = yes
-					}
-				}
-				815 = {
-					add_building_construction = {
-						type = bunker
-						province = 9246
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 11226
-						level = 2
-						instant_build = yes
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							owns_state = 784
-						}
-					}
-					11 = {
-						add_building_construction = {
-							type = bunker
-							province = 327
-							level = 2
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 9404
-							level = 1
-							instant_build = yes
-						}
-					}
-					815 = {
-						add_building_construction = {
-							type = bunker
-							province = 11498
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-				else = {
-					784 = {
-						add_building_construction = {
-							type = bunker
-							province = 11342
-							level = 1
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 9295
-							level = 2
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 3320
-							level = 1
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 9274
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					tag = LAT
-				}
-				if = {
-					limit = {
-						controls_state = 809
-					}
-					809 = {
-						add_building_construction = {
-							type = bunker
-							province = 11358
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 810
-					}
-					810 = {
-						add_building_construction = {
-							type = bunker
-							province = 310
-							level = 2
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 6459
-							level = 2
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 9275
-							level = 2
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 222
-							level = 2
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 319
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					tag = EST
-				}
-				if = {
-					limit = {
-						controls_state = 191
-					}
-					191 = {
-						add_building_construction = {
-							type = bunker
-							province = 592
-							level = 2
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							province = 9221
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 813
-					}
-					813 = {
-						add_building_construction = {
-							type = bunker
-							province = 4640
-							level = 3
-							instant_build = yes
-						}
-					}
-				}
-			}
 		}
 	}
 	focus = {
@@ -606,111 +182,17 @@ focus_tree = {
 			focus = BALTIC_eastwall
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = BALTIC_eastwall
 		cost = 10
 		ai_will_do = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = fascism
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					tag = LIT
-				}
-				if = {
-					limit = {
-						controls_state = 189
-					}
-					189 = {
-						add_building_construction = {
-							type = coastal_bunker
-							province = 6314
-							level = 6
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 188
-					}
-					188 = {
-						add_building_construction = {
-							type = coastal_bunker
-							province = 3288
-							level = 6
-							instant_build = yes
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					tag = EST
-				}
-				every_owned_state = {
-					limit = {
-						controller = {
-							tag = ROOT
-						}
-						OR = {
-							state = 811
-							state = 13
-							state = 812
-							state = 813
-						}
-					}
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_coastal = yes
-						}
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					tag = LAT
-				}
-				every_owned_state = {
-					limit = {
-						controller = {
-							tag = ROOT
-						}
-						OR = {
-							state = 190
-							state = 809
-							state = 808
-							state = 12
-						}
-					}
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_coastal = yes
-						}
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
 		}
 	}
 	focus = {
@@ -728,15 +210,6 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = fascism
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
 		}
 		bypass = {
 		}
@@ -744,97 +217,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					GER = {
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						is_faction_leader = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				GER = {
-					give_fascist_tank_licences = yes
-				}
-				if = {
-					limit = {
-						has_dlc = "Arms Against Tyranny"
-					}
-					add_equipment_subsidy = {
-						cic = 500
-						equipment_type = light_tank_chassis
-						seller_tags = {
-							GER
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					suitable_fascist_major_in_europe = yes
-				}
-				random_other_country = {
-					limit = {
-						is_major = yes
-						capital_scope = {
-							is_on_continent = europe
-						}
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					give_fascist_tank_licences = yes
-				}
-				if = {
-					limit = {
-						has_dlc = "Arms Against Tyranny"
-					}
-					add_equipment_subsidy = {
-						cic = 500
-						equipment_type = light_tank_chassis
-						seller_trigger = is_fascist_seller_trigger
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					JAP = {
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				JAP = {
-					give_fascist_tank_licences = yes
-				}
-				if = {
-					limit = {
-						has_dlc = "Arms Against Tyranny"
-					}
-					add_equipment_subsidy = {
-						cic = 500
-						equipment_type = light_tank_chassis
-						seller_tags = {
-							JAP
-						}
-					}
-				}
-			}
-			else = {
-				get_best_alliance_match_fascism_effect = yes
-				var:best_leader = {
-					give_fascist_tank_licences = yes
-				}
-			}
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -854,15 +237,6 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = fascism
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
 		}
 		bypass = {
 		}
@@ -884,95 +258,18 @@ focus_tree = {
 			focus = BALTIC_german_baltic_industry
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = BALTIC_german_baltic_industry
 		cost = 10
 		ai_will_do = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = fascism
-				is_faction_leader = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					GER = {
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						is_faction_leader = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				GER = {
-					country_event = {
-						id = BALTIC_events.1
-						days = 10
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					suitable_fascist_major_in_europe = yes
-				}
-				random_other_country = {
-					limit = {
-						is_major = yes
-						capital_scope = {
-							is_on_continent = europe
-						}
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					country_event = {
-						id = BALTIC_events.1
-						days = 10
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					JAP = {
-						exists = yes
-						has_capitulated = no
-						has_government = fascism
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				JAP = {
-					country_event = {
-						id = BALTIC_events.1
-						days = 10
-					}
-				}
-			}
-			else = {
-				get_best_alliance_match_fascism_effect = yes
-				var:best_leader = {
-					country_event = {
-						id = BALTIC_events.1
-						days = 10
-					}
-				}
-			}
+			add_one_random_military_factory = yes
 		}
 	}
 	#Allied investments
@@ -994,15 +291,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = democratic
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
+			tag = EST
 		}
 		bypass = {
 		}
@@ -1012,153 +301,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = BALTIC_allied_investments_idea
-			## Checking for valid Democractic Countries to increase opinion
-			if = {
-				#Checking for UK 
-				limit = {
-					ENG = {
-						exists = yes
-						has_capitulated = no
-						has_government = democratic
-						is_faction_leader = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				ENG = {
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				# (Allied) Fallback to France 
-				limit = {
-					FRA = {
-						exists = yes
-						has_capitulated = no
-						has_government = democratic
-						is_faction_leader = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				FRA = {
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				# (American) Fallback to USA
-				limit = {
-					USA = {
-						exists = yes
-						has_capitulated = no
-						has_government = democratic
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				USA = {
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				# (European) Fallback to another European Democracy
-				limit = {
-					suitable_democratic_major_in_europe = yes
-				}
-				random_other_country = {
-					limit = {
-						is_major = yes
-						capital_scope = {
-							is_on_continent = europe
-						}
-						exists = yes
-						has_capitulated = no
-						has_government = democratic
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			else_if = {
-				# (International) Fallback to any democratic faction leader. 
-				limit = {
-					any_other_country = {
-						is_faction_leader = yes
-						has_government = fascism
-					}
-				}
-				get_best_alliance_match_democratic_effect = yes
-				var:best_leader = {
-					add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-					reverse_add_opinion_modifier = {
-						target = PREV
-						modifier = BALTIC_investments
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_idea = export_focus
-				}
-				swap_ideas = {
-					remove_idea = export_focus
-					add_idea = free_trade
-				}
-			}
-			if = {
-				limit = {
-					has_idea = limited_exports
-				}
-				swap_ideas = {
-					remove_idea = limited_exports
-					add_idea = free_trade
-				}
-			}
-			if = {
-				limit = {
-					has_idea = closed_economy
-				}
-				swap_ideas = {
-					remove_idea = closed_economy
-					add_idea = free_trade
-				}
-			}
+			swap_to_free_trade = yes
 		}
 	}
 	focus = {
@@ -1175,15 +318,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = democratic
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
+			USA_will_support = yes
 		}
 		bypass = {
 		}
@@ -1195,38 +330,18 @@ focus_tree = {
 				type = arms_factory
 				level = 1
 			}
-			if = {
-				limit = {
-					NOT = {
-						has_tech = motorised_infantry
-					}
-				}
-				add_tech_bonus = {
-					name = BALTIC_ford
-					bonus = 0.5
-					uses = 1
-					category = motorized_equipment
-				}
+			add_tech_bonus = {
+				name = BALTIC_ford_motors
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
 			}
-			else = {
-				#separate tech bonus to ensure trucks get the bonus, due to the way ahead of time reduction works
-				add_tech_bonus = {
-					name = BALTIC_ford
-					ahead_reduction = 2
-					bonus = 0.5
-					uses = 1
-					category = motorized_equipment
-				}
-			}
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = USA_ford_motor_company_organization
-			}
-			ELSE = {
-				show_ideas_tooltip = BALTIC_ford
+			add_tech_bonus = {
+				name = BALTIC_ford_motors
+				ahead_reduction = 2
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
 			}
 		}
 	}
@@ -1245,15 +360,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = democratic
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
+			USA_will_support = yes
 		}
 		bypass = {
 		}
@@ -1263,11 +370,11 @@ focus_tree = {
 		completion_reward = {
 			add_offsite_building = {
 				type = industrial_complex
-				level = 2
+				level = 1
 			}
 			add_offsite_building = {
 				type = arms_factory
-				level = 3
+				level = 1
 			}
 		}
 	}
@@ -1285,14 +392,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			ENG = {
-				exists = yes
-				has_capitulated = no
-				has_government = democratic
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
+			ENG_will_support = yes
 		}
 		bypass = {
 		}
@@ -1307,29 +407,6 @@ focus_tree = {
 			add_offsite_building = {
 				type = arms_factory
 				level = 1
-			}
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = BALTIC_RAF_organization
-				show_mio_tooltip = ENG_royal_arsenal_organization
-				show_mio_tooltip = ENG_rsaf_enfield_organization
-				mio:BALTIC_RAF_organization = {
-					add_mio_size = 1
-				}
-				mio:ENG_royal_arsenal_organization = {
-					add_mio_size = 1
-				}
-				mio:ENG_rsaf_enfield_organization = {
-					add_mio_size = 1
-				}
-			}
-			ELSE = {
-				show_ideas_tooltip = BALTIC_RAF
-				show_ideas_tooltip = BALTIC_RSAF_enfield
-				show_ideas_tooltip = BALTIC_royal_arsenal
 			}
 		}
 	}
@@ -1348,15 +425,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = democratic
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
+			ENG_will_support = yes
 		}
 		bypass = {
 		}
@@ -1666,15 +735,6 @@ focus_tree = {
 			any_owned_state = {
 				is_coastal = yes
 			}
-			any_other_country = {
-				exists = yes
-				has_capitulated = no
-				has_government = democratic
-				is_major = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
 		}
 		bypass = {
 		}
@@ -1683,102 +743,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			navy_experience = 30
-			random_owned_controlled_state = {
-				limit = {
-					is_coastal = yes
-				}
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					tag = LIT
-				}
-				if = {
-					limit = {
-						controls_state = 189
-					}
-					189 = {
-						add_building_construction = {
-							type = coastal_bunker
-							province = 6314
-							level = 4
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 188
-					}
-					188 = {
-						add_building_construction = {
-							type = coastal_bunker
-							province = 3288
-							level = 4
-							instant_build = yes
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					tag = EST
-				}
-				every_owned_state = {
-					limit = {
-						controller = {
-							tag = ROOT
-						}
-						OR = {
-							state = 811
-							state = 13
-							state = 812
-							state = 813
-						}
-					}
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_coastal = yes
-						}
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					tag = LAT
-				}
-				every_owned_state = {
-					limit = {
-						controller = {
-							tag = ROOT
-						}
-						OR = {
-							state = 190
-							state = 809
-							state = 808
-							state = 12
-						}
-					}
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_coastal = yes
-						}
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
+			add_one_random_dockyard = yes
+			add_one_random_dockyard = yes
 		}
 	}
 	#Attract workers
@@ -1803,14 +769,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			capital_scope = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -1827,121 +786,10 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			OR = {
-				AND = {
-					original_tag = LIT
-					controls_state = 11
-				}
-				AND = {
-					original_tag = LAT
-					controls_state = 12
-				}
-				AND = {
-					original_tag = EST
-					controls_state = 13
-				}
-			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					original_tag = LIT
-				}
-				11 = {
-					add_building_construction = {
-						type = bunker
-						province = 6296
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 327
-						level = 2
-						instant_build = yes
-					}
-				}
-				814 = {
-					add_building_construction = {
-						type = bunker
-						province = 3272
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					original_tag = LAT
-				}
-				808 = {
-					add_building_construction = {
-						type = bunker
-						province = 9340
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9240
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 10323
-						level = 2
-						instant_build = yes
-					}
-				}
-				809 = {
-					add_building_construction = {
-						type = bunker
-						province = 6222
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 265
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					original_tag = EST
-				}
-				812 = {
-					add_building_construction = {
-						type = bunker
-						province = 3152
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 567
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 496
-						level = 3
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 11426
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
 		}
 	}
 	focus = {
@@ -1950,7 +798,7 @@ focus_tree = {
 		prerequisite = {
 			focus = BALTIC_rebuild_forts
 		}
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = BALTIC_rebuild_forts
 		cost = 10
@@ -1965,54 +813,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					11
-					12
-					13
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					814
-					808
-					811
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					188
-					810
-					813
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -2021,7 +822,7 @@ focus_tree = {
 		prerequisite = {
 			focus = BALTIC_rebuild_forts
 		}
-		x = 2
+		x = 0
 		y = 1
 		relative_position_id = BALTIC_rebuild_forts
 		cost = 10
@@ -2061,25 +862,6 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					NOT = {
-						any_other_country = {
-							is_in_tech_sharing_group = baltic_allied_research
-						}
-					}
-				}
-				custom_effect_tooltip = BALTIC_tech_sharing_tt
-				hidden_effect = {
-					add_to_tech_sharing_group = baltic_allied_research
-					every_other_country = {
-						limit = {
-							is_in_faction_with = ROOT
-						}
-						add_to_tech_sharing_group = baltic_allied_research
-					}
-				}
-			}
 			add_research_slot = 1
 		}
 	}
@@ -2129,79 +911,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					original_tag = LIT
-				}
-				swap_ideas = {
-					remove_idea = LIT_agrarian_society
-					add_idea = LIT_invested_in_farms
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					11
-					12
-					13
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					189
-					190
-					191
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					814
-					808
-					811
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					815
-					809
-					812
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -2225,36 +935,8 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-					OR = {
-						is_in_home_area = yes
-						NOT = {
-							owner = {
-								any_owned_state = {
-									free_building_slots = {
-										building = arms_factory
-										size > 0
-										include_locked = yes
-									}
-									is_in_home_area = yes
-								}
-							}
-						}
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
+			add_one_random_military_factory = yes
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -2280,54 +962,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			air_experience = 25
-			if = {
-				limit = {
-					capital_scope = {
-						NOT = {
-							free_building_slots = {
-								building = air_base
-								size > 1
-							}
-						}
-					}
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = air_base
-							size > 1
-						}
-					}
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}
-					ROOT = {
-						set_country_flag = aviation_effort_AB
-					}
-				}
-			}
-			if = {
-				limit = {
-					capital_scope = {
-						free_building_slots = {
-							building = air_base
-							size > 1
-						}
-					}
-				}
-				capital_scope = {
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}
-					ROOT = {
-						set_country_flag = aviation_effort_AB
-					}
-				}
-			}
+			add_random_air_base = yes
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
 				cost_reduction = 0.5
@@ -2335,7 +970,7 @@ focus_tree = {
 				category = air_doctrine
 			}
 			add_tech_bonus = {
-				name = BALTIC_school_of_aviation_tech_bonus
+				name = BALTIC_school_of_aviation
 				bonus = 0.5
 				uses = 2
 				category = air_equipment
@@ -2393,7 +1028,7 @@ focus_tree = {
 		prerequisite = {
 			focus = BALTIC_defence_of_our_nation
 		}
-		x = 0
+		x = -1
 		y = 2
 		relative_position_id = BALTIC_original_designs
 		cost = 10
@@ -2408,46 +1043,8 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					814
-					808
-					811
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-				}
-				prioritize = {
-					815
-					809
-					812
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			capital_scope = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
+			add_one_random_military_factory = yes
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -2473,32 +1070,27 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					original_tag = LIT
+					original_tag = BAT
 				}
-				swap_ideas = {
-					remove_idea = LIT_invested_in_farms
-					add_idea = LIT_invested_in_farms_1
-				}
-			}
-			else_if = {
-				limit = {
-					original_tag = LAT
-				}
-				190 = {
-					add_resource = {
-						type = steel
-						amount = 16
+				BAT = {
+					capital_scope = {
+						add_resource = {
+							type = steel
+							amount = 8
+						}
 					}
 				}
 			}
 			else_if = {
 				limit = {
-					original_tag = EST
+					tag = EST
 				}
-				13 = {
-					add_resource = {
-						type = oil
-						amount = 8
+				EST = {
+					capital_scope = {
+						add_resource = {
+							type = oil
+							amount = 8
+						}
 					}
 				}
 			}
@@ -2528,79 +1120,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			every_other_country = {
-				limit = {
-					OR = {
-						original_tag = EST
-						original_tag = LAT
-						original_tag = LIT
-					}
-					NOT = {
-						original_tag = ROOT
-					}
-				}
-				add_opinion_modifier = {
-					target = PREV
-					modifier = BALTIC_trade
-				}
-			}
-			if = {
-				limit = {
-					original_tag = LIT
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-						OR = {
-							is_in_home_area = yes
-							NOT = {
-								owner = {
-									any_owned_state = {
-										free_building_slots = {
-											building = industrial_complex
-											size > 0
-											include_locked = yes
-										}
-										is_in_home_area = yes
-									}
-								}
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					original_tag = LAT
-				}
-				190 = {
-					add_resource = {
-						type = steel
-						amount = 8
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					original_tag = EST
-				}
-				13 = {
-					add_resource = {
-						type = oil
-						amount = 4
-					}
-				}
-			}
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -2627,80 +1147,11 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				limit = {
-					is_coastal = yes
-					free_building_slots = {
-						building = dockyard
-						size > 0
-						include_locked = yes
-					}
-					OR = {
-						is_in_home_area = yes
-						NOT = {
-							owner = {
-								any_owned_state = {
-									free_building_slots = {
-										building = dockyard
-										size > 0
-										include_locked = yes
-									}
-									is_in_home_area = yes
-								}
-							}
-						}
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
 			add_equipment_to_stockpile = {
 				type = convoy
 				amount = 150
 			}
-			if = {
-				limit = {
-					tag = EST
-				}
-				812 = {
-					add_building_construction = {
-						type = naval_base
-						level = 2
-						instant_build = yes
-						province = 3152
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					tag = LAT
-				}
-				808 = {
-					add_building_construction = {
-						type = naval_base
-						level = 2
-						instant_build = yes
-						province = 9340
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					tag = LIT
-				}
-				189 = {
-					add_building_construction = {
-						type = naval_base
-						level = 2
-						instant_build = yes
-						province = 6314
-					}
-				}
-			}
+			add_one_random_dockyard = yes
 		}
 	}
-}
+}	
