@@ -253,7 +253,6 @@ focus_tree = {
 						ruling_only = yes
 					}
 				}
-				TUR_kemalist_turn_hostile_effect = yes
 				hidden_effect = {
 					set_party_name = {
 						ideology = fascism
@@ -369,69 +368,7 @@ focus_tree = {
 			FOCUS_FILTER_TUR_TRADITIONALISM
 		}
 		completion_reward = {
-			custom_effect_tooltip = TUR_unlock_reconciliation_occupation_law_tt
-			custom_effect_tooltip = TUR_unlock_kurdish_integration_decisions_tt
-			effect_tooltip = {
-				TUR_placate_fundamentalist_state_all_targets_effect = yes
-			}
-			hidden_effect = {
-				every_owned_state = {
-					limit = {
-						OR = {
-							has_dynamic_modifier = {
-								modifier = islamist_opposition
-							}
-							has_dynamic_modifier = {
-								modifier = islamist_sedition
-							}
-							has_dynamic_modifier = {
-								modifier = islamist_insurgency
-							}
-						}
-					}
-					remove_dynamic_modifier = {
-						modifier = islamist_opposition
-					}
-					remove_dynamic_modifier = {
-						modifier = islamist_sedition
-					}
-					remove_dynamic_modifier = {
-						modifier = islamist_insurgency
-					}
-					add_dynamic_modifier = {
-						modifier = islamists_placated
-					}
-				}
-				set_country_flag = TUR_truce_with_government_called_flag
-				if = {
-					limit = {
-						has_variable = TUR_kemalist_officers_loyalty
-						check_variable = {
-							TUR_kemalist_officers_loyalty > 1
-						}
-					}
-					subtract_from_variable = {
-						var = TUR_kemalist_officers_loyalty
-						value = 1
-					}
-					TUR_kemalist_loyalty_and_power_update_effect = yes
-				}
-				if = {
-					limit = {
-						has_idea = TUR_sectarian_woes
-					}
-					swap_ideas = {
-						remove_idea = TUR_sectarian_woes
-						add_idea = TUR_sectarian_woes_2
-					}
-				}
-				else_if = {
-					limit = {
-						has_idea = TUR_sectarian_woes_1
-					}
-					remove_ideas = TUR_sectarian_woes_1
-				}
-			}
+			add_stability = 0.15
 		}
 	}
 	focus = {
@@ -1343,7 +1280,6 @@ focus_tree = {
 					var = TUR_kemalist_power_variable
 					value = 2
 				}
-				TUR_kemalist_loyalty_and_power_update_effect = yes
 			}
 		}
 	}
@@ -1453,23 +1389,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_war_support = 0.1
-			every_owned_state = {
-				limit = {
-					OR = {
-						has_dynamic_modifier = {
-							modifier = kurdish_agitation
-						}
-						has_dynamic_modifier = {
-							modifier = kurdish_separatism
-						}
-						has_dynamic_modifier = {
-							modifier = kurdish_rebellion
-						}
-					}
-				}
-				save_event_target_as = TUR_kurdish_state_event_target
-				TUR_pacify_kurdish_state_effect = yes
-			}
 		}
 	}
 	focus = {
@@ -1595,58 +1514,10 @@ focus_tree = {
 			FOCUS_FILTER_WAR_SUPPORT
 		}
 		completion_reward = {
-			effect_tooltip = {
-				TUR_placate_fundamentalist_state_all_targets_effect = yes
-			}
-			custom_effect_tooltip = TUR_kemalist_officers_made_hostile_tt
-			hidden_effect = {
-				every_owned_state = {
-					limit = {
-						OR = {
-							has_dynamic_modifier = {
-								modifier = islamist_opposition
-							}
-							has_dynamic_modifier = {
-								modifier = islamist_sedition
-							}
-							has_dynamic_modifier = {
-								modifier = islamist_insurgency
-							}
-						}
-					}
-					TUR_placate_fundamentalist_state_all_targets_effect = yes
-				}
-				random_owned_state = {
-					limit = {
-						has_state_flag = TUR_ideological_battleground_state
-						NOT = {
-							OR = {
-								has_dynamic_modifier = {
-									modifier = kemalist_loyalties
-								}
-								has_dynamic_modifier = {
-									modifier = kemalist_schemers
-								}
-								has_dynamic_modifier = {
-									modifier = islamist_opposition
-								}
-								has_dynamic_modifier = {
-									modifier = islamist_sedition
-								}
-								has_dynamic_modifier = {
-									modifier = islamist_insurgency
-								}
-								has_dynamic_modifier = {
-									modifier = islamists_placated
-								}
-							}
-						}
-					}
-					save_event_target_as = TUR_kemalist_state_event_target
-				}
-				event_target:TUR_kemalist_state_event_target = {
-					TUR_hostile_kemalists_influenced_state_effect = yes
-				}
+			add_political_power = 50
+			add_popularity = {
+				ideology = var:current_party_ideology_group
+				popularity = 0.1
 			}
 		}
 	}
@@ -1807,75 +1678,8 @@ focus_tree = {
 			FOCUS_FILTER_TUR_KEMALISM
 		}
 		completion_reward = {
-			custom_effect_tooltip = TUR_restack_the_officer_corps_tt
-			hidden_effect = {
-				if = {
-					limit = {
-						check_variable = {
-							var = TUR_kemalist_officers_loyalty
-							value = 3
-							compare = less_than
-						}
-					}
-					set_variable = {
-						var = TUR_kemalist_officers_loyalty
-						value = 3
-					}
-				}
-				subtract_from_variable = {
-					var = TUR_kemalist_power_variable
-					value = 2
-				}
-				TUR_kemalist_loyalty_and_power_update_effect = yes
-				if = {
-					limit = {
-						has_stability < 0.45
-						check_variable = {
-							var = TUR_kemalist_power_variable
-							value = 5
-							compare = greater_than_or_equals
-						}
-						has_government = neutrality
-					}
-					start_civil_war = {
-						ruling_party = neutrality
-						ideology = democratic
-						size = 0.45
-						capital = 797
-						states = {
-							797
-							341
-							354
-							339
-							340
-						}
-					}
-				}
-				if = {
-					limit = {
-						has_stability < 0.45
-						check_variable = {
-							var = TUR_kemalist_power_variable
-							value = 5
-							compare = greater_than_or_equals
-						}
-						has_government = fascism
-					}
-					start_civil_war = {
-						ruling_party = fascism
-						ideology = neutrality
-						size = 0.5
-						capital = 797
-						states = {
-							797
-							341
-							354
-							339
-							340
-						}
-					}
-				}
-			}
+			add_stability = -0.08
+			add_political_power = 100
 		}
 	}
 	focus = {
@@ -4583,12 +4387,6 @@ focus_tree = {
 			ENG = {
 				is_in_faction = yes
 				is_faction_leader = yes
-				NOT = {
-					OR = {
-						has_completed_focus = ENG_the_kings_party
-						has_completed_focus = ENG_concessions_to_the_trade_unions
-					}
-				}
 			}
 			is_subject = no
 		}
@@ -4692,16 +4490,11 @@ focus_tree = {
 			base = 10
 		}
 		bypass = {
-			OR = {
-				ENG = {
-					has_completed_focus = ENG_revisit_colonial_policy
-				}
-				ENG = {
-					NOT = {
-						controls_state = 455
-						controls_state = 454
-						controls_state = 453
-					}
+			ENG = {
+				NOT = {
+					controls_state = 455
+					controls_state = 454
+					controls_state = 453
 				}
 			}
 		}
@@ -6520,14 +6313,6 @@ focus_tree = {
 					id = bftb_turkey.83
 				}
 			}
-			else_if = {
-				limit = {
-					has_completed_focus = TUR_anti_bolshevik_mediterranean_bloc
-				}
-				country_event = {
-					id = bftb_turkey.82
-				}
-			}
 			else = {
 				effect_tooltip = {
 					country_event = {
@@ -6817,7 +6602,6 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-
 			}
 			49 = {
 				if = {
@@ -6834,7 +6618,6 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-
 			}
 			344 = {
 				if = {
@@ -6867,7 +6650,6 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-
 			}
 			unlock_decision_tooltip = TUR_teach_the_proper_use_of_modern_infrastructure
 			unlock_decision_tooltip = TUR_put_new_safety_regulations_regarding_the_operation_of_aircraft_into_effect
