@@ -1,5 +1,19 @@
+#!gfx:interface\goals\goal_ENG.gfx
+#!gfx:interface\goals\goal_FRA.gfx
+#!gfx:interface\goals\goal_ITA.gfx
+#!gfx:interface\goals\goal_POL.gfx
+#!gfx:interface\goals\goal_UKR.gfx
+#!gfx:interface\goals\goal_JAP.gfx
+#!gfx:interface\goals\goal_HUN.gfx
+#!gfx:interface\goals\goal_UKR.gfx
+#!gfx:interface\goals\goal_generic.gfx
+#!gfx:interface\goals\goal_GER.gfx
+#!gfx:interface\goals\goal_RUS.gfx
+#!gfx:interface\goals\goal_ROM.gfx
+#!gfx:interface\goals\goal_RHI.gfx
+#!gfx:interface\goals\goal_SOV.gfx
 focus_tree = {
-	id = mutasarrifate_jerusalem_focus
+	id = israel_focus
 	country = {
 		factor = 0
 		modifier = {
@@ -7,127 +21,87 @@ focus_tree = {
 			tag = ISR
 		}
 	}
-
 	default = no
-	continuous_focus_position = { x = 250 y = 1100 }
-
-### Political & Economic Part ###
+	continuous_focus_position = {
+		x = 1500
+		y = 400
+	}
 	focus = {
-		id = MOJ_1936_Census
-		icon = GFX_goal_conspiracy
+		id = ISR_1936_Census
+		icon = GFX_focus_POL_support_zionism
 		cost = 8
-
 		x = 5
 		y = 0
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_1936_Census"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_1936_Census"
 			add_political_power = 50
 		}
 	}
-
 	focus = {
-		id = MOJ_Pole_Report
+		id = ISR_Pole_Report
 		icon = GFX_focus_hol_the_foundations_of_defense
 		cost = 8
-
-		relative_position_id = MOJ_1936_Census
+		relative_position_id = ISR_1936_Census
 		x = 4
 		y = 2
-
 		prerequisite = {
-			focus = MOJ_1936_Census
+			focus = ISR_1936_Census
 		}
-
 		available = {
-			has_idea = pal_black_monday
+
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		select_effect = {
-			log = "[GetDateText]: [Root.GetName]: Select Focus MOJ_Pole_Report"
-			OTT = {
-				country_event = { id = pal.29 days = 20 }
-			}
 		}
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Pole_Report"
 			add_stability = 0.05
-			country_event = pal.29
-			swap_ideas = {
-				remove_idea = pal_black_monday
-				add_idea = pal_black_monday2
-			}
 		}
 	}
-
-	### International Focused
 	focus = {
-		id = MOJ_Foreign_Financial_Backing
+		id = ISR_Foreign_Financial_Backing
 		icon = GFX_focus_usa_reestablish_the_gold_standard
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
+		relative_position_id = ISR_Pole_Report
 		x = -1
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_Pole_Report
+			focus = ISR_Pole_Report
 		}
-
-		mutually_exclusive = {
-			focus = MOJ_Ottoman_Economic_Reintegration
+		ai_will_do = {
+			factor = 4
 		}
-
-		ai_will_do = { factor = 4 }
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Foreign_Financial_Backing"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Foreign_Financial_Backing"
 			add_stability = 0.05
-			add_popularity = {
-				ideology = market_liberal
-				popularity = 0.1
-			}
-			add_timed_idea = {
-				idea = pal_foreign_backing
-				days = 100
-			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Jaffa_Harbour_Project
-		icon = GFX_goal_generic_coastal_navy
+		id = ISR_Jaffa_Harbour_Project
+		icon = GFX_focus_ENG_british_armed_convoy
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = -2
-		y = 3
-
+		relative_position_id = ISR_Pole_Report
+		x = -3
+		y = 2
 		prerequisite = {
-			focus = MOJ_Foreign_Financial_Backing
+			focus = ISR_Foreign_Financial_Backing
 		}
-
 		available = {
 			controls_state = 454
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Jaffa_Harbour_Project"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Jaffa_Harbour_Project"
 			454 = {
 				add_building_construction = {
 					type = naval_base
@@ -144,30 +118,25 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Port_Said_Link
-		icon = GFX_goal_navy_decision
+		id = ISR_Port_Said_Link
+		icon = GFX_focus_generic_navy_decision
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = -3
-		y = 4
-
+		relative_position_id = ISR_Jaffa_Harbour_Project
+		x = 1
+		y = 1
 		prerequisite = {
-			focus = MOJ_Jaffa_Harbour_Project
+			focus = ISR_Jaffa_Harbour_Project
 		}
-
 		available = {
 			controls_state = 454
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Port_Said_Link"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Port_Said_Link"
 			454 = {
 				add_building_construction = {
 					type = naval_base
@@ -182,26 +151,22 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Palestinian_Railroads_Initiative
+		id = ISR_Palestinian_Railroads_Initiative
 		icon = GFX_goal_generic_construct_infrastructure
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
+		relative_position_id = ISR_Pole_Report
 		x = -1
 		y = 2
-
 		prerequisite = {
-			focus = MOJ_Foreign_Financial_Backing
+			focus = ISR_Foreign_Financial_Backing
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Palestinian_Railroads_Initiative"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Palestinian_Railroads_Initiative"
 			454 = {
 				add_building_construction = {
 					type = infrastructure
@@ -211,30 +176,25 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Sell_Railroad_Concessions
+		id = ISR_Sell_Railroad_Concessions
 		icon = GFX_focus_mex_privatisation
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = -1
-		y = 4
-
+		relative_position_id = ISR_Pole_Report
+		x = 0
+		y = 3
 		prerequisite = {
-			focus = MOJ_Palestinian_Railroads_Initiative
+			focus = ISR_Palestinian_Railroads_Initiative
 		}
-
 		available = {
 			controls_state = 454
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Sell_Railroad_Concessions"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Sell_Railroad_Concessions"
 			454 = {
 				add_building_construction = {
 					type = infrastructure
@@ -242,7 +202,9 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			set_temp_variable = { ideology_change_var = 10 }
+			set_temp_variable = {
+				ideology_change_var = 10
+			}
 			change_ruling_party_popularity = yes
 			add_popularity = {
 				ideology = market_liberal
@@ -250,31 +212,26 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Beersheba_Sinai_Line
+		id = ISR_Beersheba_Sinai_Line
 		icon = GFX_goal_generic_construction2
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = -2
-		y = 5
-
+		relative_position_id = ISR_Port_Said_Link
+		x = 1
+		y = 1
 		prerequisite = {
-			focus = MOJ_Port_Said_Link
-			focus = MOJ_Sell_Railroad_Concessions
+			focus = ISR_Port_Said_Link
+			focus = ISR_Sell_Railroad_Concessions
 		}
-
 		available = {
 			controls_state = 453
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Beersheba_Sinai_Line"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Beersheba_Sinai_Line"
 			453 = {
 				add_building_construction = {
 					type = infrastructure
@@ -284,113 +241,83 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Jewish_Private_Investement
-		icon = GFX_goal_PAL_Private_Investement
+		id = ISR_Jewish_Private_Investement
+		icon = GFX_focus_generic_Jew_Investement
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = -5
-		y = 4
-
+		relative_position_id = ISR_Jaffa_Harbour_Project
+		x = -1
+		y = 1
 		prerequisite = {
-			focus = MOJ_Jaffa_Harbour_Project
+			focus = ISR_Jaffa_Harbour_Project
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Jewish_Private_Investement"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Jewish_Private_Investement"
 			add_offsite_building = {
 				type = industrial_complex
 				level = 1
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Agricultural_Imports
-		icon = GFX_goal_PAL_Food_Import
+		id = ISR_Agricultural_Imports
+		icon = GFX_focus_POL_Centrolew_Limited_Collectivization
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = -7
-		y = 4
-
+		relative_position_id = ISR_Jaffa_Harbour_Project
+		x = -3
+		y = 1
 		prerequisite = {
-			focus = MOJ_Jaffa_Harbour_Project
+			focus = ISR_Jaffa_Harbour_Project
 		}
-
-		available = {
-			has_idea = pal_shortage_of_goods
+		ai_will_do = {
+			factor = 4
 		}
-
-		ai_will_do = { factor = 4 }
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Agricultural_Imports"
-			add_stability = 0.10
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Agricultural_Imports"
+			add_stability = 0.1
 			remove_ideas = pal_shortage_of_goods
 		}
 	}
-
 	focus = {
-		id = MOJ_Relieve_Shortages
-		icon = GFX_goal_famine
+		id = ISR_Relieve_Water_Shortages
+		icon = GFX_focus_generic_radar_fgo
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = -5
-		y = 5
-
+		relative_position_id = ISR_Jaffa_Harbour_Project
+		x = 0
+		y = 2
 		prerequisite = {
-			focus = MOJ_Agricultural_Imports
+			focus = ISR_Agricultural_Imports
 		}
 		prerequisite = {
-			focus = MOJ_Jewish_Private_Investement
+			focus = ISR_Jewish_Private_Investement
 		}
 		prerequisite = {
-			focus = MOJ_Port_Said_Link
+			focus = ISR_Port_Said_Link
 		}
-
-		available = {
-			has_idea = pal_black_monday2
+		ai_will_do = {
+			factor = 4
 		}
-
-		ai_will_do = { factor = 4 }
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Relieve_Shortages"
-			remove_ideas = pal_black_monday2
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Relieve_Water_Shortages"
 			add_stability = 0.05
 		}
 	}
-
-	### Ottoman Oriented
 	focus = {
-		id = MOJ_Ottoman_Economic_Reintegration
-		icon = GFX_goal_OTT_Years_of_Progress
+		id = ISR_Economic_Reintegration
+		icon = GFX_focus_POL_Centrolew_Economic_Stimulus
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
+		relative_position_id = ISR_Pole_Report
 		x = 1
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_Pole_Report
+			focus = ISR_Pole_Report
 		}
-
-		mutually_exclusive = {
-			focus = MOJ_Foreign_Financial_Backing
-		}
-
 		ai_will_do = {
 			factor = 4
 			modifier = {
@@ -398,13 +325,13 @@ focus_tree = {
 				has_country_flag = ott_push
 			}
 		}
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Ottoman_Economic_Reintegration"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Economic_Reintegration"
 			add_stability = 0.05
-			set_temp_variable = { ideology_change_var = 10 }
+			set_temp_variable = {
+				ideology_change_var = 10
+			}
 			change_ruling_party_popularity = yes
 			add_timed_idea = {
 				idea = pal_ottoman_reintegration
@@ -412,65 +339,28 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_DDY_Takeover
-		icon = GFX_goal_generic_railway_construction
+		id = ISR_Refurbish_Haifa_Jerusalem_Line
+		icon = GFX_focus_generic_design_equipment_standards
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = 1
-		y = 2
-
+		relative_position_id = ISR_Economic_Reintegration
+		x = 0
+		y = 1
 		prerequisite = {
-			focus = MOJ_Ottoman_Economic_Reintegration
+			focus = ISR_Economic_Reintegration
 		}
-
-		ai_will_do = { factor = 4 }
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_DDY_Takeover"
-			add_autonomy_score = {
-				value = -250
-				localization = "Railroad Integration"
-			}
-			set_temp_variable = { ideology_change_var = 5 }
-			change_ruling_party_popularity = yes
-			country_event = pal.30
-			OTT = {
-				country_event = pal.30
-			}
-		}
-	}
-
-	focus = {
-		id = MOJ_Refurbish_Haifa_Jerusalem_Line
-		icon = GFX_goal_OTT_Railroad
-		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
-		x = 1
-		y = 4
-
-		prerequisite = {
-			focus = MOJ_DDY_Takeover
-		}
-
 		available = {
 			controls_state = 454
 			OTT = {
 				controls_state = 992
 			}
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Refurbish_Haifa_Jerusalem_Line"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Refurbish_Haifa_Jerusalem_Line"
 			454 = {
 				add_building_construction = {
 					type = infrastructure
@@ -487,33 +377,28 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Haifa_Deep_Water_Harbour
-		icon = GFX_goal_generic_sea_focused_navy
+		id = ISR_Haifa_Deep_Water_Harbour
+		icon = GFX_focus_POL_develop_polish_shipbuilding
 		cost = 8
-
-		relative_position_id = MOJ_Pole_Report
+		relative_position_id = ISR_Pole_Report
 		x = 2
 		y = 3
-
 		prerequisite = {
-			focus = MOJ_Ottoman_Economic_Reintegration
+			focus = ISR_Economic_Reintegration
 		}
-
 		available = {
 			controls_state = 454
 			OTT = {
 				controls_state = 992
 			}
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Haifa_Deep_Water_Harbour"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Haifa_Deep_Water_Harbour"
 			454 = {
 				add_extra_state_shared_building_slots = 1
 			}
@@ -527,93 +412,79 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Relieve_Goods_Shortage
+		id = ISR_Relieve_Goods_Shortage
 		icon = GFX_focus_hol_abandon_the_gold_standard
 		cost = 8
-
-		relative_position_id = MOJ_Haifa_Deep_Water_Harbour
-		x = 1
+		relative_position_id = ISR_Haifa_Deep_Water_Harbour
+		x = -1
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_Haifa_Deep_Water_Harbour
+			focus = ISR_Haifa_Deep_Water_Harbour
+			focus = ISR_Refurbish_Haifa_Jerusalem_Line
 		}
-
 		available = {
 			has_idea = pal_shortage_of_goods
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Relieve_Goods_Shortage"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Relieve_Goods_Shortage"
 			add_stability = 0.15
 			remove_ideas = pal_shortage_of_goods
 		}
 	}
-
 	focus = {
-		id = MOJ_Cooperation_Technicum
+		id = ISR_Cooperation_Technicum
 		icon = GFX_goal_tfv_generic_tech_sharing
 		cost = 8
-
-		relative_position_id = MOJ_Haifa_Deep_Water_Harbour
+		relative_position_id = ISR_Haifa_Deep_Water_Harbour
 		x = 0
 		y = 2
-
 		prerequisite = {
-			focus = MOJ_Relieve_Goods_Shortage
-			focus = MOJ_Refurbish_Haifa_Jerusalem_Line
+			focus = ISR_Relieve_Goods_Shortage
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Cooperation_Technicum"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Cooperation_Technicum"
 			add_tech_bonus = {
-				name = MOJ_Cooperation_Technicum
+				name = ISR_Cooperation_Technicum
 				category = construction_tech
 				bonus = 1
 				uses = 1
 			}
 			add_tech_bonus = {
-				name = MOJ_Cooperation_Technicum
+				name = ISR_Cooperation_Technicum
 				category = excavation_tech
 				bonus = 1
 				uses = 1
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Local_Manifacturing
-		icon = GFX_goal_generic_union_agreement
+		id = ISR_Cooperation_With_Bund
+		icon = GFX_focus_POL_Centrolew_Cooperate_with_BUND
 		cost = 8
-
-		relative_position_id = MOJ_Haifa_Deep_Water_Harbour
-		x = 2
-		y = 2
-
+		relative_position_id = ISR_Jewish_Private_Investement
+		x = -1
+		y = 1
 		prerequisite = {
-			focus = MOJ_Relieve_Goods_Shortage
+			focus = ISR_Jewish_Private_Investement
 		}
-
 		available = {
 			controls_state = 454
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Local_Manifacturing"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Cooperation_With_Bund"
 			454 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -624,289 +495,213 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Damascene_Link
-		icon = GFX_goal_OTT_opda
+		id = ISR_Haifa_Telaviv_Jerusalem
+		icon = GFX_focus_generic_ban_the_radicals
 		cost = 8
-
-		relative_position_id = MOJ_Haifa_Deep_Water_Harbour
-		x = 1
-		y = 3
-
+		relative_position_id = ISR_The_Frontline_Of_Imperialism
+		x = 0
+		y = 2
 		prerequisite = {
-			focus = MOJ_Relieve_Goods_Shortage
+			focus = ISR_The_Frontline_Of_Imperialism
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Damascene_Link"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Damascene_Link"
 			remove_ideas = pal_black_monday2
 			add_stability = 0.05
-			set_temp_variable = { ideology_change_var = 10 }
+			set_temp_variable = {
+				ideology_change_var = 10
+			}
 			change_ruling_party_popularity = yes
 		}
 	}
-
-	### Gendarmerie ###
 	focus = {
-		id = MOJ_Restructure_International_Gendarmerie
+		id = ISR_Restructure_International_Gendarmerie
 		icon = GFX_focus_generic_little_entente
 		cost = 8
-
-		relative_position_id = MOJ_1936_Census
+		relative_position_id = ISR_1936_Census
 		x = 1
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_1936_Census
+			focus = ISR_1936_Census
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Restructure_International_Gendarmerie"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Restructure_International_Gendarmerie"
 			add_manpower = 500
 			add_tech_bonus = {
-				name = MOJ_Restructure_International_Gendarmerie
+				name = ISR_Restructure_International_Gendarmerie
 				category = military_police_tech
 				bonus = 1
 				uses = 2
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Broadcast_Disruption
-		icon = GFX_goal_generic_propaganda
+		id = ISR_Broadcast_Disruption
+		icon = GFX_focus_POL_repress_anti_semitism
 		cost = 8
-
-		relative_position_id = MOJ_Restructure_International_Gendarmerie
-		x = -1
+		relative_position_id = ISR_1936_Census
+		x = 3
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_Restructure_International_Gendarmerie
-			focus = MOJ_Mutasarrif_Sagay
+			focus = ISR_1936_Census
 		}
-
-		available = {
-			has_idea = pal_arab_broadcasts
+		ai_will_do = {
+			factor = 4
 		}
-
-		ai_will_do = { factor = 4 }
-
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Broadcast_Disruption"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Broadcast_Disruption"
 			add_stability = 0.05
 			remove_ideas = pal_arab_broadcasts
 		}
 	}
-
 	focus = {
-		id = MOJ_Sinai_Patrol
-		icon = GFX_goal_OTT_camels
+		id = ISR_Negev_Patrol
+		icon = GFX_focus_generic_camel_corps
 		cost = 8
-
-		relative_position_id = MOJ_Restructure_International_Gendarmerie
+		relative_position_id = ISR_Restructure_International_Gendarmerie
 		x = 1
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_Restructure_International_Gendarmerie
+			focus = ISR_Restructure_International_Gendarmerie
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Sinai_Patrol"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Sinai_Patrol"
 			hidden_effect = {
-				set_technology = { desert_warfare = 1 }
 			}
 			custom_effect_tooltip = desert_warfare_effect
 			add_war_support = 0.05
 		}
 	}
-
 	focus = {
-		id = MOJ_Congress_of_Haifa
-		icon = GFX_goal_OTT_Muslim_Relations
+		id = ISR_Congress_of_Haifa
+		icon = GFX_focus_POL_Endecja_Dominant_Party_Democracy
 		cost = 8
-
-		relative_position_id = MOJ_Restructure_International_Gendarmerie
+		relative_position_id = ISR_Restructure_International_Gendarmerie
 		x = 0
 		y = 2
-
 		prerequisite = {
-			focus = MOJ_Restructure_International_Gendarmerie
+			focus = ISR_Restructure_International_Gendarmerie
 		}
-
 		available = {
 			date > 1938.10.01
 			has_country_flag = palestine_strike
 		}
-
-		ai_will_do = { factor = 900 }
-
+		ai_will_do = {
+			factor = 900
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Congress_of_Haifa"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Congress_of_Haifa"
 			country_event = pal.18
 		}
 	}
-
-	### Mutasarrif ###
+	##THIS!
 	focus = {
-		id = MOJ_Mutasarrif_Sagay
+		id = ISR_Theresa
 		icon = GFX_focus_mex_support_general_cedillo
 		cost = 8
 		dynamic = yes
-
-		relative_position_id = MOJ_1936_Census
+		relative_position_id = ISR_1936_Census
 		x = -1
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_1936_Census
+			focus = ISR_1936_Census
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Mutasarrif_Sagay"
 			add_political_power = 100
-			add_country_leader_trait = PAL_fervent_educator
 		}
 	}
-
 	focus = {
-		id = MOJ_Restructure_Palestine_Education
-		icon = GFX_focus_generic_military_academy
+		id = ISR_Restructure_Palestine_Education
+		icon = GFX_focus_POL_Morges_Technician_School
 		cost = 8
-
-		relative_position_id = MOJ_Mutasarrif_Sagay
-		x = -1
+		relative_position_id = ISR_Theresa
+		x = 1
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_Mutasarrif_Sagay
+			focus = ISR_Theresa
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Restructure_Palestine_Education"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Restructure_Palestine_Education"
 			add_tech_bonus = {
-				name = MOJ_Restructure_Palestine_Education
+				name = ISR_Restructure_Palestine_Education
 				category = cat_production
 				bonus = 1
 				uses = 1
 			}
 			add_doctrine_cost_reduction = {
-				name = MOJ_Restructure_Palestine_Education
+				name = ISR_Restructure_Palestine_Education
 				category = land_doctrine
 				cost_reduction = 0.5
 				uses = 1
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Reaffirm_Ottoman_Authority
-		icon = GFX_goal_islamic_government
+		id = ISR_Reaffirm_British_Authority
+		icon = GFX_focus_ENG_strengthen_the_king
 		cost = 8
-
-		relative_position_id = MOJ_Mutasarrif_Sagay
+		relative_position_id = ISR_Theresa
 		x = 0
 		y = 2
-
 		prerequisite = {
-			focus = MOJ_Mutasarrif_Sagay
+			focus = ISR_Theresa
 		}
-
 		available = {
 			has_country_flag = palestine_strike
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Reaffirm_Ottoman_Authority"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Reaffirm_British_Authority"
 			add_autonomy_score = {
 				value = -500
 				localization = "Reaffirmed Ottoman Authority"
 			}
-			set_temp_variable = { ideology_change_var = 15 }
-			change_ruling_party_popularity = yes
+			set_temp_variable = {
+				ideology_change_var = 15
+			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Abolishment_of_the_MOJ
-		icon = GFX_focus_eng_decolonization
+		id = ISR_West_European_Immigrants
+		icon = GFX_focus_POL_Centrolew
 		cost = 8
-
-		relative_position_id = MOJ_Mutasarrif_Sagay
-		x = 1
-		y = 3
-
-		prerequisite = {
-			focus = MOJ_Reaffirm_Ottoman_Authority
-		}
-		prerequisite = {
-			focus = MOJ_Congress_of_Haifa
-		}
-
-		available = {
-			has_global_flag = pal_haifa_concluded
-		}
-
-		ai_will_do = { factor = 4 }
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Abolishment_of_the_MOJ"
-			custom_effect_tooltip = pal_end_moj_tt
-			OTT_mutasarrifate_abolishment_effect = yes
-		}
-	}
-
-	### Managing Immigration
-	focus = {
-		id = MOJ_Algerian_Immigrants
-		icon = GFX_goal_PAL_Algerian_Refugees
-		cost = 8
-
-		x = 10
-		y = 0
-
+		x = 11
+		y = 2
 		available = {
 			always = no
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Algerian_Immigrants"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_West_European_Immigrants"
 			454 = {
 				add_manpower = 14000
 			}
@@ -914,25 +709,22 @@ focus_tree = {
 			add_stability = -0.03
 		}
 	}
-
 	focus = {
-		id = MOJ_Russian_Immigrants
-		icon = GFX_goal_PAL_Russian_Refugees
+		id = ISR_Russian_Immigrants
+		icon = GFX_focus_RUS_support_from_grassroot_youkais
 		cost = 8
-
-		x = 12
+		x = 2
 		y = 0
-
+		relative_position_id = ISR_West_European_Immigrants
 		available = {
 			always = no
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Russian_Immigrants"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Russian_Immigrants"
 			454 = {
 				add_manpower = 20000
 				add_building_construction = {
@@ -944,25 +736,22 @@ focus_tree = {
 			add_stability = -0.05
 		}
 	}
-
 	focus = {
-		id = MOJ_Eastern_European_Immigrants
-		icon = GFX_goal_PAL_Eastern_European_Refugees
+		id = ISR_Eastern_European_Immigrants
+		icon = GFX_focus_POL_Sanacja_technocrats
 		cost = 8
-
-		x = 14
-		y = 0
-
+		x = 0
+		y = -1
+		relative_position_id = ISR_West_European_Immigrants
 		available = {
 			always = no
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Eastern_European_Immigrants"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Eastern_European_Immigrants"
 			454 = {
 				add_manpower = 20000
 				add_extra_state_shared_building_slots = 1
@@ -970,25 +759,22 @@ focus_tree = {
 			add_stability = -0.05
 		}
 	}
-
 	focus = {
-		id = MOJ_American_Immigrants
-		icon = GFX_goal_PAL_American_Refugees
+		id = ISR_American_Immigrants
+		icon = GFX_focus_generic_american_investments
 		cost = 8
-
-		x = 16
-		y = 0
-
+		x = 2
+		y = -1
+		relative_position_id = ISR_West_European_Immigrants
 		available = {
 			always = no
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_American_Immigrants"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_American_Immigrants"
 			454 = {
 				add_manpower = 10000
 			}
@@ -999,81 +785,69 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Coordinate_Jewish_Land_Acquisition
-		icon = GFX_goal_OTT_Land_Reform
+		id = ISR_Coordinate_Jewish_Land_Acquisition
+		icon = GFX_focus_generic_Jew_Investement
 		cost = 8
-
-		x = 13
+		x = 1
 		y = 1
-
+		relative_position_id = ISR_West_European_Immigrants
 		prerequisite = {
-			focus = MOJ_American_Immigrants
-			focus = MOJ_Russian_Immigrants
-			focus = MOJ_Eastern_European_Immigrants
-			focus = MOJ_Algerian_Immigrants
+			focus = ISR_American_Immigrants
+			focus = ISR_Russian_Immigrants
+			focus = ISR_Eastern_European_Immigrants
+			focus = ISR_West_European_Immigrants
 		}
-
 		available = {
 			controls_state = 454
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Coordinate_Jewish_Land_Acquisition"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Coordinate_Jewish_Land_Acquisition"
 			454 = {
 				add_extra_state_shared_building_slots = 1
 			}
 			add_stability = 0.05
 		}
 	}
-
 	focus = {
-		id = MOJ_Agricultural_Expansion
-		icon = GFX_goal_PAL_Irrigation_Program
+		id = ISR_Agricultural_Expansion
+		icon = GFX_focus_POL_Socialist_Strengthen_Social_Security
 		cost = 8
-
-		relative_position_id = MOJ_Coordinate_Jewish_Land_Acquisition
-		x = -1
+		relative_position_id = ISR_Coordinate_Jewish_Land_Acquisition
+		x = 0
 		y = 1
-
 		prerequisite = {
-			focus = MOJ_Coordinate_Jewish_Land_Acquisition
+			focus = ISR_Coordinate_Jewish_Land_Acquisition
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Agricultural_Expansion"
-			add_stability = 0.10
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Agricultural_Expansion"
+			add_stability = 0.1
 		}
 	}
-
 	focus = {
-		id = MOJ_Tel_Aviv_Expansion
+		id = ISR_Tel_Aviv_Expansion
 		icon = GFX_focus_usa_guarantee_the_american_dream
 		cost = 8
-
-		relative_position_id = MOJ_Coordinate_Jewish_Land_Acquisition
-		x = 1
-		y = 1
-
+		relative_position_id = ISR_Agricultural_Expansion
+		x = 0
+		y = 2
 		prerequisite = {
-			focus = MOJ_Coordinate_Jewish_Land_Acquisition
+			focus = ISR_Agricultural_Expansion
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Tel_Aviv_Expansion"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Tel_Aviv_Expansion"
 			454 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -1084,656 +858,379 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = MOJ_Close_Immigration
-		icon = GFX_goal_PAL_Closed_Immigration
+		id = ISR_Close_Immigration
+		icon = GFX_focus_generic_agriculture_3
 		cost = 2
-
-		relative_position_id = MOJ_Coordinate_Jewish_Land_Acquisition
-		x = 0
+		relative_position_id = ISR_Coordinate_Jewish_Land_Acquisition
+		x = 1
 		y = 2
-
 		prerequisite = {
-			focus = MOJ_Coordinate_Jewish_Land_Acquisition
+			focus = ISR_Coordinate_Jewish_Land_Acquisition
 		}
-
 		available = {
 			always = no
 		}
-
-		ai_will_do = { factor = 4 }
-
+		ai_will_do = {
+			factor = 4
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MOJ_Close_Immigration"
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Close_Immigration"
 			swap_ideas = {
 				remove_idea = pal_alijah_EE
 				add_idea = pal_immigration_stopped
 			}
 		}
 	}
-
-
-	
-		focus = {
-			id = SUE_The_Port_Said_Convention
-			icon = GFX_goal_new_treaty
-			cost = 6
-	
-			x = -6
-			y = 0
-	
-			available = {
-				has_global_flag = SUEZ_SUCCESS
+	focus = {
+		id = ISR_Land_Reform
+		icon = GFX_focus_generic_Land_Reform
+		cost = 6
+		relative_position_id = ISR_Agricultural_Imports
+		x = -1
+		y = 1
+		available = {
+			controls_state = 753
+		}
+		prerequisite = {
+			focus = ISR_Agricultural_Imports
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Land_Reform"
+			753 = {
+				increase_state_category_by_one_level = yes
 			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_The_Port_Said_Convention"
-				add_popularity = {
-					ideology = market_liberal
-					popularity = 0.1
-				}
-				every_other_country = {
-					limit = { has_guaranteed = PAL }
-					add_stability = 0.02
+		}
+	}
+	focus = {
+		id = ISR_Expand_Rail_Connections
+		icon = GFX_focus_generic_economic_prosperity
+		cost = 6
+		relative_position_id = ISR_Sell_Railroad_Concessions
+		x = 0
+		y = 2
+		available = {
+			controls_state = 753
+		}
+		prerequisite = {
+			focus = ISR_Sell_Railroad_Concessions
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Expand_Rail_Connections"
+			753 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
-	
-		focus = {
-			id = SUE_Rebuild_The_Civilian_Administration_Center
-			icon = GFX_goal_plantation_grants
-			cost = 8
-	
-			relative_position_id = SUE_The_Port_Said_Convention
-			x = -1
-			y = 1
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_The_Port_Said_Convention
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Rebuild_The_Civilian_Administration_Center"
-				add_stability = 0.1
-				add_political_power = 50
-			}
+	}
+	focus = {
+		id = ISR_Create_Industrial_Zone
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 6
+		relative_position_id = ISR_Cooperation_With_Bund
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ISR_Jewish_Private_Investement
 		}
-	
-		focus = {
-			id = SUE_Port_Abdulmecid_Housing_Project
-			icon = GFX_goal_OTT_Expand_the_Halkevleri_Program
-			cost = 8
-	
-			relative_position_id = SUE_The_Port_Said_Convention
-			x = -1
-			y = 2
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Rebuild_The_Civilian_Administration_Center
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Port_Abdulmecid_Housing_Project"
-				753 = { increase_state_category_by_one_level = yes }
-			}
+		prerequisite = {
+			focus = ISR_Cooperation_With_Bund
 		}
-	
-		focus = {
-			id = SUE_Clear_The_Port_Said_Suez_Fairway
-			icon = GFX_goal_generic_shipyard
-			cost = 8
-	
-			relative_position_id = SUE_The_Port_Said_Convention
-			x = 1
-			y = 1
-	
-			available = {
-				controls_state = 753
-				has_active_mission = Axis_Suez_Reparations_mission
-			}
-			prerequisite = {
-				focus = SUE_The_Port_Said_Convention
-			}
-			bypass = {
-				NOT = {
-					has_global_flag = SUEZ_CANAL_BLOCKED
-				}
-			}
-	
-			ai_will_do = { factor = 15 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Clear_The_Port_Said_Suez_Fairway"
-				every_other_country = {
-					limit = { has_active_mission = Axis_Suez_Reparations_mission }
-					add_days_mission_timeout = {
-						mission = Axis_Suez_Reparations_mission
-						days = -50
-					}
+		available = {
+			controls_state = 753
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Create_The_Port_Said_Industrial_Zone"
+			753 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
-	
-		focus = {
-			id = SUE_Restore_Suez_Refuelling_Station
-			icon = GFX_goal_oil
-			cost = 8
-	
-			relative_position_id = SUE_The_Port_Said_Convention
-			x = 1
-			y = 2
-	
-			available = {
-				controls_state = 753
-				has_active_mission = Axis_Suez_Reparations_mission
-			}
-			prerequisite = {
-				focus = SUE_Clear_The_Port_Said_Suez_Fairway
-			}
-			bypass = {
-				NOT = {
-					has_global_flag = SUEZ_CANAL_BLOCKED
-				}
-			}
-	
-			ai_will_do = { factor = 15 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Restore_Suez_Refuelling_Station"
-				every_other_country = {
-					limit = { has_active_mission = Axis_Suez_Reparations_mission }
-					add_days_mission_timeout = {
-						mission = Axis_Suez_Reparations_mission
-						days = -50
-					}
+	}
+	focus = {
+		id = ISR_Expand_Textile_Manufacturing
+		icon = GFX_focus_generic_bag_of_money
+		cost = 6
+		relative_position_id = ISR_Agricultural_Imports
+		x = 0
+		y = 2
+		available = {
+			controls_state = 753
+		}
+		prerequisite = {
+			focus = ISR_Agricultural_Imports
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Expand_Textile_Manufacturing"
+			753 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
-	
-		focus = {
-			id = SUE_Re_Open_The_Canal
-			icon = GFX_goal_USA_liberty_ships
-			cost = 100
-	
-			relative_position_id = SUE_The_Port_Said_Convention
-			x = 0
-			y = 3
-	
-			available = {
-				NOT = {
-					has_active_mission = Axis_Suez_Reparations_mission
-				}
-			}
-			prerequisite = {
-				focus = SUE_Port_Abdulmecid_Housing_Project
-			}
-			prerequisite = {
-				focus = SUE_Restore_Suez_Refuelling_Station
-			}
-			bypass = {
-				NOT = {
-					has_global_flag = SUEZ_CANAL_BLOCKED
-				}
-			}
-	
-			ai_will_do = { factor = 1000 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Re_Open_The_Canal"
-				custom_effect_tooltip = SUEZ_REOPENED
-				clr_global_flag = SUEZ_CANAL_BLOCKED
-				add_stability = 0.15
-			}
+	}
+	focus = {
+		id = ISR_Rebuild_The_Port_Said_Refinery
+		icon = GFX_goal_generic_oil_refinery
+		cost = 6
+		relative_position_id = ISR_Beersheba_Sinai_Line
+		x = -1
+		y = 1
+		available = {
+			controls_state = 753
 		}
-	
-		focus = {
-			id = SUE_Electrification_Of_Ismailia
-			icon = GFX_goal_Schelle
-			cost = 6
-	
-			relative_position_id = SUE_Re_Open_The_Canal
-			x = -3
-			y = 1
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Re_Open_The_Canal
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Electrification_Of_Ismailia"
-				753 = { increase_state_category_by_one_level = yes }
-			}
+		prerequisite = {
+			focus = ISR_Beersheba_Sinai_Line
 		}
-	
-		focus = {
-			id = SUE_Expand_Rail_Connections
-			icon = GFX_goal_OTT_Railroad
-			cost = 6
-	
-			relative_position_id = SUE_Re_Open_The_Canal
-			x = -1
-			y = 1
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Re_Open_The_Canal
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Expand_Rail_Connections"
-				753 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
+		prerequisite = {
+			focus = ISR_Relieve_Water_Shortages
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Rebuild_The_Port_Said_Refinery"
+			753 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
-	
-		focus = {
-			id = SUE_Create_The_Port_Said_Industrial_Zone
-			icon = GFX_goal_generic_construct_civ_factory
-			cost = 6
-	
-			relative_position_id = SUE_Re_Open_The_Canal
-			x = -2
-			y = 2
-	
-			available = {
-				controls_state = 753
+	}
+	focus = {
+		id = ISR_The_International_Assembly
+		icon = GFX_focus_generic_government_reform
+		cost = 6
+		relative_position_id = ISR_Reaffirm_British_Authority
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = ISR_Reaffirm_British_Authority
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = ISR_Expand_The_Army
+		icon = GFX_focus_POL_Nearl_Military_training_for_Citizens
+		cost = 6
+		relative_position_id = ISR_1936_Census
+		x = -3
+		y = 1
+		prerequisite = {
+			focus = ISR_1936_Census
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Expand_The_Army"
+			swap_ideas = {
+				remove_idea = pal_moj
+				add_idea = pal_moj2
 			}
-			prerequisite = {
-				focus = SUE_Electrification_Of_Ismailia
-			}
-			prerequisite = {
-				focus = SUE_Expand_Rail_Connections
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Create_The_Port_Said_Industrial_Zone"
-				753 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
+		}
+	}
+	focus = {
+		id = ISR_Establish_The_Navy
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 6
+		relative_position_id = ISR_Expand_The_Army
+		x = -1
+		y = 1
+		available = {
+			controls_state = 753
+		}
+		prerequisite = {
+			focus = ISR_Expand_The_Army
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Establish_The_Navy"
+			753 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
-	
-		focus = {
-			id = SUE_Expand_Textile_Manufacturing
-			icon = GFX_goal_SZC_silk
-			cost = 6
-	
-			relative_position_id = SUE_Create_The_Port_Said_Industrial_Zone
-			x = -1
-			y = 1
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Create_The_Port_Said_Industrial_Zone
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Expand_Textile_Manufacturing"
-				753 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
+	}
+	focus = {
+		id = ISR_Modernise_Repair_Facilities
+		icon = GFX_goal_generic_production
+		cost = 6
+		relative_position_id = ISR_Establish_The_Navy
+		x = -1
+		y = 1
+		available = {
+			controls_state = 753
+		}
+		prerequisite = {
+			focus = ISR_Establish_The_Navy
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Modernise_Repair_Facilities"
+			753 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
-	
-		focus = {
-			id = SUE_Increase_Shareholder_Dividends
-			icon = GFX_focus_usa_reestablish_the_gold_standard
-			cost = 6
-	
-			relative_position_id = SUE_Create_The_Port_Said_Industrial_Zone
-			x = 0
-			y = 2
-	
-			available = {
-				has_war = no
-			}
-			prerequisite = {
-				focus = SUE_Create_The_Port_Said_Industrial_Zone
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Increase_Shareholder_Dividends"
-				every_other_country = {
-					limit = { has_guaranteed = PAL }
-					add_ideas = pal_dividends
-					country_event = pal.33
+	}
+	focus = {
+		id = ISR_Department
+		icon = GFX_focus_generic_army_command_power
+		cost = 6
+		relative_position_id = ISR_Expand_The_Army
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = ISR_Expand_The_Army
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Department"
+		}
+	}
+	focus = {
+		id = ISR_Establish_The_Hospital
+		icon = GFX_focus_generic_promote_the_red_cross
+		cost = 6
+		relative_position_id = ISR_Department
+		x = -1
+		y = 1
+		available = {
+			has_war = no
+		}
+		prerequisite = {
+			focus = ISR_Department
+		}
+		prerequisite = {
+			focus = ISR_Establish_The_Navy
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = ISR_Expand_The_Arsenal
+		icon = GFX_focus_generic_military_equipment
+		cost = 6
+		relative_position_id = ISR_Establish_The_Hospital
+		x = 0
+		y = 1
+		available = {
+			controls_state = 753
+		}
+		prerequisite = {
+			focus = ISR_Modernise_Repair_Facilities
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Expand_The_Arsenal"
+			753 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
-	
-		focus = {
-			id = SUE_Rebuild_The_Port_Said_Refinery
-			icon = GFX_goal_generic_oil_refinery
-			cost = 6
-	
-			relative_position_id = SUE_Create_The_Port_Said_Industrial_Zone
-			x = 1
-			y = 1
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Create_The_Port_Said_Industrial_Zone
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Rebuild_The_Port_Said_Refinery"
-				753 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = synthetic_refinery
-						level = 1
-						instant_build = yes
-					}
-				}
+	}
+	focus = {
+		id = ISR_Found_The_Auxiliary_Corps
+		icon = GFX_focus_generic_national_arsenal
+		cost = 6
+		relative_position_id = ISR_Modernise_Repair_Facilities
+		x = 0
+		y = 1
+		available = {
+			controls_state = 753
+		}
+		prerequisite = {
+			focus = ISR_Modernise_Repair_Facilities
+		}
+		prerequisite = {
+			focus = ISR_Establish_The_Hospital
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus ISR_Found_The_Auxiliary_Corps"
+			swap_ideas = {
+				remove_idea = pal_moj2
+				add_idea = pal_moj3
 			}
 		}
-	
-		focus = {
-			id = SUE_Found_The_International_Legislative_Assembly
-			icon = GFX_goal_DOM_End_Judicial_Corruption
-			cost = 6
-	
-			relative_position_id = SUE_Re_Open_The_Canal
-			x = 1
-			y = 1
-	
-			prerequisite = {
-				focus = SUE_Re_Open_The_Canal
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Found_The_International_Legislative_Assembly"
-				add_ideas = pal_international_legislative_assembly
-			}
+	}
+	focus = {
+		id = ISR_The_Frontline_Of_Imperialism
+		icon = GFX_focus_POL_anti_fascist_military
+		cost = 6
+		relative_position_id = ISR_Expand_The_Arsenal
+		x = -1
+		y = 1
+		available = {
+			has_defensive_war = yes
 		}
-	
-		focus = {
-			id = SUE_Expand_The_Suez_Garrison
-			icon = GFX_goal_generic_army_cooperation
-			cost = 6
-	
-			relative_position_id = SUE_The_Port_Said_Convention
-			x = 5
-			y = 1
-	
-			prerequisite = {
-				focus = SUE_The_Port_Said_Convention
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Expand_The_Suez_Garrison"
-				swap_ideas = {
-					remove_idea = pal_moj
-					add_idea = pal_moj2
-				}
-			}
+		prerequisite = {
+			focus = ISR_Expand_The_Arsenal
 		}
-	
-		focus = {
-			id = SUE_Establish_The_Port_Said_Naval_Authority
-			icon = GFX_goal_generic_coastal_navy
-			cost = 6
-	
-			relative_position_id = SUE_Expand_The_Suez_Garrison
-			x = -1
-			y = 1
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Expand_The_Suez_Garrison
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Establish_The_Port_Said_Naval_Authority"
-				753 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
+		prerequisite = {
+			focus = ISR_Found_The_Auxiliary_Corps
 		}
-	
-		focus = {
-			id = SUE_Modernise_Repair_Facilities
-			icon = GFX_goal_generic_production
-			cost = 6
-	
-			relative_position_id = SUE_Expand_The_Suez_Garrison
-			x = -1
-			y = 2
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Establish_The_Port_Said_Naval_Authority
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Modernise_Repair_Facilities"
-				753 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
+		ai_will_do = {
+			factor = 4
 		}
-	
-		focus = {
-			id = SUE_Department_For_The_Procurement_Of_Supplies
-			icon = GFX_goal_PAL_Food_Import
-			cost = 6
-	
-			relative_position_id = SUE_Expand_The_Suez_Garrison
-			x = 1
-			y = 1
-	
-			prerequisite = {
-				focus = SUE_Expand_The_Suez_Garrison
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Department_For_The_Procurement_Of_Supplies"
-				add_ideas = pal_supplies
-			}
+		completion_reward = {
 		}
-	
-		focus = {
-			id = SUE_Re_Establish_The_Port_Said_Hospital
-			icon = GFX_goal_FIN_promote_the_red_cross
-			cost = 6
-	
-			relative_position_id = SUE_Expand_The_Suez_Garrison
-			x = 1
-			y = 2
-	
-			available = {
-				has_war = no
-			}
-			prerequisite = {
-				focus = SUE_Department_For_The_Procurement_Of_Supplies
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Re_Establish_The_Port_Said_Hospital"
-				PAL = {
-					add_ideas = pal_red_cross_port_said
-				}
-				every_other_country = {
-					limit = { has_guaranteed = PAL }
-					add_ideas = pal_red_cross_port_said
-					country_event = pal.34
-				}
-			}
-		}
-	
-		focus = {
-			id = SUE_Expand_The_Port_Said_Arsenal
-			icon = GFX_focus_generic_military_equipment
-			cost = 6
-	
-			relative_position_id = SUE_Expand_The_Suez_Garrison
-			x = -2
-			y = 3
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Re_Open_The_Canal
-				focus = SUE_Modernise_Repair_Facilities
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Expand_The_Port_Said_Arsenal"
-				753 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-	
-		focus = {
-			id = SUE_Found_The_Egyptian_Auxiliary_Corps
-			icon = GFX_goal_OTT_Integrate_Egypt
-			cost = 6
-	
-			relative_position_id = SUE_Expand_The_Suez_Garrison
-			x = 0
-			y = 3
-	
-			available = {
-				controls_state = 753
-			}
-			prerequisite = {
-				focus = SUE_Modernise_Repair_Facilities
-			}
-			prerequisite = {
-				focus = SUE_Re_Establish_The_Port_Said_Hospital
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_Found_The_Egyptian_Auxiliary_Corps"
-				swap_ideas = {
-					remove_idea = pal_moj2
-					add_idea = pal_moj3
-				}
-			}
-		}
-	
-		focus = {
-			id = SUE_The_Frontline_Of_Imperialism
-			icon = GFX_goal_generic_join_faction
-			cost = 6
-	
-			relative_position_id = SUE_Expand_The_Suez_Garrison
-			x = -1
-			y = 4
-	
-			available = {
-				has_defensive_war = yes
-			}
-			prerequisite = {
-				focus = SUE_Expand_The_Port_Said_Arsenal
-			}
-			prerequisite = {
-				focus = SUE_Found_The_Egyptian_Auxiliary_Corps
-			}
-	
-			ai_will_do = { factor = 4 }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus SUE_The_Frontline_Of_Imperialism"
-				add_ideas = pal_frontline_imperialism
-				division_template = {
-					name = "Suez Garrison"
-					division_names_group = ENG_INF_01
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 0 y = 3 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-						artillery_brigade = { x = 2 y = 0 }
-						artillery_brigade = { x = 2 y = 1 }
-					}
-					support = {
-						artillery = { x = 0 y = 0 }
-						recon = { x = 0 y = 1 }
-						engineer = { x = 0 y = 2 }
-					}
-				}
-				random_owned_controlled_state = {
-					prioritize = { 753 }
-					limit = { valid_state_for_spawning_friendly_unit = yes }
-					create_unit = {
-						division = "name = \"Suez Garrison\" division_template = \"Suez Garrison\" start_experience_factor = 0.8"
-						owner = ROOT
-					}
-				}
-			}
-		}
-	
-	
+	}
 }
