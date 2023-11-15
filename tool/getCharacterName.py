@@ -6,7 +6,7 @@ import os.path
 inputpath = '..\common\\characters\\'
 outputpath = '.\\characterslist\\'
 # inputfilename = input()
-inputfilename = '03 BEY_Fate_Characters'
+inputfilename = 'XSM_Fate_Characters'
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
 if not os.path.exists(outputpath):
