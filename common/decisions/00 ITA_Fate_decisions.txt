@@ -40,7 +40,6 @@ ITA_Ethiopia_cate = {
 			ETH = {
 				transfer_state = 550
 				transfer_state = 559
-				transfer_state = 844
 				every_owned_state = {
 					add_compliance = 80
 				}
@@ -1185,8 +1184,6 @@ ITA_colonial_management_dec_cat = {
 					prioritize = {
 						550
 					}
-					# ERITREA (In case at some point this gets split or tag gets more cores)
-					custom_effect_tooltip = ITA_train_irregulars_eritrea_tt
 					hidden_effect = {
 						create_unit = {
 							division = "division_template = \"Banda Irregolare Libica\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
@@ -1217,8 +1214,6 @@ ITA_colonial_management_dec_cat = {
 					prioritize = {
 						448
 					}
-					# TRIPOLI (In case at some point this gets split or tag gets more cores)
-					custom_effect_tooltip = ITA_train_irregulars_libya_tt
 					hidden_effect = {
 						create_unit = {
 							division = "division_template = \"Truppe Irregolari a Cavallo\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
@@ -1265,8 +1260,6 @@ ITA_colonial_management_dec_cat = {
 					prioritize = {
 						559
 					}
-					# SOMALILAND (In case at some point this gets split or tag gets more cores)
-					custom_effect_tooltip = ITA_train_irregulars_somalia_tt
 					hidden_effect = {
 						create_unit = {
 							division = "division_template = \"Banda Irregolare Somala\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
@@ -1313,8 +1306,6 @@ ITA_colonial_management_dec_cat = {
 					prioritize = {
 						271
 					}
-					# ADDIS ABABA (In case at some point this gets split or tag gets more cores)
-					custom_effect_tooltip = ITA_train_irregulars_ethiopia_tt
 					hidden_effect = {
 						create_unit = {
 							division = "division_template = \"Banda Irregolare Eritrea\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
@@ -1329,7 +1320,6 @@ ITA_colonial_management_dec_cat = {
 					}
 				}
 			}
-			custom_effect_tooltip = ITA_train_irregulars_cd_tt
 		}
 		ai_will_do = {
 			base = 0.05
@@ -1885,7 +1875,6 @@ ITA_nero_category = {
 			tag = ITA
 		}
 		available = {
-			#GOAL
 			OR = {
 				has_country_flag = HOF_ITA_victory_in_ethiopia_flag
 				count_triggers = {
@@ -1919,7 +1908,7 @@ ITA_nero_category = {
 		is_good = no		#Tooltip purposes
 		fire_only_once = yes
 		selectable_mission = no
-		days_mission_timeout = ETH.ETH_hold_the_north_time
+		days_mission_timeout = 120
 		cancel_effect = {
 			if = {
 				#MISSION SUCCEEDED
@@ -1950,8 +1939,6 @@ ITA_nero_category = {
 				}
 			}
 			else = {
-				#MISSION FAILED
-				#Prepare next mission
 				if = {
 					limit = {
 						NOT = {
@@ -1999,7 +1986,6 @@ ITA_nero_category = {
 						}
 					}
 					set_country_flag = ITA_nero_conquer_the_south_failed_flag
-					#log = "Adding North flag"
 				}
 				country_event = {
 					id = HOF_italy_nero.02_north
@@ -2013,7 +1999,6 @@ ITA_nero_category = {
 				HOF_ITA_nero_progress_in_ethiopia_success_effect = yes
 			}
 			hidden_effect = {
-				#Prepare next mission
 				if = {
 					limit = {
 						NOT = {
@@ -2050,9 +2035,6 @@ ITA_nero_category = {
 				has_country_flag = HOF_ITA_victory_in_ethiopia_flag
 				count_triggers = {
 					amount = 2
-					# 835 = { is_controlled_by = ROOT }
-					# 836 = { is_controlled_by = ROOT }
-					# 837 = { is_controlled_by = ROOT }
 					controls_province = 12812
 					controls_province = 10775
 					controls_province = 13247
@@ -2084,7 +2066,7 @@ ITA_nero_category = {
 		is_good = no		#Tooltip purposes
 		fire_only_once = yes
 		selectable_mission = no
-		days_mission_timeout = ETH.ETH_hold_the_south_time
+		days_mission_timeout = 120
 		cancel_effect = {
 			if = {
 				#MISSION SUCCEEDED
@@ -2229,7 +2211,7 @@ ITA_nero_category = {
 		is_good = no		#Tooltip purposes
 		fire_only_once = yes
 		selectable_mission = no
-		days_mission_timeout = HOF_ITA_nero_conquer_ethiopia_days		#这个值在历史文件里面设定为60
+		days_mission_timeout = 60		#这个值在历史文件里面设定为60
 		cancel_effect = {
 			if = {
 				#Succeeded
@@ -2287,21 +2269,17 @@ ITA_nero_category = {
 			tag = ITA
 		}
 		visible = {
-			ITA_nero_system_available = yes
+			always = yes
 		}
 		available = {
-			custom_trigger_tooltip = {
-				#TODO_Manu: This should be replaced by the appropriate check once Red king merges stuff (Factories BUILD check)
-				tooltip = ITA_missiolini_strengthen_heavy_industry_trigger_tt
-				num_of_civilian_factories > ROOT.ITA_missiolinis_required_civs
-			}
+			num_of_civilian_factories > ROOT.ITA_missiolinis_required_civs
 		}
 		activation = {
 			always = no
 		}
-		cancel_if_not_visible = yes
+		is_good = yes
 		selectable_mission = no
-		days_mission_timeout = 200		#这个值在历史文件里面设定为140
+		days_mission_timeout = 250
 		timeout_effect = {
 			if = {
 				limit = {
@@ -2362,7 +2340,7 @@ ITA_nero_category = {
 		cancel_if_not_visible = yes
 		is_good = no		#Tooltip purposes
 		selectable_mission = no
-		days_mission_timeout = HOF_ITA_missiolinis_default_days		#这个值在历史文件里面设定为140
+		days_mission_timeout = 140		#这个值在历史文件里面设定为140
 		timeout_effect = {
 			#MISSION FAILS
 			#墨索里尼总是有理
@@ -2422,7 +2400,7 @@ ITA_nero_category = {
 		cancel_if_not_visible = yes
 		is_good = no		#Tooltip purposes
 		selectable_mission = no
-		days_mission_timeout = HOF_ITA_navy_default_days		#这个值在历史文件里面设定为730,两年造不出，我看你是不造了
+		days_mission_timeout = 730		#这个值在历史文件里面设定为730,两年造不出，我看你是不造了
 		timeout_effect = {
 			#MISSION FAILS
 			#墨索里尼总是有理
@@ -2509,7 +2487,7 @@ ITA_nero_category = {
 		cancel_if_not_visible = yes
 		is_good = no		#Tooltip purposes
 		selectable_mission = no
-		days_mission_timeout = HOF_ITA_missiolinis_default_days
+		days_mission_timeout = 120
 		timeout_effect = {
 			#MISSION FAILS
 			effect_tooltip = {
@@ -2670,9 +2648,8 @@ ITA_nero_category = {
 		cancel_if_not_visible = yes
 		is_good = no		#Tooltip purposes
 		selectable_mission = no
-		days_mission_timeout = HOF_ITA_missiolinis_default_days
+		days_mission_timeout = 120
 		timeout_effect = {
-			#MISSION FAILS
 			effect_tooltip = {
 				HOF_ITA_nero_occupy_dalmatia_failure_effect = yes
 			}
@@ -2684,7 +2661,6 @@ ITA_nero_category = {
 			}
 		}
 		complete_effect = {
-			#MISSION SUCCEEDS
 			effect_tooltip = {
 				HOF_ITA_nero_occupy_dalmatia_success_effect = yes
 			}
@@ -2753,7 +2729,7 @@ ITA_nero_category = {
 		cancel_if_not_visible = yes
 		is_good = no		#Tooltip purposes
 		selectable_mission = no
-		days_mission_timeout = HOF_ITA_missiolinis_default_days
+		days_mission_timeout = 150
 		cosmetic_tag = GRE
 		cosmetic_ideology = neutrality
 		timeout_effect = {

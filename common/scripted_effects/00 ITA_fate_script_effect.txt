@@ -90,8 +90,7 @@ ITA_tyrant_level_clear_all = {
 
 HOF_ITA_end_the_italo_ethiopian_war = {
 	clr_global_flag = HOF_second_italo_ethiopian_war_flag
-	# check if Italian victory
-	IF = {
+	if = {
 		limit = {
 			any_country = {
 				OR = {
@@ -105,23 +104,18 @@ HOF_ITA_end_the_italo_ethiopian_war = {
 			set_country_flag = HOF_ITA_victory_in_ethiopia_flag
 		}
 	}
-	ELSE = {
+	else = {
 		ITA = {
 			set_country_flag = HOF_ITA_defeat_in_ethiopia_flag
 		}
 	}
 }
 
-HOF_ITA_nero_initialize_nero_system = {
-	set_country_flag = HOF_ITA_nero_system_active_flag
-}
-
 HOF_ITA_nero_initialize_new_mission_effect = {
-	#Sets flags and everything necessary to keep track of ongoing missions, last time a mission was issued, etc.
 	set_country_flag = {
 		flag = ITA_nero_activated_recently_flag
 		days = 30
-	}	#WARNING THIS IS NOT SYNC WITH THE REST OF STUFF USING THE VAR ITA_missiolinis_min_cd_between_missions
+	}
 	add_to_variable = {
 		HOF_ITA_nero_active_missions = 1
 	}
@@ -131,7 +125,6 @@ HOF_ITA_nero_initialize_new_mission_effect = {
 }
 
 ITA_missiolinis_revert_new_mission_initialization_effect = {
-	#For when player chooses to re-roll for a new mission
 	clr_country_flag = ITA_nero_activated_recently_flag
 	add_to_variable = {
 		HOF_ITA_nero_active_missions = -1
@@ -142,18 +135,15 @@ ITA_missiolinis_revert_new_mission_initialization_effect = {
 }
 
 HOF_ITA_nero_manage_next_mission = {
-	#log = "Managing next Mussolini, please hang on. Tack!"
-	#Check for pre-scripted vs randomized missions
 	if = {
 		limit = {
 			check_variable = {
 				HOF_ITA_nero_number_of_missions_triggered = 5
-			}			# WARNING: 5 is the number of pre-scripted missions. If more pre-scripted missions are added or removed, adjust this value
+			}
 		}
 		set_country_flag = HOF_ITA_randomize_nero_flag
 	}
 	if = {
-		#PRE-SCRIPTED MISSIOLINIS
 		limit = {
 			NOT = {
 				has_country_flag = HOF_ITA_randomize_nero_flag
@@ -163,15 +153,12 @@ HOF_ITA_nero_manage_next_mission = {
 			limit = {
 				check_variable = {
 					HOF_ITA_nero_number_of_missions_triggered = 1
-				}				# WARNING: 5 is the number of pre-scripted missions. If more pre-scripted missions are added or removed, adjust this value
+				}
 			}
 			add_to_variable = {
 				HOF_ITA_nero_number_of_missions_triggered = 1
 			}
 		}
-	}
-	else = {
-		#RANDOM MISSIOLINIS TIME
 	}
 }
 
@@ -201,12 +188,6 @@ HOF_ITA_nero_add_to_successful_missions = {
 HOF_ITA_nero_progress_in_ethiopia_failure_effect = {
 	add_war_support = -0.03
 	add_political_power = -15
-	if = {
-		limit = {
-			has_dlc = "By Blood Alone"
-		}
-		custom_effect_tooltip = ITA_war_escalation_inc_tt
-	}
 }
 
 HOF_ITA_nero_progress_in_ethiopia_success_effect = {
@@ -217,16 +198,14 @@ HOF_ITA_nero_progress_in_ethiopia_success_effect = {
 	#Effects in Ethiopia
 	if = {
 		limit = {
-			has_dlc = "By Blood Alone"
+			always = yes
 		}
 		effect_tooltip = {
-			#With BBA this is handled in Ethiopian decisions
 			ETH = {
 				add_war_support = -0.1
 			}
 		}
 	}
-	#南方胜利与北方胜利会两次触发ITA_missiolini_progress_in_ethiopia_success_effect，会完成两次ITA_solid_progress这一次国策，因此P社程序员用下面的写法避免上述情况
 	if = {
 		#First mission to succeed
 		limit = {
@@ -237,6 +216,9 @@ HOF_ITA_nero_progress_in_ethiopia_success_effect = {
 		set_country_flag = ITA_missiolini_progress_in_ethiopia_one_mission_successful_flag
 	}
 	else_if = {
+		limit = {
+			always = yes
+		}
 		#Second mission to succeed
 		ITA_nero_claudius = {
 			unit_leader_event = {
@@ -340,15 +322,9 @@ HOF_ITA_nero_occupy_albania_success_effect = {
 		ideology = ROOT
 		popularity = 0.05
 	}
-	custom_effect_tooltip = ITA_missiolini_occupy_albania_occupation_effects
 	effect_tooltip = {
 		44 = {
 			#ALBANIA
-			add_compliance = 5
-			add_resistance = -5
-		}
-		805 = {
-			#NORTHERN EPIRUS
 			add_compliance = 5
 			add_resistance = -5
 		}
@@ -372,54 +348,14 @@ HOF_ITA_nero_occupy_dalmatia_success_effect = {
 		ideology = ROOT
 		popularity = 0.05
 	}
-	if = {
+	every_controlled_state = {
 		limit = {
-			104 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			105 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			106 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			107 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			108 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			109 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			802 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			803 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
-			804 = {
-				is_fully_controlled_by = ROOT
-				has_resistance = yes
-			}
+			is_core_of = YUG
+			is_fully_controlled_by = ROOT
+			has_resistance = yes
 		}
-		every_controlled_state = {
-			limit = {
-				is_core_of = YUG
-				is_fully_controlled_by = ROOT				#Dalmatia goes first above
-				has_resistance = yes
-			}
-			add_compliance = 5
-			add_resistance = -5
-		}
+		add_compliance = 5
+		add_resistance = -5
 	}
 }
 
@@ -447,7 +383,7 @@ HOF_ITA_nero_occupy_greece_success_effect = {
 			is_fully_controlled_by = ROOT
 			has_resistance = yes
 		}
-		add_compliance = 5		#WARNING CHANGING THESE NUMBERS REQUIRES CHANGING THE TOOLTIPS
+		add_compliance = 5	
 		add_resistance = -5
 	}
 	if = {
@@ -463,20 +399,16 @@ HOF_ITA_nero_occupy_greece_success_effect = {
 			GRE = {
 				add_autonomy_score = {
 					value = -35
-					localization = ITA_missiolini_firmly_established_italian_administration_autonomy_text
 				}
 			}
 		}
 		else = {
-			custom_effect_tooltip = ITA_missiolini_occupy_greece_subject_effects
-			effect_tooltip = {
-				GRE = {
-					add_autonomy_score = {
-						value = -35
-						localization = ITA_missiolini_firmly_established_italian_administration_autonomy_text
-					}
+			GRE = {
+				add_autonomy_score = {
+					value = -35
 				}
 			}
+			
 		}
 	}
 }
