@@ -7,7 +7,7 @@ inputpath = '..\common\\national_focus\\'
 outputpath = '.\\focus_localisation\\'
 # inputfilename = input()
 
-inputfilename = '03 FIN_Fate_focus.txt'
+inputfilename = '00 BEY_Fate_focus.txt'
 
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
@@ -98,9 +98,12 @@ for cont in range(len(idlist)):
 
 # 输出
 
-f = open(outputpath + inputfilename, 'w', encoding='utf-8')
+outputfilename = inputfilename[:-4]
+outputfilename = outputfilename+"_l_english"+".yml"
 
-f.write('\n'.join(filestart))
+f = open(outputpath + outputfilename, 'w', encoding='utf-8')
+
+#f.write('\n'.join(filestart))
 
 # for reorder in reorderlist:
 #     fo = fullfocuslist[idlist.index(reorder)]
@@ -111,15 +114,16 @@ f.write('\n'.join(filestart))
 
 # print(reorderlist)
 
-f.write("l_english: ")
+f.write("l_english: "+"\n")
 
 for id in idlist:
     idcontent = id[4:].replace("_", " ")
-    iddesc = id.append("_desc")
+    idcontent = idcontent.title()
+    iddesc = id+"_desc"
     iddesccontent = "Please Place Me"
 
-    TheIDDesc = id.append(":"+" "+"\"").append(idcontent).append("\"")
-    TheContentDesc = iddesc.append(":"+" "+"\"").append(iddesccontent).append("\"")
+    TheIDDesc = id+":"+" "+"\""+idcontent+"\""
+    TheContentDesc = iddesc+":"+" "+"\""+iddesccontent+"\""
 
     f.write(" "+TheIDDesc+"\n")
     f.write(" "+TheContentDesc+"\n")
