@@ -53,9 +53,11 @@ decisionspath = os.path.join(rootpath, 'common','decisions','')
 eventpath = os.path.join(rootpath, 'events','')
 on_actionspath = os.path.join(rootpath, 'common','on_actions','')
 scripted_effects = os.path.join(rootpath, 'common','scripted_effects','')
+
 historyeffects = os.path.join(rootpath, 'history','countries','')
 
 
+characterpath = os.path.join(rootpath,'common','characters','')
 
 
 # print(focuspath,decisoinpath,eventpath)
