@@ -56,7 +56,6 @@ def outpuShineGfx(text):
         txtfile.write('\t\t\tanimationrotation = -90.0\n')
         txtfile.write('\t\t\tanimationlooping = no\n')
         txtfile.write('\t\t\tanimationtime = 0.75\n')
-        txtfile.write('\t\t\tanimationlooping = no\n')
         txtfile.write('\t\t\tanimationdelay = 0\n')
         txtfile.write('\t\t\tanimationblendmode = \"add\"\n')
         txtfile.write('\t\t\tanimationtype = \"scrolling\"\n')
