@@ -36,7 +36,13 @@ for char in charList:
     tagDict.add(tag)
 # print(charList)
 taglist = list(tagDict)
-print(taglist)
+# for tag in taglist:
+#     for char in charList:
+for tag in taglist:
+    if re.search('[a-z]',tag):
+        print(tag)
+
+# print(taglist)
 class TagBlock:
     def __init__(self, id, context):
         self.id = id
