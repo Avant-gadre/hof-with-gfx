@@ -34,8 +34,11 @@ tagDict = set()
 for char in charList:
     tag = char.strip().split('_')[0]
     tagDict.add(tag)
+    if len(tag) != 3:
+        print(tag,char)
+# print(charList)
 taglist = list(tagDict)
-
+# print(taglist)
 class TagBlock:
     def __init__(self, id, context):
         self.id = id
