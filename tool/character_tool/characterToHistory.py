@@ -21,7 +21,7 @@ for file in charFiles:
             # print(file)
             context = f1.readlines()
             for line in context:
-                if re.search('^\t.*=\s.?{', line):
+                if re.search('^\t[a-zA-z-Z].*=\s.?{', line):
                     charName = line.strip().split('=')[0].strip().split('#')[0].strip()
                     if charName != '':
                         charDict.add(charName)
@@ -34,11 +34,9 @@ tagDict = set()
 for char in charList:
     tag = char.strip().split('_')[0]
     tagDict.add(tag)
-    if len(tag) != 3:
-        print(tag,char)
 # print(charList)
 taglist = list(tagDict)
-# print(taglist)
+print(taglist)
 class TagBlock:
     def __init__(self, id, context):
         self.id = id
