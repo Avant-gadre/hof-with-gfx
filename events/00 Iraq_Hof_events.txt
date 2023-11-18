@@ -3,630 +3,688 @@
 ###########################
 add_namespace = iraq
 # Iraq: Pressure Saudi Arabia
-country_event = {     
+country_event = {
 	id = iraq.1
 	title = iraq.1.t
 	desc = iraq.1.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Annexed by Iraq
 	option = {
 		name = iraq.1.a
 		ai_chance = {
 			base = 150
-      modifier = {
-        factor = 0
-        any_other_country = {
-			is_major = yes
-			NOT = { tag = IRQ }
-			OR = {
-				is_in_faction_with = ROOT
-				has_guaranteed = ROOT
+			modifier = {
+				factor = 0
+				any_other_country = {
+					is_major = yes
+					NOT = {
+						tag = IRQ
+					}
+					OR = {
+						is_in_faction_with = ROOT
+						has_guaranteed = ROOT
+					}
+				}
 			}
 		}
-      }
+		FROM = {
+			country_event = {
+				id = iraq.2
+				hours = 2
+			}
 		}
-		FROM = { country_event = { id = iraq.2 hours = 2 } }
-    effect_tooltip = {
-      FROM = { annex_country = { target = ROOT transfer_troops = yes } }
-      custom_effect_tooltip =  GAME_OVER_TT
-    }
+		effect_tooltip = {
+			FROM = {
+				annex_country = {
+					target = ROOT
+					transfer_troops = yes
+				}
+			}
+			custom_effect_tooltip = GAME_OVER_TT
+		}
 	}
-	
 	# We will be our owner of fate
 	option = {
 		name = iraq.1.b
 		ai_chance = {
-			factor = 0
-      modifier = {
-        add = 15
-        any_other_country = {
-						is_major = yes
-						NOT = { tag = IRQ }
-						OR = {
-							is_in_faction_with = ROOT
-							has_guaranteed = ROOT
-						}
+			base = 0
+			modifier = {
+				add = 15
+				any_other_country = {
+					is_major = yes
+					NOT = {
+						tag = IRQ
 					}
-      }
+					OR = {
+						is_in_faction_with = ROOT
+						has_guaranteed = ROOT
+					}
+				}
+			}
 		}
-		FROM = { country_event = { id = iraq.3 hours = 2 } }
+		FROM = {
+			country_event = {
+				id = iraq.3
+				hours = 2
+			}
+		}
 	}
 }
+
 # Iraq: Saudi Arabia yields
-country_event = {     
+country_event = {
 	id = iraq.2
 	title = iraq.2.t
 	desc = iraq.2.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Annexed by Iraq
 	option = {
 		name = iraq.2.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
-		annex_country = { target = FROM transfer_troops = yes }
+		annex_country = {
+			target = FROM
+			transfer_troops = yes
+		}
 	}
-	
 }
+
 # Iraq: Saudi Arabia resists
-country_event = {     
+country_event = {
 	id = iraq.3
 	title = iraq.3.t
 	desc = iraq.3.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Launch an attack
 	option = {
 		name = iraq.3.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
 		create_wargoal = {
-      type = annex_everything
-      target = FROM
-      expire = 0
-    }
+			type = annex_everything
+			target = FROM
+			expire = 0
+		}
 	}
-  
-  # Bah
+	# Bah
 	option = {
 		name = iraq.3.b
 		ai_chance = {
-			factor = 0
+			base = 0
 		}
-    add_stability = -0.05
+		add_stability = -0.05
 	}
 }
+
 # France: Iraq demands Syria
-country_event = {     
+country_event = {
 	id = iraq.4
 	title = iraq.4.t
 	desc = iraq.4.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# They could obtain nothing!
 	option = {
 		name = iraq.4.a
 		ai_chance = {
-			factor = 16
-      modifier = {
-        factor = 0.25
-        has_war_with = GER
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = ENG
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = SOV
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = FRA
-      }
-      modifier = {
-        factor = 0.6
-        has_war_with = ITA
-      }
-      modifier = {
-        factor = 0.6
-        has_war_with = JAP
-      }
-      modifier = {
-        factor = 0.1
-        has_civil_war = yes
-      }
+			base = 16
+			modifier = {
+				factor = 0.25
+				has_war_with = GER
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = ENG
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = SOV
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = FRA
+			}
+			modifier = {
+				factor = 0.6
+				has_war_with = ITA
+			}
+			modifier = {
+				factor = 0.6
+				has_war_with = JAP
+			}
+			modifier = {
+				factor = 0.1
+				has_civil_war = yes
+			}
 		}
-    FROM = { country_event = { id = iraq.5  hours = 2 } }
-    effect_tooltip = {
-      FROM = {
-        create_wargoal = {
-          type = take_claimed_state
-          target = ROOT
-          generator = { 680 677 554 }
-          expire = 0
-        }   
-      }
-    }
+		FROM = {
+			country_event = {
+				id = iraq.5
+				hours = 2
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				create_wargoal = {
+					type = take_claimed_state
+					target = ROOT
+					generator = {
+						680
+						677
+						554
+					}
+					expire = 0
+				}
+			}
+		}
 	}
-	
 	# We should not make another enemy
 	option = {
 		name = iraq.4.b
 		ai_chance = {
-			factor = 5
+			base = 5
 		}
-		FROM = { country_event = { id = iraq.6 hours = 2 } }
-    effect_tooltip = {
-      FROM = { 
-        transfer_state = 680 
-        transfer_state = 677 
-        transfer_state = 554 
-      }
-    }
+		FROM = {
+			country_event = {
+				id = iraq.6
+				hours = 2
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				transfer_state = 680
+				transfer_state = 677
+				transfer_state = 554
+			}
+		}
 	}
 }
+
 # Iraq: France is intransigent
-country_event = {     
+country_event = {
 	id = iraq.5
 	title = iraq.5.t
 	desc = iraq.5.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Then we should take our actions
 	option = {
 		name = iraq.5.a
 		ai_chance = {
-			factor = 33
+			base = 33
 		}
 		create_wargoal = {
-      type = take_claimed_state
-      target = FROM
-      generator = { 680 677 554 }
-      expire = 0
-    }   
-	}
-  # We should not confront France at this time
-  option = {
-    name = iraq.5.b
-    ai_chance = {
-			factor = 3
+			type = take_claimed_state
+			target = FROM
+			generator = {
+				680
+				677
+				554
+			}
+			expire = 0
 		}
-    add_war_support = -0.05
-  }
-	
+	}
+	# We should not confront France at this time
+	option = {
+		name = iraq.5.b
+		ai_chance = {
+			base = 3
+		}
+		add_war_support = -0.05
+	}
 }
+
 # Iraq: France cedes Syria
-country_event = {     
+country_event = {
 	id = iraq.6
 	title = iraq.6.t
 	desc = iraq.6.d
 	picture = GFX_report_event_british_artillery
-  
 	is_triggered_only = yes
-
 	# Very good
 	option = {
 		name = iraq.6.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
-		transfer_state = 680 
-    transfer_state = 677 
-    transfer_state = 554 
+		transfer_state = 680
+		transfer_state = 677
+		transfer_state = 554
 	}
 }
+
 # Britain: Iraq demands Kuwait
-country_event = {     
+country_event = {
 	id = iraq.7
 	title = iraq.7.t
 	desc = iraq.7.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# They could obtain nothing!
 	option = {
 		name = iraq.7.a
 		ai_chance = {
-			factor = 20
-      modifier = {
-        factor = 0.4
-        has_war_with = GER
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = ENG
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = SOV
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = FRA
-      }
-      modifier = {
-        factor = 0.6
-        has_war_with = ITA
-      }
-      modifier = {
-        factor = 0.6
-        has_war_with = JAP
-      }
-      modifier = {
-        factor = 0.1
-        has_civil_war = yes
-      }
+			base = 20
+			modifier = {
+				factor = 0.4
+				has_war_with = GER
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = ENG
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = SOV
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = FRA
+			}
+			modifier = {
+				factor = 0.6
+				has_war_with = ITA
+			}
+			modifier = {
+				factor = 0.6
+				has_war_with = JAP
+			}
+			modifier = {
+				factor = 0.1
+				has_civil_war = yes
+			}
 		}
-    FROM = { country_event = { id = iraq.8 hours = 2 } }
-    effect_tooltip = {
-      FROM = {
-        create_wargoal = {
-          type = take_claimed_state
-          target = ROOT
-          generator = { 656 }
-          expire = 0
-        }   
-      }
-    }
+		FROM = {
+			country_event = {
+				id = iraq.8
+				hours = 2
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				create_wargoal = {
+					type = take_claimed_state
+					target = ROOT
+					generator = {
+						656
+					}
+					expire = 0
+				}
+			}
+		}
 	}
-	
 	# We should not make another enemy
 	option = {
 		name = iraq.7.b
 		ai_chance = {
-			factor = 5
+			base = 5
 		}
-		FROM = { country_event = { id = iraq.9 hours = 2 } }
-    effect_tooltip = {
-      FROM = { 
-        transfer_state = 656 
-      }
-    }
+		FROM = {
+			country_event = {
+				id = iraq.9
+				hours = 2
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				transfer_state = 656
+			}
+		}
 	}
 }
+
 # Iraq: Britain is intransigent
-country_event = {     
+country_event = {
 	id = iraq.8
 	title = iraq.8.t
 	desc = iraq.8.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Then we should take our actions
 	option = {
 		name = iraq.8.a
 		ai_chance = {
-			factor = 33
+			base = 33
 		}
 		create_wargoal = {
-      type = take_claimed_state
-      target = FROM
-      generator = { 656 }
-      expire = 0
-    }   
-	}
-  # We should not confront France at this time
-  option = {
-    name = iraq.8.b
-    ai_chance = {
-			factor = 3
+			type = take_claimed_state
+			target = FROM
+			generator = {
+				656
+			}
+			expire = 0
 		}
-    add_war_support = -0.05
-  }
-	
+	}
+	# We should not confront France at this time
+	option = {
+		name = iraq.8.b
+		ai_chance = {
+			base = 3
+		}
+		add_war_support = -0.05
+	}
 }
+
 # Iraq: Britain cedes Kuwait
-country_event = {     
+country_event = {
 	id = iraq.9
 	title = iraq.9.t
 	desc = iraq.9.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Very good
 	option = {
 		name = iraq.9.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
 		transfer_state = 656
 	}
 }
 
 # Britain: Oil Export Competition
-country_event = {     
+country_event = {
 	id = iraq.10
 	title = iraq.10.t
 	desc = iraq.10.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Nice choice
 	option = {
 		name = iraq.10.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
-    add_opinion_modifier = {
-      target = FROM
-      modifier = oil_monopolization_relationship
-    }
-    add_opinion_modifier = {
-      target = FROM
-      modifier = oil_monopolization_iraq
-    }
-    if = {
-      limit = { NOT = { is_in_faction_with = PER } }
-      add_opinion_modifier = {
-        target = PER
-        modifier = oil_monopolization_others
-      }
-      reverse_add_opinion_modifier = {
-        target = PER
-        modifier = oil_monopolization_others
-      }
-    }
-    if = {
-      limit = { NOT = { is_in_faction_with = VEN } }
-      add_opinion_modifier = {
-        target = VEN
-        modifier = oil_monopolization_others
-      }
-      reverse_add_opinion_modifier = {
-        target = VEN
-        modifier = oil_monopolization_others
-      }
-    }
-    if = {
-      limit = { NOT = { is_in_faction_with = MEX } }
-      add_opinion_modifier = {
-        target = MEX
-        modifier = oil_monopolization_others
-      }
-      reverse_add_opinion_modifier = {
-        target = MEX
-        modifier = oil_monopolization_others
-      }
-    }
-    if = {
-      limit = { NOT = { is_in_faction_with = ROM } }
-      add_opinion_modifier = {
-        target = ROM
-        modifier = oil_monopolization_others
-      }
-      reverse_add_opinion_modifier = {
-        target = ROM
-        modifier = oil_monopolization_others
-      }
-    }
+		add_opinion_modifier = {
+			target = FROM
+			modifier = oil_monopolization_relationship
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = oil_monopolization_iraq
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_in_faction_with = PER
+				}
+			}
+			add_opinion_modifier = {
+				target = PER
+				modifier = oil_monopolization_others
+			}
+			reverse_add_opinion_modifier = {
+				target = PER
+				modifier = oil_monopolization_others
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_in_faction_with = VEN
+				}
+			}
+			add_opinion_modifier = {
+				target = VEN
+				modifier = oil_monopolization_others
+			}
+			reverse_add_opinion_modifier = {
+				target = VEN
+				modifier = oil_monopolization_others
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_in_faction_with = MEX
+				}
+			}
+			add_opinion_modifier = {
+				target = MEX
+				modifier = oil_monopolization_others
+			}
+			reverse_add_opinion_modifier = {
+				target = MEX
+				modifier = oil_monopolization_others
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_in_faction_with = ROM
+				}
+			}
+			add_opinion_modifier = {
+				target = ROM
+				modifier = oil_monopolization_others
+			}
+			reverse_add_opinion_modifier = {
+				target = ROM
+				modifier = oil_monopolization_others
+			}
+		}
 		effect_tooltip = {
-      FROM = {
-        add_opinion_modifier = {
-          target = ROOT
-          modifier = oil_monopolization_relationship
-        }
-        add_opinion_modifier = {
-          target = ROOT
-          modifier = oil_monopolization_iraq
-        }
-      }
-    }
-    FROM = { country_event = { id = iraq.11  hours = 4    } }
+			FROM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = oil_monopolization_relationship
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = oil_monopolization_iraq
+				}
+			}
+		}
+		FROM = {
+			country_event = {
+				id = iraq.11
+				hours = 4
+			}
+		}
 	}
-  
-  option = {
-    name = iraq.10.b
-    effect_tooltip = {
-      reverse_add_opinion_modifier = {
-        target = ROOT
-        modifier = oil_monopolization_relationship_refuse
-      }
-    }
-    add_opinion_modifier = {
-      target = ROOT
-      modifier = oil_monopolization_relationship_refuse
-    }
-    FROM = { country_event = { id = iraq.12  hours = 4    } }
-  }
+	option = {
+		name = iraq.10.b
+		effect_tooltip = {
+			reverse_add_opinion_modifier = {
+				target = ROOT
+				modifier = oil_monopolization_relationship_refuse
+			}
+		}
+		add_opinion_modifier = {
+			target = ROOT
+			modifier = oil_monopolization_relationship_refuse
+		}
+		FROM = {
+			country_event = {
+				id = iraq.12
+				hours = 4
+			}
+		}
+	}
 }
+
 # Iraq: Britain accept our deal
-country_event = {     
+country_event = {
 	id = iraq.11
 	title = iraq.11.t
 	desc = iraq.11.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Very good
 	option = {
 		name = iraq.11.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
 		add_opinion_modifier = {
-      target = FROM
-      modifier = oil_monopolization_relationship
-    }
-    add_opinion_modifier = {
-      target = FROM
-      modifier = oil_monopolization_iraq
-    }
-    effect_tooltip = {
-      FROM = {
-        add_opinion_modifier = {
-          target = ROOT
-          modifier = oil_monopolization_relationship
-        }
-        add_opinion_modifier = {
-          target = ROOT
-          modifier = oil_monopolization_iraq
-        }
-      }
-    }
+			target = FROM
+			modifier = oil_monopolization_relationship
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = oil_monopolization_iraq
+		}
+		effect_tooltip = {
+			FROM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = oil_monopolization_relationship
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = oil_monopolization_iraq
+				}
+			}
+		}
 	}
 }
 
 # Iraq: Britain refuses the deal
-country_event = {     
+country_event = {
 	id = iraq.12
 	title = iraq.12.t
 	desc = iraq.12.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Bah
 	option = {
 		name = iraq.12.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
-    effect_tooltip = {
-      reverse_add_opinion_modifier = {
-        target = ROOT
-        modifier = oil_monopolization_relationship_refuse
-      }
-    }
-    add_opinion_modifier = {
-      target = ROOT
-      modifier = oil_monopolization_relationship_refuse
-    }
+		effect_tooltip = {
+			reverse_add_opinion_modifier = {
+				target = ROOT
+				modifier = oil_monopolization_relationship_refuse
+			}
+		}
+		add_opinion_modifier = {
+			target = ROOT
+			modifier = oil_monopolization_relationship_refuse
+		}
 	}
 }
+
 # Britain/France: Iraq Embargo us on Oil
-country_event = {     
+country_event = {
 	id = iraq.13
 	title = iraq.13.t
 	desc = iraq.13.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Not good
 	option = {
 		name = iraq.13.a
 		ai_chance = {
-			factor = 10
+			base = 10
 		}
-    add_timed_idea = {
-      idea = ira_oil_embargo
-      days = 365
-    }
-    add_opinion_modifier = {
-      target = FROM
-      modifier = sanctions_relations
-    }
-    reverse_add_opinion_modifier = {
-      target = FROM
-      modifier = sanctions_relations
-    }
-    add_opinion_modifier = {
-      target = FROM
-      modifier = embargo
-    }
-    reverse_add_opinion_modifier = {
-      target = FROM
-      modifier = embargo
-    }
+		add_timed_idea = {
+			idea = ira_oil_embargo
+			days = 365
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = sanctions_relations
+		}
+		reverse_add_opinion_modifier = {
+			target = FROM
+			modifier = sanctions_relations
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = embargo
+		}
+		reverse_add_opinion_modifier = {
+			target = FROM
+			modifier = embargo
+		}
 	}
-  
-  # take actions
-  option = {
-    name = iraq.13.b
-    ai_chance = {
-			factor = 6
-      modifier = {
-        factor = 4 
-        date < 1938.3.1
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = GER
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = ENG
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = SOV
-      }
-      modifier = {
-        factor = 0.4
-        has_war_with = FRA
-      }
-      modifier = {
-        factor = 0.6
-        has_war_with = ITA
-      }
-      modifier = {
-        factor = 0.6
-        has_war_with = JAP
-      }
-      modifier = {
-        factor = 0.1
-        has_civil_war = yes
-      }
+	# take actions
+	option = {
+		name = iraq.13.b
+		ai_chance = {
+			base = 6
+			modifier = {
+				factor = 4
+				date < 1938.3.1
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = GER
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = ENG
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = SOV
+			}
+			modifier = {
+				factor = 0.4
+				has_war_with = FRA
+			}
+			modifier = {
+				factor = 0.6
+				has_war_with = ITA
+			}
+			modifier = {
+				factor = 0.6
+				has_war_with = JAP
+			}
+			modifier = {
+				factor = 0.1
+				has_civil_war = yes
+			}
 		}
-    declare_war_on = {
-      target = FROM
-      type = puppet_wargoal_focus
-    }
-  }
+		declare_war_on = {
+			target = FROM
+			type = puppet_wargoal_focus
+		}
+	}
 }
+
 # Iraq: Tablet of destiny
-country_event = {     
+country_event = {
 	id = iraq.14
 	title = iraq.14.t
 	desc = iraq.14.d
 	picture = GFX_report_event_british_artillery
-
 	is_triggered_only = yes
-
 	# Army buff
 	option = {
 		name = iraq.14.a
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
-		add_ideas = { tablet_army_buff }
+		add_ideas = {
+			tablet_army_buff
+		}
 	}
-  
-  # Navy buff
+	# Navy buff
 	option = {
 		name = iraq.14.b
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
-		add_ideas = { tablet_navy_buff }
+		add_ideas = {
+			tablet_navy_buff
+		}
 	}
-  
-  # Construction buff
+	# Construction buff
 	option = {
 		name = iraq.14.c
 		ai_chance = {
-			factor = 111
+			base = 111
 		}
-		add_ideas = { tablet_construction_buff }
+		add_ideas = {
+			tablet_construction_buff
+		}
 	}
 }
 
@@ -635,117 +693,105 @@ country_event = {
 	title = iraq.535.t
 	desc = iraq.535.d
 	picture = GFX_report_event_british_artillery
-
 	fire_only_once = yes
-	
 	trigger = {
 		tag = FRA
 		is_puppet = no
-        has_war_with = IRQ
+		has_war_with = IRQ
 		OR = {
-        is_in_faction = no
-        is_faction_leader = yes
+			is_in_faction = no
+			is_faction_leader = yes
 		}
-			OR = {
-               IRQ = {
-                     has_capitulated = no 
-                }
-             IRQ = {
-                   is_subject = no
-             }
+		OR = {
+			IRQ = {
+				has_capitulated = no
 			}
-		IRQ = { controls_state = 680 }
-		IRQ = { controls_state = 677 }
-		IRQ = { controls_state = 554 }
-		IRQ = { controls_state = 553 }
+			IRQ = {
+				is_subject = no
+			}
+		}
+		IRQ = {
+			controls_state = 680
+		}
+		IRQ = {
+			controls_state = 677
+		}
+		IRQ = {
+			controls_state = 554
+		}
+		IRQ = {
+			controls_state = 553
+		}
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-	
 	option = {
 		name = iraq.535.a
-
 		IRQ = {
-			
 			country_event = iraq.536
 		}
-
 	}
-
 	option = {
 		name = iraq.535.b
-
 		add_war_support = 0.005
-
 	}
-
 }
 
 # France: Peace with Iraq
-country_event = {   
+country_event = {
 	id = iraq.536
 	title = iraq.536.t
 	desc = iraq.536.d
 	picture = GFX_report_event_british_artillery
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = iraq.536.a
 		ai_chance = {
-			factor = 50
+			base = 50
 		}
-
-          if = {
-            limit = {
-			   IRQ = { is_in_faction = yes }
-            }
-		remove_from_faction = IRQ		 
-          }
-
-          if = {
-            limit = {
-			   FRA = { is_faction_leader = yes }
-            }
-		every_country = {
+		if = {
 			limit = {
-            is_in_faction_with = FRA
+				IRQ = {
+					is_in_faction = yes
+				}
 			}
-		white_peace = IRQ
-
+			remove_from_faction = IRQ
 		}
-		
-          }
-
-          if = {
-            limit = {
-			   FRA = { is_in_faction = no }
-            }
-		FRA = {
-		white_peace = IRQ
+		if = {
+			limit = {
+				FRA = {
+					is_faction_leader = yes
+				}
+			}
+			every_country = {
+				limit = {
+					is_in_faction_with = FRA
+				}
+				white_peace = IRQ
+			}
 		}
-		
-          }
-
-        transfer_state = 680
-        transfer_state = 677
-        transfer_state = 554
-        transfer_state = 553
-		
+		if = {
+			limit = {
+				FRA = {
+					is_in_faction = no
+				}
+			}
+			FRA = {
+				white_peace = IRQ
+			}
+		}
+		transfer_state = 680
+		transfer_state = 677
+		transfer_state = 554
+		transfer_state = 553
 	}
-
 	option = {
 		name = iraq.536.b
 		ai_chance = {
-			factor = 50
+			base = 50
 		}
-
-		
 	}
-
 }
 
 # Iraq: Gilgamesh died
@@ -754,9 +800,7 @@ country_event = {
 	title = iraq.99.t
 	desc = iraq.99.d
 	picture = GFX_report_event_europe_funeral
-
 	fire_only_once = yes
-	
 	trigger = {
 		tag = IRQ
 		has_war = yes
@@ -768,43 +812,36 @@ country_event = {
 			is_country_leader = yes
 		}
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-	
 	option = {
 		name = iraq.99.a
-    ai_chance = {
-      factor = 50
-    }
+		ai_chance = {
+			base = 50
+		}
 		add_political_power = 50
-    add_stability = 0.05
-
+		add_stability = 0.05
 	}
-
 	option = {
 		name = iraq.99.b
-    ai_chance = {
-      factor = 25
-    }
-    kill_country_leader = yes
-    set_country_flag = GILGAMESH_DIED
-		add_political_power = -50
-    remove_unit_leader = 970
-    set_cosmetic_tag = IRQ_Ishtar
-	add_country_leader_role = {
-		character = "IRQ_Ishtar"
-		country_leader = {
-			ideology = despotism
-			expire = "1965.1.1"
+		ai_chance = {
+			base = 25
 		}
-		promote_leader = yes
+		kill_country_leader = yes
+		set_country_flag = GILGAMESH_DIED
+		add_political_power = -50
+		remove_unit_leader = 970
+		set_cosmetic_tag = IRQ_Ishtar
+		add_country_leader_role = {
+			character = "IRQ_Ishtar"
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1"
+			}
+			promote_leader = yes
+		}
 	}
-
-	}
-
 	option = {
 		name = iraq.99.c
 		ai_chance = {
@@ -820,7 +857,7 @@ country_event = {
 		remove_unit_leader = 970
 		add_popularity = {
 			ideology = fascism
-			popularity = 0.20
+			popularity = 0.2
 		}
 		set_politics = {
 			ruling_party = fascism
@@ -830,46 +867,42 @@ country_event = {
 				character = "IRQ_Ereshkigal"
 				country_leader = {
 					ideology = valkist
-					traits = {   }
+					traits = {
+					}
 					expire = "1965.1.1"
 				}
 				promote_leader = yes
 			}
 		}
-
 	}
-
 	option = {
 		name = iraq.99.e
 		ai_chance = {
-		factor = 15
+			base = 15
 		}
 		trigger = {
-		has_completed_focus = ira_ishtar_mineral_company
+			has_completed_focus = ira_ishtar_mineral_company
 		}
 		kill_country_leader = yes
 		set_country_flag = GILGAMESH_DIED
-			add_political_power = -150
+		add_political_power = -150
 		add_stability = -0.05
-			add_war_support = -0.10
+		add_war_support = -0.1
 		remove_unit_leader = 970
 		set_politics = {
-		ruling_party = democratic
+			ruling_party = democratic
 		}
 		add_popularity = {
-		ideology = democratic
-		popularity = 0.20
+			ideology = democratic
+			popularity = 0.2
 		}
 		add_country_leader_role = {
-			character = "irq_atrum_galliasta"
+			character = IRQ_atrum_galliasta
 			country_leader = {
 				ideology = liberalism
-				traits = { }
 				expire = "1965.1.1"
 			}
 			promote_leader = yes
 		}
-
 	}
-
 }

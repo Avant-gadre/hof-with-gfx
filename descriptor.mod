@@ -1,7 +1,7 @@
 version="0.1"
-tags={
+tags = {
 	"Alternative History"
-}
+    }
 replace_path="common/abilities"
 replace_path="common/ai_areas"
 replace_path="common/ai_equipment"
@@ -44,6 +44,7 @@ replace_path="gfx/loadingscreens"
 replace_path="history/countries"
 replace_path="history/general"
 replace_path="history/states"
+replace_path="history/units"
 replace_path="map/strategicregions"
 replace_path="map/supplyareas"
 name="Hearts of fate testing Version"

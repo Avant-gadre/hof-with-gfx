@@ -210,399 +210,6 @@ country_event = {
 	}
 }
 
-# Italian-German Treaty (Germans)
-country_event = {
-	id = italy.5
-	title = italy.5.t
-	desc = italy.5.d
-	picture = GFX_report_event_german_italian_pact
-	is_triggered_only = yes
-	option = {
-		name = italy.5.a		#sounds good
-		ITA = {
-			country_event = {
-				days = 1
-				id = italy.6
-			}
-		}
-		# REVISIT Balance research bonus, also in event below
-		add_tech_bonus = {
-			bonus = 1
-			uses = 1
-			technology = tech_mountaineers2
-		}
-		add_doctrine_cost_reduction = {
-			cost_reduction = 0.5
-			uses = 2
-			category = naval_doctrine
-		}
-	}
-	option = {
-		name = italy.5.b		#no way 
-		ai_chance = {
-			base = 0
-		}
-		add_political_power = -10
-		ITA = {
-			country_event = {
-				days = 1
-				id = italy.7
-			}
-		}
-	}
-}
-
-# Germans Accept Italian-German Treaty
-country_event = {
-	id = italy.6
-	title = italy.6.t
-	desc = italy.6.d
-	picture = GFX_report_event_physics_lab_01
-	is_triggered_only = yes
-	option = {
-		name = italy.6.a
-		# REVISIT Balance research bonus
-		add_tech_bonus = {
-			name = synth_bonus
-			bonus = 1
-			uses = 1
-			category = synth_resources
-		}
-		add_tech_bonus = {
-			name = armor_bonus
-			bonus = 1
-			uses = 2
-			category = armor
-		}
-		ITA = {
-			add_opinion_modifier = {
-				target = GER
-				modifier = ger_ita_tech_treaty
-			}
-		}
-	}
-}
-
-# Germans Reject Italian-German Treaty
-country_event = {
-	id = italy.7
-	title = italy.7.t
-	desc = italy.7.d
-	picture = GFX_report_event_physics_lab_01
-	is_triggered_only = yes
-	option = {
-		name = italy.7.a
-		ITA = {
-			add_opinion_modifier = {
-				target = GER
-				modifier = ger_ita_tech_treaty_rejected
-			}
-		}
-	}
-}
-
-# French national focus - French asks Italy to join french faction
-country_event = {
-	id = italy.8
-	title = italy.8.t
-	desc = italy.8.d
-	picture = GFX_report_event_german_parade_paris
-	is_triggered_only = yes
-	option = {
-		name = italy.8.a
-		FRA = {
-			if = {
-				limit = {
-					is_in_faction = no
-				}
-				set_rule = {
-					can_create_factions = yes
-				}
-				create_faction = "domination_francaise"
-			}
-		}
-		FRA = {
-			add_to_faction = ITA
-		}
-		ITA = {
-			add_ai_strategy = {
-				type = alliance
-				id = "FRA"
-				value = 200
-			}
-		}
-		FRA = {
-			add_ai_strategy = {
-				type = alliance
-				id = "ITA"
-				value = 200
-			}
-		}
-		hidden_effect = {
-			news_event = {
-				hours = 6
-				id = news.181
-			}
-		}
-	}
-	option = {
-		name = italy.8.b
-		ai_chance = {
-			base = 0
-		}
-		FRA = {
-			add_opinion_modifier = {
-				target = ITA
-				modifier = ITA_FRA_woo_italy_reject
-			}
-		}
-		hidden_effect = {
-			news_event = {
-				hours = 6
-				id = news.183
-			}
-		}
-	}
-}
-
-# Request Balearic Islands from Spain
-country_event = {
-	id = italy.9
-	title = italy.9.t
-	desc = italy.9.d
-	picture = GFX_report_event_merchant_ship_01
-	is_triggered_only = yes
-	option = {
-		name = italy.9.a
-		ITA = {
-			country_event = {
-				id = italy.10
-			}
-		}
-		effect_tooltip = {
-			ITA = {
-				transfer_state = 177
-			}
-			remove_opinion_modifier = {
-				target = ITA
-				modifier = ita_supported_spain_civil_war
-			}
-		}
-		hidden_effect = {
-			news_event = {
-				id = news.190
-			}
-		}
-	}
-	option = {
-		name = italy.9.b
-		ai_chance = {
-			base = 0
-		}
-		ITA = {
-			country_event = {
-				id = italy.11
-			}
-		}
-		effect_tooltip = {
-			ITA = {
-				add_state_claim = 177
-			}
-		}
-	}
-}
-
-# Spain Gives Up Balearic Islands
-country_event = {
-	id = italy.10
-	title = italy.10.t
-	desc = italy.10.d
-	picture = GFX_report_event_merchant_ship_01
-	is_triggered_only = yes
-	option = {
-		name = italy.10.a
-		ITA = {
-			transfer_state = 177
-		}
-		remove_opinion_modifier = {
-			target = ITA
-			modifier = ita_supported_spain_civil_war
-		}
-	}
-}
-
-# Spain Refuses to Give Up Islands
-country_event = {
-	id = italy.11
-	title = italy.11.t
-	desc = italy.11.d
-	picture = GFX_report_event_merchant_ship_01
-	is_triggered_only = yes
-	option = {
-		name = italy.11.a
-		ITA = {
-			add_state_claim = 177
-		}
-	}
-}
-
-# Germany want to claim Slovenia from Yugoslavia
-country_event = {
-	id = italy.12
-	title = italy.12.t
-	desc = italy.12.d
-	picture = GFX_report_event_hitler_croatia_handshake
-	is_triggered_only = yes
-	option = {
-		ai_chance = {
-			base = 33
-			modifier = {
-				factor = 3
-				has_army_size = {
-					size > 75
-				}
-			}
-		}
-		name = italy.12.a
-		ITA = {
-			add_political_power = -100
-			if = {
-				limit = {
-					is_faction_leader = yes
-				}
-				add_to_faction = YUG
-				YUG = {
-					add_ai_strategy = {
-						type = alliance
-						id = "ITA"
-						value = 200
-					}
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						AND = {
-							is_faction_leader = no
-							is_in_faction = yes
-						}
-						is_in_faction = no
-					}
-				}
-				create_faction = italy_empire_faction
-				add_to_faction = YUG
-				YUG = {
-					add_ai_strategy = {
-						type = alliance
-						id = "ITA"
-						value = 200
-					}
-				}
-			}
-		}
-		GER = {
-			country_event = {
-				id = germany.96
-				hours = 6
-			}
-		}
-	}
-	option = {
-		ai_chance = {
-			base = 100
-		}
-		name = italy.12.b
-		YUG = {
-			add_opinion_modifier = {
-				target = ITA
-				modifier = western_betrayal
-			}
-		}
-	}
-}
-
-# Italy (First Ljubljana Award) from german focus
-# Italy Germany rejects demands for Vichy territory
-country_event = {
-	id = italy.14
-	title = italy.14.t
-	desc = italy.14.d
-	picture = GFX_report_event_generic_sign_treaty1
-	is_triggered_only = yes
-	option = {
-		ai_chance = {
-			base = 25
-		}
-		name = italy.14.a
-		GER = {
-			remove_from_faction = ITA
-			country_event = germany.105
-		}
-	}
-	option = {
-		ai_chance = {
-			base = 75
-		}
-		name = italy.14.b
-	}
-}
-
-# Italy Germany accepts demands for Vichy territory
-country_event = {
-	id = italy.15
-	title = italy.15.t
-	desc = {
-		text = italy.15.d
-		trigger = {
-			has_global_flag = ITA_claims_on_france_735
-			has_global_flag = ITA_claims_on_france_1
-		}
-	}
-	desc = {
-		text = italy.15.d_Corsica
-		trigger = {
-			NOT = {
-				has_global_flag = ITA_claims_on_france_735
-			}
-			has_global_flag = ITA_claims_on_france_1
-		}
-	}
-	picture = GFX_report_event_generic_sign_treaty1
-	is_triggered_only = yes
-	option = {
-		name = italy.15.a
-		if = {
-			limit = {
-				has_global_flag = ITA_claims_on_france_735
-			}
-			ITA = {
-				transfer_state = 735
-			}
-		}
-		if = {
-			limit = {
-				has_global_flag = ITA_claims_on_france_1
-			}
-			ITA = {
-				transfer_state = 1
-			}
-		}
-	}
-}
-
-# Italy Germany accepts some of demands for Vichy territory
-country_event = {
-	id = italy.16
-	title = italy.16.t
-	desc = italy.16.d
-	picture = GFX_report_event_generic_sign_treaty1
-	is_triggered_only = yes
-	option = {
-		name = italy.16.a
-		transfer_state = 735
-	}
-}
-
 add_namespace = HOF_italo_ethiopian_war_events
 add_namespace = HOF_italy_nero
 # Event for ITA 
@@ -616,8 +223,6 @@ unit_leader_event = {
 	immediate = {
 		# INITIALIZE NERO SYSTEM
 		hidden_effect = {
-			HOF_ITA_nero_initialize_nero_system = yes
-			#First time it's two missions at once
 			HOF_ITA_nero_initialize_new_mission_effect = yes
 			HOF_ITA_nero_initialize_new_mission_effect = yes
 		}
@@ -640,14 +245,6 @@ unit_leader_event = {
 					has_government = fascism
 				}
 			}
-		}
-		# Set Mission Timers 
-		#这玩意是他现场搓的一个变量，用来设置征服埃塞任务的时间
-		set_variable = {
-			ETH.ETH_hold_the_north_time = 120
-		}		# Timer for Holding/Conquering northern Ethiopia
-		set_variable = {
-			ETH.ETH_hold_the_south_time = 120
 		}
 		set_country_flag = HOF_ITA_nero_active_flag
 		hidden_effect = {
@@ -672,14 +269,6 @@ unit_leader_event = {
 				is_historical_focus_on = yes
 			}
 		}
-		# No escalation of war
-		# Set Mission Timers 
-		set_variable = {
-			ETH.ETH_hold_the_north_time = 180
-		}		# Timer for Holding/Conquering northern Ethiopia
-		set_variable = {
-			ETH.ETH_hold_the_south_time = 180
-		}		# Timer for Holding/Conquering southern Ethiopia and Harar
 		hidden_effect = {
 			ITA = {
 				activate_mission = HOF_ITA_conquer_the_north_mission
@@ -908,33 +497,23 @@ unit_leader_event = {
 	picture = GFX_report_event_generic_mussolini
 	is_triggered_only = yes
 	trigger = {
-		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_cd_ready = yes
 		ITA_nero_system_available = yes
 	}
 	immediate = {
 		hidden_effect = {
 			HOF_ITA_nero_initialize_new_mission_effect = yes
-			#Get number of civs to build
-			#HOF_ITA_missiolinis_number_of_civs_goal变量在历史文件里面设置为4，看不起意大利是吧
 			set_variable = {
 				ITA_missiolinis_required_civs = ROOT.num_of_civilian_factories
 			}
 			add_to_variable = {
-				ITA_missiolinis_required_civs = HOF_ITA_missiolinis_number_of_civs_goal
+				ITA_missiolinis_required_civs = 6
 			}
-			add_to_variable = {
-				ITA_missiolinis_required_civs = -1
-			}			#So that the trigger in the mission works properly (can only use >, and not >=)
-			#TODO_Manu: Probably this will be a fixed amount of civs in the future. Then we'll have a generic randomly-triggered mission for building factories in general.
 		}
 	}
 	# OK dude
 	option = {
 		name = BBA_italy_missiolinis.31.a
-		ai_chance = {
-			base = 10
-		}
-		#activate_mission = HOF_ITA_nero_strengthen_heavy_industry
 	}
 }
 
@@ -994,7 +573,7 @@ unit_leader_event = {
 	picture = GFX_report_event_generic_mussolini
 	is_triggered_only = yes
 	trigger = {
-		ITA_nero_cd_ready = yes		#IF NO OTHER MISSIOLINI HAS BEEN ACTIVATED RECENTLY, GO AHEAD
+		ITA_nero_cd_ready = yes
 		ITA_nero_system_available = yes
 	}
 	immediate = {
@@ -1131,7 +710,6 @@ country_event = {
 		HOF_ITA_nero_strengthen_the_navy_success_effect = yes
 	}
 }
-
 
 ### OCCUPY ALBANIA ###
 # Occupy Albania - Missiolini
@@ -2074,7 +1652,7 @@ add_namespace = ror
 country_event = {
 	id = ror.0
 	title = ror.0.t
-	picture = GFX_event_test
+	picture = GFX_report_event_generic_sign_treaty2
 	desc = ror.0.desc
 	is_triggered_only = yes
 	option = {
@@ -2196,11 +1774,9 @@ country_event = {
 			}
 			modifier = {
 				factor = 0
-				AND = {
-					is_subject = yes
-					NOT = {
-						is_subject_of = ITA
-					}
+				is_subject = yes
+				NOT = {
+					is_subject_of = ITA
 				}
 			}
 			modifier = {
@@ -2218,11 +1794,9 @@ country_event = {
 			base = 10
 			modifier = {
 				factor = 0
-				AND = {
-					is_subject = yes
-					NOT = {
-						is_subject_of = ITA
-					}
+				is_subject = yes
+				NOT = {
+					is_subject_of = ITA
 				}
 			}
 			modifier = {
@@ -2250,12 +1824,9 @@ country_event = {
 			}
 			create_country_leader = {
 				name = "Atalanta(Alter)"
-				desc = "POLITICS_ATALANTA_ALTER_DESC"
 				picture = "Portrait_Atalanta_Alter.dds"
 				expire = "1965.1.1"
 				ideology = nazism
-				traits = {
-				}
 			}
 			remove_unit_leader = 845
 			create_corps_commander = {
@@ -2333,11 +1904,9 @@ country_event = {
 			base = 5
 			modifier = {
 				factor = 0
-				AND = {
-					is_subject = yes
-					NOT = {
-						is_subject_of = ITA
-					}
+				is_subject = yes
+				NOT = {
+					is_subject_of = ITA
 				}
 			}
 		}
@@ -2612,13 +2181,10 @@ country_event = {
 				factor = 0.1
 			}
 			modifier = {
-				AND = {
-					original_tag = ROM
-					OR = {
-						has_completed_focus = ROM_the_third_letter
-						has_government = fascism
-						has_government = democratic
-					}
+				original_tag = ROM
+				OR = {
+					has_government = fascism
+					has_government = democratic
 				}
 				factor = 0
 			}

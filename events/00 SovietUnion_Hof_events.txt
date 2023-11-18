@@ -282,7 +282,7 @@ country_event = {
 	id = soviet.9
 	title = soviet.9.t
 	desc = soviet.9.d
-	picture = report_event_generic_sign_treaty2
+	picture = GFX_report_event_generic_sign_treaty1
 	is_triggered_only = yes
 	option = {
 		name = soviet.9.a
@@ -313,7 +313,7 @@ country_event = {
 	id = soviet.11
 	title = soviet.11.t
 	desc = soviet.11.d
-	picture = report_event_generic_sign_treaty2
+	picture = GFX_report_event_generic_sign_treaty1
 	is_triggered_only = yes
 	option = {
 		name = soviet.11.a
@@ -427,125 +427,6 @@ country_event = {
 				expire = "1965.3.1.1"
 			}
 			promote_leader = yes
-		}
-	}
-}
-
-# Great Purge - Trial of the 21
-# Trotsykist Coup
-country_event = {
-	id = soviet.28
-	title = soviet.28.t
-	desc = soviet.28.d
-	picture = GFX_report_event_soviet_purge_politicians
-	fire_only_once = yes
-	trigger = {
-		always = no
-		has_country_flag = SOV_soviet.48_trotsky
-		tag = SOV
-		NOT = {
-			MEX = {
-				has_country_leader = {
-					name = "Leon Trotsky"
-					ruling_only = yes
-				}
-			}
-		}
-	}
-	mean_time_to_happen = {
-		days = 90
-	}
-	option = {
-		name = soviet.28.a
-		set_country_flag = counter_purge
-		if = {
-			limit = {
-				has_idea = trotskyite_plot_purged
-			}
-			remove_ideas = trotskyite_plot_purged
-		}
-		if = {
-			limit = {
-				has_idea = trotskyite_plot
-			}
-			remove_ideas = trotskyite_plot
-		}
-		kill_country_leader = yes
-		add_country_leader_role = {
-			character = "SOV_lev_trotsky"
-			country_leader = {
-				ideology = leninism
-				desc = "POLITICS_LEON_TROTSKY_DESC"
-				traits = {
-					permanent_revolutionary
-				}
-				expire = "1965.1.1"
-			}
-			promote_leader = yes
-		}
-		remove_ideas = mikhail_kalinin
-		remove_ideas = ivan_konev
-		remove_unit_leader = 408
-		remove_ideas = pavel_zhigarev
-		remove_ideas = stepan_krasovsky
-		remove_ideas = arseniy_golovko
-		remove_unit_leader = 409
-		remove_ideas = georgy_zhukov
-		remove_unit_leader = 410
-		remove_ideas = sergey_gorshkov
-		remove_unit_leader = 411
-		remove_ideas = sergei_rudenko
-		remove_ideas = nikita_khrushchev
-		remove_ideas = konstantin_rodzaevsky
-		add_timed_idea = {
-			idea = officers_purged_7
-			days = 584
-		}
-		hidden_effect = {
-			country_event = {
-				id = soviet.43
-				days = 146
-			}
-		}
-		start_civil_war = {
-			ideology = neutrality
-			size = 0.18
-			keep_unit_leaders = {
-				401
-				402
-				407
-				410
-				406
-				405
-				403
-				407
-				404
-			}
-		}
-		hidden_effect = {
-			random_other_country = {
-				limit = {
-					original_tag = SOV
-					has_government = neutrality
-				}
-				kill_country_leader = yes
-				add_country_leader_role = {
-					character = "SOV_ivan_konev"
-					country_leader = {
-						desc = "POLITICS_IVAN_KONEV_DESC"
-						ideology = oligarchism
-						traits = {
-							permanent_revolutionary
-						}
-						expire = "1965.1.1"
-					}
-					promote_leader = yes
-				}
-			}
-			news_event = {
-				hours = 6
-				id = news.221
-			}
 		}
 	}
 }
@@ -1289,285 +1170,6 @@ country_event = {
 		custom_effect_tooltip = soviet.37.a_tt
 	}
 }
-
-#No purges completed - decide what to do
-#No purges massive civil war
-country_event = {
-	id = soviet.49
-	title = soviet.49.t
-	desc = soviet.49.d
-	picture = GFX_report_event_soviet_tanks
-	trigger = {
-		tag = SOV
-		has_country_flag = SOV_soviet.48_notrotsky
-	}
-	fire_only_once = yes
-	mean_time_to_happen = {
-		days = 10
-	}
-	option = {
-		name = soviet.49.a
-		start_civil_war = {
-			ideology = neutrality
-			size = 0.5
-			keep_unit_leaders = {
-				401
-				402
-				407
-				410
-				406
-				405
-				403
-				407
-				408
-				410
-				411
-				404
-			}
-		}
-		hidden_effect = {
-			remove_unit_leader = 412			#Remove Andrey Vlasov
-			random_other_country = {
-				limit = {
-					original_tag = SOV
-					has_government = neutrality
-				}
-				kill_country_leader = yes
-				add_country_leader_role = {
-					character = "SOV_andrey_vlasov"
-					country_leader = {
-						ideology = moderatism
-						traits = {
-						}
-						expire = "1965.3.1.1"
-					}
-					promote_leader = yes
-				}
-			}
-			news_event = {
-				hours = 3
-				id = news.220
-			}
-		}
-	}
-}
-
-#1/4 purges
-country_event = {
-	id = soviet.50
-	title = soviet.50.t
-	desc = soviet.50.d
-	picture = GFX_report_event_soviet_purge_officers_02
-	fire_only_once = yes
-	trigger = {
-		always = no
-		tag = SOV
-		has_country_flag = SOV_purged_1
-		SOV_nikolay_yezhov = {
-			is_country_leader = no
-		}
-	}
-	mean_time_to_happen = {
-		days = 90
-	}
-	option = {
-		name = soviet.50.a
-		remove_unit_leader = 412		#Remove Andrey Vlasov
-		start_civil_war = {
-			ideology = neutrality
-			size = 0.3
-			keep_unit_leaders = {
-				401
-				402
-				407
-				410
-				406
-				405
-				403
-				407
-				408
-				410
-				411
-				404
-			}
-		}
-		hidden_effect = {
-			random_other_country = {
-				limit = {
-					original_tag = SOV
-					has_government = neutrality
-				}
-				kill_country_leader = yes
-				add_country_leader_role = {
-					character = "SOV_andrey_vlasov"
-					country_leader = {
-						ideology = moderatism
-						traits = {
-						}
-						expire = "1965.3.1.1"
-					}
-					promote_leader = yes
-				}
-			}
-			news_event = {
-				hours = 3
-				id = news.220
-			}
-		}
-	}
-}
-
-#2/4 purges
-country_event = {
-	id = soviet.51
-	title = soviet.51.t
-	desc = soviet.51.d
-	picture = GFX_report_event_soviet_purge_officers_02
-	fire_only_once = yes
-	trigger = {
-		always = no
-		tag = SOV
-		has_country_flag = SOV_purged_2
-		SOV_nikolay_yezhov = {
-			is_country_leader = no
-		}
-	}
-	mean_time_to_happen = {
-		days = 90
-	}
-	option = {
-		name = soviet.51.a
-		remove_unit_leader = 412		#Remove Andrey Vlasov
-		start_civil_war = {
-			ideology = neutrality
-			size = 0.25
-			keep_unit_leaders = {
-				401
-				402
-				407
-				410
-				406
-				405
-				403
-				407
-				408
-				410
-				411
-				404
-			}
-		}
-		hidden_effect = {
-			random_other_country = {
-				limit = {
-					original_tag = SOV
-					has_government = neutrality
-				}
-				kill_country_leader = yes
-				add_country_leader_role = {
-					character = "SOV_andrey_vlasov"
-					country_leader = {
-						ideology = moderatism
-						traits = {
-						}
-						expire = "1965.3.1.1"
-					}
-					promote_leader = yes
-				}
-			}
-			news_event = {
-				hours = 3
-				id = news.220
-			}
-		}
-	}
-}
-
-#3/4 purges
-country_event = {
-	id = soviet.52
-	title = soviet.52.t
-	desc = soviet.52.d
-	picture = GFX_report_event_stalin_propaganda
-	fire_only_once = yes
-	trigger = {
-		always = no
-		tag = SOV
-		has_country_flag = SOV_purged_3
-		SOV_nikolay_yezhov = {
-			is_country_leader = no
-		}
-	}
-	mean_time_to_happen = {
-		days = 90
-	}
-	option = {
-		name = soviet.52.a
-		remove_unit_leader = 412		#Remove Andrey Vlasov
-		start_civil_war = {
-			ideology = neutrality
-			size = 0.2
-			keep_unit_leaders = {
-				401
-				402
-				407
-				410
-				406
-				405
-				403
-				407
-				408
-				410
-				411
-				404
-			}
-		}
-		hidden_effect = {
-			random_other_country = {
-				limit = {
-					original_tag = SOV
-					has_government = neutrality
-				}
-				kill_country_leader = yes
-				add_country_leader_role = {
-					character = "SOV_andrey_vlasov"
-					country_leader = {
-						ideology = moderatism
-						traits = {
-						}
-						expire = "1965.3.1.1"
-					}
-					promote_leader = yes
-				}
-			}
-			news_event = {
-				hours = 3
-				id = news.220
-			}
-		}
-	}
-}
-
-#4/4 purges
-country_event = {
-	id = soviet.53
-	title = soviet.53.t
-	desc = soviet.53.d
-	picture = GFX_report_event_stalin_01
-	fire_only_once = yes
-	trigger = {
-		always = no
-		tag = SOV
-		has_country_flag = SOV_purged_4
-	}
-	mean_time_to_happen = {
-		days = 2
-	}
-	option = {
-		name = soviet.53.a
-		remove_ideas = trotskyite_plot_purged
-	}
-}
-
 #New Leadership in Russia
 # Poland conquered... honor MR Pact?
 country_event = {
@@ -2740,8 +2342,6 @@ country_event = {
 			country_leader = {
 				ideology = yezhovism
 				desc = "POLITICS_NIKOLAI_YEZHOV_DESC"
-				traits = {
-				}
 				expire = "1965.3.1.1"
 			}
 			promote_leader = yes
@@ -3532,8 +3132,6 @@ country_event = {
 			character = "SOV_mikhail_tukhachevsky"
 			country_leader = {
 				ideology = leninism
-				traits = {
-				}
 				expire = "1965.3.1.1"
 			}
 			promote_leader = yes
@@ -3898,7 +3496,7 @@ country_event = {
 		}
 		if = {
 			limit = {
-				not = {
+				NOT ={
 					country_exists = KAZ
 				}
 			}
@@ -4380,7 +3978,7 @@ country_event = {
 		retire_character = SOV_Ismail_Enver
 		if = {
 			limit = {
-				not = {
+				NOT ={
 					country_exists = TMS
 				}
 			}
@@ -5189,8 +4787,6 @@ country_event = {
 					desc = "POLITICS_ROSTOVA_DESC"
 					picture = "Portrait_Nataliya_Andreyevich_Rostova.dds"
 					ideology = conservatism
-					traits = {
-					}
 				}
 				set_party_name = {
 					ideology = democratic
@@ -8028,14 +7624,6 @@ country_event = {
 				has_war_with = ENG
 			}
 			modifier = {
-				factor = 10
-				has_completed_focus = GER_mol_rib_pact
-			}
-			modifier = {
-				factor = 10
-				has_completed_focus = GER_soviet_ally
-			}
-			modifier = {
 				factor = 0.1
 				has_completed_focus = GER_anti_comitern_pact
 			}
@@ -8044,8 +7632,6 @@ country_event = {
 				OR = {
 					has_war_with = FROM
 					is_justifying_wargoal_against = FROM
-					has_completed_focus = GER_anti_soviet_pact
-					has_completed_focus = GER_ussr_war_goal
 				}
 			}
 		}
@@ -8472,7 +8058,6 @@ country_event = {
 		name = NSB_soviet_great_patriotic_war.01.a
 		create_operative_leader = {
 			name = "Nikolay Ivanovich Kuznetsov"
-			GFX = GFX_Portrait_nikolay_kuznetsov
 			traits = {
 				operative_commando
 				operative_infiltrator

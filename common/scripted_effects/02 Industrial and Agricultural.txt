@@ -115,6 +115,36 @@ increase_state_category = {
 	}
 }
 
+swap_to_free_trade = {
+	if = {
+		limit = {
+			has_idea = export_focus
+		}
+		swap_ideas = {
+			remove_idea = export_focus
+			add_idea = free_trade
+		}
+	}
+	if = {
+		limit = {
+			has_idea = limited_exports
+		}
+		swap_ideas = {
+			remove_idea = limited_exports
+			add_idea = free_trade
+		}
+	}
+	if = {
+		limit = {
+			has_idea = closed_economy
+		}
+		swap_ideas = {
+			remove_idea = closed_economy
+			add_idea = free_trade
+		}
+	}
+}
+
 upgrade_industrial_region = {
 	if = {
 		limit = {
@@ -306,6 +336,7 @@ prioritize_state = {
 }
 
 construction_build_in_best_random_state_effect = {
+	##Set Building Token
 	if = {
 		limit = {
 			NOT = {
@@ -610,6 +641,7 @@ construction_build_in_best_random_state_effect = {
 	}
 }
 
+##Country scope
 add_one_random_infrastructure = {
 	set_temp_variable = {
 		building_token = token:infrastructure
@@ -651,3 +683,191 @@ add_one_random_fuel_silo = {
 	}
 	construction_build_in_best_random_state_effect = yes
 }
+
+add_one_infrastructure_for_every_cored_state = {
+	every_owned_state = {
+		limit = {
+			is_core_of = ROOT
+		}
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+		add_extra_state_shared_building_slots = 1
+	}
+}
+
+add_random_air_base = {
+	if = {
+		limit = {
+			capital_scope = {
+				NOT = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 1
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+	if = {
+		limit = {
+			capital_scope = {
+				free_building_slots = {
+					building = air_base
+					size > 1
+				}
+			}
+		}
+		capital_scope = {
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+add_resource_for_all_state = {
+	every_core_state = {
+		limit = {
+			OR = {
+				has_resources_amount = {
+					resource = steel
+					amount > 0
+				}
+				has_resources_amount = {
+					resource = chromium
+					amount > 0
+				}
+				has_resources_amount = {
+					resource = tungsten
+					amount > 0
+				}
+				has_resources_amount = {
+					resource = aluminium
+					amount > 0
+				}
+			}
+		}
+		random_select_amount = 1
+		if = {
+			limit = {
+				has_resources_amount = {
+					resource = steel
+					amount > 0
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 6
+				show_state_in_tooltip = no
+			}
+		}
+		if = {
+			limit = {
+				has_resources_amount = {
+					resource = chromium
+					amount > 0
+				}
+			}
+			add_resource = {
+				type = chromium
+				amount = 6
+				show_state_in_tooltip = no
+			}
+		}
+		if = {
+			limit = {
+				has_resources_amount = {
+					resource = tungsten
+					amount > 0
+				}
+			}
+			add_resource = {
+				type = tungsten
+				amount = 6
+				show_state_in_tooltip = no
+			}
+		}
+		if = {
+			limit = {
+				has_resources_amount = {
+					resource = aluminium
+					amount > 0
+				}
+			}
+			add_resource = {
+				type = aluminium
+				amount = 6
+				show_state_in_tooltip = no
+			}
+		}
+	}
+}
+
+##State scope
+remove_fort_to_level_1 = {
+	set_building_level = {
+		type = bunker
+		level = 1
+		province = {
+			all_provinces = yes
+			limit_to_border = no
+			level > 1
+		}
+	}
+}
+
+add_fort_level_4 = {
+	add_building_construction = {
+		type = bunker
+		level = 4
+		province = {
+			id = 10000
+		}
+		instant_build = yes
+	}
+}
+
+set_max_infrastructure = {
+	add_building_construction = {
+		type = infrastructure
+		level = 5
+		instant_build = yes
+	}
+}
+
+add_one_civilian_factory = {
+	add_building_construction = {
+		type = industrial_complex
+		level = 1
+		instant_build = yes
+	}
+	add_extra_state_shared_building_slots = 1
+}
+
+add_one_military_factory = {
+	add_building_construction = {
+		type = arms_factory
+		level = 1
+		instant_build = yes
+	}
+	add_extra_state_shared_building_slots = 1
+}
+

@@ -1,0 +1,4925 @@
+﻿focus_tree = {
+	id = swiss_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SWI
+		}
+	}
+	default = no
+	continuous_focus_position = {
+		x = 1350
+		y = 1050
+	}
+	focus = {
+		id = SWI_swiss_guiding_principles
+		icon = GFX_focus_SWI_swiss_guiding_principles
+		x = 12
+		y = 0
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_BALANCE_OF_POWER
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_start_date < 1936.01.02
+				}
+				country_event = {
+					id = BBA_switzerland.1
+					hours = 6
+				}
+			}
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = SWI_fortify_border_with_france
+		icon = GFX_focus_SWI_fortify_border_with_france
+		x = 3
+		y = 2
+		relative_position_id = SWI_swiss_guiding_principles
+		prerequisite = {
+			focus = SWI_swiss_guiding_principles
+		}
+		cost = 10
+		available = {
+		}
+		bypass = {
+			FRA = {
+				has_capitulated = yes
+			}
+		}
+		completion_reward = {
+			hidden_effect = {
+				every_owned_state = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_border_country = FRA
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_fortify_border_with_italy
+		icon = GFX_focus_SWI_fortify_border_with_italy
+		x = -3
+		y = 2
+		relative_position_id = SWI_swiss_guiding_principles
+		prerequisite = {
+			focus = SWI_swiss_guiding_principles
+		}
+		cost = 10
+		available = {
+		}
+		completion_reward = {
+			ITA = {
+				custom_effect_tooltip = SWI_add_forts_bordering
+			}
+			hidden_effect = {
+				every_owned_state = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_border_country = ITA
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_fortify_border_with_germany
+		icon = GFX_focus_SWI_fortify_border_with_germany
+		x = 0
+		y = 1
+		relative_position_id = SWI_swiss_guiding_principles
+		prerequisite = {
+			focus = SWI_swiss_guiding_principles
+		}
+		cost = 10
+		available = {
+		}
+		completion_reward = {
+			hidden_effect = {
+				every_owned_state = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_border_country = GER
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_armed_neutrality
+		icon = GFX_goal_generic_neutrality_focus
+		x = 0
+		y = 1
+		relative_position_id = SWI_fortify_border_with_germany
+		prerequisite = {
+			focus = SWI_reaffirm_spiritual_defense
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		cancel_if_invalid = no
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_WAR_SUPPORT
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_the_petition_of_the_200
+		icon = GFX_focus_hol_the_foundations_of_defense
+		prerequisite = {
+			focus = SWI_armed_neutrality
+		}
+		relative_position_id = SWI_armed_neutrality
+		x = 12
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			fascism > 0.15
+			has_country_flag = SWI_viable_fascist_in_europe
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_stability = -0.1
+			add_war_support = 0.1
+			country_event = {
+				id = BBA_switzerland.14
+				hours = 1
+			}
+			if = {
+				limit = {
+					has_idea = fascism_banned
+				}
+				remove_ideas = {
+					fascism_banned
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_ban_the_communist_party
+		icon = GFX_goal_anti_comintern_pact
+		prerequisite = {
+			focus = SWI_the_petition_of_the_200
+		}
+		x = 2
+		y = 1
+		relative_position_id = SWI_the_petition_of_the_200
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+			add_ideas = {
+				SWI_communist_party_banned_idea
+			}
+			if = {
+				limit = {
+					SOV = {
+						NOT = {
+							SWI_is_country_to_balance = yes
+						}
+					}
+				}
+				SOV = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SWI_banned_countrys_ideology
+					}
+				}
+				every_other_country = {
+					limit = {
+						SWI_is_country_to_balance = yes
+					}
+					if = {
+						limit = {
+							has_government = communism
+						}
+						add_opinion_modifier = {
+							target = ROOT
+							modifier = SWI_banned_countrys_ideology
+						}
+					}
+					else = {
+						add_opinion_modifier = {
+							target = ROOT
+							modifier = SWI_banned_communism_good
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_withdraw_from_the_league_of_nations
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		prerequisite = {
+			focus = SWI_ban_the_communist_party
+		}
+		x = 0
+		y = 1
+		relative_position_id = SWI_ban_the_communist_party
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+			has_global_flag = LoN_disbanded_flag
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+			every_other_country = {
+				limit = {
+					is_league_of_nations_member = yes
+					NOT = {
+						has_government = fascism
+					}
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SWI_left_league_of_nations_bad
+				}
+			}
+			GER = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SWI_left_league_of_nations_good
+				}
+			}
+			ITA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SWI_left_league_of_nations_good
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_seek_trade_agreement_with_germany
+		icon = GFX_goal_generic_trade
+		prerequisite = {
+			focus = SWI_withdraw_from_the_league_of_nations
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_withdraw_from_the_league_of_nations
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			GER = {
+				has_opinion = {
+					target = ROOT
+					value > 29
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		bypass = {
+			GER = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+			GER = {
+				country_event = {
+					id = BBA_switzerland_trade.1
+					hours = 8
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_axis_gold
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		prerequisite = {
+			focus = SWI_seek_trade_agreement_with_germany
+		}
+		x = 0
+		y = 1
+		relative_position_id = SWI_seek_trade_agreement_with_germany
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_limited_censorship_of_the_press
+		icon = GFX_focus_generic_strike_at_democracy3
+		prerequisite = {
+			focus = SWI_withdraw_from_the_league_of_nations
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_withdraw_from_the_league_of_nations
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+			if = {
+				limit = {
+					SWI = {
+						is_ai = no
+					}
+				}
+				GER = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SWI_considerable_appeasement
+					}
+				}
+				ITA = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SWI_considerable_appeasement
+					}
+				}
+				every_other_country = {
+					limit = {
+						SWI_is_country_to_balance = yes
+						NOT = {
+							original_tag = GER
+						}
+						NOT = {
+							original_tag = ITA
+						}
+					}
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SWI_limited_press_censorship
+					}
+				}
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.1
+			}
+		}
+	}
+	focus = {
+		id = SWI_tighten_press_censorship
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = {
+			focus = SWI_limited_censorship_of_the_press
+		}
+		x = 0
+		y = 1
+		relative_position_id = SWI_limited_censorship_of_the_press
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			if = {
+				limit = {
+					SWI = {
+						is_ai = no
+					}
+				}
+				GER = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SWI_considerable_appeasement
+					}
+				}
+				ITA = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SWI_considerable_appeasement
+					}
+				}
+				every_other_country = {
+					limit = {
+						SWI_is_country_to_balance = yes
+						NOT = {
+							original_tag = GER
+						}
+						NOT = {
+							original_tag = ITA
+						}
+					}
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = SWI_extensive_press_censorship
+					}
+				}
+			}
+			add_ideas = {
+				SWI_extensive_press_censorship_idea
+			}
+		}
+	}
+	focus = {
+		id = SWI_military_exercises_with_germany
+		icon = GFX_focus_chi_army_reform
+		prerequisite = {
+			focus = SWI_the_petition_of_the_200
+		}
+		relative_position_id = SWI_the_petition_of_the_200
+		x = -3
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			fascism > 0.2
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_NAVY_XP
+			FOCUS_FILTER_AIR_XP
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			var:SWI_biggest_fascist = {
+				add_opinion_modifier = {
+					modifier = SWI_military_collaboration
+					target = ROOT
+				}
+			}
+			every_other_country = {
+				limit = {
+					SWI_is_country_to_balance = yes
+					NOT = {
+						tag = var:SWI.SWI_biggest_fascist
+					}
+					NOT = {
+						is_in_faction_with = var:SWI.SWI_biggest_fascist
+					}
+				}
+				add_opinion_modifier = {
+					modifier = SWI_considerable_breach_of_neutrality
+					target = ROOT
+				}
+			}
+			add_command_power = 50
+			army_experience = 75
+			air_experience = 50
+			navy_experience = 5
+		}
+	}
+	focus = {
+		id = SWI_german_industrial_investments
+		icon = GFX_goal_generic_build_tank
+		prerequisite = {
+			focus = SWI_the_petition_of_the_200
+		}
+		relative_position_id = SWI_the_petition_of_the_200
+		x = 0
+		y = 1
+		cost = 5
+		available = {
+			var:SWI_biggest_fascist = {
+				#This might need to be changed to a variable so the fascit neighbor is generic.  edit: You mean...biggus fascist? 
+				exists = yes
+				has_government = fascism
+			}
+			fascism > 0.2
+			has_country_flag = SWI_viable_fascist_in_europe
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			3 = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			151 = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			var:SWI.SWI_biggest_fascist = {
+				add_opinion_modifier = {
+					modifier = SWI_investments_in_country
+					target = ROOT
+				}
+			}
+			every_other_country = {
+				limit = {
+					SWI_is_country_to_balance = yes
+					NOT = {
+						tag = var:SWI.SWI_biggest_fascist
+					}
+					NOT = {
+						is_in_faction_with = var:SWI.SWI_biggest_fascist
+					}
+				}
+				add_opinion_modifier = {
+					modifier = SWI_mild_breach_of_neutrality
+					target = ROOT
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_complete_siegfried_line
+		icon = GFX_focus_SWI_complete_siegfried_line
+		prerequisite = {
+			focus = SWI_german_industrial_investments
+		}
+		relative_position_id = SWI_german_industrial_investments
+		x = -1
+		y = 1
+		cost = 10
+		available = {
+			fascism > 0.3
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.05
+			}
+			every_owned_state = {
+				#Could make this more generic in the future if needed and/or have time.
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border_country = FRA
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_closer_ties_with_germany
+		icon = GFX_focus_SWI_closer_ties_with_germany
+		x = 0
+		y = 1
+		relative_position_id = SWI_complete_siegfried_line
+		prerequisite = {
+			focus = SWI_complete_siegfried_line
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			fascism > 0.4
+			has_country_flag = SWI_viable_fascist_in_europe
+		}
+		completion_reward = {
+			var:SWI.SWI_biggest_fascist = {
+				add_opinion_modifier = {
+					modifier = SWI_close_ties
+					target = ROOT
+				}
+			}
+			add_political_power = 150
+			every_other_country = {
+				limit = {
+					SWI_is_country_to_balance = yes
+					OR = {
+						has_government = democratic
+						has_government = communism
+					}
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SWI_close_ties_with_fascists
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_abandon_neutrality
+		icon = GFX_focus_SWI_abandon_neutrality
+		prerequisite = {
+			focus = SWI_closer_ties_with_germany
+		}
+		relative_position_id = SWI_closer_ties_with_germany
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			fascism > 0.5
+			has_country_flag = SWI_viable_fascist_in_europe
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			custom_effect_tooltip = SWI_neutrality_decisions_disabled_TT
+			hidden_effect = {
+				set_country_flag = SWI_abandoned_neutrality_fascist
+			}
+			swap_ideas = {
+				remove_idea = SWI_swiss_neutrality
+				add_idea = SWI_democratic_unrest
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			every_other_country = {
+				limit = {
+					SWI_is_country_to_balance = yes
+				}
+				add_opinion_modifier = {
+					modifier = SWI_abandoned_neutrality
+					target = ROOT
+				}
+			}
+		}
+	}
+	########################################################################################
+	#############                WEAPONS INDUSTRY SUB BRANCH              ##################
+	########################################################################################
+	focus = {
+		id = SWI_case_west
+		icon = GFX_focus_attack_france
+		prerequisite = {
+			focus = SWI_the_petition_of_the_200
+		}
+		relative_position_id = SWI_the_petition_of_the_200
+		x = -2
+		y = 1
+		cost = 5
+		available = {
+			fascism > 0.15
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			if = {
+				limit = {
+					FRA = {
+						exists = yes
+						has_government = democratic
+					}
+				}
+				FRA = {
+					add_opinion_modifier = {
+						modifier = SWI_is_planning_against_us
+						target = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_ban_foreign_nazi_propaganda
+		icon = GFX_focus_POL_ban_nazi_party
+		x = -7
+		y = 1
+		relative_position_id = SWI_armed_neutrality
+		prerequisite = {
+			focus = SWI_armed_neutrality
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		cancel_if_invalid = no
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_BALANCE_OF_POWER
+		}
+		completion_reward = {
+			add_ideas = {
+				SWI_banned_foreign_nazi_propaganda_idea
+			}
+			if = {
+				limit = {
+					has_start_date < 1936.01.02
+				}
+				hidden_effect = {
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_support_allied_espionage
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = {
+			focus = SWI_ban_foreign_nazi_propaganda
+		}
+		relative_position_id = SWI_ban_foreign_nazi_propaganda
+		x = -4
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.75
+			has_government = democratic
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_expand_spy_networks
+		icon = GFX_focus_generic_secret_service_agency
+		prerequisite = {
+			focus = SWI_support_allied_espionage
+		}
+		relative_position_id = SWI_support_allied_espionage
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.75
+			has_government = democratic
+			has_intelligence_agency = yes
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = SWI_buero_ha_idea
+				}
+				swap_ideas = {
+					remove_idea = SWI_buero_ha_idea
+					add_idea = SWI_buero_ha_idea_2
+				}
+			}
+			else = {
+				add_ideas = {
+					SWI_expanded_spy_network_idea
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_share_spy_networks
+		icon = GFX_focus_generic_national_security
+		prerequisite = {
+			focus = SWI_expand_spy_networks
+		}
+		relative_position_id = SWI_expand_spy_networks
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.75
+			has_government = democratic
+			has_intelligence_agency = yes
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = SWI_secret_pact_with_the_allies
+		icon = GFX_goal_tripartite_pact
+		prerequisite = {
+			focus = SWI_share_spy_networks
+		}
+		relative_position_id = SWI_share_spy_networks
+		mutually_exclusive = {
+			focus = SWI_join_the_allies
+		}
+		mutually_exclusive = {
+			focus = SWI_join_france
+		}
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.75
+			NOT = {
+				has_idea = SWI_spirit_of_helvetia_aggressive_peace
+			}
+			is_in_faction = no
+			has_war = no
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			if = {
+				limit = {
+					has_variable = SWI_best_dem_ally
+				}
+				var:SWI_best_dem_ally = {
+					country_event = {
+						id = BBA_switzerland.16
+						hours = 8
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_closer_democratic_ties
+		icon = GFX_goal_generic_national_unity
+		x = -6
+		y = 1
+		relative_position_id = SWI_ban_foreign_nazi_propaganda
+		prerequisite = {
+			focus = SWI_ban_foreign_nazi_propaganda
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			every_other_country = {
+				limit = {
+					is_major = yes
+					has_government = democratic
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SWI_close_ties
+				}
+			}
+			every_other_country = {
+				limit = {
+					is_major = yes
+					has_government = fascism
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SWI_unfavourable_alignment
+				}
+			}
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = SWI_allied_gold
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		prerequisite = {
+			focus = SWI_closer_democratic_ties
+		}
+		relative_position_id = SWI_closer_democratic_ties
+		x = -2
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.65
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_american_industrial_investments
+		icon = GFX_focus_chi_mission_to_the_us
+		prerequisite = {
+			focus = SWI_closer_democratic_ties
+		}
+		relative_position_id = SWI_closer_democratic_ties
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+			USA = {
+				exists = yes
+				NOT = {
+					has_government = fascism
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		bypass = {
+			USA = {
+				OR = {
+					has_government = fascism
+					exists = no
+					has_war_with = ROOT
+				}
+			}
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			USA = {
+				country_event = {
+					id = BBA_switzerland_trade.13
+					hours = 4
+				}
+			}
+			custom_effect_tooltip = if_they_accept
+			effect_tooltip = {
+				ROOT = {
+					add_timed_idea = {
+						idea = SWI_foreign_investments_idea
+						days = 730
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_take_a_stance
+		icon = GFX_focus_SWI_helvetic_junta
+		prerequisite = {
+			focus = SWI_american_industrial_investments
+			focus = SWI_connect_to_the_maginot_line
+		}
+		relative_position_id = SWI_american_industrial_investments
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			fascism < 0.3
+		}
+		bypass = {
+			or = {
+				has_war = yes
+				is_in_faction = yes
+			}
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_political_power = 100
+			remove_ideas = {
+				SWI_swiss_neutrality
+			}
+			custom_effect_tooltip = SWI_oasis_of_democracy_tt
+		}
+	}
+	focus = {
+		id = SWI_join_the_allies
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = {
+			focus = SWI_take_a_stance
+		}
+		relative_position_id = SWI_take_a_stance
+		mutually_exclusive = {
+			focus = SWI_join_france
+		}
+		mutually_exclusive = {
+			focus = SWI_secret_pact_with_the_allies
+		}
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			fascism < 0.3
+			any_other_country = {
+				has_government = democratic
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			if = {
+				limit = {
+					has_variable = SWI_best_dem_ally
+					var:SWI_best_dem_ally = {
+						is_in_faction = yes
+					}
+				}
+				var:SWI_best_dem_ally = {
+					country_event = {
+						id = generic.2
+						hours = 3
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					ENG = {
+						has_government = democratic
+						is_faction_leader = yes
+					}
+				}
+				ENG = {
+					country_event = {
+						id = generic.2
+						hours = 3
+					}
+				}
+			}
+			else = {
+				random_other_country = {
+					limit = {
+						is_faction_leader = yes
+						has_government = democratic
+					}
+					country_event = {
+						id = generic.2
+						hours = 3
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_lay_the_groundwork
+		icon = GFX_focus_generic_railroad
+		prerequisite = {
+			focus = SWI_join_the_allies
+			focus = SWI_join_france
+			focus = SWI_secret_pact_with_the_allies
+		}
+		relative_position_id = SWI_join_the_allies
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			build_railway = {
+				level = 2
+				fallback = yes
+				start_province = 6666
+				target_province = 663
+				path = {
+					6666
+					9622
+					6683
+					9638
+					663
+				}
+			}
+			build_railway = {
+				level = 1
+				fallback = yes
+				start_province = 9620
+				target_province = 658
+				path = {
+					9620
+					9618
+					636
+					11601
+					658
+				}
+			}
+			151 = {
+				add_building_construction = {
+					type = supply_node
+					level = 1
+					province = 658
+					instant_build = yes
+				}
+			}
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					infrastructure < 3
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_arsenal_of_the_alps
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = {
+			focus = SWI_lay_the_groundwork
+		}
+		relative_position_id = SWI_lay_the_groundwork
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			847 = {
+				# Eastern Swiss Alps 
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			151 = {
+				# Western Swiss Alps 
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			846 = {
+				# Ticino 
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_fighting_for_the_hills
+		icon = GFX_focus_prc_infiltration
+		prerequisite = {
+			focus = SWI_arsenal_of_the_alps
+		}
+		relative_position_id = SWI_arsenal_of_the_alps
+		x = -1
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_ARMY_XP
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			army_experience = 100
+			add_tech_bonus = {
+				name = SWI_fighting_for_the_hills
+				bonus = 1
+				uses = 2
+				category = infantry_tech
+			}
+			add_tech_bonus = {
+				name = SWI_fighting_for_the_hills
+				bonus = 1
+				uses = 2
+				category = infantry_weapons
+			}
+			add_doctrine_cost_reduction = {
+				name = SWI_fighting_for_the_hills
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = SWI_thunder_in_the_valleys
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = {
+			focus = SWI_arsenal_of_the_alps
+		}
+		relative_position_id = SWI_arsenal_of_the_alps
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_ARMY_XP
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			army_experience = 100
+			add_tech_bonus = {
+				name = SWI_thunder_in_the_valleys
+				bonus = 1
+				uses = 4
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = SWI_weapons_of_democracy
+		icon = GFX_focus_wonderweapons
+		prerequisite = {
+			focus = SWI_thunder_in_the_valleys
+		}
+		prerequisite = {
+			focus = SWI_fighting_for_the_hills
+		}
+		relative_position_id = SWI_thunder_in_the_valleys
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = SWI_weapons_of_democracy
+				bonus = 2
+				uses = 1
+				category = nuclear
+			}
+			add_tech_bonus = {
+				name = SWI_weapons_of_democracy
+				ahead_reduction = 1
+				uses = 2
+				category = nuclear
+			}
+		}
+	}
+	focus = {
+		id = SWI_exiled_government
+		icon = GFX_focus_generic_self_management
+		prerequisite = {
+			focus = SWI_weapons_of_democracy
+		}
+		relative_position_id = SWI_weapons_of_democracy
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+			is_in_faction = yes
+			surrender_progress > 0.5
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			faction_leader = {
+				SWI = {
+					become_exiled_in = {
+						target = PREV
+						legitimacy = 100
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_jump_into_action
+		icon = GFX_focus_generic_combined_arms
+		prerequisite = {
+			focus = SWI_export_saboteurs
+			focus = SWI_volunteer_force
+		}
+		prerequisite = {
+			focus = SWI_weapons_of_democracy
+		}
+		relative_position_id = SWI_weapons_of_democracy
+		x = 3
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+			FOCUS_FILTER_WAR_SUPPORT
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = SWI_neutrality_decisions_disabled_TT
+			remove_ideas = {
+				SWI_swiss_neutrality
+			}
+			if = {
+				limit = {
+					has_variable = SWI_secret_ally
+				}
+				var:SWI_secret_ally = {
+					add_to_faction = ROOT
+				}
+			}
+			else = {
+				var:SWI_best_dem_ally = {
+					add_to_faction = ROOT
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_connect_to_the_maginot_line
+		icon = GFX_focus_SWI_connect_to_the_maginot_line
+		x = -1
+		y = 1
+		relative_position_id = SWI_closer_democratic_ties
+		prerequisite = {
+			focus = SWI_closer_democratic_ties
+		}
+		cost = 5
+		available = {
+			democratic > 0.7
+		}
+		completion_reward = {
+			845 = {
+				# Jura 
+				add_building_construction = {
+					type = bunker
+					level = 8
+					province = {
+						all_provinces = yes
+						limit_to_border_country = GER
+					}
+				}
+			}
+			3 = {
+				# Swiss Plateau 
+				add_building_construction = {
+					type = bunker
+					level = 8
+					province = {
+						all_provinces = yes
+						limit_to_border_country = GER
+					}
+				}
+			}
+			151 = {
+				# Eastern Swiss Alps
+				add_building_construction = {
+					type = bunker
+					level = 8
+					province = {
+						all_provinces = yes
+						limit_to_border_country = GER
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_join_france
+		icon = GFX_focus_chi_reach_out_to_france
+		prerequisite = {
+			focus = SWI_take_a_stance
+		}
+		relative_position_id = SWI_connect_to_the_maginot_line
+		mutually_exclusive = {
+			focus = SWI_join_the_allies
+		}
+		mutually_exclusive = {
+			focus = SWI_secret_pact_with_the_allies
+		}
+		x = -1
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+			FRA = {
+				exists = yes
+				has_capitulated = no
+				has_government = democratic
+				is_puppet = no
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			FRA = {
+				puppet = PREV
+			}
+		}
+	}
+	focus = {
+		id = SWI_buero_ha
+		icon = GFX_focus_SWI_embrace_rote_drei
+		prerequisite = {
+			focus = SWI_ban_foreign_nazi_propaganda
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_ban_foreign_nazi_propaganda
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	########################################################################################
+	#############              CULTURAL DEFENSE BRANCH                      ################
+	########################################################################################
+	focus = {
+		id = SWI_pro_helvetia
+		icon = GFX_focus_SWI_establish_pro_helvetia
+		prerequisite = {
+			focus = SWI_buero_ha
+		}
+		x = 0
+		y = 1
+		relative_position_id = SWI_buero_ha
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_ideas = {
+				SWI_pro_helvetia_idea
+			}
+		}
+	}
+	focus = {
+		id = SWI_ban_national_movement_for_switzerland
+		icon = GFX_focus_generic_anti_fascist_diplomacy
+		prerequisite = {
+			focus = SWI_pro_helvetia
+		}
+		x = -1
+		y = 2
+		relative_position_id = SWI_pro_helvetia
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.15
+			}
+			add_political_power = 120
+		}
+	}
+	focus = {
+		id = SWI_seek_allied_trade
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = {
+			focus = SWI_ban_national_movement_for_switzerland
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_ban_national_movement_for_switzerland
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_oasis_of_democracy
+		icon = GFX_focus_generic_the_giant_wakes
+		prerequisite = {
+			focus = SWI_seek_allied_trade
+		}
+		relative_position_id = SWI_seek_allied_trade
+		x = 0
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.75
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.1
+			}
+			add_war_support = 0.1
+		}
+	}
+	focus = {
+		id = SWI_export_saboteurs
+		icon = GFX_focus_SOV_organize_wreckers
+		prerequisite = {
+			focus = SWI_oasis_of_democracy
+		}
+		relative_position_id = SWI_oasis_of_democracy
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.75
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				custom_effect_tooltip = SWI_boost_resistance_buff
+			}
+		}
+	}
+	focus = {
+		id = SWI_volunteer_force
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = {
+			focus = SWI_oasis_of_democracy
+		}
+		relative_position_id = SWI_oasis_of_democracy
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.75
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			set_rule = {
+				can_send_volunteers = yes
+			}
+			add_ideas = {
+				SWI_volunteer_forces_idea
+			}
+		}
+	}
+	focus = {
+		id = SWI_fortify_austrian_border
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = {
+			focus = SWI_ban_national_movement_for_switzerland
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_ban_national_movement_for_switzerland
+		cost = 10
+		available = {
+			AUS = {
+				exists = no
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			151 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = 3660
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = 661
+					instant_build = yes
+				}
+			}
+			3 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = 11623
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_fund_resistance_groups
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = {
+			focus = SWI_fortify_austrian_border
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_fortify_austrian_border
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			any_other_country = {
+				capital_scope = {
+					is_on_continent = europe
+				}
+				has_war = yes
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_freeze_german_assets
+		icon = GFX_focus_mex_privatisation
+		prerequisite = {
+			focus = SWI_fortify_austrian_border
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_fortify_austrian_border
+		cost = 10
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			var:SWI_biggest_fascist = {
+				add_timed_idea = {
+					idea = SWI_frozen_assets
+					days = 365
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SWI_froze_our_assets
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_case_north
+		icon = GFX_focus_attack_germany
+		prerequisite = {
+			focus = SWI_fortify_austrian_border
+		}
+		x = 0
+		y = 2
+		relative_position_id = SWI_fortify_austrian_border
+		cost = 10
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			var:SWI_biggest_fascist = {
+				add_opinion_modifier = {
+					modifier = SWI_is_planning_against_us
+					target = ROOT
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_train_swiss_women
+		icon = GFX_focus_generic_women_in_military
+		prerequisite = {
+			focus = SWI_adopt_romansh
+			focus = SWI_patriotic_shooting_clubs
+		}
+		x = 1
+		y = 2
+		relative_position_id = SWI_pro_helvetia
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_ideas = {
+				SWI_swiss_women_in_the_military
+			}
+		}
+	}
+	focus = {
+		id = SWI_patriotic_shooting_clubs
+		icon = GFX_focus_ETH_freedom_at_gunpoint
+		prerequisite = {
+			focus = SWI_pro_helvetia
+		}
+		x = 2
+		y = 1
+		relative_position_id = SWI_pro_helvetia
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_manpower = 20000
+		}
+	}
+	focus = {
+		id = SWI_aktion_nationaler_widerstand
+		icon = GFX_focus_SWI_aktion_nationaler_widerstand
+		prerequisite = {
+			focus = SWI_patriotic_shooting_clubs
+		}
+		x = 0
+		y = 2
+		relative_position_id = SWI_patriotic_shooting_clubs
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_ideas = {
+				SWI_aktion_nationaler_widerstand_idea
+			}
+		}
+	}
+	focus = {
+		id = SWI_heer_und_haus
+		icon = GFX_focus_generic_manpower
+		prerequisite = {
+			focus = SWI_aktion_nationaler_widerstand
+			focus = SWI_expand_weapons_industry
+		}
+		x = 3
+		y = 3
+		relative_position_id = SWI_aktion_nationaler_widerstand
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_luftschutz
+		icon = GFX_focus_generic_air_defense
+		prerequisite = {
+			focus = SWI_heer_und_haus
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_heer_und_haus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_tech = radio_detection
+			has_tech = interwar_antiair
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			847 = {
+				if = {
+					limit = {
+						CONTROLLER = {
+							tag = ROOT
+						}
+					}
+					add_building_construction = {
+						type = radar_station
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			151 = {
+				if = {
+					limit = {
+						CONTROLLER = {
+							tag = ROOT
+						}
+					}
+					add_building_construction = {
+						type = radar_station
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			every_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_manpower = -20000
+		}
+	}
+	focus = {
+		id = SWI_ortswehren
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = SWI_heer_und_haus
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_heer_und_haus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_spirit_of_resistance
+		icon = GFX_focus_SWI_spirit_of_resistance
+		prerequisite = {
+			focus = SWI_luftschutz
+		}
+		prerequisite = {
+			focus = SWI_ortswehren
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_ortswehren
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_ideas = {
+				SWI_spirit_of_resistance_idea
+			}
+			if = {
+				limit = {
+					check_variable = {
+						SWI_militia_activation_time > 1
+					}
+				}
+				subtract_from_variable = {
+					var = SWI_militia_activation_time
+					value = 1
+					tooltip = SWI_reduce_militia_activation_time_TT
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_adopt_romansh
+		icon = GFX_focus_generic_treaty
+		prerequisite = {
+			focus = SWI_pro_helvetia
+		}
+		x = 0
+		y = 1
+		relative_position_id = SWI_pro_helvetia
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_BALANCE_OF_POWER
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			if = {
+				limit = {
+					SWI = {
+						is_ai = no
+					}
+				}
+				every_other_country = {
+					limit = {
+						has_country_flag = SWI_country_to_appease
+						has_government = fascism
+					}
+					add_opinion_modifier = {
+						modifier = SWI_romansh_language_adopted
+						target = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_all_adults_training
+		icon = GFX_focus_SWI_patriotic_shooting_clubs
+		prerequisite = {
+			focus = SWI_promote_guisan
+			focus = SWI_frontier_defense_plan
+		}
+		x = 0
+		y = 2
+		relative_position_id = SWI_armed_neutrality
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		cancel_if_invalid = no
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_reduce_military_training_age
+		icon = GFX_focus_generic_military_academy
+		prerequisite = {
+			focus = SWI_all_adults_training
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_all_adults_training
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_ideas = {
+				SWI_reduced_training_age
+			}
+		}
+	}
+	focus = {
+		id = SWI_prepare_infrastructure_and_industry
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = {
+			focus = SWI_veteran_sharpshooter_divisions
+		}
+		prerequisite = {
+			focus = SWI_reduce_military_training_age
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_reduce_military_training_age
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			151 = {
+				#Eastern Swiss Alps
+				if = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = no
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			847 = {
+				#Western Swiss Alps
+				if = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = no
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			846 = {
+				#Ticino
+				if = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = no
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			845 = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = industrial_complex
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			3 = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_veteran_sharpshooter_divisions
+		icon = GFX_focus_focus_fra_maquis
+		prerequisite = {
+			focus = SWI_all_adults_training
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_all_adults_training
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_tech = motorised_infantry
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+		}
+		cancel_if_invalid = no
+		complete_tooltip = {
+		}
+		completion_reward = {
+			army_experience = 50
+			division_template = {
+				name = "Swiss Veteran Sharpshooters"
+				regiments = {
+					infantry = {
+						x = 0
+						y = 0
+					}
+					infantry = {
+						x = 0
+						y = 1
+					}
+					infantry = {
+						x = 0
+						y = 2
+					}
+					infantry = {
+						x = 1
+						y = 0
+					}
+					infantry = {
+						x = 1
+						y = 1
+					}
+					infantry = {
+						x = 1
+						y = 2
+					}
+					infantry = {
+						x = 2
+						y = 0
+					}
+					infantry = {
+						x = 2
+						y = 1
+					}
+					infantry = {
+						x = 2
+						y = 2
+					}
+				}
+				support = {
+					mot_recon = {
+						x = 0
+						y = 0
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					PREV = {
+						has_full_control_of_state = PREV
+					}
+				}
+				create_unit = {
+					division = "name = \"Swiss Veteran Sharpshooters\" division_template = \"Swiss Veteran Sharpshooters\" start_experience_factor = 2 start_equipment_factor = 1"
+					owner = ROOT
+					count = 5
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_citizen_supply_mandate
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = SWI_veteran_sharpshooter_divisions
+		}
+		prerequisite = {
+			focus = SWI_reduce_military_training_age
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_veteran_sharpshooter_divisions
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_expand_special_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = {
+			focus = SWI_citizen_supply_mandate
+		}
+		x = 0
+		y = 1
+		relative_position_id = SWI_citizen_supply_mandate
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_ideas = {
+				SWI_expanded_special_forces
+			}
+		}
+	}
+	########################################################################################
+	#############             MILD GERMAN APPEASEMENT BRANCH                ################
+	########################################################################################
+	focus = {
+		id = SWI_fortify_sargans_gotthard_and_st_maurice
+		icon = GFX_goal_generic_defence
+		prerequisite = {
+			focus = SWI_citizen_supply_mandate
+		}
+		x = -2
+		y = 1
+		relative_position_id = SWI_citizen_supply_mandate
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			847 = {
+				#Western Swiss Alps (St Maurice)
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border_country = GER
+					}
+				}
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			151 = {
+				#Eastern Swiss Alps (Gottard and Sargans)
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border_country = GER
+					}
+				}
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_fortify_ticino
+		icon = GFX_goal_fortify_the_westwall
+		prerequisite = {
+			focus = SWI_citizen_supply_mandate
+		}
+		x = 2
+		y = 1
+		relative_position_id = SWI_citizen_supply_mandate
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			846 = {
+				#Ticino
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_anti_tank_divisions
+		icon = GFX_goal_generic_build_tank
+		prerequisite = {
+			focus = SWI_veteran_sharpshooter_divisions
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_veteran_sharpshooter_divisions
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = SWI_create_anti_tank_template_TT
+			division_template = {
+				name = "Swiss Militia Anti-Tank"
+				is_locked = no
+				priority = 1
+				template_counter = 6
+				regiments = {
+					militia = {
+						x = 0
+						y = 0
+					}
+					militia = {
+						x = 0
+						y = 1
+					}
+					militia = {
+						x = 1
+						y = 0
+					}
+					militia = {
+						x = 1
+						y = 1
+					}
+					militia = {
+						x = 2
+						y = 0
+					}
+					militia = {
+						x = 2
+						y = 1
+					}
+					anti_tank_brigade = {
+						x = 0
+						y = 2
+					}
+					anti_tank_brigade = {
+						x = 1
+						y = 2
+					}
+				}
+				support = {
+					anti_tank = {
+						x = 0
+						y = 2
+					}
+				}
+			}
+			3 = {
+				create_unit = {
+					division = "division_template = \"Swiss Militia Anti-Tank\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+					owner = ROOT
+					count = 3
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_frontier_defense_plan
+		icon = GFX_goal_generic_defence
+		x = 4
+		y = 1
+		relative_position_id = SWI_armed_neutrality
+		prerequisite = {
+			focus = SWI_armed_neutrality
+		}
+		mutually_exclusive = {
+			focus = SWI_promote_guisan
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			army_experience = 50
+			add_command_power = 50
+			show_ideas_tooltip = SWI_jakob_huber_army_chief
+			show_ideas_tooltip = SWI_jakob_huber_theorist
+		}
+	}
+	focus = {
+		id = SWI_the_army_position
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = {
+			focus = SWI_frontier_defense_plan
+		}
+		x = 0
+		y = 1
+		relative_position_id = SWI_frontier_defense_plan
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			845 = {
+				# Jura Mountains
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+					}
+					level = 3
+					instant_build = yes
+				}
+			}
+			3 = {
+				# Swiss PLateau
+				add_building_construction = {
+					type = bunker
+					province = 11623
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					province = 663
+					level = 3
+					instant_build = yes
+				}
+			}
+			151 = {
+				# Eastern Swiss Alps 
+				add_building_construction = {
+					type = bunker
+					province = 661
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					province = 3660
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					province = 658
+					level = 2
+					instant_build = yes
+				}
+			}
+			846 = {
+				#Ticino 
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+					}
+					level = 2
+					instant_build = yes
+				}
+			}
+			847 = {
+				add_building_construction = {
+					type = bunker
+					province = 3612
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					province = 9587
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					province = 636
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_integrate_refugees_into_the_army
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = SWI_the_army_position
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_the_army_position
+		mutually_exclusive = {
+			focus = SWI_prolonged_service
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			any_other_country = {
+				SWI_is_country_to_balance = yes
+				has_war = yes
+			}
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_manpower = 30000
+		}
+	}
+	focus = {
+		id = SWI_expanded_military_support
+		icon = GFX_goal_generic_production
+		prerequisite = {
+			focus = SWI_integrate_refugees_into_the_army
+		}
+		x = 0
+		y = 2
+		relative_position_id = SWI_integrate_refugees_into_the_army
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_manpower = 30000
+			add_tech_bonus = {
+				name = SWI_expanded_military_support
+				bonus = 2
+				uses = 3
+				category = support_tech
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_prolonged_service
+		icon = GFX_focus_SOV_mobilization_plan
+		prerequisite = {
+			focus = SWI_the_army_position
+		}
+		x = -1
+		y = 1
+		relative_position_id = SWI_the_army_position
+		mutually_exclusive = {
+			focus = SWI_integrate_refugees_into_the_army
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_enhanced_training
+		icon = GFX_focus_generic_military_academy
+		prerequisite = {
+			focus = SWI_prolonged_service
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_prolonged_service
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_total_defense
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = {
+			focus = SWI_frontier_defense_plan
+		}
+		x = 2
+		y = 1
+		relative_position_id = SWI_frontier_defense_plan
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_fight_until_death
+		icon = GFX_focus_prc_infiltration
+		prerequisite = {
+			focus = SWI_frontier_defense_plan
+		}
+		x = -2
+		y = 1
+		relative_position_id = SWI_frontier_defense_plan
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = SWI_frontier_defense_plan_idea_1
+				add_idea = SWI_frontier_defense_plan_idea_2
+			}
+			add_to_variable = {
+				var = SWI_citizen_militia_initial_activation_timeout
+				value = 10
+				tooltip = SWI_increase_timeout_TT
+			}
+		}
+	}
+	focus = {
+		id = SWI_promote_guisan
+		icon = GFX_focus_SWI_promote_guisan
+		x = -4
+		y = 1
+		relative_position_id = SWI_armed_neutrality
+		cancel_if_invalid = no
+		prerequisite = {
+			focus = SWI_armed_neutrality
+		}
+		mutually_exclusive = {
+			focus = SWI_frontier_defense_plan
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		completion_reward = {
+			custom_effect_tooltip = available_chief_of_army
+			show_ideas_tooltip = SWI_henri_guisan
+			add_command_power = 20
+		}
+	}
+	focus = {
+		id = SWI_spirit_of_saint_bernard
+		icon = GFX_focus_SWI_spirit_of_saint_bernard
+		prerequisite = {
+			focus = SWI_promote_guisan
+		}
+		x = -2
+		y = 1
+		relative_position_id = SWI_promote_guisan
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_tech = tech_field_hospital
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_MANPOWER
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_spirit_of_saint_bernard
+				uses = 1
+				bonus = 1.5
+				category = hospital_tech
+			}
+			add_ideas = {
+				SWI_spirit_of_saint_bernard_idea
+			}
+		}
+	}
+	focus = {
+		id = SWI_expedite_mobilization
+		icon = GFX_goal_generic_axis_build_infantry
+		x = 0
+		y = 1
+		relative_position_id = SWI_promote_guisan
+		prerequisite = {
+			focus = SWI_promote_guisan
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOT = {
+				has_country_flag = SWI_militias_turned_into_regulars
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_SWI_MILITARY_READINESS
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_rig_infrastructure_to_blow
+		icon = GFX_goal_generic_position_armies
+		x = 1
+		y = 1
+		relative_position_id = SWI_expedite_mobilization
+		prerequisite = {
+			focus = SWI_expedite_mobilization
+		}
+		mutually_exclusive = {
+			focus = SWI_fortify_the_jura
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 2
+			}
+		}
+	}
+	focus = {
+		id = SWI_emergency_industry
+		icon = GFX_focus_generic_industry_1
+		x = -1
+		y = 1
+		relative_position_id = SWI_rig_infrastructure_to_blow
+		prerequisite = {
+			focus = SWI_rig_infrastructure_to_blow
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 3
+			}
+			add_offsite_building = {
+				type = arms_factory
+				level = 5
+			}
+		}
+	}
+	focus = {
+		id = SWI_defend_the_skies
+		icon = GFX_goal_generic_air_fighter2
+		x = 0
+		y = 2
+		relative_position_id = SWI_emergency_industry
+		prerequisite = {
+			focus = SWI_attack_from_the_mountains
+			focus = SWI_emergency_industry
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			has_tech = interwar_antiair
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_defend_the_skies
+				bonus = 1
+				uses = 2
+				category = cat_anti_air
+			}
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = anti_air_building
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = interwar_antiair
+					}
+				}
+				effect_tooltip = {
+					every_owned_state = {
+						add_building_construction = {
+							type = anti_air_building
+							level = 2
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_fortify_the_jura
+		icon = GFX_goal_fortify_the_westwall
+		x = -1
+		y = 1
+		relative_position_id = SWI_expedite_mobilization
+		prerequisite = {
+			focus = SWI_expedite_mobilization
+		}
+		mutually_exclusive = {
+			focus = SWI_rig_infrastructure_to_blow
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		completion_reward = {
+			845 = {
+				#Jura Mountains 
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_attack_from_the_mountains
+		icon = GFX_goal_generic_army_artillery2
+		x = 0
+		y = 2
+		relative_position_id = SWI_fortify_the_jura
+		prerequisite = {
+			focus = SWI_fortify_the_jura
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_national_redoubt
+		icon = GFX_focus_SWI_the_national_redoubt
+		x = 2
+		y = 1
+		relative_position_id = SWI_promote_guisan
+		prerequisite = {
+			focus = SWI_promote_guisan
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_victory_points = {
+				province = 636
+				value = 10
+			}
+			847 = {
+				#Western Swiss Alps
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+			}
+			151 = {
+				#Eastern Swiss Alps
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+			}
+			846 = {
+				#Ticino
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_federal_police
+		icon = GFX_focus_SWI_federal_police
+		prerequisite = {
+			focus = SWI_armed_neutrality
+		}
+		x = 7
+		y = 1
+		relative_position_id = SWI_armed_neutrality
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_spab_counter_intelligence_agency
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = {
+			focus = SWI_federal_police
+		}
+		x = 1
+		y = 1
+		relative_position_id = SWI_federal_police
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+		}
+	}
+	########################################################################################
+	#############   POST FEDERAL POLICE AHISTORICAL REPRESSION MINI BRANCH    ##############
+	########################################################################################
+	focus = {
+		id = SWI_crack_down_on_dissent
+		icon = GFX_focus_spr_crush_the_revolution
+		prerequisite = {
+			focus = SWI_spab_counter_intelligence_agency
+		}
+		relative_position_id = SWI_spab_counter_intelligence_agency
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.05
+			}
+		}
+	}
+	focus = {
+		id = SWI_martial_law
+		icon = GFX_focus_generic_military_dictatorship
+		prerequisite = {
+			focus = SWI_crack_down_on_dissent
+		}
+		relative_position_id = SWI_crack_down_on_dissent
+		x = 0
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.15
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.15
+			}
+		}
+	}
+	########################################################################################
+	#############                ARMED NEUTRALITY SUB-BRANCH                  ##############
+	########################################################################################
+	focus = {
+		id = SWI_expand_weapons_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = {
+			focus = SWI_martial_law
+			focus = SWI_abandon_neutrality
+		}
+		relative_position_id = SWI_martial_law
+		x = 0
+		y = 3
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			3 = {
+				add_extra_state_shared_building_slots = 3
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			845 = {
+				add_extra_state_shared_building_slots = 3
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			swap_ideas = {
+				remove_idea = SWI_rearmaming_idea
+				add_idea = SWI_rearming_idea_2
+			}
+		}
+	}
+	focus = {
+		id = SWI_a_swiss_navy
+		icon = GFX_goal_generic_navy_battleship
+		relative_position_id = SWI_expand_weapons_industry
+		x = 8
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_NAVY_XP
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			navy_experience = 100
+			add_tech_bonus = {
+				name = SWI_a_swiss_navy
+				bonus = 1
+				uses = 2
+				category = naval_equipment
+			}
+		}
+	}
+	focus = {
+		id = SWI_swiss_ship_designs
+		icon = GFX_focus_generic_refit_civilian_ships
+		prerequisite = {
+			focus = SWI_a_swiss_navy
+		}
+		relative_position_id = SWI_a_swiss_navy
+		mutually_exclusive = {
+			focus = SWI_buy_foreign_surplus_ships
+		}
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_swiss_ship_designs
+				bonus = 2
+				uses = 1
+				category = naval_equipment
+			}
+		}
+	}
+	focus = {
+		id = SWI_floating_fortresses
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = {
+			focus = SWI_swiss_ship_designs
+		}
+		relative_position_id = SWI_swiss_ship_designs
+		mutually_exclusive = {
+			focus = SWI_submarine_raiders
+		}
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_NAVY_XP
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			navy_experience = 100
+			add_tech_bonus = {
+				name = SWI_floating_fortresses
+				bonus = 2
+				uses = 3
+				category = bb_tech
+			}
+		}
+	}
+	focus = {
+		id = SWI_submarine_raiders
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = {
+			focus = SWI_swiss_ship_designs
+		}
+		relative_position_id = SWI_swiss_ship_designs
+		mutually_exclusive = {
+			focus = SWI_floating_fortresses
+		}
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			navy_experience = 100
+			add_tech_bonus = {
+				name = SWI_submarine_raiders
+				bonus = 2
+				uses = 3
+				category = ss_tech
+			}
+		}
+	}
+	focus = {
+		id = SWI_buy_foreign_surplus_ships
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = {
+			focus = SWI_a_swiss_navy
+		}
+		relative_position_id = SWI_a_swiss_navy
+		mutually_exclusive = {
+			focus = SWI_swiss_ship_designs
+		}
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_naval_industry
+		icon = GFX_focus_POL_develop_polish_shipbuilding
+		prerequisite = {
+			focus = SWI_buy_foreign_surplus_ships
+			focus = SWI_swiss_ship_designs
+		}
+		relative_position_id = SWI_buy_foreign_surplus_ships
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			custom_effect_tooltip = SWI_naval_industry_tt
+			hidden_effect = {
+				set_temp_variable = {
+					max_nav_added = 10
+				}
+				set_temp_variable = {
+					current_nav_added = 0
+				}
+				every_owned_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								current_nav_added < max_nav_added
+							}
+						}
+						add_to_temp_variable = {
+							current_nav_added = 1
+						}
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = dockyard
+							level = 2
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_train_navy_staff
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = {
+			focus = SWI_naval_industry
+		}
+		relative_position_id = SWI_naval_industry
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			navy_experience = 200
+		}
+	}
+	focus = {
+		id = SWI_build_naval_bases
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = {
+			focus = SWI_naval_industry
+		}
+		relative_position_id = SWI_naval_industry
+		x = -2
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = SWI_build_naval_bases_tt
+			hidden_effect = {
+				set_temp_variable = {
+					max_base_added = 15
+				}
+				set_temp_variable = {
+					current_base_added = 0
+				}
+				every_controlled_state = {
+					limit = {
+						is_coastal = yes
+					}
+					if = {
+						limit = {
+							check_variable = {
+								current_base_added < max_base_added
+							}
+						}
+						add_to_temp_variable = {
+							current_base_added = 1
+						}
+						add_building_construction = {
+							type = naval_base
+							level = 2
+							instant_build = yes
+							province = {
+								all_provinces = yes
+								limit_to_naval_base = yes
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_plains_warfare
+		icon = GFX_focus_generic_horse_studs
+		prerequisite = {
+			focus = SWI_expand_weapons_industry
+		}
+		relative_position_id = SWI_expand_weapons_industry
+		x = -6
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			army_experience = 100
+			add_tech_bonus = {
+				name = SWI_plains_warfare
+				category = cat_mechanized_equipment
+				bonus = 2
+				uses = 2
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_rolling_fortresses
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = {
+			focus = SWI_plains_warfare
+		}
+		relative_position_id = SWI_plains_warfare
+		mutually_exclusive = {
+			focus = SWI_multipurpose_tanks
+		}
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			army_experience = 100
+			add_tech_bonus = {
+				name = SWI_rolling_fortresses
+				category = armor
+				bonus = 2
+				uses = 2
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_multipurpose_tanks
+		icon = GFX_focus_generic_tankette
+		prerequisite = {
+			focus = SWI_plains_warfare
+		}
+		relative_position_id = SWI_plains_warfare
+		mutually_exclusive = {
+			focus = SWI_rolling_fortresses
+		}
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			army_experience = 150
+			add_tech_bonus = {
+				name = SWI_multipurpose_tanks
+				category = armor
+				bonus = 0.5
+				uses = 4
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_extended_supply_lines
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = {
+			focus = SWI_multipurpose_tanks
+			focus = SWI_rolling_fortresses
+		}
+		relative_position_id = SWI_multipurpose_tanks
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic < 0.8
+			fascism < 0.2
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_ideas = {
+				SWI_extended_supply_lines_idea
+			}
+		}
+	}
+	########################################################################################
+	#############                   SWISS NAVY SUB-BRANCH                   ################
+	########################################################################################
+	focus = {
+		id = SWI_fly_over_the_mountains
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = {
+			focus = SWI_expand_weapons_industry
+		}
+		relative_position_id = SWI_expand_weapons_industry
+		x = 4
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			democratic > 0.7
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_AIR_XP
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			air_experience = 150
+			add_tech_bonus = {
+				name = SWI_fly_over_the_mountains
+				bonus = 1
+				uses = 3
+				category = air_equipment
+			}
+			add_doctrine_cost_reduction = {
+				name = SWI_fly_over_the_mountains
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
+	focus = {
+		id = SWI_modernize_airforce
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = {
+			focus = SWI_fly_over_the_mountains
+		}
+		relative_position_id = SWI_fly_over_the_mountains
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_modernize_airforce
+				bonus = 0.75
+				uses = 4
+				category = air_equipment
+			}
+			air_experience = 60
+		}
+	}
+	focus = {
+		id = SWI_purchase_american_planes
+		icon = GFX_goal_generic_air_fighter2
+		x = -2
+		y = 2
+		relative_position_id = SWI_modernize_airforce
+		prerequisite = {
+			focus = SWI_modernize_airforce
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			democratic > 0.8
+			any_other_country = {
+				is_major = yes
+				has_government = democratic
+				has_tech = iw_small_airframe
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		cancel_if_invalid = no
+		bypass = {
+			NOT = {
+				any_other_country = {
+					is_major = yes
+					has_government = democratic
+					has_tech = iw_small_airframe
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+		}
+	}
+	########################################################################################
+	#############              MILD ALLIED SUPPORT BRANCH                   ################
+	########################################################################################
+	focus = {
+		id = SWI_purchase_german_planes
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = {
+			focus = SWI_modernize_airforce
+		}
+		relative_position_id = SWI_modernize_airforce
+		x = 0
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_country_flag = SWI_viable_fascist_in_europe
+		}
+		bypass = {
+			NOT = {
+				has_country_flag = SWI_viable_fascist_in_europe
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_airspace_surveillance
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = {
+			focus = SWI_modernize_airforce
+		}
+		relative_position_id = SWI_modernize_airforce
+		x = 2
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_airspace_surveillance
+				bonus = 3
+				technology = photo_reconnaisance
+				uses = 1
+			}
+			add_tech_bonus = {
+				name = SWI_airspace_surveillance
+				bonus = 1.5
+				category = radar_tech
+				uses = 2
+			}
+			air_experience = 75
+		}
+	}
+	focus = {
+		id = SWI_license_axis_plane_designs
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = {
+			focus = SWI_modernize_airforce
+		}
+		mutually_exclusive = {
+			focus = SWI_swiss_airplane_designs
+		}
+		relative_position_id = SWI_modernize_airforce
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				has_war_with = var:SWI_biggest_fascist
+			}
+			846 = {
+				controller = {
+					tag = SWI
+				}
+			}
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			var:SWI.SWI_biggest_fascist = {
+				if = {
+					limit = {
+						has_tech = advanced_small_airframe
+					}
+					create_production_license = {
+						target = ROOT
+						equipment = {
+							type = small_plane_cas_airframe_3
+						}
+						cost_factor = 0.1
+					}
+				}
+				else_if = {
+					limit = {
+						has_tech = improved_small_airframe
+					}
+					create_production_license = {
+						target = ROOT
+						equipment = {
+							type = small_plane_cas_airframe_2
+						}
+						cost_factor = 0.1
+					}
+				}
+				else_if = {
+					limit = {
+						has_tech = basic_small_airframe
+					}
+					create_production_license = {
+						target = ROOT
+						equipment = {
+							type = small_plane_cas_airframe_1
+						}
+						cost_factor = 0.1
+					}
+				}
+				if = {
+					limit = {
+						has_tech = advanced_small_airframe
+					}
+					create_production_license = {
+						target = ROOT
+						equipment = {
+							type = small_plane_airframe_3
+						}
+						cost_factor = 0.1
+					}
+				}
+				else_if = {
+					limit = {
+						has_tech = improved_small_airframe
+					}
+					create_production_license = {
+						target = ROOT
+						equipment = {
+							type = small_plane_airframe_2
+						}
+						cost_factor = 0.1
+					}
+				}
+				else_if = {
+					limit = {
+						has_tech = basic_small_airframe
+					}
+					create_production_license = {
+						target = ROOT
+						equipment = {
+							type = small_plane_airframe_1
+						}
+						cost_factor = 0.1
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_swiss_airplane_designs
+		icon = GFX_focus_generic_aircraft_production
+		prerequisite = {
+			focus = SWI_modernize_airforce
+		}
+		mutually_exclusive = {
+			focus = SWI_license_axis_plane_designs
+		}
+		relative_position_id = SWI_modernize_airforce
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_modernize_airforce
+				bonus = 2
+				uses = 2
+				category = air_equipment
+			}
+		}
+	}
+	focus = {
+		id = SWI_alpine_specialization
+		icon = GFX_goal_generic_special_forces
+		prerequisite = {
+			focus = SWI_expand_weapons_industry
+		}
+		mutually_exclusive = {
+			focus = SWI_swiss_armored_divisions
+		}
+		relative_position_id = SWI_expand_weapons_industry
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_alpine_specialization
+				bonus = 2
+				uses = 1
+				category = cat_special_forces_generic
+			}
+		}
+	}
+	focus = {
+		id = SWI_air_research
+		icon = GFX_focus_generic_multi_role_aircraft
+		prerequisite = {
+			focus = SWI_alpine_specialization
+		}
+		relative_position_id = SWI_alpine_specialization
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_air_research
+				bonus = 2
+				uses = 3
+				category = air_equipment
+			}
+		}
+	}
+	focus = {
+		id = SWI_swiss_heavy_planes
+		icon = GFX_focus_generic_long_range_aircraft
+		prerequisite = {
+			focus = SWI_alpine_specialization
+		}
+		relative_position_id = SWI_alpine_specialization
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_swiss_heavy_planes
+				bonus = 2
+				uses = 2
+				category = heavy_air
+			}
+			add_equipment_to_stockpile = {
+				type = transport_plane_equipment
+				amount = 50
+				producer = ROOT
+			}
+		}
+	}
+	focus = {
+		id = SWI_air_production
+		icon = GFX_goal_generic_air_production
+		prerequisite = {
+			focus = SWI_swiss_heavy_planes
+		}
+		prerequisite = {
+			focus = SWI_air_research
+		}
+		relative_position_id = SWI_swiss_heavy_planes
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_ideas = {
+				SWI_air_production_ns
+			}
+		}
+	}
+	focus = {
+		id = SWI_mountaneer_paratroopers
+		icon = GFX_focus_generic_paratrooper
+		prerequisite = {
+			focus = SWI_air_production
+		}
+		relative_position_id = SWI_air_production
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_tech = paratroopers
+			has_tech = tech_mountaineers
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			hidden_effect = {
+				set_technology = {
+					SWI_mountaineer_paratroopers_tech = 1
+					popup = no
+				}
+			}
+			add_tech_bonus = {
+				name = SWI_mountaneer_paratroopers
+				bonus = 2
+				uses = 1
+				category = mountaineers_tech
+			}
+			add_tech_bonus = {
+				name = SWI_mountaneer_paratroopers
+				ahead_reduction = 2
+				uses = 1
+				category = mountaineers_tech
+			}
+			add_tech_bonus = {
+				name = SWI_mountaneer_paratroopers
+				ahead_reduction = 2
+				uses = 1
+				category = para_tech
+			}
+			add_tech_bonus = {
+				name = SWI_mountaneer_paratroopers
+				bonus = 1
+				uses = 2
+				category = para_tech
+			}
+			add_ideas = {
+				SWI_mountaineer_paratroopers_idea
+			}
+		}
+	}
+	focus = {
+		id = SWI_swiss_armored_divisions
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = {
+			focus = SWI_expand_weapons_industry
+		}
+		mutually_exclusive = {
+			focus = SWI_alpine_specialization
+		}
+		relative_position_id = SWI_expand_weapons_industry
+		x = -3
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			army_experience = 150
+			add_tech_bonus = {
+				name = SWI_swiss_armored_divisions
+				bonus = 2
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+	focus = {
+		id = SWI_tank_development
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = {
+			focus = SWI_swiss_armored_divisions
+		}
+		relative_position_id = SWI_swiss_armored_divisions
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_tank_development
+				bonus = 0.75
+				uses = 3
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = SWI_artillery
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = {
+			focus = SWI_tank_development
+		}
+		relative_position_id = SWI_tank_development
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_artillery
+				bonus = 0.75
+				uses = 3
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = SWI_mechanized_support
+		icon = GFX_focus_generic_combined_arms
+		prerequisite = {
+			focus = SWI_tank_development
+		}
+		relative_position_id = SWI_tank_development
+		x = -1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_mechanized_support
+				bonus = 1
+				uses = 1
+				category = logistics_tech
+			}
+			add_tech_bonus = {
+				name = SWI_mechanized_support
+				bonus = 1
+				uses = 1
+				category = hospital_tech
+			}
+			add_tech_bonus = {
+				name = SWI_mechanized_support
+				bonus = 1
+				uses = 1
+				category = signal_company_tech
+			}
+		}
+	}
+	focus = {
+		id = SWI_industrial_production
+		icon = GFX_goal_generic_production2
+		prerequisite = {
+			focus = SWI_mechanized_support
+		}
+		prerequisite = {
+			focus = SWI_artillery
+		}
+		relative_position_id = SWI_mechanized_support
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = SWI_rearming_idea_2
+				add_idea = SWI_rearmed_idea_industrial
+			}
+		}
+	}
+	focus = {
+		id = SWI_expand_federal_police_intelligence
+		icon = GFX_focus_generic_military_mission
+		prerequisite = {
+			focus = SWI_crack_down_on_dissent
+		}
+		relative_position_id = SWI_crack_down_on_dissent
+		x = 1
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_military_police
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = {
+			focus = SWI_crack_down_on_dissent
+		}
+		relative_position_id = SWI_crack_down_on_dissent
+		x = -1
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		completion_reward = {
+			add_tech_bonus = {
+				name = SWI_military_police
+				bonus = 2
+				uses = 1
+				category = military_police_tech
+			}
+		}
+	}
+	focus = {
+		id = SWI_reaffirm_spiritual_defense
+		icon = GFX_goal_support_democracy
+		x = 0
+		y = 2
+		relative_position_id = SWI_swiss_guiding_principles
+		prerequisite = {
+			focus = SWI_increase_defense_budget
+			focus = SWI_national_defense_fund
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = SWI_national_defense_fund
+		icon = GFX_focus_SWI_issue_war_bonds
+		x = 2
+		y = 1
+		relative_position_id = SWI_swiss_guiding_principles
+		prerequisite = {
+			focus = SWI_swiss_guiding_principles
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 11
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = SWI_increase_defense_budget
+		icon = GFX_goal_generic_military_sphere
+		x = -2
+		y = 1
+		relative_position_id = SWI_swiss_guiding_principles
+		prerequisite = {
+			focus = SWI_swiss_guiding_principles
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+}
