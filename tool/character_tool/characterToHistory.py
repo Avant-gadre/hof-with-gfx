@@ -12,6 +12,8 @@ class TagBlock:
 input_path1 = core.characterpath
 input_path2 = core.historyeffects
 outpath = os.path.join(core.rootpath, 'tool','countries-histroy')
+if not os.path.exists(outpath):
+    os.makedirs(outpath)
 # print(input_path1)
 # print(input_path2)
 # output_path =

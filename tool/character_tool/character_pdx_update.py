@@ -5,8 +5,8 @@ import os.path
 import core
 
 # 用于将pdx的角色进行分类存放
-inputpath = './characters/input/'
-outputpath = './characters/output/'
+inputpath = core.characterpath
+outputpath = '../characters/output/'
 if not os.path.exists(inputpath):
     os.makedirs(inputpath)
 if not os.path.exists(outputpath):
@@ -25,20 +25,22 @@ characterBlock = []
 #
 
 txtlist = core.getTxtName(inputpath)
-charactersCollection = []
+
 num = 0
 for txtname in txtlist:
     # 读入
-    fullname = inputpath + txtname
-    f = open(fullname, 'r+', encoding='utf-8')
-    lines = f.readlines()
-
+    charactersCollection = []
+    fullname = os.path.join(inputpath,txtname)
+    print(fullname)
+    with open(fullname, 'r+', encoding='utf-8') as f:
+        lines = f.readlines()
+        print(lines)
     # 分块
     for line in lines:
         if counter_leave == 1 and '}' in line:
             # 到结尾了
             continue
-            # 这是一个国策的结尾
+            # 这是一个char的结尾
         if counter_leave == 1 and ' = {' in line:
             num += 1
             # 这里是起始位置
@@ -50,7 +52,6 @@ for txtname in txtlist:
                 charactersCollection.append(characterBlock)
         counter_leave += line.count('{')
         counter_leave -= line.count('}')
-    f.close()
     # print(characterBlock)
     # 分类
     charactersReorder = []
@@ -59,6 +60,7 @@ for txtname in txtlist:
     charactersCollectionSave = charactersCollection
     for character in charactersCollection:
         cateid = 10
+
         for cate in catelist0:
             for line in character:
                 if cate in line:
@@ -69,22 +71,19 @@ for txtname in txtlist:
             if cateid != 10 :
                 break
     print(charactersReorder)
+    with open(outputpath + txtname, 'w+', encoding='utf-8') as f2:
+        f2.write('#' + txtname + '\n')
+        for i in range(len(charactersReorder)):
+            catename = catelist0[i]
+            catename = re.sub(r'= {','',catename).strip()
+            catename = re.sub(r'slot =', '', catename).strip()
+            catename = '#' + catename + '\n'
+            # print(catename)
+            f2.write(catename)
+            f2.write('characters = {\n')
+            f2.write(''.join(charactersReorder[i]))
+            f2.write('}\n')
 
-    f2 = open(outputpath + txtname, 'w+', encoding='utf-8')
-    f2.write('#' + txtname + '\n')
-
-    for i in range(len(charactersReorder)):
-
-        catename = catelist0[i]
-        catename = re.sub(r'= {','',catename).strip()
-        catename = re.sub(r'slot =', '', catename).strip()
-        catename = '#' + catename + '\n'
-        print(catename)
-        f2.write(catename)
-        f2.write('characters = {\n')
-        f2.write(''.join(charactersReorder[i]))
-        f2.write('}\n')
-    f2.close()
 
 
 
