@@ -4,7 +4,7 @@ import io
 import os.path
 
 inputpath = '..\common\\characters\\'
-outputpath = '.\\character_localisation\\'
+outputpath = '..\\GenerateLoc\\character_localisation\\'
 # inputfilename = input()
 inputfilename = 'BEY_Fate_Characters'
 if '.txt' not in inputfilename:
