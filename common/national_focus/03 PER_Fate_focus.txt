@@ -50,89 +50,222 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PER_autarky_planning
-		icon = GFX_focus_GER_swiss_money_laundry
-		x = -3
-		y = 1
+		id = PER_expand_grain
+		icon = GFX_focus_HUN_Seize_Land
+		x = 3
+		y = 4
 		relative_position_id = PER_industrial_expansion
-		cost = 2.2
-		available_if_capitulated = yes
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		available = {
-			industrial_complex > 24
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = industrial_bonus
-				bonus = 0.25
-				uses = 1
-				category = industry
-			}
-		}
-		prerequisite = {
-			focus = PER_industrial_expansion
-		}
-	}
-	focus = {
-		id = PER_expand_oil_resources
-		icon = GFX_focus_HUN_Oil_Wells
-		x = 0
-		y = 3
-		relative_position_id = PER_autarky_planning
 		cost = 7.2
 		available_if_capitulated = yes
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
+		continue_if_invalid = yes
 		available = {
-			controls_state = 412
-			OR = {
-				has_tech = synth_oil_experiments
+			if = {
+				limit = {
+					has_government = democratic
+				}
+				num_of_factories > 50
+				else = {
+					num_of_factories > 75
+				}
 			}
+		}
+		bypass = {
 		}
 		completion_reward = {
-			add_resource = {
-				type = oil
-				amount = 16
-				state = 412
-			}
+			add_stability = 0.05
 		}
 		prerequisite = {
-			focus = PER_autarky_planning
+			focus = PER_expand_agricultural_lands
 		}
 	}
+	##
 	focus = {
-		id = PER_exract_iron_resources
-		icon = GFX_focus_GER_alliance_of_steel_and_blood
-		x = 3
-		y = 1
+		id = PER_expand_agricultural_lands
+		icon = GFX_focus_generic_Land_Reform
+		x = 2
+		y = 3
 		relative_position_id = PER_industrial_expansion
 		cost = 5
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		available_if_capitulated = yes
-		available = {
-			controls_state = 413
-			OR = {
-				has_tech = excavation1
-				has_tech = excavation2
-				has_tech = excavation3
-				has_tech = excavation4
-				has_tech = excavation5
+		completion_reward = {
+			266 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
 			}
 		}
+		prerequisite = {
+			focus = PER_infrastructure_projects
+		}
+	}
+	focus = {
+		id = PER_national_universities
+		icon = GFX_focus_research2
+		x = -1
+		y = 4
+		relative_position_id = PER_industrial_expansion
+		cost = 7.2
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
 		completion_reward = {
-			add_resource = {
-				type = steel
-				amount = 14
-				state = 413
+			add_research_slot = 1
+		}
+		available = {
+			num_of_factories > 50
+		}
+		continue_if_invalid = yes
+		prerequisite = {
+			focus = PER_modern_tools_for_scientists
+		}
+	}
+	focus = {
+		id = PER_modern_tools_for_scientists
+		icon = GFX_focus_ROM_new_leader_group
+		x = -2
+		y = 3
+		relative_position_id = PER_industrial_expansion
+		cost = 7.2
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		prerequisite = {
+			focus = PER_strengthen_domestic_industry
+			focus = PER_infrastructure_projects
+		}
+	}
+	focus = {
+		id = PER_underground_factory
+		icon = GFX_focus_ROM_Emergent_arms_order
+		x = 1
+		y = 4
+		relative_position_id = PER_industrial_expansion
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 3
+			}
+		}
+		prerequisite = {
+			focus = PER_infrastructure_projects
+		}
+	}
+	focus = {
+		id = PER_support_urbanization
+		icon = GFX_focus_HUN_orange_industry
+		x = 0
+		y = 3
+		relative_position_id = PER_industrial_expansion
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+		prerequisite = {
+			focus = PER_strengthen_domestic_industry
+			focus = PER_infrastructure_projects
+		}
+	}
+	focus = {
+		id = PER_horses_route
+		icon = GFX_focus_generic_horse_studs
+		x = 0
+		y = 2
+		relative_position_id = PER_industrial_expansion
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = idea_purebred_horses
+		}
+		prerequisite = {
+			focus = PER_industrial_expansion
+		}
+	}
+	focus = {
+		id = PER_improve_tehran
+		icon = GFX_focus_generic_attract_investment
+		x = 1
+		y = 1
+		relative_position_id = PER_industrial_expansion
+		cost = 5
+		available_if_capitulated = yes
+		available = {
+			owns_state = 266
+		}
+		completion_reward = {
+			266 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
 			}
 		}
 		prerequisite = {
 			focus = PER_industrial_expansion
+		}
+	}
+	focus = {
+		id = PER_infrastructure_projects
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 1
+		y = 1
+		relative_position_id = PER_improve_tehran
+		cost = 5
+		available_if_capitulated = yes
+		available = {
+			owns_state = 414
+			owns_state = 410
+		}
+		completion_reward = {
+			414 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			410 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = PER_improve_tehran
 		}
 	}
 	focus = {
@@ -225,224 +358,91 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PER_improve_tehran
-		icon = GFX_focus_generic_attract_investment
-		x = 1
+		id = PER_exract_iron_resources
+		icon = GFX_focus_GER_alliance_of_steel_and_blood
+		x = 3
 		y = 1
-		relative_position_id = PER_industrial_expansion
-		cost = 5
-		available_if_capitulated = yes
-		available = {
-			owns_state = 266
-		}
-		completion_reward = {
-			266 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-		prerequisite = {
-			focus = PER_industrial_expansion
-		}
-	}
-	focus = {
-		id = PER_horses_route
-		icon = GFX_focus_generic_horse_studs
-		x = 0
-		y = 2
-		relative_position_id = PER_industrial_expansion
-		cost = 5
-		available_if_capitulated = yes
-		completion_reward = {
-			add_ideas = idea_purebred_horses
-		}
-		prerequisite = {
-			focus = PER_industrial_expansion
-		}
-	}
-	focus = {
-		id = PER_infrastructure_projects
-		icon = GFX_goal_generic_construct_infrastructure
-		x = 1
-		y = 1
-		relative_position_id = PER_improve_tehran
-		cost = 5
-		available_if_capitulated = yes
-		available = {
-			owns_state = 414
-			owns_state = 410
-		}
-		completion_reward = {
-			414 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			410 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-		prerequisite = {
-			focus = PER_improve_tehran
-		}
-	}
-	focus = {
-		id = PER_support_urbanization
-		icon = GFX_focus_HUN_orange_industry
-		x = 0
-		y = 3
 		relative_position_id = PER_industrial_expansion
 		cost = 5
 		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		available_if_capitulated = yes
+		available = {
+			controls_state = 413
+			OR = {
+				has_tech = excavation1
+				has_tech = excavation2
+				has_tech = excavation3
+				has_tech = excavation4
+				has_tech = excavation5
+			}
+		}
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 14
+				state = 413
+			}
+		}
+		prerequisite = {
+			focus = PER_industrial_expansion
+		}
+	}
+	focus = {
+		id = PER_autarky_planning
+		icon = GFX_focus_GER_swiss_money_laundry
+		x = -3
+		y = 1
+		relative_position_id = PER_industrial_expansion
+		cost = 2.2
+		available_if_capitulated = yes
+		search_filters = {
 			FOCUS_FILTER_RESEARCH
+		}
+		available = {
+			industrial_complex > 24
 		}
 		completion_reward = {
 			add_tech_bonus = {
 				name = industrial_bonus
-				bonus = 0.5
+				bonus = 0.25
 				uses = 1
 				category = industry
 			}
-			add_tech_bonus = {
-				name = industrial_bonus
-				bonus = 0.5
-				uses = 1
-				category = electronics
-			}
 		}
 		prerequisite = {
-			focus = PER_strengthen_domestic_industry
-			focus = PER_infrastructure_projects
+			focus = PER_industrial_expansion
 		}
 	}
 	focus = {
-		id = PER_underground_factory
-		icon = GFX_focus_ROM_Emergent_arms_order
-		x = 1
-		y = 4
-		relative_position_id = PER_industrial_expansion
+		id = PER_expand_oil_resources
+		icon = GFX_focus_HUN_Oil_Wells
+		x = 0
+		y = 3
+		relative_position_id = PER_autarky_planning
 		cost = 7.2
+		available_if_capitulated = yes
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
-		completion_reward = {
-			add_offsite_building = {
-				type = arms_factory
-				level = 3
-			}
-		}
-		prerequisite = {
-			focus = PER_infrastructure_projects
-		}
-	}
-	focus = {
-		id = PER_modern_tools_for_scientists
-		icon = GFX_focus_ROM_new_leader_group
-		x = -2
-		y = 3
-		relative_position_id = PER_industrial_expansion
-		cost = 7.2
-		available_if_capitulated = yes
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_research_slot = 1
-		}
-		prerequisite = {
-			focus = PER_strengthen_domestic_industry
-			focus = PER_infrastructure_projects
-		}
-	}
-	focus = {
-		id = PER_national_universities
-		icon = GFX_focus_research2
-		x = -1
-		y = 4
-		relative_position_id = PER_industrial_expansion
-		cost = 7.2
-		available_if_capitulated = yes
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_research_slot = 1
-		}
 		available = {
-			num_of_factories > 50
+			controls_state = 412
+			OR = {
+				has_tech = synth_oil_experiments
+			}
 		}
-		continue_if_invalid = yes
-		prerequisite = {
-			focus = PER_modern_tools_for_scientists
-		}
-	}
-	focus = {
-		id = PER_expand_agricultural_lands
-		icon = GFX_focus_generic_Land_Reform
-		x = 2
-		y = 3
-		relative_position_id = PER_industrial_expansion
-		cost = 5
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		available_if_capitulated = yes
 		completion_reward = {
-			266 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+			add_resource = {
+				type = oil
+				amount = 16
+				state = 412
 			}
 		}
 		prerequisite = {
-			focus = PER_infrastructure_projects
+			focus = PER_autarky_planning
 		}
 	}
-	focus = {
-		id = PER_expand_grain
-		icon = GFX_focus_HUN_Seize_Land
-		x = 3
-		y = 4
-		relative_position_id = PER_industrial_expansion
-		cost = 7.2
-		available_if_capitulated = yes
-		continue_if_invalid = yes
-		available = {
-			if = {
-				limit = {
-					has_government = democratic
-				}
-				num_of_factories > 50
-				else = {
-					num_of_factories > 75
-				}
-			}
-		}
-		bypass = {
-		}
-		completion_reward = {
-			add_stability = 0.05
-		}
-		prerequisite = {
-			focus = PER_expand_agricultural_lands
-		}
-	}
-	##
 	focus = {
 		id = PER_High_Military_Command
 		icon = GFX_focus_generic_army_command_power
@@ -453,542 +453,6 @@ focus_tree = {
 		}
 	}
 	##Air
-	focus = {
-		id = PER_pessian_air
-		icon = GFX_PER_airforce
-		cost = 8
-		relative_position_id = PER_High_Military_Command
-		x = -4
-		y = 1
-		prerequisite = {
-			focus = PER_High_Military_Command
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_pessian_air"
-			air_experience = 25
-			add_doctrine_cost_reduction = {
-				name = PER_pessian_air
-				cost_reduction = 0.5
-				uses = 1
-				category = air_doctrine
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_AIR_XP
-			FOCUS_FILTER_RESEARCH
-			FOCUS_FILTER_AIRFORCE_BONUS
-		}
-	}
-	focus = {
-		id = PER_antiair
-		icon = GFX_focus_UKR_anti_air
-		cost = 8
-		relative_position_id = PER_airfields
-		x = 1
-		y = 3
-		prerequisite = {
-			focus = PER_airfields
-		}
-		prerequisite = {
-			focus = PER_modern_guns
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		completion_reward = {
-		}
-		search_filters = {
-			FOCUS_FILTER_AIRFORCE_BONUS
-		}
-	}
-	focus = {
-		id = PER_airfields
-		icon = GFX_goal_generic_build_airforce
-		cost = 8
-		relative_position_id = PER_pessian_air
-		x = -1
-		y = 1
-		prerequisite = {
-			focus = PER_pessian_air
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_airfields"
-			random_owned_controlled_state = {
-				limit = {
-				}
-			}
-			421 = {
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-			}
-			419 = {
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-			}
-			414 = {
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-	}
-	focus = {
-		id = PER_air_manufactory_local
-		icon = GFX_focus_generic_military_equipment
-		cost = 8
-		relative_position_id = PER_airfields
-		x = -2
-		y = 1
-		prerequisite = {
-			focus = PER_airfields
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-		}
-	}
-	focus = {
-		id = PER_new_planes
-		icon = GFX_focus_generic_air_fighter2_new
-		cost = 8
-		relative_position_id = PER_air_manufactory_local
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = PER_air_manufactory_local
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_new_planes"
-			add_tech_bonus = {
-				name = PER_new_planes
-				bonus = 1
-				uses = 1
-				category = light_fighter
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	focus = {
-		id = PER_bomber
-		icon = GFX_focus_generic_air_strategic_bomber_new
-		cost = 8
-		relative_position_id = PER_airfields
-		x = -1
-		y = 3
-		prerequisite = {
-			focus = PER_air_manufactory_local
-			focus = PER_new_planes
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	focus = {
-		id = PER_iran_airspace
-		icon = GFX_focus_generic_Air_Fuel
-		cost = 8
-		relative_position_id = PER_airfields
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = PER_airfields
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-		}
-	}
-	focus = {
-		id = PER_radar
-		icon = GFX_focus_generic_cryptologic_bomb
-		cost = 8
-		relative_position_id = PER_iran_airspace
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = PER_iran_airspace
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_radar"
-			add_tech_bonus = {
-				name = PER_radar
-				bonus = 1
-				uses = 1
-				category = radar_tech
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	##Navy
-	focus = {
-		id = PER_marine_academie
-		icon = GFX_goal_generic_build_navy
-		cost = 8
-		relative_position_id = PER_naval_academy
-		x = 0
-		y = 3
-		prerequisite = {
-			focus = PER_naval_academy
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		available = {
-			has_socialist_government = no
-			GER = {
-				is_faction_leader = yes
-			}
-			NOT = {
-				has_war_with = GER
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_marine_academie"
-			add_doctrine_cost_reduction = {
-				name = PER_marine_academie
-				cost_reduction = 0.5
-				uses = 2
-				category = naval_doctrine
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	focus = {
-		id = PER_dockyards
-		icon = GFX_goal_generic_construct_naval_dockyard
-		cost = 8
-		relative_position_id = PER_naval_academy
-		x = 1
-		y = 1
-		prerequisite = {
-			focus = PER_naval_academy
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_dockyards"
-			random_owned_controlled_state = {
-				limit = {
-					is_coastal = yes
-					free_building_slots = {
-						building = dockyard
-						size > 2
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-	}
-	focus = {
-		id = PER_foreign_naval_engineers
-		icon = GFX_goal_generic_intelligence_exchange
-		cost = 8
-		relative_position_id = PER_marine_academie
-		x = -2
-		y = 1
-		prerequisite = {
-			focus = PER_marine_academie
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			navy_experience = 50
-		}
-		search_filters = {
-			FOCUS_FILTER_NAVY_XP
-			FOCUS_FILTER_NAVY_BONUS
-		}
-	}
-	focus = {
-		id = PER_naval_academy
-		icon = GFX_PER_navy
-		cost = 8
-		relative_position_id = PER_High_Military_Command
-		x = 4
-		y = 1
-		prerequisite = {
-			focus = PER_High_Military_Command
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_naval_academy"
-			navy_experience = 25
-			add_doctrine_cost_reduction = {
-				name = PER_naval_academy
-				cost_reduction = 0.5
-				uses = 1
-				category = naval_doctrine
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_NAVY_XP
-			FOCUS_FILTER_NAVY_BONUS
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	focus = {
-		id = PER_torfang_darane
-		icon = GFX_goal_generic_build_navy
-		cost = 8
-		relative_position_id = PER_dockyards
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = PER_dockyards
-		}
-		available = {
-			OR = {
-				412 = {
-					is_owned_and_controlled_by = PER
-				}
-				413 = {
-					is_owned_and_controlled_by = PER
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_torfang_darane"
-			if = {
-				limit = {
-					412 = {
-						is_owned_and_controlled_by = PER
-					}
-				}
-				412 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = coastal_bunker
-						province = 7982
-						level = 3
-					}
-					add_building_construction = {
-						type = naval_base
-						province = 7982
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					413 = {
-						is_owned_and_controlled_by = PER
-					}
-				}
-				413 = {
-					add_building_construction = {
-						type = coastal_bunker
-						province = 5005
-						level = 3
-					}
-					add_building_construction = {
-						type = naval_base
-						province = 5005
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-	}
-	focus = {
-		id = PER_fleet_expansion
-		icon = GFX_goal_generic_navy_cruiser
-		cost = 8
-		relative_position_id = PER_marine_academie
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = PER_marine_academie
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = PER_fleet_expansion
-				bonus = 0.5
-				uses = 2
-				category = cl_tech
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	focus = {
-		id = PER_trade_protection
-		icon = GFX_goal_generic_navy_anti_submarine
-		cost = 8
-		relative_position_id = PER_fleet_expansion
-		x = -1
-		y = 1
-		prerequisite = {
-			focus = PER_fleet_expansion
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_trade_protection"
-			add_tech_bonus = {
-				name = PER_trade_protection
-				bonus = 1
-				uses = 1
-				category = dd_tech
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	focus = {
-		id = PER_trade_disruption
-		icon = GFX_goal_generic_navy_submarine
-		cost = 8
-		relative_position_id = PER_fleet_expansion
-		x = 1
-		y = 1
-		prerequisite = {
-			focus = PER_fleet_expansion
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus PER_trade_disruption"
-			add_tech_bonus = {
-				name = PER_trade_disruption
-				bonus = 1
-				uses = 1
-				category = ss_tech
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-	}
-	#Land
 	focus = {
 		id = PER_persia_army
 		icon = GFX_PER_army_emblem
@@ -1010,6 +474,257 @@ focus_tree = {
 				uses = 1
 				category = land_doctrine
 			}
+		}
+	}
+	focus = {
+		id = PER_modernize_military
+		icon = GFX_PER_modernist_campaign
+		x = 2
+		y = 1
+		relative_position_id = PER_persia_army
+		cost = 5
+		available_if_capitulated = yes
+		continue_if_invalid = yes
+		completion_reward = {
+			add_ideas = idea_modernized_army
+			swap_ideas = {
+				remove_idea = inefficient_army
+				add_idea = inefficient_army_2
+			}
+		}
+		prerequisite = {
+			focus = PER_persia_army
+		}
+	}
+	focus = {
+		id = PER_learn_from_greatpowers
+		icon = GFX_goal_rhineland
+		x = -1
+		y = 1
+		relative_position_id = PER_modernize_military
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_AIR_XP
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = PER_learn_from_greatpowers
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				name = PER_learn_from_greatpowers
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+		}
+		prerequisite = {
+			focus = PER_modernize_military
+		}
+	}
+	##Start
+	focus = {
+		id = PER_organize_officercrops
+		icon = GFX_focus_generic_offensive_army
+		x = 1
+		y = 1
+		relative_position_id = PER_modernize_military
+		cost = 5
+		completion_reward = {
+		}
+		prerequisite = {
+			focus = PER_modernize_military
+		}
+	}
+	focus = {
+		id = PER_expansion_academy
+		icon = GFX_focus_generic_army_mass_assault
+		x = -1
+		y = 1
+		relative_position_id = PER_organize_officercrops
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = idea_modernized_army_2
+				add_idea = idea_modernized_army_3
+			}
+			remove_ideas = inefficient_army_3
+		}
+		prerequisite = {
+			focus = PER_organize_officercrops
+		}
+		prerequisite = {
+			focus = PER_learn_from_greatpowers
+		}
+	}
+	focus = {
+		id = PER_Cross_The_Border
+		icon = GFX_focus_POL_prepare_for_next_war
+		x = 0
+		y = 3
+		cost = 5
+		relative_position_id = PER_persia_army
+		prerequisite = {
+			focus = PER_persia_army
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = PER_nationalize_oil
+		icon = GFX_focus_HUN_Oil_Production
+		x = 0
+		y = 2
+		relative_position_id = PER_Cross_The_Border
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_STABILITY
+		}
+		available = {
+			has_country_leader = {
+				id = -3
+			}
+			has_idea = idea_1933_agreement
+			OR = {
+				NOT = {
+					is_in_faction_with = ENG
+					is_puppet_of = ENG
+				}
+			}
+			ENG = {
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.025
+			remove_ideas = idea_1933_agreement
+			ENG = {
+				remove_resource_rights = 413
+			}
+		}
+		prerequisite = {
+			focus = PER_Cross_The_Border
+		}
+	}
+	focus = {
+		id = PER_modern_guns
+		icon = GFX_goal_generic_small_arms
+		x = -3
+		y = 2
+		relative_position_id = PER_persia_army
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+		prerequisite = {
+			focus = PER_army_exercises
+		}
+	}
+	focus = {
+		id = PER_army_exercises
+		icon = GFX_PER_army
+		x = -1
+		y = 1
+		relative_position_id = PER_persia_army
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+		}
+		completion_reward = {
+			army_experience = 50
+		}
+		prerequisite = {
+			focus = PER_persia_army
+		}
+	}
+	focus = {
+		id = PER_modern_artillery
+		icon = GFX_focus_generic_mountain_artillery
+		x = 0
+		y = 1
+		relative_position_id = PER_army_exercises
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				ahead_reduction = 2
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+		prerequisite = {
+			focus = PER_army_exercises
+		}
+	}
+	focus = {
+		id = PER_armor_divisions
+		icon = GFX_focus_generic_heavy_armour_russian
+		x = 0
+		y = 2
+		relative_position_id = PER_modern_artillery
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1
+				uses = 1
+				category = armor
+			}
+		}
+		prerequisite = {
+			focus = PER_modern_artillery
+			focus = PER_modern_guns
+		}
+	}
+	focus = {
+		id = PER_mountain_force
+		icon = GFX_focus_generic_mountainous_artillery
+		x = -1
+		y = 1
+		relative_position_id = PER_modern_artillery
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = special_forces
+			add_tech_bonus = {
+				name = special_forces_bonus
+				bonus = 1
+				uses = 1
+				technology = tech_mountaineers
+				technology = tech_mountaineers2
+				technology = tech_mountaineers3
+			}
+		}
+		prerequisite = {
+			focus = PER_modern_artillery
+			focus = PER_modern_guns
 		}
 	}
 	focus = {
@@ -1122,219 +837,541 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PER_army_exercises
-		icon = GFX_PER_army
-		x = -1
+		id = PER_naval_academy
+		icon = GFX_PER_navy
+		cost = 8
+		relative_position_id = PER_High_Military_Command
+		x = 4
 		y = 1
-		relative_position_id = PER_persia_army
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_ARMY_XP
-		}
-		completion_reward = {
-			army_experience = 50
-		}
 		prerequisite = {
-			focus = PER_persia_army
+			focus = PER_High_Military_Command
 		}
-	}
-	focus = {
-		id = PER_modern_artillery
-		icon = GFX_focus_generic_mountain_artillery
-		x = 0
-		y = 1
-		relative_position_id = PER_army_exercises
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			add_tech_bonus = {
-				name = infantry_artillery_bonus
-				ahead_reduction = 2
-				uses = 1
-				category = infantry_weapons
-				category = artillery
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
 			}
 		}
-		prerequisite = {
-			focus = PER_army_exercises
-		}
-	}
-	focus = {
-		id = PER_modern_guns
-		icon = GFX_goal_generic_small_arms
-		x = -3
-		y = 2
-		relative_position_id = PER_persia_army
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		available_if_capitulated = yes
 		completion_reward = {
-			add_tech_bonus = {
-				name = infantry_artillery_bonus
-				bonus = 1
-				uses = 1
-				category = infantry_weapons
-				category = artillery
-			}
-		}
-		prerequisite = {
-			focus = PER_army_exercises
-		}
-	}
-	focus = {
-		id = PER_mountain_force
-		icon = GFX_focus_generic_mountainous_artillery
-		x = -1
-		y = 1
-		relative_position_id = PER_modern_artillery
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			add_ideas = special_forces
-			add_tech_bonus = {
-				name = special_forces_bonus
-				bonus = 1
-				uses = 1
-				technology = tech_mountaineers
-				technology = tech_mountaineers2
-				technology = tech_mountaineers3
-			}
-		}
-		prerequisite = {
-			focus = PER_modern_artillery
-			focus = PER_modern_guns
-		}
-	}
-	focus = {
-		id = PER_armor_divisions
-		icon = GFX_focus_generic_heavy_armour_russian
-		x = 0
-		y = 2
-		relative_position_id = PER_modern_artillery
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			add_tech_bonus = {
-				name = armor_bonus
-				bonus = 1
-				uses = 1
-				category = armor
-			}
-		}
-		prerequisite = {
-			focus = PER_modern_artillery
-			focus = PER_modern_guns
-		}
-	}
-	focus = {
-		id = PER_Cross_The_Border
-		icon = GFX_focus_POL_prepare_for_next_war
-		x = 0
-		y = 3
-		cost = 5
-		relative_position_id = PER_persia_army
-		prerequisite = {
-			focus = PER_persia_army
-		}
-		completion_reward = {
-		}
-	}
-	focus = {
-		id = PER_modernize_military
-		icon = GFX_PER_modernist_campaign
-		x = 2
-		y = 1
-		relative_position_id = PER_persia_army
-		cost = 5
-		available_if_capitulated = yes
-		continue_if_invalid = yes
-		completion_reward = {
-			add_ideas = idea_modernized_army
-			swap_ideas = {
-				remove_idea = inefficient_army
-				add_idea = inefficient_army_2
-			}
-		}
-		prerequisite = {
-			focus = PER_persia_army
-		}
-	}
-	focus = {
-		id = PER_expansion_academy
-		icon = GFX_focus_generic_army_mass_assault
-		x = -1
-		y = 1
-		relative_position_id = PER_organize_officercrops
-		cost = 5
-		available_if_capitulated = yes
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = idea_modernized_army_2
-				add_idea = idea_modernized_army_3
-			}
-			remove_ideas = inefficient_army_3
-		}
-		prerequisite = {
-			focus = PER_organize_officercrops
-		}
-		prerequisite = {
-			focus = PER_learn_from_greatpowers
-		}
-	}
-	focus = {
-		id = PER_organize_officercrops
-		icon = GFX_focus_generic_offensive_army
-		x = 1
-		y = 1
-		relative_position_id = PER_modernize_military
-		cost = 5
-		completion_reward = {
-		}
-		prerequisite = {
-			focus = PER_modernize_military
-		}
-	}
-	focus = {
-		id = PER_learn_from_greatpowers
-		icon = GFX_goal_rhineland
-		x = -1
-		y = 1
-		relative_position_id = PER_modernize_military
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_ARMY_XP
-			FOCUS_FILTER_AIR_XP
-		}
-		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_naval_academy"
+			navy_experience = 25
 			add_doctrine_cost_reduction = {
-				name = PER_learn_from_greatpowers
+				name = PER_naval_academy
 				cost_reduction = 0.5
 				uses = 1
-				category = land_doctrine
+				category = naval_doctrine
 			}
+		}
+		search_filters = {
+			FOCUS_FILTER_NAVY_XP
+			FOCUS_FILTER_NAVY_BONUS
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	focus = {
+		id = PER_dockyards
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 8
+		relative_position_id = PER_naval_academy
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = PER_naval_academy
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_dockyards"
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
+		id = PER_torfang_darane
+		icon = GFX_goal_generic_build_navy
+		cost = 8
+		relative_position_id = PER_dockyards
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = PER_dockyards
+		}
+		available = {
+			OR = {
+				412 = {
+					is_owned_and_controlled_by = PER
+				}
+				413 = {
+					is_owned_and_controlled_by = PER
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_torfang_darane"
+			if = {
+				limit = {
+					412 = {
+						is_owned_and_controlled_by = PER
+					}
+				}
+				412 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = coastal_bunker
+						province = 7982
+						level = 3
+					}
+					add_building_construction = {
+						type = naval_base
+						province = 7982
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					413 = {
+						is_owned_and_controlled_by = PER
+					}
+				}
+				413 = {
+					add_building_construction = {
+						type = coastal_bunker
+						province = 5005
+						level = 3
+					}
+					add_building_construction = {
+						type = naval_base
+						province = 5005
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
+		id = PER_marine_academie
+		icon = GFX_goal_generic_build_navy
+		cost = 8
+		relative_position_id = PER_naval_academy
+		x = 0
+		y = 3
+		prerequisite = {
+			focus = PER_naval_academy
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		available = {
+			has_socialist_government = no
+			GER = {
+				is_faction_leader = yes
+			}
+			NOT = {
+				has_war_with = GER
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_marine_academie"
 			add_doctrine_cost_reduction = {
-				name = PER_learn_from_greatpowers
+				name = PER_marine_academie
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	focus = {
+		id = PER_fleet_expansion
+		icon = GFX_goal_generic_navy_cruiser
+		cost = 8
+		relative_position_id = PER_marine_academie
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = PER_marine_academie
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = PER_fleet_expansion
+				bonus = 0.5
+				uses = 2
+				category = cl_tech
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	focus = {
+		id = PER_trade_disruption
+		icon = GFX_goal_generic_navy_submarine
+		cost = 8
+		relative_position_id = PER_fleet_expansion
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = PER_fleet_expansion
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_trade_disruption"
+			add_tech_bonus = {
+				name = PER_trade_disruption
+				bonus = 1
+				uses = 1
+				category = ss_tech
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	#Land
+	focus = {
+		id = PER_trade_protection
+		icon = GFX_goal_generic_navy_anti_submarine
+		cost = 8
+		relative_position_id = PER_fleet_expansion
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = PER_fleet_expansion
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_trade_protection"
+			add_tech_bonus = {
+				name = PER_trade_protection
+				bonus = 1
+				uses = 1
+				category = dd_tech
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	focus = {
+		id = PER_foreign_naval_engineers
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 8
+		relative_position_id = PER_marine_academie
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = PER_marine_academie
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			navy_experience = 50
+		}
+		search_filters = {
+			FOCUS_FILTER_NAVY_XP
+			FOCUS_FILTER_NAVY_BONUS
+		}
+	}
+	focus = {
+		id = PER_pessian_air
+		icon = GFX_PER_airforce
+		cost = 8
+		relative_position_id = PER_High_Military_Command
+		x = -4
+		y = 1
+		prerequisite = {
+			focus = PER_High_Military_Command
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_pessian_air"
+			air_experience = 25
+			add_doctrine_cost_reduction = {
+				name = PER_pessian_air
 				cost_reduction = 0.5
 				uses = 1
 				category = air_doctrine
 			}
 		}
-		prerequisite = {
-			focus = PER_modernize_military
+		search_filters = {
+			FOCUS_FILTER_AIR_XP
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_AIRFORCE_BONUS
 		}
 	}
-	##Start
+	focus = {
+		id = PER_airfields
+		icon = GFX_goal_generic_build_airforce
+		cost = 8
+		relative_position_id = PER_pessian_air
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = PER_pessian_air
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_airfields"
+			random_owned_controlled_state = {
+				limit = {
+				}
+			}
+			421 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			419 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			414 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
+		id = PER_antiair
+		icon = GFX_focus_UKR_anti_air
+		cost = 8
+		relative_position_id = PER_airfields
+		x = 1
+		y = 3
+		prerequisite = {
+			focus = PER_airfields
+		}
+		prerequisite = {
+			focus = PER_modern_guns
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		}
+		search_filters = {
+			FOCUS_FILTER_AIRFORCE_BONUS
+		}
+	}
+	focus = {
+		id = PER_iran_airspace
+		icon = GFX_focus_generic_Air_Fuel
+		cost = 8
+		relative_position_id = PER_airfields
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = PER_airfields
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = PER_radar
+		icon = GFX_focus_generic_cryptologic_bomb
+		cost = 8
+		relative_position_id = PER_iran_airspace
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = PER_iran_airspace
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_radar"
+			add_tech_bonus = {
+				name = PER_radar
+				bonus = 1
+				uses = 1
+				category = radar_tech
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	##Navy
+	focus = {
+		id = PER_bomber
+		icon = GFX_focus_generic_air_strategic_bomber_new
+		cost = 8
+		relative_position_id = PER_airfields
+		x = -1
+		y = 3
+		prerequisite = {
+			focus = PER_air_manufactory_local
+			focus = PER_new_planes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	focus = {
+		id = PER_air_manufactory_local
+		icon = GFX_focus_generic_military_equipment
+		cost = 8
+		relative_position_id = PER_airfields
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = PER_airfields
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = PER_new_planes
+		icon = GFX_focus_generic_air_fighter2_new
+		cost = 8
+		relative_position_id = PER_air_manufactory_local
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = PER_air_manufactory_local
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus PER_new_planes"
+			add_tech_bonus = {
+				name = PER_new_planes
+				bonus = 1
+				uses = 1
+				category = light_fighter
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
 	focus = {
 		id = PER_wuzurg_framadar
 		icon = GFX_focus_generic_letat_cest_moi
@@ -1354,87 +1391,249 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PER_imprison_oppsition
-		icon = GFX_focus_POL_Firewatch_eliminate_traitors
-		x = -3
-		y = 1
+		id = PER_amend_the_law
+		icon = GFX_focus_POL_Endecja_Politics_Rationalisation
+		x = 4
+		y = 5
 		relative_position_id = PER_wuzurg_framadar
-		cost = 5
-		available_if_capitulated = yes
-		completion_reward = {
-		}
-		prerequisite = {
-			focus = PER_wuzurg_framadar
-		}
-	}
-	focus = {
-		id = PER_pan_iranism
-		icon = GFX_PER_Pan_Iranism
-		x = -2
-		y = 2
-		relative_position_id = PER_wuzurg_framadar
-		cost = 5
-		completion_reward = {
-		}
-		prerequisite = {
-			focus = PER_wuzurg_framadar
-		}
-	}
-	##户籍改革
-	focus = {
-		id = PER_rural_reform
-		icon = GFX_focus_generic_social_reforms
-		x = -1
-		y = 1
-		relative_position_id = PER_wuzurg_framadar
-		cost = 5
-		available_if_capitulated = yes
+		cost = 3.6
 		search_filters = {
-			FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_PROPAGANDA
 		}
 		completion_reward = {
-			add_stability = 0.05
-			hidden_effect = {
-				add_manpower = 20000
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
 			}
 		}
 		prerequisite = {
-			focus = PER_wuzurg_framadar
+			focus = PER_power_national_assembly
+		}
+	}
+	focus = {
+		id = PER_finacial_and_economic_reforms
+		icon = GFX_focus_generic_loans
+		x = 1
+		y = 1
+		relative_position_id = PER_amend_the_law
+		cost = 10
+		available = {
+			has_country_leader = {
+				id = -2
+			}
+			has_completed_focus = PER_reform_public_funds
+		}
+		completion_reward = {
+		}
+		prerequisite = {
+			focus = PER_amend_the_law
+		}
+	}
+	focus = {
+		id = PER_local_councils
+		icon = GFX_focus_UKR_reform_voting_law
+		x = -1
+		y = 1
+		relative_position_id = PER_amend_the_law
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		completion_reward = {
+			add_stability = 0.025
+			add_war_support = 0.025
+			custom_effect_tooltip = increase_wheat_crisis_timeout-2
+		}
+		available = {
+			has_stability > 0.55
+		}
+		continue_if_invalid = yes
+		prerequisite = {
+			focus = PER_amend_the_law
+		}
+	}
+	focus = {
+		id = PER_call_an_election
+		icon = GFX_focus_generic_Tear_Elections
+		x = 3
+		y = 1
+		relative_position_id = PER_wuzurg_framadar
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_PROPAGANDA
+		}
+		completion_reward = {
+			set_politics = {
+				ruling_party = democratic
+				election_frequency = 36
+				elections_allowed = yes
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+		}
+		prerequisite = {
 			focus = PER_constitution_government
 		}
 	}
 	focus = {
-		id = PER_establish_news_office
-		icon = GFX_focus_generic_big_news
-		x = 0
-		y = 3
-		relative_position_id = PER_wuzurg_framadar
+		id = PER_dismiss_royal
+		icon = GFX_focus_generic_monarchy_1
+		x = 2
+		y = 1
+		relative_position_id = PER_call_an_election
 		cost = 5
-		available_if_capitulated = yes
+		completion_reward = {
+			remove_ideas = idea_reza_shah_pahlavi-1
+			set_province_name = {
+				id = 4609
+				name = bandar_e-anzali
+			}
+		}
+		available = {
+			has_completed_focus = PER_expand_new_project
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = PER_call_an_election
+		}
+	}
+	focus = {
+		id = PER_confiscation_of_pahlavis_lands
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		x = 0
+		y = 2
+		relative_position_id = PER_dismiss_royal
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+		}
+		prerequisite = {
+			focus = PER_dismiss_royal
+		}
+	}
+	focus = {
+		id = PER_our_prince
+		icon = GFX_focus_generic_letat_cest_moi
+		x = 0
+		y = 1
+		relative_position_id = PER_call_an_election
+		cost = 5
 		search_filters = {
 			FOCUS_FILTER_STABILITY
+		}
+		completion_reward = {
+		}
+		available = {
+		}
+		prerequisite = {
+			focus = PER_call_an_election
+		}
+	}
+	focus = {
+		id = PER_constitution_government
+		icon = GFX_focus_generic_parliament2
+		x = 3
+		y = 0
+		relative_position_id = PER_wuzurg_framadar
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_PROPAGANDA
+		}
+		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.1
+			}
+			hidden_effect = {
+				add_war_support = -0.05
+			}
+		}
+		available = {
+			always = no
+			democratic > 0.3
+		}
+	}
+	focus = {
+		id = PER_power_national_assembly
+		icon = GFX_focus_generic_council
+		x = 1
+		y = 3
+		relative_position_id = PER_constitution_government
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_PROPAGANDA
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+		}
+		prerequisite = {
+			focus = PER_call_an_election
+		}
+	}
+	focus = {
+		id = PER_reduce_religious_influence
+		icon = GFX_focus_TUR_loosen_the_laws_on_secularism
+		x = -1
+		y = 1
+		relative_position_id = PER_power_national_assembly
+		cost = 10
+		completion_reward = {
+		}
+		prerequisite = {
+			focus = PER_power_national_assembly
+		}
+	}
+	focus = {
+		id = PER_reform_public_funds
+		icon = GFX_focus_POL_Socialist_consolidate_Farmer_Labour_alliance
+		x = -1
+		y = 4
+		relative_position_id = PER_wuzurg_framadar
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = idea_better_economy
+				add_idea = idea_better_economy_2
+			}
+		}
+		prerequisite = {
+			focus = PER_reform_finances
+		}
+	}
+	focus = {
+		id = PER_regulate_the_agriculture
+		icon = GFX_focus_generic_agriculture2
+		x = 1
+		y = 1
+		relative_position_id = PER_reform_public_funds
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		available_if_capitulated = yes
+		completion_reward = {
 		}
 		available = {
 			has_completed_focus = PER_wuzurg_framadar
 		}
-		completion_reward = {
-			add_political_power = -25
-			add_popularity = {
-				ideology = communism
-				popularity = -0.05
-			}
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.05
-			}
-			add_popularity = {
-				ideology = democratic
-				popularity = -0.05
-			}
-			add_ideas = idea_censored_press
-		}
 		prerequisite = {
-			focus = PER_rural_reform
+			focus = PER_reform_public_funds
 		}
 	}
 	focus = {
@@ -1475,24 +1674,94 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PER_reform_public_funds
-		icon = GFX_focus_POL_Socialist_consolidate_Farmer_Labour_alliance
-		x = -1
-		y = 4
-		relative_position_id = PER_wuzurg_framadar
+		id = PER_expand_the_university
+		icon = GFX_focus_generic_science_research
+		x = 0
+		y = 2
+		relative_position_id = PER_reform_finances
 		cost = 7.2
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		available_if_capitulated = yes
 		completion_reward = {
+			remove_ideas = idea_dofmat
+			add_ideas = idea_non_dofmat
+		}
+		prerequisite = {
+			focus = PER_reform_finances
+		}
+	}
+	focus = {
+		id = PER_establish_intellectual_organization
+		icon = GFX_focus_POL_Morges_Technician_School
+		x = 0
+		y = 2
+		relative_position_id = PER_expand_the_university
+		cost = 7.2
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		completion_reward = {
 			swap_ideas = {
-				remove_idea = idea_better_economy
-				add_idea = idea_better_economy_2
+				remove_idea = idea_non_dofmat_3
+				add_idea = idea_non_dofmat_5
+			}
+		}
+		available = {
+			has_completed_focus = PER_wuzurg_framadar
+		}
+		prerequisite = {
+			focus = PER_expand_the_university
+		}
+		prerequisite = {
+			focus = PER_regulate_the_agriculture
+		}
+	}
+	focus = {
+		id = PER_expand_road
+		icon = GFX_focus_generic_railway_construction
+		x = 1
+		y = 1
+		relative_position_id = PER_reform_finances
+		cost = 7.2
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		available_if_capitulated = yes
+		available = {
+			has_tech = radio
+		}
+		completion_reward = {
+			add_ideas = idea_telecommunications
+			266 = {
+				add_building_construction = {
+					type = radar_station
+					level = 2
+					instant_build = yes
+				}
 			}
 		}
 		prerequisite = {
 			focus = PER_reform_finances
+		}
+	}
+	focus = {
+		id = PER_establish_telecommunications
+		icon = GFX_focus_generic_Radio_Free_Cairo
+		x = 0
+		y = 2
+		relative_position_id = PER_expand_road
+		cost = 7.2
+		available_if_capitulated = yes
+		available = {
+			has_tech = decimetric_radar
+		}
+		completion_reward = {
+		}
+		prerequisite = {
+			focus = PER_expand_road
 		}
 	}
 	focus = {
@@ -1545,356 +1814,87 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = PER_regulate_the_agriculture
-		icon = GFX_focus_generic_agriculture2
-		x = 1
-		y = 1
-		relative_position_id = PER_reform_public_funds
-		cost = 5
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-		}
-		available = {
-			has_completed_focus = PER_wuzurg_framadar
-		}
-		prerequisite = {
-			focus = PER_reform_public_funds
-		}
-	}
-	focus = {
-		id = PER_expand_road
-		icon = GFX_focus_generic_railway_construction
-		x = 1
-		y = 1
-		relative_position_id = PER_reform_finances
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		available_if_capitulated = yes
-		available = {
-			has_tech = radio
-		}
-		completion_reward = {
-			add_ideas = idea_telecommunications
-			266 = {
-				add_building_construction = {
-					type = radar_station
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		prerequisite = {
-			focus = PER_reform_finances
-		}
-	}
-	focus = {
-		id = PER_establish_telecommunications
-		icon = GFX_focus_generic_Radio_Free_Cairo
+		id = PER_establish_news_office
+		icon = GFX_focus_generic_big_news
 		x = 0
-		y = 2
-		relative_position_id = PER_expand_road
-		cost = 7.2
-		available_if_capitulated = yes
-		available = {
-			has_tech = decimetric_radar
-		}
-		completion_reward = {
-		}
-		prerequisite = {
-			focus = PER_expand_road
-		}
-	}
-	focus = {
-		id = PER_expand_the_university
-		icon = GFX_focus_generic_science_research
-		x = 0
-		y = 2
-		relative_position_id = PER_reform_finances
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			remove_ideas = idea_dofmat
-			add_ideas = idea_non_dofmat
-		}
-		prerequisite = {
-			focus = PER_reform_finances
-		}
-	}
-	focus = {
-		id = PER_establish_intellectual_organization
-		icon = GFX_focus_POL_Morges_Technician_School
-		x = 0
-		y = 2
-		relative_position_id = PER_expand_the_university
-		cost = 7.2
-		available_if_capitulated = yes
-		search_filters = {
-			FOCUS_FILTER_WAR_SUPPORT
-		}
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = idea_non_dofmat_3
-				add_idea = idea_non_dofmat_5
-			}
-		}
-		available = {
-			has_completed_focus = PER_wuzurg_framadar
-		}
-		prerequisite = {
-			focus = PER_expand_the_university
-		}
-		prerequisite = {
-			focus = PER_regulate_the_agriculture
-		}
-	}
-	focus = {
-		id = PER_constitution_government
-		icon = GFX_focus_generic_parliament2
-		x = 3
-		y = 0
+		y = 3
 		relative_position_id = PER_wuzurg_framadar
 		cost = 5
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-			FOCUS_FILTER_PROPAGANDA
-		}
-		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.1
-			}
-			hidden_effect = {
-				add_war_support = -0.05
-			}
-		}
-		available = {
-			always = no
-			democratic > 0.3
-		}
-	}
-	focus = {
-		id = PER_call_an_election
-		icon = GFX_focus_generic_Tear_Elections
-		x = 3
-		y = 1
-		relative_position_id = PER_wuzurg_framadar
-		cost = 5
+		available_if_capitulated = yes
 		search_filters = {
 			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_PROPAGANDA
+		}
+		available = {
+			has_completed_focus = PER_wuzurg_framadar
 		}
 		completion_reward = {
-			set_politics = {
-				ruling_party = democratic
-				election_frequency = 36
-				elections_allowed = yes
+			add_political_power = -25
+			add_popularity = {
+				ideology = communism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.05
 			}
 			add_popularity = {
 				ideology = democratic
-				popularity = 0.05
+				popularity = -0.05
+			}
+			add_ideas = idea_censored_press
+		}
+		prerequisite = {
+			focus = PER_rural_reform
+		}
+	}
+	focus = {
+		id = PER_rural_reform
+		icon = GFX_focus_generic_social_reforms
+		x = -1
+		y = 1
+		relative_position_id = PER_wuzurg_framadar
+		cost = 5
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_STABILITY
+		}
+		completion_reward = {
+			add_stability = 0.05
+			hidden_effect = {
+				add_manpower = 20000
 			}
 		}
 		prerequisite = {
+			focus = PER_wuzurg_framadar
 			focus = PER_constitution_government
 		}
 	}
 	focus = {
-		id = PER_our_prince
-		icon = GFX_focus_generic_letat_cest_moi
-		x = 0
-		y = 1
-		relative_position_id = PER_call_an_election
-		cost = 5
-		search_filters = {
-			FOCUS_FILTER_STABILITY
-		}
-		completion_reward = {
-		}
-		available = {
-		}
-		prerequisite = {
-			focus = PER_call_an_election
-		}
-	}
-	focus = {
-		id = PER_dismiss_royal
-		icon = GFX_focus_generic_monarchy_1
-		x = 2
-		y = 1
-		relative_position_id = PER_call_an_election
-		cost = 5
-		completion_reward = {
-			remove_ideas = idea_reza_shah_pahlavi-1
-			set_province_name = {
-				id = 4609
-				name = bandar_e-anzali
-			}
-		}
-		available = {
-			has_completed_focus = PER_expand_new_project
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = PER_call_an_election
-		}
-	}
-	focus = {
-		id = PER_confiscation_of_pahlavis_lands
-		icon = GFX_focus_usa_reestablish_the_gold_standard
-		x = 0
+		id = PER_pan_iranism
+		icon = GFX_PER_Pan_Iranism
+		x = -2
 		y = 2
-		relative_position_id = PER_dismiss_royal
-		cost = 5
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-		}
-		prerequisite = {
-			focus = PER_dismiss_royal
-		}
-	}
-	focus = {
-		id = PER_power_national_assembly
-		icon = GFX_focus_generic_council
-		x = 1
-		y = 3
-		relative_position_id = PER_constitution_government
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_PROPAGANDA
-		}
-		completion_reward = {
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-		}
-		prerequisite = {
-			focus = PER_call_an_election
-		}
-	}
-	focus = {
-		id = PER_nationalize_oil
-		icon = GFX_focus_HUN_Oil_Production
-		x = 0
-		y = 2
-		relative_position_id = PER_Cross_The_Border
-		cost = 7.2
-		search_filters = {
-			FOCUS_FILTER_STABILITY
-		}
-		available = {
-			has_country_leader = {
-				id = -3
-			}
-			has_idea = idea_1933_agreement
-			OR = {
-				NOT = {
-					is_in_faction_with = ENG
-					is_puppet_of = ENG
-				}
-			}
-			ENG = {
-				has_war = yes
-			}
-		}
-		completion_reward = {
-			add_political_power = -50
-			add_stability = 0.025
-			remove_ideas = idea_1933_agreement
-			ENG = {
-				remove_resource_rights = 413
-			}
-		}
-		prerequisite = {
-			focus = PER_Cross_The_Border
-		}
-	}
-	focus = {
-		id = PER_amend_the_law
-		icon = GFX_focus_POL_Endecja_Politics_Rationalisation
-		x = 4
-		y = 5
 		relative_position_id = PER_wuzurg_framadar
-		cost = 3.6
-		search_filters = {
-			FOCUS_FILTER_PROPAGANDA
-		}
-		completion_reward = {
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.05
-			}
-		}
-		prerequisite = {
-			focus = PER_power_national_assembly
-		}
-	}
-	focus = {
-		id = PER_local_councils
-		icon = GFX_focus_UKR_reform_voting_law
-		x = -1
-		y = 1
-		relative_position_id = PER_amend_the_law
 		cost = 5
-		search_filters = {
-			FOCUS_FILTER_STABILITY
-			FOCUS_FILTER_WAR_SUPPORT
-		}
 		completion_reward = {
-			add_stability = 0.025
-			add_war_support = 0.025
-			custom_effect_tooltip = increase_wheat_crisis_timeout-2
 		}
-		available = {
-			has_stability > 0.55
-		}
-		continue_if_invalid = yes
 		prerequisite = {
-			focus = PER_amend_the_law
+			focus = PER_wuzurg_framadar
 		}
 	}
+	##户籍改革
 	focus = {
-		id = PER_finacial_and_economic_reforms
-		icon = GFX_focus_generic_loans
-		x = 1
+		id = PER_imprison_oppsition
+		icon = GFX_focus_POL_Firewatch_eliminate_traitors
+		x = -3
 		y = 1
-		relative_position_id = PER_amend_the_law
-		cost = 10
-		available = {
-			has_country_leader = {
-				id = -2
-			}
-			has_completed_focus = PER_reform_public_funds
-		}
+		relative_position_id = PER_wuzurg_framadar
+		cost = 5
+		available_if_capitulated = yes
 		completion_reward = {
 		}
 		prerequisite = {
-			focus = PER_amend_the_law
-		}
-	}
-	focus = {
-		id = PER_reduce_religious_influence
-		icon = GFX_focus_TUR_loosen_the_laws_on_secularism
-		x = -1
-		y = 1
-		relative_position_id = PER_power_national_assembly
-		cost = 10
-		completion_reward = {
-		}
-		prerequisite = {
-			focus = PER_power_national_assembly
+			focus = PER_wuzurg_framadar
 		}
 	}
 }
