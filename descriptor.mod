@@ -1,7 +1,7 @@
 version="0.1"
-tags={
+tags = {
 	"Alternative History"
-}
+    }
 replace_path="common/abilities"
 replace_path="common/ai_areas"
 replace_path="common/ai_equipment"
