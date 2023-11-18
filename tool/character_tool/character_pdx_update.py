@@ -17,7 +17,7 @@ counter_leave = 0
 # counter_leave = 2 且name = 时为名字
 # 分类方式
 catelist1 = ['country_leader = {','field_marshal = {','corps_commander = {','navy_leader = {']
-catelist2 = ['slot = army_chief','slot = navy_chief','slot = air_chief','slot = theorist','slot = high_command','slot = political_advisor']
+catelist2 = ['slot = army_chief','slot = navy_chief','slot = air_chief','slot = theorist','slot = high_command','slot = political_advisor','empty']
 catelist0 = []
 catelist0.extend(catelist1)
 catelist0.extend(catelist2)
@@ -34,7 +34,7 @@ for txtname in txtlist:
     print(fullname)
     with open(fullname, 'r+', encoding='utf-8') as f:
         lines = f.readlines()
-        print(lines)
+    counter_leave = 0
     # 分块
     for line in lines:
         if counter_leave == 1 and '}' in line:
@@ -50,6 +50,7 @@ for txtname in txtlist:
             if counter_leave == 2 and '\t}' in line:
                 # 这里是结束位置
                 charactersCollection.append(characterBlock)
+                print(characterBlock)
         counter_leave += line.count('{')
         counter_leave -= line.count('}')
     # print(characterBlock)
@@ -59,8 +60,7 @@ for txtname in txtlist:
         charactersReorder.append([])
     charactersCollectionSave = charactersCollection
     for character in charactersCollection:
-        cateid = 10
-
+        cateid = 11
         for cate in catelist0:
             for line in character:
                 if cate in line:
@@ -68,7 +68,7 @@ for txtname in txtlist:
                     cateid = catelist0.index(cate)
                     charactersReorder[cateid].extend(character)
                     break
-            if cateid != 10 :
+            if cateid != 11 :
                 break
     print(charactersReorder)
     with open(outputpath + txtname, 'w+', encoding='utf-8') as f2:
