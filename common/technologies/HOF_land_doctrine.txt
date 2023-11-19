@@ -1,79 +1,1575 @@
+##
+@xp_cost_small = 90
+@xp_cost_medium = 120
+@xp_cost_high = 150
+@xp_cost_veryhigh = 180
 technologies = {
-
-	CHI_werwolf_guerillas = {
-
-		enable_tactic = tactic_guerrilla_tactics
-		
-		doctrine = yes	
-		research_cost = 1
-		
+	##一战学说 WWI
+	##机枪阵地
+	fate_machine_gun_position = {
+		doctrine_name = "fate_machine_gun_position_desc"
+		xp_research_type = army
+		xp_unlock_cost = 100
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_trench_warfare
+		}
+		category_light_infantry = {
+			defense = 0.05
+		}
+		enable_tactic = tactic_delay
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 0
+			}
+		}
 		categories = {
 			land_doctrine
+			#
 		}
-
-		allow = {
-			tag = CHI
-		}
-		
 		ai_will_do = {
-			factor = 0
+			factor = 20
 		}
-		
 	}
-
-	auftragstaktik = {
-
-		modifier = {
-			army_morale_factor = 0.1
-			experience_gain_army_unit_factor = 0.05
+	##堑壕战
+	fate_trench_warfare = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -1
+				y = 0
+			}
+		}
+		dependencies = {
+			tech_support = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_heavy_artillery_fire
+		}
+		max_dig_in = 5
+	}
+	##突击前轰炸
+	fate_heavy_artillery_fire = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 1
+				y = 0
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_charge
+		}
+		dependencies = {
+			gw_artillery = 1
+		}
+		category_line_artillery = {
+			breakthrough = 0.1
+		}
+		recon = {
+			battalion_mult = {
+				category = category_artillery
+				soft_attack = 0.1
+			}
+		}
+		mot_recon = {
+			battalion_mult = {
+				category = category_artillery
+				soft_attack = 0.1
+			}
+		}
+		armored_car_recon = {
+			battalion_mult = {
+				category = category_artillery
+				soft_attack = 0.1
+			}
+		}
+		light_tank_recon = {
+			battalion_mult = {
+				category = category_artillery
+				soft_attack = 0.1
+			}
+		}
+		enable_tactic = tactic_barrage
+	}
+	##
+	##第一层 Stage 1
+	##密集队形冲锋
+	fate_charge = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 0
+			}
+		}
+		training_time_factor = -0.1
+		max_planning = 0.05
+		land_reinforce_rate = 0.01
+		category_light_infantry = {
+			breakthrough = 0.05
+		}
+		enable_tactic = tactic_planned_attack
+	}
+	##战略规划
+	fate_decisive_battle = {
+		xor = {
+			fate_assault
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 2
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_grand_assault
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_hold_and_attrition
+		}
+		planning_speed = -0.2
+		max_planning = 0.1
+		max_command_power = 30
+		command_power_gain_mult = -0.15
+	}
+	##渗透强袭
+	fate_assault = {
+		xor = {
+			fate_decisive_battle
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 2
+			}
+		}
+		dependencies = {
+			tech_recon = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_grand_assault
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_assault
+		}
+		category_all_infantry = {
+			max_organisation = 5
+			breakthrough = 0.15
+			default_morale = 0.05
+		}
+		recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+		mot_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+		armored_car_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+		light_tank_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+		airborne_light_armor = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+		rangers_support = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+		long_range_patrol_support = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+		enable_tactic = tactic_infantry_charge
+	}
+	##宽大战线作战
+	fate_grand_assault = {
+		xor = {
+			fate_concentrated_assault
+			fate_hold_and_attrition
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 4
+			}
+		}
+		dependencies = {
+			tech_logistics_company = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_modern_command
+		}
+		logistics_company = {
+			supply_consumption_factor = -0.1
+		}
+		infantry = {
+			max_organisation = -5
+			breakthrough = -0.05
+			combat_width = -0.4
+		}
+		enable_tactic = tactic_relentless_assault
+	}
+	##突击队
+	fate_concentrated_assault = {
+		xor = {
+			fate_grand_assault
+			fate_hold_and_attrition
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 4
+			}
+		}
+		dependencies = {
+			tech_recon = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_modern_command
+		}
+		land_reinforce_rate = 0.01
+		category_recon = {
+			recon = 1
+		}
+		category_all_infantry = {
+			initiative = 0.01
+			hard_attack = 0.05
+			soft_attack = 0.05
+		}
+		recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.15
+				defense = 0.05
+			}
+		}
+		mot_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.15
+				defense = 0.05
+			}
+		}
+		armored_car_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.15
+				defense = 0.05
+			}
+		}
+		light_tank_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.15
+				defense = 0.05
+			}
+		}
+		airborne_light_armor = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.15
+				defense = 0.05
+			}
+		}
+		rangers_support = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.15
+				defense = 0.05
+			}
+		}
+		long_range_patrol_support = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.15
+				defense = 0.05
+			}
+		}
+	}
+	##牵制消耗
+	fate_hold_and_attrition = {
+		xor = {
+			fate_concentrated_assault
+			fate_grand_assault
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 4
+			}
+		}
+		dependencies = {
+			tech_engineers = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_modern_command
 		}
 		engineer = {
-			experience_loss_factor = -0.05
+			entrenchment = 5
 		}
-
-		doctrine = yes
-		research_cost = 1
-		categories = {
-			land_doctrine
+		dig_in_speed_factor = -0.15
+		category_light_infantry = {
+			defense = 0.2
 		}
-
-		allow = {
-			tag = GER
+		motorized = {
+			max_organisation = 5
+			defense = 0.1
 		}
-
-		ai_will_do = {
-			factor = 0
+		mechanized = {
+			max_organisation = 5
+			defense = 0.1
+		}
+		amphibious_mechanized = {
+			max_organisation = 5
+			defense = 0.1
 		}
 	}
-
-	on_ogur = {
-
-
-		bicycle_battalion = {
-			maximum_speed = 0.05
+	##
+	##第二层 Stage 2
+	##现代指挥系统
+	fate_modern_command = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 6
+			}
+		}
+		dependencies = {
+			tech_signal_company = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_elastic_defence
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_depth_defence
+		}
+		modifier = {
+			experience_gain_army_unit_factor = 0.2
+		}
+		max_command_power = 20
+		land_reinforce_rate = 0.02
+		category_all_infantry = {
+			max_organisation = 5
+		}
+		signal_company = {
+			max_organisation = 1
+			plains = {
+				attack = 0.1
+				defence = 0.05
+			}
+			desert = {
+				attack = 0.1
+				defence = 0.05
+			}
+			hills = {
+				attack = 0.1
+				defence = 0.05
+			}
+			forest = {
+				attack = 0.1
+				defence = 0.05
+			}
+			urban = {
+				attack = 0.1
+				defence = 0.05
+			}
+			mountain = {
+				attack = 0.1
+				defence = 0.05
+			}
+			jungle = {
+				attack = 0.1
+				defence = 0.05
+			}
+			marsh = {
+				attack = 0.1
+				defence = 0.05
+			}
+		}
+	}
+	##弹性防御
+	fate_elastic_defence = {
+		xor = {
+			fate_depth_defence
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 8
+			}
+		}
+		dependencies = {
+			tech_engineers = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_decentralisation
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_centralised_command
+		}
+		max_dig_in = -5
+		dig_in_speed_factor = 0.4
+		org_loss_when_moving = -0.1
+		category_all_infantry = {
 			default_morale = 0.1
 		}
-		cavalry = {
-			maximum_speed = 0.05
+		engineer = {
+			battalion_mult = {
+				category = category_all_infantry
+				max_organisation = 5
+				add = yes
+			}
+		}
+		enable_tactic = tactic_elastic_defense
+	}
+	##纵深防御
+	fate_depth_defence = {
+		xor = {
+			fate_elastic_defence
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 8
+			}
+		}
+		dependencies = {
+			tech_engineers = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_decentralisation
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_centralised_command
+		}
+		engineer = {
+			entrenchment = 5
+		}
+		dig_in_speed_factor = -0.15
+		category_all_infantry = {
+			defense = 0.05
+		}
+		engineer = {
+			battalion_mult = {
+				category = category_all_infantry
+				max_organisation = 5
+				add = yes
+			}
+		}
+	}
+	##去中心化
+	fate_decentralisation = {
+		xor = {
+			fate_centralised_command
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 10
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_superise_attack
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_decisive_battle_plan
+		}
+		command_power_gain_mult = 0.3
+		signal_company = {
+			battalion_mult = {
+				category = category_all_infantry
+				default_morale = 0.2
+			}
+		}
+	}
+	##集中指挥
+	fate_centralised_command = {
+		xor = {
+			fate_decentralisation
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 10
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_superise_attack
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_decisive_battle_plan
+		}
+		max_command_power = 30
+		signal_company = {
+			battalion_mult = {
+				category = category_all_infantry
+				max_organisation = 10
+			}
+		}
+	}
+	##震慑行动
+	fate_superise_attack = {
+		xor = {
+			fate_decisive_battle_plan
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 12
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_kampfgruppe
+		}
+		category_recon = {
+			recon = 1
+		}
+		category_all_infantry = {
+			soft_attack = 0.1
+			hard_attack = 0.05
+		}
+		recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.2
+			}
+			river = {
+				attack = 0.1
+			}
+			forest = {
+				attack = 0.1
+			}
+			urban = {
+				attack = 0.1
+			}
+			mountain = {
+				attack = 0.1
+			}
+			jungle = {
+				attack = 0.1
+			}
+			marsh = {
+				attack = 0.1
+			}
+		}
+		mot_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.2
+			}
+			forest = {
+				attack = 0.1
+			}
+			urban = {
+				attack = 0.1
+			}
+			mountain = {
+				attack = 0.1
+			}
+			jungle = {
+				attack = 0.1
+			}
+			marsh = {
+				attack = 0.1
+			}
+		}
+		armored_car_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.2
+			}
+			forest = {
+				attack = 0.1
+			}
+			urban = {
+				attack = 0.1
+			}
+			mountain = {
+				attack = 0.1
+			}
+			jungle = {
+				attack = 0.1
+			}
+			marsh = {
+				attack = 0.1
+			}
+		}
+		light_tank_recon = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.2
+			}
+			forest = {
+				attack = 0.1
+			}
+			urban = {
+				attack = 0.1
+			}
+			mountain = {
+				attack = 0.1
+			}
+			jungle = {
+				attack = 0.1
+			}
+			marsh = {
+				attack = 0.1
+			}
+		}
+		airborne_light_armor = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.2
+			}
+			forest = {
+				attack = 0.1
+			}
+			urban = {
+				attack = 0.1
+			}
+			mountain = {
+				attack = 0.1
+			}
+			jungle = {
+				attack = 0.1
+			}
+			marsh = {
+				attack = 0.1
+			}
+		}
+		rangers_support = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.2
+			}
+			forest = {
+				attack = 0.1
+			}
+			urban = {
+				attack = 0.1
+			}
+			mountain = {
+				attack = 0.1
+			}
+			jungle = {
+				attack = 0.1
+			}
+			marsh = {
+				attack = 0.1
+			}
+		}
+		long_range_patrol_support = {
+			battalion_mult = {
+				category = category_all_infantry
+				breakthrough = 0.2
+			}
+			forest = {
+				attack = 0.1
+			}
+			urban = {
+				attack = 0.1
+			}
+			mountain = {
+				attack = 0.1
+			}
+			jungle = {
+				attack = 0.1
+			}
+			marsh = {
+				attack = 0.1
+			}
+		}
+	}
+	##决战计划
+	fate_decisive_battle_plan = {
+		xor = {
+			fate_superise_attack
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 12
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_kampfgruppe
+		}
+		max_planning = 0.1
+		planning_speed = 0.1
+		signal_company = {
+			battalion_mult = {
+				category = category_army
+				breakthrough = 0.05
+			}
+		}
+	}
+	##战斗群
+	fate_kampfgruppe = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 12
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_defense
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_reinforcement_position
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_mass_mechanised
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_infantry_offensive
+		}
+		modifier_unit_infantry_design_cost_factor = -1
+		modifier_unit_motorized_design_cost_factor = -1
+		modifier_unit_mechanized_design_cost_factor = -1
+		coordination_bonus = 0.05
+		category_all_infantry = {
+			max_organisation = 5
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_all_infantry
+				default_morale = 0.1
+			}
+		}
+		enable_tactic = tactic_elastic_defense
+		enable_tactic = tactic_overwhelming_fire
+	}
+	##
+	##第三层
+	##防守位置重叠
+	fate_concentrated_defense = {
+		xor = {
+			fate_reinforcement_position
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -1
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_pocket_defence
+		}
+		engineer = {
+			entrenchment = 5
+		}
+		dig_in_speed_factor = -0.15
+		category_all_infantry = {
+			defense = 0.1
+		}
+		engineer = {
+			battalion_mult = {
+				category = category_all_infantry
+				defense = 0.15
+			}
+		}
+	}
+	##口袋防御
+	fate_pocket_defence = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -1
+				y = 16
+			}
+		}
+		engineer = {
+			entrenchment = 5
+		}
+		dig_in_speed_factor = -0.15
+		out_of_supply_factor = -0.1
+		category_all_infantry = {
+			defense = 0.05
+		}
+	}
+	##加强战斗阵地
+	fate_reinforcement_position = {
+		xor = {
+			fate_concentrated_defense
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_mortar_tactics
+		}
+		engineer = {
+			entrenchment = 5
+		}
+		dig_in_speed_factor = -0.15
+		category_all_infantry = {
+			defense = 0.1
+			hard_attack = 0.05
+			soft_attack = 0.05
+		}
+		engineer = {
+			battalion_mult = {
+				category = category_all_infantry
+				max_organisation = 8
+				add = yes
+			}
+		}
+	}
+	##迫击炮
+	fate_mortar_tactics = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 16
+			}
+		}
+		engineer = {
+			entrenchment = 5
+		}
+		dig_in_speed_factor = -0.15
+		category_light_infantry = {
+			soft_attack = 0.1
+			maximum_speed = -0.1
+		}
+		engineer = {
+			battalion_mult = {
+				category = category_all_infantry
+				soft_attack = 0.1
+			}
+		}
+	}
+	##机械化攻势
+	fate_mass_mechanised = {
+		xor = {
+			fate_infantry_offensive
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_sustained_offensive
+		}
+		mechanized = {
+			max_organisation = 10
+			default_morale = 0.1
+		}
+		amphibious_mechanized = {
+			max_organisation = 10
+			default_morale = 0.1
+		}
+	}
+	##持久攻势
+	fate_sustained_offensive = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 16
+			}
+		}
+		org_loss_when_moving = -0.25
+		land_reinforce_rate = 0.05
+	}
+	##步兵攻势
+	fate_infantry_offensive = {
+		xor = {
+			fate_mass_mechanised
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 1
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_depth_operation
+		}
+		category_light_infantry = {
+			breakthrough = 0.2
+			hard_attack = 0.1
+		}
+	}
+	##纵深穿插
+	fate_depth_operation = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 1
+				y = 16
+			}
+		}
+		land_night_attack = 0.25		# negates half of base penalty
+		out_of_supply_factor = -0.1
+	}
+}
+
+technologies = {
+	##坦克排
+	fate_tank_formations = {
+		allow = {
+			has_tech = fate_charge
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 1
+			}
+		}
+		dependencies = {
+			gwtank_chassis = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_joint_operation
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_supportive_tank
+		}
+		category_tanks = {
+			max_organisation = 2
+			default_morale = 0.05
+			hard_attack = 0.05
+			soft_attack = 0.05
+		}
+		armored_car = {
+			max_organisation = 2
+			default_morale = 0.05
+			hard_attack = 0.05
+			soft_attack = 0.05
+		}
+	}
+	##联合作战
+	fate_joint_operation = {
+		xor = {
+			fate_supportive_tank
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 3
+			}
+		}
+		dependencies = {
+			tech_recon = 1
+			tech_signal_company = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_moblized_infantry
+		}
+		motorized = {
+			breakthrough = 0.05
+			defense = 0.05
+		}
+		mechanized = {
+			breakthrough = 0.05
+			defense = 0.05
+		}
+		amphibious_mechanized = {
+			breakthrough = 0.05
+			defense = 0.05
+		}
+		category_tanks = {
+			max_organisation = 2
+		}
+		armored_car_recon = {
+			battalion_mult = {
+				category = category_tanks
+				breakthrough = 0.1
+			}
+		}
+		light_tank_recon = {
+			battalion_mult = {
+				category = category_tanks
+				breakthrough = 0.1
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				default_morale = 0.2
+			}
+		}
+	}
+	##坦克支援
+	fate_supportive_tank = {
+		xor = {
+			fate_joint_operation
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 3
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_tank_logistics
+		}
+		category_tanks = {
+			hard_attack = 0.1
+			soft_attack = 0.1
+			breakthrough = -0.1
+		}
+	}
+	##机动步兵
+	fate_moblized_infantry = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 5
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_moblie_walfare
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_joint_walfare
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_panzergruppe
+		}
+		motorized = {
+			max_organisation = 10
+		}
+		mechanized = {
+			max_organisation = 10
+		}
+		amphibious_mechanized = {
+			max_organisation = 10
+		}
+	}
+	##坦克后勤
+	fate_tank_logistics = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 5
+			}
+		}
+		dependencies = {
+			tech_logistics_company = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_moblie_walfare
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_joint_walfare
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_panzergruppe
+		}
+		category_tanks = {
+			supply_consumption = -0.02
+		}
+		logistics_company = {
+			battalion_mult = {
+				category = category_tanks
+				max_organisation = 5
+				add = yes
+			}
+		}
+	}
+	##机动作战
+	fate_moblie_walfare = {
+		xor = {
+			fate_joint_walfare
+			fate_panzergruppe
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 7
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_breakthrough
+		}
+		army_speed_factor = 0.05
+		category_sp_artillery = {
+			maximum_speed = 0.1
+		}
+		category_sp_anti_air = {
+			maximum_speed = 0.1
+		}
+		category_tank_destroyer = {
+			maximum_speed = 0.1
+		}
+		armored_car = {
+			maximum_speed = 0.1
+		}
+		category_tanks = {
+			maximum_speed = 0.1
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				max_organisation = 2
+				add = yes
+			}
+		}
+		category_motorized_mechanized_infantry = {
+			default_morale = 0.1
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_motorized_mechanized_infantry
+				max_organisation = 5
+				add = yes
+			}
+		}
+	}
+	##兵种协同
+	fate_joint_walfare = {
+		xor = {
+			fate_moblie_walfare
+			fate_panzergruppe
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 7
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_orderly_breakthrough
+		}
+		coordination_bonus = 0.05
+		category_tanks = {
+			default_morale = 0.05
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				max_organisation = 5
+				add = yes
+			}
+		}
+		category_motorized_mechanized_infantry = {
+			default_morale = 0.05
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_motorized_mechanized_infantry
+				max_organisation = 10
+				add = yes
+			}
+		}
+	}
+	##装甲洪流
+	fate_panzergruppe = {
+		xor = {
+			fate_moblie_walfare
+			fate_joint_walfare
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 7
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_centeralized_power
+		}
+		land_reinforce_rate = 0.02
+		light_armor = {
+			combat_width = -0.4
+		}
+		medium_armor = {
+			combat_width = -0.4
+		}
+		heavy_armor = {
+			combat_width = -0.4
+		}
+		modern_armor = {
+			combat_width = -0.4
+		}
+	}
+	##重点突破
+	fate_concentrated_breakthrough = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 9
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_blitzkrieg
+		}
+		category_tanks = {
+			hard_attack = 0.1
+			soft_attack = 0.1
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				breakthrough = 0.15
+			}
+		}
+	}
+	##稳步前进
+	fate_orderly_breakthrough = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 9
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_air_ground_coordination
+		}
+		max_planning = 0.1
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				breakthrough = 0.15
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_motorized_mechanized_infantry
+				defense = 0.15
+			}
+		}
+	}
+	##集中力量
+	fate_centeralized_power = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 9
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_depth_breakthrough
+		}
+		logistics_company = {
+			supply_consumption_factor = -0.1
+		}
+		category_tanks = {
+			max_organisation = 1
+			supply_consumption = -0.02
+		}
+		logistics_company = {
+			battalion_mult = {
+				category = category_tanks
+				defense = 0.05
+				default_morale = 0.05
+			}
+		}
+	}
+	#
+	##闪电战
+	fate_blitzkrieg = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 11
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_long_range_strike
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_close_range_strike
+		}
+		air_cas_present_factor = 0.05
+		category_tanks = {
+			max_organisation = 2
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				breakthrough = 0.2
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_motorized_mechanized_infantry
+				breakthrough = 0.2
+			}
+		}
+	}
+	##空地一体
+	fate_air_ground_coordination = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 11
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_long_range_strike
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_close_range_strike
+		}
+		army_bonus_air_superiority_factor = 0.2
+		category_recon = {
+			recon = 1
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_anti_air
+				soft_attack = 0.15
+				hard_attack = 0.15
+				air_attack = 0.15
+			}
+		}
+	}
+	##纵深突破
+	fate_depth_breakthrough = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 11
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_long_range_strike
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_close_range_strike
+		}
+		org_loss_when_moving = -0.1
+		category_army = {
+			breakthrough = 0.05
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				breakthrough = 0.1
+			}
+		}
+	}
+	##长距离打击
+	fate_long_range_strike = {
+		xor = {
+			fate_close_range_strike
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 13
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_joint_planning_staff
+		}
+		category_tanks = {
+			breakthrough = 0.1
+			hard_attack = 0.1
+			defense = 0.1
+		}
+		category_tank_destroyer = {
+			hard_attack = 0.1
+			defense = 0.1
+		}
+	}
+	##近距离压制
+	fate_close_range_strike = {
+		xor = {
+			fate_long_range_strike
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 13
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_joint_planning_staff
+		}
+		category_tanks = {
+			breakthrough = 0.05
+			hard_attack = 0.05
+			soft_attack = 0.15
+		}
+		category_sp_artillery = {
+			soft_attack = 0.15
+		}
+	}
+	##机械化合成作战
+	fate_joint_planning_staff = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_moblie_war
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_battlefield_superior
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_vernichtungsgedanke
+		}
+		armored_car_recon = {
+			recon = 1
+		}
+		light_tank_recon = {
+			recon = 1
+		}
+		category_motorized_mechanized_infantry = {
+			max_organisation = 5
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tanks
+				breakthrough = 0.15
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_motorized_mechanized_infantry
+				breakthrough = 0.1
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_artillery
+				soft_attack = 0.05
+				breakthrough = 0.05
+			}
+		}
+	}
+	##运动战
+	fate_moblie_war = {
+		xor = {
+			fate_battlefield_superior
+			fate_vernichtungsgedanke
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 16
+			}
+		}
+		category_tanks = {
+			max_organisation = 2
+			maximum_speed = 0.1
 			default_morale = 0.1
 		}
 		motorized = {
-			maximum_speed = 0.05
-			default_morale = 0.1
-		}
-		armored_car = {
-			maximum_speed = 0.05
-			default_morale = 0.1
-		}
-		mot_artillery_brigade = {
-			maximum_speed = 0.05
-			default_morale = 0.1
-		}
-		mot_anti_tank_brigade = {
-			maximum_speed = 0.05
-			default_morale = 0.1
-		}
-		mot_anti_air_brigade = {
 			maximum_speed = 0.05
 			default_morale = 0.1
 		}
@@ -85,366 +1581,730 @@ technologies = {
 			maximum_speed = 0.05
 			default_morale = 0.1
 		}
-
-		doctrine = yes
-		research_cost = 1
-		categories = {
-			land_doctrine
-		}
-
-		allow = {
-			tag = HUN
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
 	}
-
-	haide_haide = {
-
-
-		category_light_infantry = {
+	##战场霸权
+	fate_battlefield_superior = {
+		xor = {
+			fate_moblie_war
+			fate_vernichtungsgedanke
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 16
+			}
+		}
+		category_tanks = {
+			max_organisation = 2
 			breakthrough = 0.1
+			hard_attack = 0.1
 		}
-
-		doctrine = yes
-		research_cost = 1
-		categories = {
-			land_doctrine
+		light_tank_destroyer_brigade = {
+			hard_attack = 0.1
 		}
-
-		allow = {
-			tag = ROM
+		medium_tank_destroyer_brigade = {
+			hard_attack = 0.1
 		}
-
-		ai_will_do = {
-			factor = 0
+		heavy_tank_destroyer_brigade = {
+			hard_attack = 0.1
 		}
 	}
-
-	Thule = {
-
-		winter_attrition_factor = -0.10
-		acclimatization_cold_climate_gain_factor = 0.10
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			or = {
-				tag = SWE
-				tag = FIN
-				tag = NOR
+	##歼灭战
+	fate_vernichtungsgedanke = {
+		xor = {
+			fate_moblie_war
+			fate_battlefield_superior
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 16
 			}
 		}
-
-		ai_will_do = {
-			factor = 0
+		category_tanks = {
+			max_organisation = 2
+			soft_attack = 0.15
+			hard_attack = 0.05
+		}
+		light_sp_artillery_brigade = {
+			soft_attack = 0.15
+		}
+		medium_sp_artillery_brigade = {
+			soft_attack = 0.15
+		}
+		heavy_sp_artillery_brigade = {
+			soft_attack = 0.15
 		}
 	}
+}
 
-    masterful_deep_battle = {
-
-		supply_consumption_factor = -0.05
-		category_all_infantry = {
-			max_strength = 0.05
-		}
-
-		doctrine = yes
-		research_cost = 1
-
+technologies = {
+	##炮兵集群
+	fate_artillery_group = {
 		allow = {
-			or = {
-				tag = SOV
-				tag = RUS
+			has_tech = fate_charge
+		}
+		xor = {
+			fate_frontline_firepower
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 1
 			}
 		}
-
-		ai_will_do = {
-			factor = 0
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_support
 		}
-
-	}
-
-    Cossack = {
-
-		cavalry = {
-			 soft_attack = 0.1
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_widefront_support
 		}
-
-		category_light_infantry = {
-			max_strength = 0.05
+		category_line_artillery = {
+			max_organisation = 2
+			soft_attack = 0.1
+			maximum_speed = -0.1
 		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = UKR
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-
-	}
-
-	USA_overwhelming_firepower = {
-
-		category_artillery = {
-			soft_attack = 0.10
-		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = USA
-		}
-		ai_will_do = {
-			factor = 0
+		category_sp_artillery = {
+			max_organisation = 2
+			soft_attack = 0.05
+			maximum_speed = -0.1
 		}
 	}
-
-    concentrated_fire = {
-	
-		mot_artillery_brigade = {
-			breakthrough = 0.10
-		}
-		category_artillery = { 
-			breakthrough = 0.30
-		}
-
-		doctrine = yes
-		research_cost = 1
-
+	##前沿重火力
+	fate_frontline_firepower = {
 		allow = {
-			tag = ENG
+			has_tech = fate_charge
 		}
-
-		ai_will_do = {
-			factor = 0
+		xor = {
+			fate_artillery_group
 		}
-	}
-
-    Nightingale_act = {
-
-		engineer = {
-			casualty_trickleback = 0.1
-			experience_loss_factor = -0.1
-		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = ENG
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-	}
-
-	british_professionalism = {
-
-		category_all_infantry = {
-			max_organisation = 5
-		}
-
-		modifier = {
-			org_loss_at_low_org_factor = -0.2
-		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			or = {
-				tag = ENG
-				tag = CAN
-				tag = AST
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 1
 			}
 		}
-
-		ai_will_do = {
-			factor = 0
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_support
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_widefront_support
+		}
+		category_line_artillery = {
+			breakthrough = 0.15
+			soft_attack = 0.05
+			hard_attack = 0.5
+			defense = -0.1
+		}
+		category_sp_artillery = {
+			breakthrough = 0.15
+			hard_attack = 0.5
 		}
 	}
-
-    fra_desert_warfare = {
-
-		category_all_armor = { 
-			desert = {
-				attack = 0.10
-				movement = 0.20
+	##集中支援
+	fate_concentrated_support = {
+		xor = {
+			fate_widefront_support
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 4
 			}
 		}
-		category_artillery = {
-			desert = {
-				attack = 0.10
-				movement = 0.20
+		dependencies = {
+			tech_signal_company = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_widefront_antitank
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_antitank
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_line_artillery
+				soft_attack = 0.1
 			}
 		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = FRA
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-
-   }
-
-	memories_of_verdun = {
-
-		dig_in_speed_factor = 0.15
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = FRA
-		}
-
-		ai_will_do = {
-			factor = 0
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_artillery
+				soft_attack = 0.05
+			}
 		}
 	}
-
-	makeshift_supplys = {
-
-		out_of_supply_factor = -0.1
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = ITA
+	##分散支援
+	fate_widefront_support = {
+		xor = {
+			fate_concentrated_support
 		}
-
-		ai_will_do = {
-			factor = 0
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 4
+			}
+		}
+		dependencies = {
+			tech_signal_company = 1
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_widefront_antitank
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_concentrated_antitank
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_line_artillery
+				defense = 0.25
+				default_morale = 0.1
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_artillery
+				defense = 0.25
+				default_morale = 0.1
+			}
 		}
 	}
-
-	bushido = {
-
-		category_all_infantry = {
+	##分散布置
+	fate_widefront_antitank = {
+		xor = {
+			fate_concentrated_antitank
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 6
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_fire_coverage
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_slow_fire
+		}
+		category_anti_tank = {
+			hard_attack = 0.1
+		}
+		category_tank_destroyer = {
+			hard_attack = 0.1
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_anti_tank
+				defense = 0.1
+				default_morale = 0.05
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tank_destroyer
+				defense = 0.1
+				default_morale = 0.05
+			}
+		}
+		category_anti_tank = {
+			fort = {
+				defence = 0.05
+			}
+		}
+	}
+	##集中布置
+	fate_concentrated_antitank = {
+		xor = {
+			fate_widefront_antitank
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 6
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_fire_coverage
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_slow_fire
+		}
+		category_line_anti_tank = {
+			hard_attack = 0.15
+		}
+		category_tank_destroyer = {
+			hard_attack = 0.15
+		}
+	}
+	##覆盖目标
+	fate_fire_coverage = {
+		xor = {
+			fate_slow_fire
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 8
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_front_blocking
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_flank_ambushing
+		}
+		category_line_artillery = {
+			max_organisation = 2
+		}
+		category_sp_artillery = {
+			max_organisation = 2
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_line_artillery
+				soft_attack = 0.15
+				hard_attack = 0.5
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_artillery
+				soft_attack = 0.15
+				hard_attack = 0.5
+			}
+		}
+		category_line_artillery = {
+			fort = {
+				attack = 0.05
+			}
+		}
+		category_sp_artillery = {
+			fort = {
+				attack = 0.05
+			}
+		}
+	}
+	##徐进弹幕射击
+	fate_slow_fire = {
+		xor = {
+			fate_fire_coverage
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 8
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_front_blocking
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_flank_ambushing
+		}
+		category_line_artillery = {
+			max_organisation = 2
+		}
+		category_sp_artillery = {
+			max_organisation = 2
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_line_artillery
+				soft_attack = 0.05
+				breakthrough = 0.15
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_artillery
+				soft_attack = 0.05
+				breakthrough = 0.15
+			}
+		}
+	}
+	##正面拦阻
+	fate_front_blocking = {
+		xor = {
+			fate_flank_ambushing
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 10
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_grouping
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_flatting
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_line_anti_tank
+				hard_attack = 0.1
+				defense = 0.2
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tank_destroyer
+				hard_attack = 0.1
+				defense = 0.2
+			}
+		}
+	}
+	##侧翼伏击
+	fate_flank_ambushing = {
+		xor = {
+			fate_front_blocking
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 10
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_grouping
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_antiair_flatting
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_line_anti_tank
+				hard_attack = 0.1
+				ap_attack = 0.1
+			}
+		}
+		mot_anti_tank_brigade = {
+			defense = 0.2
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_tank_destroyer
+				hard_attack = 0.1
+				ap_attack = 0.1
+				defense = 0.2
+			}
+		}
+	}
+	##防空火力网
+	fate_antiair_grouping = {
+		xor = {
+			fate_antiair_flatting
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 12
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_superior_firepower
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_anti_air
+				air_attack = 0.1
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_anti_air
+				air_attack = 0.2
+			}
+		}
+	}
+	##防空炮平射
+	fate_antiair_flatting = {
+		xor = {
+			fate_antiair_grouping
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 12
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_superior_firepower
+		}
+		category_line_anti_air = {
+			soft_attack = 0.2
+			hard_attack = 0.2
+			ap_attack = 0.2
+			air_attack = -0.2
+		}
+		category_sp_anti_air = {
+			soft_attack = 0.2
+			hard_attack = 0.2
+			ap_attack = 0.2
+			air_attack = -0.2
+		}
+	}
+	##优势火力
+	fate_superior_firepower = {
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 0
+				y = 13
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_moblie_firepower
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_stationary_firepower
+		}
+		category_line_artillery = {
+			max_organisation = 2
+		}
+		category_sp_artillery = {
+			max_organisation = 2
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_line_artillery
+				soft_attack = 0.1
+				defense = 0.25
+			}
+		}
+		signal_company = {
+			battalion_mult = {
+				category = category_sp_artillery
+				soft_attack = 0.1
+				defense = 0.25
+			}
+		}
+	}
+	##机动火炮
+	fate_moblie_firepower = {
+		xor = {
+			fate_stationary_firepower
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -2
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_continuing_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_raiding_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_commanded_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_supportive_fire
+		}
+		category_sp_artillery = {
+			max_organisation = 2
+			soft_attack = 0.2
+			default_morale = 0.1
+		}
+	}
+	##持续炮击
+	fate_continuing_fire = {
+		xor = {
+			fate_raiding_fire
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -3
+				y = 16
+			}
+		}
+		category_line_artillery = {
+			soft_attack = 0.1
+		}
+		category_sp_artillery = {
+			soft_attack = 0.1
+		}
+	}
+	##袭扰炮击
+	fate_raiding_fire = {
+		xor = {
+			fate_continuing_fire
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = -1
+				y = 16
+			}
+		}
+		category_line_artillery = {
+			max_organisation = 2
+			breakthrough = 0.1
+			initiative = 0.01
+		}
+		category_sp_artillery = {
+			max_organisation = 2
+			breakthrough = 0.1
+			initiative = 0.01
+		}
+	}
+	##固定火力
+	fate_stationary_firepower = {
+		xor = {
+			fate_moblie_firepower
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 2
+				y = 14
+			}
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_continuing_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_raiding_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_commanded_fire
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = fate_supportive_fire
+		}
+		category_line_artillery = {
+			max_organisation = 2
+			soft_attack = 0.05
+			default_morale = 0.1
+		}
+	}
+	##指令射击
+	fate_commanded_fire = {
+		xor = {
+			fate_supportive_fire
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 1
+				y = 16
+			}
+		}
+		category_line_artillery = {
+			max_organisation = 2
+			soft_attack = 0.05
+		}
+		category_sp_artillery = {
+			max_organisation = 2
+			soft_attack = 0.05
+		}
+		category_line_anti_tank = {
+			max_organisation = 2
+			hard_attack = 0.05
+		}
+		category_tank_destroyer = {
+			max_organisation = 2
+			hard_attack = 0.05
+		}
+		category_line_anti_air = {
+			max_organisation = 2
+			air_attack = 0.05
+		}
+		category_sp_anti_air = {
+			max_organisation = 2
+			air_attack = 0.05
+		}
+	}
+	##支援射击
+	fate_supportive_fire = {
+		xor = {
+			fate_commanded_fire
+		}
+		folder = {
+			name = land_doctrine_folder
+			position = {
+				x = 3
+				y = 16
+			}
+		}
+		category_line_artillery = {
+			soft_attack = 0.05
+			hard_attack = 0.05
+		}
+		category_sp_artillery = {
+			default_morale = 0.1
 			soft_attack = 0.1
 			hard_attack = 0.1
 		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = JAP
+		category_line_anti_tank = {
+			soft_attack = 0.05
+			hard_attack = 0.05
 		}
-
-		ai_will_do = {
-			factor = 0
+		category_tank_destroyer = {
+			default_morale = 0.1
+			soft_attack = 0.1
+			hard_attack = 0.1
 		}
-	}
-
-	renminzhanzheng = {
-
-		supply_combat_penalties_on_core_factor = -0.1
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			or = {
-				tag = CHI
-				tag = BEY
-			}
+		category_line_anti_air = {
+			soft_attack = 0.05
+			hard_attack = 0.05
+			air_attack = 0.05
 		}
-
-		ai_will_do = {
-			factor = 0
+		category_sp_anti_air = {
+			default_morale = 0.1
+			soft_attack = 0.1
+			hard_attack = 0.1
+			air_attack = 0.1
 		}
 	}
-
-	Mesopotamia = {
-
-		category_light_infantry = {
-			marsh = {
-				attack = 0.2
-				movement = 0.15
-			}
-			desert = {
-				attack = 0.2
-				movement = 0.15
-			}
-		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			tag = IRQ
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-	}
-	
-	ira_desert_tank = {
-
-		category_all_armor = { 
-			marsh = {
-				attack = 0.2
-				movement = 0.15
-			}
-			desert = {
-				attack = 0.2
-				movement = 0.15
-			}
-		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			always = no
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-
-	}  
-    
-    ira_assyrian_siege_tanks = {
- 
-		super_heavy_armor = { 
-			urban = {
-				attack = 0.5
-				defence = 0.20
-				movement = 0.15
-			}
-			max_organisation = 0.4
-		}
-
-		doctrine = yes
-		research_cost = 1
-
-		allow = {
-			always = no
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-
-	}
-	
-}	
-
+}
