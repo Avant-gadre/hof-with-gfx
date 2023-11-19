@@ -43,7 +43,7 @@ newsfile = 'eventnewsFate.gfx'
 
 print('新闻图共有',len(newsnamelist),'个')
 input('type any')
-interfacePath = '..\interface\\'
+interfacePath = '..\interface\event'
 if not os.path.exists(interfacePath):
     os.makedirs(interfacePath)
 

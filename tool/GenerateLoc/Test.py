@@ -21,7 +21,7 @@ with open(path2, 'w') as file:
 
     for line in lines:
         line1 = line.strip()
-        name0 = line1.replace("_", " ").title()
+        name0 = line1[4:].replace("_", " ").title()
         full = line1+":"+" "+"\""+name0+"\""
         full.strip()
         file.write(full+"\n")

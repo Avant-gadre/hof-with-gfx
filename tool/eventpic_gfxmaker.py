@@ -7,7 +7,7 @@ import time
 picpath = ''
 
 outfilename = 'eventFate.gfx'  # utf-8
-outpath = '..\interface\eventFate.gfx'
+outpath = '..\interface\event\eventFate.gfx'
 pngpath = 'gfx/event_pictures/'
 print(outfilename)
 
