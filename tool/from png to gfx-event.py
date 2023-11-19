@@ -60,7 +60,7 @@ reportfile = 'eventFate.gfx'
 # reportnamelist = []
 print('事件图共有',num,'个')
 input('type any')
-interfacePath = '..\interface\\'
+interfacePath = '../interface/event/'
 if not os.path.exists(interfacePath):
     os.makedirs(interfacePath)
 outputReport(tagnames)
