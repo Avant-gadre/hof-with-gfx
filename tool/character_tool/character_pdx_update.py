@@ -29,8 +29,10 @@ txtlist = core.getTxtName(inputpath)
 num = 0
 for txtname in txtlist:
     # 读入
+    txtname = '_Asian.txt'
     charactersCollection = []
     fullname = os.path.join(inputpath,txtname)
+
     print(fullname)
     with open(fullname, 'r+', encoding='utf-8') as f:
         lines = f.readlines()
@@ -84,7 +86,7 @@ for txtname in txtlist:
             f2.write(''.join(charactersReorder[i]))
             f2.write('}\n')
 
-
+    break
 
 
     # 输出
