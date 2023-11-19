@@ -19,7 +19,7 @@ def getPngName(tagpath):
 def outputNews(text):
     global interfacePath
     global TAG
-    pngpath = 'gfx/news_event'
+    pngpath = 'gfx/event_pictures_news'
     txtfile = open(interfacePath + 'eventnewsFate.gfx' , 'w',encoding='UTF-8')
     # spriteTypes = {
     txtfile.write('spriteTypes = {\n')
@@ -34,7 +34,7 @@ def outputNews(text):
     txtfile.write('}\n')
     txtfile.close()
     print("news event.gfx文件已输出")
-pngpathfirst = '..\gfx\\news_event\\'
+pngpathfirst = '..\gfx\\event_pictures_news\\'
 newsnamelist = getPngName(pngpathfirst)
 
 
