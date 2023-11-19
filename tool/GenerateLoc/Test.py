@@ -4,8 +4,8 @@ path2 = ".//text2.txt"
 path3 = ".//text3.txt"
 path4 = ".//text4.txt"
 
-# with open(path1,'r') as file:
-#     lines = file.readlines()
+with open(path1,'r') as file:
+    lines = file.readlines()
 
 # with open(path2, 'w') as file:
 #     for line in lines:
@@ -17,11 +17,11 @@ path4 = ".//text4.txt"
 # with open(path2,'r') as file:
 #     lines = file.readlines()
 
-# with open(path3, 'w') as file:
+with open(path2, 'w') as file:
 
-#     for line in lines:
-#         line1 = line.strip()
-#         name0 = line1[4:].replace("_", " ").title()
-#         full = line1+":"+" "+"\""+name0+"\""
-#         full.strip()
-#         file.write(full+"\n")
+    for line in lines:
+        line1 = line.strip()
+        name0 = line1.replace("_", " ").title()
+        full = line1+":"+" "+"\""+name0+"\""
+        full.strip()
+        file.write(full+"\n")
