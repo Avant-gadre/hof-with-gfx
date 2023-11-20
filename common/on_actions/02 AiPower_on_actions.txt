@@ -66,7 +66,6 @@ on_actions = {
 		}
 	}
 	on_war = {
-		#就是你小子 喜欢军通杀？
 		effect = {
 			if = {
 				limit = {
@@ -75,27 +74,21 @@ on_actions = {
 						has_military_access_to = PREV
 					}
 				}
+				log = "[?THIS.GetName] military_access"
 				every_enemy_country = {
-					limit = {
-						is_ai = no
-						has_military_access_to = PREV
-					}
+					limit = { is_ai = no has_military_access_to = PREV }
+					log = "[?THIS.GetName]"
 					add_to_temp_array = {
 						array = hof_avp_temp_array
 						value = THIS
 					}
 				}
-				every_core_state = {
-					if = {
-						limit = {
-							is_owned_by_ROOT_or_subject = no
-							##ROOT应该是玩具？
-						}
-						add_to_temp_array = {
-							array = hof_avp_temp_array2
-							value = THIS
-						}
-					}
+				every_controlled_state = {
+					limit = { is_fully_controlled_by = PREV }
+					add_to_temp_array = {
+						array = hof_avp_temp_array2
+						value = THIS
+					}			
 				}
 				for_each_loop = {
 					array = hof_avp_temp_array
@@ -103,9 +96,7 @@ on_actions = {
 					for_each_loop = {
 						array = hof_avp_temp_array2
 						damage_units = {
-							limit = {
-								tag = temp_tag
-							}
+							limit = { tag = temp_tag }
 							damage = 1
 							ratio = yes
 							state = v
