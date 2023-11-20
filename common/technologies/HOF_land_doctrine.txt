@@ -7,9 +7,8 @@ technologies = {
 	##一战学说 WWI
 	##机枪阵地
 	fate_machine_gun_position = {
-		doctrine_name = "fate_machine_gun_position_desc"
 		xp_research_type = army
-		xp_unlock_cost = 100
+		xp_unlock_cost = @xp_cost_small
 		path = {
 			research_cost_coeff = 1
 			leads_to_tech = fate_trench_warfare
@@ -35,6 +34,8 @@ technologies = {
 	}
 	##堑壕战
 	fate_trench_warfare = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_small
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -53,6 +54,8 @@ technologies = {
 	}
 	##突击前轰炸
 	fate_heavy_artillery_fire = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_small
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -97,9 +100,10 @@ technologies = {
 		enable_tactic = tactic_barrage
 	}
 	##
-	##第一层 Stage 1
 	##密集队形冲锋
 	fate_charge = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_small
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -115,8 +119,11 @@ technologies = {
 		}
 		enable_tactic = tactic_planned_attack
 	}
+	##第一层 Stage 1
 	##战略规划
 	fate_decisive_battle = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_assault
 		}
@@ -124,24 +131,27 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = -2
-				y = 2
+				y = 1
 			}
+		}
+		dependencies = {
+			fate_charge = 1
 		}
 		path = {
 			research_cost_coeff = 1
 			leads_to_tech = fate_grand_assault
 		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_hold_and_attrition
-		}
 		planning_speed = -0.2
 		max_planning = 0.1
 		max_command_power = 30
 		command_power_gain_mult = -0.15
+		on_research_complete = {
+		}
 	}
 	##渗透强袭
 	fate_assault = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_decisive_battle
 		}
@@ -149,19 +159,16 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 2
-				y = 2
+				y = 1
 			}
 		}
 		dependencies = {
 			tech_recon = 1
+			fate_charge = 1
 		}
 		path = {
 			research_cost_coeff = 1
 			leads_to_tech = fate_grand_assault
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_concentrated_assault
 		}
 		category_all_infantry = {
 			max_organisation = 5
@@ -214,19 +221,22 @@ technologies = {
 	}
 	##宽大战线作战
 	fate_grand_assault = {
-		xor = {
-			fate_concentrated_assault
-			fate_hold_and_attrition
-		}
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		folder = {
 			name = land_doctrine_folder
 			position = {
 				x = 0
-				y = 4
+				y = 3
 			}
 		}
 		dependencies = {
 			tech_logistics_company = 1
+			fate_charge = 1
+		}
+		xor = {
+			fate_hold_and_attrition
+			fate_concentrated_assault
 		}
 		path = {
 			research_cost_coeff = 1
@@ -244,19 +254,22 @@ technologies = {
 	}
 	##突击队
 	fate_concentrated_assault = {
-		xor = {
-			fate_grand_assault
-			fate_hold_and_attrition
-		}
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		folder = {
 			name = land_doctrine_folder
 			position = {
 				x = 3
-				y = 4
+				y = 3
 			}
 		}
 		dependencies = {
+			fate_assault = 1
 			tech_recon = 1
+		}
+		xor = {
+			fate_grand_assault
+			fate_hold_and_attrition
 		}
 		path = {
 			research_cost_coeff = 1
@@ -323,18 +336,21 @@ technologies = {
 	}
 	##牵制消耗
 	fate_hold_and_attrition = {
-		xor = {
-			fate_concentrated_assault
-			fate_grand_assault
-		}
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		folder = {
 			name = land_doctrine_folder
 			position = {
 				x = -3
-				y = 4
+				y = 3
 			}
 		}
+		xor = {
+			fate_grand_assault
+			fate_concentrated_assault
+		}
 		dependencies = {
+			fate_decisive_battle = 1
 			tech_engineers = 1
 		}
 		path = {
@@ -361,15 +377,16 @@ technologies = {
 			defense = 0.1
 		}
 	}
-	##
 	##第二层 Stage 2
 	##现代指挥系统
 	fate_modern_command = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		folder = {
 			name = land_doctrine_folder
 			position = {
 				x = 0
-				y = 6
+				y = 5
 			}
 		}
 		dependencies = {
@@ -429,6 +446,8 @@ technologies = {
 	}
 	##弹性防御
 	fate_elastic_defence = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_depth_defence
 		}
@@ -436,7 +455,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = -2
-				y = 8
+				y = 7
 			}
 		}
 		dependencies = {
@@ -467,6 +486,8 @@ technologies = {
 	}
 	##纵深防御
 	fate_depth_defence = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_elastic_defence
 		}
@@ -474,7 +495,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 2
-				y = 8
+				y = 7
 			}
 		}
 		dependencies = {
@@ -505,6 +526,8 @@ technologies = {
 	}
 	##去中心化
 	fate_decentralisation = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_centralised_command
 		}
@@ -512,7 +535,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 2
-				y = 10
+				y = 9
 			}
 		}
 		path = {
@@ -533,6 +556,8 @@ technologies = {
 	}
 	##集中指挥
 	fate_centralised_command = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_decentralisation
 		}
@@ -540,7 +565,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = -2
-				y = 10
+				y = 9
 			}
 		}
 		path = {
@@ -561,6 +586,8 @@ technologies = {
 	}
 	##震慑行动
 	fate_superise_attack = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_decisive_battle_plan
 		}
@@ -568,7 +595,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = -3
-				y = 12
+				y = 11
 			}
 		}
 		path = {
@@ -735,6 +762,8 @@ technologies = {
 	}
 	##决战计划
 	fate_decisive_battle_plan = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_superise_attack
 		}
@@ -742,7 +771,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 3
-				y = 12
+				y = 11
 			}
 		}
 		path = {
@@ -760,6 +789,8 @@ technologies = {
 	}
 	##战斗群
 	fate_kampfgruppe = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -783,7 +814,6 @@ technologies = {
 			research_cost_coeff = 1
 			leads_to_tech = fate_infantry_offensive
 		}
-		modifier_unit_infantry_design_cost_factor = -1
 		modifier_unit_motorized_design_cost_factor = -1
 		modifier_unit_mechanized_design_cost_factor = -1
 		coordination_bonus = 0.05
@@ -803,6 +833,8 @@ technologies = {
 	##第三层
 	##防守位置重叠
 	fate_concentrated_defense = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_reinforcement_position
 		}
@@ -833,6 +865,8 @@ technologies = {
 	}
 	##口袋防御
 	fate_pocket_defence = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -851,6 +885,8 @@ technologies = {
 	}
 	##加强战斗阵地
 	fate_reinforcement_position = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_concentrated_defense
 		}
@@ -884,6 +920,8 @@ technologies = {
 	}
 	##迫击炮
 	fate_mortar_tactics = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -908,6 +946,8 @@ technologies = {
 	}
 	##机械化攻势
 	fate_mass_mechanised = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_infantry_offensive
 		}
@@ -933,6 +973,8 @@ technologies = {
 	}
 	##持久攻势
 	fate_sustained_offensive = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -945,6 +987,8 @@ technologies = {
 	}
 	##步兵攻势
 	fate_infantry_offensive = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_mass_mechanised
 		}
@@ -966,6 +1010,8 @@ technologies = {
 	}
 	##纵深穿插
 	fate_depth_operation = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -981,6 +1027,8 @@ technologies = {
 technologies = {
 	##坦克排
 	fate_tank_formations = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		allow = {
 			has_tech = fate_charge
 		}
@@ -1017,6 +1065,8 @@ technologies = {
 	}
 	##联合作战
 	fate_joint_operation = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_supportive_tank
 		}
@@ -1071,6 +1121,8 @@ technologies = {
 	}
 	##坦克支援
 	fate_supportive_tank = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_joint_operation
 		}
@@ -1093,24 +1145,14 @@ technologies = {
 	}
 	##机动步兵
 	fate_moblized_infantry = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		folder = {
 			name = land_doctrine_folder
 			position = {
 				x = 2
 				y = 5
 			}
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_moblie_walfare
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_joint_walfare
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_panzergruppe
 		}
 		motorized = {
 			max_organisation = 10
@@ -1134,18 +1176,6 @@ technologies = {
 		dependencies = {
 			tech_logistics_company = 1
 		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_moblie_walfare
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_joint_walfare
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_panzergruppe
-		}
 		category_tanks = {
 			supply_consumption = -0.02
 		}
@@ -1159,6 +1189,8 @@ technologies = {
 	}
 	##机动作战
 	fate_moblie_walfare = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_joint_walfare
 			fate_panzergruppe
@@ -1168,6 +1200,12 @@ technologies = {
 			position = {
 				x = -3
 				y = 7
+			}
+		}
+		allow = {
+			or = {
+				has_tech = fate_tank_logistics
+				has_tech = fate_moblized_infantry
 			}
 		}
 		path = {
@@ -1210,6 +1248,8 @@ technologies = {
 	}
 	##兵种协同
 	fate_joint_walfare = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_moblie_walfare
 			fate_panzergruppe
@@ -1219,6 +1259,12 @@ technologies = {
 			position = {
 				x = 0
 				y = 7
+			}
+		}
+		allow = {
+			or = {
+				has_tech = fate_tank_logistics
+				has_tech = fate_moblized_infantry
 			}
 		}
 		path = {
@@ -1249,6 +1295,8 @@ technologies = {
 	}
 	##装甲洪流
 	fate_panzergruppe = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_moblie_walfare
 			fate_joint_walfare
@@ -1258,6 +1306,12 @@ technologies = {
 			position = {
 				x = 3
 				y = 7
+			}
+		}
+		allow = {
+			or = {
+				has_tech = fate_tank_logistics
+				has_tech = fate_moblized_infantry
 			}
 		}
 		path = {
@@ -1280,6 +1334,8 @@ technologies = {
 	}
 	##重点突破
 	fate_concentrated_breakthrough = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -1304,6 +1360,8 @@ technologies = {
 	}
 	##稳步前进
 	fate_orderly_breakthrough = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -1331,6 +1389,8 @@ technologies = {
 	}
 	##集中力量
 	fate_centeralized_power = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -1360,6 +1420,8 @@ technologies = {
 	#
 	##闪电战
 	fate_blitzkrieg = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -1394,6 +1456,8 @@ technologies = {
 	}
 	##空地一体
 	fate_air_ground_coordination = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -1424,6 +1488,8 @@ technologies = {
 	}
 	##纵深突破
 	fate_depth_breakthrough = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		folder = {
 			name = land_doctrine_folder
 			position = {
@@ -1452,6 +1518,8 @@ technologies = {
 	}
 	##长距离打击
 	fate_long_range_strike = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_close_range_strike
 		}
@@ -1478,6 +1546,8 @@ technologies = {
 	}
 	##近距离压制
 	fate_close_range_strike = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_long_range_strike
 		}
@@ -1510,18 +1580,6 @@ technologies = {
 				y = 14
 			}
 		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_moblie_war
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_battlefield_superior
-		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = fate_vernichtungsgedanke
-		}
 		armored_car_recon = {
 			recon = 1
 		}
@@ -1553,6 +1611,8 @@ technologies = {
 	}
 	##运动战
 	fate_moblie_war = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_battlefield_superior
 			fate_vernichtungsgedanke
@@ -1560,9 +1620,12 @@ technologies = {
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = -3
+				x = -2
 				y = 16
 			}
+		}
+		allow = {
+			has_tech = fate_joint_planning_staff
 		}
 		category_tanks = {
 			max_organisation = 2
@@ -1584,6 +1647,8 @@ technologies = {
 	}
 	##战场霸权
 	fate_battlefield_superior = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_moblie_war
 			fate_vernichtungsgedanke
@@ -1594,6 +1659,9 @@ technologies = {
 				x = 0
 				y = 16
 			}
+		}
+		allow = {
+			has_tech = fate_joint_planning_staff
 		}
 		category_tanks = {
 			max_organisation = 2
@@ -1612,14 +1680,19 @@ technologies = {
 	}
 	##歼灭战
 	fate_vernichtungsgedanke = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_moblie_war
 			fate_battlefield_superior
 		}
+		allow = {
+			has_tech = fate_joint_planning_staff
+		}
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = 3
+				x = 2
 				y = 16
 			}
 		}
@@ -1643,6 +1716,8 @@ technologies = {
 technologies = {
 	##炮兵集群
 	fate_artillery_group = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		allow = {
 			has_tech = fate_charge
 		}
@@ -1677,6 +1752,8 @@ technologies = {
 	}
 	##前沿重火力
 	fate_frontline_firepower = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		allow = {
 			has_tech = fate_charge
 		}
@@ -1711,14 +1788,16 @@ technologies = {
 	}
 	##集中支援
 	fate_concentrated_support = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_widefront_support
 		}
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = -3
-				y = 4
+				x = -2
+				y = 3
 			}
 		}
 		dependencies = {
@@ -1747,14 +1826,16 @@ technologies = {
 	}
 	##分散支援
 	fate_widefront_support = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_concentrated_support
 		}
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = 3
-				y = 4
+				x = 2
+				y = 3
 			}
 		}
 		dependencies = {
@@ -1785,6 +1866,8 @@ technologies = {
 	}
 	##分散布置
 	fate_widefront_antitank = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_concentrated_antitank
 		}
@@ -1792,7 +1875,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = -2
-				y = 6
+				y = 5
 			}
 		}
 		path = {
@@ -1831,6 +1914,8 @@ technologies = {
 	}
 	##集中布置
 	fate_concentrated_antitank = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_medium
 		xor = {
 			fate_widefront_antitank
 		}
@@ -1838,7 +1923,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 2
-				y = 6
+				y = 5
 			}
 		}
 		path = {
@@ -1858,14 +1943,16 @@ technologies = {
 	}
 	##覆盖目标
 	fate_fire_coverage = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_slow_fire
 		}
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = -3
-				y = 8
+				x = -2
+				y = 7
 			}
 		}
 		path = {
@@ -1909,14 +1996,16 @@ technologies = {
 	}
 	##徐进弹幕射击
 	fate_slow_fire = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_fire_coverage
 		}
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = 3
-				y = 8
+				x = 2
+				y = 7
 			}
 		}
 		path = {
@@ -1950,6 +2039,8 @@ technologies = {
 	}
 	##正面拦阻
 	fate_front_blocking = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_flank_ambushing
 		}
@@ -1957,7 +2048,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = -2
-				y = 10
+				y = 9
 			}
 		}
 		path = {
@@ -1985,6 +2076,8 @@ technologies = {
 	}
 	##侧翼伏击
 	fate_flank_ambushing = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_front_blocking
 		}
@@ -1992,7 +2085,7 @@ technologies = {
 			name = land_doctrine_folder
 			position = {
 				x = 2
-				y = 10
+				y = 9
 			}
 		}
 		path = {
@@ -2024,14 +2117,16 @@ technologies = {
 	}
 	##防空火力网
 	fate_antiair_grouping = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_antiair_flatting
 		}
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = -3
-				y = 12
+				x = -2
+				y = 11
 			}
 		}
 		path = {
@@ -2053,14 +2148,16 @@ technologies = {
 	}
 	##防空炮平射
 	fate_antiair_flatting = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_high
 		xor = {
 			fate_antiair_grouping
 		}
 		folder = {
 			name = land_doctrine_folder
 			position = {
-				x = 3
-				y = 12
+				x = 2
+				y = 11
 			}
 		}
 		path = {
@@ -2082,11 +2179,13 @@ technologies = {
 	}
 	##优势火力
 	fate_superior_firepower = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		folder = {
 			name = land_doctrine_folder
 			position = {
 				x = 0
-				y = 13
+				y = 12
 			}
 		}
 		path = {
@@ -2120,6 +2219,8 @@ technologies = {
 	}
 	##机动火炮
 	fate_moblie_firepower = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_stationary_firepower
 		}
@@ -2154,6 +2255,8 @@ technologies = {
 	}
 	##持续炮击
 	fate_continuing_fire = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_raiding_fire
 		}
@@ -2173,6 +2276,8 @@ technologies = {
 	}
 	##袭扰炮击
 	fate_raiding_fire = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_continuing_fire
 		}
@@ -2196,6 +2301,8 @@ technologies = {
 	}
 	##固定火力
 	fate_stationary_firepower = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_moblie_firepower
 		}
@@ -2230,6 +2337,8 @@ technologies = {
 	}
 	##指令射击
 	fate_commanded_fire = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_supportive_fire
 		}
@@ -2267,6 +2376,8 @@ technologies = {
 	}
 	##支援射击
 	fate_supportive_fire = {
+		xp_research_type = army
+		xp_unlock_cost = @xp_cost_veryhigh
 		xor = {
 			fate_commanded_fire
 		}
