@@ -84,7 +84,8 @@ def outpuShineGfx(text):
     print(TAG,"shine.gfx已输出")
 
 
-pngpathfirst = '..\gfx\interface\goals\\'
+pngpathfirst = '../gfx/interface/goals/'
+pngpathtest = 'gfx/interface/goals/'
 taglist = getDir(pngpathfirst)
 print('将生成以下tag国策的gfx文件')
 print(taglist)
@@ -93,13 +94,28 @@ interfacePath = '..\interface\goals\\'
 if not os.path.exists(interfacePath):
     os.makedirs(interfacePath)
     print('1')
+
+testfile = open(interfacePath +'_goal.gfx', 'w',encoding='UTF-8')
+testfile.write('####测试用\n')
+testfile.write('spriteTypes = {\n')
+
 for TAG in taglist:
     pngpath = pngpathfirst + TAG
+    pngpath2 = pngpathtest + TAG
     pnglist = getPngName(pngpath)
-
+    for txt in pnglist:
+        txt = re.sub('.png','',txt).strip()
+        pngfullname = '\t\ttexturefile = \"'+pngpath2+'/'+txt+'.png\"\n'
+        pngfullgfxname = '\t\tname = \"GFX_'+txt + '\"\n'
+        testfile.write('\tSpriteType = {\n')
+        testfile.write(pngfullgfxname)
+        testfile.write(pngfullname)
+        testfile.write('\t}\n')
     outpuGfx(pnglist)
     outpuShineGfx(pnglist)
     print(TAG, '共有', len(pnglist), '个图标')
+testfile.write('}\n')
+testfile.close()
 # for a in alist:
 #     taglist = getPngName(pngpath)
 #     outpuGfx(taglist)
