@@ -3,31 +3,19 @@ import os
 import io
 import os.path
 
-inputpath = '..\\common\\characters\\'
-outputpath = '..\\GenerateLoc\\character_localisation\\'
-# inputfilename = input()
-inputfilename = 'BEY_Fate_Characters'
-if '.txt' not in inputfilename:
-    inputfilename = inputfilename + '.txt'
-if not os.path.exists(outputpath):
-    os.makedirs(outputpath)
+inputpath = 'USA_Fate_Character1.txt'
+outputpath = 'text2.txt'
+
 counter_leave = 0
-# 遇到{ +1  遇到} -1
-# counter_leave = 1 时 为id
-# counter_leave = 2 且name = 时为名字
-iputfullpath = inputpath + inputfilename
-if not os.path.exists(iputfullpath):
-    # 检查是否存在该文件
-    print('输入错了')
-    os.system("pause")
-else:
-    print('对了，这玩意存在')
-f = open(iputfullpath,'r+', encoding='utf-8')
+
+f = open(inputpath,'r+', encoding='utf-8')
+
 lines = f.readlines()
+
 f.close()
 
 namelist = []
-# print(lines[0])
+
 for line in lines:
     if counter_leave == 1 and ' = {' in line :
         # 这一行是id
@@ -37,7 +25,7 @@ for line in lines:
     counter_leave -= line.count('}')
 
 
-f = open(outputpath + inputfilename, 'w', encoding='utf-8')
+f = open(outputpath , 'w', encoding='utf-8')
 for name in namelist:
     name0 = name[4:].replace("_", " ").title()
     full = name+":"+" "+"\""+name0+"\""

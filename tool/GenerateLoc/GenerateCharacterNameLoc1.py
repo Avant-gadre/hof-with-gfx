@@ -1,26 +1,32 @@
 import re
+import os
+import io
+import os.path
 
-# 打开文件并读取内容
-path = ".//text.txt"
-path1 = ".//text1.txt"
+inputpath = 'USA_Fate_Character1.txt'
+outputpath = 'text2.txt'
+
+counter_leave = 0
+
+f = open(inputpath,'r+', encoding='utf-8')
+
+lines = f.readlines()
+
+f.close()
+
+namelist = []
+
+for line in lines:
+    if counter_leave == 1 and ' = {' in line :
+        # 这一行是id
+        id = re.sub(r'= {','',line).strip()
+        namelist.append(id)
+    counter_leave += line.count('{')
+    counter_leave -= line.count('}')
 
 
-with open(path, 'r') as file:
-    content = file.read()
-
-# 定义正则表达式模式，匹配以大写字母组合开头的任意段落
-pattern = r'([A-Z]++[A-Z]+[A-Z](?:_[A-Za-z]+)+): "(\w+)"'
-
-# 匹配模式并进行替换
-def replace_function(match):
-    original = match.group(1)
-    word = match.group(2)
-    words = word.split('_')
-    replacement = f'{original}: "{ " ".join(words[1:]) }"'
-    return replacement
-
-modified_content = re.sub(pattern, replace_function, content)
-
-# 将替换后的内容写回文件
-with open(path1, 'w') as file:
-    file.write(modified_content)
+f = open(outputpath , 'w', encoding='utf-8')
+for name in namelist:
+    desc = "recruit_character = "
+    f.write(desc+name+"\n")
+f.close()
