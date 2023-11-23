@@ -17,9 +17,10 @@ for file_name in files:
         # 1. 将文件名中的所有大写字母变为小写
         new_file_name = file_name.lower()
         
+        target = "pol"
         # 2. 开头有goal_的改名为focus_generic_开头
-        if new_file_name.startswith('hun'):
-            new_file_name = 'idea_hun' + new_file_name[len('hun'):]
+        if new_file_name.startswith(target):
+            new_file_name = 'idea_pol' + new_file_name[len(target):]
 
         # elif new_file_name.startswith('idea'):
         #     new_file_name = 'rom' + new_file_name[len('idea'):]
