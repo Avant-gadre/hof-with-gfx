@@ -18,11 +18,11 @@ for file_name in files:
         new_file_name = file_name.lower()
         
         # 2. 开头有goal_的改名为focus_generic_开头
-        if new_file_name.startswith('idea_rom'):
-            new_file_name = 'rom' + new_file_name[len('idea_rom'):]
+        if new_file_name.startswith('hun'):
+            new_file_name = 'idea_hun' + new_file_name[len('hun'):]
 
-        elif new_file_name.startswith('idea'):
-            new_file_name = 'rom' + new_file_name[len('idea'):]
+        # elif new_file_name.startswith('idea'):
+        #     new_file_name = 'rom' + new_file_name[len('idea'):]
         
         # # 4. 开头既没有focus_也没有goal_的加上focus_generic_
         # elif not new_file_name.startswith('focus_') and not new_file_name.startswith('focus_generic_'):
