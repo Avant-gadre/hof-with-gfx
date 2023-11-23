@@ -20,7 +20,7 @@ for file_name in files:
 
     files_set.add(file_name)
 
-##格式
+##格式-海军
 characters_string = '''
 	{} = {{
 		name = {}
@@ -59,6 +59,7 @@ characters_string = '''
 	}}
 '''
 
+##格式-陆军
 characters_string1 = '''
 	{} = {{
 		name = {}
@@ -74,24 +75,21 @@ characters_string1 = '''
 		}}
 		army_leader = {{
 			traits = {{
-				naval_lineage
-				navy_career_officer
-				torpedo_expert
-				cruiser_captain
+                organizer
 			}}
 			skill = 3
-			attack_skill = 3
+			attack_skill = 2
 			defense_skill = 3
-			maneuvering_skill = 4
-			coordination_skill = 3
+			planning_skill = 3
+			logistics_skill = 2
 		}}
 		advisor = {{
-			slot = navy_chief
+			slot = army_chief
 			idea_token = {}
-			ledger = navy
+			ledger = army
 			cost = 100
 			traits = {{
-				navy_chief_reform_2
+				army_chief_reform_2
 			}}
 		}}
 	}}
