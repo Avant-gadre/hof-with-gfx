@@ -51,7 +51,7 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					NOT ={
+					NOT = {
 						has_dlc = "Man the Guns"
 					}
 				}
@@ -215,139 +215,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = usa.5.a
-	}
-}
-
-# Election of 1936: Roosevelt vs Alf Landon
-country_event = {
-	id = usa.6
-	title = usa.6.t
-	desc = usa.6.d
-	picture = GFX_report_event_usa_election_generic
-	is_triggered_only = yes
-	trigger = {
-		tag = USA
-		democratic > 0.5
-		date > 1936.1.1
-		date < 1937.1.1
-	}
-	immediate = {
-		hidden_effect = {
-			if = {
-				limit = {
-					OR = {
-						has_completed_focus = USA_voter_registration_act
-						has_completed_focus = USA_union_representation_act
-					}
-				}
-				country_event = {
-					id = usa.32
-					days = 730
-				}
-				# midterms
-			}
-			else = {
-				country_event = {
-					id = usa.35
-					days = 730
-				}
-				# midterms
-			}
-		}
-	}
-	option = {
-		name = usa.6.a
-		ai_chance = {
-			base = 75
-			modifier = {
-				OR = {
-					has_game_rule = {
-						rule = USA_ai_behavior
-						option = FASCIST
-					}
-					has_country_flag = USA_AI_RANDOM_FASCIST
-				}
-				has_dlc = "Man the Guns"
-				factor = 0
-			}
-		}
-		add_ideas = new_deal
-		if = {
-			limit = {
-				OR = {
-					has_completed_focus = USA_voter_registration_act
-					has_completed_focus = USA_union_representation_act
-				}
-			}
-			country_event = usa.32
-		}
-		else = {
-			set_variable = {
-				election_factor = random
-			}
-			add_to_variable = {
-				election_factor = -0.5
-			}
-			USA_election_senate = yes
-			USA_election_house = yes
-			custom_effect_tooltip = usa_congress_elections_tt_bad
-			country_event = usa.30
-		}
-	}
-	option = {
-		name = usa.6.b
-		ai_chance = {
-			base = 25
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-				has_game_rule = {
-					rule = USA_ai_behavior
-					option = DEFAULT
-				}
-			}
-		}
-		set_party_name = {
-			ideology = democratic
-			long_name = USA_republican_party
-			name = USA_republican_party
-		}
-		set_variable = {
-			election_factor = random
-		}
-		add_to_variable = {
-			election_factor = -0.6
-		}
-		USA_election_senate = yes
-		USA_election_house = yes
-		USA_flip_support = yes
-		custom_effect_tooltip = usa_congress_elections_tt_good
-		add_political_power = 120
-		if = {
-			limit = {
-				has_idea = standard_oil_california
-			}
-			add_political_power = 150
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_idea = standard_oil_california
-				}
-			}
-			add_ideas = standard_oil_california
-		}
-		create_country_leader = {
-			name = "Alf Landon"
-			desc = "POLITICS_ALF_LANDON_DESC"
-			picture = "portrait_USA_alf_landon.dds"
-			expire = "1965.1.1"
-			ideology = conservatism
-			traits = {
-				staunch_constitutionalist
-			}
-		}
-		country_event = usa.31
 	}
 }
 
@@ -633,107 +500,6 @@ country_event = {
 	}
 }
 
-# US congress elections - outcome
-country_event = {
-	id = usa.30
-	title = usa.30.t
-	desc = usa.30.desc
-	picture = GFX_report_event_election_vote
-	is_triggered_only = yes
-	option = {
-		name = usa.30.a
-		clear_variable = sen_loc
-		clear_variable = ror_loc
-		clear_variable = senators_for_reelection
-		clear_variable = representatives_for_reelection
-	}
-}
-
-# elections - new president, opposition/support switch roles
-country_event = {
-	id = usa.31
-	title = usa.31.t
-	desc = usa.31.desc
-	picture = GFX_report_event_usa_election_generic
-	is_triggered_only = yes
-	option = {
-		name = usa.31.a
-		clear_variable = sen_loc
-		clear_variable = ror_loc
-		clear_variable = senators_for_reelection
-		clear_variable = representatives_for_reelection
-	}
-}
-
-# elections in the US - player has a majority guaranteed
-country_event = {
-	id = usa.32
-	title = usa.32.t
-	desc = usa.32.desc
-	picture = GFX_report_event_election_vote
-	is_triggered_only = yes
-	trigger = {
-		OR = {
-			has_completed_focus = USA_voter_registration_act
-			has_completed_focus = USA_union_representation_act
-		}
-	}
-	option = {
-		name = usa.32.a
-		USA_return_majority = yes
-	}
-}
-
-#midterm elections
-country_event = {
-	id = usa.35
-	title = usa.35.t
-	desc = usa.35.desc
-	picture = GFX_report_event_election_vote
-	hidden = yes
-	is_triggered_only = yes
-	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_completed_focus = USA_voter_registration_act
-					has_completed_focus = USA_union_representation_act
-				}
-			}
-			random_list = {
-				50 = {
-					set_variable = {
-						election_factor = random
-					}
-					add_to_variable = {
-						election_factor = -0.6
-					}
-					USA_election_senate = yes
-					USA_election_house = yes
-					country_event = usa.30
-				}
-				50 = {
-					set_variable = {
-						election_factor = random
-					}
-					add_to_variable = {
-						election_factor = -0.3
-					}
-					USA_election_senate = yes
-					USA_election_house = yes
-					country_event = usa.30
-				}
-			}
-		}
-		else = {
-			country_event = usa.32
-		}
-	}
-	option = {
-		name = usa.35.a
-	}
-}
-
 #small support event - senate
 country_event = {
 	id = usa.40
@@ -984,13 +750,13 @@ country_event = {
 		random_list = {
 			20 = {
 				modifier = {
-					NOT ={
+					NOT = {
 						congress_medium_support_trigger = yes
 					}
 					factor = 1.25
 				}
 				modifier = {
-					NOT ={
+					NOT = {
 						congress_low_support_trigger = yes
 					}
 					factor = 2
@@ -1028,13 +794,13 @@ country_event = {
 			}
 			15 = {
 				modifier = {
-					NOT ={
+					NOT = {
 						congress_medium_support_trigger = yes
 					}
 					factor = 1.25
 				}
 				modifier = {
-					NOT ={
+					NOT = {
 						congress_low_support_trigger = yes
 					}
 					factor = 2
