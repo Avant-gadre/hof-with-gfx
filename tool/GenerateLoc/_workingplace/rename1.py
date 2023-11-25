@@ -16,14 +16,17 @@ for file_name in files:
     if os.path.isfile(file_path) and file_name.lower().endswith('.png'):
         new_file_name = file_name
         
-        targetname = "SYR_"
+        targetname = "EGY_"
         targetname1 = "focus_"+targetname
 
         if new_file_name.startswith(targetname):
-            new_file_name = 'focus_EGY_nejd_' + new_file_name[len(targetname):].lower()
-            #new_file_name1 = new_file_name[:len(targetname1)]+new_file_name[len(targetname1):].lower()
+            new_file_name = 'focus_' + new_file_name
+            new_file_name1 = new_file_name[:len(targetname1)]+new_file_name[len(targetname1):].lower()
 
-        os.rename(file_path, os.path.join(folder_path, new_file_name))
-        print(f"文件 {file_name} 已重命名为 {new_file_name}")
+        elif new_file_name.startswith(targetname1):
+            new_file_name1 = new_file_name[:len(targetname1)]+new_file_name[len(targetname1):].lower()
+
+        os.rename(file_path, os.path.join(folder_path, new_file_name1))
+        print(f"文件 {file_name} 已重命名为 {new_file_name1}")
 
         #print(new_file_name1)
