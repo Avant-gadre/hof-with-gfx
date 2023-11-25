@@ -2,7 +2,7 @@ import re
 import os
 import io
 import os.path
-
+import shutil
 # 路径识别
 
 
@@ -46,6 +46,8 @@ print('将生成以下tag民族精神的gfx文件')
 print(taglist)
 input('')
 interfacePath = '..\interface\\advisor\\'
+if os.path.exists(interfacePath):
+    shutil.rmtree(interfacePath)
 if not os.path.exists(interfacePath):
     os.makedirs(interfacePath)
 for TAG in taglist:
