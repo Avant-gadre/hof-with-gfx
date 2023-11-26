@@ -17,13 +17,13 @@ for file_name in files:
 
         new_file_name = file_name
         
-        targetname = "UKR"
+        targetname = "fra"
 
         targetname1 = "focus_"+targetname
 
         targetname2 = "focus_"+"ITA"
 
-        targetname3 = "idea_ukr"
+        targetname3 = "idea_fra"
 
         if new_file_name.startswith(targetname):
 

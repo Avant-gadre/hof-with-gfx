@@ -9542,17 +9542,6 @@ focus_tree = {
 		relative_position_id = SOV_the_stalin_constitution
 		cost = 10
 		available = {
-			has_country_flag = {
-				flag = SOV_trial_of_the_generals_flag
-				days > 175
-			}
-			custom_trigger_tooltip = {
-				tooltip = SOV_last_purge_focus_days_rights_tt
-				has_country_flag = {
-					flag = SOV_trial_of_the_generals_flag
-					days > 175
-				}
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -9646,36 +9635,6 @@ focus_tree = {
 			FOCUS_FILTER_SOV_POLITICAL_PARANOIA
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				custom_effect_tooltip = SOV_behead_the_snake_lar_tt
-				create_operative_leader = {
-					name = "Ramón Mercader"
-					GFX = GFX_portrait_SOV_ramon_mercader
-					traits = {
-						operative_tough
-						operative_infiltrator
-					}
-					bypass_recruitment = no
-					available_to_spy_master = yes
-					nationalities = {
-						SOV
-						SPR
-						MEX
-					}
-				}
-				#Extra operative slot
-				set_variable = {
-					SOV_the_politburo_operative_slot = 1
-				}
-				custom_effect_tooltip = SOV_behead_the_snake_ns_tt
-			}
-			else = {
-				custom_effect_tooltip = SOV_behead_the_snake_no_lar_tt
-			}
-			SOV_paranoia_high_decrease_effect = yes
 		}
 	}
 	focus = {
@@ -9689,22 +9648,7 @@ focus_tree = {
 		relative_position_id = SOV_the_workers_dictatorship
 		cost = 5
 		available = {
-			has_country_flag = {
-				flag = SOV_third_moscow_trial_flag
-				days > 175
-			}
-			custom_trigger_tooltip = {
-				tooltip = SOV_last_purge_focus_days_cult_tt
-				has_country_flag = {
-					flag = SOV_third_moscow_trial_flag
-					days > 175
-				}
-			}
 			has_completed_focus = SOV_expand_the_agitprop
-			has_country_leader = {
-				character = SOV_iosif_stalin
-				ruling_only = yes
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -9867,26 +9811,6 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
-			#Academies of Sciences decisions are 50% cheaper
-			divide_variable = {
-				SOV_national_academy_of_sciences_construction_cost = 2
-			}
-			custom_effect_tooltip = SOV_brilliant_genius_academies_of_sciences_tt
-			if = {
-				limit = {
-					has_completed_focus = SOV_leader_of_the_party_and_the_people
-				}
-				swap_ruler_traits = {
-					remove = stalin_inheritor_of_lenin_leader
-					add = stalin_inheritor_of_lenin_final
-				}
-			}
-			else = {
-				swap_ruler_traits = {
-					remove = stalin_inheritor_of_lenin
-					add = stalin_inheritor_of_lenin_genius
-				}
-			}
 		}
 	}
 	focus = {
@@ -9903,13 +9827,6 @@ focus_tree = {
 			focus = SOV_inheritor_of_the_mantle_of_lenin
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = SOV_propaganda_campaigns_taken_5_or_greater_tt
-				check_variable = {
-					SOV_propaganda_campaigns_taken = 5
-					compare = greater_than_or_equals
-				}
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_STABILITY
@@ -9943,23 +9860,7 @@ focus_tree = {
 			FOCUS_FILTER_STABILITY
 		}
 		completion_reward = {
-			custom_effect_tooltip = SOV_ban_excessive_hero_worship_dec_cost_tt
-			SOV_foreign_politics_decision_cost_reduction_effect = yes
-			if = {
-				limit = {
-					has_completed_focus = SOV_leader_of_the_party_and_the_people
-				}
-				swap_ruler_traits = {
-					remove = stalin_servant_of_lenin_leader
-					add = stalin_servant_of_lenin_final
-				}
-			}
-			else = {
-				swap_ruler_traits = {
-					remove = stalin_servant_of_lenin
-					add = stalin_servant_of_lenin_worship
-				}
-			}
+			add_stability = 0.08
 		}
 	}
 	focus = {
@@ -9974,13 +9875,6 @@ focus_tree = {
 		relative_position_id = SOV_inheritor_of_the_mantle_of_lenin
 		cost = 5
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = SOV_propaganda_campaigns_taken_10_or_greater_tt
-				check_variable = {
-					SOV_propaganda_campaigns_taken = 10
-					compare = greater_than_or_equals
-				}
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -9988,52 +9882,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_political_power = 50
-			#Swap Stalin's Trait
-			if = {
-				#INHERITOR BRANCH
-				limit = {
-					has_completed_focus = SOV_inheritor_of_the_mantle_of_lenin
-				}
-				if = {
-					limit = {
-						has_completed_focus = SOV_brilliant_genius
-					}
-					swap_ruler_traits = {
-						remove = stalin_inheritor_of_lenin_genius
-						add = stalin_inheritor_of_lenin_final
-					}
-				}
-				else = {
-					swap_ruler_traits = {
-						remove = stalin_inheritor_of_lenin
-						add = stalin_inheritor_of_lenin_leader
-					}
-				}
-			}
-			else_if = {
-				#SERVANT BRANCH
-				limit = {
-					has_completed_focus = SOV_the_faithful_servant_of_lenin
-				}
-				if = {
-					limit = {
-						has_completed_focus = SOV_ban_excessive_hero_worship
-					}
-					swap_ruler_traits = {
-						remove = stalin_servant_of_lenin_worship
-						add = stalin_servant_of_lenin_final
-					}
-				}
-				else = {
-					swap_ruler_traits = {
-						remove = stalin_servant_of_lenin
-						add = stalin_servant_of_lenin_leader
-					}
-				}
-			}
-			else = {
-				custom_effect_tooltip = SOV_leader_of_the_party_and_the_people_trait_tt
-			}
 		}
 	}
 	focus = {
@@ -10053,34 +9901,12 @@ focus_tree = {
 			focus = SOV_architect_of_communism
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = SOV_propaganda_campaigns_taken_15_or_greater_tt
-				check_variable = {
-					SOV_propaganda_campaigns_taken = 15
-					compare = greater_than_or_equals
-				}
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_WAR_SUPPORT
 		}
 		completion_reward = {
-			add_country_leader_trait = stalin_great_commander
-			add_field_marshal_role = {
-				character = "SOV_iosif_stalin"
-				traits = {
-					old_guard
-					politically_connected
-					media_personality
-					harsh_leader
-				}
-				skill = 3
-				attack_skill = 1
-				defense_skill = 3
-				planning_skill = 3
-				logistics_skill = 3
-				legacy_id = 0
-			}
+			add_war_support = 0.1
 		}
 	}
 	focus = {
@@ -10100,19 +9926,12 @@ focus_tree = {
 			focus = SOV_great_commander
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = SOV_propaganda_campaigns_taken_15_or_greater_tt
-				check_variable = {
-					SOV_propaganda_campaigns_taken = 15
-					compare = greater_than_or_equals
-				}
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			add_country_leader_trait = stalin_architect_of_communism
+			add_political_power = 100
 		}
 	}
 	focus = {
@@ -10127,25 +9946,15 @@ focus_tree = {
 		relative_position_id = SOV_great_commander
 		cost = 10
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = SOV_propaganda_campaigns_taken_20_or_greater_tt
-				check_variable = {
-					SOV_propaganda_campaigns_taken = 20
-					compare = greater_than_or_equals
-				}
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 			FOCUS_FILTER_STABILITY
 		}
 		completion_reward = {
-			swap_ruler_traits = {
-				remove = stalin_heart_of_steel
-				add = stalin_father_of_nations
-			}
-			hidden_effect = {
-				play_song = "comintern_war_1"
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
 			}
 		}
 	}
@@ -10167,13 +9976,6 @@ focus_tree = {
 			FOCUS_FILTER_STABILITY
 		}
 		completion_reward = {
-			add_to_variable = {
-				SOV_the_politburo_political_power_factor = 0.05
-			}
-			add_to_variable = {
-				SOV_the_politburo_political_advisor_cost_factor = -0.15
-			}
-			custom_effect_tooltip = SOV_freedom_of_debate_unity_of_action_ns_tt
 			add_political_power = 50
 			add_stability = 0.05
 			add_war_support = 0.05
@@ -10196,10 +9998,6 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			add_to_variable = {
-				SOV_the_politburo_opinion_gain_monthly_same_ideology_factor = 0.25
-			}
-			custom_effect_tooltip = SOV_the_construction_of_communism_ns_tt
 			if = {
 				limit = {
 					num_subjects > 0
@@ -10208,39 +10006,6 @@ focus_tree = {
 					add_autonomy_score = {
 						value = -100
 						localization = SOV_the_construction_of_communism
-					}
-				}
-			}
-			else = {
-				custom_effect_tooltip = SOV_the_construction_of_communism_puppet_autonomy_tt
-			}
-			custom_effect_tooltip = SOV_the_construction_of_communism_railways_tt
-			#Build railway from Moscow to Puppets
-			hidden_effect = {
-				#Hiidden for tooltip reasons
-				every_subject_country = {
-					limit = {
-						capital_scope = {
-							OR = {
-								is_on_continent = europe
-								is_on_continent = asia
-								is_on_continent = middle_east
-							}
-						}
-					}
-					if = {
-						limit = {
-							can_build_railway = {
-								start_state = ROOT.capital
-								target_state = THIS.capital
-								build_only_on_allied = yes
-							}
-						}
-						build_railway = {
-							start_state = ROOT.capital
-							target_state = THIS.capital
-							build_only_on_allied = yes
-						}
 					}
 				}
 			}
