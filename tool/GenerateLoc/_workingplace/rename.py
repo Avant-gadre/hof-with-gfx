@@ -16,14 +16,14 @@ for file_name in files:
     if os.path.isfile(file_path) and file_name.lower().endswith('.png'):
         new_file_name = file_name
         
-        targetname = "SRI"
+        targetname = "GER"
 
         targetname1 = "focus_"+targetname
 
         targetname2 = "focus_"+"ITA"
 
         if new_file_name.startswith(targetname):
-            new_file_name1 = targetname2 + new_file_name[len(targetname):].lower()
+            new_file_name1 = targetname1 + new_file_name[len(targetname):].lower()
             #new_file_name1 = new_file_name[:len(targetname1)]+new_file_name[len(targetname1):].lower()
 
         os.rename(file_path, os.path.join(folder_path, new_file_name1))
