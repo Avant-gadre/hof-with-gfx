@@ -383,7 +383,7 @@ HOF_ITA_nero_occupy_greece_success_effect = {
 			is_fully_controlled_by = ROOT
 			has_resistance = yes
 		}
-		add_compliance = 5	
+		add_compliance = 5
 		add_resistance = -5
 	}
 	if = {
@@ -408,7 +408,98 @@ HOF_ITA_nero_occupy_greece_success_effect = {
 					value = -35
 				}
 			}
-			
+		}
+	}
+}
+
+ITA_create_proper_carrier_effect = {
+	if = {
+		#MTG 
+		limit = {
+			has_dlc = "Man the Guns"
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_tech = basic_ship_hull_carrier
+				}
+			}
+			set_technology = {
+				basic_ship_hull_carrier = 1
+			}
+		}
+		#Equipment Variant
+		create_equipment_variant = {
+			name = "Aquila Class"
+			type = ship_hull_carrier_1
+			name_group = ITA_CV_HISTORICAL
+			parent_version = 0
+			allow_without_tech = yes			#Makes no difference since focus grants appropriate tech (above), but it improves tooltip
+			modules = {
+				fixed_ship_deck_slot_1 = ship_deck_space
+				fixed_ship_deck_slot_2 = ship_deck_space
+				fixed_ship_anti_air_slot = ship_anti_air_2
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = carrier_ship_engine_2
+				fixed_ship_secondaries_slot = empty
+				front_1_custom_slot = ship_deck_space
+			}
+		}
+		#Line Production
+		add_equipment_production = {
+			equipment = {
+				type = ship_hull_carrier_1
+				creator = "ITA"
+				version_name = "Aquila Class"
+			}
+			name = "Aquila"
+			requested_factories = 5
+			progress = 0.45
+			amount = 1
+		}
+		add_equipment_production = {
+			equipment = {
+				type = ship_hull_carrier_1
+				creator = "ITA"
+				version_name = "Aquila Class"
+			}
+			name = "Thalassa"
+			requested_factories = 5
+			progress = 0.45
+			amount = 1
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				NOT = {
+					has_tech = basic_carrier
+				}
+			}
+			set_technology = {
+				basic_carrier = 1
+			}
+		}
+		create_equipment_variant = {
+			name = "Aquila Class"
+			type = carrier_2
+			allow_without_tech = yes			#Makes no difference since focus grants appropriate tech (above), but it improves tooltip
+			upgrades = {
+				ship_deckspace_upgrade = 3
+				carrier_armor_upgrade = 2
+				ship_engine_upgrade = 2
+				ship_reliability_upgrade = 2
+			}
+		}
+		add_equipment_production = {
+			equipment = {
+				type = carrier_2
+				creator = "ITA"
+				version_name = "Aquila Class"
+			}
+			requested_factories = 2
+			progress = 0.45
+			amount = 1
 		}
 	}
 }
