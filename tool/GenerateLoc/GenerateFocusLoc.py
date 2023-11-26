@@ -3,11 +3,11 @@ import os
 import io
 import os.path
 
-inputpath = '..\common\\national_focus\\'
-outputpath = '.\\focus_localisation\\'
+inputpath = '.\\common\\national_focus\\'
+outputpath = '.\\tool\\GenerateLoc\\focus_localisation\\'
 # inputfilename = input()
 
-inputfilename = '03 ISR_Fate_focus.txt'
+inputfilename = '01 MAN_Fate_focus.txt'
 
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
@@ -102,17 +102,6 @@ outputfilename = inputfilename[:-4]
 outputfilename = outputfilename+"_l_english"+".yml"
 
 f = open(outputpath + outputfilename, 'w', encoding='utf-8')
-
-#f.write('\n'.join(filestart))
-
-# for reorder in reorderlist:
-#     fo = fullfocuslist[idlist.index(reorder)]
-#     f.write('\n'.join(fo))
-#     f.write('\n')
-# f.write('}')
-# f.close()
-
-# print(reorderlist)
 
 f.write("l_english: "+"\n")
 
