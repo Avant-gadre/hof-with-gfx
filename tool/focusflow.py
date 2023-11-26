@@ -3,10 +3,10 @@ import os
 import io
 import os.path
 
-inputpath = '..\common\\national_focus\\'
-outputpath = '.\\focus_flow\\'
+inputpath = '.\\common\\national_focus\\'
+outputpath = '.\\tool\\focus_flow\\'
 # inputfilename = input()
-inputfilename = '00 SWE_Fate_focus'
+inputfilename = '01 MAN_Fate_focus'
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
 if not os.path.exists(outputpath):

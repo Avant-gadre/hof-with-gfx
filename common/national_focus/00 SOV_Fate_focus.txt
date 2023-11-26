@@ -7819,9 +7819,9 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
-			add_to_variable = {
-				HOF_SOV_the_red_army_dynamic_army_attack_factor = 0.05
-			}
+			#add_to_variable = {
+				#HOF_SOV_the_red_army_dynamic_army_attack_factor = 0.05
+			#}
 			add_to_variable = {
 				HOF_SOV_the_red_army_dynamic_army_artillery_attack_factor = 0.1
 			}
@@ -9293,72 +9293,8 @@ focus_tree = {
 			set_country_flag = SOV_first_moscow_trial_flag			#Used to unlock the next purge focus
 			add_political_power = 25
 			SOV_paranoia_high_increase_effect = yes
-			#HISTORICAL
-			#Zinovyev
-			if = {
-				limit = {
-					has_character = SOV_grigory_zinovyev
-				}
-				SOV_grigory_zinovyev = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Kamenev
-			if = {
-				limit = {
-					has_character = SOV_lev_kamenev
-				}
-				SOV_lev_kamenev = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Smirnov
-			if = {
-				limit = {
-					has_character = SOV_ivan_smirnov
-				}
-				SOV_ivan_smirnov = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#NOT-SO-HISTORICAL
-			#Sokolnikov
-			if = {
-				limit = {
-					has_character = SOV_grigory_sokolnikov
-				}
-				SOV_grigory_sokolnikov = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Shlyapnikov
-			if = {
-				limit = {
-					has_character = SOV_aleksandr_shlyapnikov
-				}
-				SOV_aleksandr_shlyapnikov = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			custom_effect_tooltip = SOV_will_trigger_a_great_purge_tt
 			hidden_effect = {
-				set_country_flag = SOV_purge_event_unavoidable_flag				#No way to avoid this purge. This people are about to be purged and there's nothing you can do for them.
-				SOV_trigger_great_purge_moscow_trial_effect = yes				#FIRST MOSCOW TRIAL -> Zinovyev & friends
+				set_country_flag = SOV_purge_event_unavoidable_flag				#No way to avoid this purge. This people are about to be purged and there's nothing you can do for them.		#FIRST MOSCOW TRIAL -> Zinovyev & friends
 			}
 			custom_effect_tooltip = SOV_trigger_first_moscow_trial_tt
 		}
@@ -9380,18 +9316,7 @@ focus_tree = {
 			FOCUS_FILTER_SOV_POLITICAL_PARANOIA
 		}
 		completion_reward = {
-			add_to_variable = {
-				SOV_the_politburo_economy_cost_factor = -0.2
-			}
-			add_to_variable = {
-				SOV_the_politburo_trade_laws_cost_factor = -0.2
-			}
-			add_to_variable = {
-				SOV_the_politburo_mobilization_laws_cost_factor = -0.2
-			}
-			custom_effect_tooltip = SOV_secure_the_administration_ns_tt
 			add_political_power = 50
-			SOV_paranoia_medium_decrease_effect = yes
 		}
 	}
 	focus = {
@@ -9411,128 +9336,12 @@ focus_tree = {
 			FOCUS_FILTER_SOV_POLITICAL_PARANOIA
 		}
 		completion_reward = {
-			add_to_variable = {
-				SOV_the_politburo_good_consumer_goods_factor = -0.02
-			}
-			add_to_variable = {
-				SOV_the_politburo_production_speed_buildings_factor = 0.05
-			}
-			add_to_variable = {
-				SOV_the_politburo_global_building_slots_factor = 0.1
-			}
-			custom_effect_tooltip = SOV_the_collectivization_process_ns_tt
 			add_stability = -0.05
 			add_war_support = -0.05
-			if = {
-				#Target a rural state with no civs
-				limit = {
-					any_owned_state = {
-						OR = {
-							has_state_category = town							#Developed Rural Region
-							has_state_category = rural							#Rural Region
-						}
-						is_fully_controlled_by = ROOT
-						industrial_complex < 1
-						arms_factory < 1
-						dockyard < 1
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-				}
-				random_owned_state = {
-					limit = {
-						OR = {
-							has_state_category = town							#Developed Rural Region
-							has_state_category = rural							#Rural Region
-						}
-						is_fully_controlled_by = ROOT
-						industrial_complex < 1
-						arms_factory < 1
-						dockyard < 1
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			else_if = {
-				#Failsafe 1: Target a random rural state
-				limit = {
-					any_owned_state = {
-						OR = {
-							has_state_category = town							#Developed Rural Region
-							has_state_category = rural							#Rural Region
-						}
-						is_fully_controlled_by = ROOT
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-				}
-				random_owned_state = {
-					limit = {
-						OR = {
-							has_state_category = town							#Developed Rural Region
-							has_state_category = rural							#Rural Region
-						}
-						is_fully_controlled_by = ROOT
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			else_if = {
-				#Failsafe 2: Target a random state
-				limit = {
-					any_owned_state = {
-						is_fully_controlled_by = ROOT
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-				}
-				random_owned_state = {
-					limit = {
-						is_fully_controlled_by = ROOT
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			SOV_paranoia_medium_decrease_effect = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -9546,119 +9355,15 @@ focus_tree = {
 		relative_position_id = SOV_the_zinovyevite_terrorist_center
 		cost = 5
 		available = {
-			has_country_flag = {
-				flag = SOV_first_moscow_trial_flag
-				days > 175
-			}
-			custom_trigger_tooltip = {
-				tooltip = SOV_last_purge_focus_days_tt
-				has_country_flag = {
-					flag = SOV_first_moscow_trial_flag
-					days > 175
-				}
-			}
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_SOV_POLITICAL_PARANOIA
 		}
 		select_effect = {
-			set_country_flag = SOV_paranoia_do_not_cancel_focus_flag			#This focus cannot be canceled
 		}
 		completion_reward = {
-			clr_country_flag = SOV_paranoia_do_not_cancel_focus_flag
-			set_country_flag = {
-				flag = SOV_paranoia_random_purge_cooldown_from_focus_flag
-				days = 15
-			}
-			#Used to prevent random purges from popping up while this is active
-			set_country_flag = SOV_second_moscow_trial_flag			#Used to unlock the next purge focus
 			add_political_power = 25
-			SOV_paranoia_high_increase_effect = yes
-			#HISTORICAL
-			#Radek
-			if = {
-				limit = {
-					has_character = SOV_karl_radek
-				}
-				SOV_karl_radek = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#NOT-SO-HISTORICAL
-			#Smilga
-			if = {
-				limit = {
-					has_character = SOV_ivar_smilga
-				}
-				SOV_ivar_smilga = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Preobrazhensky
-			if = {
-				limit = {
-					has_character = SOV_yevgeny_preobrazhensky
-				}
-				SOV_yevgeny_preobrazhensky = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Ryutin
-			if = {
-				limit = {
-					has_character = SOV_martemyan_ryutin
-				}
-				SOV_martemyan_ryutin = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Ustryalov
-			if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				if = {
-					limit = {
-						has_character = SOV_nikolay_ustryalov
-					}
-					SOV_nikolay_ustryalov = {
-						set_character_flag = SOV_targeted_for_purge_flag
-					}
-				}
-				else = {
-					SOV_add_random_character_to_purge_targets_effect = yes
-				}
-			}
-			custom_effect_tooltip = SOV_will_trigger_a_great_purge_tt
-			hidden_effect = {
-				set_country_flag = SOV_purge_event_unavoidable_flag				#No way to avoid this purge. This people are about to be purged and there's nothing you can do for them.
-				SOV_trigger_great_purge_moscow_trial_effect = yes				#SECOND MOSCOW TRIAL -> Left Opposition
-			}
-			custom_effect_tooltip = SOV_trigger_second_moscow_trial_tt
-			hidden_effect = {
-				swap_ruler_traits = {
-					remove = stalin_political_paranoia
-					add = stalin_political_paranoia_advanced
-				}
-				add_to_variable = {
-					SOV_paranoia_weekly_modifiers_amount = 1
-				}
-				SOV_paranoia_modifier_update_gui_tooltip = yes
-			}
-			custom_effect_tooltip = SOV_increase_weekly_paranoia_in_trait_tt
 		}
 	}
 	focus = {
@@ -9678,15 +9383,7 @@ focus_tree = {
 			FOCUS_FILTER_SOV_POLITICAL_PARANOIA
 		}
 		completion_reward = {
-			add_to_variable = {
-				SOV_the_politburo_political_power_factor = 0.05
-			}
-			add_to_variable = {
-				SOV_the_politburo_max_surrender_limit_offset = 0.05
-			}
-			custom_effect_tooltip = SOV_the_workers_dictatorship_ns_tt
 			add_political_power = 50
-			SOV_paranoia_low_decrease_effect = yes
 		}
 	}
 	focus = {
@@ -9706,15 +9403,7 @@ focus_tree = {
 			FOCUS_FILTER_SOV_POLITICAL_PARANOIA
 		}
 		completion_reward = {
-			add_to_variable = {
-				SOV_the_politburo_max_command_power = 20
-			}
-			add_to_variable = {
-				SOV_the_politburo_mobilization_speed = 0.05
-			}
-			custom_effect_tooltip = SOV_organization_centralization_discipline_ns_tt
 			add_political_power = 50
-			SOV_paranoia_medium_decrease_effect = yes
 		}
 	}
 	focus = {
@@ -9834,55 +9523,6 @@ focus_tree = {
 			set_country_flag = SOV_trial_of_the_generals_flag			#Used to unlock the next purge focus
 			add_political_power = 25
 			SOV_paranoia_high_increase_effect = yes
-			#Historical
-			if = {
-				limit = {
-					has_character = SOV_mikhail_tukhachevsky
-				}
-				SOV_mikhail_tukhachevsky = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#NOT-SO-HISTORICAL
-			#Yegorov
-			if = {
-				limit = {
-					has_character = SOV_aleksandr_yegorov
-				}
-				SOV_aleksandr_yegorov = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Blyukher
-			if = {
-				limit = {
-					has_character = SOV_vasily_blyukher
-				}
-				SOV_vasily_blyukher = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
-			#Primakov
-			if = {
-				limit = {
-					has_character = SOV_vitaly_primakov
-				}
-				SOV_vitaly_primakov = {
-					set_character_flag = SOV_targeted_for_purge_flag
-				}
-			}
-			else = {
-				SOV_add_random_character_to_purge_targets_effect = yes
-			}
 			custom_effect_tooltip = SOV_will_trigger_a_great_purge_tt
 			hidden_effect = {
 				set_country_flag = SOV_purge_event_unavoidable_flag				#No way to avoid this purge. This people are about to be purged and there's nothing you can do for them.
