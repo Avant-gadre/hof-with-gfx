@@ -14,19 +14,24 @@ for file_name in files:
     
     # 检查是否是文件且是.png文件
     if os.path.isfile(file_path) and file_name.lower().endswith('.png'):
+
         new_file_name = file_name
         
-        targetname = "GER"
+        targetname = "UKR"
 
         targetname1 = "focus_"+targetname
 
         targetname2 = "focus_"+"ITA"
 
+        targetname3 = "idea_ukr"
+
         if new_file_name.startswith(targetname):
-            new_file_name1 = targetname1 + new_file_name[len(targetname):].lower()
+
+            new_file_name1 = targetname3 + new_file_name[len(targetname):].lower()
+
             #new_file_name1 = new_file_name[:len(targetname1)]+new_file_name[len(targetname1):].lower()
 
-        os.rename(file_path, os.path.join(folder_path, new_file_name1))
-        print(f"文件 {file_name} 已重命名为 {new_file_name1}")
+            os.rename(file_path, os.path.join(folder_path, new_file_name1))
+            print(f"文件 {file_name} 已重命名为 {new_file_name1}")
 
         #print(new_file_name1)
