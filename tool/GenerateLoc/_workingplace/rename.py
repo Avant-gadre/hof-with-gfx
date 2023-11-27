@@ -1,5 +1,14 @@
 import os
 
+
+targetname = "POL"
+
+targetname1 = "focus_"+targetname
+
+targetname2 = "focus_"+"ITA"
+
+targetname3 = "idea_fra"
+
 current_file_path = os.path.abspath(__file__)
 
 # 获取包含该文件的文件夹路径
@@ -9,25 +18,17 @@ folder_path = os.path.dirname(current_file_path)
 files = os.listdir(folder_path)
 
 for file_name in files:
+    new_file_name = file_name
+    
     # 构建文件的完整路径
     file_path = os.path.join(folder_path, file_name)
     
     # 检查是否是文件且是.png文件
     if os.path.isfile(file_path) and file_name.lower().endswith('.png'):
 
-        new_file_name = file_name
-        
-        targetname = "fra"
-
-        targetname1 = "focus_"+targetname
-
-        targetname2 = "focus_"+"ITA"
-
-        targetname3 = "idea_fra"
-
         if new_file_name.startswith(targetname):
 
-            new_file_name1 = targetname3 + new_file_name[len(targetname):].lower()
+            new_file_name1 = targetname1 + new_file_name[len(targetname):].lower()
 
             #new_file_name1 = new_file_name[:len(targetname1)]+new_file_name[len(targetname1):].lower()
 

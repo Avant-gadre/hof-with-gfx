@@ -16,7 +16,7 @@ for file_name in files:
     if os.path.isfile(file_path) and file_name.lower().endswith('.png'):
         new_file_name = file_name
         
-        targetname = "OTT_"
+        targetname = "POL_"
         targetname1 = "focus_"+targetname
 
         if new_file_name.startswith(targetname):
