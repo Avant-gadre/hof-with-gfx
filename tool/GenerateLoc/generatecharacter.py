@@ -1,6 +1,11 @@
 import os
 ##读取文件
-folder_path = "./_workingplace"
+folder_path = ".//tool//GenerateLoc//_workingplace"
+
+output1 = os.join(folder_path,'generatecharacter.txt')
+output2 = os.join(folder_path,'generatecharacterloc.txt')
+output3 = os.join(folder_path,'generatecharacterhistory.txt')
+
 files = os.listdir(folder_path)
 # 要删除的特定前缀和后缀
 prefix_to_remove = "Portrait_"
@@ -21,7 +26,7 @@ for file_name in files:
     files_set.add(file_name)
 
 ##格式-海军
-characters_string = '''
+characters_string1 = '''
 	{} = {{
 		name = {}
 		portraits = {{
@@ -60,7 +65,7 @@ characters_string = '''
 '''
 
 ##格式-陆军
-characters_string1 = '''
+characters_string = '''
 	{} = {{
 		name = {}
 		portraits = {{
@@ -73,14 +78,14 @@ characters_string1 = '''
 				large = GFX_Portrait_{}
 			}}
 		}}
-		army_leader = {{
+		corps_commander = {{
 			traits = {{
-                organizer
+                china_shandong_clique_officer
 			}}
-			skill = 3
+			skill = 2
 			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 3
+			defense_skill = 2
+			planning_skill = 2
 			logistics_skill = 2
 		}}
 		advisor = {{
