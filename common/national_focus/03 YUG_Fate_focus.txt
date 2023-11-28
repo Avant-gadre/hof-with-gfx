@@ -22,9 +22,6 @@ focus_tree = {
 	focus = {
 		id = YUG_western_focus
 		icon = GFX_goal_generic_position_armies
-		mutually_exclusive = {
-			focus = YUG_recognize_the_soviet_union
-		}
 		x = 2
 		y = 0
 		cost = 10
@@ -38,15 +35,11 @@ focus_tree = {
 		allow_branch = {
 			original_tag = SER
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
 			add_political_power = 120
-			add_ideas = king_peter_1
 		}
 	}
 	focus = {
@@ -64,16 +57,6 @@ focus_tree = {
 		cost = 5
 		ai_will_do = {
 			factor = 80
-			modifier = {
-				factor = 0.01
-				ITA = {
-					OR = {
-						ITA_is_communist_ai = yes
-						ITA_is_socialist_ai = yes
-						ITA_is_christian_democracy_ai = yes
-					}
-				}
-			}
 		}
 		available = {
 			ITA = {
@@ -82,14 +65,10 @@ focus_tree = {
 				}
 				exists = yes
 				has_capitulated = no
-				ITA_is_kinda_fascist = yes
 			}
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -111,7 +90,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = YUG_friendship_treaty_with_italy
 		}
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = YUG_western_focus
 		cost = 10
@@ -136,9 +115,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -182,7 +158,7 @@ focus_tree = {
 			focus = YUG_friendship_treaty_with_italy
 			focus = YUG_reinforce_old_alliances
 		}
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = YUG_reinforce_old_alliances
 		cost = 10
@@ -193,9 +169,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
@@ -233,9 +206,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
@@ -285,8 +255,15 @@ focus_tree = {
 			focus = YUG_friendship_treaty_with_italy
 			focus = YUG_form_peasant_councils
 		}
-		x = 4
+		x = 5
 		y = 1
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				original_tag = YUG
+			}
+		}
 		relative_position_id = YUG_reinforce_old_alliances
 		cost = 10
 		ai_will_do = {
@@ -296,9 +273,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 		}
@@ -327,12 +301,10 @@ focus_tree = {
 			factor = 40
 		}
 		available = {
+			always = no
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_MANPOWER
@@ -483,9 +455,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_MANPOWER
@@ -659,9 +628,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		completion_reward = {
 			remove_ideas = YUG_idea_croatian_opposition
 			#tooltip
@@ -877,143 +843,12 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_MANPOWER
 			FOCUS_FILTER_STABILITY
 		}
 		completion_reward = {
-			#tooltip
-			effect_tooltip = {
-				release_puppet = BOS
-				BOS = {
-					custom_effect_tooltip = create_three_units_tt
-				}
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						BOS = {
-							exists = no
-						}
-					}
-					release_puppet = BOS
-					set_autonomy = {
-						target = BOS
-						autonomy_state = autonomy_integrated_puppet
-					}
-					BOS = {
-						save_event_target_as = released_nation_target
-					}
-				}
-				else = {
-					create_dynamic_country = {
-						original_tag = BOS
-						save_event_target_as = released_nation_target
-						PREV = {
-							every_owned_state = {
-								limit = {
-									is_core_of = BOS
-								}
-								PREV.PREV = {
-									transfer_state = PREV
-								}
-							}
-						}
-						PREV = {
-							puppet = PREV
-							set_autonomy = {
-								target = PREV
-								autonomy_state = autonomy_integrated_puppet
-							}
-						}
-						set_country_flag = yug_bosnia_flag
-					}
-				}
-				event_target:released_nation_target = {
-					division_template = {
-						name = "Bosnian Division"
-						priority = 1
-						division_names_group = YUG_INF_01
-						regiments = {
-							infantry = {
-								x = 0
-								y = 0
-							}
-							infantry = {
-								x = 0
-								y = 1
-							}
-							infantry = {
-								x = 0
-								y = 2
-							}
-							infantry = {
-								x = 1
-								y = 0
-							}
-							infantry = {
-								x = 1
-								y = 1
-							}
-							infantry = {
-								x = 1
-								y = 2
-							}
-							infantry = {
-								x = 2
-								y = 0
-							}
-							infantry = {
-								x = 2
-								y = 1
-							}
-						}
-						support = {
-							engineer = {
-								x = 0
-								y = 0
-							}
-						}
-					}
-					random_owned_controlled_state = {
-						limit = {
-							PREV = {
-								has_full_control_of_state = PREV
-							}
-						}
-						create_unit = {
-							division = "name = \"Bosnian Division\" division_template = \"Bosnian Division\" start_experience_factor = 0.9"
-							owner = PREV
-						}
-					}
-					random_owned_controlled_state = {
-						limit = {
-							PREV = {
-								has_full_control_of_state = PREV
-							}
-						}
-						create_unit = {
-							division = "name = \"Bosnian Division\" division_template = \"Bosnian Division\" start_experience_factor = 0.9"
-							owner = PREV
-						}
-					}
-					random_owned_controlled_state = {
-						limit = {
-							PREV = {
-								has_full_control_of_state = PREV
-							}
-						}
-						create_unit = {
-							division = "name = \"Bosnian Division\" division_template = \"Bosnian Division\" start_experience_factor = 0.9"
-							owner = PREV
-						}
-					}
-				}
-			}
 		}
 	}
 	focus = {
@@ -1039,190 +874,12 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_MANPOWER
 			FOCUS_FILTER_STABILITY
 		}
 		completion_reward = {
-			release_puppet = HRZ
-			set_autonomy = {
-				target = HRZ
-				autonomy_state = autonomy_integrated_puppet
-			}
-			HRZ = {
-				custom_effect_tooltip = create_one_units_tt
-			}
-			effect_tooltip = {
-				release_puppet = BOS
-				BOS = {
-					set_cosmetic_tag = BOS_without_HRZ
-					custom_effect_tooltip = create_one_units_tt
-				}
-			}
-			hidden_effect = {
-				HRZ = {
-					save_event_target_as = released_nation_target
-				}
-				event_target:released_nation_target = {
-					division_template = {
-						name = "Yugoslavian Division"
-						priority = 1
-						division_names_group = YUG_INF_01
-						regiments = {
-							infantry = {
-								x = 0
-								y = 0
-							}
-							infantry = {
-								x = 0
-								y = 1
-							}
-							infantry = {
-								x = 0
-								y = 2
-							}
-							infantry = {
-								x = 1
-								y = 0
-							}
-							infantry = {
-								x = 1
-								y = 1
-							}
-							infantry = {
-								x = 1
-								y = 2
-							}
-							infantry = {
-								x = 2
-								y = 0
-							}
-							infantry = {
-								x = 2
-								y = 1
-							}
-						}
-						support = {
-							engineer = {
-								x = 0
-								y = 0
-							}
-						}
-					}
-					random_owned_controlled_state = {
-						limit = {
-							PREV = {
-								has_full_control_of_state = PREV
-							}
-						}
-						create_unit = {
-							division = "name = \"Herzegovinan Division\" division_template = \"Yugoslavian Division\" start_experience_factor = 0.9"
-							owner = PREV
-						}
-					}
-				}
-				if = {
-					limit = {
-						BOS = {
-							exists = no
-						}
-					}
-					release_puppet = BOS
-					set_autonomy = {
-						target = BOS
-						autonomy_state = autonomy_integrated_puppet
-					}
-					BOS = {
-						save_event_target_as = released_nation_target
-					}
-				}
-				else = {
-					create_dynamic_country = {
-						original_tag = BOS
-						save_event_target_as = released_nation_target
-						PREV = {
-							every_owned_state = {
-								limit = {
-									is_core_of = BOS
-								}
-								PREV.PREV = {
-									transfer_state = PREV
-								}
-							}
-						}
-						PREV = {
-							puppet = PREV
-							set_autonomy = {
-								target = PREV
-								autonomy_state = autonomy_integrated_puppet
-							}
-						}
-					}
-				}
-				event_target:released_nation_target = {
-					set_cosmetic_tag = BOS_without_HRZ
-					division_template = {
-						name = "Yugoslavian Division"
-						priority = 1
-						division_names_group = YUG_INF_01
-						regiments = {
-							infantry = {
-								x = 0
-								y = 0
-							}
-							infantry = {
-								x = 0
-								y = 1
-							}
-							infantry = {
-								x = 0
-								y = 2
-							}
-							infantry = {
-								x = 1
-								y = 0
-							}
-							infantry = {
-								x = 1
-								y = 1
-							}
-							infantry = {
-								x = 1
-								y = 2
-							}
-							infantry = {
-								x = 2
-								y = 0
-							}
-							infantry = {
-								x = 2
-								y = 1
-							}
-						}
-						support = {
-							engineer = {
-								x = 0
-								y = 0
-							}
-						}
-					}
-					random_owned_controlled_state = {
-						limit = {
-							PREV = {
-								has_full_control_of_state = PREV
-							}
-						}
-						create_unit = {
-							division = "name = \"Bosnian Division\" division_template = \"Yugoslavian Division\" start_experience_factor = 0.9"
-							owner = PREV
-						}
-					}
-				}
-			}
 		}
 	}
 	focus = {
@@ -1252,9 +909,6 @@ focus_tree = {
 				controls_state = 106
 			}
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_MANPOWER
@@ -1523,9 +1177,6 @@ focus_tree = {
 				controls_state = 45
 			}
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -1627,293 +1278,11 @@ focus_tree = {
 				controls_state = 45
 			}
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_MANPOWER
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					controls_state = 764
-				}
-				custom_effect_tooltip = release_transylvania_tt
-				custom_effect_tooltip = transylvania_create_one_units_tt
-			}
-			if = {
-				limit = {
-					controls_state = 45
-				}
-				custom_effect_tooltip = release_vojvodina_tt
-				custom_effect_tooltip = vojvodina_create_one_units_tt
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						controls_state = 764
-					}
-					hidden_effect = {
-						764 = {
-							add_core_of = TRA
-						}
-						if = {
-							limit = {
-								TRA = {
-									exists = no
-								}
-							}
-							release_puppet = TRA
-							set_autonomy = {
-								target = TRA
-								autonomy_state = autonomy_integrated_puppet
-							}
-							TRA = {
-								save_event_target_as = released_nation_target
-							}
-						}
-						else = {
-							create_dynamic_country = {
-								original_tag = TRA
-								save_event_target_as = released_nation_target
-								PREV = {
-									every_owned_state = {
-										limit = {
-											is_core_of = TRA
-										}
-										PREV.PREV = {
-											transfer_state = PREV
-										}
-									}
-								}
-								PREV = {
-									puppet = PREV
-									set_autonomy = {
-										target = PREV
-										autonomy_state = autonomy_integrated_puppet
-									}
-								}
-								set_country_flag = yug_transylvania_flag
-							}
-						}
-						event_target:released_nation_target = {
-							82 = {
-								add_core_of = PREV
-							}
-							83 = {
-								add_core_of = PREV
-							}
-							84 = {
-								add_core_of = PREV
-							}
-							76 = {
-								add_core_of = PREV
-							}
-							division_template = {
-								name = "Yugoslavian Division"
-								priority = 1
-								division_names_group = ROM_INF_01
-								regiments = {
-									infantry = {
-										x = 0
-										y = 0
-									}
-									infantry = {
-										x = 0
-										y = 1
-									}
-									infantry = {
-										x = 0
-										y = 2
-									}
-									infantry = {
-										x = 1
-										y = 0
-									}
-									infantry = {
-										x = 1
-										y = 1
-									}
-									infantry = {
-										x = 1
-										y = 2
-									}
-									infantry = {
-										x = 2
-										y = 0
-									}
-									infantry = {
-										x = 2
-										y = 1
-									}
-								}
-								support = {
-									engineer = {
-										x = 0
-										y = 0
-									}
-								}
-							}
-							random_owned_controlled_state = {
-								limit = {
-									PREV = {
-										has_full_control_of_state = PREV
-									}
-								}
-								create_unit = {
-									division = "name = \"Transylvanian Division\" division_template = \"Yugoslavian Division\" start_experience_factor = 0.9"
-									owner = PREV
-								}
-							}
-							set_party_name = {
-								ideology = neutrality
-								long_name = neutrality
-								name = neutrality
-							}
-							set_party_name = {
-								ideology = fascism
-								long_name = transylvania_fascism_party_long
-								name = transylvania_fascism_party
-							}
-							set_party_name = {
-								ideology = democratic
-								long_name = democratic
-								name = democratic
-							}
-							set_party_name = {
-								ideology = communism
-								long_name = communism
-								name = communism
-							}
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 45
-					}
-					create_dynamic_country = {
-						original_tag = HUN
-						45 = {
-							add_core_of = PREV
-						}
-						every_state = {
-							limit = {
-								is_core_of = HUN
-								NOT = {
-									is_controlled_by = YUG
-								}
-							}
-							remove_core_of = PREV
-						}
-						transfer_state = 45
-						set_cosmetic_tag = vojvodina
-						PREV = {
-							puppet = PREV
-							set_autonomy = {
-								target = PREV
-								autonomy_state = autonomy_integrated_puppet
-							}
-						}
-						division_template = {
-							name = "Yugoslavian Division"
-							priority = 1
-							division_names_group = HUN_INF_01
-							regiments = {
-								infantry = {
-									x = 0
-									y = 0
-								}
-								infantry = {
-									x = 0
-									y = 1
-								}
-								infantry = {
-									x = 0
-									y = 2
-								}
-								infantry = {
-									x = 1
-									y = 0
-								}
-								infantry = {
-									x = 1
-									y = 1
-								}
-								infantry = {
-									x = 1
-									y = 2
-								}
-								infantry = {
-									x = 2
-									y = 0
-								}
-								infantry = {
-									x = 2
-									y = 1
-								}
-							}
-							support = {
-								engineer = {
-									x = 0
-									y = 0
-								}
-							}
-						}
-						random_owned_controlled_state = {
-							limit = {
-								PREV = {
-									has_full_control_of_state = PREV
-								}
-							}
-							create_unit = {
-								division = "name = \"Vojvodinian Division\" division_template = \"Yugoslavian Division\" start_experience_factor = 0.9"
-								owner = PREV
-							}
-						}
-						set_party_name = {
-							ideology = neutrality
-							long_name = neutrality
-							name = neutrality
-						}
-						set_party_name = {
-							ideology = fascism
-							long_name = fascism
-							name = fascism
-						}
-						set_party_name = {
-							ideology = democratic
-							long_name = democratic
-							name = democratic
-						}
-						set_party_name = {
-							ideology = communism
-							long_name = communism
-							name = communism
-						}
-					}
-				}
-				set_cosmetic_tag = SER
-				every_state = {
-					limit = {
-						is_core_of = YUG
-						NOT = {
-							is_core_of = SER
-						}
-					}
-					remove_core_of = YUG
-				}
-				45 = {
-					remove_core_of = YUG
-				}
-				every_state = {
-					limit = {
-						is_core_of = SER
-					}
-					remove_core_of = SER
-				}
-			}
 		}
 	}
 	focus = {
@@ -1951,9 +1320,6 @@ focus_tree = {
 				controls_state = 45
 			}
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
@@ -2034,9 +1400,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2077,9 +1440,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2112,9 +1472,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_STABILITY
@@ -2148,9 +1505,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_INDUSTRY
@@ -2192,9 +1546,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_INDUSTRY
@@ -2301,9 +1652,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2355,9 +1703,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2404,9 +1749,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2471,9 +1813,6 @@ focus_tree = {
 		bypass = {
 			is_in_faction_with = GER
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2489,12 +1828,6 @@ focus_tree = {
 						}
 					}
 					GER = {
-						country_event = DOD_yugoslavia.70
-					}
-				}
-				else = {
-					get_best_alliance_match_fascism_effect = yes
-					var:best_leader = {
 						country_event = DOD_yugoslavia.70
 					}
 				}
@@ -2520,27 +1853,12 @@ focus_tree = {
 						}
 					}
 				}
-				else = {
-					get_best_alliance_match_fascism_effect = yes
-					var:best_leader = {
-						add_opinion_modifier = {
-							target = YUG
-							modifier = tripartite_pact_opinion
-						}
-						reverse_add_opinion_modifier = {
-							target = YUG
-							modifier = tripartite_pact_opinion
-						}
-					}
-				}
 			}
 			YUG_prince_paul = {
 				add_country_leader_role = {
 					country_leader = {
 						expire = "1965.1.1"
 						ideology = fascism_ideology
-						traits = {
-						}
 					}
 					promote_leader = yes
 				}
@@ -2572,7 +1890,6 @@ focus_tree = {
 					limit = {
 						has_dlc = "By Blood Alone"
 					}
-					ITA_is_kinda_fascist = yes
 				}
 				else = {
 					has_government = fascism
@@ -2592,9 +1909,6 @@ focus_tree = {
 				controls_state = 163
 			}
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2652,9 +1966,6 @@ focus_tree = {
 		bypass = {
 			is_in_faction_with = GER
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -2678,12 +1989,6 @@ focus_tree = {
 					}
 				}
 				GER = {
-					country_event = generic.2
-				}
-			}
-			else = {
-				get_best_alliance_match_fascism_effect = yes
-				var:best_leader = {
 					country_event = generic.2
 				}
 			}
@@ -2730,9 +2035,6 @@ focus_tree = {
 				}
 			}
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_ANNEXATION
 		}
@@ -2774,7 +2076,7 @@ focus_tree = {
 		prerequisite = {
 			focus = YUG_claim_macedonia
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = YUG_claim_macedonia
 		cost = 10
@@ -2785,9 +2087,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_ANNEXATION
 		}
@@ -2833,9 +2132,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		completion_reward = {
 			add_to_tech_sharing_group = YUG_naval_research_group
 			ITA = {
@@ -2861,9 +2157,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 		}
@@ -2897,41 +2190,11 @@ focus_tree = {
 			date > 1938.09.06
 		}
 		bypass = {
-			has_country_leader = {
-				character = YUG_peter_ii
-				ruling_only = yes
-			}
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			retire_country_leader = yes
-			YUG_peter_ii = {
-				promote_character = {
-					ideology = despotism
-				}
-				promote_character = {
-					ideology = conservatism
-				}
-			}
-			if = {
-				limit = {
-					date > 1941.09.06
-				}
-				YUG_peter_ii = {
-					swap_country_leader_traits = {
-						remove = underage_monarch
-						add = legitimate_heir
-					}
-				}
-				hidden_effect = {
-					set_country_flag = peter_is_of_age
-				}
-			}
 		}
 	}
 	focus = {
@@ -2949,103 +2212,13 @@ focus_tree = {
 			factor = 40
 		}
 		available = {
-			OR = {
-				AND = {
-					has_country_leader = {
-						character = YUG_peter_ii
-						ruling_only = yes
-					}
-					NOT = {
-						has_country_leader_with_trait = underage_monarch
-					}
-				}
-				AND = {
-					NOT = {
-						has_idea = king_peter_1
-					}
-					has_country_leader = {
-						character = YUG_prince_paul
-						ruling_only = yes
-					}
-				}
-			}
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					OR = {
-						has_idea = king_peter_1
-						NOT = {
-							has_completed_focus = YUG_western_focus
-						}
-					}
-				}
-				set_party_name = {
-					ideology = neutrality
-					name = YUG_kardocevik
-					long_name = YUG_kardocevik
-				}
-			}
-			hidden_effect = {
-				country_event = {
-					id = DOD_yugoslavia.60
-				}
-			}
-			effect_tooltip = {
-				#This is what the actual event does. It's better to give the player a tooltip that tells them what the event does than to just tell them "X event happens"
-				if = {
-					limit = {
-						has_country_leader = {
-							character = YUG_prince_paul
-							ruling_only = yes
-						}
-						NOT = {
-							has_idea = king_peter_1
-						}
-						has_completed_focus = YUG_western_focus
-					}
-					add_country_leader_role = {
-						character = YUG_prince_paul
-						country_leader = {
-							ideology = fascism_ideology
-							traits = {
-								collaborator_king
-							}
-						}
-						promote_leader = yes
-					}
-					set_party_name = {
-						ideology = fascism
-						name = YUG_kardocevik
-						long_name = YUG_kardocevik
-					}
-					set_party_name = {
-						ideology = neutrality
-						name = YUG_peters_loyalists
-						long_name = YUG_peters_loyalists
-					}
-					custom_effect_tooltip = all_subjects_become_fascist_tt
-					if = {
-						limit = {
-							has_government = neutrality
-						}
-						custom_effect_tooltip = neutral_to_fascist_tt
-						set_politics = {
-							ruling_party = fascism
-						}
-					}
-				}
-				add_stability = 0.1
-				add_war_support = 0.2
-			}
 		}
 	}
 	focus = {
@@ -3062,19 +2235,9 @@ focus_tree = {
 			factor = 40
 		}
 		available = {
-			has_country_leader = {
-				character = YUG_peter_ii
-				ruling_only = yes
-			}
-			NOT = {
-				has_country_leader_with_trait = underage_monarch
-			}
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -3140,9 +2303,6 @@ focus_tree = {
 		bypass = {
 			is_in_faction = yes
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -3196,12 +2356,6 @@ focus_tree = {
 							country_event = generic.2
 						}
 					}
-					else = {
-						get_best_alliance_match_democratic_effect = yes
-						var:best_leader = {
-							country_event = generic.2
-						}
-					}
 					if = {
 						limit = {
 							has_idea = YUG_idea_croatian_opposition
@@ -3230,9 +2384,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		completion_reward = {
 			add_to_tech_sharing_group = YUG_air_research_group
 			ENG = {
@@ -3263,9 +2414,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -3291,9 +2439,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 		}
@@ -3576,9 +2721,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -3621,9 +2763,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 		}
@@ -3778,9 +2917,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 		}
@@ -3891,9 +3027,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -3938,9 +3071,6 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 			FOCUS_FILTER_STABILITY
@@ -3968,49 +3098,12 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			drop_cosmetic_tag = yes
-			every_other_country = {
-				limit = {
-					OR = {
-						original_tag = SER
-						original_tag = SLV
-						original_tag = CRO
-						original_tag = MNT
-						original_tag = KOS
-						original_tag = BOS
-						original_tag = HRZ
-						original_tag = MAC
-						original_tag = TRA
-						original_tag = HUN
-						original_tag = BUL
-					}
-					is_subject_of = ROOT
-				}
-				every_owned_state = {
-					limit = {
-						is_core_of = PREV
-					}
-					add_core_of = PREV.PREV
-				}
-				PREV = {
-					annex_country = {
-						target = PREV
-						transfer_troops = yes
-					}
-				}
-			}
 		}
 	}
-	############################
-	#### RECOGNIZE SOVIET ######
-	############################
 	focus = {
 		id = YUG_recognize_the_soviet_union
 		icon = GFX_focus_generic_soviet_politics
