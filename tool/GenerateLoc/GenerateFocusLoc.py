@@ -7,7 +7,7 @@ inputpath = '.\\common\\national_focus\\'
 outputpath = '.\\tool\\GenerateLoc\\focus_localisation\\'
 # inputfilename = input()
 
-inputfilename = '01 MAN_Fate_focus.txt'
+inputfilename = '03 SPA_Fate_focus.txt'
 
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'

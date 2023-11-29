@@ -82,9 +82,9 @@ characters_string = '''
 		}}
 		corps_commander = {{
 			traits = {{
-                china_shanxi_clique_officer
+                organizer
 			}}
-			skill = 3
+			skill = 2
 			attack_skill = 2
 			defense_skill = 2
 			planning_skill = 2

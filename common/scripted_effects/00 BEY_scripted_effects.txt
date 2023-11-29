@@ -297,6 +297,7 @@ BEY_up_political_status_effect = {
 	}
 }
 
+##Custom Randomize Civilian Factory##
 BEY_build_one_random_civilian_factory_effect = {
 	random_list = {
 		30 = {
@@ -396,68 +397,107 @@ BEY_build_one_random_civilian_factory_shandong_effect = {
 	}
 }
 
-##
+##Custom Randomize Military Factory##
 BEY_build_one_random_military_factory_effect = {
-	if = {
-		limit = {
-			has_country_flag = BEY_priorize_fengtian_flag
-		}
-		random_owned_controlled_state = {
-			if = {
-				limit = {
-					BEY_is_fengtian_states_trigger = yes
-				}
-				add_one_military_factory = yes
+	random_list = {
+		30 = {
+			modifier = {
+				add = 20
+				has_country_flag = BEY_priorize_zhili_flag
 			}
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_flag = BEY_priorize_zhili_flag
-		}
-		random_owned_controlled_state = {
-			if = {
-				limit = {
-					BEY_is_zhili_states_trigger = yes
-				}
-				add_one_military_factory = yes
+			modifier = {
+				add = var:BEY_zhili_clique_influence
 			}
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_flag = BEY_priorize_shandong_flag
-		}
-		random_owned_controlled_state = {
-			if = {
-				limit = {
-					BEY_is_shandong_states_trigger = yes
-				}
-				add_one_military_factory = yes
+			modifier = {
+				add = var:BEY_american_foreign_influence
 			}
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_flag = BEY_priorize_shanxi_flag
-		}
-		random_owned_controlled_state = {
-			if = {
-				limit = {
-					BEY_is_shanxi_states_trigger = yes
-				}
-				add_one_military_factory = yes
+			modifier = {
+				add = var:BEY_british_foreign_influence
 			}
+			BEY_build_one_random_military_factory_zhili_effect = yes
+		}
+		30 = {
+			modifier = {
+				add = 20
+				has_country_flag = BEY_priorize_fengtian_flag
+			}
+			modifier = {
+				add = var:BEY_fengtian_clique_influence
+			}
+			modifier = {
+				add = var:BEY_japan_foreign_influence
+			}
+			modifier = {
+				add = var:BEY_american_foreign_influence
+			}
+			BEY_build_one_random_military_factory_fengtian_effect = yes
+		}
+		15 = {
+			modifier = {
+				add = 20
+				has_country_flag = BEY_priorize_shanxi_flag
+			}
+			modifier = {
+				add = var:BEY_shanxi_clique_influence
+			}
+			modifier = {
+				add = var:BEY_japan_foreign_influence
+			}
+			BEY_build_one_random_military_factory_shanxi_effect = yes
+		}
+		15 = {
+			modifier = {
+				add = 20
+				has_country_flag = BEY_priorize_shandong_flag
+			}
+			modifier = {
+				add = var:BEY_shandong_clique_influence
+			}
+			modifier = {
+				add = var:BEY_british_foreign_influence
+			}
+			BEY_build_one_random_military_factory_shandong_effect = yes
 		}
 	}
-	else = {
-	}
-	clr_country_flag = BEY_priorize_fengtian_flag
-	clr_country_flag = BEY_priorize_zhili_flag
-	clr_country_flag = BEY_priorize_shandong_flag
-	clr_country_flag = BEY_priorize_shanxi_flag
 }
 
+BEY_build_one_random_military_factory_zhili_effect = {
+	random_owned_controlled_state = {
+		limit = {
+			BEY_is_zhili_states_trigger = yes
+		}
+		add_one_military_factory = yes
+	}
+}
+
+BEY_build_one_random_military_factory_fengtian_effect = {
+	random_owned_controlled_state = {
+		limit = {
+			BEY_is_fengtian_states_trigger = yes
+		}
+		add_one_military_factory = yes
+	}
+}
+
+BEY_build_one_random_military_factory_shanxi_effect = {
+	random_owned_controlled_state = {
+		limit = {
+			BEY_is_shanxi_states_trigger = yes
+		}
+		add_one_military_factory = yes
+	}
+}
+
+BEY_build_one_random_military_factory_shandong_effect = {
+	random_owned_controlled_state = {
+		limit = {
+			BEY_is_shandong_states_trigger = yes
+		}
+		add_one_military_factory = yes
+	}
+}
+
+##Japan Investment
 BEY_japan_investing_civilian_factory_effect = {
 	country_event = {
 		id = fate_beiyang_japan.1
