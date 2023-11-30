@@ -1541,7 +1541,7 @@ jap_manage_the_sphere = {
 		days_remove = 30
 		cost = 10
 		remove_effect = {
-			JAP_establish_MAN = yes
+			JAP_establish_manchukuo_effect = yes
 			set_country_flag = JAP_MAN_established
 			JAP_man_railway_reestablished = yes
 		}
@@ -2632,6 +2632,374 @@ economy_decisions = {
 		days_remove = 200
 		remove_effect = {
 			JAP_enact_land_reform = yes
+		}
+	}
+}
+
+@JAP_fading_sun_timeout = 180
+JAP_fading_sun = {
+	JAP_fading_sun_timer = {
+		icon = revolt
+		allowed = {
+			always = no
+		}
+		#activated by japfor.229
+		available = {
+			KOR = {
+				all_core_state = {
+					owner = {
+						has_full_control_of_state = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_subject = MAN
+				}
+				MAN = {
+					has_capitulated = yes
+				}
+			}
+		}
+		##You Dead
+		cancel_trigger = {
+			OR = {
+				has_war = no
+				is_subject = yes
+				has_capitulated = yes
+				hidden_trigger = {
+					is_ai = yes
+					surrender_progress > 0.15
+				}
+			}
+		}
+		is_good = no
+		days_mission_timeout = @JAP_fading_sun_timeout
+		cancel_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_active_mission = JAP_fading_sun_timer_enemy
+					}
+					remove_mission = JAP_fading_sun_timer_enemy
+				}
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_active_mission = JAP_fading_sun_timer_enemy
+					}
+					remove_mission = JAP_fading_sun_timer_enemy
+				}
+			}
+		}
+		timeout_effect = {
+			add_stability = -0.1
+			add_war_support = -0.1
+			hidden_effect = {
+				activate_mission = JAP_fading_sun_timer
+				every_enemy_country = {
+					limit = {
+						is_ai = no
+						OR = {
+							is_tag_in_china_area = yes
+							is_russian_tag = yes
+						}
+					}
+					activate_mission = JAP_fading_sun_timer_enemy
+				}
+			}
+			set_global_flag = JAP_will_surrender
+		}
+	}
+	JAP_fading_sun_timer_enemy = {
+		icon = revolt
+		allowed = {
+			always = no
+		}
+		#activated by japfor.229
+		available = {
+			KOR = {
+				all_core_state = {
+					owner = {
+						has_full_control_of_state = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					country_exists = MAN
+					JAP = {
+						is_ally_with = MAN
+					}
+				}
+				MAN = {
+					has_capitulated = yes
+				}
+			}
+			##SOV/RUS
+			if = {
+				limit = {
+					is_russian_tag = yes
+					country_exists = RUS
+					JAP = {
+						is_ally_with = RUS
+					}
+				}
+				if = {
+					limit = {
+						has_war_with = RUS
+					}
+					RUS = {
+						has_capitulated = yes
+					}
+				}
+			}
+			else = {
+				JAP = {
+					custom_trigger_tooltip = {
+						tooltip = JAP_all_chinese_allies_capitulated
+						NOT = {
+							any_allied_country = {
+								is_tag_in_china_area = yes
+								has_capitulated = no
+							}
+						}
+					}
+				}
+				JAP = {
+					custom_trigger_tooltip = {
+						tooltip = JAP_all_owned_chinese_states_occupied
+						NOT = {
+							any_owned_state = {
+								OR = {
+									is_core_of = CHI
+									is_core_of = BEY
+								}
+								NOT = {
+									state = 524
+								}
+								#Taiwan
+								is_controlled_by = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = {
+					has_war_with = JAP
+				}
+				JAP = {
+					has_capitulated = yes
+				}
+				JAP = {
+					is_subject = yes
+				}
+				JAP = {
+					surrender_progress > 0.15
+				}
+			}
+		}
+		is_good = yes
+		days_mission_timeout = @JAP_fading_sun_timeout
+		timeout_effect = {
+			effect_tooltip = {
+				custom_effect_tooltip = JAP_will_surrender_if_forced_out_of_china
+				JAP = {
+					add_stability = -0.1
+					add_war_support = -0.1
+				}
+				country_event = japfor.230
+			}
+		}
+	}
+	JAP_offer_peace_to_china = {
+		icon = peace_dove
+		available = {
+			OR = {
+				surrender_progress > 0.3
+				AND = {
+					NOT = {
+						KOR = {
+							any_core_state = {
+								controller = {
+									is_ally_with = PREV.PREV
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							country_exists = MAN
+							is_ally_with = MAN
+						}
+						MAN = {
+							has_capitulated = yes
+						}
+					}
+					custom_trigger_tooltip = {
+						tooltip = JAP_all_chinese_allies_capitulated
+						NOT = {
+							any_allied_country = {
+								is_tag_in_china_area = yes
+								has_capitulated = no
+							}
+						}
+					}
+					custom_trigger_tooltip = {
+						tooltip = JAP_all_owned_chinese_states_occupied
+						NOT = {
+							any_owned_state = {
+								OR = {
+									is_core_of = CHI
+									is_core_of = BEY
+								}
+								NOT = {
+									state = 524
+								}
+								#Taiwan
+								is_controlled_by = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			any_enemy_country = {
+				is_chinese_tag = yes
+				OR = {
+					tag = BEY
+					tag = CHI
+					is_faction_leader = yes					#United Front
+				}
+			}
+			has_capitulated = no
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1000
+				OR = {
+					has_global_flag = JAP_will_surrender
+					surrender_progress > 0.15					#Japan was directly invaded
+				}
+			}
+		}
+		complete_effect = {
+			save_event_target_as = japan
+			effect_tooltip = {
+				every_enemy_country = {
+					limit = {
+						is_chinese_tag = yes
+					}
+					country_event = japfor.230
+				}
+			}
+			hidden_effect = {
+				random_enemy_country = {
+					limit = {
+						is_chinese_tag = yes
+						is_valid_peace_target = yes
+					}
+					country_event = japfor.230
+				}
+			}
+		}
+	}
+	JAP_offer_peace_to_russia = {
+		icon = peace_dove
+		available = {
+			OR = {
+				surrender_progress > 0.3
+				AND = {
+					FROM = {
+						surrender_progress < 0.2
+					}
+					NOT = {
+						KOR = {
+							any_core_state = {
+								controller = {
+									is_ally_with = PREV.PREV
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							country_exists = MAN
+							is_ally_with = MAN
+						}
+						MAN = {
+							has_capitulated = yes
+						}
+					}
+					OR = {
+						NOT = {
+							country_exists = RUS
+						}
+						RUS = {
+							has_capitulated = yes
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			has_war_with = FROM
+			is_valid_peace_target = yes
+			has_capitulated = no
+			FROM = {
+				is_valid_peace_target = yes
+			}
+		}
+		targets = {
+			RUS
+			SOV
+		}
+		target_root_trigger = {
+			KOR = {
+				any_core_state = {
+					is_owned_by = ROOT
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+			}
+		}
+		target_trigger = {
+			has_war_with = FROM
+			FROM = {
+				is_valid_peace_target = yes
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1000
+				OR = {
+					has_global_flag = JAP_will_surrender
+					surrender_progress > 0.15					#Japan was directly invaded
+					strength_ratio = {
+						tag = FROM
+						ratio < 0.3
+					}
+				}
+			}
+		}
+		complete_effect = {
+			FROM = {
+				country_event = japfor.238
+			}
 		}
 	}
 }
