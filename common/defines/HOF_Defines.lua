@@ -84,16 +84,16 @@ NDefines.NAI.COMMUNISTS_ALLY_COMMUNISTS = 0								    -- Vanilla is 0
 NDefines.NAI.COMMUNISTS_ANTAGONIZE_COMMUNISTS = -25							-- Vanilla is -10
 
 -- Railway
-NDefines.NMilitary.STRATEGIC_SPEED_INFRA_BASE = 2.0,                        -- Vanilla is 5
-NDefines.NMilitary.STRATEGIC_SPEED_INFRA_MAX = 5.0,                         -- Vanilla is 10
-NDefines.NMilitary.STRATEGIC_SPEED_RAIL_BASE = 8.0,                         -- Vanilla is 15
-NDefines.NMilitary.STRATEGIC_SPEED_RAIL_MAX = 10.0,                         -- Vanilla is 25
-NDefines.NMilitary.STRATEGIC_REDEPLOY_ORG_RATIO = 0.01,				        -- Vanilla is 0.1
+NDefines.NMilitary.STRATEGIC_SPEED_INFRA_BASE = 2.0                         -- Vanilla is 5
+NDefines.NMilitary.STRATEGIC_SPEED_INFRA_MAX = 5.0                          -- Vanilla is 10
+NDefines.NMilitary.STRATEGIC_SPEED_RAIL_BASE = 8.0                          -- Vanilla is 15
+NDefines.NMilitary.STRATEGIC_SPEED_RAIL_MAX = 10.0                          -- Vanilla is 25
+NDefines.NMilitary.STRATEGIC_REDEPLOY_ORG_RATIO = 0.01 				        -- Vanilla is 0.1
 
 -- Other
-NDefines.NMilitary.BATALION_NOT_CHANGED_EXPERIENCE_DROP = 0.0,		        -- Vanilla is 0
-NDefines.NMilitary.BATALION_CHANGED_EXPERIENCE_DROP = 0.2,			        -- Vanilla is 0.5
+NDefines.NMilitary.BATALION_NOT_CHANGED_EXPERIENCE_DROP = 0.0		        -- Vanilla is 0
+NDefines.NMilitary.BATALION_CHANGED_EXPERIENCE_DROP = 0.2			        -- Vanilla is 0.5
 
-NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 800,			                    -- Vanilla is 500
-NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 800,			                    -- Vanilla is 500
-NDefines.NMilitary.MAX_AIR_EXPERIENCE = 800,				                -- Vanilla is 500
+NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 800			                    -- Vanilla is 500
+NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 800			                    -- Vanilla is 500
+NDefines.NMilitary.MAX_AIR_EXPERIENCE = 800 				                -- Vanilla is 500
