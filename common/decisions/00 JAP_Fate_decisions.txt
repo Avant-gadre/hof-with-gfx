@@ -238,7 +238,31 @@ jap_manage_the_sphere = {
 			civilian_factory_use = 10
 		}
 		remove_effect = {
-			JAP_industrialize_korea_effect = yes
+			every_controlled_state = {
+				limit = {
+					is_core_of = KOR
+				}
+				urbanizing_region = yes
+				add_one_infrastructure = yes
+				add_compliance = 10
+			}
+			527 = {
+				upgrade_industrial_region = yes
+				add_one_civilian_factory = yes
+				add_one_civilian_factory = yes
+				add_one_military_factory = yes
+				add_one_dockyard = yes
+			}
+			525 = {
+				upgrade_industrial_region = yes
+				add_one_military_factory = yes
+				add_one_dockyard = yes
+			}
+			1099 = {
+				upgrade_industrial_region = yes
+				add_one_military_factory = yes
+				add_one_dockyard = yes
+			}
 		}
 		ai_will_do = {
 			base = 40
@@ -1396,12 +1420,10 @@ jap_manage_the_sphere = {
 	jap_integrate_taiwan = {
 		icon = jap_pacific_guardian
 		available = {
-			524 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
+			524.CONTROLLER = {
+				OR = {
+					tag = ROOT
+					is_subject_of = ROOT
 				}
 			}
 			has_completed_focus = JAP_Colonize_Taiwan
@@ -1440,6 +1462,9 @@ jap_manage_the_sphere = {
 		icon = jap_pacific_guardian
 		available = {
 			MAN = {
+				exists = yes
+				has_capitulated = no
+				is_puppet_of = JAP
 				all_core_state = {
 					is_controlled_by_ROOT_or_ally = yes
 				}
@@ -1509,7 +1534,15 @@ jap_manage_the_sphere = {
 			base = 1000000
 		}
 		available = {
-			JAP_can_establish_MAN = yes
+			all_state = {
+				OR = {
+					AND = {
+						is_manchuria_states = yes
+						is_controlled_by_ROOT_or_ally = yes
+					}
+					is_manchuria_states = no
+				}
+			}
 		}
 		fire_only_once = yes
 		days_remove = 30
@@ -1549,7 +1582,21 @@ jap_manage_the_sphere = {
 		}
 		available = {
 			has_completed_focus = JAP_strike_south_doctrine
-			JAP_can_establish_INA = yes
+			VIN = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
+				}
+			}
+			LAO = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
+				}
+			}
+			CAM = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
+				}
+			}
 		}
 		fire_only_once = yes
 		days_remove = 30
@@ -1575,7 +1622,15 @@ jap_manage_the_sphere = {
 			is_subject = no
 		}
 		available = {
-			JAP_can_establish_SDC = yes
+			all_state = {
+				OR = {
+					AND = {
+						is_shangqing_states = yes
+						is_controlled_by_ROOT_or_ally = yes
+					}
+					is_shangqing_states = no
+				}
+			}
 		}
 		fire_only_once = yes
 		days_remove = 30
@@ -2597,7 +2652,7 @@ economy_decisions = {
 				has_political_power > 600
 			}
 		}
-		cost = 500
+		cost = 300
 		complete_effect = {
 			set_country_flag = {
 				flag = JAP_complete_land_reform_flag
@@ -2605,7 +2660,27 @@ economy_decisions = {
 		}
 		days_remove = 200
 		remove_effect = {
-			JAP_enact_land_reform = yes
+			every_owned_state = {
+				limit = {
+					is_Japan_home_area = yes
+				}
+				if = {
+					limit = {
+						OR = {
+							has_dynamic_modifier = {
+								modifier = half_industrial_state
+							}
+							has_dynamic_modifier = {
+								modifier = agrarian_state
+							}
+						}
+					}
+					upgrade_industrial_region = yes
+				}
+				else = {
+					urbanizing_region = yes
+				}
+			}
 		}
 	}
 }
