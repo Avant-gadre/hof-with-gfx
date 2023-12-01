@@ -1420,11 +1420,8 @@ jap_manage_the_sphere = {
 	jap_integrate_taiwan = {
 		icon = jap_pacific_guardian
 		available = {
-			524.CONTROLLER = {
-				OR = {
-					tag = ROOT
-					is_subject_of = ROOT
-				}
+			524 = {
+				is_controlled_by_ROOT_or_subject = yes
 			}
 			has_completed_focus = JAP_Colonize_Taiwan
 			NOT = {
@@ -1561,7 +1558,15 @@ jap_manage_the_sphere = {
 			is_subject = no
 		}
 		available = {
-			JAP_can_establish_INI = yes
+			all_state = {
+				OR = {
+					AND = {
+						is_great_indonesia_states = yes
+						is_controlled_by_ROOT_or_ally = yes
+					}
+					is_great_indonesia_states = no
+				}
+			}
 		}
 		fire_only_once = yes
 		days_remove = 30
@@ -1570,8 +1575,7 @@ jap_manage_the_sphere = {
 		}
 		cost = 10
 		remove_effect = {
-			set_country_flag = JAP_INI_established
-			JAP_establish_INI = yes
+			JAP_establish_independent_indonesia_effect = yes
 		}
 	}
 	##Indochina
@@ -1605,7 +1609,7 @@ jap_manage_the_sphere = {
 		}
 		cost = 10
 		remove_effect = {
-			JAP_establish_INI = yes
+			JAP_establish_indochina_alliance_effect = yes
 		}
 	}
 	##Shadong
@@ -1639,7 +1643,7 @@ jap_manage_the_sphere = {
 		}
 		cost = 10
 		remove_effect = {
-			JAP_establish_SDC = yes
+			JAP_establish_shangqing_effect = yes
 		}
 	}
 }
@@ -2641,7 +2645,15 @@ economy_decisions = {
 			always = yes
 		}
 		available = {
-			JAP_can_enact_land_reform = yes
+			all_owned_state = {
+				OR = {
+					AND = {
+						is_japan_home_states = yes
+						infrastructure > 4
+					}
+					is_japan_home_states = no
+				}
+			}
 		}
 		icon = generic_construction
 		fire_only_once = yes
@@ -2662,24 +2674,9 @@ economy_decisions = {
 		remove_effect = {
 			every_owned_state = {
 				limit = {
-					is_Japan_home_area = yes
+					is_japan_home_states = yes
 				}
-				if = {
-					limit = {
-						OR = {
-							has_dynamic_modifier = {
-								modifier = half_industrial_state
-							}
-							has_dynamic_modifier = {
-								modifier = agrarian_state
-							}
-						}
-					}
-					upgrade_industrial_region = yes
-				}
-				else = {
-					urbanizing_region = yes
-				}
+				upgrade_industrial_region = yes
 			}
 		}
 	}
