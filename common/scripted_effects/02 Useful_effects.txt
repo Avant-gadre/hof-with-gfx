@@ -113,3 +113,120 @@ add_fifteen_compliance_for_every_occupy_state = {
 		}
 	}
 }
+
+white_peace_with_TARGET = {
+	effect_tooltip = {
+		if = {
+			limit = {
+				NOT = {
+					civilwar_target = event_target:white_peace_receiver
+				}
+			}
+			white_peace = event_target:white_peace_receiver
+		}
+	}
+	hidden_effect = {
+		if = {
+			limit = {
+				has_war_with = event_target:white_peace_receiver
+				NOT = {
+					civilwar_target = event_target:white_peace_receiver
+				}
+			}
+			if = {
+				limit = {
+					is_in_faction = yes
+					is_faction_leader = no
+					faction_leader = {
+						has_war_with = event_target:white_peace_receiver
+					}
+				}
+				set_temp_variable = {
+					peace_target1 = faction_leader
+				}
+			}
+			else_if = {
+				limit = {
+					is_subject = yes
+					overlord = {
+						has_war_with = event_target:white_peace_receiver
+					}
+				}
+				set_temp_variable = {
+					peace_target1 = overlord
+				}
+			}
+			else = {
+				set_temp_variable = {
+					peace_target1 = THIS
+				}
+			}
+			event_target:white_peace_receiver = {
+				if = {
+					limit = {
+						is_in_faction = yes
+						is_faction_leader = no
+						faction_leader = {
+							has_war_with = PREV.PREV
+						}
+					}
+					set_temp_variable = {
+						peace_target2 = faction_leader
+					}
+				}
+				else_if = {
+					limit = {
+						is_subject = yes
+						overlord = {
+							has_war_with = PREV.PREV
+						}
+					}
+					set_temp_variable = {
+						peace_target2 = overlord
+					}
+				}
+				else = {
+					set_temp_variable = {
+						peace_target2 = THIS
+					}
+				}
+			}
+			var:peace_target1 = {
+				white_peace = var:peace_target2
+			}
+			#cleanup in case of war merge bugs
+			var:peace_target1 = {
+				every_enemy_country = {
+					limit = {
+						OR = {
+							is_ally_with = var:peace_target2
+							AND = {
+								has_guaranteed = var:peace_target2
+								NOT = {
+									has_war_with_wargoal_against = var:peace_target2
+								}
+							}
+						}
+					}
+					white_peace = var:peace_target1
+				}
+			}
+			var:peace_target2 = {
+				every_enemy_country = {
+					limit = {
+						OR = {
+							is_ally_with = var:peace_target1
+							AND = {
+								has_guaranteed = var:peace_target1
+								NOT = {
+									has_war_with_wargoal_against = var:peace_target1
+								}
+							}
+						}
+					}
+					white_peace = var:peace_target2
+				}
+			}
+		}
+	}
+}
