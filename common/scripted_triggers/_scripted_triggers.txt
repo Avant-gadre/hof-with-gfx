@@ -95,31 +95,6 @@ is_controlled_by_ROOT_or_ally = {
 	}
 }
 
-is_csa_state = {
-	OR = {
-		state = 366
-		state = 365
-		state = 367
-		state = 370
-		state = 362
-		state = 363
-		state = 364
-		state = 371
-		state = 375
-		state = 368
-		state = 372
-	}
-}
-
-has_naval_treaty_trigger = {
-	OR = {
-		has_idea = MTG_naval_treaty_adherent
-		has_idea = MTG_naval_treaty_cheating
-		has_idea = MTG_naval_treaty_adherent_reduced
-		has_idea = MTG_naval_treaty_cheating_reduced
-	}
-}
-
 ai_air_doctrine_tier_1_trigger = {
 	OR = {
 		has_tech = naval_strike_tactics
@@ -245,7 +220,7 @@ anti_submarine_strategy_required_trigger = {
 	OR = {
 		AND = {
 			tag = ENG
-			NOT ={
+			NOT = {
 				is_in_faction_with = GER
 			}
 			GER = {
@@ -257,7 +232,7 @@ anti_submarine_strategy_required_trigger = {
 		}
 		AND = {
 			tag = USA
-			NOT ={
+			NOT = {
 				is_in_faction_with = GER
 			}
 			GER = {
@@ -269,7 +244,7 @@ anti_submarine_strategy_required_trigger = {
 		}
 		AND = {
 			tag = JAP
-			NOT ={
+			NOT = {
 				is_in_faction_with = USA
 			}
 		}
@@ -1102,49 +1077,6 @@ ai_has_completed_naval_doctrine = {
 	}
 }
 
-### Neutrality Act - only trade with countries at peace 
-trade_partner_not_at_war = {
-	custom_trigger_tooltip = {
-		tooltip = trade_partner_not_at_war_tt
-		FROM = {
-			has_war = yes
-		}
-	}
-}
-
-is_democratic_seller_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = "Democratic Countries"
-		FROM = {
-			has_government = democratic
-		}
-	}
-}
-
-#Subsidy Seller Triggers
-is_fascist_seller_trigger = {
-	NOT = {
-		has_war_with = ROOT
-	}
-	has_government = fascism
-}
-
-is_democracy_seller_trigger = {
-	NOT = {
-		has_war_with = ROOT
-	}
-	has_government = democratic
-}
-
-is_allied_seller_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = subsidy_allied_nation_tt
-		FROM = {
-			is_in_faction_with = ROOT
-		}
-	}
-}
-
 has_unsupported_economic_law = {
 	if = {
 		limit = {
@@ -1162,8 +1094,12 @@ has_unsupported_economic_law = {
 	}
 	else_if = {
 		limit = {
-			NOT = { has_completed_focus = HUN_Mandatory_service }
-			NOT = { has_completed_focus = FRA_defensive_strategems }
+			NOT = {
+				has_completed_focus = HUN_Mandatory_service
+			}
+			NOT = {
+				has_completed_focus = FRA_defensive_strategems
+			}
 			has_idea = war_economy
 		}
 		has_idea = war_economy
@@ -1180,32 +1116,45 @@ has_unsupported_economic_law = {
 		always = no
 	}
 }
+
 has_unsupported_manpower_law = {
 	if = {
 		limit = {
 			has_idea = limited_conscription
 		}
-			has_idea = limited_conscription
-			has_war_support < 0.1
-			hidden_trigger = { NOT = { tag = TUR } }
+		has_idea = limited_conscription
+		has_war_support < 0.1
+		hidden_trigger = {
+			NOT = {
+				tag = TUR
+			}
+		}
 	}
 	else_if = {
 		limit = {
 			has_idea = extensive_conscription
 		}
-			has_idea = extensive_conscription
-			has_war_support < 0.2
-			NOT = { has_government = communism }
-			NOT = { has_government = fascism }
+		has_idea = extensive_conscription
+		has_war_support < 0.2
+		NOT = {
+			has_government = communism
+		}
+		NOT = {
+			has_government = fascism
+		}
 	}
 	else_if = {
 		limit = {
 			has_idea = service_by_requirement
 		}
-			has_idea = service_by_requirement
-			has_war_support < 0.6
-			NOT = { has_government = communism }
-			NOT = { has_government = fascism }
+		has_idea = service_by_requirement
+		has_war_support < 0.6
+		NOT = {
+			has_government = communism
+		}
+		NOT = {
+			has_government = fascism
+		}
 	}
 	else_if = {
 		limit = {
@@ -1223,73 +1172,4 @@ has_unsupported_manpower_law = {
 		always = no
 	}
 }
-has_excessive_army_size = { #not currently used due to AI concerns
-	OR = { 
-		AND = {
-			num_of_factories < 25 
-			has_army_manpower = { size = 250000 }
-			has_manpower < 1
-			NOT = {
-				tag = RAJ
-			}
-			NOT = {
-				tag = CHI
-			}
-			NOT = {
-				has_government = communism
-			}
-		}
-		AND = {
-			num_of_factories < 50
-			has_army_manpower = { size = 500000 }
-			has_manpower < 1
-			NOT = {
-				tag = RAJ
-			}
-			NOT = {
-				tag = CHI
-			}
-			NOT = {
-				has_government = communism
-			}
-		}
-		AND = {
-			num_of_factories < 75 
-			has_army_manpower = { size = 750000 }
-			has_manpower < 1
-			NOT = {
-				tag = RAJ
-			}
-			NOT = {
-				tag = CHI
-			}
-			NOT = {
-				has_government = communism
-			}
-		}
-		AND = {
-			num_of_factories < 100 
-			has_army_manpower = { size = 1000000 }
-			has_manpower < 1
-			NOT = {
-				tag = RAJ
-			}
-			NOT = {
-				tag = CHI
-			}
-			NOT = {
-				has_government = communism
-			}
-		}
-		AND = {
-			has_army_manpower = { size = 2500000 }
-			has_manpower < 1
-			has_government = democratic
-		}
-		AND = {
-			has_army_manpower = { size = 3000000 }
-			has_manpower < 1
-			has_government = fascism
-		}
-	}
-}
+
