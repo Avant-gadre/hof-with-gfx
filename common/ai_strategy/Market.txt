@@ -9,31 +9,28 @@
 # garrison
 # protect
 # influence
-
 default_market_stockpile_management = {
 	enable = {
 		always = yes
 		# NOT = { original_tag = GER } # commented until actually needs override
 	}
 	abort_when_not_enabled = yes
-
 	# Hold your trains there, partner
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = train
-		value = 20  # only start considering selling trains if surplus more than 20
+		value = 20		# only start considering selling trains if surplus more than 20
 	}
 	ai_strategy = {
 		type = equipment_market_min_for_sale
 		id = train
-		value = 5  # only put up for sale in chunks of 5
+		value = 5		# only put up for sale in chunks of 5
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_factor
 		id = train
-		value = -50  # put fewer trains up for sale
+		value = -50		# put fewer trains up for sale
 	}
-
 	# Better not put all your boats up for sail
 	# ai_strategy = {  # Commented because handled dynamically in code through the EQUIPMENT_MARKET_WANTED_CONVOY_USAGE_RATIO define
 	# 	type = equipment_market_for_sale_threshold
@@ -43,9 +40,8 @@ default_market_stockpile_management = {
 	ai_strategy = {
 		type = equipment_market_min_for_sale
 		id = convoy
-		value = 20  # only put up for sale in chunks of 20
+		value = 20		# only put up for sale in chunks of 20
 	}
-
 	# Don't let all your planes just fly out the window.
 	# Only sell planes if we have more than one airwing in surplus.
 	ai_strategy = {
@@ -87,7 +83,6 @@ default_market_stockpile_management_if_at_war = {
 		# NOT = { original_tag = GER } # commented until actually needs override
 	}
 	abort_when_not_enabled = yes
-
 	# Don't sell stuff that we need for the war
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -128,18 +123,18 @@ default_market_stockpile_management_if_at_war = {
 
 default_market_convoy_purchases = {
 	enable = {
-		naval_base > 0  # not land-locked
+		naval_base > 0		# not land-locked
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_buying_threshold
 		id = convoy
-		value = 30  # Consider buying if we have too few (less than 30) convoys. Also interacts with the EQUIPMENT_MARKET_WANTED_CONVOY_USAGE_RATIO define.
+		value = 30		# Consider buying if we have too few (less than 30) convoys. Also interacts with the EQUIPMENT_MARKET_WANTED_CONVOY_USAGE_RATIO define.
 	}
 }
 
-CZE_tank_export = { #TONKS
+CZE_tank_export = {
+	#TONKS
 	allowed = {
 		original_tag = CZE
 	}
@@ -152,7 +147,6 @@ CZE_tank_export = { #TONKS
 		#controls_state = 69 #Sudetenland
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = armor
@@ -180,7 +174,6 @@ CZE_historical_already_got_our_tanks_mate = {
 		original_tag = CZE
 	}
 	abort_when_not_enabled = yes
-	
 	enable = {
 		has_dlc = "Arms Against Tyranny"
 		is_historical_focus_on = yes
@@ -188,7 +181,7 @@ CZE_historical_already_got_our_tanks_mate = {
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = -25 #because doctrine this = 10
+		value = -25		#because doctrine this = 10
 	}
 }
 
@@ -201,19 +194,17 @@ DEN_buy_planes_from_netherlands_and_uk = {
 		is_historical_focus_on = yes
 	}
 	abort_when_not_enabled = yes
-
 	# Increase threshold of wanted planes
 	ai_strategy = {
 		type = equipment_market_buying_threshold
 		id = small_plane_cas_airframe
-		value = 100  # Absolute number of units
+		value = 100		# Absolute number of units
 	}
 	ai_strategy = {
 		type = equipment_market_buying_threshold
 		id = small_plane_airframe
-		value = 100  # Absolute number of units
+		value = 100		# Absolute number of units
 	}
-
 	# We want to buy from the Netherlands
 	ai_strategy = {
 		type = diplo_action_desire
@@ -233,7 +224,6 @@ DEN_buy_planes_from_netherlands_and_uk = {
 		seller = HOL
 		value = 100
 	}
-
 	# We want to buy from the UK
 	ai_strategy = {
 		type = diplo_action_desire
@@ -264,23 +254,23 @@ DEN_prioritize_artillery = {
 		date < 1937.01.01
 	}
 	abort_when_not_enabled = yes
-
-	ai_strategy = { # Forces the AI to allocate this many factories to production of this type of equipment. Use with caution since it doesn't take into account how many factories are actually available.
+	ai_strategy = {
+		# Forces the AI to allocate this many factories to production of this type of equipment. Use with caution since it doesn't take into account how many factories are actually available.
 		type = equipment_production_min_factories
 		id = infantry
-		value = 1  # The AI will put at least 1 factories on producing infantry equipment
+		value = 1		# The AI will put at least 1 factories on producing infantry equipment
 	}
-
-	ai_strategy = { # Forces the AI to allocate this many factories to production of this type of equipment. Use with caution since it doesn't take into account how many factories are actually available.
+	ai_strategy = {
+		# Forces the AI to allocate this many factories to production of this type of equipment. Use with caution since it doesn't take into account how many factories are actually available.
 		type = equipment_production_min_factories
 		id = artillery
-		value = 1  # The AI will put at least 1 factories on producing artillery
+		value = 1		# The AI will put at least 1 factories on producing artillery
 	}
-
-	ai_strategy = { # Affects the AI's perceived archetype needs regarding equipment purchases on the market. A value of 50 means it will try to buy 50 more of the equipment than what is actually needed, while a value of -20 means it will only try to buy if it has a deficit larger than 20.
+	ai_strategy = {
+		# Affects the AI's perceived archetype needs regarding equipment purchases on the market. A value of 50 means it will try to buy 50 more of the equipment than what is actually needed, while a value of -20 means it will only try to buy if it has a deficit larger than 20.
 		type = equipment_market_buying_threshold
-		id = support_equipment_1  # equipment archetype
-		value = 50  # Absolute number of units
+		id = support_equipment_1		# equipment archetype
+		value = 50		# Absolute number of units
 	}
 }
 
@@ -291,8 +281,12 @@ ENG_trade_with_poland = {
 	}
 	enable = {
 		OR = {
-			POL = { has_government = neutrality }
-			POL = { has_government = democratic }
+			POL = {
+				has_government = neutrality
+			}
+			POL = {
+				has_government = democratic
+			}
 		}
 		OR = {
 			has_government = neutrality
@@ -300,7 +294,6 @@ ENG_trade_with_poland = {
 		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = POL
@@ -317,15 +310,15 @@ ENG_less_weapon_purchases_more_for_construction = {
 		has_war = no
 	}
 	abort_when_not_enabled = yes
-
 	#ai_strategy = {
-		#type = equipment_market_spend_factories
-		#value = -80  # 80 % less factories
+	#type = equipment_market_spend_factories
+	#value = -80  # 80 % less factories
 	#}
-	ai_strategy = {  # Don't even try buying infantry equipment too early
+	ai_strategy = {
+		# Don't even try buying infantry equipment too early
 		type = equipment_market_buying_threshold
 		id = infantry_equipment
-		value = -20000  # Absolute number of units
+		value = -20000		# Absolute number of units
 	}
 }
 
@@ -337,10 +330,9 @@ ENG_fewer_factories_for_purchases_please = {
 		date > 1939.1.1
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_spend_factories
-		value = -50  # 50 % less factories
+		value = -50		# 50 % less factories
 	}
 }
 
@@ -354,7 +346,6 @@ FIN_trade_with_sweden = {
 		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = SWE
@@ -368,11 +359,16 @@ GER_trade_with_sweden = {
 	}
 	enable = {
 		# if we're not communist and they're not communist
-		NOT = { has_government = communism }
-		NOT = { SWE = { has_government = communism } }
+		NOT = {
+			has_government = communism
+		}
+		NOT = {
+			SWE = {
+				has_government = communism
+			}
+		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = SWE
@@ -386,10 +382,11 @@ GER_trade_with_italy = {
 	}
 	enable = {
 		has_government = fascism
-		ITA = { has_government = fascism }
+		ITA = {
+			has_government = fascism
+		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = ITA
@@ -424,7 +421,6 @@ GER_market_management_after_anschluss = {
 		always = yes
 	}
 	abort_when_not_enabled = yes
-
 	# Time to start buffer for war
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -511,7 +507,6 @@ GER_market_management_after_anschluss = {
 		id = strategic_bomber
 		value = 100
 	}
-
 }
 
 #战争时期保持更多武器储备
@@ -541,7 +536,6 @@ GER_market_management_after_sudetenland = {
 		has_war = yes
 	}
 	abort_when_not_enabled = yes
-
 	# Oh nein, we're not gonna sell this, we're... "saving" it...
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -636,11 +630,16 @@ ITA_trade_with_sweden = {
 	}
 	enable = {
 		# if we're not communist and they're not communist
-		NOT = { has_government = communism }
-		NOT = { SWE = { has_government = communism } }
+		NOT = {
+			has_government = communism
+		}
+		NOT = {
+			SWE = {
+				has_government = communism
+			}
+		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = SWE
@@ -654,10 +653,11 @@ ITA_trade_with_germany = {
 	}
 	enable = {
 		has_government = fascism
-		GER = { has_government = fascism }
+		GER = {
+			has_government = fascism
+		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = GER
@@ -676,12 +676,15 @@ POL_trade_with_uk = {
 			has_government = democratic
 		}
 		OR = {
-			ENG = { has_government = neutrality }
-			ENG = { has_government = democratic }
+			ENG = {
+				has_government = neutrality
+			}
+			ENG = {
+				has_government = democratic
+			}
 		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = ENG
@@ -699,10 +702,11 @@ POL_trade_with_sweden = {
 			has_government = neutrality
 			has_government = democratic
 		}
-		SWE = { has_government = democratic }
+		SWE = {
+			has_government = democratic
+		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = SWE
@@ -718,11 +722,10 @@ SOV_market_management = {
 		always = yes
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_for_sale_factor
 		id = infantry
-		value = -50  # put less rifles up for sale
+		value = -50		# put less rifles up for sale
 	}
 }
 
@@ -731,12 +734,11 @@ SWE_bofors_aa_production = {
 		original_tag = SWE
 	}
 	enable = {
-		num_of_military_factories > 4  # It's early but still later than IRL. Let's try.
+		num_of_military_factories > 4		# It's early but still later than IRL. Let's try.
 		#has_completed_focus = SWE_bofors_fly_swatter
 		has_tech = interwar_antiair
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = anti_air
@@ -759,12 +761,11 @@ SWE_bofors_at_production = {
 		original_tag = SWE
 	}
 	enable = {
-		num_of_military_factories > 5  # It's early but still later than IRL. Let's try.
+		num_of_military_factories > 5		# It's early but still later than IRL. Let's try.
 		#has_completed_focus = SWE_bofors_anti_tank_gun
 		has_tech = interwar_antitank
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = anti_tank
@@ -782,13 +783,11 @@ SWE_armored_production = {
 		original_tag = SWE
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = role_ratio
 		id = armor
 		value = 5
 	}
-
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = armor
@@ -809,7 +808,6 @@ SWE_armored_production = {
 		id = armor
 		value = 200
 	}
-	
 }
 
 SWE_trade_with_poland = {
@@ -819,13 +817,16 @@ SWE_trade_with_poland = {
 	}
 	enable = {
 		OR = {
-			POL = { has_government = neutrality }
-			POL = { has_government = democratic }
+			POL = {
+				has_government = neutrality
+			}
+			POL = {
+				has_government = democratic
+			}
 		}
 		has_government = democratic
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = POL
@@ -845,7 +846,6 @@ SWE_trade_with_czech = {
 		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = CZE
@@ -858,14 +858,15 @@ SWE_trade_with_italy = {
 		original_tag = SWE
 	}
 	enable = {
-		ITA = { has_war_with_major = no }  # ignore Ethiopian war
+		ITA = {
+			has_war_with_major = no
+		}		# ignore Ethiopian war
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = ITA
-		value = 100  # We really like money
+		value = 100		# We really like money
 	}
 }
 
@@ -874,18 +875,20 @@ SWE_trade_with_germany = {
 		original_tag = SWE
 	}
 	enable = {
-		GER = { has_war = no }
+		GER = {
+			has_war = no
+		}
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_market_trade_desire
 		id = GER
-		value = 100  # We really like money
+		value = 100		# We really like money
 	}
 }
 
-USA_truck_export = { #GM
+USA_truck_export = {
+	#GM
 	allowed = {
 		original_tag = USA
 	}
@@ -894,7 +897,6 @@ USA_truck_export = { #GM
 		date > 1938.1.1
 	}
 	abort_when_not_enabled = yes
-
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = motorized
@@ -912,7 +914,8 @@ USA_truck_export = { #GM
 	}
 }
 
-USA_fighter_export = { #GM
+USA_fighter_export = {
+	#GM
 	allowed = {
 		original_tag = USA
 	}
@@ -920,7 +923,6 @@ USA_fighter_export = { #GM
 		has_dlc = "Arms Against Tyranny"
 	}
 	abort_when_not_enabled = yes
-	
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
@@ -934,24 +936,11 @@ USA_fighter_export = { #GM
 	ai_strategy = {
 		type = equipment_market_for_sale_factor
 		id = fighter
-		value = 300 #We mostly use CV fighters
+		value = 300		#We mostly use CV fighters
 	}
-	
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = fighter
 		value = -60
-	}
-}
-
-USA_90_division_gamble = {
-	allowed = { original_tag = USA }
-	enable = { 
-		is_historical_focus_on = yes
-	}
-	abort_when_not_enabled = yes
-	ai_strategy = {
-		type = ai_wanted_divisions_factor
-		value = -50
 	}
 }
