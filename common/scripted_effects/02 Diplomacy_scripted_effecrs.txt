@@ -1160,49 +1160,6 @@ restore_previous_factory_count = {
 	}
 }
 
-# used for transferring states that are partially occupied by an enemy without breaking frontlines
-# use in state scope
-# requires a temp_variable target
-transfer_state_during_war = {
-	if = {
-		limit = {
-			is_fully_controlled_by = owner
-		}
-		transfer_state_to = var:target
-	}
-	else = {
-		set_state_owner_to = var:target
-		set_state_province_controller = {
-			controller = owner
-			limit = {
-				NOT = {
-					has_war_with = PREV.owner
-				}
-			}
-		}
-	}
-}
-
-# used for transferring control of states between allies without breaking frontlines
-# use in state scope
-# requires a temp_variable target
-transfer_control_during_war = {
-	if = {
-		limit = {
-			is_fully_controlled_by = controller
-		}
-		set_state_controller = var:target
-	}
-	else = {
-		set_state_province_controller = {
-			controller = var:target
-			limit = {
-				is_ally_with = PREV.controller
-			}
-		}
-	}
-}
-
 #Gives a random agency upgrade or grants a free agency if one has not yet been established
 gain_random_agency_upgrade = {
 	custom_effect_tooltip = free_agency_upgrade_tt
