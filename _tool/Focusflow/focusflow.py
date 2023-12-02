@@ -4,7 +4,7 @@ import io
 import os.path
 
 inputpath = '.\\common\\national_focus\\'
-outputpath = '.\\_focusflow\\'
+outputpath = '.\\_tool\\Focusflow\\'
 # inputfilename = input()
 inputfilename = '03 AST_Fate_focus'
 if '.txt' not in inputfilename:

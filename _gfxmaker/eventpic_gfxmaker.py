@@ -7,8 +7,8 @@ import time
 picpath = ''
 
 outfilename = 'eventFate.gfx'  # utf-8
-outpath = '..\interface\event\eventFate.gfx'
-pngpath = 'gfx/event_pictures/'
+outpath = '..\\interface\\event\\eventFate.gfx'
+pngpath = '..\\gfx\\event_pictures\\'
 print(outfilename)
 
 def outpuGfx(text):
@@ -40,7 +40,7 @@ def getNameList(pathname):
 # 读取eventpic文件名
 
 
-pathname = '..\gfx\event_pictures\\'
+pathname = '..\\gfx\\event_pictures\\'
 pngnames = getNameList(pathname)
 # print(pngnames)
 outpuGfx(pngnames)
