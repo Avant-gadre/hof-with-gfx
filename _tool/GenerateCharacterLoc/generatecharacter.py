@@ -72,11 +72,11 @@ characters_string = '''
 		name = {}
 		portraits = {{
 			civilian = {{
-				small = "GFX_idea_advisor_unknow_pol"
+				small = GFX_idea_advisor_unknow_pol
 				large = GFX_Portrait_{}
 			}}
 			army = {{
-				small = "GFX_idea_advisor_unknow_mil"
+				small = GFX_idea_advisor_unknow_mil
 				large = GFX_Portrait_{}
 			}}
 		}}
