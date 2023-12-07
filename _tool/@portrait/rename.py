@@ -17,14 +17,14 @@ for file_name in files:
 
         new_file_name = file_name
         
-        targetname = "Portrait_Chile_"
+        targetname = "Portrait_BRA_"
 
         targetname1 = "focus_"+targetname
 
        
         if new_file_name.startswith(targetname):
            ##print(new_file_name)
-           new_file_name1 = "Portrait_CHL_" + new_file_name[len(targetname):]
+           new_file_name1 = "Portrait_PIR_" + new_file_name[len(targetname):]
            new_file_name = new_file_name1
            # new_file_name = new_file_name[:len(targetname1)]+new_file_name[len(targetname1):].lower()
         
