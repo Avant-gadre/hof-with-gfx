@@ -150,67 +150,6 @@ clear_all_relations = {
 	}
 }
 
-# clears all relations with a specific country and its allies, does not end wars
-# requires temp variable target = TAG
-clear_all_relations_with_TARGET = {
-	if = {
-		limit = {
-			is_subject_of = var:target
-		}
-		overlord = {
-			set_autonomy = {
-				target = PREV
-				autonomy_state = autonomy_free
-			}
-		}
-		leave_faction = yes
-	}
-	else_if = {
-		limit = {
-			is_in_faction_with = var:target
-		}
-		leave_faction = yes
-	}
-	every_other_country = {
-		limit = {
-			is_ally_with = var:target
-		}
-		diplomatic_relation = {
-			country = PREV
-			relation = guarantee
-			active = no
-		}
-		diplomatic_relation = {
-			country = PREV
-			relation = non_aggression_pact
-			active = no
-		}
-		diplomatic_relation = {
-			country = PREV
-			relation = military_access
-			active = no
-		}
-		diplomatic_relation = {
-			country = PREV
-			relation = market_access_rights
-			active = no
-		}
-		PREV = {
-			diplomatic_relation = {
-				country = PREV
-				relation = guarantee
-				active = no
-			}
-			diplomatic_relation = {
-				country = PREV
-				relation = military_access
-				active = no
-			}
-		}
-		clear_embargo_PREV = yes
-	}
-}
-
 # ends puppet status, removes from faction and clears all relations except wars (used for rebellions)
 clear_all_relations_except_wars = {
 	if = {
