@@ -1,234 +1,3 @@
-CHI_default_plan = {
-	name = "Nationalist China default plan"
-	desc = "Default behavior for Nationalist China"
-	allowed = {
-		original_tag = CHI
-	}
-	enable = {
-	}
-	abort = {
-		always = no
-	}
-	weight = {
-		factor = 1
-		modifier = {
-			factor = 1
-		}
-	}
-}
-
-CHI_industrial_buildup = {
-	name = "Nationalist China industrial buildup plan"
-	desc = "Makes Nationalist China more likely to expand industry if not at war"
-	allowed = {
-		is_literally_china = yes
-	}
-	enable = {
-		OR = {
-			original_tag = CHI
-			AND = {
-				is_chinese_warlord = yes
-				has_focus_tree = china_nationalist_focus
-			}
-		}
-		has_war = no
-	}
-	abort = {
-		has_war = yes
-	}
-	focus_factors = {
-		CHI_unified_industrial_planning = 5
-		CHI_expand_the_academica_sinica = 10
-		CHI_rural_reconstruction_movement = 5
-		CHI_financial_policy = 5
-		CHI_mining_commission = 5
-		CHI_taiyuan_arsenal = 5
-		CHI_develop_the_hanyan_arsenal = 5
-	}
-	research = {
-		industry = 15
-		electronics = 15
-	}
-	ideas = {
-		CHI_h_h_kung = 5
-	}
-	weight = {
-		factor = 1
-		modifier = {
-			factor = 1
-		}
-	}
-}
-
-CHI_inflation_handling = {
-	name = "Nationalist China Secret Plan to Fight Inflation"
-	desc = "Teaches the AI to handle the inflation mechanic for China"
-	allowed = {
-		is_literally_china = yes
-	}
-	enable = {
-		OR = {
-			original_tag = CHI
-			AND = {
-				is_chinese_warlord = yes
-				has_focus_tree = china_nationalist_focus
-			}
-		}
-		OR = {
-			has_idea = CHI_hyper_inflation_3
-			has_idea = CHI_hyper_inflation_4
-			has_idea = CHI_hyper_inflation_5
-		}
-	}
-	abort = {
-		OR = {
-			#inflation under control
-			has_idea = CHI_hyper_inflation_2
-			has_idea = CHI_hyper_inflation_1
-		}
-	}
-	focus_factors = {
-		CHI_financial_policy = 50
-		CHI_price_controls = 50
-		CHI_reform_the_national_bank = 50
-		CHI_forced_loans = 50
-		CHI_land_tax_reform = 50
-		CHI_develop_the_hanyan_arsenal = 0
-		CHI_unemployment_assistance = 0
-		CHI_taiyuan_arsenal = 0
-		CHI_mining_commission = 0
-		CHI_welfare = 0
-		CHI_refugee_relief_agency = 0
-		CHI_free_hospitals = 0
-		CHI_rural_schooling = 0
-	}
-	weight = {
-		factor = 1
-		modifier = {
-			factor = 1
-		}
-	}
-}
-
-CHI_army_reform = {
-	name = "Nationalist China Army Reform"
-	desc = "Teaches the AI to reform the Army if at war"
-	allowed = {
-		original_tag = CHI
-	}
-	enable = {
-		has_war = yes
-		OR = {
-			has_idea = CHI_army_corruption_1
-			has_idea = CHI_army_corruption_2
-			has_idea = CHI_army_corruption_3
-		}
-	}
-	abort = {
-		NOT = {
-			OR = {
-				has_idea = CHI_army_corruption_1
-				has_idea = CHI_army_corruption_2
-				has_idea = CHI_army_corruption_3
-			}
-		}
-	}
-	focus_factors = {
-		CHI_army_reform = 50
-		CHI_military_affairs_commission = 50
-	}
-	# Keep small, as it is used as a factor for some things (such as research needs)
-	# Recommended around 1.0. Useful for relation between plans
-	weight = {
-		factor = 1
-		modifier = {
-			factor = 1
-		}
-	}
-}
-
-CHI_war_measures = {
-	name = "Nationalist China War measures"
-	desc = "Teaches the AI to fix issues if at war"
-	allowed = {
-		is_literally_china = yes
-	}
-	enable = {
-		OR = {
-			original_tag = CHI
-			AND = {
-				is_chinese_warlord = yes
-				has_focus_tree = china_nationalist_focus
-			}
-		}
-		has_war = yes
-	}
-	abort = {
-		OR = {
-			has_war = no
-			has_completed_focus = CHI_war_of_national_liberation
-			has_completed_focus = CHI_dare_to_die_corps
-			controls_state = 527			#has successfully taken Manchuria
-		}
-	}
-	focus_factors = {
-		CHI_war_of_resistance = 20
-		CHI_military_affairs_commission = 20
-		CHI_industrial_evacuations = 30
-		CHI_scorched_earth_tactics = 30
-		CHI_democracy = 0		#can't have that nonsense right now
-		CHI_war_of_national_liberation = 20
-	}
-	research = {
-		infantry_weapons = 15
-		artillery = 15
-		air_equipment = 0
-	}
-	ideas = {
-	}
-	weight = {
-		factor = 1
-		modifier = {
-			factor = 1
-		}
-	}
-}
-
-CHI_alternate_plan_2 = {
-	name = "Nationalist China Alternate Scenario 1: Germany aims to befriend China"
-	desc = "China selects Germany over Soviet Union"
-	allowed = {
-		is_literally_china = yes
-	}
-	enable = {
-		OR = {
-			original_tag = CHI
-			AND = {
-				is_chinese_warlord = yes
-				has_focus_tree = china_nationalist_focus
-			}
-		}
-		GER = {
-			has_completed_focus = GER_CHI_continue_military_cooperation_with_china
-		}
-	}
-	abort = {
-		always = no
-	}
-	focus_factors = {
-		CHI_mission_to_germany = 5
-		CHI_chinese_general_staff = 5
-		CHI_chinese_panzers = 5
-		CHI_combined_arms_warfare = 5
-	}
-	weight = {
-		factor = 1
-		modifier = {
-			factor = 2
-		}
-	}
-}
-
 CHI_nationalist_historical_plan = {
 	name = "Nationalist China historical plan"
 	desc = "Essentially historical behavior for Nationalist China"
@@ -246,6 +15,7 @@ CHI_nationalist_historical_plan = {
 	}
 	ai_national_focuses = {
 		CHI_military_affairs_commission
+		CHI_bureau_of_investigation_and_statistics
 		CHI_three_principles_of_the_people
 		CHI_democracy
 		CHI_constitutional_reform
@@ -263,28 +33,28 @@ CHI_nationalist_historical_plan = {
 		CHI_army_reform
 		CHI_invite_foreign_investors
 		CHI_mission_to_germany		#May 20 1936
+		CHI_60_divisions_plan
+		CHI_small_arms_expertise
 		CHI_chinese_general_staff
 		CHI_wargaming_division
 		CHI_chinese_panzers
 		CHI_tank_plant
 		CHI_develop_the_hanyan_arsenal
-		CHI_prioritize_the_interior
+		CHI_fortify_shanghai
+		CHI_the_chinese_hindenburg_line
 		CHI_welfare
 		CHI_refugee_relief_agency
 		CHI_land_tax_reform
+		CHI_whampoa_military_academy
 		CHI_subjugate_the_warlords
 		CHI_new_life_movement
+		CHI_prioritize_the_interior
 		CHI_unemployment_assistance
 		CHI_free_hospitals
 		CHI_rural_schooling
 		CHI_british_cooperation		#October 10 1936
 		CHI_mission_to_the_us		#February 30 1937
 		CHI_mission_to_the_soviet_union		#September 30 1937
-		CHI_bureau_of_investigation_and_statistics
-		CHI_whampoa_military_academy
-		CHI_60_divisions_plan
-		CHI_fortify_shanghai
-		CHI_the_chinese_hindenburg_line
 		CHI_burma_road		#September 20 1938
 		CHI_camco		#April 20 1939
 		CHI_the_hump		#March 20 1942
