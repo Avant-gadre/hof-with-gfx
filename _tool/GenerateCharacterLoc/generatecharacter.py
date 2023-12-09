@@ -28,7 +28,7 @@ for file_name in files:
     files_set.add(file_name)
 
 ##格式-海军
-characters_string = '''
+characters_string1 = '''
 	{} = {{
 		name = {}
 		portraits = {{
@@ -64,7 +64,7 @@ characters_string = '''
 '''
 
 ##格式-陆军
-characters_string1 = '''
+characters_string = '''
 	{} = {{
 		name = {}
 		portraits = {{
