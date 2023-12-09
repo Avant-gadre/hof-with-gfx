@@ -28,30 +28,27 @@ for file_name in files:
     files_set.add(file_name)
 
 ##格式-海军
-characters_string1 = '''
+characters_string = '''
 	{} = {{
 		name = {}
 		portraits = {{
 			civilian = {{
-				small = "GFX_idea_advisor_unknow_pol"
+				small = GFX_idea_advisor_unknow_pol
 				large = GFX_Portrait_{}
 			}}
 			army = {{
-				small = "GFX_idea_advisor_unknow_mil"
+				small = GFX_idea_advisor_unknow_mil
 				large = GFX_Portrait_{}
 			}}
 		}}
 		navy_leader = {{
 			traits = {{
 				naval_lineage
-				navy_career_officer
-				torpedo_expert
-				cruiser_captain
 			}}
 			skill = 3
 			attack_skill = 3
 			defense_skill = 3
-			maneuvering_skill = 4
+			maneuvering_skill = 3
 			coordination_skill = 3
 		}}
 		advisor = {{
@@ -67,7 +64,7 @@ characters_string1 = '''
 '''
 
 ##格式-陆军
-characters_string = '''
+characters_string1 = '''
 	{} = {{
 		name = {}
 		portraits = {{
