@@ -11,7 +11,7 @@ with open('text2.txt', 'a') as file:
         suffix = parts[1]  # 获取冒号后部分
         modified_line = f"{prefix}_desc: \"Placeholder\""
         file.write(" "+line)
-        file.write(" "+modified_line+"\n"+"\n")
+        ##file.write(" "+modified_line+"\n"+"\n")
 
 
 

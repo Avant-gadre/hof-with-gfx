@@ -1,6 +1,6 @@
 characters_string = """
 	{} = {{
-		type = land
+		type = navy
 		trait_type = personality_trait
 		new_commander_weight = {{
 			factor = 0
@@ -56,6 +56,7 @@ with open(output2 , 'a') as file1:
     file1.truncate(0)
     for name in files_set:
         first_index = name.find('_')
+        first_index = 0
         name0 = name[first_index:].replace("_", " ").title()
         name0 = name0.strip()
         full = prefix_to_remove + name + ":" + " " + "\"" + name0 + "\""
