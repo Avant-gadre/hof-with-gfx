@@ -17,21 +17,21 @@ for file_name in files:
 
         new_file_name = file_name
         
-        targetname = "idea_pol_"
-    
-        targetname1 = "idea_generic_"
+        targetname = "SWI_"
 
-        targetname2 = "idea_ukr_"
+        targetname1 = "idea_swi_"
+
+        targetname2 = "idea_bat_"
 
        
-        if new_file_name.startswith(targetname):
-            new_file_name1 = targetname2 + new_file_name[len(targetname):].lower()
+        if new_file_name.startswith(targetname) or new_file_name.startswith(targetname.lower()):
+            new_file_name1 = targetname1 + new_file_name[len(targetname):].lower()
             new_file_name = new_file_name1
             os.rename(file_path, os.path.join(folder_path, new_file_name))
             print(f"文件 {file_name} 已重命名为 {new_file_name}")
 
         # if not new_file_name.startswith(targetname1):
-        #     new_file_name1 = targetname1 + new_file_name
+        #     new_file_name1 = targetname1 + new_file_name.lower()
         #     new_file_name = new_file_name1
         #     os.rename(file_path, os.path.join(folder_path, new_file_name))
         #     print(f"文件 {file_name} 已重命名为 {new_file_name}")
