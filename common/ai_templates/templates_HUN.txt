@@ -52,7 +52,7 @@ armored_HUN = {
 				#has_equipment = { medium_tank_chassis > 25 }
 			}
 		}
-		target_width = 42
+		target_width = 32
 		width_weight = 1.5
 		column_swap_factor = 0.5
 		target_template = {
@@ -60,35 +60,34 @@ armored_HUN = {
 			match_value = 7000
 			support = {
 				engineer = 1
-				armored_car_recon = 1
-				signal_company = 1
 				maintenance_company = 1
 				logistics_company = 1
+				signal_company = 1
+				armored_car_recon = 1
 			}
 			regiments = {
-				medium_armor = 8
+				mechanized = 8
+				medium_armor = 4
 				medium_sp_artillery_brigade = 2
-				light_sp_anti_air_brigade = 1
-				medium_tank_destroyer_brigade = 2
-				mechanized = 7
+				medium_tank_destroyer_brigade = 1
 			}
 		}
 		allowed_types = {
-			medium_armor
 			mechanized
+			medium_armor
 			medium_sp_artillery_brigade
-			light_sp_anti_air_brigade
 			medium_tank_destroyer_brigade
 			engineer
-			armored_car_recon
-			signal_company
 			maintenance_company
 			logistics_company
+			signal_company
+			armored_car_recon
 		}
 		replace_at_match = 0.95
 		replace_with = modern_armor_default_HUN
 		target_min_match = 0.5
 	}
+	
 	modern_armor_default_HUN = {
 		upgrade_prio = {
 			factor = 2
@@ -267,7 +266,7 @@ infantry_HUN = {
 				}
 			}
 		}
-		target_width = 42
+		target_width = 27
 		width_weight = 1
 		column_swap_factor = 0.5
 		target_template = {
@@ -275,28 +274,24 @@ infantry_HUN = {
 			match_value = 3000
 			support = {
 				engineer = 1
-				armored_car_recon = 1
 				signal_company = 1
-				maintenance_company = 1
-				field_hospital = 1
+				anti_tank = 1
+				anti_air = 1
+				recon = 1
 			}
 			regiments = {
-				infantry = 12
-				artillery_brigade = 5
-				anti_tank_brigade = 2
-				anti_air_brigade = 1
+				infantry = 9
+				artillery_brigade = 3
 			}
 		}
 		allowed_types = {
 			infantry
-			engineer
-			armored_car_recon
-			field_hospital
-			signal_company
-			maintenance_company
-			anti_tank_brigade
 			artillery_brigade
-			anti_air_brigade
+			engineer
+			signal_company
+			anti_tank
+			anti_air
+			recon
 		}
 	}
 }
@@ -326,34 +321,36 @@ motorized_HUN = {
 				factor = 1
 			}
 		}
-		target_width = 21
+		target_width = 27
 		width_weight = 1
 		column_swap_factor = 0.5
 		target_template = {
 			weight = 0.9
 			match_value = 4000
 			support = {
-				armored_car_recon = 1
 				engineer = 1
-				artillery = 1
-				anti_tank = 1
-				anti_air = 1
+				field_hospital = 1
+				logistics_company = 1
+				signal_company = 1
+				mot_recon = 1
 			}
 			regiments = {
-				motorized = 4
-				mot_artillery_brigade = 1
-				light_armor = 5
+				motorized = 8
+				mot_artillery_brigade = 3
+				mot_anti_tank_brigade = 1
+				mot_anti_air_brigade = 1
 			}
 		}
 		allowed_types = {
 			motorized
-			engineer
-			armored_car_recon
-			artillery
-			anti_tank
-			anti_air
 			mot_artillery_brigade
-			light_armor
+			mot_anti_tank_brigade
+			mot_anti_air_brigade
+			engineer
+			field_hospital
+			logistics_company
+			signal_company
+			mot_recon
 		}
 	}
 }
@@ -380,132 +377,134 @@ mechanized_HUN = {
 		}
 	}
 	match_to_count = 0.55
-	mechanized_default_HUN_21_width = {
+	#至少也得27把
+	mechanized_default_HUN_27_width = {
 		upgrade_prio = {
-			factor = 10
-			modifier = {
-				factor = 2
-				OR = {
-					has_army_manpower = {
-						size < 1000000
-					}
-					has_army_size = {
-						size < 100
-					}
-				}
-			}
+			factor = 20 # 10
+			#modifier = {
+				#factor = 2
+				#OR = {
+					#has_army_manpower = {
+						#size < 1000000
+					#}
+					#has_army_size = {
+						#size < 100
+					#}
+				#}
+			#}
 		}
-		target_width = 21
+		target_width = 27
 		width_weight = 1
 		column_swap_factor = 0.5
 		target_template = {
 			weight = 0.9
-			match_value = 4000
+			match_value = 5000 # 4000
 			support = {
-				armored_car_recon = 1
 				engineer = 1
-				artillery = 1
-				anti_tank = 1
-				anti_air = 1
+				field_hospital = 1
+				logistics_company = 1
+				signal_company = 1
+				armored_car_recon = 1
 			}
 			regiments = {
-				mechanized = 9
-				medium_armor = 1
+				mechanized = 8
+				mot_artillery_brigade = 3
 				mot_anti_tank_brigade = 1
+				mot_anti_air_brigade = 1
 			}
 		}
 		allowed_types = {
 			mechanized
-			engineer
-			armored_car_recon
-			anti_tank
-			anti_air
-			artillery
-			medium_armor
+			mot_artillery_brigade
 			mot_anti_tank_brigade
+			mot_anti_air_brigade
+			engineer
+			field_hospital
+			logistics_company
+			signal_company
+			armored_car_recon
 		}
 		#replace_at_match = 0.6
 		#replace_with = mechanized_default_HUN
 		#target_min_match = 0.5
 	}
-	mechanized_default_HUN = {
-		upgrade_prio = {
-			factor = 2
-			modifier = {
-				factor = 0
-				OR = {
-					has_army_manpower = {
-						size < 1000000
-					}
-					has_army_size = {
-						size < 100
-					}
-				}
-			}
-			modifier = {
-				factor = 10
-			}
-			modifier = {
-				factor = 20
-				has_tech = mechanised_infantry
-				OR = {
-					has_tech = basic_medium_tank
-					has_tech = basic_medium_tank_chassis
-				}
-				NOT = {
-					has_tech = main_battle_tank
-				}
-				NOT = {
-					has_tech = main_battle_tank_chassis
-				}
-				#has_equipment = { light_tank_chassis < 50 }
-				#has_equipment = { medium_tank_chassis > 25 }
-			}
-		}
-		enable = {
-			OR = {
-				has_army_manpower = {
-					size > 999999
-				}
-				has_army_size = {
-					size > 99
-				}
-			}
-		}
-		target_width = 42
-		width_weight = 1.5
-		column_swap_factor = 0.5
-		target_template = {
-			weight = 0.9
-			match_value = 5000
-			support = {
-				armored_car_recon = 1
-				engineer = 1
-				signal_company = 1
-				maintenance_company = 1
-				logistics_company = 1
-			}
-			regiments = {
-				mechanized = 12
-				medium_sp_artillery_brigade = 2
-				light_sp_anti_air_brigade = 1
-				medium_tank_destroyer_brigade = 3
-				medium_armor = 2
-			}
-		}
-		allowed_types = {
-			mechanized
-			engineer
-			armored_car_recon
-			maintenance_company
-			logistics_company
-			signal_company
-			medium_sp_artillery_brigade
-			light_sp_anti_air_brigade
-			medium_tank_destroyer_brigade
-			medium_armor
-		}
-	}
+	#小国还是别32了，21宽混一混
+	# mechanized_default_HUN = {
+	# 	upgrade_prio = {
+	# 		factor = 2
+	# 		modifier = {
+	# 			factor = 0
+	# 			OR = {
+	# 				has_army_manpower = {
+	# 					size < 1000000
+	# 				}
+	# 				has_army_size = {
+	# 					size < 100
+	# 				}
+	# 			}
+	# 		}
+	# 		modifier = {
+	# 			factor = 10
+	# 		}
+	# 		modifier = {
+	# 			factor = 20
+	# 			has_tech = mechanised_infantry
+	# 			OR = {
+	# 				has_tech = basic_medium_tank
+	# 				has_tech = basic_medium_tank_chassis
+	# 			}
+	# 			NOT = {
+	# 				has_tech = main_battle_tank
+	# 			}
+	# 			NOT = {
+	# 				has_tech = main_battle_tank_chassis
+	# 			}
+	# 			#has_equipment = { light_tank_chassis < 50 }
+	# 			#has_equipment = { medium_tank_chassis > 25 }
+	# 		}
+	# 	}
+	# 	enable = {
+	# 		OR = {
+	# 			has_army_manpower = {
+	# 				size > 999999
+	# 			}
+	# 			has_army_size = {
+	# 				size > 99
+	# 			}
+	# 		}
+	# 	}
+	# 	target_width = 32
+	# 	width_weight = 1.5
+	# 	column_swap_factor = 0.5
+	# 	target_template = {
+	# 		weight = 0.9
+	# 		match_value = 5000
+	# 		support = {
+	# 			engineer = 1
+	# 			maintenance_company = 1
+	# 			logistics_company = 1
+	# 			signal_company = 1
+	# 			armored_car_recon = 1
+	# 		}
+	# 		regiments = {
+	# 			mechanized = 10
+	# 			medium_armor = 2
+	# 			medium_sp_artillery_brigade = 2
+	# 			medium_tank_destroyer_brigade = 1
+	# 		}
+	# 	}
+	# 	allowed_types = {
+	# 		mechanized
+	# 		medium_armor
+	# 		medium_sp_artillery_brigade
+	# 		medium_tank_destroyer_brigade
+	# 		engineer
+	# 		maintenance_company
+	# 		logistics_company
+	# 		signal_company
+	# 		armored_car_recon
+	# 	}
+	# }
 }
 
 mountaineers_HUN = {
@@ -534,7 +533,7 @@ mountaineers_HUN = {
 				date > 1939.6.1
 			}
 		}
-		target_width = 42
+		target_width = 32
 		width_weight = 1.5
 		column_swap_factor = 0.5
 		target_template = {
@@ -542,28 +541,28 @@ mountaineers_HUN = {
 			match_value = 5000
 			support = {
 				engineer = 1
-				armored_car_recon = 1
-				signal_company = 1
 				maintenance_company = 1
-				field_hospital = 1
+				logistics_company = 1
+				signal_company = 1
+				armored_car_recon = 1
 			}
 			regiments = {
-				mountaineers = 12
-				artillery_brigade = 5
+				mountaineers = 8
+				artillery_brigade = 4
 				anti_tank_brigade = 2
-				anti_air_brigade = 1
+				anti_air_brigade = 2
 			}
 		}
 		allowed_types = {
 			mountaineers
-			engineer
-			armored_car_recon
-			signal_company
-			maintenance_company
-			field_hospital
 			artillery_brigade
 			anti_tank_brigade
 			anti_air_brigade
+			engineer
+			maintenance_company
+			logistics_company
+			signal_company
+			armored_car_recon
 		}
 	}
 }
