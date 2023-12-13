@@ -3,28 +3,17 @@ import os
 import io
 import os.path
 
-inputpath = ".\\common\\national_focus\\"
+inputpath = ".\\common\\ideas\\"
 outputpath = ".\\_tool\\Focusestool\\"
 # inputfilename = input()
 
-inputfilename = "00 MEX_Fate_focus.txt"
+inputfilename = "MEX_ideas.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
 if not os.path.exists(outputpath):
     os.makedirs(outputpath)
 counter_leave = 0
-
-# 这是一个函数 不动
-def GetRelative(lines):
-    temp = ""
-    for line in lines:
-        if "relative_position_id" in line:
-            temp = line.strip()
-            temp = re.sub(r"relative_position_id", "", temp).strip()
-            temp = re.sub(r"=", "", temp).strip()
-    return temp
-
 
 iputfullpath = inputpath + inputfilename
 
@@ -49,6 +38,7 @@ focusblock = ""
 filestart = []
 # print(lines[0])
 ##处理文件流
+
 for line in lines:
     templine = line
     if counter_leave == 1 and "}" in line:
@@ -66,7 +56,7 @@ for line in lines:
         focuslist.append(line)
         if counter_leave == 2 and "\t}" in line:
             fullfocuslist.append(focuslist)
-    if counter_leave == 2 and "\tid" in line and "=" in line:
+    if counter_leave == 3 and "=" in line:
         # 这是这个国策的id
         templine = re.sub(r"\tid", "", templine).strip()
         templine = re.sub(r"=", "", templine).strip()
@@ -74,11 +64,6 @@ for line in lines:
     counter_leave += line.count("{")
     counter_leave -= line.count("}")
 relativelist = []
-
-for id in idlist:
-    tempfocus = fullfocuslist[idlist.index(id)]
-    relativeid = GetRelative(tempfocus)
-    relativelist.append(relativeid)
 
 print(len(idlist), len(fullfocuslist), len(relativelist))
 reorderlist = []

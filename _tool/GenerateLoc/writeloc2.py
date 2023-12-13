@@ -13,7 +13,7 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "Generic_trait_"
+target = "MEX_"
 
 with open(file_path1, "r") as file:
     lines = file.readlines()
@@ -24,6 +24,8 @@ with open(file_path2, "w") as file:
     file.truncate(0)
     for line in lines:
         prefix = line.strip()  # 去除行末尾的换行符等空白字符
-        name0 = prefix[len(target):].replace("_", " ").title().strip()  # 去除生成的字符串首尾空白
+        name0 = (prefix[len(target):])[:-len('_idea')].replace("_", " ").title().strip()  # 去除生成的字符串首尾空白
         full = " " + prefix + ":" + " " + '"' + name0 + '"'
+        full2 = " " + prefix + '_desc' + ":" + " " + '\"' + '\"'
         file.write(full + '\n')  # 写入行并添加换行符
+        file.write(full2 + '\n')  # 写入行并添加换行符
