@@ -10,7 +10,7 @@ output3 = os.path.join(folder_path1, 'generatecharacterhistory.txt')
 
 files = os.listdir(folder_path)
 # 要删除的特定前缀和后缀
-prefix_to_remove = "Portrait_"
+prefix_to_remove = "idea_"
 suffix_to_remove = ".png"  # 你想要删除的后缀，例如 ".txt"
 # 处理文件名并存入集合
 files_set = set()
@@ -27,44 +27,6 @@ for file_name in files:
 
     files_set.add(file_name)
 
-##格式-海军
-characters_string1 = '''
-	{} = {{
-		name = {}
-		portraits = {{
-			civilian = {{
-				small = "GFX_idea_advisor_unknow_pol"
-				large = GFX_Portrait_{}
-			}}
-			army = {{
-				small = "GFX_idea_advisor_unknow_mil"
-				large = GFX_Portrait_{}
-			}}
-		}}
-		navy_leader = {{
-			traits = {{
-				naval_lineage
-				navy_career_officer
-				torpedo_expert
-				cruiser_captain
-			}}
-			skill = 3
-			attack_skill = 3
-			defense_skill = 3
-			maneuvering_skill = 4
-			coordination_skill = 3
-		}}
-		advisor = {{
-			slot = navy_chief
-			idea_token = {}
-			ledger = navy
-			cost = 100
-			traits = {{
-				navy_chief_reform_2
-			}}
-		}}
-	}}
-'''
 
 ##格式-陆军
 characters_string = '''
@@ -80,23 +42,12 @@ characters_string = '''
 				large = GFX_Portrait_Unknown
 			}}
 		}}
-		corps_commander = {{
-			traits = {{
-                organizer
-			}}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-		}}
 		advisor = {{
 			slot = army_chief
 			idea_token = {}
-			ledger = army
+			ledger = political_advisor
 			cost = 100
 			traits = {{
-				army_chief_reform_2
 			}}
 		}}
 	}}
