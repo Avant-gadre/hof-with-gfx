@@ -38,7 +38,7 @@ def outpuGfx(text):
         txt = re.sub(".png", "", txt).strip()
         pngfullname = '\t\ttexturefile = "' + pngpath + "/" + txt + '.png"\n'
         # pngfullgfxname = '\t\tname = \"GFX_'+txt + '\"\n'
-        pngfullgfxname = "\t\tname = GFX_" + txt + "\n"
+        pngfullgfxname = "\t\tname = GFX_idea_" + txt + "\n"
         txtfile.write("\tSpriteType = {\n")
         txtfile.write(pngfullgfxname)
         txtfile.write(pngfullname)
