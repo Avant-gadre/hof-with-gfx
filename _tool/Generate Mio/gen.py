@@ -1,13 +1,30 @@
-characters_string = """
+characters_string1 = """
     {}_organization = {{
         include = generic_infantry_equipment_organization
         name = {}
         icon = GFX_idea_{}
         allowed = {{
-            original_tag = UKR
+            original_tag = CZE
         }}
     }}
 """
+
+characters_string = """
+		{} = {{
+            name = {}
+            icon = GFX_idea_{}
+			allowed = {{
+				original_tag = CZE
+			}}
+			visible = {{
+			}}
+			traits = {{
+				industrial_manufacturer
+			}}
+		}}
+"""
+
+
 
 import os
 
