@@ -32,7 +32,7 @@ with open(file_path2, "w") as file:
 
         full = " " + prefix + ":" + " " + '"' + name0 + '"'
 
-        full2 = " " + prefix + '_desc' + ":" + " " + '\"' + '\"'
+        #full2 = " " + prefix + '_desc' + ":" + " " + '\"' + '\"'
 
         file.write(full + '\n')  # 写入行并添加换行符
-        file.write(full2 + '\n')  # 写入行并添加换行符
+       #file.write(full2 + '\n')  # 写入行并添加换行符
