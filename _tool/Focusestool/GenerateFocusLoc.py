@@ -7,7 +7,7 @@ inputpath = ".\\common\\national_focus\\"
 outputpath = ".\\_tool\\Focusestool\\"
 # inputfilename = input()
 
-inputfilename = "03 POR_Fate_focus.txt"
+inputfilename = "00 ITA_Fate_focus.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
@@ -108,7 +108,7 @@ for id in idlist:
     idcontent = id[4:].replace("_", " ")
     idcontent = idcontent.title()
     iddesc = id + "_desc"
-    iddesccontent = "Please Place Me"
+    iddesccontent = ""
 
     TheIDDesc = id + ":" + " " + '"' + idcontent + '"'
     TheContentDesc = iddesc + ":" + " " + '"' + iddesccontent + '"'
