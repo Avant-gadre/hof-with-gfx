@@ -7,7 +7,7 @@ inputpath = ".\\common\\national_focus\\"
 outputpath = ".\\_tool\\Focusestool\\"
 # inputfilename = input()
 
-inputfilename = "00 ITA_Fate_focus.txt"
+inputfilename = "01 EGY_Fate_focus.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
