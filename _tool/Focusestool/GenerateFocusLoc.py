@@ -7,7 +7,7 @@ inputpath = ".\\common\\national_focus\\"
 outputpath = ".\\_tool\\Focusestool\\"
 # inputfilename = input()
 
-inputfilename = "03 BAT_Fate_focus.txt"
+inputfilename = "03 CZE_Fate_focus.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
@@ -105,7 +105,7 @@ f = open(outputpath + outputfilename, "w", encoding="utf-8")
 f.write("l_english: " + "\n")
 
 for id in idlist:
-    idcontent = id[7:].replace("_", " ")
+    idcontent = id[4:].replace("_", " ")
     idcontent = idcontent.title()
     iddesc = id + "_desc"
     iddesccontent = ""

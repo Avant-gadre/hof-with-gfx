@@ -13,7 +13,7 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "Generic_trait_"
+target = "CZE_"
 
 with open(file_path1, "r") as file:
     lines = file.readlines()
@@ -32,7 +32,7 @@ with open(file_path2, "w") as file:
 
         full = " " + prefix + ":" + " " + '"' + name0 + '"'
 
-        #full2 = " " + prefix + '_desc' + ":" + " " + '\"' + '\"'
+        full2 = " " + prefix + '_desc' + ":" + " " + '\"' + '\"'
 
         file.write(full + '\n')  # 写入行并添加换行符
-       #file.write(full2 + '\n')  # 写入行并添加换行符
+        file.write(full2 + '\n')  # 写入行并添加换行符

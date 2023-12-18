@@ -10,19 +10,21 @@ focus_tree = {
 	}
 	default = no
 	continuous_focus_position = {
-		x = 1200
-		y = 900
+		x = 1400
+		y = 850
 	}
 	focus = {
 		id = CZE_legacy_of_legions
 		icon = GFX_focus_CZE_legionnaires_kr
-		x = 24
-		y = 0
+		x = 19
+		y = 1
 		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
+			army_experience = 10
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -31,8 +33,8 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_legacy_of_legions
 		}
-		x = -3
-		y = 3
+		x = -2
+		y = 1
 		relative_position_id = CZE_legacy_of_legions
 		cost = 5
 		ai_will_do = {
@@ -41,10 +43,9 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
-			set_rule = {
-				can_send_volunteers = yes
-			}
-			add_ideas = foreign_expeditions_focus
+			add_manpower = 10000
+			army_experience = 20
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -56,11 +57,19 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = CZE_legacy_of_legions
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 0.2
 		}
 		completion_reward = {
+			if = {
+				limit = {
+					has_intelligence_agency = no
+				}
+				create_intelligence_agency = yes
+			}
+			gain_random_agency_upgrade = yes
+			CZE_upgrade_police_effect = yes
 		}
 	}
 	focus = {
@@ -72,11 +81,13 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = CZE_2nd_departnment
-		cost = 5
+		cost = 6
 		ai_will_do = {
 			factor = 0.7
 		}
 		completion_reward = {
+			gain_random_agency_upgrade = yes
+			CZE_upgrade_police_effect = yes
 		}
 	}
 	focus = {
@@ -88,11 +99,13 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = CZE_2nd_departnment
-		cost = 5
+		cost = 6
 		ai_will_do = {
 			factor = 0.3
 		}
 		completion_reward = {
+			gain_random_agency_upgrade = yes
+			CZE_upgrade_police_effect = yes
 		}
 	}
 	focus = {
@@ -101,7 +114,6 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_military_maneuvers
 			focus = CZE_reorganize_general_staff
-			focus = CZE_french_military_mission
 		}
 		x = 0
 		y = 2
@@ -111,12 +123,8 @@ focus_tree = {
 			factor = 0.6
 		}
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
+			CZE_upgrade_army_effect = yes
+			add_one_cost_land_doctrine_reduction = yes
 		}
 	}
 	focus = {
@@ -128,22 +136,26 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_prepare_new_plan
 		}
-		cost = 5
+		cost = 7
 		ai_will_do = {
 			factor = 90
 		}
 		available = {
 		}
 		completion_reward = {
-			army_experience = 10
+			army_experience = 25
+			every_military_industrial_organization = {
+				add_mio_funds = 500
+			}
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
 		id = CZE_access_to_the_sea
 		icon = GFX_focus_CZE_navy
-		x = -5
-		y = 3
-		relative_position_id = CZE_military_research_institute
+		x = 3
+		y = 7
+		relative_position_id = CZE_reorganize_general_staff
 		cost = 5
 		ai_will_do = {
 			factor = 30
@@ -290,7 +302,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_access_to_the_sea
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = CZE_access_to_the_sea
 		cost = 5
@@ -309,7 +321,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_access_to_the_sea
 		}
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = CZE_access_to_the_sea
 		cost = 5
@@ -321,9 +333,6 @@ focus_tree = {
 				is_controlled_by = ROOT
 				is_coastal = yes
 			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
 			navy_experience = 10
@@ -372,7 +381,7 @@ focus_tree = {
 		x = 0
 		y = 4
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 6
 		ai_will_do = {
 			factor = 90
 		}
@@ -380,14 +389,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = CZE_war_college_idea
-			if = {
-				limit = {
-					NOT = {
-						amount_research_slots > 4
-					}
-				}
-				add_research_slot = 1
-			}
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
@@ -402,19 +404,15 @@ focus_tree = {
 		x = 1
 		y = 3
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 6
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 		}
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
+			add_one_cost_land_doctrine_reduction = yes
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -439,6 +437,7 @@ focus_tree = {
 				uses = 1
 				category = armor
 			}
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -458,11 +457,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				name = CZE_mechanization				#@#
+				name = CZE_mechanization
 				bonus = 1
-				uses = 1
-				category = cat_mechanized_equipment
+				ahead_reduction = 2
+				technology = mechanised_infantry
 			}
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -471,10 +471,10 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_military_research_institute
 		}
-		x = 4
+		x = 3
 		y = 1
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 70
 		}
@@ -495,10 +495,10 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_military_research_institute
 		}
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 60
 		}
@@ -507,8 +507,8 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = motorized_bonus
-				bonus = 3
-				technology = motorised_infantry
+				bonus = 1
+				technology = mechanised_infantry
 			}
 		}
 	}
@@ -524,19 +524,15 @@ focus_tree = {
 		x = -1
 		y = 3
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 6
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 		}
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
+			add_one_cost_land_doctrine_reduction = yes
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -548,7 +544,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 80
 		}
@@ -573,7 +569,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 6
 		ai_will_do = {
 			factor = 60
 		}
@@ -593,6 +589,7 @@ focus_tree = {
 				technology = support_weapons2
 				technology = support_weapons3
 			}
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -601,10 +598,10 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_military_research_institute
 		}
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 6
 		ai_will_do = {
 			factor = 80
 		}
@@ -618,6 +615,7 @@ focus_tree = {
 				uses = 1
 				category = infantry_weapons
 			}
+			CZE_upgrade_army_effect = yes
 		}
 	}
 	focus = {
@@ -626,10 +624,10 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_military_research_institute
 		}
-		x = -2
+		x = -3
 		y = 1
 		relative_position_id = CZE_military_research_institute
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 50
 		}
@@ -659,12 +657,8 @@ focus_tree = {
 			factor = 0.7
 		}
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
+			army_experience = 25
+			add_one_cost_land_doctrine_reduction = yes
 		}
 	}
 	focus = {
@@ -681,13 +675,26 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
+			army_experience = 20
+			random_army_leader = {
+				add_planning = 1
+			}
+			random_army_leader = {
+				add_planning = 1
+			}
+			random_army_leader = {
+				add_planning = 1
+			}
+			random_army_leader = {
+				add_planning = 1
+			}
 		}
 	}
 	focus = {
 		id = CZE_military_aeronautical_institute
 		icon = GFX_focus_CZE_airforce
 		x = 2
-		y = 5
+		y = 1
 		relative_position_id = CZE_reorganize_general_staff
 		prerequisite = {
 			focus = CZE_reorganize_general_staff
@@ -699,7 +706,7 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
-			air_experience = 10
+			air_experience = 60
 		}
 	}
 	focus = {
@@ -708,8 +715,8 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_military_aeronautical_institute
 		}
-		x = -3
-		y = 2
+		x = 3
+		y = 1
 		relative_position_id = CZE_military_aeronautical_institute
 		cost = 5
 		ai_will_do = {
@@ -734,7 +741,7 @@ focus_tree = {
 			focus = CZE_import_foreign_bombers
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CZE_import_foreign_bombers
 		cost = 5
 		ai_will_do = {
@@ -755,10 +762,10 @@ focus_tree = {
 		id = CZE_cas_focus
 		icon = GFX_focus_generic_air_fuel
 		prerequisite = {
-			focus = CZE_import_foreign_bombers
+			focus = CZE_tac_focus
 		}
 		x = -1
-		y = 2
+		y = 3
 		relative_position_id = CZE_import_foreign_bombers
 		cost = 5
 		ai_will_do = {
@@ -799,7 +806,7 @@ focus_tree = {
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 0.99
 				uses = 3
 				category = air_doctrine
 			}
@@ -812,7 +819,7 @@ focus_tree = {
 			focus = CZE_military_aeronautical_institute
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CZE_military_aeronautical_institute
 		cost = 5
 		ai_will_do = {
@@ -830,7 +837,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_military_aeronautical_institute
 		}
-		x = -2
+		x = 1
 		y = 1
 		relative_position_id = CZE_military_aeronautical_institute
 		cost = 5
@@ -879,7 +886,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_heavy_fighter_focus
 		}
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = CZE_import_foreign_fighters
 		cost = 5
@@ -901,26 +908,28 @@ focus_tree = {
 		id = CZE_soviet_treaties
 		icon = GFX_focus_chi_mission_to_the_soviet_union
 		prerequisite = {
-			focus = CZE_legacy_of_legions
+			focus = CZE_join_comintern
 		}
 		available = {
 			country_exists = SOV
 		}
-		x = -4
+		x = -1
 		y = 1
-		relative_position_id = CZE_legacy_of_legions
+		relative_position_id = CZE_join_comintern
 		cost = 5
 		ai_will_do = {
 			factor = 0.7
 		}
 		completion_reward = {
+			army_experience = 20
+			add_one_cost_land_doctrine_reduction = yes
 		}
 	}
 	focus = {
 		id = CZE_soviet_alliance
 		icon = GFX_focus_SOV_ussr
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CZE_soviet_treaties
 		prerequisite = {
 			focus = CZE_soviet_treaties
@@ -932,27 +941,85 @@ focus_tree = {
 			has_government = communism
 		}
 		completion_reward = {
+			army_experience = 20
+			add_one_cost_land_doctrine_reduction = yes
 		}
 	}
 	focus = {
 		id = CZE_french_military_mission
-		icon = GFX_focus_chi_reach_out_to_france
+		icon = GFX_focus_generic_befriend_france
 		prerequisite = {
-			focus = CZE_legacy_of_legions
+			focus = CZE_trust_in_the_west
+			focus = CZE_an_entente_of_our_own
 		}
 		available = {
 			NOT = {
 				has_government = fascism
 			}
 		}
-		x = -2
+		x = -1
 		y = 1
-		relative_position_id = CZE_legacy_of_legions
+		relative_position_id = CZE_trust_in_the_west
 		cost = 5
 		ai_will_do = {
 			factor = 0.4
 		}
 		completion_reward = {
+			army_experience = 20
+			add_one_cost_land_doctrine_reduction = yes
+		}
+	}
+	focus = {
+		id = CZE_british_military_mission
+		icon = GFX_focus_generic_befriend_british
+		prerequisite = {
+			focus = CZE_trust_in_the_west
+		}
+		available = {
+			NOT = {
+				has_government = fascism
+			}
+		}
+		x = 1
+		y = 1
+		relative_position_id = CZE_trust_in_the_west
+		cost = 5
+		ai_will_do = {
+			factor = 0.4
+		}
+		completion_reward = {
+			army_experience = 20
+			add_one_cost_land_doctrine_reduction = yes
+		}
+	}
+	focus = {
+		id = CZE_british_alliance
+		icon = GFX_focus_ENG_war_committee
+		prerequisite = {
+			focus = CZE_british_military_mission
+		}
+		available = {
+			NOT = {
+				has_government = fascism
+			}
+		}
+		bypass = {
+		}
+		x = 0
+		y = 1
+		relative_position_id = CZE_british_military_mission
+		cost = 5
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_1
+				amount = 400
+				producer = FRA
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 2000
+				producer = FRA
+			}
 		}
 	}
 	focus = {
@@ -967,19 +1034,22 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			FRA = {
-				OR = {
-					exists = no
-					is_puppet = yes
-				}
-			}
 		}
 		x = 0
 		y = 1
 		relative_position_id = CZE_french_military_mission
 		cost = 5
 		completion_reward = {
-			add_research_slot = 1
+			add_equipment_to_stockpile = {
+				type = heavy_tank_chassis_1
+				amount = 200
+				producer = FRA
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 2000
+				producer = FRA
+			}
 		}
 	}
 	focus = {
@@ -990,13 +1060,16 @@ focus_tree = {
 		}
 		x = 12
 		y = 1
-		cost = 5
+		cost = 3
 		completion_reward = {
 			add_tech_bonus = {
 				name = CZE_economic_matters
 				bonus = 0.5
 				uses = 1
 				category = industry
+			}
+			every_military_industrial_organization = {
+				add_mio_funds = 100
 			}
 		}
 	}
@@ -1009,15 +1082,18 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = CZE_economic_matters
-		cost = 8
+		cost = 3
 		prerequisite = {
 			focus = CZE_economic_matters
 		}
 		bypass = {
-			has_idea = partial_economic_mobilisation
+			has_war = yes
 		}
 		completion_reward = {
-			add_ideas = partial_economic_mobilisation
+			add_days_mission_timeout = {
+				mission = demob_economic_mission
+				days = 120
+			}
 		}
 	}
 	focus = {
@@ -1029,18 +1105,14 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = CZE_preparatory_mobilization
-		cost = 5
+		cost = 6
 		prerequisite = {
 			focus = CZE_preparatory_mobilization
 		}
 		completion_reward = {
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+			add_one_random_civilian_factory = yes
+			9 = {
+				upgrade_industrial_region = yes
 			}
 		}
 	}
@@ -1089,19 +1161,13 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = CZE_economic_matters
-		cost = 5
+		cost = 4
 		prerequisite = {
+			focus = CZE_industrial_legacy
 			focus = CZE_economic_matters
 		}
 		completion_reward = {
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -1113,19 +1179,15 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = CZE_civilian_expansion
-		cost = 5
+		cost = 6
 		prerequisite = {
 			focus = CZE_sudeten_investments
 			focus = CZE_bohemian_industrial_zone
 		}
 		completion_reward = {
 			75 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
+				upgrade_industrial_region = yes
 			}
 		}
 	}
@@ -1160,6 +1222,18 @@ focus_tree = {
 				amount = 500
 				producer = CZE
 			}
+			mio:CZE_skoda_artillery_organization = {
+				add_mio_funds = 1000
+				add_mio_funds_gain_factor = 0.1
+			}
+			mio:CZE_skoda_tanks_organization = {
+				add_mio_funds = 1000
+				add_mio_funds_gain_factor = 0.1
+			}
+			mio:CZE_skoda_naval_guns_organization = {
+				add_mio_funds = 1000
+				add_mio_funds_gain_factor = 0.1
+			}
 		}
 	}
 	focus = {
@@ -1182,14 +1256,11 @@ focus_tree = {
 			focus = CZE_moravian_industry
 		}
 		completion_reward = {
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_infrastructure = yes
+			CZE_down_concession_effect = yes
+			add_ideas = CZE_agrarian_focus_idea
 		}
 	}
 	focus = {
@@ -1201,18 +1272,14 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = CZE_civilian_expansion
-		cost = 5
+		cost = 6
 		prerequisite = {
 			focus = CZE_civilian_expansion
 		}
 		completion_reward = {
 			9 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
+				increase_state_category = yes
 			}
 		}
 	}
@@ -1225,24 +1292,36 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = CZE_civilian_expansion
-		cost = 5
+		cost = 8
 		prerequisite = {
 			focus = CZE_civilian_expansion
 		}
 		available = {
 			owns_state = 69
 			owns_state = 74
-			owns_state = 775
+			owns_state = 786
 		}
 		completion_reward = {
 			69 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+				add_one_civilian_factory = yes
+				add_resource = {
+					type = oil
+					amount = 6
 				}
 			}
+			786 = {
+				add_one_infrastructure = yes
+			}
+			74 = {
+				add_one_infrastructure = yes
+			}
+			build_railway = {
+				start_province = 11542
+				target_province = 11401
+				level = 1
+			}
+			CZE_down_concession_effect = yes
+			CZE_reduce_divide_country_effect = yes
 		}
 	}
 	focus = {
@@ -1254,7 +1333,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = CZE_economic_matters
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = CZE_economic_matters
 		}
@@ -1283,13 +1362,25 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = CZE_resource_prospecting
-				bonus = 0.5
+				bonus = 1
 				uses = 1
 				technology = excavation1
 				technology = excavation2
 				technology = excavation3
 				technology = excavation4
 				technology = excavation5
+			}
+			69 = {
+				add_resource = {
+					type = oil
+					amount = 6
+				}
+			}
+			74 = {
+				add_resource = {
+					type = aluminium
+					amount = 6
+				}
 			}
 		}
 	}
@@ -1302,15 +1393,15 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = CZE_resource_prospecting
-		cost = 5
+		cost = 6
 		prerequisite = {
 			focus = CZE_resource_prospecting
 		}
 		completion_reward = {
 			add_tech_bonus = {
 				name = CZE_electronic_updates
-				bonus = 0.5
-				uses = 1
+				bonus = 1
+				uses = 2
 				category = electronics
 			}
 		}
@@ -1339,6 +1430,17 @@ focus_tree = {
 				technology = construction4
 				technology = construction5
 			}
+			if = {
+				limit = {
+					NOT = {
+						has_idea = CZE_skoda_industries
+					}
+				}
+				add_ideas = CZE_skoda_industries
+			}
+			else = {
+				add_political_power = 100
+			}
 		}
 	}
 	focus = {
@@ -1358,7 +1460,7 @@ focus_tree = {
 			focus = CZE_resource_prospecting
 		}
 		completion_reward = {
-			add_research_slot = 1
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
@@ -1370,7 +1472,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = CZE_science_emphasis
-		cost = 8
+		cost = 12
 		prerequisite = {
 			focus = CZE_science_emphasis
 		}
@@ -1381,20 +1483,14 @@ focus_tree = {
 			focus = CZE_moravian_industry
 		}
 		completion_reward = {
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+			add_one_random_military_factory = yes
+			CZE_down_concession_effect = yes
+			every_controlled_state = {
+				if = {
+					limit = {
+						is_core_of = ROOT
+					}
+					increase_state_category = yes
 				}
 			}
 		}
@@ -1413,9 +1509,6 @@ focus_tree = {
 				has_government = neutrality
 			}
 		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
-		}
 		completion_reward = {
 			add_ideas = CZE_fortification_focus1_idea
 		}
@@ -1431,12 +1524,6 @@ focus_tree = {
 			factor = 150
 		}
 		available = {
-			NOT = {
-				has_government = neutrality
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
 			add_ideas = CZE_industrial_legacy_idea
@@ -1465,11 +1552,9 @@ focus_tree = {
 		}
 		available = {
 		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
 		completion_reward = {
 			add_ideas = CZE_export_focus1_idea
+			add_political_power = 50
 		}
 	}
 	focus = {
@@ -1481,7 +1566,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = CZE_arms_exports_1
-		cost = 5
+		cost = 9
 		ai_will_do = {
 			factor = 100
 			modifier = {
@@ -1495,14 +1580,12 @@ focus_tree = {
 		}
 		available = {
 		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = CZE_export_focus2_idea
 				add_idea = CZE_export_focus3_idea
 			}
+			add_political_power = 90
 		}
 	}
 	focus = {
@@ -1514,7 +1597,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = CZE_arms_exports_1
-		cost = 5
+		cost = 7
 		ai_will_do = {
 			factor = 100
 			modifier = {
@@ -1528,13 +1611,49 @@ focus_tree = {
 		}
 		available = {
 		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = CZE_export_focus1_idea
 				add_idea = CZE_export_focus2_idea
+			}
+			add_political_power = 70
+		}
+	}
+	focus = {
+		id = CZE_economic_readjustments
+		icon = GFX_focus_generic_building_slots
+		ai_will_do = {
+			factor = 50
+		}
+		x = -1
+		y = 1
+		relative_position_id = CZE_balanced_2
+		cost = 5
+		prerequisite = {
+			focus = CZE_balanced_2
+		}
+		available = {
+			NOT = {
+				has_idea = Integrate_medium_idea
+			}
+			CZE = {
+				controls_state = 1090
+			}
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			add_timed_idea = {
+				idea = Integrate_medium_idea
+				days = 50
+			}
+			CZE_reduce_divide_country_effect = yes
+			1090 = {
+				upgrade_industrial_region = yes
 			}
 		}
 	}
@@ -1554,36 +1673,27 @@ focus_tree = {
 		available = {
 			CZE = {
 				controls_state = 9
-			}
-			CZE = {
 				controls_state = 71
 			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
+			NOT = {
+				has_idea = Integrate_medium_idea
+			}
 		}
 		completion_reward = {
 			9 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
 			}
 			71 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
+				add_extra_state_shared_building_slots = 1
+				add_one_civilian_factory = yes
+				add_one_infrastructure = yes
+				upgrade_industrial_region = yes
 			}
+			add_timed_idea = {
+				idea = Integrate_medium_idea
+				days = 50
+			}
+			CZE_reduce_divide_country_effect = yes
 		}
 	}
 	focus = {
@@ -1591,9 +1701,6 @@ focus_tree = {
 		icon = GFX_focus_generic_bridge
 		prerequisite = {
 			focus = CZE_industrial_legacy
-		}
-		mutually_exclusive = {
-			focus = CZE_favor_czechs_1
 		}
 		x = 0
 		y = 1
@@ -1613,36 +1720,25 @@ focus_tree = {
 		available = {
 			CZE = {
 				controls_state = 9
+				controls_state = 1090
 			}
-			CZE = {
-				controls_state = 70
+			NOT = {
+				has_idea = Integrate_medium_idea
 			}
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
 			9 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
 			}
-			70 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
+			1090 = {
+				add_one_civilian_factory = yes
+				add_one_infrastructure = yes
 			}
+			add_timed_idea = {
+				idea = Integrate_medium_idea
+				days = 50
+			}
+			CZE_reduce_divide_country_effect = yes
 		}
 	}
 	focus = {
@@ -1657,7 +1753,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_a_different_union
 		}
-		x = -1
+		x = -3
 		y = 3
 		relative_position_id = CZE_balanced_1
 		cost = 5
@@ -1665,17 +1761,15 @@ focus_tree = {
 			factor = 100
 		}
 		available = {
-		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
-			FOCUS_FILTER_STABILITY
+			NOT = {
+				has_idea = Integrate_medium_idea
+			}
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = CZE_divided_nation
-				}
-				remove_ideas = CZE_divided_nation
+			CZE_reduce_divide_country_effect = yes
+			add_timed_idea = {
+				idea = Integrate_medium_idea
+				days = 50
 			}
 		}
 	}
@@ -1688,43 +1782,30 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = CZE_civilian_expansion
-		cost = 5
+		cost = 4
 		ai_will_do = {
 			factor = 80
 		}
 		available = {
 			CZE = {
 				controls_state = 9
-			}
-			CZE = {
 				controls_state = 73
 			}
 		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
 		completion_reward = {
 			9 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
 			}
 			73 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
+				add_extra_state_shared_building_slots = 1
+				add_one_civilian_factory = yes
+				add_one_infrastructure = yes
 			}
+			add_timed_idea = {
+				idea = Integrate_medium_idea
+				days = 30
+			}
+			CZE_reduce_divide_country_effect = yes
 		}
 	}
 	focus = {
@@ -1733,13 +1814,10 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_industrial_legacy
 		}
-		mutually_exclusive = {
-			focus = CZE_balanced_1
-		}
 		x = 2
 		y = 1
 		relative_position_id = CZE_industrial_legacy
-		cost = 5
+		cost = 7
 		ai_will_do = {
 			factor = 40
 			modifier = {
@@ -1754,30 +1832,16 @@ focus_tree = {
 		available = {
 			CZE = {
 				controls_state = 9
-			}
-			CZE = {
 				controls_state = 75
 			}
 		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
 		completion_reward = {
 			9 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
+				add_one_civilian_factory = yes
 			}
 			75 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
 			}
 		}
 	}
@@ -1790,37 +1854,23 @@ focus_tree = {
 		x = -1
 		y = 3
 		relative_position_id = CZE_favor_czechs_1
-		cost = 5
+		cost = 7
 		ai_will_do = {
 			factor = 80
 		}
 		available = {
 			CZE = {
 				controls_state = 9
-			}
-			CZE = {
 				controls_state = 75
 			}
 		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
 		completion_reward = {
 			9 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
+				add_one_civilian_factory = yes
 			}
 			75 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
 			}
 		}
 	}
@@ -1833,40 +1883,27 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = CZE_favor_czechs_1
-		cost = 5
+		cost = 7
 		ai_will_do = {
 			factor = 80
 		}
 		available = {
 			CZE = {
 				controls_state = 9
-			}
-			CZE = {
 				controls_state = 75
 			}
 		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
 		completion_reward = {
 			9 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
+				add_one_civilian_factory = yes
 			}
 			75 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+				add_one_civilian_factory = yes
 			}
 		}
 	}
+	##TODO 有点小问题
 	focus = {
 		id = CZE_internal_redoubts
 		icon = GFX_focus_generic_seize_railway
@@ -1887,20 +1924,14 @@ focus_tree = {
 		available = {
 			CZE = {
 				controls_state = 9
-			}
-			CZE = {
 				controls_state = 70
-			}
-			CZE = {
 				controls_state = 75
-			}
-			CZE = {
 				controls_state = 664
 			}
 		}
 		completion_reward = {
 			army_experience = 5
-			664 = {
+			70 = {
 				add_building_construction = {
 					type = bunker
 					province = 6573
@@ -1908,7 +1939,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			70 = {
+			1090 = {
 				add_building_construction = {
 					type = bunker
 					province = 9692
@@ -1928,6 +1959,12 @@ focus_tree = {
 				add_building_construction = {
 					type = bunker
 					province = 6418
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					province = 6440
 					level = 2
 					instant_build = yes
 				}
@@ -1971,127 +2008,14 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			NOT = {
-				69 = {
-					any_province_building_level = {
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 3
-					}
-				}
-				9 = {
-					any_province_building_level = {
-						province = {
-							id = 445
-							id = 494
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 3
-					}
-				}
-				74 = {
-					any_province_building_level = {
-						province = {
-							id = 421
-							id = 6485
-							id = 3414
-							id = 3583
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 3
-					}
-				}
-				70 = {
-					any_province_building_level = {
-						province = {
-							id = 9539
-							id = 9692
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 3
-					}
-				}
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
 		}
 		completion_reward = {
 			army_experience = 5
-			if = {
+			every_controlled_state = {
 				limit = {
-					controls_state = 69
+					CZE_will_build_fort_state_trigger = yes
 				}
-				69 = {
-					set_building_level = {
-						type = bunker
-						level = 3
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-							level < 3
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 9
-				}
-				9 = {
-					set_building_level = {
-						type = bunker
-						level = 3
-						province = {
-							id = 445
-							id = 494
-							limit_to_border = yes
-							level < 3
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 74
-				}
-				74 = {
-					set_building_level = {
-						type = bunker
-						level = 3
-						province = {
-							id = 421
-							id = 6485
-							id = 3414
-							id = 3583
-							limit_to_border = yes
-							level < 3
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 70
-				}
-				70 = {
-					set_building_level = {
-						type = bunker
-						level = 3
-						province = {
-							id = 9539
-							id = 9692
-							limit_to_border = yes
-							level < 3
-						}
-					}
-				}
+				CZE_set_bunker_to_level3_effect = yes
 			}
 			swap_ideas = {
 				add_idea = CZE_fortification_focus2_idea
@@ -2122,58 +2046,22 @@ focus_tree = {
 		}
 		available = {
 			CZE = {
-				controls_state = 71
-			}
-			CZE = {
-				controls_state = 72
+				controls_state = 74
+				controls_state = 75
+				controls_state = 924
 			}
 		}
 		completion_reward = {
 			army_experience = 5
-			924 = {
-				add_building_construction = {
-					type = bunker
-					province = 9567
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 9551
-					level = 2
-					instant_build = yes
-				}
-			}
-			71 = {
-				add_building_construction = {
-					type = bunker
-					province = 581
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 3550
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 3581
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 6604
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 11554
-					level = 2
-					instant_build = yes
+			every_owned_state = {
+				if = {
+					limit = {
+						any_neighbor_state = {
+							is_controlled_by = POL
+						}
+						CZE_is_initial_czech_state_trigger = yes
+					}
+					CZE_build_bunker_by_level3_effect = yes
 				}
 			}
 		}
@@ -2211,64 +2099,16 @@ focus_tree = {
 		}
 		available = {
 			CZE = {
-				controls_state = 664
-			}
-			CZE = {
-				controls_state = 73
+				controls_state = 70
+				controls_state = 71
+				controls_state = 1090
 			}
 		}
 		completion_reward = {
 			army_experience = 5
-			664 = {
-				add_building_construction = {
-					type = bunker
-					province = 3565
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 3716
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 6561
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 6573
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 9537
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 11679
-					level = 3
-					instant_build = yes
-				}
-			}
-			73 = {
-				add_building_construction = {
-					type = bunker
-					province = 11691
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					province = 3548
-					level = 3
-					instant_build = yes
+			SLO = {
+				every_core_state = {
+					CZE_build_bunker_by_level3_effect = yes
 				}
 			}
 		}
@@ -2304,127 +2144,14 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			NOT = {
-				69 = {
-					any_province_building_level = {
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 7
-					}
-				}
-				9 = {
-					any_province_building_level = {
-						province = {
-							id = 445
-							id = 494
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 7
-					}
-				}
-				74 = {
-					any_province_building_level = {
-						province = {
-							id = 421
-							id = 6485
-							id = 3414
-							id = 3583
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 7
-					}
-				}
-				70 = {
-					any_province_building_level = {
-						province = {
-							id = 9539
-							id = 9692
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 7
-					}
-				}
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
 		}
 		completion_reward = {
 			army_experience = 5
-			if = {
+			every_controlled_state = {
 				limit = {
-					controls_state = 69
+					CZE_will_build_fort_state_trigger = yes
 				}
-				69 = {
-					set_building_level = {
-						type = bunker
-						level = 7
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-							level < 7
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 9
-				}
-				9 = {
-					set_building_level = {
-						type = bunker
-						level = 7
-						province = {
-							id = 445
-							id = 494
-							limit_to_border = yes
-							level < 7
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 74
-				}
-				74 = {
-					set_building_level = {
-						type = bunker
-						level = 7
-						province = {
-							id = 421
-							id = 6485
-							id = 3414
-							id = 3583
-							limit_to_border = yes
-							level < 7
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 70
-				}
-				70 = {
-					set_building_level = {
-						type = bunker
-						level = 7
-						province = {
-							id = 9539
-							id = 9692
-							limit_to_border = yes
-							level < 7
-						}
-					}
-				}
+				CZE_set_bunker_to_level7_effect = yes
 			}
 			swap_ideas = {
 				add_idea = CZE_fortification_focus4_idea
@@ -2464,127 +2191,14 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			NOT = {
-				69 = {
-					any_province_building_level = {
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 5
-					}
-				}
-				9 = {
-					any_province_building_level = {
-						province = {
-							id = 445
-							id = 494
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 5
-					}
-				}
-				74 = {
-					any_province_building_level = {
-						province = {
-							id = 421
-							id = 6485
-							id = 3414
-							id = 3583
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 5
-					}
-				}
-				70 = {
-					any_province_building_level = {
-						province = {
-							id = 9539
-							id = 9692
-							limit_to_border = yes
-						}
-						building = bunker
-						level < 5
-					}
-				}
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
 		}
 		completion_reward = {
 			army_experience = 5
-			if = {
+			every_controlled_state = {
 				limit = {
-					controls_state = 69
+					CZE_will_build_fort_state_trigger = yes
 				}
-				69 = {
-					set_building_level = {
-						type = bunker
-						level = 5
-						province = {
-							all_provinces = yes
-							limit_to_border = yes
-							level < 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 9
-				}
-				9 = {
-					set_building_level = {
-						type = bunker
-						level = 5
-						province = {
-							id = 445
-							id = 494
-							limit_to_border = yes
-							level < 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 74
-				}
-				74 = {
-					set_building_level = {
-						type = bunker
-						level = 5
-						province = {
-							id = 421
-							id = 6485
-							id = 3414
-							id = 3583
-							limit_to_border = yes
-							level < 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					controls_state = 70
-				}
-				70 = {
-					set_building_level = {
-						type = bunker
-						level = 5
-						province = {
-							id = 9539
-							id = 9692
-							limit_to_border = yes
-							level < 5
-						}
-					}
-				}
+				CZE_set_bunker_to_level5_effect = yes
 			}
 			swap_ideas = {
 				add_idea = CZE_fortification_focus3_idea
@@ -2663,7 +2277,7 @@ focus_tree = {
 		x = 1
 		y = 3
 		relative_position_id = CZE_fortification_studies
-		cost = 5
+		cost = 1
 		available = {
 			hidden_trigger = {
 				always = no
@@ -2673,15 +2287,28 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = unlock_focuses
+			SLO = {
+				every_core_state = {
+					remove_claim_and_add_core_and_transfer_of_ROOT = yes
+				}
+			}
+			hidden_effect = {
+				CZE_up_divide_country_effect = yes
+				CZE_up_divide_country_effect = yes
+				CZE_up_divide_country_effect = yes
+				CZE_up_divide_country_effect = yes
+				CZE_up_divide_country_effect = yes
+				CZE_up_divide_country_effect = yes
+			}
 		}
 	}
 	focus = {
 		id = CZE_political_direction
 		icon = GFX_focus_CZE_republic
 		x = -2
-		y = 6
+		y = 5
 		relative_position_id = CZE_the_new_czechoslovakia
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			factor = 120
 		}
@@ -2698,9 +2325,9 @@ focus_tree = {
 		id = CZE_strategy_decisions
 		icon = GFX_focus_CZE_royal_army
 		x = 16
-		y = 2
+		y = 3
 		relative_position_id = CZE_political_direction
-		cost = 5
+		cost = 2
 		ai_will_do = {
 			factor = 90
 		}
@@ -2708,9 +2335,72 @@ focus_tree = {
 			NOT = {
 				has_government = neutrality
 			}
+			NOT = {
+				has_government = fascism
+			}
 		}
 		completion_reward = {
 			add_political_power = 150
+		}
+	}
+	focus = {
+		id = CZE_cieszyn_problem
+		icon = GFX_focus_POL_demand_cieszyn
+		cost = 3
+		prerequisite = {
+			focus = CZE_strategy_decisions
+		}
+		x = 2
+		y = 1
+		relative_position_id = CZE_strategy_decisions
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		bypass = {
+		}
+		completion_reward = {
+			custom_effect_tooltip = unlock_focuses
+		}
+	}
+	focus = {
+		id = CZE_join_poland
+		icon = GFX_focus_generic_befriend_poland
+		cost = 3
+		prerequisite = {
+			focus = CZE_cieszyn_problem
+		}
+		x = 1
+		y = 1
+		relative_position_id = CZE_cieszyn_problem
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			POL = {
+				NOT = {
+					has_government = fascism
+				}
+				NOT = {
+					is_in_faction_with = GER
+				}
+				is_independent_and_infaction_and_exist_and_peace_and_not_ally_off_ROOT = yes
+			}
+		}
+		bypass = {
+			is_in_faction_with = POL
+		}
+		completion_reward = {
+			POL = {
+				country_event = {
+					hours = 1
+					id = generic_events.10
+				}
+			}
 		}
 	}
 	focus = {
@@ -2719,11 +2409,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_strategy_decisions
 		}
-		mutually_exclusive = {
-			focus = CZE_trust_in_the_west
-			focus = CZE_german_leanings
-		}
-		x = 6
+		x = -2
 		y = 1
 		relative_position_id = CZE_strategy_decisions
 		cost = 5
@@ -2733,27 +2419,38 @@ focus_tree = {
 		available = {
 			threat > 0.25
 			is_in_faction = no
+			date > 1937.1.1
+			FRA = {
+				NOT = {
+					has_government = fascism
+				}
+				NOT = {
+					is_in_faction_with = GER
+				}
+				is_independent_and_infaction_and_exist_and_peace_and_not_ally_off_ROOT = yes
+			}
 		}
 		bypass = {
 			is_in_faction_with = FRA
 		}
 		completion_reward = {
-			set_rule = {
-				can_create_factions = yes
+			FRA = {
+				country_event = {
+					hours = 1
+					id = generic_events.10
+				}
 			}
-			create_faction = CZE_little_entente
 		}
 	}
 	focus = {
 		id = CZE_security_council
 		icon = GFX_focus_generic_cavalry
 		prerequisite = {
-			focus = CZE_invite_yugoslavia
-			focus = CZE_invite_romania
+			focus = CZE_strategy_decisions
 		}
-		x = 1
-		y = 2
-		relative_position_id = CZE_an_entente_of_our_own
+		x = 4
+		y = 1
+		relative_position_id = CZE_strategy_decisions
 		cost = 5
 		ai_will_do = {
 			factor = 50
@@ -2778,34 +2475,36 @@ focus_tree = {
 		id = CZE_rapprochement_with_hungary
 		icon = GFX_focus_generic_befriend_hungary
 		prerequisite = {
-			focus = CZE_security_council
+			focus = CZE_strategy_decisions
 		}
-		mutually_exclusive = {
-			focus = CZE_deal_with_hungary
-		}
-		x = -2
+		x = -4
 		y = 1
-		relative_position_id = CZE_security_council
+		relative_position_id = CZE_strategy_decisions
 		cost = 5
 		ai_will_do = {
 			factor = 40
 		}
 		available = {
-			NOT = {
-				is_in_faction_with = HUN
-			}
+			threat > 0.25
+			is_in_faction = no
 			HUN = {
-				exists = yes
+				NOT = {
+					has_government = fascism
+				}
+				NOT = {
+					is_in_faction_with = GER
+				}
+				is_independent_and_infaction_and_exist_and_peace_and_not_ally_off_ROOT = yes
 			}
-			HUN = {
-				is_subject = no
-			}
+		}
+		bypass = {
+			is_in_faction_with = HUN
 		}
 		completion_reward = {
 			HUN = {
 				country_event = {
 					hours = 1
-					id = czech.32
+					id = generic_events.10
 				}
 			}
 		}
@@ -2814,11 +2513,11 @@ focus_tree = {
 		id = CZE_deal_with_bulgaria
 		icon = GFX_focus_generic_attack_bulgaria
 		prerequisite = {
-			focus = CZE_security_council
+			focus = CZE_pan_slavic_dream
 		}
-		x = 2
-		y = 1
-		relative_position_id = CZE_security_council
+		x = 1
+		y = 2
+		relative_position_id = CZE_pan_slavic_dream
 		cost = 5
 		ai_will_do = {
 			factor = 90
@@ -2843,58 +2542,14 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = CZE_deal_with_hungary
-		icon = GFX_focus_generic_attack_hungary
-		prerequisite = {
-			focus = CZE_security_council
-		}
-		mutually_exclusive = {
-			focus = CZE_rapprochement_with_hungary
-		}
-		x = 0
-		y = 1
-		relative_position_id = CZE_security_council
-		cost = 5
-		ai_will_do = {
-			factor = 90
-		}
-		available = {
-			NOT = {
-				is_in_faction_with = HUN
-			}
-			HUN = {
-				exists = yes
-			}
-			HUN = {
-				is_subject = no
-			}
-		}
-		bypass = {
-			HUN = {
-				exists = no
-			}
-			HUN = {
-				is_subject_of = CZE
-			}
-		}
-		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = HUN
-				expire = 0
-			}
-		}
-	}
-	focus = {
 		id = CZE_faction_tech_sharing
 		icon = GFX_focus_generic_planning_bonus
 		prerequisite = {
-			focus = CZE_invite_yugoslavia
-			focus = CZE_invite_romania
+			focus = CZE_security_council
 		}
-		x = -1
+		x = 0
 		y = 2
-		relative_position_id = CZE_an_entente_of_our_own
+		relative_position_id = CZE_security_council
 		cost = 5
 		ai_will_do = {
 			factor = 50
@@ -2916,48 +2571,45 @@ focus_tree = {
 			is_faction_leader = no
 		}
 		completion_reward = {
+			every_country = {
+				limit = {
+					is_ally_with = ROOT
+				}
+				add_ideas = CZE_planning_bonus1_idea
+			}
 		}
 	}
 	focus = {
 		id = CZE_invite_romania
 		icon = GFX_focus_generic_befriend_romania
 		prerequisite = {
-			focus = CZE_an_entente_of_our_own
+			focus = CZE_strategy_decisions
 		}
-		x = 1
-		y = 1
-		relative_position_id = CZE_an_entente_of_our_own
+		x = -3
+		y = 2
+		relative_position_id = CZE_strategy_decisions
 		cost = 5
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
+			threat > 0.25
+			is_in_faction = no
 			ROM = {
-				is_in_faction = no
-			}
-			ROM = {
-				exists = yes
-			}
-			ROM = {
-				is_subject = no
-			}
-			CZE = {
-				is_faction_leader = yes
+				NOT = {
+					is_in_faction_with = GER
+				}
+				is_independent_and_infaction_and_exist_and_peace_and_not_ally_off_ROOT = yes
 			}
 		}
 		bypass = {
-			OR = {
-				ROM = {
-					is_in_faction = yes
-				}
-				is_in_faction_with = FRA
-			}
+			is_in_faction_with = ROM
 		}
 		completion_reward = {
 			ROM = {
 				country_event = {
 					hours = 1
-					id = czech.28
+					id = generic_events.10
 				}
 			}
 		}
@@ -2966,44 +2618,24 @@ focus_tree = {
 		id = CZE_invite_yugoslavia
 		icon = GFX_focus_generic_befriend_yugoslavia
 		prerequisite = {
-			focus = CZE_an_entente_of_our_own
+			focus = CZE_strategy_decisions
 		}
-		x = -1
-		y = 1
-		relative_position_id = CZE_an_entente_of_our_own
+		x = -5
+		y = 2
+		relative_position_id = CZE_strategy_decisions
 		cost = 5
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
-			YUG = {
-				is_in_faction = no
-			}
-			YUG = {
-				exists = yes
-			}
-			YUG = {
-				is_subject = no
-			}
-			CZE = {
-				is_faction_leader = yes
+			hidden_trigger = {
+				always = no
 			}
 		}
 		bypass = {
-			OR = {
-				YUG = {
-					is_in_faction = yes
-				}
-				is_in_faction_with = FRA
-			}
 		}
 		completion_reward = {
-			YUG = {
-				country_event = {
-					hours = 1
-					id = czech.25
-				}
-			}
+			custom_effect_tooltip = Generic_wait_for_next_version_please_tt
 		}
 	}
 	focus = {
@@ -3012,11 +2644,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_strategy_decisions
 		}
-		mutually_exclusive = {
-			focus = CZE_german_leanings
-			focus = CZE_an_entente_of_our_own
-		}
-		x = 2
+		x = 0
 		y = 1
 		relative_position_id = CZE_strategy_decisions
 		cost = 5
@@ -3033,18 +2661,25 @@ focus_tree = {
 		}
 		available = {
 			has_government = democratic
+			date > 1937.1.1
+			ENG = {
+				NOT = {
+					has_government = fascism
+				}
+				NOT = {
+					is_in_faction_with = GER
+				}
+				is_independent_and_infaction_and_exist_and_peace_and_not_ally_off_ROOT = yes
+			}
+		}
+		bypass = {
+			is_in_faction_with = ENG
 		}
 		completion_reward = {
 			ENG = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = CZE_trust_in_the_west
-				}
-			}
-			FRA = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = CZE_trust_in_the_west
+				country_event = {
+					hours = 1
+					id = generic_events.10
 				}
 			}
 		}
@@ -3053,24 +2688,21 @@ focus_tree = {
 		id = CZE_doctrinal_innovation
 		icon = GFX_focus_generic_military_academy
 		prerequisite = {
-			focus = CZE_trust_in_the_west
+			focus = CZE_science_emphasis
+			focus = CZE_military_research_institute
 		}
 		x = 0
 		y = 2
-		relative_position_id = CZE_trust_in_the_west
-		cost = 5
+		relative_position_id = CZE_science_emphasis
+		cost = 4
 		ai_will_do = {
 			factor = 100
 		}
 		available = {
 		}
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.75
-				uses = 1
-				category = land_doctrine
-			}
+			army_experience = 25
+			add_one_cost_land_doctrine_reduction = yes
 		}
 	}
 	focus = {
@@ -3079,10 +2711,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_bonus_research_slot_2
 		}
-		mutually_exclusive = {
-			focus = CZE_secret_weapons
-		}
-		x = 1
+		x = 2
 		y = 2
 		relative_position_id = CZE_doctrinal_innovation
 		cost = 5
@@ -3105,14 +2734,14 @@ focus_tree = {
 		id = CZE_secret_weapons
 		icon = GFX_focus_generic_radar_instillation
 		prerequisite = {
-			focus = CZE_bonus_research_slot_2
+			focus = CZE_our_national_rebirth
 		}
-		mutually_exclusive = {
-			focus = CZE_nukes
+		prerequisite = {
+			focus = CZE_bonus_research_slot_1
 		}
 		x = -1
-		y = 2
-		relative_position_id = CZE_doctrinal_innovation
+		y = 1
+		relative_position_id = CZE_our_national_rebirth
 		cost = 5
 		ai_will_do = {
 			factor = 60
@@ -3136,7 +2765,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_doctrinal_innovation
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = CZE_doctrinal_innovation
 		cost = 5
@@ -3152,22 +2781,18 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_research_slot = 1
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
 		id = CZE_german_leanings
 		icon = GFX_focus_GER_deutsches_weltreich
 		prerequisite = {
-			focus = CZE_strategy_decisions
+			focus = CZE_the_sudeten_issue
 		}
-		mutually_exclusive = {
-			focus = CZE_trust_in_the_west
-			focus = CZE_an_entente_of_our_own
-		}
-		x = -2
+		x = -3
 		y = 1
-		relative_position_id = CZE_strategy_decisions
+		relative_position_id = CZE_the_sudeten_issue
 		cost = 5
 		ai_will_do = {
 			factor = 40
@@ -3181,9 +2806,12 @@ focus_tree = {
 			}
 		}
 		available = {
-			always = no
+			hidden_trigger = {
+				always = no
+			}
 		}
 		completion_reward = {
+			custom_effect_tooltip = unlock_focuses
 			GER = {
 				add_opinion_modifier = {
 					target = CZE
@@ -3196,10 +2824,10 @@ focus_tree = {
 		id = CZE_german_technology
 		icon = GFX_focus_GER_alliance_of_steel_and_blood
 		prerequisite = {
-			focus = CZE_deliver_sudetenland
+			focus = CZE_german_leanings
 		}
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = CZE_german_leanings
 		cost = 5
 		ai_will_do = {
@@ -3220,7 +2848,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_german_leanings
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = CZE_german_leanings
 		cost = 5
@@ -3250,7 +2878,7 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_deliver_sudetenland
 		}
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = CZE_deliver_sudetenland
 		cost = 5
@@ -3288,11 +2916,11 @@ focus_tree = {
 		id = CZE_german_minor_ally
 		icon = GFX_focus_GER_end_of_czechoslovakia
 		prerequisite = {
-			focus = CZE_deliver_sudetenland
+			focus = CZE_german_ally
 		}
-		x = 2
-		y = 1
-		relative_position_id = CZE_deliver_sudetenland
+		x = 0
+		y = 2
+		relative_position_id = CZE_german_ally
 		cost = 5
 		ai_will_do = {
 			factor = 40
@@ -3329,14 +2957,11 @@ focus_tree = {
 		id = CZE_german_puppet
 		icon = GFX_focus_GER_valkist_germany
 		prerequisite = {
-			focus = CZE_german_ally
-		}
-		prerequisite = {
 			focus = CZE_german_minor_ally
 		}
 		x = 0
-		y = 3
-		relative_position_id = CZE_german_leanings
+		y = 1
+		relative_position_id = CZE_german_minor_ally
 		cost = 5
 		ai_will_do = {
 			factor = 90
@@ -3368,7 +2993,7 @@ focus_tree = {
 		x = 4
 		y = 1
 		relative_position_id = CZE_political_direction
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			factor = 40
 			modifier = {
@@ -3381,40 +3006,12 @@ focus_tree = {
 			}
 		}
 		available = {
-			always = no
+			hidden_trigger = {
+				always = no
+			}
 		}
 		completion_reward = {
-			#allow nazi leader
-			every_other_country = {
-				limit = {
-					has_government = fascism
-					num_of_factories > 30
-				}
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = FRA_right_wing_rhetoric_fascism
-				}
-			}
-			every_other_country = {
-				limit = {
-					has_government = democratic
-					num_of_factories > 30
-				}
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = FRA_right_wing_rhetoric_democratic
-				}
-			}
-			every_other_country = {
-				limit = {
-					has_government = communism
-					num_of_factories > 30
-				}
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = FRA_right_wing_rhetoric_communism
-				}
-			}
+			custom_effect_tooltip = Generic_wait_for_next_version_please_tt
 		}
 	}
 	focus = {
@@ -3434,7 +3031,6 @@ focus_tree = {
 			fascism > 0.5
 		}
 		completion_reward = {
-			add_ideas = FRA_army_of_aggression_focus
 		}
 	}
 	focus = {
@@ -3485,7 +3081,7 @@ focus_tree = {
 			focus = CZE_aggressive_wars
 		}
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = CZE_aggressive_wars
 		cost = 5
 		ai_will_do = {
@@ -3499,32 +3095,6 @@ focus_tree = {
 			fascism > 0.6
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = CZE_divided_nation
-				}
-				remove_ideas = CZE_divided_nation
-				add_timed_idea = {
-					idea = CZE_czech_fascism1_idea
-					days = 1095
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_idea = CZE_divided_nation
-					}
-				}
-				add_timed_idea = {
-					idea = CZE_czech_fascism1_idea
-					days = 1095
-				}
-			}
-			country_event = {
-				days = 6
-				random_days = 5
-				id = czech.14
-			}
 		}
 	}
 	focus = {
@@ -3543,12 +3113,6 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
-			GER = {
-				country_event = {
-					hours = 1
-					id = czech.10
-				}
-			}
 		}
 	}
 	focus = {
@@ -3568,10 +3132,6 @@ focus_tree = {
 			fascism > 0.35
 		}
 		completion_reward = {
-			add_timed_idea = {
-				idea = CZE_czech_fascism
-				days = 1095
-			}
 		}
 	}
 	focus = {
@@ -3598,7 +3158,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_ideas = CZE_national_fascism_idea
 		}
 	}
 	focus = {
@@ -3607,15 +3166,17 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-		x = 2
-		y = 4
-		relative_position_id = CZE_go_right
+		x = 0
+		y = 2
+		relative_position_id = CZE_beacon_of_liberty
 		cost = 5
 		prerequisite = {
-			focus = CZE_fervent_panslavism
+			focus = CZE_beacon_of_liberty
+			focus = CZE_our_own_kind_of_socialism
 		}
 		completion_reward = {
 			add_political_power = 75
+			CZE_upgrade_democracy_effect = yes
 		}
 	}
 	focus = {
@@ -3624,8 +3185,8 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-		x = 2
-		y = 3
+		x = 3
+		y = 2
 		relative_position_id = CZE_go_right
 		cost = 5
 		prerequisite = {
@@ -3641,8 +3202,8 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-		x = 3
-		y = 2
+		x = 4
+		y = 3
 		relative_position_id = CZE_go_right
 		cost = 5
 		prerequisite = {
@@ -3665,11 +3226,12 @@ focus_tree = {
 			focus = CZE_go_right
 		}
 		completion_reward = {
+			add_ideas = CZE_corporatism_idea
 		}
 	}
 	focus = {
 		id = CZE_democratic_bastion
-		icon = GFX_focus_generic_elections
+		icon = GFX_focus_CZE_national_socialists
 		prerequisite = {
 			focus = CZE_political_direction
 		}
@@ -3680,7 +3242,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = CZE_political_direction
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			factor = 90
 			modifier = {
@@ -3691,12 +3253,9 @@ focus_tree = {
 		available = {
 			has_country_flag = CZE_Czech_democratic_flag
 		}
-		search_filters = {
-			FOCUS_FILTER_WAR_SUPPORT
-		}
 		completion_reward = {
 			add_political_power = 200
-			add_ideas = CZE_democratic_bastion
+			CZE_upgrade_democracy_effect = yes
 		}
 	}
 	focus = {
@@ -3707,7 +3266,7 @@ focus_tree = {
 			focus = CZE_defensive_preparations
 			focus = CZE_aggressive_wars
 		}
-		x = 0
+		x = -2
 		y = 3
 		relative_position_id = CZE_democratic_bastion
 		cost = 5
@@ -3716,10 +3275,9 @@ focus_tree = {
 		}
 		available = {
 			num_of_factories > 34
-			amount_research_slots < 5
 		}
 		completion_reward = {
-			add_research_slot = 1
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
@@ -3752,7 +3310,7 @@ focus_tree = {
 	}
 	focus = {
 		id = CZE_beacon_of_liberty
-		icon = GFX_focus_CZE_agrarians
+		icon = GFX_focus_generic_ideology_social_liberal
 		prerequisite = {
 			focus = CZE_democratic_bastion
 		}
@@ -3766,14 +3324,8 @@ focus_tree = {
 		available = {
 			democratic > 0.5
 		}
-		search_filters = {
-			FOCUS_FILTER_WAR_SUPPORT
-		}
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = CZE_democratic_bastion
-				add_idea = CZE_beacon_of_liberty
-			}
+			CZE_upgrade_democracy_effect = yes
 		}
 	}
 	focus = {
@@ -3790,12 +3342,14 @@ focus_tree = {
 			focus = CZE_democratic_bastion
 		}
 		completion_reward = {
-			add_political_power = 100
+			add_political_power = 80
+			add_stability = 0.05
+			add_war_support = 0.05
 		}
 	}
 	focus = {
 		id = CZE_our_own_kind_of_socialism
-		icon = GFX_focus_CZE_national_socialists
+		icon = GFX_focus_CZE_csdsd
 		ai_will_do = {
 			factor = 50
 		}
@@ -3807,6 +3361,51 @@ focus_tree = {
 			focus = CZE_democratic_bastion
 		}
 		completion_reward = {
+			CZE_upgrade_democracy_effect = yes
+		}
+	}
+	focus = {
+		id = CZE_extensive_welfare_reform
+		icon = GFX_focus_generic_ideology_social_democrat
+		ai_will_do = {
+			factor = 50
+		}
+		x = 0
+		y = 2
+		relative_position_id = CZE_our_own_kind_of_socialism
+		cost = 5
+		prerequisite = {
+			focus = CZE_our_own_kind_of_socialism
+		}
+		completion_reward = {
+			add_ideas = CZE_welfare_reform_idea
+		}
+	}
+	focus = {
+		id = CZE_supporting_the_farmers
+		icon = GFX_focus_CZE_agrarians
+		ai_will_do = {
+			factor = 50
+		}
+		x = -1
+		y = 1
+		relative_position_id = CZE_extensive_welfare_reform
+		cost = 5
+		prerequisite = {
+			focus = CZE_extensive_welfare_reform
+		}
+		prerequisite = {
+			focus = CZE_our_national_rebirth
+		}
+		completion_reward = {
+			every_core_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_ideas = CZE_land_reform_idea
 		}
 	}
 	focus = {
@@ -3823,6 +3422,7 @@ focus_tree = {
 			focus = CZE_democratic_bastion
 		}
 		completion_reward = {
+			CZE_upgrade_democracy_effect = yes
 		}
 	}
 	focus = {
@@ -3838,7 +3438,7 @@ focus_tree = {
 		x = -4
 		y = 1
 		relative_position_id = CZE_political_direction
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			factor = 90
 			modifier = {
@@ -3906,63 +3506,23 @@ focus_tree = {
 			communism > 0.3
 			SOV = {
 				has_government = communism
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_1
+				NOT = {
+					is_in_faction_with = GER
 				}
+				is_independent_and_infaction_and_exist_and_peace_and_not_ally_off_ROOT = yes
 			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_2
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_3
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_4
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_5
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_6
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_7
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_8
-				}
-			}
+			SOV_has_industrialized_trigger = yes
 			is_in_faction = no
-			NOT = {
-				any_other_country = {
-					is_in_faction_with = SOV
-					has_war_with = CZE
-				}
-			}
 		}
 		bypass = {
 			is_in_faction_with = SOV
 		}
 		completion_reward = {
+			CZE_upgrade_socialism_effect = yes
 			SOV = {
 				country_event = {
 					hours = 1
-					id = czech.1
+					id = generic_events.10
 				}
 			}
 		}
@@ -3971,48 +3531,44 @@ focus_tree = {
 		id = CZE_the_polish_division
 		icon = GFX_focus_POL_intermarium
 		prerequisite = {
-			focus = CZE_join_comintern
+			focus = CZE_soviet_treaties
 		}
 		x = 1
 		y = 1
-		relative_position_id = CZE_join_comintern
+		relative_position_id = CZE_soviet_treaties
 		cost = 5
 		ai_will_do = {
 			factor = 80
 		}
 		available = {
+			hidden_trigger = {
+				always = no
+			}
 		}
 		completion_reward = {
-			SOV = {
-				country_event = {
-					hours = 1
-					id = czech.7
-				}
-			}
+			custom_effect_tooltip = Generic_wait_for_next_version_please_tt
 		}
 	}
 	focus = {
 		id = CZE_the_romanian_question
 		icon = GFX_focus_generic_attack_romania
 		prerequisite = {
-			focus = CZE_join_comintern
+			focus = CZE_soviet_treaties
 		}
 		x = -1
 		y = 1
-		relative_position_id = CZE_join_comintern
+		relative_position_id = CZE_soviet_treaties
 		cost = 5
 		ai_will_do = {
 			factor = 80
 		}
 		available = {
+			hidden_trigger = {
+				always = no
+			}
 		}
 		completion_reward = {
-			SOV = {
-				country_event = {
-					hours = 1
-					id = czech.4
-				}
-			}
+			custom_effect_tooltip = Generic_wait_for_next_version_please_tt
 		}
 	}
 	focus = {
@@ -4032,7 +3588,7 @@ focus_tree = {
 			communism > 0.2
 		}
 		completion_reward = {
-			add_ideas = communist_influence
+			CZE_upgrade_socialism_effect = yes
 		}
 	}
 	focus = {
@@ -4050,11 +3606,8 @@ focus_tree = {
 		}
 		available = {
 		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
-			FOCUS_FILTER_STABILITY
-		}
 		completion_reward = {
+			CZE_upgrade_socialism_effect = yes
 		}
 	}
 	focus = {
@@ -4063,8 +3616,8 @@ focus_tree = {
 		prerequisite = {
 			focus = CZE_czech_socialism
 		}
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = CZE_czech_socialism
 		cost = 5
 		ai_will_do = {
@@ -4072,11 +3625,8 @@ focus_tree = {
 		}
 		available = {
 		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
-		}
 		completion_reward = {
-			add_ideas = CZE_communism_with_a_human_face
+			CZE_upgrade_socialism_effect = yes
 		}
 	}
 	focus = {
@@ -4093,6 +3643,7 @@ focus_tree = {
 		relative_position_id = CZE_go_left
 		cost = 5
 		completion_reward = {
+			CZE_upgrade_socialism_effect = yes
 		}
 	}
 	focus = {
@@ -4101,33 +3652,18 @@ focus_tree = {
 		ai_will_do = {
 			factor = 0
 		}
-		relative_position_id = CZE_the_new_czechoslovakia
-		x = 0
-		y = 2
+		relative_position_id = CZE_national_fascism
+		x = 1
+		y = 1
 		cost = 6
 		prerequisite = {
-			focus = CZE_representation_for_all
-		}
-		prerequisite = {
-			focus = CZE_a_different_union
+			focus = CZE_national_fascism
 		}
 		available = {
 			has_government = fascism
 		}
 		completion_reward = {
 			add_war_support = 0.1
-			66 = {
-				add_claim_by = CZE
-			}
-			794 = {
-				add_claim_by = CZE
-			}
-			67 = {
-				add_claim_by = CZE
-			}
-			799 = {
-				add_claim_by = CZE
-			}
 		}
 	}
 	focus = {
@@ -4136,8 +3672,8 @@ focus_tree = {
 		ai_will_do = {
 			factor = 0
 		}
-		x = 0
-		y = 3
+		x = -1
+		y = 2
 		relative_position_id = CZE_pan_slavic_dream
 		cost = 6
 		prerequisite = {
@@ -4147,45 +3683,6 @@ focus_tree = {
 			create_wargoal = {
 				type = annex_everything
 				target = POL
-			}
-			85 = {
-				add_claim_by = CZE
-			}
-			5 = {
-				add_claim_by = CZE
-			}
-			752 = {
-				add_claim_by = CZE
-			}
-			98 = {
-				add_claim_by = CZE
-			}
-			86 = {
-				add_claim_by = CZE
-			}
-			87 = {
-				add_claim_by = CZE
-			}
-			10 = {
-				add_claim_by = CZE
-			}
-			92 = {
-				add_claim_by = CZE
-			}
-			90 = {
-				add_claim_by = CZE
-			}
-			88 = {
-				add_claim_by = CZE
-			}
-			91 = {
-				add_claim_by = CZE
-			}
-			89 = {
-				add_claim_by = CZE
-			}
-			1065 = {
-				add_claim_by = CZE
 			}
 		}
 	}
@@ -4203,27 +3700,10 @@ focus_tree = {
 			focus = CZE_pan_slavic_dream
 		}
 		available = {
-			OR = {
-				controls_state = 66
-				controls_state = 799
-			}
 		}
 		completion_reward = {
 			add_stability = 0.1
 			add_political_power = 150
-			set_cosmetic_tag = CZE_zapadoslavia
-			66 = {
-				add_core_of = CZE
-			}
-			794 = {
-				add_core_of = CZE
-			}
-			67 = {
-				add_core_of = CZE
-			}
-			799 = {
-				add_core_of = CZE
-			}
 		}
 	}
 	focus = {
@@ -4232,8 +3712,8 @@ focus_tree = {
 		ai_will_do = {
 			factor = 0
 		}
-		x = -1
-		y = 2
+		x = -2
+		y = 1
 		relative_position_id = CZE_pan_slavic_dream
 		cost = 5
 		prerequisite = {
@@ -4247,34 +3727,6 @@ focus_tree = {
 				type = infantry_equipment
 				amount = 1500
 				producer = GER
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = GER
-			}
-		}
-	}
-	focus = {
-		id = CZE_dab_on_poland
-		icon = GFX_focus_POL_polish_party
-		ai_will_do = {
-			factor = 0
-		}
-		x = 1
-		y = 2
-		relative_position_id = CZE_pan_slavic_dream
-		cost = 5
-		prerequisite = {
-			focus = CZE_pan_slavic_dream
-		}
-		available = {
-		}
-		completion_reward = {
-			add_manpower = 1500
-			add_command_power = 75
-			create_wargoal = {
-				type = annex_everything
-				target = POL
 			}
 		}
 	}
@@ -4292,23 +3744,20 @@ focus_tree = {
 			focus = CZE_the_new_czechoslovakia
 		}
 		available = {
-			owns_state = 664
-			owns_state = 73
-			owns_state = 1042
-			owns_state = 1043
+			SLO = {
+				any_core_state = {
+					is_owned_and_controlled_by = CZE
+				}
+			}
+			NOT = {
+				has_idea = Integrate_medium_idea
+			}
 		}
 		completion_reward = {
-			664 = {
-				add_core_of = CZE
-			}
-			73 = {
-				add_core_of = CZE
-			}
-			1042 = {
-				add_core_of = CZE
-			}
-			1043 = {
-				add_core_of = CZE
+			CZE_reduce_divide_country_effect = yes
+			add_timed_idea = {
+				idea = Integrate_medium_idea
+				days = 50
 			}
 		}
 	}
@@ -4326,15 +3775,20 @@ focus_tree = {
 			focus = CZE_the_new_czechoslovakia
 		}
 		available = {
-			owns_state = 71
-			owns_state = 70
+			SLO = {
+				any_core_state = {
+					is_owned_and_controlled_by = CZE
+				}
+			}
+			NOT = {
+				has_idea = Integrate_medium_idea
+			}
 		}
 		completion_reward = {
-			71 = {
-				add_core_of = CZE
-			}
-			70 = {
-				add_core_of = CZE
+			CZE_reduce_divide_country_effect = yes
+			add_timed_idea = {
+				idea = Integrate_medium_idea
+				days = 50
 			}
 		}
 	}
@@ -4435,8 +3889,8 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-		x = 0
-		y = 2
+		x = 1
+		y = 3
 		relative_position_id = CZE_the_sudeten_issue
 		cost = 5
 		prerequisite = {
