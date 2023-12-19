@@ -411,6 +411,346 @@ USA_LeMay_4_production = {
 		value = 7
 	}
 }
+
+USA_bombing_germany_is_too_costly = {
+	allowed = {
+		original_tag = USA
+	}
+	enable = {
+		date > 1941.1.1
+		has_war_with = GER
+		GER = {
+			# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+			is_subject = no
+			num_of_civilian_factories > 10
+			owns_state = 64			# 柏林
+			owns_state = 59			# 汉诺威
+			owns_state = 54			# 弗兰肯
+			owns_state = 56			# 奥尔登堡
+		}
+		is_in_faction_with = ENG
+		ENG = {
+			# 是完整且没有投降的呆毛盟友！
+			is_subject = no
+			has_capitulated = no
+		}
+		has_deployed_air_force_size = {
+			size < 900
+			type = strategic_bomber
+		}
+	}
+	abort = {
+		has_deployed_air_force_size = {
+			size > 2500
+			type = strategic_bomber
+		}
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 6		# 德国本土
+		value = -1000000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 7		# 德国本土
+		value = -1000000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 8		# 德国本土
+		value = -1000000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 21		# 奥狗
+		value = -1000000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 38		# 东普鲁士/破烂
+		value = -1000000		#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+USA_avoid_bombing_occupied_FRA = {
+	allowed = {
+		original_tag = USA
+	}
+	enable = {
+		date > 1941.1.1
+		has_war_with = GER
+		GER = {
+			# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+			is_subject = no
+			num_of_civilian_factories > 10
+			owns_state = 64			# 柏林
+			owns_state = 59			# 汉诺威
+			owns_state = 54			# 弗兰肯
+			owns_state = 56			# 奥尔登堡
+		}
+		is_in_faction_with = FRA
+		FRA = {
+			# 是完整且投降的法国盟友！
+			is_subject = no
+			has_capitulated = yes
+		}
+		is_in_faction_with = ENG
+		ENG = {
+			# 是完整且没有投降的呆毛盟友！
+			is_subject = no
+			has_capitulated = no
+		}
+		any_enemy_country = {
+			has_full_control_of_state = 16
+		}		# 巴黎
+		any_enemy_country = {
+			has_full_control_of_state = 14
+		}		# 南特
+		any_enemy_country = {
+			has_full_control_of_state = 19
+		}		# 波尔多
+		any_enemy_country = {
+			has_full_control_of_state = 20
+		}		# 里昂
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 19
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 164
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 20
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 169
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+USA_dont_bomb_east_Europe_places = {
+	allowed = {
+		original_tag = USA
+	}
+	enable = {
+		date > 1941.1.1
+		OR = {
+			AND = {
+				has_war_with = GER
+				GER = {
+					# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+					is_subject = no
+					num_of_civilian_factories > 10
+					owns_state = 64					# 柏林
+					owns_state = 59					# 汉诺威
+					owns_state = 54					# 弗兰肯
+					owns_state = 56					# 奥尔登堡
+				}
+			}
+			AND = {
+				has_war_with = FRA
+				FRA = {
+					# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+					is_subject = no
+					num_of_civilian_factories > 10
+					owns_state = 16					# 巴黎
+					owns_state = 14					# 南特
+					owns_state = 19					# 波尔多
+					owns_state = 20					# 里昂
+				}
+			}
+			AND = {
+				has_war_with = ITA
+				ITA = {
+					# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+					is_subject = no
+					num_of_civilian_factories > 10
+					owns_state = 158					# 都灵
+					owns_state = 2					# 罗马
+					owns_state = 837					# 塔兰托
+				}
+			}
+		}
+		is_in_faction_with = ENG
+		ENG = {
+			# 是完整且没有投降的呆毛盟友！
+			is_subject = no
+			has_capitulated = no
+		}
+		any_enemy_country = {
+			has_full_control_of_state = 206
+		}		# 明斯克
+		any_enemy_country = {
+			has_full_control_of_state = 202
+		}		# 基辅
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 39
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 130
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 132
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 135
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 132
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 133
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+USA_dont_bomb_dutch_places = {
+	allowed = {
+		original_tag = USA
+	}
+	enable = {
+		date > 1941.1.1
+		OR = {
+			AND = {
+				has_war_with = GER
+				GER = {
+					# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+					is_subject = no
+					num_of_civilian_factories > 10
+					owns_state = 64					# 柏林
+					owns_state = 59					# 汉诺威
+					owns_state = 54					# 弗兰肯
+					owns_state = 56					# 奥尔登堡
+				}
+			}
+			AND = {
+				has_war_with = FRA
+				FRA = {
+					# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+					is_subject = no
+					num_of_civilian_factories > 10
+					owns_state = 16					# 巴黎
+					owns_state = 14					# 南特
+					owns_state = 19					# 波尔多
+					owns_state = 20					# 里昂
+				}
+			}
+		}
+		is_in_faction_with = ENG
+		ENG = {
+			# 是完整且没有投降的呆毛盟友！
+			is_subject = no
+			has_capitulated = no
+		}
+		any_enemy_country = {
+			has_full_control_of_state = 866
+		}		# 荷兰
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 5
+		value = -750000		#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+USA_dont_bomb_balkan_places = {
+	allowed = {
+		original_tag = USA
+	}
+	enable = {
+		date > 1941.1.1
+		OR = {
+			AND = {
+				has_war_with = GER
+				GER = {
+					# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+					is_subject = no
+					num_of_civilian_factories > 10
+					owns_state = 64					# 柏林
+					owns_state = 59					# 汉诺威
+					owns_state = 54					# 弗兰肯
+					owns_state = 56					# 奥尔登堡
+				}
+			}
+			AND = {
+				has_war_with = ITA
+				ITA = {
+					# 是一个值得炸的家伙，不是傀儡也没有被肢解，防止玩具投机
+					is_subject = no
+					num_of_civilian_factories > 10
+					owns_state = 158					# 都灵
+					owns_state = 2					# 罗马
+					owns_state = 837					# 塔兰托
+				}
+			}
+		}
+		is_in_faction_with = ENG
+		ENG = {
+			# 是完整且没有投降的呆毛盟友！
+			is_subject = no
+			has_capitulated = no
+		}
+		any_enemy_country = {
+			has_full_control_of_state = 104
+		}		# 波斯尼亚
+		any_enemy_country = {
+			has_full_control_of_state = 107
+		}		# 贝尔格莱德
+		any_enemy_country = {
+			has_full_control_of_state = 47
+		}		# 希腊
+		#any_enemy_country = { has_full_control_of_state = 48 } # 保加利亚
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 143
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 24
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 25
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 26
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 129
+		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
 USA_never_ally_Japan = {
 	allowed = {
 		original_tag = USA
@@ -1092,72 +1432,86 @@ USA_focus_on_africa = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# tripoli
+			}
+			# tripoli
 			450 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# benghazi
+			}
+			# benghazi
 			458 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# tunisia
+			}
+			# tunisia
 			461 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# casablanca
+			}
+			# casablanca
 			462 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# marrakech
+			}
+			# marrakech
 			459 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# algiers
+			}
+			# algiers
 			460 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# constantine
+			}
+			# constantine
 			665 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# gabès
+			}
+			# gabès
 			449 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# el agheila
+			}
+			# el agheila
 			451 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# derna
+			}
+			# derna
 			452 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# matrouh
+			}
+			# matrouh
 			447 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# alexandria
+			}
+			# alexandria
 			753 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# cairo
+			}
+			# cairo
 			290 = {
 				CONTROLLER = {
 					has_war_with = ROOT
 				}
-			}			# spanish africa
+			}
+			# spanish africa
 		}
 	}
 	abort_when_not_enabled = yes
@@ -2214,4 +2568,3 @@ USA_start_buffering_in_pacific = {
 		subtract_fronts_from_need = no
 	}
 }
-
