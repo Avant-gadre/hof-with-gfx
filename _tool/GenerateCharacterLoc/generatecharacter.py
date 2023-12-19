@@ -51,15 +51,6 @@ characters_string1 = '''
 			maneuvering_skill = 3
 			coordination_skill = 3
 		}}
-		advisor = {{
-			slot = navy_chief
-			idea_token = {}
-			ledger = navy
-			cost = 100
-			traits = {{
-				navy_chief_reform_2
-			}}
-		}}
 	}}
 '''
 
@@ -86,15 +77,6 @@ characters_string = '''
 			defense_skill = 2
 			planning_skill = 2
 			logistics_skill = 2
-		}}
-		advisor = {{
-			slot = army_chief
-			idea_token = {}
-			ledger = army
-			cost = 100
-			traits = {{
-				army_chief_reform_2
-			}}
 		}}
 	}}
 '''
