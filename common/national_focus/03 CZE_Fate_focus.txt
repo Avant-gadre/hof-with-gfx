@@ -1720,7 +1720,7 @@ focus_tree = {
 		available = {
 			CZE = {
 				controls_state = 9
-				controls_state = 1090
+				controls_state = 70
 			}
 			NOT = {
 				has_idea = Integrate_medium_idea
@@ -1730,9 +1730,10 @@ focus_tree = {
 			9 = {
 				add_one_civilian_factory = yes
 			}
-			1090 = {
+			70 = {
 				add_one_civilian_factory = yes
 				add_one_infrastructure = yes
+				upgrade_industrial_region = yes
 			}
 			add_timed_idea = {
 				idea = Integrate_medium_idea
@@ -2054,15 +2055,16 @@ focus_tree = {
 		completion_reward = {
 			army_experience = 5
 			every_owned_state = {
-				if = {
-					limit = {
-						any_neighbor_state = {
-							is_controlled_by = POL
-						}
-						CZE_is_initial_czech_state_trigger = yes
+				limit = {
+					any_neighbor_state = {
+						is_controlled_by = POL
 					}
-					CZE_build_bunker_by_level3_effect = yes
+					OR = {
+						CZE_is_initial_czech_state_trigger = yes
+						state = 924
+					}
 				}
+				CZE_build_bunker_by_level3_effect = yes
 			}
 		}
 	}
@@ -2106,10 +2108,14 @@ focus_tree = {
 		}
 		completion_reward = {
 			army_experience = 5
-			SLO = {
-				every_core_state = {
-					CZE_build_bunker_by_level3_effect = yes
+			every_owned_state = {
+				limit = {
+					is_core_of = SLO
+					any_neighbor_state = {
+						is_controlled_by = HUN
+					}
 				}
+				CZE_build_bunker_by_level3_effect = yes
 			}
 		}
 	}
@@ -3011,6 +3017,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			CZE_upgrade_fascism_effect = yes
 			custom_effect_tooltip = Generic_wait_for_next_version_please_tt
 		}
 	}
@@ -3132,6 +3139,7 @@ focus_tree = {
 			fascism > 0.35
 		}
 		completion_reward = {
+			CZE_upgrade_fascism_effect = yes
 		}
 	}
 	focus = {
@@ -3153,11 +3161,9 @@ focus_tree = {
 		}
 		available = {
 			fascism > 0.6
-			NOT = {
-				has_idea = CZE_divided_nation
-			}
 		}
 		completion_reward = {
+			CZE_upgrade_fascism_effect = yes
 		}
 	}
 	focus = {
@@ -3194,6 +3200,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_war_support = 0.05
+			CZE_upgrade_fascism_effect = yes
 		}
 	}
 	focus = {
@@ -3210,6 +3217,7 @@ focus_tree = {
 			focus = CZE_loyalty_to_the_vudce
 		}
 		completion_reward = {
+			CZE_upgrade_fascism_effect = yes
 		}
 	}
 	focus = {
@@ -3950,6 +3958,10 @@ focus_tree = {
 			focus = CZE_a_different_union
 		}
 		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.06
+			CZE_reduce_divide_country_effect = yes
+			CZE_down_concession_effect = yes
 		}
 	}
 	focus = {
@@ -3968,6 +3980,10 @@ focus_tree = {
 			focus = CZE_multinational_policies
 		}
 		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.06
+			CZE_reduce_divide_country_effect = yes
+			CZE_down_concession_effect = yes
 		}
 	}
 	focus = {
