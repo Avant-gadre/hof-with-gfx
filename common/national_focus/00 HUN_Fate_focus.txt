@@ -36,13 +36,28 @@ focus_tree = {
 		}
 		available = {
 			has_global_flag = HUN_lost_the_war_flag
+			NOT = {
+				has_global_flag = HUN_wins_the_war_flag
+			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			add_political_power = 300
-			add_war_support = 0.15
-			add_ideas = HUN_revanchism
+			if = {
+				limit = {
+					has_global_flag = HUN_lost_the_war_flag
+					NOT = {
+						has_global_flag = HUN_wins_the_war_flag
+					}
+				}
+				add_political_power = 300
+				add_war_support = 0.15
+				add_ideas = HUN_revanchism
+			}
+			else = {
+				add_political_power = -1000
+				add_stability = -1
+			}
 		}
 	}
 	focus = {
@@ -68,9 +83,21 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_political_power = 150
-			swap_ideas = {
-				remove_idea = HUN_revanchism
-				add_idea = HUN_revisionism_idea
+			if = {
+				limit = {
+					has_global_flag = HUN_lost_the_war_flag
+					NOT = {
+						has_global_flag = HUN_wins_the_war_flag
+					}
+				}
+				swap_ideas = {
+					remove_idea = HUN_revanchism
+					add_idea = HUN_revisionism_idea
+				}
+			}
+			else = {
+				add_political_power = -1000
+				add_stability = -1
 			}
 		}
 	}
@@ -122,13 +149,24 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			army_experience = 50
-			#air_experience = 15
-			add_doctrine_cost_reduction = {
-				name = HUN_Military_exercises
-				cost_reduction = 0.5
-				uses = 2
-				category = cat_grand_battle_plan
+			if = {
+				limit = {
+					has_global_flag = HUN_lost_the_war_flag
+					NOT = {
+						has_global_flag = HUN_wins_the_war_flag
+					}
+				}
+				army_experience = 50
+				add_doctrine_cost_reduction = {
+					name = HUN_Military_exercises
+					cost_reduction = 0.5
+					uses = 2
+					category = cat_grand_battle_plan
+				}
+			}
+			else = {
+				add_political_power = -1000
+				add_stability = -1
 			}
 		}
 	}
@@ -6168,7 +6206,6 @@ focus_tree = {
 							Generic_trait_fascist_militia_leader
 							Cavalry_general
 						}
-					
 					}
 					promote_leader = yes
 				}
@@ -6269,6 +6306,9 @@ focus_tree = {
 		}
 		available = {
 			has_global_flag = HUN_wins_the_war_flag
+			NOT = {
+				has_global_flag = HUN_lost_the_war_flag
+			}
 			HUN_attila = {
 				is_country_leader = yes
 			}
@@ -6686,14 +6726,12 @@ focus_tree = {
 			air_experience = 25
 			navy_experience = 15
 			add_ideas = HUN_Arms_expansion_and_war_preparation_idea
-
 			add_doctrine_cost_reduction = {
 				name = HUN_Military_reform
 				cost_reduction = 0.5
 				uses = 1
 				category = cat_grand_battle_plan
 			}
-
 		}
 	}
 	focus = {
@@ -7090,14 +7128,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = HUN_Mobile_Warfare_idea_1
-
 			add_doctrine_cost_reduction = {
 				name = HUN_Huba
 				cost_reduction = 0.5
 				uses = 1
 				category = cat_grand_battle_plan
 			}
-
 			add_doctrine_cost_reduction = {
 				name = HUN_Huba
 				cost_reduction = 0.5
