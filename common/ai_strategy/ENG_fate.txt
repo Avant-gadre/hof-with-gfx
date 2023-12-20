@@ -116,7 +116,7 @@ ENG_protect_your_island_NOW = {
 	ai_strategy = {
 		type = area_priority
 		id = Britain_hof
-		value = 120
+		value = 4000		# 120
 	}
 }
 
@@ -349,7 +349,10 @@ careful_with_late_invasions = {
 			}
 			is_subject = no
 			controls_state = 219
-			has_war_with = GER
+			OR = {
+				has_war_with = GER
+				has_war_with = FRA
+			}
 			OR = {
 				AND = {
 					is_ai = yes
@@ -360,7 +363,16 @@ careful_with_late_invasions = {
 				}
 				AND = {
 					is_ai = no
-					surrender_progress > 0
+					OR = {
+						surrender_progress > 0.2
+						casualties > 1000000
+						has_army_manpower = {
+							size > 1499999
+						}
+						check_variable = {
+							num_equipment_in_armies@medium_tank_chassis > 2499
+						}
+					}
 				}
 			}
 		}
@@ -2404,6 +2416,10 @@ ENG_Oberon_1_production = {
 		has_army_manpower = {
 			size > 999999
 		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 5000
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2440,6 +2456,10 @@ ENG_Oberon_2_production = {
 		has_army_manpower = {
 			size > 999999
 		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 5000
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2471,6 +2491,10 @@ ENG_Oberon_3_production = {
 		is_faction_leader = no
 		has_army_manpower = {
 			size > 999999
+		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 5000
 		}
 	}
 	abort_when_not_enabled = yes
@@ -2504,6 +2528,10 @@ ENG_Oberon_4_production = {
 		has_army_manpower = {
 			size > 999999
 		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 5000
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2535,6 +2563,10 @@ ENG_Oberon_5_production = {
 		is_faction_leader = no
 		has_army_manpower = {
 			size > 999999
+		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 5000
 		}
 	}
 	abort_when_not_enabled = yes
@@ -2633,16 +2665,20 @@ ENG_avoid_bombing_occupied_FRA = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 16
-		}		# 巴黎
+		}
+		# 巴黎
 		any_enemy_country = {
 			has_full_control_of_state = 14
-		}		# 南特
+		}
+		# 南特
 		any_enemy_country = {
 			has_full_control_of_state = 19
-		}		# 波尔多
+		}
+		# 波尔多
 		any_enemy_country = {
 			has_full_control_of_state = 20
-		}		# 里昂
+		}
+		# 里昂
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2712,10 +2748,12 @@ ENG_dont_bomb_east_Europe_places = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 206
-		}		# 明斯克
+		}
+		# 明斯克
 		any_enemy_country = {
 			has_full_control_of_state = 202
-		}		# 基辅
+		}
+		# 基辅
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2784,7 +2822,8 @@ ENG_dont_bomb_dutch_places = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 866
-		}		# 荷兰
+		}
+		# 荷兰
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2827,13 +2866,16 @@ ENG_dont_bomb_balkan_places = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 104
-		}		# 波斯尼亚
+		}
+		# 波斯尼亚
 		any_enemy_country = {
 			has_full_control_of_state = 107
-		}		# 贝尔格莱德
+		}
+		# 贝尔格莱德
 		any_enemy_country = {
 			has_full_control_of_state = 47
-		}		# 希腊
+		}
+		# 希腊
 		#any_enemy_country = { has_full_control_of_state = 48 } # 保加利亚
 	}
 	abort_when_not_enabled = yes
@@ -2861,6 +2903,54 @@ ENG_dont_bomb_balkan_places = {
 		type = strategic_air_importance
 		id = 129
 		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+ENG_bomb_the_hell_out_of_the_stah = {
+	allowed = {
+		tag = ENG
+	}
+	enable = {
+		date > 1941.1.1
+		surrender_progress < 0.05
+		is_in_faction_with = USA
+		OR = {
+			has_war_with = GER
+			has_war_with = FRA
+			has_war_with = ITA
+		}
+	}
+	abort = {
+		NOT = {
+			GER = {
+				has_war_with = ENG
+			}
+		}
+		NOT = {
+			FRA = {
+				has_war_with = ENG
+			}
+		}
+		NOT = {
+			ITA = {
+				has_war_with = ENG
+			}
+		}
+	}
+	ai_strategy = {
+		type = area_priority
+		id = western_europe
+		value = 2000		#more focus here
+	}
+	ai_strategy = {
+		type = area_priority
+		id = scandinavia
+		value = -1000
+	}
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = -2000
 	}
 }
 
@@ -3096,15 +3186,107 @@ ENG_USA_d_day = {
 			original_tag = USA
 			original_tag = ENG
 		}
-		is_historical_focus_on = yes
 	}
 	enable = {
-		date > 1943.9.1
+		surrender_progress < 0.05
+		date > 1941.6.1
+		OR = {
+			date > 1942.5.30
+			GER = {
+				surrender_progress > 0.1
+			}
+			GER = {
+				casualties > 1499999
+			}
+		}
+		FRA = {
+			# 是完整且投降的法国盟友！
+			is_subject = no
+			has_capitulated = yes
+		}
+		is_in_faction_with = FRA
+		16 = {
+			CONTROLLER = {
+				has_war_with = ROOT
+			}
+		}
+		has_war_with = GER
+		any_other_country = {
+			OR = {
+				tag = SOV
+				tag = RUS
+			}
+			is_subject = no
+			controls_state = 219
+			has_war_with = GER
+			OR = {
+				AND = {
+					is_ai = yes
+					OR = {
+						surrender_progress > 0.2
+						casualties > 2000000
+					}
+				}
+				AND = {
+					is_ai = no
+					OR = {
+						surrender_progress > 0.2
+						casualties > 1000000
+						has_army_manpower = {
+							size > 1499999
+						}
+						check_variable = {
+							num_equipment_in_armies@medium_tank_chassis > 2499
+						}
+					}
+				}
+			}
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = area_priority
 		id = normandy_landing_zone
-		value = 60
+		value = 4000
+	}
+}
+
+ENG_USA_Market_Garden = {
+	allowed = {
+		OR = {
+			original_tag = USA
+			original_tag = ENG
+		}
+	}
+	enable = {
+		surrender_progress < 0.05
+		date > 1941.6.1
+		OR = {
+			date > 1942.5.30
+			GER = {
+				surrender_progress > 0.1
+			}
+			GER = {
+				casualties > 1499999
+			}
+		}
+		FRA = {
+			is_subject = no
+		}
+		is_in_faction_with = FRA
+		NOT = {
+			16 = {
+				CONTROLLER = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = area_priority
+		id = western_europe
+		value = 2000
 	}
 }

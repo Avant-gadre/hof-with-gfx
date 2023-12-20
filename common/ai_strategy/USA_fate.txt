@@ -203,6 +203,10 @@ USA_Doolittle_1_production = {
 		has_army_manpower = {
 			size > 999999
 		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 8000
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -233,6 +237,10 @@ USA_Doolittle_2_production = {
 		is_faction_leader = no
 		has_army_manpower = {
 			size > 999999
+		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 8000
 		}
 	}
 	abort_when_not_enabled = yes
@@ -265,6 +273,10 @@ USA_Doolittle_3_production = {
 		has_army_manpower = {
 			size > 999999
 		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 8000
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -295,6 +307,10 @@ USA_LeMay_1_production = {
 		is_faction_leader = no
 		has_army_manpower = {
 			size > 999999
+		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 10000
 		}
 	}
 	abort_when_not_enabled = yes
@@ -331,6 +347,10 @@ USA_LeMay_2_production = {
 		has_army_manpower = {
 			size > 999999
 		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 10000
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -362,6 +382,10 @@ USA_LeMay_3_production = {
 		has_army_manpower = {
 			size > 999999
 		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 10000
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -392,6 +416,10 @@ USA_LeMay_4_production = {
 		is_faction_leader = no
 		has_army_manpower = {
 			size > 999999
+		}
+		has_deployed_air_force_size = {
+			type = strategic_bomber
+			size < 10000
 		}
 	}
 	abort_when_not_enabled = yes
@@ -502,16 +530,20 @@ USA_avoid_bombing_occupied_FRA = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 16
-		}		# 巴黎
+		}
+		# 巴黎
 		any_enemy_country = {
 			has_full_control_of_state = 14
-		}		# 南特
+		}
+		# 南特
 		any_enemy_country = {
 			has_full_control_of_state = 19
-		}		# 波尔多
+		}
+		# 波尔多
 		any_enemy_country = {
 			has_full_control_of_state = 20
-		}		# 里昂
+		}
+		# 里昂
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -587,10 +619,12 @@ USA_dont_bomb_east_Europe_places = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 206
-		}		# 明斯克
+		}
+		# 明斯克
 		any_enemy_country = {
 			has_full_control_of_state = 202
-		}		# 基辅
+		}
+		# 基辅
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -665,7 +699,8 @@ USA_dont_bomb_dutch_places = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 866
-		}		# 荷兰
+		}
+		# 荷兰
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -714,13 +749,16 @@ USA_dont_bomb_balkan_places = {
 		}
 		any_enemy_country = {
 			has_full_control_of_state = 104
-		}		# 波斯尼亚
+		}
+		# 波斯尼亚
 		any_enemy_country = {
 			has_full_control_of_state = 107
-		}		# 贝尔格莱德
+		}
+		# 贝尔格莱德
 		any_enemy_country = {
 			has_full_control_of_state = 47
-		}		# 希腊
+		}
+		# 希腊
 		#any_enemy_country = { has_full_control_of_state = 48 } # 保加利亚
 	}
 	abort_when_not_enabled = yes
@@ -748,6 +786,54 @@ USA_dont_bomb_balkan_places = {
 		type = strategic_air_importance
 		id = 129
 		value = -500000		#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+USA_bomb_the_hell_out_of_the_stah = {
+	allowed = {
+		tag = USA
+	}
+	enable = {
+		date > 1941.1.1
+		surrender_progress < 0.05
+		is_in_faction_with = ENG
+		OR = {
+			has_war_with = GER
+			has_war_with = FRA
+			has_war_with = ITA
+		}
+	}
+	abort = {
+		NOT = {
+			GER = {
+				has_war_with = USA
+			}
+		}
+		NOT = {
+			FRA = {
+				has_war_with = USA
+			}
+		}
+		NOT = {
+			ITA = {
+				has_war_with = USA
+			}
+		}
+	}
+	ai_strategy = {
+		type = area_priority
+		id = western_europe
+		value = 2000		#more focus here
+	}
+	ai_strategy = {
+		type = area_priority
+		id = scandinavia
+		value = -1000
+	}
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = -2000
 	}
 }
 
