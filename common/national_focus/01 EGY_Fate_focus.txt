@@ -2746,17 +2746,14 @@ focus_tree = {
 		icon = GFX_focus_EGY_valley
 		x = 0
 		y = 0
-		cost = 6
-		available = {
-		}
-		bypass = {
-		}
-		select_effect = {
-		}
+		cost = 4
+		cancelable = no
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
+			add_stability = -0.06
+			add_ideas = EGY_political_reform1_idea
 		}
 	}
 	focus = {
@@ -2787,6 +2784,9 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			add_political_power = 100
+			EGY_upgrade_political_situation_effect = yes
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -2853,7 +2853,33 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		cancelable = no
 		completion_reward = {
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = EGY_neutrality_party_long
+				name = EGY_neutrality_party
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = party_popularity@neutrality
+			}
+			add_country_leader_role = {
+				promote_leader = yes
+				character = EGY_ozymandias
+				country_leader = {
+					ideology = rexism
+					traits = {
+						Generic_trait_administrative_genius
+						Generic_trait_minister_of_everything
+						Generic_trait_dictator
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -2934,7 +2960,6 @@ focus_tree = {
 		y = 1
 		cost = 6
 		available = {
-			is_subject = no
 		}
 		prerequisite = {
 			focus = EGY_expand_royal_land_rights
@@ -2965,6 +2990,9 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			add_stability = 0.12
+			EGY_upgrade_divided_country_effect = yes
+			EGY_upgrade_divided_country_effect = yes
 		}
 	}
 	focus = {
@@ -2999,9 +3027,50 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		available = {
+			NOT = {
+				has_completed_focus = EGY_strengthen_pharaoh_rule
+			}
+		}
 		completion_reward = {
-			EGY_upgrade_illiterate_populace_effect = yes
 			add_political_power = 75
+			EGY_upgrade_illiterate_populace_effect = yes
+			EGY_upgrade_political_situation_effect = yes
+			add_country_leader_role = {
+				promote_leader = yes
+				character = EGY_nitocris
+				country_leader = {
+					ideology = liberalism
+					traits = {
+						Generic_trait_democratic_reformer
+					}
+				}
+			}
+			hidden_effect = {
+				add_country_leader_role = {
+					character = EGY_nitocris
+					country_leader = {
+						ideology = socialism
+						traits = {
+							Generic_trait_democratic_reformer
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = EGY_nitocris
+					country_leader = {
+						ideology = classical_liberalism
+						traits = {
+							Generic_trait_democratic_reformer
+						}
+					}
+				}
+			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+				election_frequency = 48
+			}
 		}
 	}
 	focus = {
@@ -3012,19 +3081,35 @@ focus_tree = {
 		y = 1
 		cost = 6
 		available = {
+			NOT = {
+				has_completed_focus = EGY_restore_the_constitution
+			}
 		}
 		prerequisite = {
 			focus = EGY_end_the_regency
 		}
-		mutually_exclusive = {
-		}
 		ai_will_do = {
 			factor = 10
 		}
+		cancelable = no
 		completion_reward = {
 			add_popularity = {
 				ideology = neutrality
-				popularity = 0.1
+				popularity = 0.15
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			add_country_leader_role = {
+				promote_leader = yes
+				character = EGY_ozymandias
+				country_leader = {
+					ideology = authoritarian_democracy
+					traits = {
+						Generic_trait_administrative_genius
+					}
+				}
 			}
 		}
 	}
@@ -3041,12 +3126,27 @@ focus_tree = {
 			focus = EGY_strengthen_pharaoh_rule
 		}
 		bypass = {
-			has_government = democratic
 		}
 		ai_will_do = {
 			factor = 10
 		}
+		cancelable = no
 		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.15
+			}
+			add_country_leader_role = {
+				promote_leader = yes
+				character = EGY_ozymandias
+				country_leader = {
+					ideology = stratocracy
+					traits = {
+						Generic_trait_administrative_genius
+						Generic_trait_minister_of_everything
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -3092,10 +3192,12 @@ focus_tree = {
 			focus = EGY_judical_reforms
 			focus = EGY_bureaucracy_reforms
 		}
+		cancelable = no
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3107,6 +3209,7 @@ focus_tree = {
 		cost = 5
 		available = {
 		}
+		cancelable = no
 		prerequisite = {
 			focus = EGY_emphasise_the_need_for_reform
 		}
@@ -3114,6 +3217,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3128,10 +3232,14 @@ focus_tree = {
 		prerequisite = {
 			focus = EGY_emphasise_the_need_for_reform
 		}
+		cancelable = no
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.03
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3149,6 +3257,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3170,6 +3279,7 @@ focus_tree = {
 				ideology = democratic
 				popularity = 0.1
 			}
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3189,6 +3299,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_political_power = 50
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3208,6 +3319,9 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			EGY_upgrade_political_situation_effect = yes
+			EGY_down_economic_depression_effect = yes
+			EGY_down_economic_depression_effect = yes
 		}
 	}
 	focus = {
@@ -3223,15 +3337,12 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		cancelable = no
 		completion_reward = {
-			if = {
-				limit = {
-					NOT = {
-						has_idea = free_trade
-					}
-				}
-				add_ideas = free_trade
-			}
+			add_political_power = 60
+			EGY_down_economic_depression_effect = yes
+			EGY_upgrade_political_situation_effect = yes
+			swap_to_free_trade = yes
 		}
 	}
 	focus = {
@@ -3346,10 +3457,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		available = {
+			has_army_experience > 30
+		}
 		cancelable = no
 		completion_reward = {
 			add_war_support = 0.05
-			army_experience = 10
+			army_experience = -30
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3361,6 +3476,7 @@ focus_tree = {
 		cost = 5
 		available = {
 		}
+		cancelable = no
 		prerequisite = {
 			focus = EGY_emphasise_the_need_for_reform
 		}
@@ -3368,6 +3484,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			EGY_upgrade_political_situation_effect = yes
 		}
 	}
 	focus = {
@@ -3942,6 +4059,9 @@ focus_tree = {
 			hidden_trigger = {
 				always = no
 			}
+			custom_trigger_tooltip = {
+				tooltip = Generic_wait_for_next_version_please_tt
+			}
 		}
 		x = 0
 		y = 2
@@ -3953,7 +4073,11 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			custom_effect_tooltip = Generic_wait_for_next_version_please_tt
+			custom_effect_tooltip = if_they_accept
+			753 = {
+				
+			}
+			add_ideas = EGY_guided_by_britain_idea
 		}
 	}
 	focus = {
@@ -4683,6 +4807,7 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
+			add_ideas = EGY_egyptian_renaissance_idea
 		}
 	}
 	focus = {
