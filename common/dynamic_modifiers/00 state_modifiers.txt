@@ -4,10 +4,26 @@ agrarian_state = {
 	}
 	remove_trigger = {
 		ROOT = {
-			infrastructure > 4
 			OR = {
-				compliance > 40
-				is_core_of = ROOT
+				AND = {
+					infrastructure > 4
+					OR = {
+						compliance > 40
+						is_core_of = ROOT
+					}
+				}
+				has_dynamic_modifier = {
+					modifier = half_industrial_state
+				}
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv1
+				}
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv2
+				}
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv3
+				}
 			}
 		}
 	}
@@ -26,10 +42,23 @@ half_industrial_state = {
 	}
 	remove_trigger = {
 		ROOT = {
-			infrastructure > 3
 			OR = {
-				compliance > 40
-				is_core_of = ROOT
+				AND = {
+					infrastructure > 4
+					OR = {
+						compliance > 40
+						is_core_of = ROOT
+					}
+				}
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv1
+				}
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv2
+				}
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv3
+				}
 			}
 		}
 	}
@@ -46,20 +75,39 @@ industrial_area_Lv1 = {
 	enable = {
 		always = yes
 	}
+	remove_trigger = {
+		ROOT = {
+			OR = {
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv2
+				}
+				has_dynamic_modifier = {
+					modifier = industrial_area_Lv3
+				}
+			}
+		}
+	}
 	icon = GFX_HOF_state_modifier_industrialArea_level_1
 	state_production_speed_buildings_factor = 0.2
 	local_building_slots_factor = 0.2
-	local_factories = 0.10
+	local_factories = 0.1
 }
 
 industrial_area_Lv2 = {
 	enable = {
 		always = yes
 	}
+	remove_trigger = {
+		ROOT = {
+			has_dynamic_modifier = {
+				modifier = industrial_area_Lv3
+			}
+		}
+	}
 	icon = GFX_HOF_state_modifier_industrialArea_level_2
 	state_production_speed_buildings_factor = 0.3
 	local_building_slots_factor = 0.4
-	local_factories = 0.20
+	local_factories = 0.2
 }
 
 industrial_area_Lv3 = {
@@ -69,5 +117,5 @@ industrial_area_Lv3 = {
 	icon = GFX_HOF_state_modifier_industrialArea_level_3
 	state_production_speed_buildings_factor = 0.4
 	local_building_slots_factor = 0.6
-	local_factories = 0.30
+	local_factories = 0.3
 }
