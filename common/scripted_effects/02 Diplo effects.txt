@@ -545,479 +545,65 @@ embargo_ROOT = {
 	}
 }
 
-remove_all_AI_templates = {
-	hidden_effect = {
-		for_loop_effect = {
-			start = 1
-			end = 20
-			compare = less_than_or_equals
-			meta_effect = {
-				text = {
-					if = {
-						limit = {
-							has_template = "Infantry template [COUNT]"
-						}
-						delete_unit_template_and_units = {
-							division_template = "Infantry template [COUNT]"
-						}
-					}
-					if = {
-						limit = {
-							has_template = "Light Tank template [COUNT]"
-						}
-						delete_unit_template_and_units = {
-							division_template = "Light Tank template [COUNT]"
-						}
-					}
-					if = {
-						limit = {
-							has_template = "Medium Tank template [COUNT]"
-						}
-						delete_unit_template_and_units = {
-							division_template = "Medium Tank template [COUNT]"
-						}
-					}
-					if = {
-						limit = {
-							has_template = "Modern Tank template [COUNT]"
-						}
-						delete_unit_template_and_units = {
-							division_template = "Modern Tank template [COUNT]"
-						}
-					}
-					if = {
-						limit = {
-							has_template = "Marines template [COUNT]"
-						}
-						delete_unit_template_and_units = {
-							division_template = "Marines template [COUNT]"
-						}
-					}
-					if = {
-						limit = {
-							has_template = "Mountaineers template [COUNT]"
-						}
-						delete_unit_template_and_units = {
-							division_template = "Mountaineers template [COUNT]"
-						}
-					}
-				}
-				COUNT = "[?v]"
-			}
-		}
-	}
-}
-
-save_current_factory_count = {
-	hidden_effect = {
-		if = {
-			limit = {
-				industrial_complex > 0
-			}
-			set_variable = {
-				previous_industrial_complex_count = building_level@industrial_complex
-			}
-		}
-		if = {
-			limit = {
-				arms_factory > 0
-			}
-			set_variable = {
-				previous_arms_factory_count = building_level@arms_factory
-			}
-		}
-		if = {
-			limit = {
-				dockyard > 0
-			}
-			set_variable = {
-				previous_dockyard_count = building_level@dockyard
-			}
-		}
-		if = {
-			limit = {
-				synthetic_refinery > 0
-			}
-			set_variable = {
-				previous_synthetic_refinery_count = building_level@synthetic_refinery
-			}
-		}
-		if = {
-			limit = {
-				fuel_silo > 0
-			}
-			set_variable = {
-				previous_fuel_silo_count = building_level@fuel_silo
-			}
-		}
-		if = {
-			limit = {
-				rocket_site > 0
-			}
-			set_variable = {
-				previous_rocket_site_count = building_level@rocket_site
-			}
-		}
-		if = {
-			limit = {
-				nuclear_reactor > 0
-			}
-			set_variable = {
-				previous_nuclear_reactor_count = building_level@nuclear_reactor
-			}
-		}
-	}
-}
-
-restore_previous_factory_count = {
-	hidden_effect = {
-		if = {
-			limit = {
-				has_variable = previous_industrial_complex_count
-			}
-			subtract_from_variable = {
-				previous_industrial_complex_count = building_level@industrial_complex
-			}
-			if = {
-				limit = {
-					check_variable = {
-						previous_industrial_complex_count > 0
-					}
-				}
-				add_building_construction = {
-					type = industrial_complex
-					level = previous_industrial_complex_count
-					instant_build = yes
-				}
-			}
-			clear_variable = previous_industrial_complex_count
-		}
-		if = {
-			limit = {
-				has_variable = previous_arms_factory_count
-			}
-			subtract_from_variable = {
-				previous_arms_factory_count = building_level@arms_factory
-			}
-			if = {
-				limit = {
-					check_variable = {
-						previous_arms_factory_count > 0
-					}
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = previous_arms_factory_count
-					instant_build = yes
-				}
-			}
-			clear_variable = previous_arms_factory_count
-		}
-		if = {
-			limit = {
-				has_variable = previous_dockyard_count
-			}
-			subtract_from_variable = {
-				previous_dockyard_count = building_level@dockyard
-			}
-			if = {
-				limit = {
-					check_variable = {
-						previous_dockyard_count > 0
-					}
-				}
-				add_building_construction = {
-					type = dockyard
-					level = previous_dockyard_count
-					instant_build = yes
-				}
-			}
-			clear_variable = previous_dockyard_count
-		}
-		if = {
-			limit = {
-				has_variable = previous_synthetic_refinery_count
-			}
-			subtract_from_variable = {
-				previous_synthetic_refinery_count = building_level@synthetic_refinery
-			}
-			if = {
-				limit = {
-					check_variable = {
-						previous_synthetic_refinery_count > 0
-					}
-				}
-				add_building_construction = {
-					type = synthetic_refinery
-					level = previous_synthetic_refinery_count
-					instant_build = yes
-				}
-			}
-			clear_variable = previous_synthetic_refinery_count
-		}
-		if = {
-			limit = {
-				has_variable = previous_fuel_silo_count
-			}
-			subtract_from_variable = {
-				previous_fuel_silo_count = building_level@fuel_silo
-			}
-			if = {
-				limit = {
-					check_variable = {
-						previous_fuel_silo_count > 0
-					}
-				}
-				add_building_construction = {
-					type = fuel_silo
-					level = previous_fuel_silo_count
-					instant_build = yes
-				}
-			}
-			clear_variable = previous_fuel_silo_count
-		}
-		if = {
-			limit = {
-				has_variable = previous_rocket_site_count
-			}
-			subtract_from_variable = {
-				previous_rocket_site_count = building_level@rocket_site
-			}
-			if = {
-				limit = {
-					check_variable = {
-						previous_rocket_site_count > 0
-					}
-				}
-				add_building_construction = {
-					type = rocket_site
-					level = previous_rocket_site_count
-					instant_build = yes
-				}
-			}
-			clear_variable = previous_rocket_site_count
-		}
-		if = {
-			limit = {
-				has_variable = previous_nuclear_reactor_count
-			}
-			subtract_from_variable = {
-				previous_nuclear_reactor_count = building_level@nuclear_reactor
-			}
-			if = {
-				limit = {
-					check_variable = {
-						previous_nuclear_reactor_count > 0
-					}
-				}
-				add_building_construction = {
-					type = nuclear_reactor
-					level = previous_nuclear_reactor_count
-					instant_build = yes
-				}
-			}
-			clear_variable = previous_nuclear_reactor_count
-		}
-	}
-}
-
-#Gives a random agency upgrade or grants a free agency if one has not yet been established
-gain_random_agency_upgrade = {
-	custom_effect_tooltip = free_agency_upgrade_tt
-	hidden_effect = {
-		if = {
-			limit = {
-				has_intelligence_agency = no
-			}
-			create_intelligence_agency = yes
-		}
-		else = {
-			random_list = {
-				1 = {
-					upgrade_intelligence_agency = upgrade_economy_civilian
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_economy_civilian
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_army_department
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_army_department
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_naval_department
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_naval_department
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_airforce_department
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_airforce_department
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_passive_defense
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_passive_defense
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_anti_partisan
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_anti_partisan
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_blueprint_stealing
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_blueprint_stealing
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_portable_radios
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_portable_radios
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_invisible_ink
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_invisible_ink
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_plastic_explosives
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_plastic_explosives
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_suicide_pills
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_suicide_pills
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_training_centers
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_training_centers
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_commando_training
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_commando_training
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_interrogation_techniques
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_interrogation_techniques
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_diplo_training
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_diplo_training
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_psycho_warfare
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_psycho_warfare
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_form_department
-					modifier = {
-						factor = 0
-						has_done_agency_upgrade = upgrade_form_department
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_decryption_boost
-					modifier = {
-						factor = 0
-						OR = {
-							has_done_agency_upgrade = upgrade_decryption_boost
-							NOT = {
-								has_done_agency_upgrade = upgrade_form_department
-							}
-						}
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_decryption_boost_2
-					modifier = {
-						factor = 0
-						OR = {
-							has_done_agency_upgrade = upgrade_decryption_boost_2
-							NOT = {
-								has_done_agency_upgrade = upgrade_form_department
-							}
-							NOT = {
-								has_done_agency_upgrade = upgrade_decryption_boost
-							}
-						}
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_crypto_strength
-					modifier = {
-						factor = 0
-						OR = {
-							has_done_agency_upgrade = upgrade_crypto_strength
-							NOT = {
-								has_done_agency_upgrade = upgrade_form_department
-							}
-						}
-					}
-				}
-				1 = {
-					upgrade_intelligence_agency = upgrade_crypto_strength_2
-					modifier = {
-						factor = 0
-						OR = {
-							has_done_agency_upgrade = upgrade_crypto_strength_2
-							NOT = {
-								has_done_agency_upgrade = upgrade_form_department
-							}
-							NOT = {
-								has_done_agency_upgrade = upgrade_crypto_strength
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-#this needs to be called *before* every start_civil_war effect
-civil_war_set_flag_to_restore_elections = {
+embargo_PREV = {
 	if = {
 		limit = {
-			has_elections = yes
+			has_dlc = "By Blood Alone"
 		}
-		set_country_flag = had_elections
+		if = {
+			limit = {
+				NOT = {
+					is_embargoing = PREV
+				}
+			}
+			send_embargo = PREV
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_embargoed_by = PREV
+				}
+			}
+			THIS = {
+				send_embargo = PREV
+			}
+		}
+	}
+	else = {
+		add_opinion_modifier = {
+			modifier = embargo
+			target = PREV
+		}
+		reverse_add_opinion_modifier = {
+			modifier = embargo
+			target = PREV
+		}
+	}
+}
+
+clear_embargo_PREV = {
+	if = {
+		limit = {
+			is_embargoing = PREV
+		}
+		break_embargo = PREV
+	}
+	if = {
+		limit = {
+			is_embargoed_by = PREV
+		}
+		THIS = {
+			break_embargo = PREV
+		}
+	}
+	if = {
+		limit = {
+			has_opinion_modifier = embargo
+		}
+		remove_opinion_modifier = {
+			target = ROOT
+			modifier = embargo
+		}
 	}
 }
 
@@ -1042,6 +628,7 @@ remove_puppet_and_leave_faction = {
 	}
 }
 
+##TODO
 incoming_war_notification_effect = {
 	hidden_effect = {
 		country_event = generic_events.30
@@ -1049,26 +636,19 @@ incoming_war_notification_effect = {
 	#warning event
 }
 
-calculate_days_since_game_start = {
-	add_to_temp_variable = {
-		days_to_event = 706640
-	}
-	subtract_from_temp_variable = {
-		days_to_event = global.num_days
-	}
-}
-
 ##ROOT to join Other's Faction
 ask_to_join_faction = {
-	country_event = generic_events.10
+	country_event = {
+		id = generic_events.10
+		hours = 1
+	}
 }
 
 ##Invite Other to join ROOT Faction
 invite_country_to_faction = {
 	country_event = {
 		id = generic_events.18
-		hours = 4
-		random_hours = 4
+		hours = 1
 	}
 }
 
