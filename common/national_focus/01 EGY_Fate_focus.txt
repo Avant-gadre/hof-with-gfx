@@ -1453,7 +1453,7 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
-			EGY_upgrade_egyptian_army_effect = yes
+			add_ideas = EGY_new_egyptian_army1_idea
 		}
 	}
 	focus = {
@@ -1561,6 +1561,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			army_experience = 10
+			add_ideas = EGY_cavalry_command_idea
 		}
 	}
 	focus = {
@@ -1586,6 +1588,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			army_experience = 10
+			set_technology = {
+				camelry = 1
+			}
 		}
 	}
 	focus = {
@@ -1655,12 +1661,7 @@ focus_tree = {
 		completion_reward = {
 			army_experience = 10
 			EGY_upgrade_egyptian_army_effect = yes
-			add_doctrine_cost_reduction = {
-				name = EGY_desert_mobility
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
+			add_ideas = EGY_desert_mobility_idea
 		}
 	}
 	focus = {
@@ -1893,9 +1894,11 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			army_experience = -100
 			EGY_upgrade_egyptian_army_effect = yes
 			add_one_cost_land_doctrine_reduction = yes
 			remove_ideas = EGY_inexperinced_officer_corps_idea
+			add_ideas = EGY_military_schools_idea
 		}
 	}
 	focus = {
@@ -1923,12 +1926,7 @@ focus_tree = {
 		completion_reward = {
 			army_experience = 10
 			EGY_upgrade_egyptian_army_effect = yes
-			add_doctrine_cost_reduction = {
-				name = EGY_general_staff
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
+			add_ideas = EGY_general_staff_idea
 		}
 	}
 	focus = {
@@ -1952,7 +1950,7 @@ focus_tree = {
 		completion_reward = {
 			army_experience = 50
 			add_war_support = 0.03
-			EGY_upgrade_egyptian_army_effect = yes
+			add_ideas = EGY_scarab_sprirt_idea
 			EGY_upgrade_egyptian_army_effect = yes
 			add_research_slot_until_six = yes
 		}
@@ -2010,6 +2008,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_ideas = EGY_merchant_marine_idea
 		}
 	}
 	focus = {
@@ -2182,6 +2181,7 @@ focus_tree = {
 				uses = 2
 				category = dd_tech
 			}
+			add_ideas = EGY_submarine_focus_idea
 		}
 	}
 	focus = {
@@ -2341,6 +2341,7 @@ focus_tree = {
 				uses = 1
 				category = naval_doctrine
 			}
+			add_ideas = EGY_expanded_dockyard_idea
 		}
 	}
 	######################
@@ -3053,8 +3054,8 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_stability = 0.12
-			EGY_upgrade_divided_country_effect = yes
+			add_political_power = -100
+			add_stability = 0.06
 			EGY_upgrade_divided_country_effect = yes
 			if = {
 				limit = {
@@ -3063,6 +3064,15 @@ focus_tree = {
 					}
 				}
 				add_country_leader_trait = Generic_trait_nationalist_ideologue
+			}
+			if = {
+				limit = {
+					has_idea = EGY_iqta_idea
+				}
+				swap_ideas = {
+					remove_idea = EGY_iqta_idea
+					add_idea = EGY_iqta_nationalized_idea
+				}
 			}
 		}
 	}
@@ -4017,6 +4027,12 @@ focus_tree = {
 					is_independent_and_samefaction_and_exist_and_peace_off_ROOT = yes
 				}
 			}
+			any_other_country = {
+				capital_scope = {
+					is_on_continent = europe
+				}
+				has_war_with = ROOT
+			}
 		}
 		x = 2
 		y = 1
@@ -4030,6 +4046,7 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			add_war_support = 0.1
+			add_ideas = EGY_british_military_commision_idea
 		}
 	}
 	focus = {
@@ -4137,11 +4154,23 @@ focus_tree = {
 				is_independent_and_samefaction_and_exist_and_peace_off_ROOT = yes
 				owns_state = 753
 			}
-			hidden_trigger = {
-				always = no
+			if = {
+				limit = {
+					has_war_with = GER
+				}
+				casualties_inflicted_by = {
+					opponent = GER
+					thousands > 10
+				}
 			}
-			custom_trigger_tooltip = {
-				tooltip = Generic_wait_for_next_version_please_tt
+			if = {
+				limit = {
+					has_war_with = ITA
+				}
+				casualties_inflicted_by = {
+					opponent = ITA
+					thousands > 10
+				}
 			}
 		}
 		x = 0
@@ -4154,10 +4183,10 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			custom_effect_tooltip = if_they_accept
 			753 = {
+				remove_claim_and_add_core_and_transfer_of_ROOT = yes
 			}
-			add_ideas = EGY_guided_by_britain_idea
+			add_political_power = -200
 		}
 	}
 	focus = {
