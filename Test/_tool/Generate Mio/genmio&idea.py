@@ -1,10 +1,10 @@
-characters_string1 = """
+characters_string = """
     {}_organization = {{
         include = generic_infantry_equipment_organization
         name = {}
         icon = GFX_idea_{}
         allowed = {{
-            original_tag = EGY
+            original_tag = BEL
         }}
     }}
 """
@@ -14,7 +14,9 @@ characters_string = """
             name = {}
             picture = {}
 			allowed = {{
-				original_tag = EGY
+				original_tag = BEL
+			}}
+            available = {{
 			}}
 			visible = {{
 			}}
