@@ -1,0 +1,199 @@
+industrialization = {
+	generic_industrialization_network = {
+		icon = generic_construction
+		allowed = {
+			always = yes
+		}
+		visible = {
+			NOT = {
+				has_country_flag = Generic_toggle_industrialization_flag
+			}
+		}
+		available = {
+			FROM = {
+				infrastructure > 4
+			}
+			NOT = {
+				has_country_flag = Generic_industrializing_flag
+			}
+		}
+		cancel_if_not_visible = no
+		target_array = core_states
+		target_trigger = {
+			FROM = {
+				can_developed_industrial_region = yes
+			}
+			FROM = {
+				NOT = {
+					has_dynamic_modifier = {
+						modifier = industrial_area_Lv4
+					}
+				}
+			}
+		}
+		cost = 250
+		on_map_mode = map_and_decisions_view
+		state_target = yes
+		days_re_enable = 365
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				has_political_power > 250
+			}
+		}
+		complete_effect = {
+			set_country_flag = {
+				flag = Generic_industrializing_flag
+				days = 365
+			}
+			FROM.FROM = {
+				set_state_flag = {
+					flag = Generic_industrializing_flag
+					days = 365
+				}
+			}
+		}
+		days_remove = 365
+		remove_effect = {
+			FROM.FROM = {
+				upgrade_industrial_region = yes
+			}
+		}
+	}
+	generic_urbanization = {
+		icon = generic_construction
+		allowed = {
+			always = yes
+		}
+		visible = {
+			NOT = {
+				has_country_flag = Generic_toggle_urbanization_flag
+			}
+		}
+		target_array = core_states
+		target_trigger = {
+			FROM = {
+				can_urbanize_region = yes
+			}
+		}
+		available = {
+			NOT = {
+				has_country_flag = Generic_urbanizing_flag
+			}
+			FROM = {
+				infrastructure > 4
+			}
+		}
+		cancel_if_not_visible = no
+		cost = 150
+		on_map_mode = map_and_decisions_view
+		state_target = yes
+		days_re_enable = 365
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				has_political_power > 150
+			}
+		}
+		complete_effect = {
+			set_country_flag = {
+				flag = Generic_urbanizing_flag
+				days = 365
+			}
+			FROM = {
+				set_state_flag = {
+					flag = Generic_urbanizing_flag
+					days = 365
+				}
+			}
+		}
+		days_remove = 365
+		remove_effect = {
+			FROM = {
+				urbanizing_region = yes
+			}
+		}
+	}
+	generic_toggle_industrialization = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_trigger = {
+				is_ai = no
+				NOT = {
+					has_country_flag = Generic_toggle_industrialization_flag
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			set_country_flag = Generic_toggle_industrialization_flag
+			clr_country_flag = Generic_expand_industrialization_flag
+		}
+	}
+	generic_expand_industrialization = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_trigger = {
+				is_ai = no
+				NOT = {
+					has_country_flag = Generic_expand_industrialization_flag
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			clr_country_flag = Generic_toggle_industrialization_flag
+			set_country_flag = Generic_expand_industrialization_flag
+		}
+	}
+	generic_toggle_urbanization = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_trigger = {
+				is_ai = no
+				NOT = {
+					has_country_flag = Generic_toggle_urbanization_flag
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			set_country_flag = Generic_toggle_urbanization_flag
+			clr_country_flag = Generic_expand_urbanization_flag
+		}
+	}
+	generic_expand_urbanization = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_trigger = {
+				is_ai = no
+				NOT = {
+					has_country_flag = Generic_expand_urbanization_flag
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			clr_country_flag = Generic_toggle_urbanization_flag
+			set_country_flag = Generic_expand_urbanization_flag
+		}
+	}
+}
