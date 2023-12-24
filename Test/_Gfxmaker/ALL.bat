@@ -12,5 +12,6 @@ call python "from png to gfx-company.py"
 call python "from png to gfx-trait.py"
 call python "from png to gfx-decision-cate.py"
 call python "from png to gfx-decision-pic.py"
+call python "from png to gfx-decision-icon.py"
 
 pause
