@@ -1,0 +1,178 @@
+political_actions = {
+	promises_of_peace = {
+		icon = generic_industry
+		available = {
+			has_stability < 1
+			has_war_support > 0
+		}
+		visible = {
+			has_war = no
+		}
+		modifier = {
+			stability_weekly = 0.005
+			consumer_goods_factor = 0.15
+			war_support_weekly = -0.005
+		}
+		days_remove = 180
+		days_re_enable = 360
+		cost = 50
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_stability < 0.6
+				has_war_support > 0.8
+			}
+		}
+	}
+	generic_raise_support = {
+		#Democratic -> 'Rally Public Support'
+		icon = generic_political_rally
+		cost = 150
+		days_remove = 180
+		days_re_enable = 540
+		remove_effect = {
+			set_temp_variable = {
+				ideology_change_var = 0.15
+			}
+			change_ruling_party_popularity = yes
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				check_variable = {
+					party_popularity@ruling_party < 0.5
+				}
+				has_political_power > 175				#Spend on other things first
+			}
+			modifier = {
+				add = 1
+				has_political_power > 200
+			}
+		}
+	}
+	give_refuge_to_germany_scientists = {
+		icon = generic_research
+		allowed = {
+			OR = {
+				original_tag = ENG
+				original_tag = USA
+				original_tag = FRA
+				original_tag = CAN
+				original_tag = TUR
+				original_tag = ITA
+				is_major = yes
+			}
+		}
+		visible = {
+			NOT = {
+				has_government = fascism
+				has_government = communism
+			}
+			is_government_in_exile = no
+		}
+		cost = 100
+		fire_only_once = yes
+		days_remove = -1
+		available = {
+			GER = {
+				NOT = {
+					has_government = ROOT
+				}
+			}
+		}
+		modifier = {
+			research_speed_factor = 0.05
+			stability_factor = -0.05
+		}
+		remove_trigger = {
+			OR = {
+				GER = {
+					has_government = ROOT
+				}
+				GER = {
+					exists = no
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				tag = ENG
+				has_War = no
+				date < 1937.3.1
+				factor = 0
+			}
+		}
+	}
+}
+
+foreign_support = {
+	return_cores_to_ally = {
+		icon = generic_agreement
+		available = {
+			if = {
+				limit = {
+					has_war = yes
+				}
+				surrender_progress < 0.2
+			}
+			else = {
+				has_war = no
+			}
+		}
+		target_array = faction_members
+		target_array = subjects
+		target_trigger = {
+			country_exists = FROM
+			is_ally_with = FROM
+			NOT = {
+				has_country_flag = KR_returning_land
+				has_country_flag = KR_checking_for_possible_annexations
+			}
+			any_owned_state = {
+				is_claim_or_core_of_FROM = yes
+				is_claim_or_core_of_ROOT = no
+				NOT = {
+					has_variable = can_integrate_@ROOT
+				}
+				NOT = {
+					any_country_with_core = {
+						has_variable = ROOT.can_integrate_@THIS
+					}
+				}
+				NOT = {
+					has_state_flag = KR_keeping_state@ROOT
+				}
+				OR = {
+					is_coastal = yes
+					any_neighbor_state = {
+						is_owned_by = FROM
+					}
+				}
+			}
+		}
+		cost = 0
+		fire_only_once = no
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.1
+				FROM = {
+					is_subject = yes
+					NOT = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		complete_effect = {
+			set_country_flag = KR_returning_land
+			FROM = {
+				save_event_target_as = return_to
+			}
+			country_event = generic_events.75
+		}
+	}
+}

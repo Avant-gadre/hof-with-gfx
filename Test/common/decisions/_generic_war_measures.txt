@@ -1,0 +1,282 @@
+war_measures = {
+	demobilization_manpower = {
+		icon = generic_prepare_civil_war
+		icon = revolt
+		available = {
+			has_unsupported_manpower_law = yes
+			has_war = no
+		}
+		allowed = {
+			always = yes
+		}
+		cost = 0
+		ai_will_do = {
+			factor = 500
+		}
+		visible = {
+			has_unsupported_manpower_law = yes
+			has_war = no
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_war_support < 0.1
+				}
+				add_ideas = volunteer_only
+			}
+			else_if = {
+				limit = {
+					has_war_support < 0.2
+				}
+				add_ideas = limited_conscription
+			}
+			else_if = {
+				limit = {
+					has_war_support < 0.6
+				}
+				add_ideas = extensive_conscription
+			}
+			else = {
+				add_ideas = service_by_requirement
+			}
+		}
+	}
+	demob_manpower_mission = {
+		icon = revolt
+		is_good = no
+		days_mission_timeout = 90
+		available = {
+			OR = {
+				has_unsupported_manpower_law = no
+				has_war = yes
+			}
+		}
+		activation = {
+			has_unsupported_manpower_law = yes
+			has_war = no
+		}
+		visible = {
+		}
+		cancel_if_not_visible = yes
+		timeout_effect = {
+			add_stability = -0.05
+			add_war_support = -0.05
+		}
+	}
+	generic_strict_production_quota = {
+		icon = generic_prepare_civil_war
+		available = {
+			surrender_progress > 0.2
+		}
+		visible = {
+			surrender_progress > 0
+		}
+		days_remove = 60
+		days_re_enable = 360
+		cost = 0
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			political_power_cost = 0.2
+			war_support_weekly = -0.002
+			industrial_capacity_factory = 0.2
+			production_factory_efficiency_gain_factor = 0.2
+		}
+		complete_effect = {
+		}
+	}
+	generic_desperate_defense = {
+		icon = generic_prepare_civil_war
+		available = {
+			surrender_progress > 0.5
+		}
+		visible = {
+			surrender_progress > 0
+		}
+		days_remove = 60
+		days_re_enable = 360
+		cost = 0
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			political_power_cost = 0.5
+			war_support_weekly = -0.005
+			army_core_defence_factor = 0.2
+			dig_in_speed_factor = 0.5
+		}
+		complete_effect = {
+		}
+	}
+	desperate_defense = {
+		icon = generic_prepare_civil_war
+		available = {
+			surrender_progress > 0.5
+		}
+		visible = {
+			surrender_progress > 0
+		}
+		days_remove = 60
+		days_re_enable = 360
+		cost = 0
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			political_power_cost = 1
+			army_core_defence_factor = 0.2
+			dig_in_speed_factor = 0.5
+		}
+		complete_effect = {
+		}
+	}
+	women_in_the_workforce = {
+		icon = generic_industry
+		allowed = {
+			always = yes
+		}
+		available = {
+			has_war = yes
+			has_idea = tot_economic_mobilisation
+			OR = {
+				tag = RUS
+				has_government = democratic
+				has_government = communism
+				AND = {
+					has_government = fascism
+					OR = {
+						original_tag = GER
+						original_tag = HOL
+						has_war_support > 0.79
+						surrender_progress > 0
+					}
+				}
+				AND = {
+					has_government = neutrality
+					OR = {
+						AND = {
+							has_war_support > 0.74
+							has_stability > 0.7
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			has_war = yes
+		}
+		cost = 100
+		days_remove = -1
+		remove_trigger = {
+			OR = {
+				has_war = no
+				NOT = {
+					has_idea = tot_economic_mobilisation
+				}
+			}
+		}
+		modifier = {
+			war_support_factor = 0.1
+			industrial_capacity_factory = 0.1
+			industrial_capacity_dockyard = 0.1
+			production_speed_buildings_factor = 0.05
+			MONTHLY_POPULATION = -0.15
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+		}
+	}
+	targeted_race_for_the_bomb = {
+		icon = generic_research
+		allowed = {
+			always = yes
+		}
+		available = {
+			#Target is FROM
+			has_tech = atomic_research
+			NOT = {
+				has_global_flag = first_nuke_dropped
+			}
+			NOT = {
+				has_idea = race_for_the_bomb
+			}
+		}
+		target_root_trigger = {
+			has_tech = atomic_research
+			NOT = {
+				has_global_flag = first_nuke_dropped
+			}
+			NOT = {
+				has_idea = race_for_the_bomb
+			}
+		}
+		#If this trigger matches a country.
+		target_trigger = {
+			#Target is FROM
+			FROM = {
+				NOT = {
+					is_in_faction_with = ROOT
+				}
+				has_tech = nuclear_reactor
+				any_owned_state = {
+					nuclear_reactor > 0
+				}
+			}
+		}
+		visible = {
+			#Target is FROM
+			has_tech = atomic_research
+			NOT = {
+				has_global_flag = first_nuke_dropped
+			}
+			NOT = {
+				has_idea = race_for_the_bomb
+			}
+			FROM = {
+				NOT = {
+					is_in_faction_with = ROOT
+				}
+				has_tech = nuclear_reactor
+				any_owned_state = {
+					nuclear_reactor > 0
+				}
+			}
+		}
+		complete_effect = {
+			set_country_flag = racing_for_the_bomb
+			add_ideas = race_for_the_bomb
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				any_other_country = {
+					has_tech = nukes
+				}
+			}
+		}
+	}
+	diversify_special_forces = {
+		icon = GFX_decision_generic_military
+		allowed = {
+			has_dlc = "Arms Against Tyranny"
+		}
+		available = {
+			date > 1940.1.1
+		}
+		visible = {
+			is_major = yes
+		}
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			add_potential_special_forces_tree = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

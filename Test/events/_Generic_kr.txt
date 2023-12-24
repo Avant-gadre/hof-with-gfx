@@ -153,7 +153,7 @@ country_event = {
 		name = generic_events.15.a
 		add_opinion_modifier = {
 			target = FROM
-			modifier = generic_outraged
+			modifier = generic_outraged_opinion
 		}
 	}
 }
@@ -170,7 +170,7 @@ country_event = {
 		FROM.FROM = {
 			reverse_add_opinion_modifier = {
 				target = ROOT
-				modifier = generic_outraged
+				modifier = generic_outraged_opinion
 			}
 		}
 	}
@@ -187,7 +187,7 @@ country_event = {
 		name = generic_events.17.a
 		add_opinion_modifier = {
 			target = FROM
-			modifier = generic_outraged
+			modifier = generic_outraged_opinion
 		}
 	}
 }
@@ -248,7 +248,282 @@ country_event = {
 		name = generic_events.20.a
 		add_opinion_modifier = {
 			target = FROM
-			modifier = generic_outraged
+			modifier = generic_outraged_opinion
+		}
+	}
+}
+
+country_event = {
+	id = generic_events.75
+	title = generic_events.75.t
+	desc = generic_events.75.d
+	picture = GFX_report_event_generic_diplomacy2
+	is_triggered_only = yes
+	option = {
+		log = "[GetLogInfo]: event generic_events.75 option generic_events.75.a"
+		name = generic_events.75.a		#return all land
+		ai_chance = {
+			base = 1
+		}
+		clr_country_flag = KR_returning_land
+		custom_effect_tooltip = KR_will_return_all
+		hidden_effect = {
+			event_target:return_to = {
+				country_event = generic_events.76
+			}
+		}
+	}
+	option = {
+		log = "[GetLogInfo]: event generic_events.75 option generic_events.75.b"
+		name = generic_events.75.b		#return all land but vital provinces
+		trigger = {
+			any_owned_state = {
+				OR = {
+					is_core_of = event_target:return_to
+					is_claimed_by = event_target:return_to
+				}
+				is_claim_or_core_of_ROOT = no
+				is_important_state = yes
+				NOT = {
+					has_variable = can_integrate_@ROOT
+				}
+				NOT = {
+					any_country_with_core = {
+						has_variable = ROOT.can_integrate_@THIS
+					}
+				}
+				NOT = {
+					has_state_flag = KR_keeping_state@ROOT
+				}
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = KR_will_return_rest
+		hidden_effect = {
+			clr_country_flag = KR_returning_land
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = event_target:return_to
+						is_claimed_by = event_target:return_to
+					}
+					is_claim_or_core_of_ROOT = no
+					is_important_state = yes
+					NOT = {
+						has_state_flag = KR_keeping_state@ROOT
+					}
+				}
+				set_state_flag = KR_keeping_state@ROOT
+			}
+			if = {
+				limit = {
+					any_owned_state = {
+						OR = {
+							is_core_of = event_target:return_to
+							is_claimed_by = event_target:return_to
+						}
+						is_claim_or_core_of_ROOT = no
+						is_important_state = no
+						NOT = {
+							has_variable = can_integrate_@ROOT
+						}
+						NOT = {
+							any_country_with_core = {
+								has_variable = ROOT.can_integrate_@THIS
+							}
+						}
+						NOT = {
+							has_state_flag = KR_keeping_state@ROOT
+						}
+						OR = {
+							is_coastal = yes
+							any_neighbor_state = {
+								is_owned_by = event_target:return_to
+							}
+						}
+					}
+				}
+				event_target:return_to = {
+					country_event = generic_events.76
+				}
+			}
+		}
+	}
+	option = {
+		log = "[GetLogInfo]: event generic_events.75 option generic_events.75.c"
+		name = generic_events.75.c		#return cores only
+		trigger = {
+			is_ai = no
+			any_owned_state = {
+				is_claim_or_core_of_ROOT = no
+				is_important_state = no
+				NOT = {
+					has_variable = can_integrate_@ROOT
+				}
+				NOT = {
+					any_country_with_core = {
+						has_variable = ROOT.can_integrate_@THIS
+					}
+				}
+				NOT = {
+					has_state_flag = KR_keeping_state@ROOT
+				}
+				is_core_of = event_target:return_to
+			}
+			any_owned_state = {
+				is_claim_or_core_of_ROOT = no
+				is_important_state = no
+				NOT = {
+					has_variable = can_integrate_@ROOT
+				}
+				NOT = {
+					any_country_with_core = {
+						has_variable = ROOT.can_integrate_@THIS
+					}
+				}
+				NOT = {
+					has_state_flag = KR_keeping_state@ROOT
+				}
+				NOT = {
+					is_core_of = event_target:return_to
+				}
+				is_claimed_by = event_target:return_to
+			}
+		}
+		custom_effect_tooltip = KR_will_return_cores
+		hidden_effect = {
+			clr_country_flag = KR_returning_land
+			every_owned_state = {
+				limit = {
+					is_claim_or_core_of_ROOT = no
+					NOT = {
+						has_variable = can_integrate_@ROOT
+					}
+					NOT = {
+						any_country_with_core = {
+							has_variable = ROOT.can_integrate_@THIS
+						}
+					}
+					NOT = {
+						has_state_flag = KR_keeping_state@ROOT
+					}
+					NOT = {
+						is_core_of = event_target:return_to
+					}
+					is_claimed_by = event_target:return_to
+				}
+				set_state_flag = KR_keeping_state@ROOT
+			}
+			event_target:return_to = {
+				country_event = generic_events.76
+			}
+		}
+	}
+	option = {
+		log = "[GetLogInfo]: event generic_events.75 option generic_events.75.e"
+		name = generic_events.75.e		#keep it all you pig
+		ai_chance = {
+			base = 0
+		}
+		clr_country_flag = KR_returning_land
+		custom_effect_tooltip = KR_will_not_return
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = event_target:return_to
+						is_claimed_by = event_target:return_to
+					}
+					is_claim_or_core_of_ROOT = no
+					NOT = {
+						has_variable = can_integrate_@ROOT
+					}
+					NOT = {
+						any_country_with_core = {
+							has_variable = ROOT.can_integrate_@THIS
+						}
+					}
+					NOT = {
+						has_state_flag = KR_keeping_state@ROOT
+					}
+				}
+				set_state_flag = KR_keeping_state@ROOT
+			}
+		}
+	}
+}
+
+# Cores/claims have been returned by an ally
+country_event = {
+	id = generic_events.76
+	title = generic_events.76.t
+	desc = generic_events.76.d
+	picture = GFX_report_event_generic_diplomacy2
+	is_triggered_only = yes
+	option = {
+		log = "[GetLogInfo]: event generic_events.76 option generic_events.76.a"
+		name = generic_events.76.a
+		add_opinion_modifier = {
+			target = FROM
+			modifier = generic_returned_land_opinion
+		}
+		set_temp_variable = {
+			tag_to_release = ROOT
+		}
+		while_loop_effect = {
+			limit = {
+				FROM = {
+					any_owned_state = {
+						is_claim_or_core_of_ROOT = yes
+						is_claim_or_core_of_FROM = no
+						NOT = {
+							has_variable = can_integrate_@FROM
+						}
+						NOT = {
+							any_country_with_core = {
+								has_variable = FROM.can_integrate_@THIS
+							}
+						}
+						OR = {
+							is_coastal = yes
+							any_neighbor_state = {
+								is_owned_by = ROOT
+							}
+						}
+						NOT = {
+							has_state_flag = KR_keeping_state@FROM
+						}
+					}
+				}
+			}
+			FROM = {
+				every_owned_state = {
+					limit = {
+						is_claim_or_core_of_ROOT = yes
+						is_claim_or_core_of_FROM = no
+						NOT = {
+							has_variable = can_integrate_@FROM
+						}
+						NOT = {
+							any_country_with_core = {
+								has_variable = FROM.can_integrate_@THIS
+							}
+						}
+						OR = {
+							is_coastal = yes
+							any_neighbor_state = {
+								is_owned_by = ROOT
+							}
+						}
+						NOT = {
+							has_state_flag = KR_keeping_state@FROM
+						}
+					}
+					transfer_state_without_overriding_occupation = yes
+				}
+			}
 		}
 	}
 }
