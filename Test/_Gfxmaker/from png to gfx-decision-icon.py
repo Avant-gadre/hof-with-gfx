@@ -31,7 +31,9 @@ def outpuGfx(text):
     global interfacePath
     global TAG
     pngpath = "gfx/interface/decisions_icon/" + TAG
-    txtfile = open(interfacePath + "decisions_icon_" + TAG + ".gfx", "w", encoding="UTF-8")
+    txtfile = open(
+        interfacePath + "decisions_icon_" + TAG + ".gfx", "w", encoding="UTF-8"
+    )
     # spriteTypes = {
     txtfile.write("spriteTypes = {\n")
     for txt in text:
