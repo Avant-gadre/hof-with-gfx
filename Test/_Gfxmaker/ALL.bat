@@ -14,4 +14,6 @@ call python "from png to gfx-decision-cate.py"
 call python "from png to gfx-decision-pic.py"
 call python "from png to gfx-decision-icon.py"
 
+call python "from png to gfx-modifiers-icon.py"
+
 pause
