@@ -28,7 +28,7 @@ for file_name in files:
     files_set.add(file_name)
 
 ##格式-海军
-characters_string1 = '''
+characters_string = '''
 	{} = {{
 		name = {}
 		portraits = {{
@@ -45,17 +45,17 @@ characters_string1 = '''
 			traits = {{
 				naval_lineage
 			}}
-			skill = 3
-			attack_skill = 3
-			defense_skill = 3
-			maneuvering_skill = 3
-			coordination_skill = 3
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			maneuvering_skill = 1
+			coordination_skill = 1
 		}}
 	}}
 '''
 
 ##格式-陆军
-characters_string = '''
+characters_string1 = '''
 	{} = {{
 		name = {}
 		portraits = {{
@@ -77,6 +77,22 @@ characters_string = '''
 			defense_skill = 2
 			planning_skill = 2
 			logistics_skill = 2
+		}}
+	}}
+'''
+
+characters_string = '''
+	{} = {{
+		name = {}
+		portraits = {{
+			civilian = {{
+				small = GFX_idea_advisor_unknow_pol
+				large = GFX_Portrait_{}
+			}}
+			army = {{
+				small = GFX_idea_advisor_unknow_mil
+				large = GFX_Portrait_{}
+			}}
 		}}
 	}}
 '''
