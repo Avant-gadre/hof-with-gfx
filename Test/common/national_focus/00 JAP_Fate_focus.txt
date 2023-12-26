@@ -6749,11 +6749,52 @@ focus_tree = {
 			factor = 1000
 		}
 		available = {
+			OR = {
+				NOT = {
+					has_idea = JAP_superior_will_0
+					has_idea = JAP_superior_will_1
+					has_idea = JAP_superior_will_2
+				}
+				JAP_is_liberals_trigger = yes
+				has_country_leader = {
+					character = JAP_oda_nobunaga
+					ruling_only = yes
+				}
+				OR = {
+					has_war_with = SOV
+					has_war_with = RUS
+					has_war_with = ENG
+					has_war_with = USA
+					has_war_with = FRA
+					has_war_with = GER
+					has_war_with = ITA
+				}
+			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = JAP_superior_will
+
+			if = {
+				limit = {
+					has_idea = JAP_superior_will_0
+				}
+				remove_ideas = JAP_superior_will_0
+			}
+			if = {
+				limit = {
+					has_idea = JAP_superior_will_1
+				}
+				remove_ideas = JAP_superior_will_1
+			}
+			if = {
+				limit = {
+					has_idea = JAP_superior_will_2
+				}
+				remove_ideas = JAP_superior_will_2
+			}
+
+			add_ideas = JAP_superior_will_infantry
 		}
 	}
 	focus = {
@@ -6775,6 +6816,7 @@ focus_tree = {
 			}
 		}
 		bypass = {
+			JAP_is_liberals_trigger = yes
 		}
 		completion_reward = {
 			add_ideas = JAP_spiritual_mobilization_idea
@@ -6799,6 +6841,7 @@ focus_tree = {
 			}
 		}
 		bypass = {
+			JAP_is_liberals_trigger = yes
 		}
 		completion_reward = {
 			hidden_effect = {
@@ -6830,8 +6873,14 @@ focus_tree = {
 			has_tech = mechanised_infantry
 		}
 		completion_reward = {
-			add_ideas = {
-				JAP_Chi_Ha_Tan
+			if = {
+				limit = {
+					has_idea = JAP_superior_will_infantry
+				}
+				swap_ideas = {
+					remove_idea = JAP_superior_will_infantry
+					add_idea = JAP_superior_will_armor
+				}
 			}
 			set_technology = {
 				Jap_Chi_Ha_Tan_tech = 1
@@ -7605,6 +7654,15 @@ focus_tree = {
 		}
 		x = -3
 		y = 1
+
+		available = {
+			NOT = {
+				has_idea = JAP_superior_will_0
+				has_idea = JAP_superior_will_1
+				has_idea = JAP_superior_will_2
+			}
+		}
+
 		relative_position_id = JAP_Nagae_Electronic
 		completion_reward = {
 			add_doctrine_cost_reduction = {
@@ -9080,7 +9138,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			JAP_navy_focus_activated = yes
-			add_ideas = JAP_the_long_lance_idea
+			if = {
+				limit = {
+					has_idea = JAP_the_long_lance_idea
+				}
+				swap_ideas = {
+					remove_idea = JAP_the_long_lance_idea
+					add_idea = JAP_the_long_lance_buff_idea
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 5
