@@ -543,6 +543,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			army_experience = 50
+			add_ideas = GER_Wehrmacht_idea
 			add_doctrine_cost_reduction = {
 				name = GER_Wehrmacht
 				cost_reduction = 0.5
@@ -1307,6 +1308,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			army_experience = 20
+			add_ideas = GER_Mobile_Warfare_idea_1
 			add_tech_bonus = {
 				name = GER_Old_glory
 				bonus = 0.5
@@ -2123,6 +2125,9 @@ focus_tree = {
 		relative_position_id = GER_Wehrmacht
 		#cost = 5
 		cost = 3
+		available = {
+			has_completed_focus = GER_Old_glory
+		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 100
@@ -2130,7 +2135,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = available_chief_of_army
 			show_ideas_tooltip = walther_von_brauchitsch
-			add_ideas = GER_Mobile_Warfare_idea_1
+			#add_ideas = GER_Mobile_Warfare_idea_1
 			add_doctrine_cost_reduction = {
 				name = GER_New_tactics
 				cost_reduction = 0.5
@@ -9714,13 +9719,31 @@ focus_tree = {
 		cost = 5
 		available = {
 			is_puppet = no
-			NOT = {
-				has_completed_focus = GER_Offense_is_the_best_defense
+			has_country_flag = {
+				flag = GER_Offense_is_the_best_defense_flag
+				days > 720
+			}
+			custom_trigger_tooltip = {
+				tooltip = GER_Offense_is_the_best_defense_flag_tt
+				has_country_flag = {
+					flag = GER_Offense_is_the_best_defense_flag
+					days > 720
+				}
 			}
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 150
+			modifier = {
+				factor = 2
+				has_war_with = FRA
+				FRA = {
+					is_subject = no
+				}
+				FRA = {
+					surrender_progress < 0.2
+				}
+			}
 			modifier = {
 				factor = 2
 				OR = {
@@ -9738,6 +9761,9 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+
+			set_country_flag = GER_Defense_first_flag
+
 			add_ideas = GER_Defense_first_idea
 			add_doctrine_cost_reduction = {
 				name = GER_Defense_first
@@ -9898,8 +9924,16 @@ focus_tree = {
 		cost = 5
 		available = {
 			is_puppet = no
-			NOT = {
-				has_completed_focus = GER_Defense_first
+			has_country_flag = {
+				flag = GER_Defense_first_flag
+				days > 720
+			}
+			custom_trigger_tooltip = {
+				tooltip = GER_Defense_first_flag_tt
+				has_country_flag = {
+					flag = GER_Defense_first_flag
+					days > 720
+				}
 			}
 		}
 		available_if_capitulated = yes
@@ -9915,6 +9949,9 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+
+			set_country_flag = GER_Offense_is_the_best_defense_flag
+
 			add_ideas = GER_Offense_is_the_best_defense_idea
 			add_doctrine_cost_reduction = {
 				name = GER_Offense_is_the_best_defense
@@ -10071,6 +10108,17 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+
+			if = {
+				limit = {
+					has_idea = GER_Nibelungenwerk_I
+				}
+				swap_ideas = {
+					remove_idea = GER_Nibelungenwerk_I
+					add_idea = GER_Nibelungenwerk_II
+				}
+			}
+
 			add_tech_bonus = {
 				name = GER_Standard_tank_design
 				ahead_reduction = 1
