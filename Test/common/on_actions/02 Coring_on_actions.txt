@@ -1,0 +1,250 @@
+on_state_control_changed = {
+	FROM.FROM = {
+		if = {
+			limit = {
+				NOT = {
+					is_core_of = ROOT
+				}
+				impassable = no
+			}
+			if = {
+				limit = {
+					any_country_with_core = {
+						has_variable = ROOT.can_integrate_@THIS
+						set_temp_variable = {
+							integration_target = THIS
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							AND = {
+								has_resistance = yes
+								occupied = {
+									has_variable = ROOT.can_integrate_@THIS
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							has_resistance = yes
+						}
+						set_temp_variable = {
+							previous_compliance = compliance
+						}
+						set_temp_variable = {
+							previous_resistance = resistance
+						}
+						cancel_resistance = yes
+					}
+					start_resistance = var:integration_target
+					set_compliance = var:previous_compliance
+					set_resistance = var:previous_resistance
+				}
+				ROOT = {
+					var:integration_target = {
+						set_occupation_law_where_available = territorial_integration
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = can_integrate_@ROOT
+				}
+				start_state_integration_resistance = yes
+			}
+			else = {
+				clear_state_integration_resistance = yes
+			}
+		}
+		else = {
+			clear_state_integration_resistance = yes
+		}
+	}
+}
+
+##For Russian
+#FROM is country getting invited.
+on_offer_join_faction = {
+	effect = {
+		if = {
+			limit = {
+				is_russian_tag = yes
+				has_variable = can_integrate_@FROM
+			}
+			set_variable = {
+				FROM.RUS_alliance_disabled_integration = ROOT
+			}
+			FROM = {
+				disable_coring = yes
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = UKR
+					}
+				}
+				73 = {
+					disable_state_integration = yes
+				}				#Transcarpathia
+				73 = {
+					disable_state_integration = yes
+				}				#Bessarabia
+				80 = {
+					disable_state_integration = yes
+				}				#Cernauti
+				89 = {
+					disable_state_integration = yes
+				}				#Stanislawow
+				91 = {
+					disable_state_integration = yes
+				}				#Lwow
+				1088 = {
+					disable_state_integration = yes
+				}				#Chelm
+				if = {
+					limit = {
+						owns_state = 243
+					}					#Krichev
+					241 = {
+						enable_state_integration_80_compliance = yes
+					}					#Gomel
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						original_tag = LIT
+					}
+				}
+				188 = {
+					disable_state_integration = yes
+				}				#Memel
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						original_tag = POL
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							owns_state = 97
+						}
+					}
+					97 = {
+						disable_state_integration = yes
+					}					#Bialystok
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						original_tag = GEO
+					}
+				}
+				585 = {
+					disable_state_integration = yes
+				}				#Batumi
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						original_tag = ARM
+					}
+				}
+				1000 = {
+					disable_state_integration = yes
+				}				#Kars
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						is_subject = no
+					}
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							original_tag = JAP
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								owns_state = 537
+							}
+						}
+						537 = {
+							disable_state_integration = yes
+						}						#Sakhalin
+					}
+					if = {
+						limit = {
+							NOT = {
+								owns_state = 555
+							}
+						}
+						555 = {
+							disable_state_integration = yes
+						}						#Kuril Islands
+					}
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							original_tag = ROM
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								owns_state = 78
+							}
+						}
+						78 = {
+							disable_state_integration = yes
+						}						#Bessarabia
+					}
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							original_tag = FIN
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								owns_state = 146
+							}
+						}
+						146 = {
+							disable_state_integration = yes
+						}						#Karelia
+					}
+				}
+				if = {
+					limit = {
+						FROM = {
+							original_tag = PER
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								owns_state = 418
+							}
+						}
+						418 = {
+							disable_state_integration = yes
+						}						#Ashkhabad
+					}
+				}
+			}
+		}
+	}
+}
