@@ -1,7 +1,4 @@
-version="0.1"
-tags={
-	"Alternative History"
-}
+version="1.8.6"
 replace_path="common/abilities"
 replace_path="common/ai_areas"
 replace_path="common/ai_equipment"
@@ -53,7 +50,12 @@ replace_path="history/states"
 replace_path="history/units"
 replace_path="map/strategicregions"
 replace_path="map/supplyareas"
-name="Hearts of fate testing Version"
+name="Hearts of Fate - Beta"
 picture="thumbnail.jpg"
-supported_version="1.13.5"
 remote_file_id="3058789589"
+tags={
+	"Alternative History"
+	"Gameplay"
+	"Map"
+	"National Focuses"
+}
