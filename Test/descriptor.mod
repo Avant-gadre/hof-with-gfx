@@ -52,10 +52,11 @@ replace_path="map/strategicregions"
 replace_path="map/supplyareas"
 name="Hearts of Fate - Beta"
 picture="thumbnail.jpg"
-remote_file_id="3058789589"
 tags={
 	"Alternative History"
 	"Gameplay"
 	"Map"
 	"National Focuses"
 }
+supported_version="1.13.6"
+remote_file_id="3058789589"
