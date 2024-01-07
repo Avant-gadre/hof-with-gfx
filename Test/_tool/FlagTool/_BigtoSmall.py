@@ -13,11 +13,15 @@ output_folder1 = os.path.join(script_dir, "small")  # 要保存TGA文件的文�
 # 清空输出文件夹
 if os.path.exists(output_folder):
     shutil.rmtree(output_folder)
-os.makedirs(output_folder)
 
 if os.path.exists(output_folder1):
     shutil.rmtree(output_folder1)
-os.makedirs(output_folder1)
+
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+if not os.path.exists(output_folder1):
+    os.makedirs(output_folder1)
 
 # 遍历输入文件夹中的所有文件
 for filename in os.listdir(input_folder):
@@ -31,7 +35,7 @@ for filename in os.listdir(input_folder):
         # 调整图像大小为41x26
         resized_image = tga_image.resize((41, 26))
         # 调整图像大小为11x7
-        resized_image1 = tga_image.resize((11, 7))
+        resized_image1 = tga_image.resize((10, 7))
 
         # 构建输出文件的完整路径
         output_file_path = os.path.join(output_folder, filename)

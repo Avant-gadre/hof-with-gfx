@@ -13,11 +13,15 @@ output_folder1 = os.path.join(script_dir, "small")  # 要保存TGA文件的文�
 # 清空输出文件夹
 if os.path.exists(output_folder):
     shutil.rmtree(output_folder)
-os.makedirs(output_folder)
 
 if os.path.exists(output_folder1):
     shutil.rmtree(output_folder1)
-os.makedirs(output_folder1)
+
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+if not os.path.exists(output_folder1):
+    os.makedirs(output_folder1)
 
 # 遍历输入文件夹中的所有文件
 for filename in os.listdir(input_folder):
