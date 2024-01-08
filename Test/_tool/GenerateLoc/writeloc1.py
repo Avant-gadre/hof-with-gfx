@@ -7,7 +7,7 @@ path2 = ".//text2.txt"
 path3 = ".//text3.txt"
 path4 = ".//text4.txt"
 
-target = "GER_"
+target = "FRA_"
 
 # 获取当前脚本文件的路径
 script_path = os.path.abspath(__file__)

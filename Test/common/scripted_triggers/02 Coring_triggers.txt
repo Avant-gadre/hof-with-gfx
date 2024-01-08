@@ -1,0 +1,35 @@
+remove_cores_of_tag_if_non_existent = {
+	OR = {
+		is_american_tag = yes
+		is_italian_tag = yes
+		is_indian_tag = yes
+		is_chinese_tag = yes
+		# original_tag = KUM
+		# original_tag = LEC
+		# original_tag = MAF
+		# original_tag = GEA
+		#add new entries here as needed - remember to update the exceptions in clear_cores_of_tag_if_possible
+	}
+}
+
+#only use this in integration effects
+core_of_FROM_can_be_integrated_by_ROOT = {
+	OR = {
+		has_variable = can_integrate_@ROOT
+		NOT = {
+			any_country_with_core = {
+				# is_colonial_tag = no
+				NOT = { has_variable = can_integrate_@FROM }
+				NOT = { has_variable = ROOT.can_integrate_@THIS }
+			}
+		}
+	}
+}
+
+# is_colonial_tag = {
+# 	OR = {
+# 		# original_tag = MAF #ignore colonial tags
+# 		# original_tag = GEA #ignore colonial tags
+# 		# original_tag = DEI #ignore colonial tags
+# 	}
+# }
