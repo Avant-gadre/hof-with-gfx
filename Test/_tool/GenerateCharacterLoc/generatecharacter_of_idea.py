@@ -43,9 +43,8 @@ characters_string = '''
 			}}
 		}}
 		advisor = {{
-			slot = army_chief
+			slot = political_advisor
 			idea_token = {}
-			ledger = political_advisor
 			cost = 100
 			traits = {{
 			}}
