@@ -1,0 +1,78 @@
+FRA_muslim_local_autonomy_modifier = {
+	icon = GFX_modifiers_raj_marginalized_muslim_community_happy
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		FRA = {
+			is_puppet = yes
+			has_government = fascism
+		}
+		owner = {
+			NOT = {
+				tag = FRA
+				is_ally_with = FRA
+			}
+		}
+	}
+	local_manpower = -0.85
+	local_non_core_manpower = 0.3
+	compliance_growth = 0.2
+	compliance_gain = 0.002
+}
+
+FRA_catholic_local_autonomy_modifier = {
+	icon = GFX_decision_christian_orthodox
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		OR = {
+			FRA = {
+				is_puppet = yes
+				has_government = fascism
+			}
+			owner = {
+				NOT = {
+					tag = FRA
+					is_ally_with = FRA
+				}
+			}
+		}
+	}
+	local_manpower = -0.65
+	local_non_core_manpower = 0.4
+	compliance_growth = 0.15
+	compliance_gain = 0.001
+}
+
+FRA_local_autonomy_modifier = {
+	icon = GFX_decision_peace_dove
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		OR = {
+			has_dynamic_modifier = {
+				modifier = FRA_catholic_local_autonomy_modifier
+			}
+			has_dynamic_modifier = {
+				modifier = FRA_muslim_local_autonomy_modifier
+			}
+			FRA = {
+				is_puppet = yes
+				has_government = fascism
+			}
+			owner = {
+				NOT = {
+					tag = FRA
+					is_ally_with = FRA
+				}
+			}
+		}
+	}
+	local_manpower = -0.85
+	local_non_core_manpower = 0.3
+	compliance_growth = 0.15
+	compliance_gain = 0.001
+}

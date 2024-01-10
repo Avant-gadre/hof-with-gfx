@@ -13,7 +13,7 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "FRA"
+target = "o_"
 
 end = "_trait"
 
@@ -22,19 +22,25 @@ with open(file_path1, "r") as file:
 
 lines.sort()
 
+# ... （之前的代码）
+
 with open(file_path2, "w") as file:
-    file.truncate(0)
+    # file.truncate(0)  # 这里可能不需要清空文件内容
     for line in lines:
-        prefix = line.strip()  # 去除行末尾的换行符等空白字符
-        if prefix.endswith(end):
-            name0 = (prefix[len(target):])[:-len(end)].replace("_", " ").title().strip()  # 去除生成的字符串首尾空白
+        line = line.strip()  # 修复了这里的逻辑错误
+        modified_line = line.split(":", 1)[0]
+        prefix = modified_line.strip()
+        if prefix.startswith(target):
+            if prefix.endswith(end):
+                name0 = (
+                    (prefix[len(target) :])[: -len(end)].replace("_", " ").title().strip()
+                )
+            else:
+                name0 = (
+                    (prefix[len(target) :]).replace("_", " ").title().strip()
+                )
+            full = " " + prefix + ":" + " " + '"' + name0 + '"'
+            file.write(full + "\n")
 
-        else:
-            name0 = (prefix[len(target):]).replace("_", " ").title().strip()  # 去除生成的字符串首尾空白
+# ... （之后的代码）
 
-        full = " " + prefix + ":" + " " + '"' + name0 + '"'
-
-        #full2 = " " + prefix + '_desc' + ":" + " " + '\"' + '\"'
-
-        file.write(full + '\n')  # 写入行并添加换行符
-        #file.write(full2 + '\n')  # 写入行并添加换行符
