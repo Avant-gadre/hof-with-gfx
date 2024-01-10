@@ -13,18 +13,18 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "o_"
+target = "Generic_trait_"
 
-end = "_trait"
+end = "12345577"
 
-with open(file_path1, "r") as file:
+with open(file_path1, "r", errors="ignore") as file:
     lines = file.readlines()
 
 lines.sort()
 
 # ... （之前的代码）
 
-with open(file_path2, "w") as file:
+with open(file_path2, "w", errors="ignore") as file:
     # file.truncate(0)  # 这里可能不需要清空文件内容
     for line in lines:
         line = line.strip()  # 修复了这里的逻辑错误
@@ -33,14 +33,14 @@ with open(file_path2, "w") as file:
         if prefix.startswith(target):
             if prefix.endswith(end):
                 name0 = (
-                    (prefix[len(target) :])[: -len(end)].replace("_", " ").title().strip()
+                    (prefix[len(target) :])[: -len(end)]
+                    .replace("_", " ")
+                    .title()
+                    .strip()
                 )
             else:
-                name0 = (
-                    (prefix[len(target) :]).replace("_", " ").title().strip()
-                )
+                name0 = (prefix[len(target) :]).replace("_", " ").title().strip()
             full = " " + prefix + ":" + " " + '"' + name0 + '"'
             file.write(full + "\n")
 
 # ... （之后的代码）
-

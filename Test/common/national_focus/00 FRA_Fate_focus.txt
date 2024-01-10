@@ -4738,7 +4738,7 @@ focus_tree = {
 		id = FRA_overthrow_bourbon
 		icon = GFX_focus_FRA_overthrow_bourbon
 		cost = 6
-		x = 48
+		x = 51
 		y = 0
 		available = {
 			always = no
@@ -5379,6 +5379,9 @@ focus_tree = {
 					is_controlled_by = ROOT
 				}
 			}
+			NOT = {
+				is_in_faction_with = GER
+			}
 		}
 		bypass = {
 		}
@@ -5991,6 +5994,9 @@ focus_tree = {
 			factor = 500
 		}
 		available = {
+			NOT = {
+				is_in_faction_with = GER
+			}
 		}
 		bypass = {
 		}
@@ -6308,7 +6314,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_overthrow_bourbon
 		}
-		x = 11
+		x = 10
 		y = 1
 		available = {
 			is_puppet = no
@@ -6461,7 +6467,7 @@ focus_tree = {
 			focus = FRA_Introduce_German_capital
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = FRA_Introduce_the_German_police
 		available = {
 			has_government = fascism
@@ -6508,14 +6514,14 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = FRA_Expand_military_cooperation_with_Germany
-			focus = FRA_Invite_Heidrich
 		}
-		x = 0
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = FRA_Expand_military_cooperation_with_Germany
 		available = {
 			has_government = fascism
 			is_puppet = no
+			has_completed_focus = FRA_Invite_Heidrich
 		}
 		ai_will_do = {
 			factor = 750
@@ -6550,7 +6556,7 @@ focus_tree = {
 			focus = FRA_cross_the_channel
 		}
 		will_lead_to_war_with = ENG
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = FRA_French_Volkssturm
 		available = {
@@ -6602,11 +6608,11 @@ focus_tree = {
 		icon = GFX_focus_FRA_invite_heidrich
 		cost = 5
 		prerequisite = {
-			focus = FRA_Introduce_the_German_police
+			focus = FRA_Expand_military_cooperation_with_Germany
 		}
-		x = 1
-		y = 2
-		relative_position_id = FRA_Introduce_the_German_police
+		x = -1
+		y = 1
+		relative_position_id = FRA_Expand_military_cooperation_with_Germany
 		available = {
 			has_government = fascism
 			is_puppet = no
@@ -6746,10 +6752,9 @@ focus_tree = {
 		icon = GFX_focus_generic_naval_industry
 		cost = 5
 		prerequisite = {
-			focus = FRA_Introduce_German_workers
 			focus = FRA_Four_year_plan
 		}
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = FRA_Introduce_German_workers
 		available = {
@@ -6771,11 +6776,11 @@ focus_tree = {
 		icon = GFX_focus_POL_prepare_for_next_war
 		cost = 5
 		prerequisite = {
-			focus = FRA_Introduce_German_capital
+			focus = FRA_Introduce_German_workers
 		}
 		x = 1
-		y = 2
-		relative_position_id = FRA_Introduce_German_capital
+		y = 1
+		relative_position_id = FRA_Introduce_German_workers
 		available = {
 			has_government = fascism
 			is_puppet = no
@@ -8482,6 +8487,18 @@ focus_tree = {
 			}
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = FRA_amadeus_mozart
+			if = {
+				limit = {
+					AUS = {
+						NOT = {
+							has_government = fascism
+						}
+					}
+				}
+				ROOT = {
+					give_guarantee = AUS
+				}
+			}
 		}
 	}
 	focus = {
@@ -8702,9 +8719,15 @@ focus_tree = {
 			}
 			every_state = {
 				limit = {
-					is_spainish_state = yes
+					OR = {
+						is_core_of = SPA
+						is_core_of = SPB
+						is_core_of = SPC
+					}
+					impassable = no
 				}
-				add_core_of = FRA
+				add_claim_of_ROOT = yes
+				enable_state_integration_80_compliance = yes
 			}
 		}
 	}
@@ -8719,6 +8742,10 @@ focus_tree = {
 			focus = FRA_pact_with_Rome
 		}
 		available = {
+			AUS = {
+				exists = yes
+				is_ally_with = ROOT
+			}
 		}
 		ai_will_do = {
 			factor = 500
@@ -8732,10 +8759,12 @@ focus_tree = {
 			AUS = {
 				add_country_leader_role = {
 					promote_leader = yes
-					character = "AUS_otto_von_habsburg"
+					character = AUS_otto_von_habsburg
 					country_leader = {
-						#desc = "POLITICS_OTTO_VON_HABSBURG_DESC"
 						ideology = authoritarian_democracy
+						traits = {
+							Generic_trait_prince
+						}
 					}
 				}
 			}
@@ -8748,11 +8777,17 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = FRA_Restore_Austrian_Territory
+			focus = FRA_pre_empitive_war_with_germany
 		}
 		x = 0
 		y = 2
 		relative_position_id = FRA_Restore_Austrian_Territory
 		available = {
+			ITA = {
+				NOT = {
+					is_ally_with = ROOT
+				}
+			}
 			OR = {
 				threat > 0.5
 				date > 1938.9.1
@@ -8925,8 +8960,8 @@ focus_tree = {
 			focus = FRA_Restore_Austrian_Territory
 		}
 		available = {
-			NOT = {
-				has_war_with = ITA
+			ITA = {
+				is_exist_and_peace_and_not_ally_off_ROOT = yes
 			}
 			NOT = {
 				is_in_faction_with = ENG
@@ -9188,8 +9223,9 @@ focus_tree = {
 				has_government = fascism
 			}
 		}
-		x = 17
+		x = 6
 		y = 1
+		relative_position_id = FRA_stablize_status_quo
 		ai_will_do = {
 			factor = 1500
 		}
@@ -9203,7 +9239,7 @@ focus_tree = {
 	focus = {
 		id = FRA_ban_the_leagues
 		icon = GFX_focus_generic_ban_right_wing
-		x = 4
+		x = 2
 		y = 1
 		prerequisite = {
 			focus = FRA_strengthen_the_unions
@@ -9215,7 +9251,6 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			has_idea = FRA_political_violence
 		}
 		bypass = {
 		}
@@ -9233,9 +9268,8 @@ focus_tree = {
 			has_government = democratic
 		}
 		bypass = {
-			has_country_flag = Autocracy_Settled
 		}
-		x = -4
+		x = -6
 		y = 1
 		relative_position_id = FRA_ban_the_radicals
 		ai_will_do = {
@@ -9250,7 +9284,7 @@ focus_tree = {
 	focus = {
 		id = FRA_reform_the_labour_laws
 		icon = GFX_focus_FRA_cgt_mandate
-		x = 8
+		x = 6
 		y = 1
 		prerequisite = {
 			focus = FRA_ban_the_radicals
@@ -9266,15 +9300,24 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = {
-				FRA_matignon_agreements
-			}
 			if = {
 				limit = {
-					has_idea = FRA_factory_strikes
+					has_government = communism
 				}
-				remove_ideas = FRA_factory_strikes
+				add_stability = 0.06
+				add_popularity = {
+					ideology = communism
+					popularity = 0.06
+				}
 			}
+			else = {
+				add_stability = -0.03
+				add_popularity = {
+					ideology = communism
+					popularity = 0.03
+				}
+			}
+			add_ideas = FRA_matignon_agreements_idea
 		}
 	}
 	focus = {
@@ -9295,10 +9338,6 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = FRA_inefficient_economy_2
-				add_idea = FRA_inefficient_economy_1
-			}
 		}
 	}
 	focus = {
@@ -9322,22 +9361,6 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = FRA_inefficient_economy_1
-				}
-				remove_ideas = {
-					FRA_inefficient_economy_1
-				}
-			}
-			if = {
-				limit = {
-					has_idea = FRA_inefficient_economy_2
-				}
-				remove_ideas = {
-					FRA_inefficient_economy_2
-				}
-			}
 		}
 	}
 	focus = {
@@ -9346,7 +9369,7 @@ focus_tree = {
 		cost = 5
 		relative_position_id = FRA_general_work_council
 		x = 1
-		y = 1
+		y = 2
 		prerequisite = {
 			focus = FRA_general_work_council
 		}
@@ -9360,7 +9383,7 @@ focus_tree = {
 	focus = {
 		id = FRA_national_champions
 		icon = GFX_focus_generic_economic_control
-		x = -1
+		x = 0
 		y = 1
 		prerequisite = {
 			focus = FRA_general_work_council
@@ -9375,80 +9398,25 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			random_owned_state = {
-				limit = {
-					is_controlled_by = ROOT
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
+			add_one_random_civilian_factory = yes
+			add_one_random_military_factory = yes
+			upgrade_one_random_category = yes
+			upgrade_one_random_region = yes
+			20 = {
+				upgrade_industrial_region = yes
 			}
-			random_owned_state = {
-				limit = {
-					is_controlled_by = ROOT
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
+			30 = {
+				upgrade_industrial_region = yes
 			}
-			random_owned_state = {
-				limit = {
-					is_controlled_by = ROOT
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				limit = {
-					is_controlled_by = ROOT
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+			33 = {
+				upgrade_industrial_region = yes
 			}
 		}
 	}
 	focus = {
 		id = FRA_dirigisme
 		icon = GFX_focus_RUS_true_equality_between_youkai_and_human
-		x = -2
+		x = -1
 		y = 2
 		prerequisite = {
 			focus = FRA_general_work_council
@@ -9463,9 +9431,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = {
-				FRA_dirigisme
-			}
+			add_ideas = FRA_dirigisme_idea
 		}
 	}
 	focus = {
@@ -9474,8 +9440,9 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = FRA_dirigisme
+			focus = FRA_Northern_African_Autonomy
 		}
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = FRA_dirigisme
 		available = {
@@ -9494,21 +9461,25 @@ focus_tree = {
 		completion_reward = {
 			add_popularity = {
 				ideology = fascism
-				popularity = -0.125
+				popularity = -0.08
 			}
 			add_popularity = {
 				ideology = neutrality
-				popularity = -0.125
+				popularity = -0.08
 			}
+			add_political_power = -30
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = FRA_albert_camus
 		}
 	}
 	focus = {
 		id = FRA_form_the_state_arsenals
 		icon = GFX_focus_POL_sanacja_nationalize_military_industry
-		x = 1
+		x = 2
 		y = 1
 		prerequisite = {
 			focus = FRA_nationalize_key_industry
+			focus = FRA_industrial_collectivization
 		}
 		relative_position_id = FRA_nationalize_key_industry
 		cost = 6
@@ -9559,7 +9530,7 @@ focus_tree = {
 	focus = {
 		id = FRA_reorganize_the_aviation_industry
 		icon = GFX_focus_generic_plane_specialization
-		x = -1
+		x = 0
 		y = 1
 		prerequisite = {
 			focus = FRA_nationalize_key_industry
@@ -9586,7 +9557,7 @@ focus_tree = {
 		bypass = {
 			has_country_flag = Republic_Settled
 		}
-		x = 29
+		x = 30
 		y = 0
 		completion_reward = {
 			custom_effect_tooltip = fra_auto_bypass_tooltip
@@ -9652,8 +9623,8 @@ focus_tree = {
 	focus = {
 		id = FRA_legal_equality
 		icon = GFX_focus_generic_female_rights
-		x = 0
-		y = 2
+		x = 1
+		y = 1
 		prerequisite = {
 			focus = FRA_womens_suffrage
 		}
@@ -9682,7 +9653,7 @@ focus_tree = {
 		icon = GFX_focus_generic_enforce_labor_regulation
 		cost = 5
 		relative_position_id = FRA_strengthen_the_unions
-		x = 5
+		x = 6
 		y = 1
 		prerequisite = {
 			focus = FRA_strengthen_the_unions
@@ -9697,7 +9668,7 @@ focus_tree = {
 		cost = 5
 		relative_position_id = FRA_secure_labor_agreements
 		x = 0
-		y = 2
+		y = 3
 		prerequisite = {
 			focus = FRA_secure_labor_agreements
 		}
@@ -9785,18 +9756,19 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_temp_variable = {
-				FRA_rw_support = party_popularity@fascism
+				ideology_change_var = party_popularity@fascism
 			}
 			add_to_temp_variable = {
-				FRA_rw_support = party_popularity@neutrality
+				ideology_change_var = party_popularity@neutrality
 			}
 			multiply_temp_variable = {
-				FRA_rw_support = 0.5
+				ideology_change_var = 0.5
 			}
-			start_civil_war = {
-				size = FRA_rw_support
-				ideology = fascism
+			change_ruling_party_popularity = yes
+			multiply_temp_variable = {
+				ideology_change_var = -0.5
 			}
+			add_stability = ideology_change_var
 		}
 	}
 	focus = {
@@ -9875,8 +9847,8 @@ focus_tree = {
 			focus = FRA_destroy_the_counter_revolution
 		}
 		will_lead_to_war_with = SPA
-		x = -2
-		y = 2
+		x = -3
+		y = 1
 		relative_position_id = FRA_destroy_the_counter_revolution
 		offset = {
 			x = 0
@@ -10000,10 +9972,11 @@ focus_tree = {
 	focus = {
 		id = FRA_pre_empt_the_fascist_attack
 		icon = GFX_focus_focus_fra_fascist_threat
-		x = 0
-		y = 2
+		x = 1
+		y = 1
 		prerequisite = {
 			focus = FRA_carry_the_revolution_east
+			focus = FRA_carry_the_revolution_south
 		}
 		relative_position_id = FRA_carry_the_revolution_east
 		cost = 6
@@ -10057,8 +10030,8 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_destroy_the_counter_revolution
 		}
-		x = 2
-		y = 2
+		x = 3
+		y = 1
 		relative_position_id = FRA_destroy_the_counter_revolution
 		offset = {
 			x = 0
@@ -10141,14 +10114,14 @@ focus_tree = {
 		icon = GFX_focus_FRA_french_revanchism
 		cost = 5
 		prerequisite = {
-			focus = FRA_egalite_liberte_solidarite
+			focus = FRA_destroy_the_counter_revolution
 		}
 		available = {
 			has_government = communism
 		}
-		x = -1
-		y = 1
-		relative_position_id = FRA_egalite_liberte_solidarite
+		x = -2
+		y = 2
+		relative_position_id = FRA_destroy_the_counter_revolution
 		ai_will_do = {
 			factor = 500
 		}
@@ -10168,6 +10141,9 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_pre_empt_the_fascist_attack
 		}
+		prerequisite = {
+			focus = FRA_egalite_liberte_solidarite
+		}
 		available = {
 			has_government = communism
 			date > 1939.1.1
@@ -10180,7 +10156,7 @@ focus_tree = {
 				is_puppet = yes
 			}
 		}
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = FRA_La_Pucelle
 		ai_will_do = {
@@ -10233,35 +10209,12 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			is_subject = no
 		}
 		bypass = {
-			has_government = communism
 		}
 		completion_reward = {
-			FRA_right_wing_riot_effect = yes
-			add_popularity = {
-				ideology = communism
-				popularity = 0.05
-			}
-			set_temp_variable = {
-				communism_temp = party_popularity@communism
-			}
-			multiply_temp_variable = {
-				communism_temp = 0.25
-			}
-			add_stability = communism_temp
-			hidden_effect = {
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = obsolete_focus_branches_visibility
-							option = HIDE
-						}
-					}
-					mark_focus_tree_layout_dirty = yes
-				}
-			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = FRA_maurice_thorez
 		}
 	}
 	focus = {
@@ -10329,10 +10282,6 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = FRA_strengthen_the_unions
-		offset = {
-			x = 0
-			y = 0
-		}
 		ai_will_do = {
 			factor = 500
 		}
@@ -10398,45 +10347,21 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			not = {
-				any_owned_state = {
-					is_core_of = ROOT
-					is_controlled_by = ROOT
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-				}
-			}
 		}
 		completion_reward = {
-			random_owned_state = {
-				limit = {
-					is_core_of = ROOT
-					is_controlled_by = ROOT
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			upgrade_one_random_category = yes
+			upgrade_one_random_region = yes
 		}
 	}
 	focus = {
 		id = FRA_agricultural_collectivization
 		icon = GFX_focus_FRA_ruralism
-		x = 0
-		y = 2
+		x = -1
+		y = 3
 		prerequisite = {
-			focus = FRA_industrial_collectivization
+			focus = FRA_form_the_state_arsenals
 		}
 		mutually_exclusive = {
 		}
@@ -10446,26 +10371,25 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
+			has_completed_focus = FRA_industrial_collectivization
 		}
 		bypass = {
 		}
 		completion_reward = {
 			add_ideas = {
-				FRA_agricultural_collectivization
+				FRA_agricultural_collectivization_idea
 			}
-			if = {
+			random_owned_controlled_state = {
 				limit = {
-					set_temp_variable = {
-						FRA_rw_support = party_popularity@neutrality
-					}
-					add_to_temp_variable = {
-						FRA_rw_support = party_popularity@fascism
-					}
-					check_variable = {
-						FRA_rw_support > 0.4
-					}
+					can_urbanize_region = yes
 				}
-				add_stability = -0.05
+				upgrade_industrial_region = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					can_urbanize_region = yes
+				}
+				upgrade_industrial_region = yes
 			}
 		}
 	}
@@ -10492,7 +10416,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_republican_struggle
 		}
-		x = 9
+		x = 11
 		y = 1
 		relative_position_id = FRA_republican_struggle
 		available = {
@@ -11534,11 +11458,11 @@ focus_tree = {
 		icon = GFX_focus_generic_crusade
 		cost = 5
 		prerequisite = {
-			focus = FRA_overseas_conscription
+			focus = FRA_army_of_faith
 		}
-		x = 0
+		x = -2
 		y = 1
-		relative_position_id = FRA_overseas_conscription
+		relative_position_id = FRA_army_of_faith
 		available = {
 			is_puppet = no
 			OR = {
@@ -11769,10 +11693,10 @@ focus_tree = {
 		}
 		available = {
 			any_owned_state = {
-				not = {
+				NOT = {
 					is_core_of = ROOT
 				}
-				not = {
+				NOT = {
 					is_on_continent = europe
 				}
 				is_controlled_by = ROOT
@@ -11781,16 +11705,72 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			add_political_power = -30
 			every_owned_state = {
 				limit = {
-					not = {
+					NOT = {
 						is_core_of = ROOT
 					}
-					not = {
+					NOT = {
 						is_on_continent = europe
 					}
 				}
 				add_compliance = 10
+			}
+			random_owned_controlled_state = {
+				limit = {
+					NOT = {
+						is_core_of = ROOT
+					}
+					NOT = {
+						is_on_continent = europe
+					}
+				}
+				add_one_infrastructure = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					NOT = {
+						is_core_of = ROOT
+					}
+					NOT = {
+						is_on_continent = europe
+					}
+				}
+				add_one_infrastructure = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					NOT = {
+						is_core_of = ROOT
+					}
+					NOT = {
+						is_on_continent = europe
+					}
+				}
+				add_one_infrastructure = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					NOT = {
+						is_core_of = ROOT
+					}
+					NOT = {
+						is_on_continent = europe
+					}
+				}
+				add_one_infrastructure = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					NOT = {
+						is_core_of = ROOT
+					}
+					NOT = {
+						is_on_continent = europe
+					}
+				}
+				add_one_infrastructure = yes
 			}
 		}
 	}
@@ -11821,7 +11801,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FRA_french_volunteer
-		icon = GFX_focus_FRA_military_government
+		icon = GFX_focus_FRA_troops
 		cost = 5
 		prerequisite = {
 			focus = FRA_holy_lend_lease
@@ -11887,8 +11867,19 @@ focus_tree = {
 				has_government = democratic
 				has_government = communism
 			}
+			has_completed_focus = FRA_French_Islamic_Community
 		}
 		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = SEN
+					is_owned_by_ROOT_or_subject = yes
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_muslim_local_autonomy_modifier
+				}
+				set_state_flag = FRA_local_autonomy_flag
+			}
 		}
 	}
 	focus = {
@@ -11905,17 +11896,41 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_Western_African_Autonomy
 		available = {
+			ALG = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
+				}
+			}
+			TUN = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
+				}
+			}
 			OR = {
 				has_government = democratic
 				has_government = communism
 			}
 		}
 		completion_reward = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = ALG
+						is_core_of = TUN
+						is_core_of = MOR
+					}
+					is_owned_by_ROOT_or_subject = yes
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_muslim_local_autonomy_modifier
+				}
+				set_state_flag = FRA_local_autonomy_flag
+			}
 		}
 	}
 	focus = {
 		id = FRA_Blum_Proposal
-		icon = GFX_focus_OTT_islamic_socialism
+		icon = GFX_focus_FRA_deal
 		cost = 6
 		prerequisite = {
 			focus = FRA_rulers_diplomacy
@@ -11927,31 +11942,14 @@ focus_tree = {
 		}
 		relative_position_id = FRA_rulers_diplomacy
 		available = {
-			owns_state = 460
-			owns_state = 459
-			owns_state = 513
-			460 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
+			ALG = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
-			459 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			513 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
+			TUN = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
 			has_capitulated = no
@@ -11964,12 +11962,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_state_core = 460
-			add_state_core = 459
-			add_state_core = 513
 			add_stability = -0.08
+			add_political_power = -30
 			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = FRA_Albert_Camus
+			show_ideas_tooltip = FRA_leon_blum
 		}
 	}
 	focus = {
@@ -11999,10 +11995,6 @@ focus_tree = {
 				days = 900
 				idea = FRA_Expand_citizenship
 			}
-			# country_event = {
-			# 	id = lar_france_political_violence.1
-			# 	hours = 10
-			# }
 		}
 	}
 	focus = {
@@ -12010,11 +12002,10 @@ focus_tree = {
 		icon = GFX_focus_FRA_french_lebanese
 		cost = 4
 		prerequisite = {
-			focus = FRA_Expand_citizenship
 			focus = FRA_overseas_conscription
 		}
-		x = -3
-		y = 1
+		x = -2
+		y = 0
 		relative_position_id = FRA_Expand_citizenship
 		available = {
 			has_government = democratic
@@ -12025,29 +12016,12 @@ focus_tree = {
 			553 = {
 				is_controlled_by_ROOT_or_subject = yes
 			}
+			has_completed_focus = FRA_French_Islamic_Community
 		}
 		ai_will_do = {
 			factor = 5
 		}
 		completion_reward = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = LEB
-						AND = {
-							is_core_of = SYR
-							NOT = {
-								is_core_of = ISR
-							}
-						}
-					}
-					is_owned_by_ROOT_or_subject = yes
-				}
-				add_dynamic_modifier = {
-					modifier = FRA_catholic_local_autonomy_modifier
-				}
-				set_state_flag = FRA_local_autonomy_flag
-			}
 			if = {
 				limit = {
 					ROOT = {
@@ -12080,6 +12054,24 @@ focus_tree = {
 					modifier = FRA_muslim_local_autonomy_modifier
 				}
 			}
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = LEB
+						AND = {
+							is_core_of = SYR
+							NOT = {
+								is_core_of = ISR
+							}
+						}
+					}
+					is_owned_by_ROOT_or_subject = yes
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_catholic_local_autonomy_modifier
+				}
+				set_state_flag = FRA_local_autonomy_flag
+			}
 		}
 	}
 	focus = {
@@ -12088,14 +12080,30 @@ focus_tree = {
 		cost = 4
 		prerequisite = {
 			focus = FRA_Expand_citizenship
+		}
+		prerequisite = {
 			focus = FRA_overseas_conscription
 		}
-		x = 2
-		y = 0
+		prerequisite = {
+			focus = FRA_near_east
+		}
+		x = 1
+		y = 1
 		relative_position_id = FRA_near_east
 		available = {
+			FIC = {
+				NOT = {
+					has_government = fascism
+				}
+			}
 			has_government = democratic
 			is_puppet = no
+			671 = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			286 = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
 		}
 		ai_will_do = {
 			factor = 5
@@ -12142,7 +12150,7 @@ focus_tree = {
 					}
 				}
 				add_dynamic_modifier = {
-					modifier = FRA_catholic_local_autonomy_modifier
+					modifier = FRA_local_autonomy_modifier
 				}
 				set_state_flag = FRA_local_autonomy_flag
 			}
@@ -12180,6 +12188,19 @@ focus_tree = {
 				idea = FRA_French_Islamic_Community
 				days = 450
 			}
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = MAD
+						is_core_of = MOR
+					}
+					is_owned_by_ROOT_or_subject = yes
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_local_autonomy_modifier
+				}
+				set_state_flag = FRA_local_autonomy_flag
+			}
 		}
 	}
 	focus = {
@@ -12195,36 +12216,14 @@ focus_tree = {
 				has_government = communism
 			}
 			date > 1939.8.1
-			514 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
+			ALG = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
-			458 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			665 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			461 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
+			TUN = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
 		}
@@ -12239,10 +12238,17 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_state_core = 514
-			add_state_core = 458
-			add_state_core = 665
-			add_state_core = 461
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = ALG
+						is_core_of = TUN
+					}
+					impassable = no
+				}
+				add_claim_of_ROOT = yes
+				enable_state_integration_80_compliance = yes
+			}
 		}
 	}
 	focus = {
@@ -12251,62 +12257,17 @@ focus_tree = {
 		cost = 6
 		prerequisite = {
 			focus = FRA_North_African_holistic_citizenship
+			focus = FRA_Expand_citizenship
 		}
 		available = {
-			460 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
+			ALG = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
-			459 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			513 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			16 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			24 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			15 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
-			30 = {
-				CONTROLLER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
+			TUN = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
 		}
@@ -12335,18 +12296,12 @@ focus_tree = {
 			focus = FRA_Transport_Industry_To_Algeria
 		}
 		prerequisite = {
-			focus = FRA_Expand_citizenship
-		}
-		prerequisite = {
 			focus = FRA_south_eastern_asia
 		}
 		prerequisite = {
 			focus = FRA_French_Islamic_Community
 		}
-		prerequisite = {
-			focus = FRA_near_east
-		}
-		x = -2
+		x = -1
 		y = 2
 		relative_position_id = FRA_North_African_holistic_citizenship
 		ai_will_do = {
@@ -12359,19 +12314,31 @@ focus_tree = {
 		available = {
 			has_war = no
 			is_puppet = no
-			SEN = {
-				is_ally_with = ROOT
-				all_core_state = {
-					is_controlled_by = PREV
+			if = {
+				limit = {
+					has_completed_focus = FRA_Northern_African_Autonomy
+				}
+				SEN = {
+					is_ally_with = ROOT
+					all_core_state = {
+						is_controlled_by = PREV
+					}
 				}
 			}
-			OR = {
+			if = {
+				limit = {
+					FIC = {
+						exists = yes
+					}
+				}
 				FIC = {
 					is_ally_with = ROOT
 					all_core_state = {
 						is_controlled_by = PREV
 					}
 				}
+			}
+			else = {
 				AND = {
 					VIN = {
 						is_ally_with = ROOT
@@ -12392,29 +12359,41 @@ focus_tree = {
 						}
 					}
 				}
-				all_state = {
-					if = {
-						limit = {
-							has_state_flag = FRA_local_autonomy_flag
-						}
+			}
+			all_state = {
+				if = {
+					limit = {
+						has_state_flag = FRA_local_autonomy_flag
 					}
-					is_controlled_by_ROOT_or_ally = yes
+				}
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			JAP = {
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+			GER = {
+				NOT = {
+					has_war_with = ROOT
 				}
 			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			# hidden_effect = {
-			# 	country_event = lar_france_french_union.1
-			# }
-			# if = {
-			# 	limit = {
-			# 		has_idea = FRA_political_violence
-			# 	}
-			# 	country_event = lar_france_political_violence.3
-			# }
-			# custom_effect_tooltip = FRA_french_union_tt
+			annex_country = {
+				target = FIC
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = SEN
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = MAD
+				transfer_troops = yes
+			}
 		}
 	}
 }
