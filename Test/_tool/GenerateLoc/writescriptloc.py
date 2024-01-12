@@ -9,6 +9,12 @@ text = {{
     localization_key = {}
 }}
 """
+tempa = """
+	spriteType = {{
+		name = "GFX_ideology_{}"
+		texturefile = "gfx/interface/ideologies/Neutrality/{}.png"
+	}}
+"""
 
 # 获取当前脚本所在的目录
 script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -25,7 +31,7 @@ with open(input_file_path, 'r') as input_file:
     # 逐行读取输入文件内容
     for line in input_file:
         # 在每一行后添加到输出文本字符串，并应用模板
-        filled_text = template.format(line.strip(), line.strip())
+        filled_text = tempa.format(line.strip(), line.strip())
         output_text += filled_text
 
 # 打开输出文件以写入
