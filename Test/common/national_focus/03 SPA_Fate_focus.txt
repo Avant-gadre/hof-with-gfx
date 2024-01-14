@@ -22,6 +22,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
+		allow_branch = {
+			has_global_flag = Show_me
+		}
 		available = {
 			SPA_spainish_civil_war_ongoing_trigger = no
 		}
@@ -85,7 +88,7 @@ focus_tree = {
 	}
 	focus = {
 		id = SPA_fortify_madrid
-		icon = GFX_focus_generic_fortification_gen
+		icon = GFX_focus_generic_faction_fortification
 		cost = 8
 		relative_position_id = SPA_consolidate_spain
 		x = 0
@@ -660,7 +663,7 @@ focus_tree = {
 	}
 	focus = {
 		id = SPA_consolidate_spain
-		icon = GFX_focus_SPA_spanish_civil_war
+		icon = GFX_focus_SPA_scw_intervention
 		cost = 5
 		x = -9
 		y = 0
@@ -731,7 +734,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_a_great_spain
 		}
-		icon = GFX_goal_generic_more_territorial_claims
+		icon = GFX_focus_generic_army_high_command
 		x = -2
 		y = 1
 		relative_position_id = SPA_a_great_spain
@@ -768,7 +771,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_hand_over_the_ceda_campaign_chest
 		}
-		icon = GFX_focus_generic_castle
+		icon = GFX_focus_generic_conscription
 		x = -1
 		y = 1
 		relative_position_id = SPA_hand_over_the_ceda_campaign_chest
@@ -858,6 +861,9 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = SPA_secure_the_northern_garrisons
+		}
+		mutually_exclusive = {
+			focus = SPA_con_paquito
 		}
 		icon = GFX_goal_generic_forceful_treaty
 		x = 1
@@ -1005,18 +1011,15 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_secure_the_northern_garrisons
 		}
-		icon = GFX_goal_generic_dangerous_deal
+		mutually_exclusive = {
+			focus = SPA_sin_paquito
+		}
+		icon = GFX_focus_generic_end_freedom
 		x = -1
 		y = 1
 		relative_position_id = SPA_secure_the_northern_garrisons
 		cost = 4
 		completion_reward = {
-			random_unit_leader = {
-				limit = {
-					has_id = 1108
-				}
-				add_unit_leader_trait = trait_SPA_nationalist_sympathies
-			}
 		}
 	}
 	focus = {
@@ -1067,7 +1070,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_save_the_alcazar
 		}
-		icon = GFX_goal_generic_propaganda
+		icon = GFX_focus_SPA_military_stacked
 		x = 0
 		y = 2
 		relative_position_id = SPA_save_the_alcazar
@@ -1141,7 +1144,7 @@ focus_tree = {
 			focus = SPA_negotiate_carlist_support
 			focus = SPA_secure_the_northern_garrisons
 		}
-		icon = GFX_goal_generic_special_forces
+		icon = GFX_focus_por_luso_tropicalism
 		x = 0
 		y = 2
 		relative_position_id = SPA_negotiate_carlist_support
@@ -1157,9 +1160,11 @@ focus_tree = {
 	focus = {
 		id = SPA_the_popular_front
 		available = {
+			hidden_trigger = {
+				always = no
+			}
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
 		}
 		mutually_exclusive = {
 			focus = SPA_a_great_spain
@@ -1265,6 +1270,9 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_the_popular_front
 		}
+		mutually_exclusive = {
+			focus = SPA_the_popular_army
+		}
 		icon = GFX_focus_generic_chain_army
 		x = 0
 		y = 1
@@ -1283,6 +1291,9 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = SPA_the_popular_front
+		}
+		mutually_exclusive = {
+			focus = SPA_disband_the_army
 		}
 		icon = GFX_focus_generic_defensive_strategems
 		x = 2
@@ -1313,6 +1324,7 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = SPA_the_popular_army
+			focus = SPA_disband_the_army
 		}
 		icon = GFX_focus_generic_organization_partisans
 		x = -1
@@ -1373,7 +1385,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_distribute_arms_to_the_people
 		}
-		icon = GFX_focus_spr_no_pasaran
+		icon = GFX_focus_SPA_support_spanish_poum
 		x = -1
 		y = 1
 		relative_position_id = SPA_distribute_arms_to_the_people
@@ -1495,7 +1507,7 @@ focus_tree = {
 	focus = {
 		# Soldiers of the Revolution
 		id = SPA_militia_focus
-		icon = GFX_focus_spr_the_anti_fascist_workers_revolution
+		icon = GFX_focus_POL_nearl_military_training_for_citizens
 		cost = 7
 		relative_position_id = SPA_patrullas_de_control
 		x = 1
@@ -1573,7 +1585,7 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_foreign_arms_purchases
 		}
-		icon = GFX_focus_generic_anti_fascist_diplomacy
+		icon = GFX_focus_POL_anti_fascist_military
 		x = -1
 		y = 1
 		relative_position_id = SPA_foreign_arms_purchases
@@ -1598,7 +1610,7 @@ focus_tree = {
 	}
 	focus = {
 		id = SPA_call_for_unity
-		icon = GFX_focus_generic_government19
+		icon = GFX_focus_SPA_nuestra_identidad
 		cost = 5
 		x = -5
 		y = 9
@@ -1732,8 +1744,7 @@ focus_tree = {
 	}
 	focus = {
 		id = SPA_national_catholicism
-		icon = GFX_focus_generic_catholic_dominion
-		cost = 5
+		icon = GFX_focus_SPA_establish_traditional_cortes
 		relative_position_id = SPA_municipal_reorg
 		x = 0
 		y = 2
@@ -1850,6 +1861,7 @@ focus_tree = {
 	focus = {
 		id = SPA_caudillo_of_spain
 		available = {
+			SPA_spainish_civil_war_end_trigger = yes
 		}
 		bypass = {
 		}
@@ -2399,6 +2411,9 @@ focus_tree = {
 				is_in_faction_with = GER
 				is_in_faction_with = ITA
 			}
+		}
+		mutually_exclusive = {
+			focus = SPA_join_entente
 		}
 		prerequisite = {
 			focus = SPA_place_in_the_world
@@ -3324,6 +3339,9 @@ focus_tree = {
 		available = {
 			is_subject = no
 			is_in_faction = no
+		}
+		mutually_exclusive = {
+			focus = SPA_join_the_axis
 		}
 		bypass = {
 		}
@@ -5540,7 +5558,7 @@ focus_tree = {
 	}
 	focus = {
 		id = SPA_preservation_of_order
-		icon = GFX_focus_generic_conscription
+		icon = GFX_focus_generic_drafted_army
 		cost = 7
 		relative_position_id = SPA_rebuild_command
 		x = -4
