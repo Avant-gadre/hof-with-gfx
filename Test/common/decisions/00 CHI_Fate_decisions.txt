@@ -228,168 +228,6 @@ economy_decisions = {
 }
 
 war_measures = {
-	CHI_yicunshanheyicunxue = {
-		icon = generic_operation
-		available = {
-			surrender_progress > 0.05
-			has_war = yes
-			has_war_support > 0.5
-		}
-		cost = 25
-		ai_will_do = {
-			factor = 1000
-		}
-		fire_only_once = yes
-		visible = {
-			OR = {
-				has_idea = CHI_war_of_resistance_2
-				has_idea = CHI_war_of_national_liberation
-			}
-		}
-		days_remove = 180
-		modifier = {
-			political_power_cost = 0.2
-			org_loss_at_low_org_factor = -0.5
-			army_morale_Factor = 0.2
-			land_reinforce_rate = 0.05
-			dig_in_speed_factor = 0.5
-			max_dig_in = 5
-			army_speed_factor = -0.1
-			experience_loss_factor = 0.2
-		}
-		remove_effect = {
-			custom_effect_tooltip = CHI_tactic_guerrilla_tactics_tooltip
-			set_technology = {
-				CHI_werwolf_guerillas = 1
-			}
-			hidden_effect = {
-				add_units_to_division_template = {
-					template_name = "Mín bīngtuán"
-					support = {
-						engineer = 0
-					}
-				}
-			}
-		}
-		complete_effect = {
-			add_war_support = -0.1
-		}
-	}
-	CHI_recruit_militias = {
-		icon = generic_political_discourse
-		allowed = {
-			tag = CHI
-		}
-		available = {
-			surrender_progress > 0.05
-			has_manpower > 240000
-			OR = {
-				OR = {
-					has_army_manpower = {
-						size < 1250000
-					}
-					num_divisions < 120
-				}
-				AND = {
-					surrender_progress > 0.39
-					OR = {
-						has_army_manpower = {
-							size < 1500000
-						}
-						num_divisions < 140
-					}
-				}
-				AND = {
-					surrender_progress > 0.48
-					OR = {
-						has_army_manpower = {
-							size < 1800000
-						}
-						num_divisions < 170
-					}
-				}
-				AND = {
-					surrender_progress > 0.57
-					OR = {
-						has_army_manpower = {
-							size < 2200000
-						}
-						num_divisions < 210
-					}
-				}
-				AND = {
-					surrender_progress > 0.66
-					OR = {
-						has_army_manpower = {
-							size < 2700000
-						}
-						num_divisions < 260
-					}
-				}
-			}
-			has_war = yes
-			has_war_support > 0.5
-			if = {
-				limit = {
-					is_ai = yes
-				}
-				has_army_experience > 0
-			}
-			else = {
-				has_army_experience > 19
-			}
-		}
-		visible = {
-			has_country_flag = CHI_zhuazhuangding_flag
-			OR = {
-				has_idea = CHI_war_of_resistance_2
-				has_idea = CHI_war_of_national_liberation
-			}
-		}
-		days_remove = 30
-		cost = 25
-		cancel_if_not_visible = yes
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 250
-		}
-		remove_effect = {
-			army_experience = -20
-			add_war_support = -0.05
-			add_manpower = -240000
-			if = {
-				limit = {
-					605 = {
-						CONTROLLER = {
-							OR = {
-								tag = CHI
-								is_in_faction_with = CHI
-								is_subject_of = CHI
-							}
-						}
-					}
-				}
-				605 = {
-					create_unit = {
-						division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0 force_equipment_variants={infantry_equipment_0={owner=\"CHI\"}}"
-						owner = CHI
-						count = 24
-					}
-				}
-			}
-			else = {
-				capital_scope = {
-					create_unit = {
-						division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0 force_equipment_variants={infantry_equipment_0={owner=\"CHI\"}}"
-						owner = CHI
-						count = 24
-					}
-				}
-			}
-		}
-	}
 	CHI_annexed_BEY_decision = {
 		icon = generic_political_discourse
 		allowed = {
@@ -424,51 +262,6 @@ war_measures = {
 			annex_country = {
 				target = BEY
 				transfer_troops = yes
-			}
-		}
-	}
-	CHI_scorched_earth_tactics = {
-		icon = generic_scorched_earth
-		available = {
-			any_owned_state = {
-				is_controlled_by = ROOT
-				infrastructure > 0
-				any_neighbor_state = {
-					NOT = {
-						is_fully_controlled_by = ROOT
-					}
-					controller = {
-						has_war_with = CHI
-					}
-				}
-			}
-		}
-		cost = 10
-		ai_will_do = {
-			factor = 1000
-		}
-		visible = {
-			has_completed_focus = CHI_scorched_earth_tactics
-		}
-		days_re_enable = 30
-		complete_effect = {
-			every_owned_state = {
-				limit = {
-					is_controlled_by = ROOT
-					infrastructure > 0
-					any_neighbor_state = {
-						NOT = {
-							is_fully_controlled_by = ROOT
-						}
-						controller = {
-							has_war_with = CHI
-						}
-					}
-				}
-				damage_building = {
-					type = infrastructure
-					damage = 3
-				}
 			}
 		}
 	}
@@ -1096,41 +889,6 @@ foreign_support = {
 }
 
 political_actions = {
-	CHI_release_korea = {
-		icon = generic_nationalism
-		available = {
-			country_exists = KOR
-		}
-		days_mission_timeout = 180
-		fire_only_once = yes
-		activation = {
-			owns_state = 525
-			owns_state = 527
-			owns_state = 1100
-			owns_state = 1099
-			KOR = {
-				exists = no
-			}
-			NOT = {
-				tag = JAP
-			}
-		}
-		visible = {
-			owns_state = 525
-			owns_state = 527
-			owns_state = 1100
-			owns_state = 1099
-			KOR = {
-				exists = no
-			}
-		}
-		complete_effect = {
-			add_political_power = 50
-		}
-		timeout_effect = {
-			add_stability = -0.1			#naughty
-		}
-	}
 	CHI_suspend_the_inter_party_coordination_council = {
 		icon = oppression
 		available = {
@@ -1218,6 +976,545 @@ political_actions = {
 		}
 		complete_effect = {
 			country_event = wtt_china.204
+		}
+	}
+}
+
+CHI_the_resistance_war_category = {
+	CHI_evacuate_civilian_industry_decision = {
+		icon = train1
+		allowed = {
+			always = yes
+		}
+		available = {
+			FROM = {
+				is_fully_controlled_by = ROOT
+				infrastructure > 2
+				any_neighbor_state = {
+					NOT = {
+						is_fully_controlled_by = CHI
+					}
+				}
+			}
+			OR = {
+				has_equipment = {
+					train_equipment > 10
+				}
+				has_equipment = {
+					convoy > 5
+				}
+			}
+			#20 equip per factory
+		}
+		visible = {
+			FROM = {
+				arms_factory > 0
+			}
+		}
+		cancel_if_not_visible = no
+		available = {
+			##搬到哪去
+			any_controlled_state = {
+				OR = {
+					state = 603					#Kueichow
+					state = 602					#Changsha
+					state = 1048					#Wuhan
+					state = 650					#Chongqing
+					state = 605					#Chengdu
+					state = 325					#Kunming
+					state = 1013					#Changde
+					state = 607					#Luoyang
+				}
+				free_building_slots = {
+					building = arms_factory
+					size > 0
+					include_locked = yes
+				}
+			}
+		}
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+				is_on_continent = asia
+				OR = {
+					has_state_category = four
+					has_state_category = five
+					has_state_category = six
+					has_state_category = seven
+					has_state_category = eight
+					has_state_category = nine
+					has_state_category = ten
+					has_state_category = eleven
+					has_state_category = twelve
+				}
+				infrastructure > 2
+			}
+		}
+		target_root_trigger = {
+			original_tag = CHI
+			OR = {
+				has_war_with_major = yes
+				has_war_with = JAP
+			}
+		}
+		days_remove = 50
+		on_map_mode = map_and_decisions_view
+		fire_only_once = no
+		cost = CHI_evacuation_cost
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_to_variable = {
+				CHI_evacuation_cost = 10
+			}
+			FROM = {
+				remove_building = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			if = {
+				limit = {
+					has_equipment = {
+						convoy > 5
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = convoy
+					amount = -5
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = convoy
+					amount = -5
+				}
+			}
+		}
+		remove_effect = {
+			602 = {
+				prioritize_state = yes
+			}
+			1048 = {
+				prioritize_state = yes
+			}
+			650 = {
+				prioritize_state = yes
+			}
+			605 = {
+				prioritize_state = yes
+			}
+			603 = {
+				prioritize_state = yes
+			}
+			325 = {
+				prioritize_state = yes
+			}
+			607 = {
+				prioritize_state = yes
+			}
+			add_one_random_civilian_factory = yes
+		}
+	}
+	CHI_evacuate_military_industry_decision = {
+		icon = train1
+		allowed = {
+			always = yes
+		}
+		available = {
+			FROM = {
+				is_fully_controlled_by = ROOT
+				infrastructure > 2
+				any_neighbor_state = {
+					NOT = {
+						is_fully_controlled_by = CHI
+					}
+				}
+			}
+			OR = {
+				has_equipment = {
+					train_equipment > 10
+				}
+				has_equipment = {
+					convoy > 5
+				}
+			}
+			#20 equip per factory
+		}
+		visible = {
+			FROM = {
+				arms_factory > 0
+			}
+		}
+		cancel_if_not_visible = no
+		available = {
+			##搬到哪去
+			any_controlled_state = {
+				OR = {
+					state = 603					#Kueichow
+					state = 602					#Changsha
+					state = 1048					#Wuhan
+					state = 650					#Chongqing
+					state = 605					#Chengdu
+					state = 325					#Kunming
+					state = 1013					#Changde
+					state = 607					#Luoyang
+				}
+				free_building_slots = {
+					building = arms_factory
+					size > 0
+					include_locked = yes
+				}
+			}
+		}
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+				is_on_continent = asia
+				OR = {
+					has_state_category = four
+					has_state_category = five
+					has_state_category = six
+					has_state_category = seven
+					has_state_category = eight
+					has_state_category = nine
+					has_state_category = ten
+					has_state_category = eleven
+					has_state_category = twelve
+				}
+				infrastructure > 2
+			}
+		}
+		target_root_trigger = {
+			original_tag = CHI
+			OR = {
+				has_war_with_major = yes
+				has_war_with = JAP
+			}
+		}
+		days_remove = 50
+		on_map_mode = map_and_decisions_view
+		fire_only_once = no
+		cost = CHI_evacuation_cost
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_to_variable = {
+				CHI_evacuation_cost = 10
+			}
+			FROM = {
+				remove_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			if = {
+				limit = {
+					has_equipment = {
+						convoy > 5
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = convoy
+					amount = -5
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = convoy
+					amount = -5
+				}
+			}
+		}
+		remove_effect = {
+			602 = {
+				prioritize_state = yes
+			}
+			1048 = {
+				prioritize_state = yes
+			}
+			650 = {
+				prioritize_state = yes
+			}
+			605 = {
+				prioritize_state = yes
+			}
+			603 = {
+				prioritize_state = yes
+			}
+			325 = {
+				prioritize_state = yes
+			}
+			607 = {
+				prioritize_state = yes
+			}
+			add_one_random_military_factory = yes
+		}
+	}
+	CHI_inch_land_with_inch_blood_decision = {
+		icon = generic_operation
+		available = {
+			surrender_progress > 0.05
+			has_war = yes
+			has_war_support > 0.5
+		}
+		cost = 25
+		ai_will_do = {
+			factor = 1000
+		}
+		fire_only_once = yes
+		visible = {
+			OR = {
+				has_idea = CHI_war_of_resistance_2
+				has_idea = CHI_war_of_national_liberation
+			}
+		}
+		days_remove = 180
+		modifier = {
+			political_power_cost = 0.2
+			org_loss_at_low_org_factor = -0.5
+			army_morale_Factor = 0.2
+			land_reinforce_rate = 0.05
+			dig_in_speed_factor = 0.5
+			max_dig_in = 5
+			army_speed_factor = -0.1
+			experience_loss_factor = 0.2
+		}
+		remove_effect = {
+			custom_effect_tooltip = CHI_tactic_guerrilla_tactics_tooltip
+			set_technology = {
+				CHI_werwolf_guerillas = 1
+			}
+			hidden_effect = {
+				add_units_to_division_template = {
+					template_name = "Mín bīngtuán"
+					support = {
+						engineer = 0
+					}
+				}
+			}
+		}
+		complete_effect = {
+			add_war_support = -0.1
+		}
+	}
+	CHI_recruit_militias_decision = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = CHI
+		}
+		available = {
+			surrender_progress > 0.05
+			has_manpower > 240000
+			OR = {
+				OR = {
+					has_army_manpower = {
+						size < 1250000
+					}
+					num_divisions < 120
+				}
+				AND = {
+					surrender_progress > 0.39
+					OR = {
+						has_army_manpower = {
+							size < 1500000
+						}
+						num_divisions < 140
+					}
+				}
+				AND = {
+					surrender_progress > 0.48
+					OR = {
+						has_army_manpower = {
+							size < 1800000
+						}
+						num_divisions < 170
+					}
+				}
+				AND = {
+					surrender_progress > 0.57
+					OR = {
+						has_army_manpower = {
+							size < 2200000
+						}
+						num_divisions < 210
+					}
+				}
+				AND = {
+					surrender_progress > 0.66
+					OR = {
+						has_army_manpower = {
+							size < 2700000
+						}
+						num_divisions < 260
+					}
+				}
+			}
+			has_war = yes
+			has_war_support > 0.5
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				has_army_experience > 0
+			}
+			else = {
+				has_army_experience > 19
+			}
+		}
+		visible = {
+			has_country_flag = CHI_zhuazhuangding_flag
+			OR = {
+				has_idea = CHI_war_of_resistance_2
+				has_idea = CHI_war_of_national_liberation
+			}
+		}
+		days_remove = 30
+		cost = 25
+		cancel_if_not_visible = yes
+		fire_only_once = no
+		ai_will_do = {
+			factor = 250
+		}
+		remove_effect = {
+			army_experience = -20
+			add_war_support = -0.05
+			add_manpower = -240000
+			if = {
+				limit = {
+					605 = {
+						CONTROLLER = {
+							OR = {
+								tag = CHI
+								is_in_faction_with = CHI
+								is_subject_of = CHI
+							}
+						}
+					}
+				}
+				605 = {
+					create_unit = {
+						division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0 force_equipment_variants={infantry_equipment_0={owner=\"CHI\"}}"
+						owner = CHI
+						count = 24
+					}
+				}
+			}
+			else = {
+				capital_scope = {
+					create_unit = {
+						division = "division_template = \"Mín bīngtuán\" start_experience_factor = 0.1 start_equipment_factor=1.0 force_equipment_variants={infantry_equipment_0={owner=\"CHI\"}}"
+						owner = CHI
+						count = 24
+					}
+				}
+			}
+		}
+	}
+	CHI_scorched_earth_tactics_decision = {
+		icon = generic_scorched_earth
+		available = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				infrastructure > 0
+				any_neighbor_state = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+					controller = {
+						has_war_with = CHI
+					}
+				}
+			}
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 1000
+		}
+		visible = {
+			has_completed_focus = CHI_scorched_earth_tactics
+		}
+		days_re_enable = 30
+		complete_effect = {
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					infrastructure > 0
+					any_neighbor_state = {
+						NOT = {
+							is_fully_controlled_by = ROOT
+						}
+						controller = {
+							has_war_with = CHI
+						}
+					}
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 3
+				}
+			}
+		}
+	}
+	CHI_peace_with_japan_decision = {
+		icon = generic_nationalism
+		available = {
+			is_faction_leader = yes
+			JAP = {
+				is_faction_leader = yes
+			}
+		}
+		fire_only_once = yes
+		visible = {
+			KOR = {
+				any_core_state = {
+					NOT = {
+						is_fully_controlled_by = THIS.owner
+					}
+					is_controlled_by_ROOT_or_ally = yes
+					THIS.owner = {
+						OR = {
+							tag = KOR
+							tag = JAP
+						}
+						is_ally_with = JAP
+					}
+				}
+			}
+		}
+		complete_effect = {
+			add_political_power = 50
+			if = {
+				limit = {
+					KOR = {
+						exists = yes
+						is_ally_with = JAP
+					}
+				}
+				JAP = {
+					annex_country = {
+						target = KOR
+						transfer_troops = yes
+					}
+				}
+			}
+			KOR = {
+				every_core_state = {
+					transfer_state_to = CHI
+				}
+			}
+			save_event_target_as = JAP
+			CHI = {
+				release = KOR
+				puppet = KOR
+				white_peace_with_TARGET = yes
+			}
 		}
 	}
 }

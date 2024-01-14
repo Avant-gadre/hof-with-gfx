@@ -4,10 +4,10 @@ characters_string = """
         name = {}
         icon = GFX_idea_{}
         allowed = {{
-            is_German_Sphere_tags = yes
+            original_tag = SPA
         }}
         visible = {{
-            is_German_Sphere = yes
+            original_tag = SPA
         }}
         }}
 """
@@ -17,7 +17,7 @@ characters_string = """
             name = {}
             picture = {}
 			allowed = {{
-				original_tag = GER
+				original_tag = SPA
 			}}
             available = {{
 			}}

@@ -13,9 +13,9 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "FIN_mio_trait_"
+target = "CHI_"
 
-end = "_flag"
+end = "_decision"
 
 with open(file_path1, "r", errors="ignore") as file:
     lines = file.readlines()
@@ -39,8 +39,8 @@ with open(file_path2, "w", errors="ignore") as file:
             name0 = (prefix[len(target) :]).replace("_", " ").title().strip()
 
         full = " " + prefix + ":" + " " + '"' + name0 + '"'
-        #full1 = " " + prefix + "_desc" + ":" + " " + '"' + name0 + '"'
+        full1 = " " + prefix + "_desc" + ":" + " " + '"' + name0 + '"'
         file.write(full + "\n")
-        #file.write(full1 + "\n")
+        file.write(full1 + "\n")
 
 # ... （之后的代码）
