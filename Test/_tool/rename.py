@@ -17,10 +17,10 @@ for file_name in files:
     # 检查是否是文件且是.png文件
     if os.path.isfile(file_path) and file_name.lower().endswith(target_type):
         # 构建目标文件名
-        target_prefix = "Portrait_INA_"
+        target_prefix = "Portrait_FRA_"
         target_suffix = " copy" + target_type
 
-        target_modified_prefix = "ina_"
+        target_modified_prefix = "fra_"
 
         if file_name.startswith(target_prefix) and file_name.endswith(target_suffix):
             # 提取文件名部分（去除前缀和后缀）
