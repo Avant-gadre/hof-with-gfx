@@ -210,10 +210,15 @@ default_unit_production = {
 		value = 15
 	}
 	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = 35
+		type = equipment_production_min_factories
+		id = convoy
+		value = 1
 	}
+	#ai_strategy = {
+		#type = equipment_production_factor
+		#id = fighter
+		#value = 35
+	#}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
@@ -294,6 +299,50 @@ default_role_ratios = {
 	}
 }
 
+default_surplus_management = {
+	# If we manage to get all equipment we want, keep producing more stuff according to this
+	enable = {
+		always = yes  # For now, applies to everyone
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_surplus_management
+		id = infantry_equipment
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_surplus_management
+		id = support_equipment
+		value = 5
+	}
+
+	ai_strategy = {
+		type = equipment_production_surplus_management
+		id = artillery_equipment
+		value = 5
+	}
+
+	ai_strategy = {  # Potentially move into a "specialization" strategy
+		type = equipment_production_surplus_management
+		id = anti_air_equipment
+		value = 3
+	}
+
+	ai_strategy = {  # Potentially move into a "specialization" strategy
+		type = equipment_production_surplus_management
+		id = anti_tank_equipment
+		value = 2
+	}
+
+	ai_strategy = {
+		type = equipment_production_surplus_management
+		id = convoy
+		value = 5
+	}
+}
+
 bba_air_prod_1 = {
 	enable = {
 		always = yes
@@ -308,6 +357,18 @@ bba_air_prod_1 = {
 		}
 		NOT = {
 			original_tag = FRA
+		}
+		NOT = {
+			original_tag = JAP
+		}
+		NOT = {
+			original_tag = SOV
+		}
+		NOT = {
+			original_tag = RUS
+		}
+		NOT = {
+			original_tag = ITA
 		}
 	}
 	abort_when_not_enabled = yes
@@ -1105,21 +1166,6 @@ default_area_priority_non_africa = {
 	}
 }
 
-default_railway_gun_management = {
-	enable = {
-		num_divisions > 150
-		is_major = yes
-	}
-	abort = {
-		num_divisions < 120
-	}
-	ai_strategy = {
-		# This will add the specified value to the RAILWAY_GUN_PRODUCTION_BASE_DIVISIONS_RATIO_PERCENT define and use that as the desired railway guns / divisions ratio (in %)
-		type = railway_gun_divisions_ratio
-		value = 4
-	}
-}
-
 default_stockpile_management = {
 	enable = {
 		num_divisions > 150
@@ -1394,21 +1440,6 @@ addintelligence_agency_normal_upgrade_prio = {
 	}
 }
 
-ask_foreign_manpower_as_major = {
-	enable = {
-		is_major = yes
-		garrison_manpower_need > 200000
-	}
-	abort = {
-		garrison_manpower_need < 100000
-	}
-	ai_strategy = {
-		type = asking_foreign_garrison
-		value = 100
-		# id = ITA # id is optionnal. If it is filled, the value will just apply for this country. If NOT, the value will apply for all countries.
-	}
-}
-
 more_upgrades_as_spymaster = {
 	enable = {
 		is_spymaster = yes
@@ -1454,7 +1485,10 @@ default_spyplanes_production = {
 
 minors_dont_spy = {
 	enable = {
-		has_tech = scout_plane1
+		OR = {
+			has_tech = scout_plane1
+			has_tech = photo_reconnaisance
+		}
 		is_major = no
 	}
 	abort_when_not_enabled = yes
@@ -1462,20 +1496,6 @@ minors_dont_spy = {
 		type = unit_ratio
 		id = scout_plane
 		value = -99
-	}
-}
-
-default_produce_floating_harbors = {
-	enable = {
-		has_war = yes
-		num_of_naval_factories > 25
-		num_of_military_factories > 40		# floating harbors are used for invasions. Why do large invasions if you don't have the industrial capacity?
-	}
-	abort_when_not_enabled = yes
-	ai_strategy = {
-		type = unit_ratio
-		id = floating_harbor		# for floating harbors, 'unit_ratio' is actually NOT a ratio but an absolute desired number
-		value = 10
 	}
 }
 

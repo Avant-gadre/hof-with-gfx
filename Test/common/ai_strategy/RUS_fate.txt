@@ -70,31 +70,33 @@ RUS_unit_production = {
 		value = 0
 	}
 	#Air unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = 40
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = cas
-		value = 2		#because doctrine this = 15
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber
-		value = -50		# we can add a strategy later to increase this once Germany is beaten
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = naval_bomber
-		value = 4
-	}
+
+	#ai_strategy = {
+	#type = unit_ratio
+	#id = fighter
+	#value = 40
+	#}
+	#ai_strategy = {
+	#type = unit_ratio
+	#id = cas
+	#value = 2		#because doctrine this = 15
+	#}
+	#ai_strategy = {
+	#type = unit_ratio
+	#id = tactical_bomber
+	#value = 5
+	#}
+	#ai_strategy = {
+	#type = unit_ratio
+	#id = strategic_bomber
+	#value = -50		# we can add a strategy later to increase this once Germany is beaten
+	#}
+	#ai_strategy = {
+	#type = unit_ratio
+	#id = naval_bomber
+	#value = 4
+	#}
+
 	# Naval unit factors
 	ai_strategy = {
 		type = unit_ratio
@@ -121,11 +123,13 @@ RUS_unit_production = {
 		id = convoy
 		value = 20
 	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = 20
-	}
+
+	#ai_strategy = {
+	#type = equipment_production_factor
+	#id = fighter
+	#value = 20
+	#}
+
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
@@ -143,7 +147,13 @@ RUS_unit_armor_production = {
 		original_tag = RUS
 	}
 	enable = {
-		date > 1939.6.1
+		OR = {
+			date > 1939.6.1
+			AND = {
+				has_completed_focus = RUS_fall_of_ussr
+				date > 1938.6.1
+			}
+		}
 	}
 	abort = {
 		always = no
@@ -181,12 +191,233 @@ RUS_unit_armor_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = armor
-		value = 40
+		value = 60
+	}
+}
+
+RUS_VVR_1 = { #我们有毛线飞机
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		OR = {
+			date < 1939.6.1
+			AND = {
+				has_completed_focus = SOV_Great_Purge_will_fail
+				date < 1938.6.1
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+	#以德国为蓝本
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 100
 	}
 	ai_strategy = {
 		type = equipment_production_factor
-		id = armor
-		value = 80
+		id = fighter
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 1
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 0
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = cas
+		value = 0
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 0
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 0
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 100 
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 10 
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = tactical_bomber
+		value = 1
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 0
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = strategic_bomber
+		value = 0
+	}
+}
+
+RUS_VVR_2 = { #在欧洲作战重视战斗机和CAS
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		date < 1942.1.1
+		OR = {
+			date > 1939.6.1
+			AND = {
+				has_completed_focus = SOV_Great_Purge_will_fail
+				date > 1938.6.1
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+	#
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 100
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 8
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 100
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = cas
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 8
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 5
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 50 
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 15 
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = tactical_bomber
+		value = 4
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = strategic_bomber
+		value = 1
+	}
+}
+
+RUS_VVR_3 = { #
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		date > 1942.1.1
+	}
+	abort_when_not_enabled = yes
+	#
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 100
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 8
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 75
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = cas
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 8
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 5
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 25 
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 15 
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = tactical_bomber
+		value = 4
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 50
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = strategic_bomber
+		value = 50
 	}
 }
 
