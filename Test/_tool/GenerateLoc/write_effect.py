@@ -20,12 +20,11 @@ else_if = {{
 }}
 """
 
-
-target = "spain_fate"
+target = "SPA_national_strikes"
 
 with open(output_full_path, "w") as file:
     for i in range(1, 6):
-        current_statement = statement_template.format(i, i + 1, target=target)
+        current_statement = statement_template.format(i, i - 1, target=target)
         file.write(current_statement)
 
 import os

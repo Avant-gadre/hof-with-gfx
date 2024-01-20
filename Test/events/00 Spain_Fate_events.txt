@@ -1,4 +1,6 @@
-##Intro Events
+add_namespace = spain_fate
+add_namespace = spain_civil_war_fate
+##"即将到来的西班牙大选" days = 1
 country_event = {
 	id = spain_fate.1
 	title = spain_fate.1.title
@@ -13,9 +15,18 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = 1
+	}
+	option = {
+		name = spain_fate.1.b
+		ai_chance = {
+			base = 1
+		}
+		add_political_power = 1
 	}
 }
 
+##"经济危机恶化" days = 30
 country_event = {
 	id = spain_fate.2
 	title = spain_fate.2.title
@@ -30,9 +41,18 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		swap_ideas = {
+			remove_idea = SPA_economic_crisis_idea
+			add_idea = SPA_economic_crisis_worsen_idea
+		}
+		SPA_bop_move_to_republic_minor_effect = yes
+		SPA_strength_socialist_influence_effect = yes
+		SPA_strength_falangist_influence_effect = yes
+		add_stability = -0.05
 	}
 }
 
+##"社会分崩离析" days = 50
 country_event = {
 	id = spain_fate.3
 	title = spain_fate.3.title
@@ -47,9 +67,16 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_bop_move_to_republic_minor_effect = yes
+		add_stability = -0.05
+		swap_ideas = {
+			remove_idea = SPA_fragmented_society_1_idea
+			add_idea = SPA_fragmented_society_2_idea
+		}
 	}
 }
 
+##"无政府主义者的活动" day = 70
 country_event = {
 	id = spain_fate.4
 	title = spain_fate.4.title
@@ -59,12 +86,18 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##非法
 	option = {
 		name = spain_fate.4.a
+		trigger = {
+		}
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -50
+		add_war_support = 0.05
 	}
+	##镇压
 	option = {
 		name = spain_fate.4.b
 		trigger = {
@@ -72,7 +105,13 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -100
+		add_manpower = -500
+		add_stability = 0.05
+		SPA_bop_move_to_monarchy_medium_effect = yes
+		SPA_reduce_socialist_influence_effect = yes
 	}
+	##没钱
 	option = {
 		name = spain_fate.4.c
 		trigger = {
@@ -80,9 +119,13 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.05
+		SPA_bop_move_to_republic_minor_effect = yes
+		SPA_strength_socialist_influence_effect = yes
 	}
 }
 
+##"巴塞罗那的示威游行" days = 90
 country_event = {
 	id = spain_fate.5
 	title = spain_fate.5.title
@@ -92,12 +135,18 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##驱散
 	option = {
 		name = spain_fate.5.a
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -50
+		add_manpower = -100
+		add_stability = 0.05
+		SPA_reduce_socialist_influence_effect = yes
 	}
+	##不管
 	option = {
 		name = spain_fate.5.b
 		trigger = {
@@ -105,9 +154,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.05
+		SPA_strength_socialist_influence_effect = yes
 	}
 }
 
+##POUM
 country_event = {
 	id = spain_fate.6
 	title = spain_fate.6.title
@@ -122,9 +174,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
 	}
 }
 
+##阿斯图里亚斯罢工
 country_event = {
 	id = spain_fate.7
 	title = spain_fate.7.title
@@ -134,12 +188,22 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##谈判
 	option = {
 		name = spain_fate.7.a
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -30
+		SPA_concession_strike_effect = yes
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.9
+				days = 7
+			}
+		}
 	}
+	##不管
 	option = {
 		name = spain_fate.7.b
 		trigger = {
@@ -147,7 +211,15 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.8
+				days = 7
+			}
+		}
 	}
+	##镇压
 	option = {
 		name = spain_fate.7.c
 		trigger = {
@@ -155,24 +227,47 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_command_power = -30
+		add_manpower = -500
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.10
+				days = 7
+			}
+		}
 	}
 }
 
+##骚乱
 country_event = {
 	id = spain_fate.8
 	title = spain_fate.8.title
 	desc = spain_fate.8.desc
+	##设置阿斯图里亚斯为非军事区
 	immediate = {
+		793 = {
+			set_demilitarized_zone = yes
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##谈判
 	option = {
 		name = spain_fate.8.a
 		ai_chance = {
 			base = 1
 		}
+		##大幅度让步
+		add_political_power = -60
+		SPA_concession_strike_effect = yes
+		SPA_concession_strike_effect = yes
+		country_event = {
+			id = spain_fate.9
+			days = 7
+		}
 	}
+	##镇压
 	option = {
 		name = spain_fate.8.b
 		trigger = {
@@ -180,9 +275,19 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.10
+				days = 7
+			}
+		}
+		SPA_strength_military_influence_effect = yes
+		add_command_power = -30
+		add_manpower = -2000
 	}
 }
 
+##平息
 country_event = {
 	id = spain_fate.9
 	title = spain_fate.9.title
@@ -197,9 +302,21 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		if = {
+			limit = {
+				793 = {
+					is_demilitarized_zone = yes
+				}
+			}
+			793 = {
+				set_demilitarized_zone = no
+			}
+		}
+		SPA_strength_socialist_influence_effect = yes
 	}
 }
 
+##镇压
 country_event = {
 	id = spain_fate.10
 	title = spain_fate.10.title
@@ -214,6 +331,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_reduce_socialist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.10.b
@@ -222,9 +340,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_reduce_socialist_influence_effect = yes
 	}
 }
 
+##工人社会党会议
+##NOTE
 country_event = {
 	id = spain_fate.11
 	title = spain_fate.11.title
@@ -239,6 +360,16 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		custom_effect_tooltip = SPA_psoe_will_join_election_tt
+		set_country_flag = SPA_psoe_join_election_flag
+		add_popularity = {
+			ideology = communism
+			popularity = -0.08
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.08
+		}
 	}
 	option = {
 		name = spain_fate.11.b
@@ -246,6 +377,16 @@ country_event = {
 		}
 		ai_chance = {
 			base = 1
+		}
+		custom_effect_tooltip = SPA_psoe_will_leave_election_tt
+		set_country_flag = SPA_psoe_join_revolution_flag
+		add_popularity = {
+			ideology = communism
+			popularity = 0.08
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.08
 		}
 	}
 	option = {
@@ -255,9 +396,28 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		custom_effect_tooltip = SPA_psoe_will_split_tt
+		set_country_flag = SPA_psoe_split_flag
+		add_popularity = {
+			ideology = communism
+			popularity = -0.04
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.04
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.12
+				days = 4
+			}
+		}
+		SPA_strength_liberal_influence_effect = yes
+		SPA_reduce_socialist_influence_effect = yes
 	}
 }
 
+##工人社会党分裂
 country_event = {
 	id = spain_fate.12
 	title = spain_fate.12.title
@@ -272,6 +432,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_reduce_socialist_influence_effect = yes
+		SPA_strength_liberal_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.12.b
@@ -280,9 +442,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_reduce_socialist_influence_effect = yes
+		SPA_strength_liberal_influence_effect = yes
 	}
 }
 
+##自由党竞选策略
 country_event = {
 	id = spain_fate.13
 	title = spain_fate.13.title
@@ -297,6 +462,10 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		##NOTE
+		set_country_flag = SPA_pl_choose_republicanism_flag
+		SPA_reduce_socialist_influence_effect = yes
+		SPA_strength_liberal_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.13.b
@@ -305,6 +474,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_liberal_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.13.c
@@ -313,9 +483,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_liberal_influence_effect = yes
+		SPA_reduce_ceda_influence_effect = yes
 	}
 }
 
+##打架
 country_event = {
 	id = spain_fate.14
 	title = spain_fate.14.title
@@ -330,6 +503,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.05
+		add_war_support = -0.05
 	}
 	option = {
 		name = spain_fate.14.b
@@ -338,6 +513,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_carlist_influence_effect = yes
+		SPA_reduce_socialist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.14.c
@@ -346,6 +523,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
+		SPA_reduce_carlist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.14.d
@@ -354,9 +533,14 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -30
+		add_manpower = -500
+		SPA_reduce_socialist_influence_effect = yes
+		SPA_reduce_carlist_influence_effect = yes
 	}
 }
 
+##德里维拉演说
 country_event = {
 	id = spain_fate.15
 	title = spain_fate.15.title
@@ -371,6 +555,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_falangist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.15.b
@@ -379,7 +564,10 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_falangist_influence_effect = yes
+		SPA_strength_ceda_influence_effect = yes
 	}
+	##抓起来
 	option = {
 		name = spain_fate.15.c
 		trigger = {
@@ -387,9 +575,26 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		custom_effect_tooltip = SPA_de_rivera_will_be_imprisoned_tt
+		SPA_reduce_falangist_influence_effect = yes
+		SPA_strength_military_influence_effect = yes
+		add_political_power = -50
+		hidden_effect = {
+			##发配
+			set_nationality = {
+				target_country = XXA
+				character = SPA_jose_antonio_primo_de_rivera
+			}
+			country_event = {
+				id = spain_fate.23
+				days = 30
+				random_days = 5
+			}
+		}
 	}
 }
 
+##卡瓦列罗的演说
 country_event = {
 	id = spain_fate.16
 	title = spain_fate.16.title
@@ -404,6 +609,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.16.b
@@ -412,6 +618,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
+		SPA_strength_socialist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.16.c
@@ -420,9 +628,22 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		custom_effect_tooltip = SPA_caballero_be_imprisoned_tt
+		add_political_power = -50
+		SPA_reduce_socialist_influence_effect = yes
+		SPA_strength_military_influence_effect = yes
+		hidden_effect = {
+			##发配
+			set_nationality = {
+				target_country = XXA
+				character = SPA_francisco_largo_caballero
+			}
+		}
 	}
 }
 
+##莫拉
+##NOTE
 country_event = {
 	id = spain_fate.17
 	title = spain_fate.17.title
@@ -437,6 +658,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_military_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.17.b
@@ -445,6 +667,9 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -30
+		add_command_power = -30
+		SPA_reduce_military_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.17.c
@@ -453,9 +678,21 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -60
+		SPA_strength_military_influence_effect = yes
+		SPA_strength_military_influence_effect = yes
+		SPA_mola_vidal = {
+			remove_trait = {
+				trait = spain_falangist_loyalties
+			}
+			add_trait = {
+				trait = spain_nationalist_loyalties
+			}
+		}
 	}
 }
 
+##卡洛斯派-1936.9.29
 country_event = {
 	id = spain_fate.18
 	title = spain_fate.18.title
@@ -465,12 +702,24 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##阿方索
 	option = {
 		name = spain_fate.18.a
 		ai_chance = {
 			base = 1
 		}
+		country_event = {
+			id = spain_fate.21
+			days = 3
+			random_days = 3
+		}
+		country_event = {
+			id = spain_fate.20
+			days = 6
+			random_days = 3
+		}
 	}
+	##哈维尔
 	option = {
 		name = spain_fate.18.b
 		trigger = {
@@ -478,7 +727,13 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		country_event = {
+			id = spain_fate.19
+			days = 6
+			random_days = 3
+		}
 	}
+	##船长
 	option = {
 		name = spain_fate.18.c
 		trigger = {
@@ -486,9 +741,20 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		country_event = {
+			id = spain_fate.22
+			days = 3
+			random_days = 3
+		}
+		country_event = {
+			id = spain_fate.20
+			days = 6
+			random_days = 3
+		}
 	}
 }
 
+##哈维尔的宣言-受支持
 country_event = {
 	id = spain_fate.19
 	title = spain_fate.19.title
@@ -498,12 +764,18 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##边缘化
 	option = {
 		name = spain_fate.19.a
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -100
+		SPA_reduce_carlist_influence_effect = yes
+		SPA_bop_move_to_monarchy_minor_effect = yes
+		set_country_flag = SPA_carlist_support_alfonso
 	}
+	##让他滚
 	option = {
 		name = spain_fate.19.b
 		trigger = {
@@ -511,7 +783,18 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -60
+		SPA_bop_move_to_monarchy_medium_effect = yes
+		set_country_flag = SPA_carlist_support_javier
+		custom_effect_tooltip = SPA_carlist_will_oppose_us_tt
+		hidden_effect = {
+			set_nationality = {
+				target_country = BEL
+				character = SPA_javier_i
+			}
+		}
 	}
+	##不管
 	option = {
 		name = spain_fate.19.c
 		trigger = {
@@ -519,10 +802,13 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		custom_effect_tooltip = SPA_carlist_will_oppose_us_tt
+		set_country_flag = SPA_carlist_support_javier
+		SPA_strength_carlist_influence_effect = yes
 	}
 }
 
-
+##哈维尔的宣言-不受支持
 country_event = {
 	id = spain_fate.20
 	title = spain_fate.20.title
@@ -537,6 +823,9 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -30
+		SPA_strength_carlist_influence_effect = yes
+		SPA_bop_move_to_monarchy_minor_effect = yes
 	}
 	option = {
 		name = spain_fate.20.b
@@ -544,6 +833,15 @@ country_event = {
 		}
 		ai_chance = {
 			base = 1
+		}
+		add_political_power = -60
+		SPA_strength_carlist_influence_effect = yes
+		SPA_bop_move_to_monarchy_medium_effect = yes
+		hidden_effect = {
+			set_nationality = {
+				target_country = BEL
+				character = SPA_javier_i
+			}
 		}
 	}
 	option = {
@@ -553,9 +851,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_reduce_carlist_influence_effect = yes
 	}
 }
 
+##支持阿方索
 country_event = {
 	id = spain_fate.21
 	title = spain_fate.21.title
@@ -570,9 +870,14 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = 40
+		SPA_strength_carlist_influence_effect = yes
+		SPA_bop_move_to_monarchy_medium_effect = yes
+		set_country_flag = SPA_carlist_support_alfonso
 	}
 }
 
+##船长
 country_event = {
 	id = spain_fate.22
 	title = spain_fate.22.title
@@ -587,6 +892,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_carlist_influence_effect = yes
+		set_country_flag = SPA_carlist_support_stultifera
 	}
 	option = {
 		name = spain_fate.22.b
@@ -595,17 +902,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
-	}
-	option = {
-		name = spain_fate.22.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
+		SPA_bop_move_to_monarchy_minor_effect = yes
+		set_country_flag = SPA_carlist_support_alfonso
 	}
 }
 
+##长枪党换人
 country_event = {
 	id = spain_fate.23
 	title = spain_fate.23.title
@@ -620,6 +922,27 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_gladiia_campeones = {
+			set_character_flag = SPA_is_falangist_leader
+		}
+		SPA_strength_falangist_influence_effect = yes
+		##Dummy Leader
+		every_country = {
+			if = {
+				limit = {
+					OR = {
+						tag = SPA
+						tag = SPB
+						tag = SPC
+					}
+				}
+				create_country_leader = {
+					name = SPA_gladiia_campeones
+					picture = GFX_Portrait_SPA_Gladiia_Campeones
+					ideology = falangism
+				}
+			}
+		}
 	}
 	option = {
 		name = spain_fate.23.b
@@ -627,6 +950,26 @@ country_event = {
 		}
 		ai_chance = {
 			base = 1
+		}
+		SPA_skadi_agor = {
+			set_character_flag = SPA_is_falangist_leader
+		}
+		##Dummy Leader
+		every_country = {
+			if = {
+				limit = {
+					OR = {
+						tag = SPA
+						tag = SPB
+						tag = SPC
+					}
+				}
+				create_country_leader = {
+					name = SPA_skadi_agor
+					picture = GFX_Portrait_SPA_Skadi_Agor
+					ideology = falangism
+				}
+			}
 		}
 	}
 	option = {
@@ -636,9 +979,30 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_ramiro_ledesma_ramos = {
+			set_character_flag = SPA_is_falangist_leader
+		}
+		##Dummy Leader
+		every_country = {
+			if = {
+				limit = {
+					OR = {
+						tag = SPA
+						tag = SPB
+						tag = SPC
+					}
+				}
+				create_country_leader = {
+					name = SPA_ramiro_ledesma_ramos
+					picture = GFX_Portrait_SPA_Ramiro_Ledesma_Ramos
+					ideology = falangism
+				}
+			}
+		}
 	}
 }
 
+##CEDA竞选策略
 country_event = {
 	id = spain_fate.24
 	title = spain_fate.24.title
@@ -653,6 +1017,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_ceda_influence_effect = yes
+		SPA_strength_liberal_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.24.b
@@ -661,6 +1027,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_ceda_influence_effect = yes
+		SPA_strength_military_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.24.c
@@ -669,9 +1037,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_reduce_falangist_influence_effect = yes
+		SPA_reduce_carlist_influence_effect = yes
 	}
 }
 
+##聊天
 country_event = {
 	id = spain_fate.25
 	title = spain_fate.25.title
@@ -686,6 +1057,9 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -50
+		SPA_strength_ceda_influence_effect = yes
+		SPA_strength_military_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.25.b
@@ -694,17 +1068,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
-	}
-	option = {
-		name = spain_fate.25.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
+		add_political_power = 10
 	}
 }
 
+##巴斯克
 country_event = {
 	id = spain_fate.26
 	title = spain_fate.26.title
@@ -719,6 +1087,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.26.b
@@ -727,7 +1096,9 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_liberal_influence_effect = yes
 	}
+	##中立
 	option = {
 		name = spain_fate.26.c
 		trigger = {
@@ -735,9 +1106,15 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = 0.03
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.03
+		}
 	}
 }
 
+##加泰共和左派
 country_event = {
 	id = spain_fate.27
 	title = spain_fate.27.title
@@ -752,6 +1129,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_bop_move_to_republic_medium_effect = yes
+		add_popularity = {
+			ideology = communism
+			popularity = 0.03
+		}
 	}
 	option = {
 		name = spain_fate.27.b
@@ -760,6 +1142,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.27.c
@@ -768,9 +1151,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_liberal_influence_effect = yes
 	}
 }
 
+##加利西亚
 country_event = {
 	id = spain_fate.28
 	title = spain_fate.28.title
@@ -785,6 +1170,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_socialist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.28.b
@@ -793,6 +1179,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_liberal_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.28.c
@@ -801,9 +1188,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_ceda_influence_effect = yes
 	}
 }
 
+##长枪党小册子
 country_event = {
 	id = spain_fate.29
 	title = spain_fate.29.title
@@ -818,6 +1207,9 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = 0.04
+		add_political_power = -40
+		SPA_reduce_falangist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.29.b
@@ -826,6 +1218,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.08
+		add_political_power = -40
+		SPA_reduce_ceda_influence_effect = yes
+		SPA_strength_falangist_influence_effect = yes
+		SPA_strength_carlist_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.29.c
@@ -834,9 +1231,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.04
+		SPA_strength_falangist_influence_effect = yes
 	}
 }
 
+##阿方索的演讲
 country_event = {
 	id = spain_fate.30
 	title = spain_fate.30.title
@@ -851,6 +1251,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_bop_move_to_monarchy_medium_effect = yes
 	}
 	option = {
 		name = spain_fate.30.b
@@ -859,6 +1260,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_bop_move_to_monarchy_minor_effect = yes
+		SPA_strength_ceda_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.30.c
@@ -867,9 +1270,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_strength_liberal_influence_effect = yes
 	}
 }
 
+##选举
 country_event = {
 	id = spain_fate.31
 	title = spain_fate.31.title
@@ -879,30 +1284,51 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##PL-PSOE
 	option = {
 		name = spain_fate.31.a
 		ai_chance = {
 			base = 1
 		}
+		trigger = {
+			SPA_pl_spoe_coalition_trigger = yes
+		}
+		country_event = {
+			id = spain_fate.32
+			days = 2
+		}
 	}
+	##PL-CEDA
 	option = {
 		name = spain_fate.31.b
 		trigger = {
+			SPA_pl_ceda_coalition_trigger = yes
 		}
 		ai_chance = {
 			base = 1
 		}
+		country_event = {
+			id = spain_fate.33
+			days = 2
+		}
 	}
+	##CEDA-Rights
 	option = {
 		name = spain_fate.31.c
 		trigger = {
+			SPA_ceda_right_coalition_trigger = yes
 		}
 		ai_chance = {
 			base = 1
+		}
+		country_event = {
+			id = spain_fate.34
+			days = 2
 		}
 	}
 }
 
+##PSOE-PL
 country_event = {
 	id = spain_fate.32
 	title = spain_fate.32.title
@@ -914,28 +1340,93 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = spain_fate.32.a
+		trigger = {
+			SPA_psoe_great_than_pl_trigger = yes
+		}
 		ai_chance = {
 			base = 1
+		}
+		SPA_glaucus_thor = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.38
+				days = 30
+				random_days = 20
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
 		}
 	}
 	option = {
 		name = spain_fate.32.b
 		trigger = {
+			SPA_psoe_great_than_pl_trigger = yes
 		}
 		ai_chance = {
 			base = 1
+		}
+		SPA_azurius_tregear = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.38
+				days = 30
+				random_days = 20
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
 		}
 	}
 	option = {
 		name = spain_fate.32.c
 		trigger = {
+			SPA_pl_great_than_psoe_trigger = yes
 		}
 		ai_chance = {
 			base = 1
 		}
+		SPA_indigo_golfo = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = spain_fate.32.d
+		trigger = {
+			SPA_pl_great_than_psoe_trigger = yes
+		}
+		ai_chance = {
+			base = 1
+		}
+		SPA_weedy_hydraulics = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
+		}
 	}
 }
 
+##PL-CEDA
 country_event = {
 	id = spain_fate.33
 	title = spain_fate.33.title
@@ -947,31 +1438,102 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = spain_fate.33.a
+		trigger = {
+			SPA_pl_great_than_ceda_trigger = yes
+		}
 		ai_chance = {
 			base = 1
+		}
+		SPA_indigo_golfo = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
 		}
 	}
 	option = {
 		name = spain_fate.33.b
 		trigger = {
+			SPA_pl_great_than_ceda_trigger = yes
 		}
 		ai_chance = {
 			base = 1
+		}
+		SPA_weedy_hydraulics = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
 		}
 	}
 	option = {
 		name = spain_fate.33.c
 		trigger = {
+			SPA_ceda_great_than_pl_trigger = yes
 		}
 		ai_chance = {
 			base = 1
 		}
+		SPA_andreana_timoteo = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.34
+				days = 2
+			}
+		}
+		set_country_flag = SPA_ceda_lead_pl_psoe_coalition_in_1936_flag
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = spain_fate.33.d
+		trigger = {
+			SPA_ceda_great_than_pl_trigger = yes
+		}
+		ai_chance = {
+			base = 1
+		}
+		SPA_irene_glenfarlo = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.34
+				days = 2
+			}
+		}
+		set_country_flag = SPA_ceda_lead_pl_psoe_coalition_in_1936_flag
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
+		}
 	}
 }
 
+##CEDA-Rights
 country_event = {
 	id = spain_fate.34
 	title = spain_fate.34.title
+	title = {
+		text = spain_fate.34.title.alter
+		trigger = {
+			has_country_flag = SPA_ceda_lead_pl_psoe_coalition_in_1936_flag
+		}
+	}
 	desc = spain_fate.34.desc
 	immediate = {
 	}
@@ -983,25 +1545,29 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
-	}
-	option = {
-		name = spain_fate.34.b
-		trigger = {
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = SPA_ceda_lead_pl_psoe_coalition_in_1936_flag
+				}
+			}
+			SPA_irene_glenfarlo = {
+				promote_character = yes
+			}
 		}
-		ai_chance = {
-			base = 1
+		else = {
+			add_political_power = 20
 		}
-	}
-	option = {
-		name = spain_fate.34.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.35
+				days = 3
+			}
 		}
 	}
 }
 
+##国王祝贺新任首相
 country_event = {
 	id = spain_fate.35
 	title = spain_fate.35.title
@@ -1016,25 +1582,33 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
-	}
-	option = {
-		name = spain_fate.35.b
-		trigger = {
+		if = {
+			limit = {
+				OR = {
+					has_country_leader = SPA_indigo_golfo
+					has_country_leader = SPA_weedy_hydraulics
+				}
+			}
+			add_stability = 0.08
 		}
-		ai_chance = {
-			base = 1
+		else_if = {
+			limit = {
+				OR = {
+					has_country_leader = SPA_andreana_timoteo
+					has_country_leader = SPA_irene_glenfarlo
+				}
+			}
+			add_stability = 0.02
+			SPA_bop_move_to_monarchy_large_effect = yes
 		}
-	}
-	option = {
-		name = spain_fate.35.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
+		else = {
+			add_political_power = 20
+			add_war_support = -0.05
 		}
 	}
 }
 
+##法国君主制倒台 before the election
 country_event = {
 	id = spain_fate.36
 	title = spain_fate.36.title
@@ -1042,32 +1616,30 @@ country_event = {
 	immediate = {
 	}
 	picture = GFX_report_event_generic_diplomacy1
-	is_triggered_only = yes
 	fire_only_once = yes
+	trigger = {
+		tag = SPA
+		FRA = {
+			OR = {
+				has_country_flag = FRA_bourbon_dynasty_overthrow_flag
+				has_country_flag = FRA_the_monarchy_end_flag
+			}
+		}
+		date > 1936.2.1
+	}
+	mean_time_to_happen = {
+		days = 30
+	}
 	option = {
 		name = spain_fate.36.a
 		ai_chance = {
 			base = 1
 		}
 	}
-	option = {
-		name = spain_fate.36.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = spain_fate.36.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
+##军队不满
+##NOTE
 country_event = {
 	id = spain_fate.37
 	title = spain_fate.37.title
@@ -1077,11 +1649,17 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##PSOE may in government
+	trigger = {
+		SPA_psoe_great_than_pl_trigger = yes
+	}
 	option = {
 		name = spain_fate.37.a
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = SPA_the_military_support_irene_flag
+		SPA_strength_ceda_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.37.b
@@ -1090,6 +1668,8 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = -40
+		SPA_reduce_military_influence_effect = yes
 	}
 	option = {
 		name = spain_fate.37.c
@@ -1098,9 +1678,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_command_power = -40
+		SPA_reduce_socialist_influence_effect = yes
 	}
 }
 
+##政变 if psoe in government
 country_event = {
 	id = spain_fate.38
 	title = spain_fate.38.title
@@ -1112,28 +1695,41 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = spain_fate.38.a
+		trigger = {
+			SPA_psoe_great_than_military_trigger = yes
+		}
 		ai_chance = {
 			base = 1
 		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.39
+				days = 3
+			}
+		}
+		add_command_power = -30
 	}
 	option = {
 		name = spain_fate.38.b
 		trigger = {
+			SPA_military_great_than_psoe_trigger = yes
 		}
 		ai_chance = {
 			base = 1
 		}
-	}
-	option = {
-		name = spain_fate.38.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
+		add_political_power = -30
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.40
+				days = 3
+			}
 		}
 	}
 }
 
+##PSOE fall
+##PSOE and PL join Socialist
+##NOTE
 country_event = {
 	id = spain_fate.39
 	title = spain_fate.39.title
@@ -1148,9 +1744,375 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_sanjurjo_sacanell = {
+			promote_character = yes
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.41
+				days = 5
+				random_days = 5
+			}
+		}
+		SPA_irene_glenfarlo = {
+			promote_character = yes
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = SPA_ceda_party_long
+			name = SPA_ceda_party
+		}
+	}
+}
+
+##Military fall
+##NOTE
+country_event = {
+	id = spain_fate.40
+	title = spain_fate.40.title
+	desc = spain_fate.40.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.40.a
+		ai_chance = {
+			base = 1
+		}
+		##滚
+		retire_character = SPA_sanjurjo_sacanell
+		retire_character = SPA_mola_vidal
+		custom_effect_tooltip = SPA_the_nationalist_will_oppose_us_tt
+		set_country_flag = SPA_the_nationalist_will_oppose_us
+	}
+}
+
+##Sanjurjo falls
+country_event = {
+	id = spain_fate.41
+	title = spain_fate.41.title
+	desc = spain_fate.41.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.41.a
+		ai_chance = {
+			base = 1
+		}
+		add_war_support = -0.05
+		retire_character = SPA_sanjurjo_sacanell
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.42
+				days = 3
+				random_days = 3
+			}
+		}
+	}
+}
+
+##The junta
+country_event = {
+	id = spain_fate.42
+	title = spain_fate.42.title
+	desc = spain_fate.42.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	##Irene
+	option = {
+		name = spain_fate.42.a
+		trigger = {
+			has_country_flag = SPA_the_military_support_irene_flag
+		}
+		ai_chance = {
+			base = 1
+		}
+		SPA_irene_glenfarlo = {
+			promote_character = yes
+			add_country_leader_role = {
+				country_leader = {
+					ideology = authoritarianism
+					traits = {
+						SPA_unquenchable_fire_trait
+					}
+				}
+			}
+		}
+		SPA_andreana_timoteo = {
+			promote_character = yes
+		}
 	}
 	option = {
-		name = spain_fate.39.b
+		name = spain_fate.42.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		SPA_mola_vidal = {
+			promote_character = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = spain_fate.43
+				days = 40
+				random_days = 20
+			}
+		}
+	}
+	option = {
+		name = spain_fate.42.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		SPA_franco_bahamonde = {
+			promote_character = yes
+		}
+	}
+	option = {
+		name = spain_fate.42.d
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		SPA_don_quixote = {
+			promote_leader = yes
+		}
+	}
+	option = {
+		name = spain_fate.42.e
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		set_politics = {
+			ruling_party = fascism
+		}
+		SPA_laurentienne_specter = {
+			promote_leader = yes
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = SPA_ct_party_long
+			name = SPA_ct_party
+		}
+	}
+}
+
+##莫拉-督政府
+country_event = {
+	id = spain_fate.43
+	title = spain_fate.43.title
+	desc = spain_fate.43.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.43.a
+		ai_chance = {
+			base = 1
+		}
+		set_politics = {
+			ruling_party = fascism
+		}
+		SPA = {
+			random_character = {
+				limit = {
+					has_character_flag = SPA_is_falangist_leader
+				}
+				promote_character = yes
+			}
+		}
+		drop_cosmetic_tag = yes
+		set_cosmetic_tag = SPA_directoire
+	}
+}
+
+##Death of Alfonso
+country_event = {
+	id = spain_fate.44
+	title = spain_fate.44.title
+	desc = spain_fate.44.desc
+	immediate = {
+		retire_character = SPA_alfonso_xiii
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	fire_only_once = yes
+	trigger = {
+		tag = SPA
+		has_character = SPA_alfonso_xiii
+		SPA_alfonso_xiii = {
+			is_hired_as_advisor = yes
+		}
+		date > 1941.2.28
+	}
+	mean_time_to_happen = {
+		days = 30
+	}
+	option = {
+		name = spain_fate.44.a
+		ai_chance = {
+			base = 1
+		}
+		effect_tooltip = {
+			retire_character = SPA_alfonso_xiii
+		}
+		activate_advisor = SPA_juan_iii
+		SPA_juan_iii = {
+			add_trait = {
+				trait = SPA_rey_trait
+				slot = special_political_advisor
+			}
+			remove_trait = {
+				trait = SPA_infante_trait
+				slot = special_political_advisor
+			}
+		}
+	}
+	option = {
+		name = spain_fate.44.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		effect_tooltip = {
+			retire_character = SPA_alfonso_xiii
+		}
+		activate_advisor = SPA_jaime_iii
+		SPA_jaime_i = {
+			add_trait = {
+				trait = SPA_rey_trait
+				slot = special_political_advisor
+			}
+			remove_trait = {
+				trait = SPA_infante_trait
+				slot = special_political_advisor
+			}
+		}
+	}
+	option = {
+		name = spain_fate.44.c
+		trigger = {
+			has_country_leader = SPA_laurentienne_specter
+		}
+		ai_chance = {
+			base = 1
+		}
+		effect_tooltip = {
+			retire_character = SPA_alfonso_xiii
+		}
+		drop_cosmetic_tag = yes
+		set_cosmetic_tag = SPA_carlists
+		activate_advisor = SPA_javier_i
+	}
+	option = {
+		name = spain_fate.44.d
+		trigger = {
+			has_country_leader = SPA_laurentienne_specter
+			has_country_flag = SPA_carlist_support_alfonso
+		}
+		ai_chance = {
+			base = 1
+		}
+		drop_cosmetic_tag = yes
+		set_cosmetic_tag = SPA_carlists
+		set_country_flag = SPA_alfonso_stultifera_inherit_as_carlist_rey_flag
+		activate_advisor = SPA_alfonso_stultifera_special_political_advisor
+	}
+	option = {
+		name = spain_fate.44.e
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		drop_cosmetic_tag = yes
+		if = {
+			limit = {
+				OR = {
+					has_country_leader = SPA_glaucus_thor
+					has_country_leader = SPA_azurius_tregear
+					has_country_leader = SPA_indigo_golfo
+					has_country_leader = SPA_weedy_hydraulics
+				}
+			}
+			set_cosmetic_tag = SPA_republic_left
+		}
+		else_if = {
+			limit = {
+				has_country_leader = SPA_irene_glenfarlo
+				has_country_leader = SPA_franco_bahamonde
+				has_country_leader = SPA_don_quixote
+			}
+			set_cosmetic_tag = SPA_republic_right
+		}
+	}
+}
+
+##Restore Democracy
+##TODO
+country_event = {
+	id = spain_fate.45
+	title = spain_fate.45.title
+	desc = spain_fate.45.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.45.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_fate.45.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##TODO
+country_event = {
+	id = spain_fate.46
+	title = spain_fate.46.title
+	desc = spain_fate.46.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.46.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_fate.46.b
 		trigger = {
 		}
 		ai_chance = {
@@ -1158,11 +2120,294 @@ country_event = {
 		}
 	}
 	option = {
-		name = spain_fate.39.c
+		name = spain_fate.46.c
 		trigger = {
 		}
 		ai_chance = {
 			base = 1
 		}
 	}
+}
+
+##TODO
+country_event = {
+	id = spain_fate.47
+	title = spain_fate.47.title
+	desc = spain_fate.47.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.47.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_fate.47.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##TODO
+country_event = {
+	id = spain_fate.48
+	title = spain_fate.48.title
+	desc = spain_fate.48.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.48.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_fate.48.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##TODO
+country_event = {
+	id = spain_fate.49
+	title = spain_fate.49.title
+	desc = spain_fate.49.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_fate.49.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_fate.49.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##Civil War
+country_event = {
+	id = spain_civil_war_fate.1
+	title = spain_civil_war_fate.1.title
+	desc = spain_civil_war_fate.1.desc.all
+	desc = {
+		text = spain_civil_war_fate.1.desc.nofalangist
+		trigger = {
+		}
+	}
+	desc = {
+		text = spain_civil_war_fate.1.desc.carlistwithfalangist
+		trigger = {
+		}
+	}
+	desc = {
+		text = spain_civil_war_fate.1.desc.nationalistwithfalangist
+		trigger = {
+		}
+	}
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_civil_war_fate.1.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_civil_war_fate.1.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_civil_war_fate.1.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##CNT protests
+country_event = {
+	id = spain_civil_war_fate.2
+	title = spain_civil_war_fate.2.title
+	desc = spain_civil_war_fate.2.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_civil_war_fate.2.a
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##Falangist protests
+country_event = {
+	id = spain_civil_war_fate.3
+	title = spain_civil_war_fate.3.title
+	desc = spain_civil_war_fate.3.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_civil_war_fate.3.a
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##General Strike
+country_event = {
+	id = spain_civil_war_fate.4
+	title = spain_civil_war_fate.4.title
+	desc = spain_civil_war_fate.4.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_civil_war_fate.4.a
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##Civil War ends - Kingdom Win
+country_event = {
+	id = spain_civil_war_fate.5
+	title = spain_civil_war_fate.5.title
+	desc = spain_civil_war_fate.5.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_civil_war_fate.5.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spain_civil_war_fate.5.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	# option = {
+	# 	name = spain_civil_war_fate.5.c
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+}
+
+##Civil War ends - Falangist Win
+country_event = {
+	id = spain_civil_war_fate.6
+	title = spain_civil_war_fate.6.title
+	desc = spain_civil_war_fate.6.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_civil_war_fate.6.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	# option = {
+	# 	name = spain_civil_war_fate.6.b
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+	# option = {
+	# 	name = spain_civil_war_fate.6.c
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+}
+
+##Civil War ends - Socialist Win
+country_event = {
+	id = spain_civil_war_fate.7
+	title = spain_civil_war_fate.7.title
+	desc = spain_civil_war_fate.7.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = spain_civil_war_fate.7.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	# option = {
+	# 	name = spain_civil_war_fate.7.b
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+	# option = {
+	# 	name = spain_civil_war_fate.7.c
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
 }

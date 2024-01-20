@@ -20,8 +20,6 @@ SPA_spainish_civil_war_not_start_trigger = {
 		tooltip = SPA_spainish_civil_war_not_start_tt
 		NOT = {
 			has_global_flag = Spain_civil_war_start_flag
-		}
-		NOT = {
 			has_global_flag = Spain_civil_war_end_flag
 		}
 	}
@@ -30,20 +28,430 @@ SPA_spainish_civil_war_not_start_trigger = {
 SPA_has_coalition_with_basque_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = SPA_has_coalition_with_basque_tt
-		has_country_flag = SPA_has_coalition_with_basque_flag
+		OR = {
+			owns_state = 1070
+			has_country_flag = SPA_has_coalition_with_basque_flag
+		}
 	}
 }
 
 SPA_has_coalition_with_galicia_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = SPA_has_coalition_with_galicia_tt
-		has_country_flag = SPA_has_coalition_with_galicia_flag
+		OR = {
+			owns_state = 171
+			has_country_flag = SPA_has_coalition_with_galicia_flag
+		}
 	}
 }
 
 SPA_has_coalition_with_catalonia_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = SPA_has_coalition_with_catalonia_tt
-		has_country_flag = SPA_has_coalition_with_catalonia_flag
+		OR = {
+			owns_state = 165
+			has_country_flag = SPA_has_coalition_with_catalonia_flag
+		}
+	}
+}
+
+SPA_pl_spoe_coalition_trigger = {
+	has_country_flag = SPA_psoe_join_election_flag
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		# Liberal-PSOE Coalition
+		set_temp_variable = {
+			var = SPA_pl_spoe_coalition_var
+			value = SPA_psoe_influcence
+		}
+		add_to_temp_variable = {
+			var = SPA_pl_spoe_coalition_var
+			value = SPA_liberal_influence
+		}
+		if = {
+			limit = {
+				has_country_flag = SPA_psoe_split_flag
+			}
+			set_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = SPA_psoe_influcence
+			}
+			multiply_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = -0.5
+			}
+			add_to_temp_variable = {
+				var = SPA_pl_spoe_coalition_var
+				value = SPA_psoe_modified_var
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = SPA_psoe_join_revolution_flag
+			}
+			set_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = SPA_psoe_influcence
+			}
+			multiply_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = -1
+			}
+			add_to_temp_variable = {
+				var = SPA_pl_spoe_coalition_var
+				value = SPA_psoe_modified_var
+			}
+		}
+		# Liberal-CEDA Coalition
+		set_temp_variable = {
+			var = SPA_pl_ceda_coalition_var
+			value = SPA_ceda_influence
+		}
+		add_to_temp_variable = {
+			var = SPA_pl_ceda_coalition_var
+			value = SPA_ceda_influence
+		}
+		# CEDA-Rights Coalition
+		set_temp_variable = {
+			var = SPA_ceda_right_coalition_var
+			value = SPA_ceda_influence
+		}
+		add_to_temp_variable = {
+			var = SPA_ceda_right_coalition_var
+			value = SPA_carlist_influence
+		}
+		# Comparisons
+		OR = {
+			check_variable = {
+				SPA_pl_spoe_coalition_var > SPA_pl_ceda_coalition_var
+			}
+			check_variable = {
+				SPA_pl_spoe_coalition_var = SPA_pl_ceda_coalition_var
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_pl_spoe_coalition_var > SPA_ceda_right_coalition_var
+			}
+			check_variable = {
+				SPA_pl_spoe_coalition_var = SPA_ceda_right_coalition_var
+			}
+		}
+	}
+}
+
+SPA_pl_ceda_coalition_trigger = {
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		# Liberal-PSOE Coalition
+		set_temp_variable = {
+			var = SPA_pl_spoe_coalition_var
+			value = SPA_psoe_influcence
+		}
+		add_to_temp_variable = {
+			var = SPA_pl_spoe_coalition_var
+			value = SPA_liberal_influence
+		}
+		if = {
+			limit = {
+				has_country_flag = SPA_psoe_split_flag
+			}
+			set_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = SPA_psoe_influcence
+			}
+			multiply_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = -0.5
+			}
+			add_to_temp_variable = {
+				var = SPA_pl_spoe_coalition_var
+				value = SPA_psoe_modified_var
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = SPA_psoe_join_revolution_flag
+			}
+			set_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = SPA_psoe_influcence
+			}
+			multiply_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = -1
+			}
+			add_to_temp_variable = {
+				var = SPA_pl_spoe_coalition_var
+				value = SPA_psoe_modified_var
+			}
+		}
+		# Liberal-CEDA Coalition
+		set_temp_variable = {
+			var = SPA_pl_ceda_coalition_var
+			value = SPA_ceda_influence
+		}
+		add_to_temp_variable = {
+			var = SPA_pl_ceda_coalition_var
+			value = SPA_ceda_influence
+		}
+		# CEDA-Rights Coalition
+		set_temp_variable = {
+			var = SPA_ceda_right_coalition_var
+			value = SPA_ceda_influence
+		}
+		add_to_temp_variable = {
+			var = SPA_ceda_right_coalition_var
+			value = SPA_carlist_influence
+		}
+		# Comparisons
+		OR = {
+			check_variable = {
+				SPA_pl_ceda_coalition_var > SPA_pl_spoe_coalition_var
+			}
+			check_variable = {
+				SPA_pl_ceda_coalition_var = SPA_pl_spoe_coalition_var
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_pl_ceda_coalition_var > SPA_ceda_right_coalition_var
+			}
+			check_variable = {
+				SPA_pl_ceda_coalition_var = SPA_ceda_right_coalition_var
+			}
+		}
+	}
+}
+
+SPA_ceda_right_coalition_trigger = {
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		# Liberal-PSOE Coalition
+		set_temp_variable = {
+			var = SPA_pl_spoe_coalition_var
+			value = SPA_psoe_influcence
+		}
+		add_to_temp_variable = {
+			var = SPA_pl_spoe_coalition_var
+			value = SPA_liberal_influence
+		}
+		if = {
+			limit = {
+				has_country_flag = SPA_psoe_split_flag
+			}
+			set_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = SPA_psoe_influcence
+			}
+			multiply_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = -0.5
+			}
+			add_to_temp_variable = {
+				var = SPA_pl_spoe_coalition_var
+				value = SPA_psoe_modified_var
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = SPA_psoe_join_revolution_flag
+			}
+			set_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = SPA_psoe_influcence
+			}
+			multiply_temp_variable = {
+				var = SPA_psoe_modified_var
+				value = -1
+			}
+			add_to_temp_variable = {
+				var = SPA_pl_spoe_coalition_var
+				value = SPA_psoe_modified_var
+			}
+		}
+		# Liberal-CEDA Coalition
+		set_temp_variable = {
+			var = SPA_pl_ceda_coalition_var
+			value = SPA_ceda_influence
+		}
+		add_to_temp_variable = {
+			var = SPA_pl_ceda_coalition_var
+			value = SPA_ceda_influence
+		}
+		# CEDA-Rights Coalition
+		set_temp_variable = {
+			var = SPA_ceda_right_coalition_var
+			value = SPA_ceda_influence
+		}
+		add_to_temp_variable = {
+			var = SPA_ceda_right_coalition_var
+			value = SPA_carlist_influence
+		}
+		# Comparisons
+		OR = {
+			check_variable = {
+				SPA_ceda_right_coalition_var > SPA_pl_ceda_coalition_var
+			}
+			check_variable = {
+				SPA_ceda_right_coalition_var = SPA_pl_ceda_coalition_var
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_ceda_right_coalition_var > SPA_pl_spoe_coalition_var
+			}
+			check_variable = {
+				SPA_ceda_right_coalition_var = SPA_pl_spoe_coalition_var
+			}
+		}
+	}
+}
+
+SPA_psoe_great_than_pl_trigger = {
+	has_country_flag = SPA_psoe_join_election_flag
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_psoe_influcence > SPA_liberal_influence
+			}
+			check_variable = {
+				SPA_psoe_influcence = SPA_liberal_influence
+			}
+		}
+	}
+}
+
+SPA_pl_great_than_psoe_trigger = {
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_psoe_influcence < SPA_liberal_influence
+			}
+			check_variable = {
+				SPA_psoe_influcence = SPA_liberal_influence
+			}
+		}
+	}
+}
+
+SPA_pl_great_than_ceda_trigger = {
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_ceda_influence < SPA_liberal_influence
+			}
+			check_variable = {
+				SPA_ceda_influence = SPA_liberal_influence
+			}
+		}
+	}
+}
+
+SPA_ceda_great_than_pl_trigger = {
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_ceda_influence > SPA_liberal_influence
+			}
+			check_variable = {
+				SPA_ceda_influence = SPA_liberal_influence
+			}
+		}
+	}
+}
+
+SPA_military_great_than_psoe_trigger = {
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_military_influence > SPA_psoe_influcence
+			}
+			check_variable = {
+				SPA_military_influence = SPA_psoe_influcence
+			}
+		}
+	}
+}
+
+SPA_psoe_great_than_military_trigger = {
+	if = {
+		limit = {
+			OR = {
+				is_ai = no
+				NOT = {
+					has_country_flag = SPA_i_want_to_cheat_flag
+				}
+			}
+		}
+		OR = {
+			check_variable = {
+				SPA_psoe_influcence > SPA_military_influence
+			}
+			check_variable = {
+				SPA_psoe_influcence = SPA_military_influence
+			}
+		}
 	}
 }
