@@ -881,6 +881,83 @@ GER_prepare_for_war_with_SOV = {
 	}
 }
 
+GER_Priority_RHI = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		country_exists = RHI
+		RHI = {
+			has_capitulated = no
+		}
+		has_country_flag = GER_Start_the_French_campaign_flag
+		stockpile_ratio = {
+			archetype = infantry_equipment
+			ratio > 0.75
+		}
+		stockpile_ratio = {
+			archetype = medium_tank_chassis
+			ratio > 0.75
+		}
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = conquer
+		id = "RHI"
+		value = 500
+	}
+	ai_strategy = {
+		type = area_priority
+		id = Rhineland_hof
+		value = 200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = Southern_Germany_hof
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRA
+		value = 100		# lets put more units, should be safe
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = RHI
+		value = 100		# lets put more units, should be safe
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = eastern_europe
+		value = -50
+	}
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			tag = RHI
+		}
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+		#manual_attack = yes
+	}
+	ai_strategy = {
+		type = front_armor_score
+		id = "RHI"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 6 #莱茵兰
+		value = 500000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+}
+
 GER_Priority_Belgium = {
 	allowed = {
 		original_tag = GER
@@ -917,6 +994,25 @@ GER_Priority_Belgium = {
 		id = Lowland_hof
 		value = 200
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = BEL
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = Northern_France_hof
+		value = -75
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = eastern_europe
+		value = -50
+	}
+
 	ai_strategy = {
 		type = front_control
 		tag = BEL
@@ -930,7 +1026,8 @@ GER_Priority_Belgium = {
         area = Lowland_hof
         ordertype = front
         execution_type = rush
-        execute_order = yes
+		execute_order = yes
+		#manual_attack = yes
     }
 	ai_strategy = {
 		type = front_armor_score
@@ -939,13 +1036,20 @@ GER_Priority_Belgium = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = BEL
-		value = 200		# lets put more units, should be safe
+		type = strategic_air_importance
+		id = 19
+		value = -1000000 #value of stocked main front in active combat is usually around 35,000
 	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 5
+		value = 500000 #value of stocked main front in active combat is usually around 35,000
+	}
+
 }
 
-GER_Dying_FRA = {
+GER_gank_FRA = {
 	allowed = {
 		original_tag = GER
 	}
@@ -965,6 +1069,12 @@ GER_Dying_FRA = {
 		FRA = {
 			is_ai = yes
 		}
+		OR = {
+			NOT = {
+				country_exists = BEL
+			}
+			BEL = { has_capitulated = yes }
+		}
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -980,37 +1090,32 @@ GER_Dying_FRA = {
 	ai_strategy = {
 		type = front_control
 		country_trigger = {
-			tag = BEL
+			tag = FRA
 		}
 		ordertype = front
 		execution_type = rush
-		manual_attack = yes
-	}
-	ai_strategy = {
-		type = front_control
-		area = GER_West_Line_hof
-		ratio = 0.7
-		ordertype = front
-		priority = 100
-		execution_type = rush
 		execute_order = yes
-		manual_attack = yes
+		#manual_attack = yes
 	}
-	ai_strategy = {
-		type = front_armor_score
-		id = "BEL"
-		value = 100
-	}
+
 	ai_strategy = {
 		type = front_unit_request
 		tag = FRA
 		value = 100		# lets put more units, should be safe
 	}
+
 	ai_strategy = {
 		type = front_unit_request
-		tag = BEL
-		value = 200		# lets put more units, should be safe
+		area = eastern_europe
+		value = -50
 	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 19 #法国北部
+		value = 500000 #value of stocked main front in active combat is usually around 35,000
+	}
+
 }
 
 GER_Dying_FRA_Player = {
@@ -1048,37 +1153,32 @@ GER_Dying_FRA_Player = {
 	ai_strategy = {
 		type = front_control
 		country_trigger = {
-			tag = BEL
+			tag = FRA
 		}
 		ordertype = front
-		execution_type = rush
-		manual_attack = yes
-	}
-	ai_strategy = {
-		type = front_control
-		area = GER_West_Line_hof
-		ratio = 0.7
-		ordertype = front
-		priority = 100
 		execution_type = balanced
 		execute_order = yes
-		manual_attack = yes
+		#manual_attack = yes
 	}
-	ai_strategy = {
-		type = front_armor_score
-		id = "BEL"
-		value = 100
-	}
+
 	ai_strategy = {
 		type = front_unit_request
 		tag = FRA
 		value = 100		# lets put more units, should be safe
 	}
+
 	ai_strategy = {
 		type = front_unit_request
-		tag = BEL
-		value = 200		# lets put more units, should be safe
+		area = eastern_europe
+		value = -50
 	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 19 #法国北部
+		value = 500000 #value of stocked main front in active combat is usually around 35,000
+	}
+
 }
 
 GER_aggressive_CZE = {
@@ -1099,24 +1199,20 @@ GER_aggressive_CZE = {
 	}
 	ai_strategy = {
 		type = area_priority
-		id = GER_west_hof
-		value = 100
-	}
-	ai_strategy = {
-		type = area_priority
 		id = CZE_hof
 		value = 100
 	}
 	ai_strategy = {
 		type = front_control
-		area = CZE_hof
-		ratio = 0.7
+		country_trigger = {
+			tag = CZE
+		}
 		ordertype = front
-		priority = 100
 		execution_type = rush
 		execute_order = yes
-		manual_attack = yes
+		#manual_attack = yes
 	}
+
 	ai_strategy = {
 		type = front_armor_score
 		id = "CZE"
@@ -1125,8 +1221,42 @@ GER_aggressive_CZE = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CZE
-		value = 200		# lets put more units, should be safe
+		value = 100		# lets put more units, should be safe
 	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 22 #捷克
+		value = 500000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+}
+
+GER_aggressive_CZE_defence_FRA = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		NOT = {
+			country_exists = RKC
+		}
+		has_country_flag = GER_Start_the_CZE_campaign_flag
+		has_war_with = FRA
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = GER_West_Line_hof
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRA
+		value = 50		# lets put more units, should be safe
+	}
+
 }
 
 GER_Dying_RUS = {
@@ -1170,7 +1300,8 @@ GER_Dying_RUS = {
 		}
 		ordertype = front
 		execution_type = balanced
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
 	ai_strategy = {
 		type = front_armor_score
@@ -1343,12 +1474,12 @@ GER_Watch_the_Rhine = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = FRA
-		value = 150		# lets put more units, should be safe
+		value = 50		# lets put more units, should be safe
 	}
 	ai_strategy = {
 		type = front_unit_request
 		tag = RHI
-		value = 150		# lets put more units, should be safe
+		value = 50		# lets put more units, should be safe
 	}
 }
 
@@ -1388,8 +1519,10 @@ GER_Dying_POL = {
 		}
 		ordertype = front
 		execution_type = rush
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
+
 	ai_strategy = {
 		type = front_armor_score
 		id = "POL"
@@ -1398,8 +1531,42 @@ GER_Dying_POL = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = POL
-		value = 200		# lets put more units, should be safe
+		value = 100		# lets put more units, should be safe
 	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 38 #波兰
+		value = 500000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+}
+
+GER_aggressive_POL_defence_FRA = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		NOT = {
+			country_exists = RKP
+		}
+		has_country_flag = GER_Start_the_POL_campaign_flag
+		has_war_with = FRA
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = GER_West_Line_hof
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRA
+		value = 50		# lets put more units, should be safe
+	}
+
 }
 
 GER_Dying_SWE = {
@@ -1460,6 +1627,7 @@ GER_Dying_SWE = {
 		id = scandinavia
 		value = 200
 	}
+
 	ai_strategy = {
 		type = front_control
 		country_trigger = {
@@ -1467,78 +1635,24 @@ GER_Dying_SWE = {
 		}
 		ordertype = front
 		execution_type = rush
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
+
 	ai_strategy = {
-		type = invade
+		type = front_armor_score
 		id = "SWE"
-		value = 200
+		value = 100
 	}
 	ai_strategy = {
 		type = front_unit_request
 		tag = SWE
-		value = 200		# lets put more units, should be safe
+		value = 100		# lets put more units, should be safe
 	}
 	ai_strategy = {
 		type = invasion_unit_request
 		tag = SWE
 		value = 200
-	}
-}
-
-GER_Dying_france_RHI = {
-	allowed = {
-		original_tag = GER
-	}
-	enable = {
-		country_exists = RHI
-		RHI = {
-			has_capitulated = no
-		}
-		has_country_flag = GER_Start_the_French_campaign_flag
-		stockpile_ratio = {
-			archetype = infantry_equipment
-			ratio > 0.75
-		}
-		stockpile_ratio = {
-			archetype = medium_tank_chassis
-			ratio > 0.75
-		}
-	}
-	abort_when_not_enabled = yes
-	ai_strategy = {
-		type = conquer
-		id = "RHI"
-		value = 500
-	}
-	ai_strategy = {
-		type = area_priority
-		id = GER_west_hof
-		value = 200
-	}
-	ai_strategy = {
-		type = front_control
-		country_trigger = {
-			tag = RHI
-		}
-		ordertype = front
-		execution_type = rush
-		manual_attack = yes
-	}
-	ai_strategy = {
-		type = front_armor_score
-		id = "RHI"
-		value = 100
-	}
-	ai_strategy = {
-		type = front_unit_request
-		tag = FRA
-		value = 200		# lets put more units, should be safe
-	}
-	ai_strategy = {
-		type = front_unit_request
-		tag = RHI
-		value = 200		# lets put more units, should be safe
 	}
 }
 
@@ -1578,7 +1692,8 @@ GER_Dying_france_ITA = {
 		}
 		ordertype = front
 		execution_type = rush
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
 	ai_strategy = {
 		type = front_armor_score
@@ -1588,8 +1703,15 @@ GER_Dying_france_ITA = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = ITA
-		value = 200		# lets put more units, should be safe
+		value = 100		# lets put more units, should be safe
 	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 181 #面条北部
+		value = 500000 #value of stocked main front in active combat is usually around 35,000
+	}
+
 }
 
 GER_destroy_british_beachheads = {
@@ -1751,6 +1873,57 @@ GER_allies_let_germany_handle_france = {
 		value = 200
 	}
 }
+
+GER_protect_your_vaterland_NOW = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		surrender_progress > 0.15
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = area_priority
+		id = Northern_Germany_hof
+		value = 2000		
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = Northern_Germany_hof
+		value = 200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = Southern_Germany_hof
+		value = 2000		
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = Southern_Germany_hof
+		value = 200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = Rhineland_hof
+		value = 2000		
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = Rhineland_hof
+		value = 200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = AUS_hof
+		value = 2000		
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = AUS_hof
+		value = 200
+	}
+}
+
 GER_unit_production = {
 	allowed = {
 		original_tag = GER
@@ -2581,6 +2754,11 @@ GER_area_priority = {
 	}
 	ai_strategy = {
 		type = area_priority
+		id = eastern_europe
+		value = 110		#more focus here
+	}
+	ai_strategy = {
+		type = area_priority
 		id = scandinavia
 		value = 100
 	}
@@ -2593,6 +2771,11 @@ GER_area_priority = {
 		type = area_priority
 		id = latin_america
 		value = 75
+	}
+	ai_strategy = {
+		type = area_priority
+		id = inner_south_america
+		value = 25
 	}
 	ai_strategy = {
 		type = area_priority

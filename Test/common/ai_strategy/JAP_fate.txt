@@ -372,6 +372,18 @@ JAP_rush_china_ai = {
 		}
 	}
 	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = Manchuria_hof
+		value = 1000
+	}
+	ai_strategy = {
+		type = area_priority
+		id = just_Korea_hof
+		value = 1000
+	}
+
 	ai_strategy = {
 		type = front_control
 		country_trigger = {
@@ -379,12 +391,25 @@ JAP_rush_china_ai = {
 		}
 		ordertype = front
 		execution_type = rush_weak
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			tag = CHI
+		}
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = no
+		manual_attack = no
+	}
+
 	ai_strategy = {
 		type = front_unit_request
 		tag = BEY
-		value = 50
+		value = 100
 	}
 	ai_strategy = {
 		type = front_unit_request
@@ -408,6 +433,18 @@ JAP_rush_china_player = {
 		}
 	}
 	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = Manchuria_hof
+		value = 1000
+	}
+	ai_strategy = {
+		type = area_priority
+		id = just_Korea_hof
+		value = 1000
+	}
+
 	ai_strategy = {
 		type = front_control
 		country_trigger = {
@@ -415,17 +452,29 @@ JAP_rush_china_player = {
 		}
 		ordertype = front
 		execution_type = rush_weak
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			tag = CHI
+		}
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = no
+		manual_attack = no
+	}
+
 	ai_strategy = {
 		type = front_unit_request
 		tag = BEY
-		value = 50
+		value = 100
 	}
 	ai_strategy = {
 		type = front_unit_request
 		tag = CHI
-		value = 25
+		value = 50
 	}
 }
 
@@ -438,9 +487,9 @@ JAP_Dying_china_NO_supply = {
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
-		type = area_priority
-		id = JAP_NO_supply_west_chi_hof
-		value = -100
+		type = front_unit_request
+		area = JAP_NO_supply_west_chi_hof
+		value = -50
 	}
 }
 
@@ -450,27 +499,32 @@ JAP_Dying_china_OTL = {
 	}
 	enable = {
 		has_war_with = CHI
+
+		#OR = {
+		#has_full_control_of_state = 761			#呼伦贝尔
+		#MAN = {
+		#has_full_control_of_state = 761
+		#}
+		#呼伦贝尔
+		#}
+
 		OR = {
-			has_full_control_of_state = 761			#呼伦贝尔
-			MAN = {
-				has_full_control_of_state = 761
-			}
-			#呼伦贝尔
-		}
-		OR = {
+			has_country_flag = JAP_MAN_established
 			has_full_control_of_state = 608			#鳖精
 			MAN = {
 				has_full_control_of_state = 608
 			}
 			#鳖精
 		}
-		OR = {
-			has_full_control_of_state = 612			#察哈尔
-			MAN = {
-				has_full_control_of_state = 612
-			}
-			#察哈尔
-		}
+
+		#OR = {
+		#has_full_control_of_state = 612			#察哈尔
+		#MAN = {
+		#has_full_control_of_state = 612
+		#}
+		#察哈尔
+		#}
+
 		NOT = {
 			has_war_with = SOV
 			has_war_with = RUS
@@ -480,11 +534,43 @@ JAP_Dying_china_OTL = {
 		}
 	}
 	abort_when_not_enabled = yes
+
 	ai_strategy = {
 		type = area_priority
-		id = JAP_lugouqiaoshibian_wuhanhuizhan_hof
+		id = JAP_Marco_Polo_Bridge_hof
+		value = 500
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = JAP_Marco_Polo_Bridge_hof
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = JAP_Battle_of_Shanghai_hof
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = JAP_Battle_of_Shanghai_hof
 		value = 100
 	}
+
+	ai_strategy = {
+		type = area_priority
+		id = JAP_Battle_of_Wuhan_hof
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = JAP_Battle_of_Wuhan_hof
+		value = 100
+	}
+
 }
 
 JAP_Dying_china_ichi_go = {
@@ -502,21 +588,25 @@ JAP_Dying_china_ichi_go = {
 	ai_strategy = {
 		type = area_priority
 		id = JAP_ichigo_hof
-		value = 100
+		value = 200
 	}
 	ai_strategy = {
-		type = front_control
-		country_trigger = {
-			tag = CHI
-		}
-		ordertype = front
-		execution_type = balanced
-		manual_attack = yes
+        type = front_control
+        area = JAP_ichigo_hof
+        ordertype = front
+        execution_type = balanced
+        execute_order = yes
+		#manual_attack = yes
+    }
+	ai_strategy = {
+		type = front_unit_request
+		area = JAP_ichigo_hof
+		value = 50
 	}
 	ai_strategy = {
 		type = front_unit_request
 		tag = CHI
-		value = 75
+		value = 25
 	}
 }
 
@@ -545,7 +635,8 @@ JAP_Dying_china_JAP_Your_script = {
 		}
 		ordertype = front
 		execution_type = balanced
-		manual_attack = yes
+        execute_order = yes
+		#manual_attack = yes
 	}
 	ai_strategy = {
 		type = front_control
@@ -554,7 +645,8 @@ JAP_Dying_china_JAP_Your_script = {
 		}
 		ordertype = front
 		execution_type = rush_weak
-		manual_attack = yes
+        execute_order = yes
+		#manual_attack = yes
 	}
 	ai_strategy = {
 		type = front_unit_request
@@ -590,12 +682,18 @@ JAP_Dying_white = {
 		}
 		ordertype = front
 		execution_type = careful
-		manual_attack = yes
+		execute_order = no
+		manual_attack = no
 	}
 	ai_strategy = {
 		type = area_priority
-		id = Southern_Resource_Area
-		value = 100
+		id = JAP_Southern_Resource_Area_hof
+		value = 250
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = JAP_Southern_Resource_Area_hof
+		value = 25
 	}
 	ai_strategy = {
 		type = front_control
@@ -609,7 +707,8 @@ JAP_Dying_white = {
 		}
 		ordertype = front
 		execution_type = rush
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
 }
 
@@ -1181,6 +1280,7 @@ JAP_kamikaze = { #
 	}
 
 	enable = {
+		always = no
 		date > 1939.1.1
 		has_navy_size = {
 			unit = carrier
@@ -1447,7 +1547,7 @@ JAP_philippines_and_garrison = {
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = area_priority
-		id = Southern_Resource_Area
+		id = JAP_Southern_Resource_Area_hof
 		value = 120
 	}
 	ai_strategy = {
@@ -1489,6 +1589,64 @@ JAP_philippines_and_garrison_prio = {
 	ai_strategy = {
 		type = area_priority
 		id = home_islands
+		value = 50
+	}
+}
+
+JAP_protect_your_island_please = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		always = yes
+	}
+	abort = {
+		always = no
+	}
+	ai_strategy = {
+		type = area_priority
+		id = just_Nihon_hof
+		value = 50
+	}
+
+}
+
+JAP_protect_your_island_NOW = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		surrender_progress > 0.02
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = area_priority
+		id = just_Nihon_hof
+		value = 4000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = just_Nihon_hof
+		value = 400
+	}
+	ai_strategy = {
+		type = area_priority
+		id = just_Korea_hof
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = just_Korea_hof
+		value = 100
+	}
+	ai_strategy = {
+		type = area_priority
+		id = Manchuria_hof
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = Manchuria_hof
 		value = 100
 	}
 }
@@ -2129,6 +2287,11 @@ JAP_area_priority = {
 	}
 	ai_strategy = {
 		type = area_priority
+		id = eastern_europe
+		value = 20
+	}
+	ai_strategy = {
+		type = area_priority
 		id = scandinavia
 		value = -30
 	}
@@ -2141,6 +2304,11 @@ JAP_area_priority = {
 		type = area_priority
 		id = latin_america
 		value = 50
+	}
+	ai_strategy = {
+		type = area_priority
+		id = inner_south_america
+		value = 25
 	}
 	ai_strategy = {
 		type = area_priority
@@ -2210,6 +2378,12 @@ JAP_love_islands = {
 			JAP = {
 				has_war_with = USA
 			}
+			JAP = {
+				has_war_with = ENG
+			}
+			JAP = {
+				has_war_with = FRA
+			}
 			CHI = {
 				is_subject_of = JAP
 			}
@@ -2219,8 +2393,55 @@ JAP_love_islands = {
 	ai_strategy = {
 		type = area_priority
 		id = pacific
+		value = 120
+	}
+	ai_strategy = {
+		type = area_priority
+		id = JAP_Absolute_Defense_Circle_hof
 		value = 80
 	}
+	ai_strategy = {
+		type = front_unit_request
+		area = JAP_Absolute_Defense_Circle_hof
+		value = 20
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 76		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 75		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 73		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 72		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 79		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 90		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 94		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 78		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 84		# ！！！！！
+	}
+
 }
 
 JAP_unit_buffer_for_home_islands_invasion_force = {
@@ -2301,7 +2522,8 @@ JAP_hold_up_in_china = {
 		}
 		ordertype = front
 		execution_type = careful
-		manual_attack = yes
+		execute_order = yes
+		#manual_attack = yes
 	}
 	ai_strategy = {
 		type = invade
