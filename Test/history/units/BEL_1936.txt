@@ -145,6 +145,63 @@ division_template = {
 	priority = 0
 }
 
+division_template = {
+	name = "Ardeense Jagers"
+	division_names_group = BEL_INF_01
+	regiments = {
+		bicycle_battalion = {
+			x = 0
+			y = 0
+		}
+		bicycle_battalion = {
+			x = 0
+			y = 1
+		}
+		bicycle_battalion = {
+			x = 0
+			y = 2
+		}
+		bicycle_battalion = {
+			x = 1
+			y = 0
+		}
+		bicycle_battalion = {
+			x = 1
+			y = 1
+		}
+		bicycle_battalion = {
+			x = 1
+			y = 2
+		}
+		bicycle_battalion = {
+			x = 2
+			y = 0
+		}
+		bicycle_battalion = {
+			x = 2
+			y = 1
+		}
+		bicycle_battalion = {
+			x = 2
+			y = 2
+		}
+	}
+	support = {
+		mot_recon = {
+			x = 0
+			y = 0
+		}
+		engineer = {
+			x = 0
+			y = 1
+		}
+		anti_tank = {
+			x = 0
+			y = 2
+		}
+	}
+}
+
 ### OOB ###
 units = {
 	##### L'Armée Belge #####
@@ -272,27 +329,112 @@ units = {
 		start_experience_factor = 0.1
 		start_equipment_factor = 0.3
 	}
+	##Jager
+	division = {
+		location = 6537
+		division_template = "Ardeense Jagers"
+		start_experience_factor = 0.5
+	}
 }
 
 ### Starting Production ###
 instant_effect = {
+	### Variants ###
+	create_equipment_variant = {
+		name = "FT Char Cannon"
+		type = light_tank_chassis_0
+		parent_version = 0
+		modules = {
+			main_armament_slot = tank_small_cannon
+			turret_type_slot = tank_light_one_man_tank_turret
+			suspension_type_slot = tank_bogie_suspension
+			armor_type_slot = tank_riveted_armor
+			engine_type_slot = tank_gasoline_engine
+		}
+		upgrades = {
+			tank_nsb_engine_upgrade = 1
+			tank_nsb_armor_upgrade = 2
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "T13"
+		type = light_tank_destroyer_chassis_1
+		parent_version = 0
+		modules = {
+			main_armament_slot = tank_high_velocity_cannon
+			turret_type_slot = tank_light_one_man_tank_turret
+			suspension_type_slot = tank_bogie_suspension
+			armor_type_slot = tank_cast_armor
+			engine_type_slot = tank_gasoline_engine
+		}
+		upgrades = {
+			tank_nsb_engine_upgrade = 2
+			tank_nsb_armor_upgrade = 4
+		}
+	}
+	create_equipment_variant = {
+		name = "T15"
+		type = light_tank_chassis_1
+		parent_version = 0
+		modules = {
+			main_armament_slot = tank_small_cannon
+			turret_type_slot = tank_light_one_man_tank_turret
+			suspension_type_slot = tank_bogie_suspension
+			armor_type_slot = tank_cast_armor
+			engine_type_slot = tank_gasoline_engine
+		}
+		upgrades = {
+			tank_nsb_engine_upgrade = 2
+			tank_nsb_armor_upgrade = 4
+		}
+	}
+	### Production ###
 	add_equipment_production = {
 		equipment = {
 			type = infantry_equipment_1
-			creator = "BEL"
 		}
-		requested_factories = 2
+		requested_factories = 1
 		progress = 0.52
 		efficiency = 100
 	}
 	add_equipment_production = {
 		equipment = {
 			type = support_equipment_1
-			creator = "BEL"
 		}
 		requested_factories = 1
 		progress = 0.85
 		efficiency = 100
+	}
+	add_equipment_production = {
+		equipment = {
+			type = anti_tank_equipment_1
+		}
+		requested_factories = 1
+		progress = 0.85
+		efficiency = 100
+	}
+	add_equipment_production = {
+		equipment = {
+			type = artillery_equipment_1
+		}
+		requested_factories = 1
+		progress = 0.85
+		efficiency = 100
+	}
+	if = {
+		limit = {
+			has_dlc_nsb = yes
+		}
+		add_equipment_production = {
+			equipment = {
+				type = light_tank_destroyer_chassis_1
+				version_name = "T13"
+			}
+			requested_factories = 1
+			progress = 0.85
+			efficiency = 100
+		}
 	}
 }
 

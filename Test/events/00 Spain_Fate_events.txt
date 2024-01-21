@@ -1,7 +1,7 @@
 add_namespace = spain_fate
 add_namespace = spain_civil_war_fate
 ##"即将到来的西班牙大选" days = 1
-country_event = {
+unit_leader_event = {
 	id = spain_fate.1
 	title = spain_fate.1.title
 	desc = spain_fate.1.desc
@@ -806,6 +806,7 @@ country_event = {
 		add_political_power = -60
 		SPA_bop_move_to_monarchy_medium_effect = yes
 		set_country_flag = SPA_carlist_support_javier
+		set_country_flag = SPA_carlist_will_oppose_us_flag
 		custom_effect_tooltip = SPA_carlist_will_oppose_us_tt
 		hidden_effect = {
 			set_nationality = {
@@ -824,6 +825,7 @@ country_event = {
 		}
 		custom_effect_tooltip = SPA_carlist_will_oppose_us_tt
 		set_country_flag = SPA_carlist_support_javier
+		set_country_flag = SPA_carlist_will_oppose_us_flag
 		SPA_strength_carlist_influence_effect = yes
 	}
 }
@@ -1641,6 +1643,23 @@ country_event = {
 			add_political_power = 20
 			add_war_support = -0.05
 		}
+		hidden_effect = {
+			country_event = {
+				id = spain_civil_war_fate.2
+				days = 10
+				random_days = 10
+			}
+			country_event = {
+				id = spain_civil_war_fate.3
+				days = 10
+				random_days = 10
+			}
+			country_event = {
+				id = spain_civil_war_fate.4
+				days = 90
+				random_days = 10
+			}
+		}
 	}
 }
 
@@ -2278,16 +2297,22 @@ country_event = {
 	desc = {
 		text = spain_civil_war_fate.1.desc.nofalangist
 		trigger = {
+			NOT = {
+				has_country_flag = SPA_carlist_will_oppose_us_flag
+				has_country_flag = SPA_the_nationalist_will_oppose_us
+			}
 		}
 	}
 	desc = {
 		text = spain_civil_war_fate.1.desc.carlistwithfalangist
 		trigger = {
+			has_country_flag = SPA_carlist_will_oppose_us_flag
 		}
 	}
 	desc = {
 		text = spain_civil_war_fate.1.desc.nationalistwithfalangist
 		trigger = {
+			has_country_flag = SPA_the_nationalist_will_oppose_us
 		}
 	}
 	immediate = {
@@ -2301,14 +2326,23 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPA_start_civil_war_effect = yes
 	}
 	option = {
 		name = spain_civil_war_fate.1.b
 		trigger = {
+			OR = {
+				has_country_flag = SPA_carlist_will_oppose_us_flag
+				has_country_flag = SPA_the_nationalist_will_oppose_us
+			}
 		}
 		ai_chance = {
 			base = 1
 		}
+		SPB = {
+			change_tag_from = ROOT
+		}
+		SPA_start_civil_war_effect = yes
 	}
 	option = {
 		name = spain_civil_war_fate.1.c
@@ -2317,6 +2351,10 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		SPC = {
+			change_tag_from = ROOT
+		}
+		SPA_start_civil_war_effect = yes
 	}
 }
 
@@ -2371,6 +2409,13 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		hidden_effect = {
+			country_event = {
+				id = spain_civil_war_fate.3
+				days = 30
+				random_days = 10
+			}
+		}
 	}
 }
 
@@ -2383,8 +2428,29 @@ country_event = {
 		set_global_flag = Spain_civil_war_end_flag
 	}
 	picture = GFX_report_event_generic_diplomacy1
-	is_triggered_only = yes
 	fire_only_once = yes
+	trigger = {
+		tag = SPA
+		has_capitulated = no
+		SPB = {
+			OR = {
+				exists = no
+				AND = {
+					has_war_with = SPA
+					has_capitulated = yes
+				}
+			}
+		}
+		SPC = {
+			OR = {
+				exists = no
+				AND = {
+					has_war_with = SPA
+					has_capitulated = yes
+				}
+			}
+		}
+	}
 	option = {
 		name = spain_civil_war_fate.5.a
 		ai_chance = {
@@ -2399,14 +2465,6 @@ country_event = {
 			base = 1
 		}
 	}
-	# option = {
-	# 	name = spain_civil_war_fate.5.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
 ##Civil War ends - Falangist Win
@@ -2418,7 +2476,28 @@ country_event = {
 		set_global_flag = Spain_civil_war_end_flag
 	}
 	picture = GFX_report_event_generic_diplomacy1
-	is_triggered_only = yes
+	trigger = {
+		tag = SPB
+		has_capitulated = no
+		SPA = {
+			OR = {
+				exists = no
+				AND = {
+					has_war_with = SPB
+					has_capitulated = yes
+				}
+			}
+		}
+		SPC = {
+			OR = {
+				exists = no
+				AND = {
+					has_war_with = SPB
+					has_capitulated = yes
+				}
+			}
+		}
+	}
 	fire_only_once = yes
 	option = {
 		name = spain_civil_war_fate.6.a
@@ -2426,22 +2505,6 @@ country_event = {
 			base = 1
 		}
 	}
-	# option = {
-	# 	name = spain_civil_war_fate.6.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = spain_civil_war_fate.6.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
 ##Civil War ends - Socialist Win
@@ -2453,7 +2516,28 @@ country_event = {
 		set_global_flag = Spain_civil_war_end_flag
 	}
 	picture = GFX_report_event_generic_diplomacy1
-	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+		has_capitulated = no
+		SPA = {
+			OR = {
+				exists = no
+				AND = {
+					has_war_with = SPC
+					has_capitulated = yes
+				}
+			}
+		}
+		SPB = {
+			OR = {
+				exists = no
+				AND = {
+					has_war_with = SPC
+					has_capitulated = yes
+				}
+			}
+		}
+	}
 	fire_only_once = yes
 	option = {
 		name = spain_civil_war_fate.7.a
@@ -2461,20 +2545,4 @@ country_event = {
 			base = 1
 		}
 	}
-	# option = {
-	# 	name = spain_civil_war_fate.7.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = spain_civil_war_fate.7.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }

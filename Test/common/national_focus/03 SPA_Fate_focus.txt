@@ -14,11 +14,108 @@ focus_tree = {
 		y = 3100
 	}
 	focus = {
+		id = SPR_a_frontline_suited_for_intellectuals
+		available = {
+		}
+		bypass = {
+		}
+		prerequisite = {
+			focus = SPA_provincial_rebuilding
+		}
+		icon = GFX_focus_research
+		x = -1
+		y = 1
+		relative_position_id = SPA_provincial_rebuilding
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		# Invest in Galicia
+		id = SPA_galician_tungsten
+		icon = GFX_focus_generic_tungsten
+		cost = 8
+		relative_position_id = SPA_resource_extraction
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = SPA_resource_extraction
+		}
+		bypass = {
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SPA_galician_tungsten"
+			add_resource = {
+				type = tungsten
+				amount = 4
+				state = 171
+			}
+			171 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
+		# Industrial Expansions in Northern Spain
+		id = SPA_northern_industry
+		icon = GFX_goal_factory_complex
+		cost = 8
+		relative_position_id = SPA_electrification_program
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = SPA_electrification_program
+		}
+		bypass = {
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SPA_northern_industry"
+			1070 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			1081 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
 		# Restauración
 		id = SPA_restauracion
 		icon = GFX_focus_FRA_action_francaise_alter
 		cost = 5
-		x = 15
+		x = 5
 		y = 10
 		available = {
 		}
@@ -37,7 +134,7 @@ focus_tree = {
 		icon = GFX_focus_rom_royal_dictatorship
 		cost = 5
 		relative_position_id = SPA_restauracion
-		x = 3
+		x = 2
 		y = 1
 		prerequisite = {
 			focus = SPA_restauracion
@@ -71,7 +168,7 @@ focus_tree = {
 		icon = GFX_goal_generic_national_unity
 		cost = 5
 		relative_position_id = SPA_restauracion
-		x = -1
+		x = -2
 		y = 1
 		prerequisite = {
 			focus = SPA_restauracion
@@ -89,7 +186,7 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		cost = 5
 		relative_position_id = SPA_mending_the_rift
-		x = -1
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = SPA_mending_the_rift
@@ -105,11 +202,11 @@ focus_tree = {
 		id = SPA_dios
 		icon = GFX_focus_generic_befriend_catholic
 		cost = 5
-		relative_position_id = SPA_restauracion
-		x = -3
+		relative_position_id = SPA_patria
+		x = 2
 		y = 1
 		prerequisite = {
-			focus = SPA_restauracion
+			focus = SPA_patria
 		}
 		ai_will_do = {
 			factor = 60
@@ -122,12 +219,9 @@ focus_tree = {
 		id = SPA_patria
 		icon = GFX_focus_generic_monarchism1
 		cost = 5
-		relative_position_id = SPA_dios
-		x = 0
-		y = 2
-		prerequisite = {
-			focus = SPA_dios
-		}
+		relative_position_id = SPA_crush_opposition
+		x = -1
+		y = 1
 		prerequisite = {
 			focus = SPA_crush_opposition
 		}
@@ -147,7 +241,7 @@ focus_tree = {
 			focus = SPA_restauracion
 		}
 		icon = GFX_focus_generic_strike_at_democracy2
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = SPA_restauracion
 		cost = 10
@@ -173,40 +267,19 @@ focus_tree = {
 	focus = {
 		id = SPA_defenders_of_catholicism
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = SPA_the_crusade_against_democracy_timer_tt
-				NOT = {
-					has_country_flag = SPA_the_crusade_against_democracy_timer_flag
-				}
-			}
 		}
 		bypass = {
 		}
 		prerequisite = {
 			focus = SPA_the_crusade_against_democracy
 		}
+		prerequisite = {
+			focus = SPA_rey
+		}
 		icon = GFX_goal_generic_defence
 		x = 1
 		y = 1
 		relative_position_id = SPA_the_crusade_against_democracy
-		cost = 10
-		available_if_capitulated = yes
-		completion_reward = {
-		}
-	}
-	focus = {
-		id = SPA_battle_rites
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = SPA_defenders_of_catholicism
-		}
-		icon = GFX_goal_generic_attack_allies
-		x = -1
-		y = 1
-		relative_position_id = SPA_defenders_of_catholicism
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
@@ -221,35 +294,11 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_furos
 		}
-		prerequisite = {
-			focus = SPA_battle_rites
-		}
 		icon = GFX_goal_generic_secret_weapon
 		x = 0
 		y = 1
-		relative_position_id = SPA_battle_rites
+		relative_position_id = SPA_furos
 		cost = 20
-		available_if_capitulated = yes
-		completion_reward = {
-		}
-	}
-	focus = {
-		id = SPA_expand_the_requetes
-		available = {
-		}
-		bypass = {
-		}
-		prerequisite = {
-			focus = SPA_the_crusade_against_democracy
-		}
-		prerequisite = {
-			focus = SPA_no_compromise_on_carlist_ideals
-		}
-		icon = GFX_goal_generic_small_arms
-		x = -1
-		y = 1
-		relative_position_id = SPA_the_crusade_against_democracy
-		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
 		}
@@ -261,12 +310,13 @@ focus_tree = {
 		bypass = {
 		}
 		prerequisite = {
-			focus = SPA_expand_the_requetes
+			focus = SPA_crush_opposition
+			focus = SPA_defenders_of_catholicism
 		}
 		icon = GFX_goal_generic_axis_build_infantry
-		x = -1
+		x = 1
 		y = 1
-		relative_position_id = SPA_expand_the_requetes
+		relative_position_id = SPA_crush_opposition
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
@@ -278,7 +328,7 @@ focus_tree = {
 		icon = GFX_focus_generic_royal_edicts
 		cost = 5
 		relative_position_id = SPA_militarize_the_masses
-		x = 0
+		x = -2
 		y = 1
 		prerequisite = {
 			focus = SPA_patria
@@ -298,13 +348,16 @@ focus_tree = {
 		icon = GFX_focus_generic_home_defense
 		cost = 5
 		relative_position_id = SPA_cortes_espanolas
-		x = 1
+		x = 2
 		y = 1
 		prerequisite = {
 			focus = SPA_cultivate_fanaticism
 		}
 		prerequisite = {
 			focus = SPA_cortes_espanolas
+		}
+		prerequisite = {
+			focus = SPA_dios
 		}
 		ai_will_do = {
 			factor = 80
@@ -337,16 +390,8 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		mutually_exclusive = {
-			focus = SPA_a_great_spain
-		}
 		prerequisite = {
 			focus = SPA_consolidate_spain
-		}
-		allow_branch = {
-			NOT = {
-				has_completed_focus = SPA_a_great_spain
-			}
 		}
 		icon = GFX_focus_SPA_support_spanish_poum
 		x = 4
@@ -361,19 +406,6 @@ focus_tree = {
 			add_popularity = {
 				ideology = neutrality
 				popularity = 0.05
-			}
-			hidden_effect = {
-				every_owned_state = {
-					limit = {
-						NOT = {
-							state = 290
-							state = 699
-							state = 783
-							state = 297
-						}
-					}
-					SPR_garrison_control_cost_calculation = yes
-				}
 			}
 		}
 	}
@@ -785,6 +817,147 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SPR_ensure_loyalty
+		available = {
+		}
+		bypass = {
+			has_global_flag = scw_over
+		}
+		prerequisite = {
+			focus = SPA_consolidate_spain
+		}
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 1
+		relative_position_id = SPA_consolidate_spain
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_STABILITY
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = SPR_enlist_the_carabineros
+		available = {
+			SPR_juan_negrin = {
+				is_hired_as_advisor = yes
+			}
+		}
+		bypass = {
+			has_global_flag = scw_over
+		}
+		prerequisite = {
+			focus = SPA_consolidate_spain
+		}
+		icon = GFX_goal_generic_military_sphere
+		x = 2
+		y = 1
+		relative_position_id = SPA_consolidate_spain
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			custom_effect_tooltip = SPR_enlist_the_carabineros_tt
+			custom_effect_tooltip = SPR_remove_after_civil_war_tt
+			hidden_effect = {
+				division_template = {
+					name = "Carabineros"
+					template_counter = 3
+					priority = 1
+					division_names_group = SPR_INF_01
+					is_locked = yes
+					regiments = {
+						infantry = {
+							x = 0
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"1. Carabineros\" division_template = \"Carabineros\" start_experience_factor = 0.1"
+						owner = ROOT
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"2. Carabineros\" division_template = \"Carabineros\" start_experience_factor = 0.1"
+						owner = ROOT
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"3. Carabineros\" division_template = \"Carabineros\" start_experience_factor = 0.1"
+						owner = ROOT
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"4. Carabineros\" division_template = \"Carabineros\" start_experience_factor = 0.1"
+						owner = ROOT
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"5. Carabineros\" division_template = \"Carabineros\" start_experience_factor = 0.1"
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SPA_strengthen_kingdom
+		icon = GFX_focus_generic_home_defense
+		cost = 5
+		x = -2
+		y = 1
+		relative_position_id = SPA_consolidate_spain
+		bypass = {
+			has_global_flag = spanish_civil_war
+		}
+		prerequisite = {
+			focus = SPA_consolidate_spain
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SPA_strengthen_kingdom"
+			add_stability = 0.05
+			add_political_power = 30
+			custom_effect_tooltip = SPA_picking_our_route_tt
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	focus = {
 		id = SPA_a_great_spain
 		available = {
 			NOT = {
@@ -793,15 +966,6 @@ focus_tree = {
 		}
 		bypass = {
 			SPA_spainish_civil_war_ongoing_trigger = yes
-		}
-		mutually_exclusive = {
-			focus = SPA_the_popular_front
-		}
-		offset = {
-			trigger = {
-				has_completed_focus = SPA_a_great_spain
-			}
-			x = 4
 		}
 		icon = GFX_focus_SPA_una_grande_y_libre
 		x = -4
@@ -888,10 +1052,6 @@ focus_tree = {
 		cost = 5
 		completion_reward = {
 			army_experience = 10
-			add_to_variable = {
-				var = spa_civil_war_divisions_counter_var
-				value = 5
-			}
 		}
 	}
 	focus = {
@@ -1219,12 +1379,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
-		offset = {
-			trigger = {
-				has_completed_focus = SPA_a_great_spain
-			}
-			x = 4
-		}
 		completion_reward = {
 			41 = {
 				add_building_construction = {
@@ -1310,7 +1464,7 @@ focus_tree = {
 		id = SPA_call_for_unity
 		icon = GFX_focus_SPA_a_loyal_military
 		cost = 5
-		x = 2
+		x = -3
 		y = 10
 		available = {
 			SPA_spainish_civil_war_end_trigger = yes
@@ -1329,7 +1483,7 @@ focus_tree = {
 		icon = GFX_focus_HUN_adapt_constitution
 		cost = 5
 		relative_position_id = SPA_call_for_unity
-		x = -2
+		x = -1
 		y = 1
 		available = {
 		}
@@ -1348,9 +1502,9 @@ focus_tree = {
 		cost = 5
 		relative_position_id = SPA_call_for_unity
 		x = 0
-		y = 1
+		y = 2
 		prerequisite = {
-			focus = SPA_call_for_unity
+			focus = SPA_rights_spanish
 		}
 		ai_will_do = {
 			factor = 110
@@ -1371,7 +1525,7 @@ focus_tree = {
 			focus = SPA_new_constitution
 		}
 		icon = GFX_focus_generic_government12
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = SPA_new_constitution
 		cost = 6
@@ -1387,10 +1541,11 @@ focus_tree = {
 		bypass = {
 		}
 		prerequisite = {
+			focus = SPA_municipal_reorg
 			focus = SPA_fortify_the_central_government
 		}
 		icon = GFX_focus_generic_ideology_market_liberal
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = SPA_fortify_the_central_government
 		cost = 6
@@ -1409,13 +1564,12 @@ focus_tree = {
 		bypass = {
 		}
 		prerequisite = {
-			focus = SPA_secure_democratic_principles
 			focus = SPA_charter_of_labour
 		}
 		icon = GFX_focus_generic_defence_fgo
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = SPA_secure_democratic_principles
+		relative_position_id = SPA_charter_of_labour
 		cost = 6
 		completion_reward = {
 		}
@@ -1424,11 +1578,11 @@ focus_tree = {
 		id = SPA_unity_at_last
 		icon = GFX_focus_spa_unify_the_nationalist_front
 		cost = 5
-		relative_position_id = SPA_new_constitution
-		x = -2
+		relative_position_id = SPA_rights_spanish
+		x = -1
 		y = 1
 		prerequisite = {
-			focus = SPA_new_constitution
+			focus = SPA_rights_spanish
 		}
 		ai_will_do = {
 			factor = 110
@@ -1441,10 +1595,11 @@ focus_tree = {
 		icon = GFX_focus_generic_social_reforms
 		cost = 5
 		relative_position_id = SPA_unity_at_last
-		x = 0
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = SPA_unity_at_last
+			focus = SPA_new_constitution
 		}
 		available = {
 			has_completed_focus = SPA_rights_spanish
@@ -1462,13 +1617,12 @@ focus_tree = {
 		bypass = {
 		}
 		prerequisite = {
-			focus = SPA_secure_democratic_principles
-			focus = SPA_municipal_reorg
+			focus = SPA_national_catholicism
 		}
 		icon = GFX_focus_generic_befriend_catholic
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = SPA_municipal_reorg
+		relative_position_id = SPA_national_catholicism
 		cost = 6
 		completion_reward = {
 			add_popularity = {
@@ -1499,11 +1653,11 @@ focus_tree = {
 		id = SPA_corporate_state
 		icon = GFX_focus_generic_corporatism
 		cost = 5
-		relative_position_id = SPA_new_constitution
-		x = 2
+		relative_position_id = SPA_reconcilliation
+		x = 1
 		y = 1
 		prerequisite = {
-			focus = SPA_new_constitution
+			focus = SPA_reconcilliation
 		}
 		ai_will_do = {
 			factor = 110
@@ -1518,9 +1672,12 @@ focus_tree = {
 		cost = 5
 		relative_position_id = SPA_corporate_state
 		x = 0
-		y = 1
+		y = 2
 		prerequisite = {
 			focus = SPA_corporate_state
+		}
+		prerequisite = {
+			focus = SPA_fortify_the_central_government
 		}
 		ai_will_do = {
 			factor = 100
@@ -1532,14 +1689,17 @@ focus_tree = {
 		id = SPA_organic_democracy
 		icon = GFX_focus_generic_improve_the_administration
 		cost = 5
-		relative_position_id = SPA_charter_of_labour
-		x = 1
+		relative_position_id = SPA_secure_democratic_principles
+		x = 0
 		y = 1
-		prerequisite = {
-			focus = SPA_charter_of_labour
-		}
 		ai_will_do = {
 			factor = 1000
+		}
+		prerequisite = {
+			focus = SPA_secure_democratic_principles
+		}
+		prerequisite = {
+			focus = SPA_national_catholicism
 		}
 		completion_reward = {
 		}
@@ -1549,7 +1709,7 @@ focus_tree = {
 		icon = GFX_goal_tfv_strengthen_commonwealth_ties
 		cost = 5
 		relative_position_id = SPA_call_for_unity
-		x = 2
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = SPA_call_for_unity
@@ -1746,7 +1906,7 @@ focus_tree = {
 			focus = SPA_national_revolution
 		}
 		icon = GFX_focus_SPA_black_national_syndicalism
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = SPA_national_revolution
 		cost = 6
@@ -2062,7 +2222,7 @@ focus_tree = {
 			focus = SPA_national_revolution
 		}
 		icon = GFX_focus_spa_strengthen_the_supreme_reality_of_spain
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = SPA_a_one_party_state
 		cost = 6
@@ -2085,7 +2245,6 @@ focus_tree = {
 	focus = {
 		id = SPA_the_phalanx_ascendant
 		available = {
-			has_global_flag = spanish_civil_war
 			hidden_trigger = {
 				always = no
 			}
@@ -2115,7 +2274,7 @@ focus_tree = {
 		icon = GFX_focus_SPA_army
 		dynamic = yes
 		cost = 5
-		x = 10
+		x = 15
 		y = 0
 		ai_will_do = {
 			factor = 30
@@ -3427,8 +3586,8 @@ focus_tree = {
 		id = SPA_rebuilding_the_economy
 		icon = GFX_focus_generic_destruction_civil_war
 		cost = 7
-		x = 14
-		y = 18
+		x = 15
+		y = 10
 		ai_will_do = {
 			factor = 150
 		}
@@ -3452,7 +3611,7 @@ focus_tree = {
 		icon = GFX_focus_generic_railroad_01
 		cost = 7
 		relative_position_id = SPA_rebuilding_the_economy
-		x = -4
+		x = -3
 		y = 1
 		prerequisite = {
 			focus = SPA_rebuilding_the_economy
@@ -3537,8 +3696,8 @@ focus_tree = {
 		id = SPA_resource_extraction
 		icon = GFX_focus_generic_coal_mining
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = -4
+		relative_position_id = SPA_expand_railroads
+		x = -1
 		y = 3
 		prerequisite = {
 			focus = SPA_expand_railroads
@@ -3566,7 +3725,7 @@ focus_tree = {
 		cost = 7
 		relative_position_id = SPA_rebuilding_the_economy
 		x = -2
-		y = 1
+		y = 2
 		prerequisite = {
 			focus = SPA_rebuilding_the_economy
 		}
@@ -3586,8 +3745,8 @@ focus_tree = {
 		id = SPA_military_investments
 		icon = GFX_focus_generic_royal_bonds
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = -3
+		relative_position_id = SPA_provincial_rebuilding
+		x = 0
 		y = 2
 		prerequisite = {
 			focus = SPA_provincial_rebuilding
@@ -3604,11 +3763,11 @@ focus_tree = {
 		id = SPA_comercial_investment
 		icon = GFX_focus_generic_attract_investment
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = -1
+		relative_position_id = SPA_focus_economy
+		x = 0
 		y = 2
 		prerequisite = {
-			focus = SPA_provincial_rebuilding
+			focus = SPA_focus_economy
 		}
 		ai_will_do = {
 			factor = 100
@@ -3644,12 +3803,14 @@ focus_tree = {
 		id = SPA_electrification_program
 		icon = GFX_focus_generic_electricity
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = -2
-		y = 3
+		relative_position_id = SPA_expand_royal_academia
+		x = 1
+		y = 1
 		prerequisite = {
-			focus = SPA_military_investments
-			focus = SPA_comercial_investment
+			focus = SPA_expand_royal_academia
+		}
+		prerequisite = {
+			focus = SPA_modern_agriculture
 		}
 		ai_will_do = {
 			factor = 100
@@ -3668,7 +3829,7 @@ focus_tree = {
 		icon = GFX_focus_generic_research_towns
 		cost = 7
 		relative_position_id = SPA_rebuilding_the_economy
-		x = 0
+		x = -1
 		y = 1
 		prerequisite = {
 			focus = SPA_rebuilding_the_economy
@@ -3684,11 +3845,14 @@ focus_tree = {
 		id = SPA_expand_royal_academia
 		icon = GFX_focus_generic_catholic_education
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
+		relative_position_id = SPA_ley_general_educacion
 		x = 0
-		y = 3
+		y = 2
 		prerequisite = {
 			focus = SPA_ley_general_educacion
+		}
+		prerequisite = {
+			focus = SPA_expand_royal_academia
 		}
 		ai_will_do = {
 			factor = 50
@@ -3701,7 +3865,7 @@ focus_tree = {
 		icon = GFX_focus_generic_promote_entrepeneurship
 		cost = 7
 		relative_position_id = SPA_rebuilding_the_economy
-		x = 2
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = SPA_rebuilding_the_economy
@@ -3716,9 +3880,9 @@ focus_tree = {
 		id = SPA_industrial_nationalisation
 		icon = GFX_focus_generic_state_economy
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = 1
-		y = 2
+		relative_position_id = SPA_create_ini
+		x = -1
+		y = 1
 		prerequisite = {
 			focus = SPA_create_ini
 		}
@@ -3732,12 +3896,234 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SPA_focus_economy
+		icon = GFX_goal_generic_construction2
+		cost = 8
+		relative_position_id = SPA_military_factories
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = SPA_military_factories
+		}
+		mutually_exclusive = {
+			focus = SPA_focus_military
+		}
+		bypass = {
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SPA_focus_economy"
+			if = {
+				limit = {
+					NOT = {
+						has_idea = SPA_black_monday
+					}
+				}
+				add_ideas = SPA_future_investment
+			}
+			else = {
+				custom_effect_tooltip = SPA_fake_economy_promises_tt
+				swap_ideas = {
+					remove_idea = SPA_black_monday
+					add_idea = SPA_black_monday_2
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
+		id = SPA_construction_focus
+		icon = GFX_goal_generic_construction
+		cost = 8
+		relative_position_id = SPA_focus_economy
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = SPA_focus_economy
+		}
+		bypass = {
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SPA_construction_focus"
+			add_timed_idea = {
+				idea = SPA_infra_projects
+				days = 200
+			}
+			41 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			167 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			793 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			build_railway = {
+				path = {
+					3794
+					3820
+					13557
+					11809
+					9870
+					885
+				}
+			}
+			build_railway = {
+				path = {
+					758
+					3761
+					6764
+					9719
+					13066
+					11707
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	focus = {
+		id = SPA_civ_production
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 8
+		relative_position_id = SPA_focus_economy
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = SPA_focus_economy
+		}
+		bypass = {
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SPA_civ_production"
+			random_owned_controlled_state = {
+				prioritize = {
+					41
+				}
+				#Madrid
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = {
+					176
+				}
+				#Castille
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = {
+					165
+				}
+				#Catalonia
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
+		id = SPA_new_jobs
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 8
+		relative_position_id = SPA_electrification_program
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = SPA_electrification_program
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		bypass = {
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SPA_new_jobs"
+			add_timed_idea = {
+				idea = SPA_growing_support
+				days = 180
+			}
+			add_tech_bonus = {
+				name = SPA_new_jobs
+				bonus = 1
+				uses = 1
+				category = industry
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	focus = {
 		id = SPA_military_factories
 		icon = GFX_focus_generic_emergent_arms_order
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = 3
-		y = 2
+		relative_position_id = SPA_create_ini
+		x = 1
+		y = 1
 		prerequisite = {
 			focus = SPA_create_ini
 		}
@@ -3753,12 +4139,15 @@ focus_tree = {
 		id = SPA_modern_agriculture
 		icon = GFX_focus_generic_agriculture_3
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = 2
-		y = 3
+		relative_position_id = SPA_create_ini
+		x = 0
+		y = 2
 		prerequisite = {
 			focus = SPA_industrial_nationalisation
 			focus = SPA_military_factories
+		}
+		prerequisite = {
+			focus = SPA_catholic_trade_unions
 		}
 		ai_will_do = {
 			factor = 100
@@ -3771,7 +4160,7 @@ focus_tree = {
 		icon = GFX_focus_generic_syndicalist_workers
 		cost = 7
 		relative_position_id = SPA_rebuilding_the_economy
-		x = 4
+		x = 3
 		y = 1
 		prerequisite = {
 			focus = SPA_rebuilding_the_economy
@@ -3793,9 +4182,9 @@ focus_tree = {
 		id = SPA_catholic_trade_unions
 		icon = GFX_focus_generic_befriend_catholic
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
-		x = 4
-		y = 3
+		relative_position_id = SPA_labour_charter
+		x = 1
+		y = 1
 		prerequisite = {
 			focus = SPA_labour_charter
 		}
@@ -3809,23 +4198,14 @@ focus_tree = {
 		id = SPA_spanish_miracle
 		icon = GFX_focus_spa_the_spanish_miracle
 		cost = 7
-		relative_position_id = SPA_rebuilding_the_economy
+		relative_position_id = SPA_electrification_program
 		x = 0
-		y = 4
-		prerequisite = {
-			focus = SPA_resource_extraction
-		}
+		y = 2
 		prerequisite = {
 			focus = SPA_electrification_program
 		}
 		prerequisite = {
-			focus = SPA_expand_royal_academia
-		}
-		prerequisite = {
-			focus = SPA_modern_agriculture
-		}
-		prerequisite = {
-			focus = SPA_catholic_trade_unions
+			focus = SPA_comercial_investment
 		}
 		ai_will_do = {
 			factor = 200
@@ -3837,7 +4217,7 @@ focus_tree = {
 		id = SPA_place_in_the_world
 		icon = GFX_focus_generic_world
 		cost = 3
-		x = -5
+		x = 0
 		y = 18
 		bypass = {
 			is_subject = yes
