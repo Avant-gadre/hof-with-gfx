@@ -27,6 +27,8 @@ for file_name in files:
 
     files_set.add(file_name)
 
+files_set = sorted(list(files_set))
+
 
 ##格式-陆军
 characters_string = '''
