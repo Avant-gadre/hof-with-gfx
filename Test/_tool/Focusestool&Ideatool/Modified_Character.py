@@ -3,7 +3,7 @@ import os
 
 inputpath = ".\\common\\characters\\"
 outputpath = ".\\_tool\\Focusestool\\"
-inputfilename = "GER_Characters.txt"
+inputfilename = "JAP_Characters.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
