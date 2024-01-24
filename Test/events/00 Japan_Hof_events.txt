@@ -1,401 +1,9 @@
-add_namespace = japan
 add_namespace = rw_jap_election
 add_namespace = rw_jap
 add_namespace = jap_purge
 add_namespace = jap_diplo
 add_namespace = jap_flavour
 add_namespace = jap_cabinet
-country_event = {
-	id = japan.1
-	title = china.1.t
-	desc = japan.1.d
-	picture = GFX_report_event_chinese_soldiers_01
-	is_triggered_only = yes
-	option = {
-		name = japan.1.a
-		add_war_support = 0.05
-		declare_war_on = {
-			type = annex_everything
-			target = CHI
-		}
-		declare_war_on = {
-			type = annex_everything
-			target = BEY
-		}
-		declare_war_on = {
-			type = annex_everything
-			target = GXC
-		}
-		declare_war_on = {
-			type = annex_everything
-			target = SIK
-		}
-		declare_war_on = {
-			type = annex_everything
-			target = XSM
-		}
-		declare_war_on = {
-			type = annex_everything
-			target = YUN
-		}
-		hidden_effect = {
-			# country_event = {
-			# 	days = 5
-			# 	id = news.1
-			# }
-		}
-		USA = {
-			set_country_flag = {
-				flag = USA_china_window
-				days = 60
-				value = 1
-			}
-		}
-		if = {
-			limit = {
-				has_country_leader = {
-					id = 700
-					ruling_only = yes
-				}
-			}
-			remove_country_leader_trait = JAP_imperial_sanction
-		}
-	}
-}
-
-# Chinese Concessions
-country_event = {
-	id = japan.2
-	title = china.1.t
-	desc = japan.2.d
-	picture = GFX_report_event_chinese_soldiers_running
-	is_triggered_only = yes
-	option = {
-		name = japan.2.a
-		effect_tooltip = {
-			set_truce = {
-				target = FROM
-				days = 180
-			}
-		}
-		hidden_effect = {
-			news_event = {
-				days = 5
-				id = news.2
-			}
-		}
-		if = {
-			limit = {
-				609 = {
-					is_controlled_by = FROM
-				}
-			}
-			JAP = {
-				transfer_state = 609
-			}
-		}
-		if = {
-			limit = {
-				611 = {
-					is_controlled_by = FROM
-				}
-			}
-			JAP = {
-				transfer_state = 611
-			}
-		}
-		if = {
-			limit = {
-				612 = {
-					is_controlled_by = FROM
-				}
-			}
-			JAP = {
-				transfer_state = 612
-			}
-		}
-		if = {
-			limit = {
-				610 = {
-					is_controlled_by = FROM
-				}
-			}
-			if = {
-				limit = {
-					MAN = {
-						is_subject_of = JAP
-					}
-				}
-				MAN = {
-					transfer_state = 610
-				}
-				else = {
-					JAP = {
-						transfer_state = 610
-					}
-				}
-			}
-		}
-		add_state_claim = 613
-		if = {
-			limit = {
-				has_country_leader = {
-					id = 700
-					ruling_only = yes
-				}
-			}
-			remove_country_leader_trait = JAP_imperial_sanction
-		}
-		add_ai_strategy = {
-			type = antagonize
-			id = "CHI"
-			value = 500
-		}
-	}
-}
-
-# USA condemns our war 
-country_event = {
-	id = japan.10
-	title = japan.10.t
-	desc = japan.10.d
-	picture = GFX_report_event_FDR_speech
-	is_triggered_only = yes
-	option = {
-		name = japan.10.a
-		USA = {
-			add_opinion_modifier = {
-				target = JAP
-				modifier = condemn_aggression
-			}
-		}
-	}
-}
-
-# Pressure Siam to become a puppet
-country_event = {
-	id = japan.11
-	title = japan.11.t
-	desc = japan.11.d
-	picture = GFX_report_event_japanese_officers
-	is_triggered_only = yes
-	option = {
-		name = japan.11.a
-		SIA = {
-			country_event = {
-				id = japan.12
-			}
-		}
-	}
-	option = {
-		name = japan.11.b
-		ai_chance = {
-			base = 0
-		}
-	}
-}
-
-# Siam event from Japan: Become puppet or not
-country_event = {
-	id = japan.12
-	title = japan.12.t
-	desc = japan.12.d
-	picture = GFX_report_event_japanese_officers
-	is_triggered_only = yes
-	option = {
-		name = japan.12.a
-		ai_chance = {
-			base = 90
-			modifier = {
-				#If they have a fighting chance, they should stand their ground
-				factor = 0
-				strength_ratio = {
-					tag = JAP
-					ratio > 0.75
-				}
-			}
-		}
-		JAP = {
-			country_event = {
-				id = japan.13
-			}
-			effect_tooltip = {
-				puppet = SIA
-			}
-		}
-	}
-	option = {
-		name = japan.12.b
-		ai_chance = {
-			base = 10
-		}
-		JAP = {
-			country_event = {
-				id = japan.14
-			}
-			effect_tooltip = {
-				declare_war_on = {
-					target = SIA
-					type = puppet_wargoal_focus
-				}
-			}
-		}
-	}
-}
-
-# Siam accepts and is puppeted
-country_event = {
-	id = japan.13
-	title = japan.13.t
-	desc = japan.13.d
-	picture = GFX_report_event_japanese_siam_politicians
-	is_triggered_only = yes
-	option = {
-		name = japan.13.a
-		puppet = SIA
-	}
-}
-
-# Siam refuses, nations go to war 
-country_event = {
-	id = japan.14
-	title = japan.14.t
-	desc = japan.14.d
-	picture = GFX_report_event_japanese_chinese_surrender
-	is_triggered_only = yes
-	option = {
-		name = japan.14.a
-		declare_war_on = {
-			target = SIA
-			type = puppet_wargoal_focus
-		}
-	}
-}
-
-# Indian national army 
-country_event = {
-	id = japan.15
-	title = japan.15.t
-	desc = japan.15.d
-	picture = GFX_report_event_indian_soldiers
-	is_triggered_only = yes
-	option = {
-		name = japan.15.a
-		hidden_effect = {
-			load_oob = "JAP_Indian_National_Army_reinforcement"
-		}
-		custom_effect_tooltip = JAP_Indian_National_Army_arrives
-		add_manpower = 10000
-		set_global_flag = indian_national_army_setup
-		RAJ = {
-			add_stability = -0.2
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.1
-			}
-			add_popularity = {
-				ideology = democratic
-				popularity = -0.05
-			}
-			add_ideas = RAJ_azad_hind
-			ENG = {
-				country_event = {
-					id = britain.19
-				}
-			}
-		}
-	}
-}
-
-# China event from Japan: Become puppet or not
-country_event = {
-	id = japan.16
-	title = japan.16.t
-	desc = japan.16.d
-	picture = GFX_report_event_asian_politicians
-	is_triggered_only = yes
-	#Accept - become puppet
-	option = {
-		name = japan.16.a
-		ai_chance = {
-			base = 60
-			modifier = {
-				factor = 0
-				strength_ratio = {
-					tag = JAP
-					ratio > 0.1
-				}
-			}
-		}
-		JAP = {
-			country_event = {
-				id = japan.17
-			}
-			effect_tooltip = {
-				puppet = CHI
-			}
-		}
-	}
-	option = {
-		name = japan.16.b
-		ai_chance = {
-			base = 40
-		}
-		JAP = {
-			country_event = {
-				id = japan.18
-			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state
-					target = CHI
-					generator = owned_states
-				}
-			}
-		}
-	}
-}
-
-# China accepts and is puppeted
-country_event = {
-	id = japan.17
-	title = japan.17.t
-	desc = japan.17.d
-	picture = GFX_report_event_chinese_japanese_handshake
-	is_triggered_only = yes
-	option = {
-		name = japan.17.a
-		puppet = CHI
-		add_named_threat = {
-			threat = 20
-			name = chinese_puppet_focus
-		}
-		hidden_effect = {
-			news_event = {
-				hours = 6
-				id = news.210
-			}
-		}
-	}
-}
-
-# China refuses, gain cb
-country_event = {
-	id = japan.18
-	title = japan.18.t
-	desc = japan.18.d
-	picture = GFX_report_event_chinese_soldiers_02
-	is_triggered_only = yes
-	option = {
-		name = japan.18.a
-		create_wargoal = {
-			type = take_state
-			target = CHI
-			generator = owned_states
-		}
-	}
-}
-
 ##country event
 ######部分选举的领袖未设定，意识形态可能有问题####
 ###########################
@@ -685,6 +293,7 @@ country_event = {
 					Murder_Speculation
 					Garan_no_Do
 				}
+				desc = POLITICS_SHIKI_DESC
 			}
 		}
 		JAP_set_party_name_global = yes
@@ -6516,179 +6125,177 @@ country_event = {
 	}
 }
 
-# # Democratic coup
-# country_event = {
-# 	id = trs_japan.7
-# 	title = wtt_japan.114.t
-# 	desc = wtt_japan.114.desc
-# 	picture = GFX_report_event_tyoma
-# 	is_triggered_only = yes
-# 	option = {
-# 		name = wtt_japan.114.a
-# 		if = {
-# 			limit = {
-# 				MAN = {
-# 					is_subject_of = ROOT
-# 				}
-# 			}
-# 			set_autonomy = {
-# 				target = MAN
-# 				autonomy_state = autonomy_free
-# 			}
-# 			MAN = {
-# 				set_cosmetic_tag = MAN_kwantung_army
-# 				diplomatic_relation = {
-# 					country = JAP
-# 					relation = military_access
-# 					active = yes
-# 				}
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				MAN = {
-# 					has_idea = MAN_kwantung_veto
-# 				}
-# 			}
-# 			MAN = {
-# 				remove_ideas = MAN_kwantung_veto
-# 			}
-# 		}
-# 		start_civil_war = {
-# 			ruling_party = democratic
-# 			ideology = neutrality
-# 			size = 0.4
-# 			keep_unit_leaders = {
-# 				860
-# 				861
-# 				862
-# 				863
-# 				864
-# 			}
-# 		}
-# 		add_popularity = {
-# 			ideology = democratic
-# 			popularity = 0.1
-# 		}
-# 		JAP_create_democratic_leaders = yes
-# 		remove_unit_leader = 580
-# 		remove_unit_leader = 581
-# 		random_other_country = {
-# 			limit = {
-# 				original_tag = JAP
-# 				has_government = neutrality
-# 			}
-# 			JAP = {
-# 				every_unit_leader = {
-# 					limit = {
-# 						OR = {
-# 							has_id = 850
-# 							has_id = 851
-# 							has_id = 853
-# 							has_id = 857
-# 							has_id = 580
-# 							has_id = 581
-# 						}
-# 					}
-# 					set_nationality = PREV
-# 				}
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				any_state = {
-# 					is_controlled_by = ROOT
-# 					is_core_of = KOR
-# 				}
-# 			}
-# 			release = KOR
-# 			set_autonomy = {
-# 				target = KOR
-# 				autonomy_state = autonomy_free
-# 			}
-# 		}
-# 	}
-# }
-# # Democratic Coup without civil war
-# country_event = {
-# 	id = trs_japan.8
-# 	title = trs_japan.8.t
-# 	desc = trs_japan.8.desc
-# 	picture = GFX_report_event_shiki
-# 	is_triggered_only = yes
-# 	option = {
-# 		name = trs_japan.8.a
-# 		if = {
-# 			limit = {
-# 				MAN = {
-# 					is_subject_of = ROOT
-# 				}
-# 			}
-# 			set_autonomy = {
-# 				target = MAN
-# 				autonomy_state = autonomy_free
-# 			}
-# 			MAN = {
-# 				set_cosmetic_tag = MAN_kwantung_army
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				MAN = {
-# 					has_idea = MAN_kwantung_veto
-# 				}
-# 			}
-# 			MAN = {
-# 				remove_ideas = MAN_kwantung_veto
-# 			}
-# 		}
-# 		add_popularity = {
-# 			ideology = democratic
-# 			popularity = 0.2
-# 		}
-# 		set_politics = {
-# 			ruling_party = democratic
-# 			elections_allowed = no
-# 		}
-# 		hidden_effect = {
-# 			news_event = {
-# 				id = trs_news.2
-# 				hours = 6
-# 			}
-# 		}
-# 		JAP_create_democratic_leaders = yes
-# 		add_country_leader_role = {
-# 			promote_leader = yes
-# 			character = JAP_ryougi_shiki
-# 			country_leader = {
-# 				ideology = conservatism
-# 				traits = {
-# 					Murder_Speculation
-# 					Garan_no_Do
-# 				}
-# 			}
-# 		}
-# 		hidden_effect = {
-# 			news_event = {
-# 				id = trs_news.2
-# 				hours = 6
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				any_state = {
-# 					is_controlled_by = ROOT
-# 					is_core_of = KOR
-# 				}
-# 			}
-# 			release = KOR
-# 			set_autonomy = {
-# 				target = KOR
-# 				autonomy_state = autonomy_free
-# 			}
-# 		}
-# 	}
-# }
+# Democratic coup
+country_event = {
+	id = trs_japan.7
+	title = wtt_japan.114.t
+	desc = wtt_japan.114.desc
+	picture = GFX_report_event_tyoma
+	is_triggered_only = yes
+	trigger = {
+		always = no
+	}
+	option = {
+		name = wtt_japan.114.a
+		if = {
+			limit = {
+				MAN = {
+					is_subject_of = ROOT
+				}
+			}
+			set_autonomy = {
+				target = MAN
+				autonomy_state = autonomy_free
+			}
+			MAN = {
+				set_cosmetic_tag = MAN_kwantung_army
+				diplomatic_relation = {
+					country = JAP
+					relation = military_access
+					active = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				MAN = {
+					has_idea = MAN_kwantung_veto
+				}
+			}
+			MAN = {
+				remove_ideas = MAN_kwantung_veto
+			}
+		}
+		start_civil_war = {
+			ruling_party = democratic
+			ideology = neutrality
+			size = 0.4
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		JAP_create_democratic_leaders = yes
+		remove_unit_leader = 580
+		remove_unit_leader = 581
+		random_other_country = {
+			limit = {
+				original_tag = JAP
+				has_government = neutrality
+			}
+			JAP = {
+				every_unit_leader = {
+					limit = {
+						OR = {
+							has_id = 850
+							has_id = 851
+							has_id = 853
+							has_id = 857
+							has_id = 580
+							has_id = 581
+						}
+					}
+					set_nationality = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_state = {
+					is_controlled_by = ROOT
+					is_core_of = KOR
+				}
+			}
+			release = KOR
+			set_autonomy = {
+				target = KOR
+				autonomy_state = autonomy_free
+			}
+		}
+	}
+}
+
+# Democratic Coup without civil war
+country_event = {
+	id = trs_japan.8
+	title = trs_japan.8.t
+	desc = trs_japan.8.desc
+	picture = GFX_report_event_shiki
+	is_triggered_only = yes
+	option = {
+		name = trs_japan.8.a
+		if = {
+			limit = {
+				MAN = {
+					is_subject_of = ROOT
+				}
+			}
+			set_autonomy = {
+				target = MAN
+				autonomy_state = autonomy_free
+			}
+			MAN = {
+				set_cosmetic_tag = MAN_kwantung_army
+			}
+		}
+		if = {
+			limit = {
+				MAN = {
+					has_idea = MAN_kwantung_veto
+				}
+			}
+			MAN = {
+				remove_ideas = MAN_kwantung_veto
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.2
+		}
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = no
+		}
+		hidden_effect = {
+			news_event = {
+				id = trs_news.2
+				hours = 6
+			}
+		}
+		JAP_create_democratic_leaders = yes
+		add_country_leader_role = {
+			promote_leader = yes
+			character = JAP_ryougi_shiki
+			country_leader = {
+				ideology = conservatism
+				traits = {
+					Murder_Speculation
+					Garan_no_Do
+				}
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = trs_news.2
+				hours = 6
+			}
+		}
+		if = {
+			limit = {
+				any_state = {
+					is_controlled_by = ROOT
+					is_core_of = KOR
+				}
+			}
+			release = KOR
+			set_autonomy = {
+				target = KOR
+				autonomy_state = autonomy_free
+			}
+		}
+	}
+}
+
 # taiwan for alliance
 country_event = {
 	id = trs_japan.9
@@ -6937,14 +6544,14 @@ country_event = {
 	}
 	option = {
 		name = trs_japan.17.a		# 远坂时臣
-		create_country_leader = {
-			name = "Tohsaka Tokiomi"
-			picture = "Portrait_tohsaka_tokiomi.png"
-			expire = "1989.1.1"
-			ideology = conservatism
-			id = 921
-			traits = {
-				Elegant_Zaibatsu
+		add_country_leader_role = {
+			character = JAP_tohsaka_tokiomi
+			promote_leader = yes
+			country_leader = {
+				ideology = conservatism
+				traits = {
+					Elegant_Zaibatsu
+				}
 			}
 		}
 		ai_chance = {
@@ -6953,14 +6560,14 @@ country_event = {
 	}
 	option = {
 		name = trs_japan.17.b		# 久远寺有珠
-		create_country_leader = {
-			name = "Kuonji Alice"
-			picture = "Portrait_Kuonji_alice.png"
-			expire = "1989.1.1"
-			ideology = conservatism
-			id = 922
-			traits = {
-				silent_scholar
+		add_country_leader_role = {
+			character = JAP_kuonji_alice
+			promote_leader = yes
+			country_leader = {
+				ideology = conservatism
+				traits = {
+					silent_scholar
+				}
 			}
 		}
 		ai_chance = {
@@ -8017,175 +7624,100 @@ country_event = {
 	}
 }
 
-# country_event = {
-# 	# 茨木派叛乱：内战开始 (废案)
-# 	id = jap_elective.17
-# 	title = jap_elective.17.t
-# 	desc = jap_elective.17.d
-# 	#picture = GFX_report_event_aozaki
-# 	is_triggered_only = yes
-# 	# fire_only_once = yes
-# 	# 
-# 	option = {
-# 		### 华扇，你还是和当年一样天真啊
-# 		name = jap_elective.17.a
-# 		ai_chance = {
-# 			base = 10
-# 		}
-# 		start_civil_war = {
-# 			ruling_party = neutrality
-# 			ideology = democratic
-# 			size = 0.2
-# 			keep_unit_leaders = {
-# 				8001
-# 				8003
-# 				8005
-# 				8011
-# 				8013
-# 				8017
-# 				8018
-# 				8023
-# 				8026
-# 				8024
-# 				8027
-# 				8026
-# 				8028
-# 				8031
-# 				8035
-# 				8036
-# 				8030
-# 				8029
-# 				8016
-# 			}
-# 		}
-# 		hidden_effect = {
-# 			random_other_country = {
-# 				limit = {
-# 					original_tag = JAP
-# 					has_government = democratic
-# 				}
-# 				create_country_leader = {
-# 					name = "Ibaraki Kasen"
-# 					desc = "POLITICS_IBARAKI_KASEN_DESC"
-# 					picture = "Portrait_Ibaraki_Kasen.png"
-# 					ideology = social_democracy
-# 					traits = {
-# 						imperial_connections
-# 					}
-# 				}
-# 				JAP = {
-# 					every_unit_leader = {
-# 						limit = {
-# 							OR = {
-# 								has_id = 8019
-# 								has_id = 8021
-# 								has_id = 8022
-# 								has_id = 8002
-# 								has_id = 8012
-# 							}
-# 						}
-# 						set_nationality = PREV
-# 					}
-# 					set_country_flag = jap_osakabehime_disabled
-# 					set_country_flag = jap_ibaraki_kasen_disabled
-# 					set_country_flag = jap_kirisame_marisa_disabled
-# 					set_country_flag = jap_hijiri_byakuren_disabled
-# 					set_country_flag = jap_nagao_kagetora_disabled
-# 				}
-# 			}
-# 		}
-# 	}
-# 	option = {
-# 		### 紫，让我们做个了断吧
-# 		name = jap_elective.17.b
-# 		ai_chance = {
-# 			base = 0
-# 		}
-# 		remove_ideas = JAP_council_of_sage_idea
-# 		start_civil_war = {
-# 			ruling_party = democratic
-# 			ideology = neutrality
-# 			size = 0.85
-# 			keep_unit_leaders = {
-# 				8002
-# 				8019
-# 				8022
-# 				8002
-# 				8012
-# 				8026
-# 				8032
-# 				8033
-# 				8034
-# 				8035
-# 				8001
-# 				8003
-# 				8017
-# 				8008
-# 				8013
-# 				8011
-# 				8016
-# 			}
-# 		}
-# 		add_ideas = {
-# 			JAP_ibaraki_kasen
-# 		}
-# 		if = {
-# 			limit = {
-# 				NOT = {
-# 					has_country_flag = jap_hijiri_byakuren_disabled
-# 				}
-# 			}
-# 			add_ideas = {
-# 				JAP_hijiri_byakuren
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				has_country_flag = jap_hijiri_byakuren_disabled
-# 			}
-# 			add_ideas = {
-# 				JAP_osakabehime
-# 			}
-# 		}
-# 		JAP_switch_to_liberals = yes
-# 		unlock_national_focus = JAP_liberals_win
-# 		unlock_national_focus = JAP_seek_sympathizer
-# 		unlock_national_focus = JAP_seek_support_from_navy
-# 		unlock_national_focus = JAP_showdown
-# 		hidden_effect = {
-# 			random_other_country = {
-# 				limit = {
-# 					original_tag = JAP
-# 					has_government = neutrality
-# 				}
-# 				create_country_leader = {
-# 					name = "Yasaka Kanoko"
-# 					##desc = "POLITICS_YASAKA_KANOKO_DESC"
-# 					picture = "Portrait_Yasaka_Kanako.png"
-# 					ideology = stratocracy
-# 				}
-# 				JAP = {
-# 					every_unit_leader = {
-# 						limit = {
-# 							OR = {
-# 								has_id = 8030
-# 								has_id = 8031
-# 								has_id = 8036
-# 								has_id = 8027
-# 								has_id = 8028
-# 								has_id = 8005
-# 							}
-# 						}
-# 						set_nationality = PREV
-# 					}
-# 					set_country_flag = jap_yogyu_munenori_disabled
-# 					set_country_flag = jap_yukari_yakumo_disabled
-# 					set_country_flag = jap_yasaka_kanako_disabled
-# 				}
-# 			}
-# 		}
-# 	}
-# }
+country_event = {
+	# 茨木派叛乱：内战开始 (废案)
+	id = jap_elective.17
+	title = jap_elective.17.t
+	desc = jap_elective.17.d
+	picture = GFX_report_event_aozaki
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		always = no
+	}
+	option = {
+		### 华扇，你还是和当年一样天真啊
+		name = jap_elective.17.a
+		ai_chance = {
+			base = 10
+		}
+		start_civil_war = {
+			ruling_party = neutrality
+			ideology = democratic
+			size = 0.2
+		}
+		hidden_effect = {
+			random_other_country = {
+				limit = {
+					original_tag = JAP
+					has_government = democratic
+				}
+				add_country_leader_role = {
+					character = JAP_ibaraki_kasen
+					promote_leader = yes
+					country_leader = {
+						ideology = social_democracy
+						traits = {
+							imperial_connections
+						}
+					}
+				}
+				JAP = {
+					every_unit_leader = {
+						limit = {
+							OR = {
+								has_id = 8019
+								has_id = 8021
+								has_id = 8022
+								has_id = 8002
+								has_id = 8012
+							}
+						}
+						set_nationality = PREV
+					}
+					set_country_flag = jap_osakabehime_disabled
+					set_country_flag = jap_ibaraki_kasen_disabled
+					set_country_flag = jap_kirisame_marisa_disabled
+					set_country_flag = jap_hijiri_byakuren_disabled
+					set_country_flag = jap_nagao_kagetora_disabled
+				}
+			}
+		}
+	}
+	option = {
+		### 紫，让我们做个了断吧
+		name = jap_elective.17.b
+		ai_chance = {
+			base = 0
+		}
+		remove_ideas = JAP_council_of_sage_idea
+		start_civil_war = {
+			ruling_party = democratic
+			ideology = neutrality
+			size = 0.85
+			JAP_switch_to_liberals = yes
+			unlock_national_focus = JAP_liberals_win
+			unlock_national_focus = JAP_seek_sympathizer
+			unlock_national_focus = JAP_seek_support_from_navy
+			unlock_national_focus = JAP_showdown
+			hidden_effect = {
+				random_other_country = {
+					limit = {
+						original_tag = JAP
+						has_government = neutrality
+					}
+					create_country_leader = {
+						name = "Yasaka Kanoko"
+						##desc = "POLITICS_YASAKA_KANOKO_DESC"
+						picture = "Portrait_Yasaka_Kanako.png"
+						ideology = stratocracy
+					}
+				}
+			}
+		}
+	}
+}
+
 country_event = {
 	# 内阁倒台，陆军
 	id = jap_elective.18
