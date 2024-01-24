@@ -10,7 +10,7 @@ focus_tree = {
 	}
 	default = no
 	continuous_focus_position = {
-		x = 500
+		x = 100
 		y = 1300
 	}
 	focus = {
@@ -544,7 +544,7 @@ focus_tree = {
 		icon = GFX_focus_generic_organization_partisans
 		cost = 6
 		relative_position_id = BEL_Mobilise_the_Reserves
-		x = -3
+		x = -2
 		y = 2
 		prerequisite = {
 			focus = BEL_Mobilise_the_Reserves
@@ -628,7 +628,7 @@ focus_tree = {
 			focus = BEL_Increase_FN_Funding
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
@@ -2051,7 +2051,7 @@ focus_tree = {
 		icon = GFX_focus_generic_design_equipment_standards
 		cost = 6
 		relative_position_id = BEL_A_House_In_Divide
-		x = 0
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = BEL_A_House_In_Divide
@@ -2060,6 +2060,11 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
+			add_political_power = 50
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_research_speed_factor_effect = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_cir_off_production_lack_of_resource_penalty_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2082,31 +2087,20 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_oil_factor_effect = yes
+			BEL_modify_cir_off_production_factory_max_efficiency_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_Antwerpse_Raffinage
 				bonus = 2
 				uses = 1
 				category = synth_resources
 			}
-			random_owned_controlled_state = {
-				prioritize = {
-					925
-				}
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = synthetic_refinery
-					level = 1
-					instant_build = yes
-				}
+			925 = {
+				prioritize_state = yes
 			}
+			add_one_random_fuel_silo = yes
+			add_one_random_synthetic_refinery = yes
 		}
 	}
 	focus = {
@@ -2123,6 +2117,8 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			set_temp_var_one_per_fifty = yes
+			BEL_modify_cir_off_research_speed_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_Baekelandt_Program
 				bonus = 1
@@ -2150,6 +2146,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			set_temp_var_one_per_fifty = yes
+			BEL_modify_cir_off_research_speed_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_Uranium_Mining
 				bonus = 1
@@ -2172,6 +2170,9 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = BEL_solvay
+			add_ideas = BEL_solvay_institute1_idea
 		}
 	}
 	focus = {
@@ -2186,14 +2187,22 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = BEL_Sixth_Solvay_Congress
+		}
+		prerequisite = {
 			focus = BEL_Boerenbond_Subsidies
 		}
 		completion_reward = {
+			set_temp_var_one_per_fifty = yes
+			BEL_modify_cir_off_research_speed_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_Breakthrough_In_Engineering
 				bonus = 2
 				uses = 1
 				category = industry
+			}
+			swap_ideas = {
+				remove_idea = BEL_solvay_institute1_idea
+				add_idea = BEL_solvay_institute2_idea
 			}
 		}
 	}
@@ -2202,16 +2211,21 @@ focus_tree = {
 		icon = GFX_focus_generic_great_science
 		cost = 6
 		relative_position_id = BEL_Breakthrough_In_Engineering
-		x = 1
-		y = 1
+		x = 0
+		y = 2
 		prerequisite = {
 			focus = BEL_Breakthrough_In_Engineering
+		}
+		available = {
+			has_completed_focus = BEL_Redefine_Walloon_Expertise
 		}
 		ai_will_do = {
 			factor = 80
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			set_temp_var_one_per_fifty = yes
+			BEL_modify_cir_off_research_speed_factor_effect = yes
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
@@ -2231,7 +2245,9 @@ focus_tree = {
 			focus = BEL_Baekelandt_Program
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			set_temp_var_one_per_fifty = yes
+			BEL_modify_cir_off_research_speed_factor_effect = yes
+			add_research_slot_until_six = yes
 			add_tech_bonus = {
 				name = BEL_Build_Our_Own_Cyclotron
 				bonus = 0.5
@@ -2243,9 +2259,9 @@ focus_tree = {
 	focus = {
 		id = BEL_Galopin_Doctrine
 		icon = GFX_focus_generic_financial_markets
-		cost = 6
+		cost = 12
 		relative_position_id = BEL_A_House_In_Divide
-		x = -7
+		x = -4
 		y = 1
 		ai_will_do = {
 			factor = 90
@@ -2255,6 +2271,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = BEL_galopin_doctrine_idea
+			add_political_power = 50
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = BEL_alexandre_galopin
 			set_temp_variable = {
@@ -2262,6 +2279,8 @@ focus_tree = {
 				value = 0.05
 			}
 			BEL_modify_cir_off_production_speed_infrastructure_factor_effect = yes
+			BEL_modify_cir_off_production_speed_industrial_complex_factor_effect = yes
+			unlock_decision_category_tooltip = BEL_galopin_planning_categories
 		}
 	}
 	focus = {
@@ -2286,6 +2305,18 @@ focus_tree = {
 			}
 			add_one_random_military_factory = yes
 			add_one_random_military_factory = yes
+			mio:BEL_fabrique_nationale_organization = {
+				add_mio_funds = 1000
+				add_mio_size = 1
+			}
+			BEL_herstal_polyvalente_pieper = {
+				add_attack = 1
+				add_logistics = 1
+				add_defense = 1
+				add_planning = 1
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_arms_factory_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2303,26 +2334,19 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					948
-				}
-				limit = {
-					is_core_of = ROOT
-					is_valid_state_for_development = yes
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
+			mio:BEL_fabrique_nationale_organization = {
+				add_mio_funds_gain_factor = 0.2
+				add_mio_size = 1
 			}
+			948 = {
+				prioritize_state = yes
+			}
+			add_one_random_military_factory = yes
+			948 = {
+				upgrade_industrial_region = yes
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_buildings_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2330,7 +2354,7 @@ focus_tree = {
 		icon = GFX_focus_BEL_minerva
 		cost = 6
 		relative_position_id = BEL_FN_Herstal
-		x = 2
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = BEL_FN_Herstal
@@ -2339,6 +2363,13 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			add_one_random_military_factory = yes
+			mio:BEL_minerva_organization = {
+				add_mio_funds = 1000
+				add_mio_size = 1
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_industrial_complex_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2346,7 +2377,7 @@ focus_tree = {
 		icon = GFX_focus_generic_armoured_truck
 		cost = 6
 		relative_position_id = BEL_FN_Herstal
-		x = 0
+		x = -1
 		y = 1
 		prerequisite = {
 			focus = BEL_FN_Herstal
@@ -2355,26 +2386,15 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					925
-				}
-				limit = {
-					is_core_of = ROOT
-					is_valid_state_for_development = yes
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+			925 = {
+				prioritize_state = yes
 			}
+			add_one_random_military_factory = yes
+			mio:BEL_minerva_organization = {
+				add_mio_funds_gain_factor = 0.1
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_industrial_complex_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2382,7 +2402,7 @@ focus_tree = {
 		icon = GFX_focus_generic_silk
 		cost = 6
 		relative_position_id = BEL_Galopin_Doctrine
-		x = 0
+		x = -1
 		y = 1
 		prerequisite = {
 			focus = BEL_Galopin_Doctrine
@@ -2395,8 +2415,12 @@ focus_tree = {
 				prioritize_state = yes
 			}
 			add_one_random_civilian_factory = yes
-			set_temp_var_0.05 = yes
+			set_temp_var_one_per_twenty = yes
 			BEL_modify_cir_off_monthly_population_effect = yes
+			979 = {
+				upgrade_industrial_region = yes
+				increase_state_category = yes
+			}
 		}
 	}
 	focus = {
@@ -2404,7 +2428,7 @@ focus_tree = {
 		icon = GFX_focus_generic_railroad_01
 		cost = 6
 		relative_position_id = BEL_Galopin_Doctrine
-		x = 3
+		x = 2
 		y = 1
 		prerequisite = {
 			focus = BEL_Galopin_Doctrine
@@ -2423,13 +2447,14 @@ focus_tree = {
 			925 = {
 				prioritize_state = yes
 			}
+			add_one_random_infrastructure = yes
 			948 = {
 				prioritize_state = yes
 			}
 			add_one_random_infrastructure = yes
-			add_one_random_infrastructure = yes
-			set_temp_var_0.05 = yes
+			set_temp_var_one_per_twenty = yes
 			BEL_modify_cir_off_political_power_gain_effect = yes
+			BEL_modify_cir_off_production_production_speed_rail_way_factor = yes
 		}
 	}
 	focus = {
@@ -2446,25 +2471,15 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					925
-				}
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = dockyard
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+			925 = {
+				upgrade_industrial_region = yes
 			}
+			925 = {
+				prioritize_state = yes
+			}
+			add_one_random_civilian_factory = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_political_power_gain_effect = yes
 		}
 	}
 	focus = {
@@ -2472,7 +2487,7 @@ focus_tree = {
 		icon = GFX_focus_generic_automobile_production
 		cost = 6
 		relative_position_id = BEL_Brussel_Capital
-		x = -1
+		x = 0
 		y = 2
 		prerequisite = {
 			focus = BEL_Brussel_Capital
@@ -2482,24 +2497,15 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					6
-				}
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = dockyard
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+			6 = {
+				prioritize_state = yes
+			}
+			add_one_random_military_factory = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_industrial_capacity_factory_effect = yes
+			mio:BEL_mecar_organization = {
+				add_mio_funds_gain_factor = 0.2
+				add_mio_size = 1
 			}
 		}
 	}
@@ -2508,7 +2514,7 @@ focus_tree = {
 		icon = GFX_focus_generic_achieve_electrification
 		cost = 6
 		relative_position_id = BEL_Brussels_Oostende
-		x = -2
+		x = -1
 		y = 1
 		prerequisite = {
 			focus = BEL_Brussels_Oostende
@@ -2520,6 +2526,11 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			add_political_power = 50
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_global_building_slots_factor_effect = yes
+			BEL_modify_cir_off_production_factory_efficiency_gain_factor_effect = yes
+			BEL_modify_cir_off_production_oil_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2527,7 +2538,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construction
 		cost = 6
 		relative_position_id = BEL_Schelle
-		x = 1
+		x = 0
 		y = 1
 		prerequisite = {
 			focus = BEL_Schelle
@@ -2536,12 +2547,20 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_global_building_slots_factor_effect = yes
+			BEL_modify_cir_off_production_factory_max_efficiency_factor_effect = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_cir_off_consumer_goods_factor_effect = yes
+			35 = {
+				increase_state_category = yes
+			}
 		}
 	}
 	focus = {
 		id = BEL_Industrial_Committee
 		icon = GFX_focus_generic_state_economy_2
-		cost = 6
+		cost = 8
 		relative_position_id = BEL_Fund_Cimentieres
 		x = 0
 		y = 2
@@ -2556,7 +2575,6 @@ focus_tree = {
 			factor = 90
 		}
 		available = {
-			has_idea = BEL_black_monday
 		}
 		completion_reward = {
 			add_tech_bonus = {
@@ -2565,6 +2583,10 @@ focus_tree = {
 				uses = 2
 				category = industry
 			}
+			set_temp_var_one_per_ten = yes
+			BEL_modify_cir_off_political_power_gain_effect = yes
+			BEL_modify_cir_off_trade_opinion_factor_effect = yes
+			BEL_modify_cir_off_global_building_slots_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2572,7 +2594,7 @@ focus_tree = {
 		icon = GFX_focus_BEL_antwerp_harbour
 		cost = 6
 		relative_position_id = BEL_Schelle
-		x = -1
+		x = -2
 		y = 1
 		prerequisite = {
 			focus = BEL_Schelle
@@ -2582,32 +2604,19 @@ focus_tree = {
 			factor = 90
 		}
 		available = {
-			OR = {
-				has_completed_focus = BEL_Invest_Liege_Economic_Zone
-				has_completed_focus = BEL_Sixth_Solvay_Congress
-			}
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					925
-				}
-				limit = {
-					is_core_of = ROOT
-					is_valid_state_for_development = yes
-					free_building_slots = {
-						building = dockyard
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
+			925 = {
+				prioritize_state = yes
 			}
+			add_one_random_dockyard = yes
+			925 = {
+				upgrade_industrial_region = yes
+			}
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_cir_off_production_lack_of_resource_penalty_factor_effect = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_oil_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2615,7 +2624,7 @@ focus_tree = {
 		icon = GFX_focus_generic_canal
 		cost = 6
 		relative_position_id = BEL_Antwerp
-		x = -1
+		x = 0
 		y = 2
 		prerequisite = {
 			focus = BEL_Antwerp
@@ -2624,6 +2633,11 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
+			add_one_random_infrastructure = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_cir_off_consumer_goods_factor_effect = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_global_building_slots_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2631,34 +2645,20 @@ focus_tree = {
 		icon = GFX_focus_generic_expand_antwerp_harbour
 		cost = 6
 		relative_position_id = BEL_Antwerp
-		x = -3
+		x = -2
 		y = 2
 		prerequisite = {
 			focus = BEL_Antwerp
+			focus = BEL_FRC_Investements
 		}
 		ai_will_do = {
 			factor = 80
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					925
-				}
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = dockyard
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = dockyard
-					level = 1
-					instant_build = yes
-				}
+			925 = {
+				prioritize_state = yes
 			}
+			add_one_random_dockyard = yes
 			925 = {
 				add_building_construction = {
 					type = naval_base
@@ -2667,6 +2667,8 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_industrial_capacity_dockyard_effect = yes
 		}
 	}
 	focus = {
@@ -2674,38 +2676,24 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_naval_dockyard
 		cost = 6
 		relative_position_id = BEL_Antwerp
-		x = -4
+		x = -3
 		y = 1
-		prerequisite = {
-			focus = BEL_Antwerp
-		}
 		prerequisite = {
 			focus = BEL_FRC_Investements
 		}
 		ai_will_do = {
 			factor = 90
 		}
+		available = {
+			has_completed_focus = BEL_Antwerp
+		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					6
-				}
-				limit = {
-					is_core_of = ROOT
-					is_valid_state_for_development = yes
-					free_building_slots = {
-						building = dockyard
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = dockyard
-					level = 1
-					instant_build = yes
-				}
+			6 = {
+				prioritize_state = yes
 			}
+			add_one_random_dockyard = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_dockyard_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2713,7 +2701,7 @@ focus_tree = {
 		icon = GFX_focus_BEL_belgian_congo
 		cost = 6
 		relative_position_id = BEL_Zeebrugge
-		x = -1
+		x = -2
 		y = 1
 		ai_will_do = {
 			factor = 50
@@ -2722,7 +2710,10 @@ focus_tree = {
 			focus = BEL_Zeebrugge
 		}
 		prerequisite = {
-			focus = BEL_Secure_Diamond_Trade
+			focus = BEL_Flemish_Miners
+		}
+		available = {
+			has_completed_focus = BEL_Secure_Diamond_Trade
 		}
 		completion_reward = {
 		}
@@ -2732,7 +2723,7 @@ focus_tree = {
 		icon = GFX_focus_generic_enforce_labor_regulation
 		cost = 6
 		relative_position_id = BEL_Antwerp
-		x = -2
+		x = -1
 		y = 1
 		prerequisite = {
 			focus = BEL_Antwerp
@@ -2741,26 +2732,12 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					925
-				}
-				limit = {
-					is_core_of = ROOT
-					is_valid_state_for_development = yes
-					free_building_slots = {
-						building = dockyard
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+			925 = {
+				prioritize_state = yes
 			}
+			add_one_random_civilian_factory = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_cir_off_consumer_goods_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2777,6 +2754,11 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			6 = {
+				upgrade_industrial_region = yes
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_industrial_capacity_factory_effect = yes
 		}
 	}
 	focus = {
@@ -2805,7 +2787,7 @@ focus_tree = {
 		cost = 6
 		relative_position_id = BEL_War_Bonds
 		x = 0
-		y = 2
+		y = 3
 		prerequisite = {
 			focus = BEL_War_Bonds
 		}
@@ -2821,7 +2803,7 @@ focus_tree = {
 		cost = 6
 		relative_position_id = BEL_Refugee_Management
 		x = -1
-		y = 2
+		y = 1
 		prerequisite = {
 			focus = BEL_Refugee_Management
 		}
@@ -2832,7 +2814,9 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			add_research_slot_until_six = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_factory_max_efficiency_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2849,6 +2833,11 @@ focus_tree = {
 			focus = BEL_A_House_In_Divide
 		}
 		completion_reward = {
+			34 = {
+				upgrade_industrial_region = yes
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_political_power_gain_effect = yes
 		}
 	}
 	focus = {
@@ -2864,7 +2853,13 @@ focus_tree = {
 		prerequisite = {
 			focus = BEL_Walloon_Expansion
 		}
+		prerequisite = {
+			focus = BEL_Limburg_Mining
+		}
 		completion_reward = {
+			unlock_decision_tooltip = BEL_imply_the_galopin_doctrine_decision
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_production_speed_rail_way_factor = yes
 		}
 	}
 	focus = {
@@ -2877,10 +2872,19 @@ focus_tree = {
 		ai_will_do = {
 			factor = 80
 		}
+		available = {
+			has_completed_focus = BEL_Walloon_Expansion
+		}
 		prerequisite = {
 			focus = BEL_Direction_of_the_Industry
 		}
 		completion_reward = {
+			34 = {
+				upgrade_industrial_region = yes
+			}
+			add_research_slot_until_six = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_factory_max_efficiency_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2897,35 +2901,20 @@ focus_tree = {
 			factor = 90
 		}
 		available = {
-			controls_state = 948
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = BEL_Invest_Liege_Economic_Zone
-				bonus = 0.5
-				uses = 2
-				category = industry
+			741 = {
+				upgrade_industrial_region = yes
 			}
-			random_owned_controlled_state = {
-				prioritize = {
-					948
-				}
-				limit = {
-					is_core_of = ROOT
-					is_valid_state_for_development = yes
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+			948 = {
+				prioritize_state = yes
 			}
+			add_one_random_civilian_factory = yes
+			add_one_random_infrastructure = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_infrastructure_factor_effect = yes
+			set_temp_var_one_per_ten = yes
+			BEL_modify_cir_off_trade_opinion_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2945,6 +2934,10 @@ focus_tree = {
 			focus = BEL_Continue_The_Industry_Revolution
 		}
 		completion_reward = {
+			set_temp_var_one_per_ten = yes
+			BEL_modify_cir_off_local_resources_factor_effect = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_cir_off_production_lack_of_resource_penalty_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2952,7 +2945,7 @@ focus_tree = {
 		icon = GFX_focus_generic_build_housing
 		cost = 6
 		relative_position_id = BEL_Direction_of_the_Industry
-		x = 1
+		x = 2
 		y = 1
 		ai_will_do = {
 			factor = 80
@@ -2961,14 +2954,15 @@ focus_tree = {
 			focus = BEL_Direction_of_the_Industry
 		}
 		completion_reward = {
-			34 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+			35 = {
+				upgrade_industrial_region = yes
 			}
+			35 = {
+				prioritize_state = yes
+			}
+			add_one_random_civilian_factory = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_arms_factory_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2976,24 +2970,30 @@ focus_tree = {
 		icon = GFX_goal_generic_position_armies
 		cost = 6
 		relative_position_id = BEL_Double_Down_On_Heavy_Industry
-		x = -1
+		x = -2
 		y = 1
 		ai_will_do = {
 			factor = 80
 		}
 		prerequisite = {
 			focus = BEL_Double_Down_On_Heavy_Industry
+			focus = BEL_Redefine_Walloon_Expertise
 		}
 		available = {
-			is_in_faction = yes
 		}
 		completion_reward = {
+			add_one_random_infrastructure = yes
 			add_tech_bonus = {
 				name = BEL_Create_The_Industrial_Committee
 				bonus = 1
 				uses = 2
 				category = industry
 			}
+			set_temp_var_one_per_ten = yes
+			BEL_modify_cir_off_political_power_gain_effect = yes
+			BEL_modify_cir_off_trade_opinion_factor_effect = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_factory_efficiency_gain_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3007,13 +3007,15 @@ focus_tree = {
 			factor = 80
 		}
 		prerequisite = {
-			focus = BEL_Create_The_Industrial_Committee
+			focus = BEL_Exploitation_of_Charleroi_Glass_Industry
 		}
 		prerequisite = {
 			focus = BEL_Seraing
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			add_research_slot_until_six = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_cir_off_consumer_goods_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3031,18 +3033,17 @@ focus_tree = {
 		}
 		completion_reward = {
 			34 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
+				prioritize_state = yes
 			}
+			add_one_random_infrastructure = yes
 			948 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
+				prioritize_state = yes
+			}
+			add_one_random_infrastructure = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_infrastructure_factor_effect = yes
+			948 = {
+				increase_state_category = yes
 			}
 		}
 	}
@@ -3051,7 +3052,7 @@ focus_tree = {
 		icon = GFX_focus_generic_urban
 		cost = 6
 		relative_position_id = BEL_Create_The_Industrial_Committee
-		x = 0
+		x = 1
 		y = 1
 		ai_will_do = {
 			factor = 80
@@ -3060,17 +3061,19 @@ focus_tree = {
 			focus = BEL_Create_The_Industrial_Committee
 		}
 		available = {
-			is_in_faction_with = GER
 		}
 		completion_reward = {
 			34 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				prioritize_state = yes
 			}
+			add_one_random_civilian_factory = yes
+			34 = {
+				increase_state_category = yes
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_buildings_factor_effect = yes
+			set_temp_var_one_per_ten = yes
+			BEL_modify_cir_off_trade_opinion_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3091,19 +3094,14 @@ focus_tree = {
 		}
 		completion_reward = {
 			948 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				upgrade_industrial_region = yes
 			}
-			add_tech_bonus = {
-				name = BEL_The_Sillon_Industriel
-				bonus = 0.5
-				uses = 2
-				category = industry
+			948 = {
+				prioritize_state = yes
 			}
+			add_one_random_civilian_factory = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_speed_industrial_complex_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3128,32 +3126,17 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					948
-				}
-				limit = {
-					is_core_of = ROOT
-					is_valid_state_for_development = yes
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+			948 = {
+				prioritize_state = yes
 			}
-			custom_effect_tooltip = tooltip_white_line
+			add_one_random_civilian_factory = yes
 			add_resource = {
 				type = steel
-				amount = 26
+				amount = 20
 				state = 948
 			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_local_resources_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3170,12 +3153,14 @@ focus_tree = {
 			focus = BEL_Seraing
 		}
 		completion_reward = {
-			948 = {
+			741 = {
 				add_resource = {
 					type = steel
-					amount = 26
+					amount = 15
 				}
 			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_local_resources_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3183,7 +3168,7 @@ focus_tree = {
 		icon = GFX_focus_generic_heavy_industry
 		cost = 6
 		relative_position_id = BEL_A_House_In_Divide
-		x = -12
+		x = -10
 		y = 1
 		prerequisite = {
 			focus = BEL_A_House_In_Divide
@@ -3192,6 +3177,9 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_factory_start_efficiency_factor_effect = yes
+			BEL_modify_cir_off_monthly_population_effect = yes
 		}
 	}
 	focus = {
@@ -3202,6 +3190,14 @@ focus_tree = {
 		x = 0
 		y = 1
 		available = {
+			OR = {
+				has_resources_rights = {
+					state = 879
+				}
+				879 = {
+					is_controlled_by_ROOT_or_ally = yes
+				}
+			}
 		}
 		prerequisite = {
 			focus = BEL_Foreign_Labour
@@ -3211,6 +3207,19 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_political_power = 50
+			if = {
+				limit = {
+					not = {
+						has_resources_rights = {
+							state = 879
+						}
+					}
+				}
+				give_resource_rights = {
+					receiver = BEL
+					state = 879
+				}
+			}
 		}
 	}
 	focus = {
@@ -3218,8 +3227,8 @@ focus_tree = {
 		icon = GFX_focus_generic_copper_mining
 		cost = 6
 		relative_position_id = BEL_Expand_Mittel_Afrikan_Influence
-		x = -1
-		y = 1
+		x = 0
+		y = 2
 		available = {
 		}
 		prerequisite = {
@@ -3246,10 +3255,11 @@ focus_tree = {
 		icon = GFX_focus_generic_transformation_of_nature
 		cost = 6
 		relative_position_id = BEL_Copper_Katanga
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		prerequisite = {
 			focus = BEL_Copper_Katanga
+			focus = BEL_Secure_Diamond_Trade
 		}
 		ai_will_do = {
 			factor = 80
@@ -3262,8 +3272,8 @@ focus_tree = {
 		icon = GFX_focus_BEL_diamond
 		cost = 6
 		relative_position_id = BEL_Expand_Mittel_Afrikan_Influence
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		prerequisite = {
 			focus = BEL_Expand_Mittel_Afrikan_Influence
 		}
@@ -3278,7 +3288,7 @@ focus_tree = {
 		icon = GFX_focus_generic_steel2
 		cost = 6
 		relative_position_id = BEL_A_House_In_Divide
-		x = -4
+		x = -1
 		y = 1
 		available = {
 		}
@@ -3299,6 +3309,10 @@ focus_tree = {
 				value = 0.05
 			}
 			BEL_modify_cir_off_local_resources_factor_effect = yes
+			925 = {
+				prioritize_state = yes
+			}
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -3306,7 +3320,7 @@ focus_tree = {
 		icon = GFX_focus_generic_urbanization
 		cost = 6
 		relative_position_id = BEL_A_House_In_Divide
-		x = 5
+		x = 4
 		y = 2
 		prerequisite = {
 			focus = BEL_Agricultural_Innovation
@@ -3315,6 +3329,18 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
+			6 = {
+				increase_state_category = yes
+			}
+			979 = {
+				increase_state_category = yes
+			}
+			set_temp_variable = {
+				var = temp_variable
+				value = 0.05
+			}
+			BEL_modify_cir_off_global_building_slots_factor_effect = yes
+			BEL_modify_cir_off_production_production_speed_rail_way_factor = yes
 		}
 	}
 	focus = {
@@ -3337,6 +3363,17 @@ focus_tree = {
 				uses = 1
 				category = industry
 			}
+			set_temp_var_one_per_ten = yes
+			BEL_modify_cir_off_monthly_population_effect = yes
+			set_temp_variable = {
+				var = temp_variable
+				value = 0.05
+			}
+			BEL_modify_cir_off_political_power_gain_effect = yes
+			925 = {
+				increase_state_category = yes
+			}
+			increase_one_random_category = yes
 		}
 	}
 	focus = {
@@ -3353,6 +3390,14 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
+			increase_one_random_category = yes
+			set_temp_var_one_per_ten = yes
+			BEL_modify_cir_off_monthly_population_effect = yes
+			set_temp_variable = {
+				var = temp_variable
+				value = 0.05
+			}
+			BEL_modify_cir_off_political_power_gain_effect = yes
 		}
 	}
 	focus = {
@@ -3369,6 +3414,12 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
+			978 = {
+				upgrade_industrial_region = yes
+				increase_state_category = yes
+			}
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_political_power_gain_effect = yes
 		}
 	}
 	focus = {
@@ -3376,7 +3427,7 @@ focus_tree = {
 		icon = GFX_focus_BEL_vlaanderen_industry
 		cost = 6
 		relative_position_id = BEL_A_House_In_Divide
-		x = -10
+		x = -7
 		y = 1
 		ai_will_do = {
 			factor = 80
@@ -3390,6 +3441,12 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = industry
+			}
+			6 = {
+				increase_state_category = yes
+			}
+			979 = {
+				increase_state_category = yes
 			}
 			set_temp_variable = {
 				var = temp_variable
@@ -4794,7 +4851,7 @@ focus_tree = {
 			factor = 100
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
