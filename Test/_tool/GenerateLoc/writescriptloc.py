@@ -1,7 +1,7 @@
 import os
 
 # 定义模板
-template = """
+tempa = """
 text = {{
     trigger = {{
         has_country_leader_ideology = {}
@@ -9,7 +9,7 @@ text = {{
     localization_key = {}
 }}
 """
-tempa = """
+temp = """
 	spriteType = {{
 		name = "GFX_ideology_{}"
 		texturefile = "gfx/interface/ideologies/Neutrality/{}.png"
