@@ -2,8 +2,8 @@ import os
 
 # 获取当前脚本所在的目录
 inputpath = ".\\common\\country_leader\\"
-outputpath = ".\\_tool\\Focusestool\\"
-inputfilename = "_Generic_traits.txt"
+outputpath = ".\\_tool\\SortTrait\\"
+inputfilename = "_Generic_industial_concerns.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
@@ -53,15 +53,21 @@ for line in lines:
             while j < len(lines):
                 line = lines[j]  # 修改此处的 i 为 j
                 if "{" in line:
-                    open_brackets += 1
+                    open_brackets += line.count("{")
                 elif "}" in line:
-                    open_brackets -= 1
+                    open_brackets -= line.count("}")
 
                 if open_brackets == 0:
                     break
                 j += 1
 
-            variable_content = "\n".join(lines[start_index + 1 : j])  # 修改此处的 j - 1 为 j
+            variable_content = "\n".join(lines[start_index:j])  # 修改此处的 j 为 j + 1
+
+            # 检查是否包含 random = no 和 sprite = 任意数字，如果不包含则追加到开头
+            if "random = no" not in variable_content:
+                variable_content = "random = no\n" + variable_content
+            if "sprite" not in variable_content:
+                variable_content = "sprite = 14\n" + variable_content
 
             # 存储到字典中
             variables[variable_name] = variable_content
