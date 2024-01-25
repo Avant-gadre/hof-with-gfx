@@ -22,7 +22,7 @@ pattern = """
 """
 
 ## Example
-target = "BEL_the_continuing_industrial_revolution_dynamic_modifier"
+target = "BEL_the_belgian_army_dynamic_modifier"
 tag = target[:3]
 name = target[4:]
 
