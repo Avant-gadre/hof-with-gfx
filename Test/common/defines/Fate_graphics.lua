@@ -37,7 +37,7 @@ NDefines_Graphics.NAirGfx.MAX_SCOUT_SCENARIOS = 1
 
 NDefines_Graphics.NGraphics.MAPICON_GROUP_PASSES = 10                           --20
 
-NDefines_Graphics.NGraphics.MAX_NUMBER_OF_TEXTURES = 5000					    -- 10000 increase if you have more than this textures
+NDefines_Graphics.NGraphics.MAX_NUMBER_OF_TEXTURES = 10000					    -- 10000 increase if you have more than this textures
 NDefines_Graphics.NGraphics.RAILWAY_Y_OFFSET = 0.35						        -- 0.9 Railways are offset by this amount vertically from the map
 NDefines_Graphics.NGraphics.RAILWAY_BRIDGE_Y_OFFSET = 0.2					    -- 0.6 Railway bridges are offset by this amount vertically from the map
 NDefines_Graphics.NGraphics.RAILWAY_BRIDGE_WIDTH = 4.0					        -- Railways will have straight segments of this length for regular bridges
@@ -80,5 +80,5 @@ NDefines_Graphics.NGraphics.CAMERA_ZOOM_KEY_SCALE = 0.025					    -- 0.02
 NDefines_Graphics.NGraphics.CAMERA_ZOOM_SPEED_DISTANCE_MULT = 5.5				-- 6.0 Zoom speed multiplier. When camera is max zoome out, the zooming in speed will get 100% of CAMERA_ZOOM_SPEED_DISTANCE_MULT zooming speed.
 
 NDefines_Graphics.NFrontend.CAMERA_MIN_HEIGHT = 30.0						    --6
-NDefines_Graphics.NGraphics.COUNTRY_COLOR_BRIGHTNESS_MODIFIER = 0.83			-- 0.    -- 50.0 Minimum camera height
+NDefines_Graphics.NGraphics.COUNTRY_COLOR_BRIGHTNESS_MODIFIER = 0.83			-- 0.5
 NDefines_Graphics.NFrontend.CAMERA_INTERPOLATION_SPEED = 0.15				    -- 0.19
