@@ -1,1 +1,1 @@
-NDefines.NBuildings.MAX_SHARED_SLOTS = 30
+--NDefines.NBuildings.MAX_SHARED_SLOTS = 30
