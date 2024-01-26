@@ -718,9 +718,15 @@ focus_tree = {
 			focus = BEL_Last_Stand_Act
 		}
 		available = {
-			threat > 0.15
+			has_political_power > 100
 		}
+		cancel_if_invalid = no
 		completion_reward = {
+			add_political_power = -100
+			add_timed_idea = {
+				idea = BEL_war_bonds_idea
+				days = 730
+			}
 		}
 	}
 	focus = {
@@ -737,6 +743,16 @@ focus_tree = {
 			factor = 90
 		}
 		completion_reward = {
+			add_ideas = BEL_refugee_program_idea
+			925 = {
+				add_manpower = 8000
+			}
+			6 = {
+				add_manpower = 8000
+			}
+			34 = {
+				add_manpower = 8000
+			}
 		}
 	}
 	focus = {
@@ -1209,16 +1225,25 @@ focus_tree = {
 			add_tech_bonus = {
 				name = BEL_Aviation_Industry
 				bonus = 1
-				uses = 1
-				category = jet_technology
+				uses = 2
+				category = mio_cat_all_light_aircraft_and_modules
 			}
 			34 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+				prioritize_state = yes
+			}
+			add_one_random_military_factory = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_factory_start_efficiency_factor_effect = yes
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = BEL_renard_organization
+						is_military_industrial_organization = BEL_sabca_organization
+						is_military_industrial_organization = BEL_stampe_vertongen_organization
+						is_military_industrial_organization = BEL_avions_fairey_organization
+					}
 				}
+				add_mio_funds = 1000
 			}
 		}
 	}
@@ -1236,24 +1261,22 @@ focus_tree = {
 			factor = 80
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					6
-				}
+			6 = {
+				prioritize_state = yes
+			}
+			add_one_random_military_factory = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_cir_off_production_factory_efficiency_gain_factor_effect = yes
+			every_military_industrial_organization = {
 				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = dockyard
-						size > 0
-						include_locked = yes
+					OR = {
+						is_military_industrial_organization = BEL_renard_organization
+						is_military_industrial_organization = BEL_sabca_organization
+						is_military_industrial_organization = BEL_stampe_vertongen_organization
+						is_military_industrial_organization = BEL_avions_fairey_organization
 					}
 				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+				add_mio_funds_gain_factor = 0.1
 			}
 		}
 	}
@@ -2038,6 +2061,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			army_experience = 25
+			add_war_support = 0.03
 		}
 	}
 	focus = {
@@ -2054,6 +2078,10 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
+			add_war_support = 0.03
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_morale_factor_effect = yes
+			BEL_modify_ba_off_army_org_regain_effect = yes
 		}
 	}
 	focus = {
@@ -2067,6 +2095,11 @@ focus_tree = {
 			focus = BEL_Flemish_Walloon_Officers
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_recruitable_population_factor_effect = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_infantry_attack_factor_effect = yes
+			BEL_modify_ba_off_army_infantry_defence_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_Increase_FN_Funding
 				bonus = 1
@@ -2077,6 +2110,10 @@ focus_tree = {
 				type = infantry_equipment_1
 				amount = 2000
 				producer = BEL
+			}
+			mio:BEL_fabrique_nationale_organization = {
+				add_mio_funds_gain_factor = 0.2
+				add_mio_size = 1
 			}
 		}
 	}
@@ -2091,6 +2128,11 @@ focus_tree = {
 			focus = BEL_Flemish_Walloon_Officers
 		}
 		completion_reward = {
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_ba_off_land_doctrine_cost_factor_effect = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_core_attack_factor_effect = yes
+			BEL_modify_ba_off_army_core_defence_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_War_of_Defence
 				bonus = 1
@@ -2121,6 +2163,10 @@ focus_tree = {
 			focus = BEL_Form_Bilingual_Staff
 		}
 		completion_reward = {
+			set_temp_var_one_per_ten = yes
+			BEL_modify_ba_off_initiative_factor_effect = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_ba_off_land_doctrine_cost_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2140,6 +2186,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_war_support = 0.1
+			add_manpower = 100000
+			set_temp_var_one_per_ten = yes
+			BEL_modify_ba_off_recruitable_population_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2153,6 +2203,7 @@ focus_tree = {
 			focus = BEL_War_on_the_Horizon
 		}
 		completion_reward = {
+			add_ideas = BEL_bicycle_army_idea
 		}
 	}
 	focus = {
@@ -2168,6 +2219,9 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_motorized_attack_factor_effect = yes
+			BEL_modify_ba_off_motorized_defence_factor_effect = yes
 			add_equipment_to_stockpile = {
 				type = motorized_equipment_1
 				amount = 500
@@ -2208,6 +2262,9 @@ focus_tree = {
 			focus = BEL_Expansion_of_the_Academy
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_infantry_attack_factor_effect = yes
+			BEL_modify_ba_off_army_infantry_defence_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_Artillery_Advances
 				bonus = 0.5
@@ -2227,6 +2284,8 @@ focus_tree = {
 			focus = BEL_War_of_Defence
 		}
 		completion_reward = {
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_ba_off_land_doctrine_cost_factor_effect = yes
 			add_research_slot_until_six = yes
 		}
 	}
@@ -2241,6 +2300,8 @@ focus_tree = {
 			focus = BEL_Independent_Forces
 		}
 		completion_reward = {
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = BEL_acec
 			add_tech_bonus = {
 				name = BEL_Small_arms_developement
 				bonus = 1
@@ -2260,6 +2321,8 @@ focus_tree = {
 			focus = BEL_Small_arms_developement
 		}
 		completion_reward = {
+			set_temp_var_one_per_ten = yes
+			BEL_modify_ba_off_coordination_bonus_effect = yes
 			add_tech_bonus = {
 				name = BEL_Strike_First_Doctrine
 				bonus = 1
@@ -2285,6 +2348,14 @@ focus_tree = {
 			focus = BEL_Small_arms_developement
 		}
 		completion_reward = {
+			add_ideas = BEL_anti_tank_production_idea
+			set_temp_variable = {
+				var = temp_variable
+				value = 3
+			}
+			BEL_modify_ba_off_max_dig_in_effect = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_org_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2298,6 +2369,9 @@ focus_tree = {
 			focus = BEL_Anti_Tank_Focus
 		}
 		completion_reward = {
+			add_ideas = BEL_t13_production_idea
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_org_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2311,6 +2385,10 @@ focus_tree = {
 			focus = BEL_T13_Success
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_mechanized_defence_factor_effect = yes
+			BEL_modify_ba_off_motorized_defence_factor_effect = yes
+			BEL_modify_ba_off_army_armor_defence_factor_effect = yes
 			add_tech_bonus = {
 				name = BEL_Mobile_Defence_Stations
 				bonus = 1
@@ -2368,6 +2446,11 @@ focus_tree = {
 				uses = 1
 				category = hospital_tech
 			}
+			set_temp_variable = {
+				var = temp_variable
+				value = -0.1
+			}
+			BEL_modify_ba_off_experience_loss_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2381,6 +2464,10 @@ focus_tree = {
 			focus = BEL_Independent_Forces
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_initiative_factor_effect = yes
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = BEL_nir
 			add_tech_bonus = {
 				name = BEL_RADAR_Stations
 				bonus = 1
@@ -2404,14 +2491,21 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				threat > 0.2
-				is_in_faction = no
-				has_defensive_war = yes
-				surrender_progress > 0.2
+				date > 1939.1.1
+				threat > 0.5
+				has_war_support > 0.5
 			}
 		}
 		completion_reward = {
 			add_manpower = 30000
+			set_temp_variable = {
+				var = temp_variable
+				value = 0.005
+			}
+			BEL_modify_ba_off_recruitable_population_effect = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_org_factor_effect = yes
+			BEL_modify_ba_off_army_org_regain_effect = yes
 		}
 	}
 	focus = {
@@ -2427,6 +2521,8 @@ focus_tree = {
 		completion_reward = {
 			add_one_random_military_factory = yes
 			add_one_random_military_factory = yes
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_recruitable_population_factor_effect = yes
 		}
 	}
 	focus = {
@@ -2454,6 +2550,11 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_coastal_bunker_effectiveness_factor_effect = yes
+			BEL_modify_ba_off_land_bunker_effectiveness_factor_effect = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_ba_off_cas_damage_reduction_effect = yes
 			6 = {
 				add_building_construction = {
 					type = anti_air_building
@@ -2503,6 +2604,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_land_bunker_effectiveness_factor_effect = yes
 			925 = {
 				add_building_construction = {
 					type = bunker
@@ -2552,6 +2655,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_land_bunker_effectiveness_factor_effect = yes
 			925 = {
 				add_building_construction = {
 					type = bunker
@@ -2621,6 +2726,12 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_ideas = BEL_air_defence_of_territory_idea
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_coastal_bunker_effectiveness_factor_effect = yes
+			BEL_modify_ba_off_land_bunker_effectiveness_factor_effect = yes
+			set_temp_var_negative_one_per_twenty = yes
+			BEL_modify_ba_off_cas_damage_reduction_effect = yes
 			6 = {
 				add_building_construction = {
 					type = anti_air_building
@@ -2670,6 +2781,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_land_bunker_effectiveness_factor_effect = yes
 			35 = {
 				add_building_construction = {
 					type = bunker
@@ -2719,11 +2832,11 @@ focus_tree = {
 			focus = BEL_KW_Line
 		}
 		available = {
-			948 = {
-				is_owned_and_controlled_by = ROOT
-			}
+			has_war = yes
 		}
 		completion_reward = {
+			set_temp_var_one_per_ten = yes
+			BEL_modify_ba_off_land_night_attack_effect = yes
 			add_tech_bonus = {
 				name = BEL_Chasseurs_Ardennais
 				bonus = 2
@@ -2749,6 +2862,8 @@ focus_tree = {
 			has_war = yes
 		}
 		completion_reward = {
+			set_temp_var_one_per_ten = yes
+			BEL_modify_ba_off_max_planning_effect = yes
 		}
 	}
 	focus = {
@@ -2764,6 +2879,10 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
+			add_war_support = 0.03
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_morale_factor_effect = yes
+			BEL_modify_ba_off_army_org_regain_effect = yes
 		}
 	}
 	focus = {
@@ -3044,6 +3163,12 @@ focus_tree = {
 			focus = BEL_Flemish_Walloon_Officers
 		}
 		completion_reward = {
+			add_political_power = 80
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_org_factor_effect = yes
+			BEL_modify_ba_off_army_org_regain_effect = yes
+			BEL_modify_ba_off_army_morale_factor_effect = yes
+			BEL_modify_ba_off_coordination_bonus_effect = yes
 		}
 	}
 	focus = {
@@ -3057,6 +3182,12 @@ focus_tree = {
 			focus = BEL_Form_Bilingual_Staff
 		}
 		completion_reward = {
+			set_temp_variable = {
+				var = temp_variable
+				value = -0.1
+			}
+			BEL_modify_ba_off_pocket_penalty_pocket_penalty_effect = yes
+			BEL_modify_ba_off_org_loss_at_low_org_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3070,12 +3201,24 @@ focus_tree = {
 			focus = BEL_The_Vlaamse_Wacht
 		}
 		completion_reward = {
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_org_factor_effect = yes
 			add_doctrine_cost_reduction = {
 				name = BEL_Trench_War
 				cost_reduction = 0.5
 				uses = 2
 				category = land_doctrine
 			}
+			set_temp_variable = {
+				var = temp_variable
+				value = 10
+			}
+			BEL_modify_ba_off_max_dig_in_effect = yes
+			set_temp_variable = {
+				var = temp_variable
+				value = 0.1
+			}
+			BEL_modify_ba_off_dig_in_speed_factor_effect = yes
 		}
 	}
 	focus = {
@@ -3108,14 +3251,13 @@ focus_tree = {
 			factor = 50
 		}
 		available = {
-			OR = {
-				has_war = yes
-				threat > 0.5
-			}
 		}
 		completion_reward = {
 			add_war_support = 0.1
 			add_manpower = 100000
+			set_temp_var_one_per_ten = yes
+			BEL_modify_ba_off_recruitable_population_factor_effect = yes
+			add_ideas = BEL_increased_recruitement_idea
 		}
 	}
 	focus = {
@@ -3132,6 +3274,11 @@ focus_tree = {
 			has_war = yes
 		}
 		completion_reward = {
+			add_ideas = BEL_last_stand_idea
+			add_ideas = BEL_flemish_pride_idea
+			set_temp_var_one_per_twenty = yes
+			BEL_modify_ba_off_army_core_attack_factor_effect = yes
+			BEL_modify_ba_off_army_core_defence_factor_effect = yes
 		}
 	}
 	focus = {
