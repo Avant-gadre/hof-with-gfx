@@ -13,7 +13,7 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "Generic_trait_"
+target = "laws_"
 
 end = "_tt"
 
