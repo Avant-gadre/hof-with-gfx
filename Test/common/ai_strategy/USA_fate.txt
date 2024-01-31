@@ -2611,6 +2611,31 @@ USA_stay_away_from_my_pacific = {
 		id = pacific
 		value = 100
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = pacific
+		value = 75
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = oceania
+		value = 25
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = asia
+		value = -75
+	}
+
 }
 
 USA_Construction_industry = {
@@ -2687,19 +2712,23 @@ USA_think_about_retaliation = {
 		id = home_islands
 		value = 100
 	}
+
+	ai_strategy = {
+		type = naval_invasion_supremacy_weight
+		value = 30
+	}
+
 }
 
 USA_go_time = {
 	allowed = {
-		OR = {
-			original_tag = USA
-			original_tag = ENG
-		}
-		is_historical_focus_on = yes
+		original_tag = USA
 	}
 	enable = {
+		is_in_faction_with = ENG
 		has_war_with = JAP
 		date > 1943.6.6
+		surrender_progress < 0.05
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2712,6 +2741,30 @@ USA_go_time = {
 		area = home_islands
 		value = 100
 	}
+
+	ai_strategy = {
+		type = naval_invasion_supremacy_weight
+		value = 40
+	}
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 94		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 95		# ！！！！！
+	}
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 97		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 180		# ！！！！！
+	}
+
 }
 
 USA_start_buffering_in_pacific = {
@@ -2720,8 +2773,35 @@ USA_start_buffering_in_pacific = {
 	}
 	enable = {
 		date > 1943.3.3
+		OR = {
+			has_war_with = JAP
+			has_war_with = CHI
+		}
+		surrender_progress < 0.1
 	}
 	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# pacific islands
+		states = {
+			633 #Marshall
+			632 #Wake
+			684 #Caroline
+			645 #Iwo Jima
+			638 #Guam
+			646 #Saipan
+		}
+
+		ratio = 0.12
+
+		area = pacific
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+
 	ai_strategy = {
 		type = put_unit_buffers
 		# pacific islands
@@ -2754,4 +2834,161 @@ USA_start_buffering_in_pacific = {
 		subtract_invasions_from_need = yes
 		subtract_fronts_from_need = no
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = pacific
+		value = 30
+	}
+	
+	ai_strategy = {
+		type = invasion_unit_request
+		area = pacific
+		value = 15
+	}
+	
+	ai_strategy = {
+		type = naval_invasion_supremacy_weight
+		value = 50
+	}
+
+}
+
+USA_start_buffering_in_australia = {
+	allowed = {
+		tag = USA
+	}
+	enable = {
+		has_war_with = JAP
+		is_in_faction_with = AST
+		surrender_progress < 0.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# Australia
+		states = {
+			523 #莫尔兹比
+			637 #瓜达尔卡纳尔
+
+			870 #North West Aus
+			522 #Western Aus
+		}
+
+		ratio = 0.25
+
+		area = oceania
+
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
+	}
+	
+	ai_strategy = {
+		type = invasion_unit_request
+		area = oceania
+		value = 10
+	}
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 81		# ！！！！！
+	}
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 86		# ！！！！！
+	}
+
+}
+
+USA_start_buffering_in_Hawaii = {
+	allowed = {
+		tag = USA
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# 
+		states = {
+			629 #夏威夷
+		}
+
+		ratio = 0.3
+
+		area = pacific
+
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = no
+	}
+	
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# 
+		states = {
+			631 #中途岛
+			630 #约翰斯顿环焦
+			632 #威客岛
+		}
+
+		ratio = 0.1
+
+		area = pacific
+
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = no
+	}
+
+}
+
+USA_toratora_buffering_in_Hawaii = {
+	allowed = {
+		tag = USA
+	}
+	enable = {
+		has_war_with = JAP
+		surrender_progress < 0.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# 
+		states = {
+			629 #夏威夷
+		}
+
+		ratio = 0.6
+
+		area = pacific
+
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = no
+	}
+	
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# 
+		states = {
+			631 #中途岛
+			630 #约翰斯顿环焦
+			632 #威客岛
+		}
+
+		ratio = 0.3
+
+		area = pacific
+
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = no
+	}
+
 }

@@ -4,6 +4,7 @@ add_namespace = jap_purge
 add_namespace = jap_diplo
 add_namespace = jap_flavour
 add_namespace = jap_cabinet
+add_namespace = jap_peace
 ##country event
 ######部分选举的领袖未设定，意识形态可能有问题####
 ###########################
@@ -8596,6 +8597,455 @@ country_event = {
 		show_ideas_tooltip = JAP_houraisan_kaguya_political_advisor
 		hidden_effect = {
 			set_country_flag = JAP_Naidaijin_Houraisan_Chosen
+		}
+	}
+}
+
+country_event = {
+	id = jap_peace.1
+	title = jap_peace.1.t
+	desc = jap_peace.1.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = jap_peace.1.a
+		set_country_flag = JAP_triumphed_in_the_Pacific_flag
+		if = {
+			limit = {
+				NOT = {
+					country_exists = MAL
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = MAL
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = AST
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = AST
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = PNG
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = SIA
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = SIA
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = BUR
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = BUR
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = RAJ
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = RAJ
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = FIC
+					tag = MAL
+					tag = BUR
+					tag = AST
+				}
+				has_capitulated = yes
+				has_war_With = JAP
+			}
+			JAP = {
+				annex_country = {
+					target = PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				tag = SIA
+				has_capitulated = yes
+				has_war_With = JAP
+			}
+			JAP = {
+				set_country_flag = JAP_triumphed_in_the_Thai_flag
+				annex_country = {
+					target = PREV
+				}
+			}
+		}
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = FIC
+					is_core_of = MAL
+					is_core_of = BUR
+					is_core_of = AST
+				}
+			}
+			add_claim_by = JAP
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = JAP_triumphed_in_the_Thai_flag
+					NOT = {
+						country_exists = SIA
+					}
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = SIA
+				}
+				add_claim_by = JAP
+			}
+		}
+		every_country = {
+			limit = {
+				tag = RAJ
+				has_capitulated = yes
+				has_war_With = JAP
+			}
+			JAP = {
+				set_country_flag = JAP_triumphed_in_the_India_flag
+				puppet = RAJ
+				set_autonomy = {
+					target = RAJ
+					autonomous_state = autonomy_wtt_imperial_protectorate
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = JAP_triumphed_in_the_India_flag
+			}
+			every_state = {
+				limit = {
+					OR = {
+						#印度洋
+						state = 422
+						state = 281
+						state = 710
+					}
+					CONTROLLER = {
+						OR = {
+							is_in_faction_with = JAP
+							is_subject_of = JAP
+							tag = JAP
+						}
+					}
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		#胜利后不用维持表面功夫
+		if = {
+			limit = {
+				country_exists = INI
+			}
+			JAP = {
+				annex_country = {
+					target = INI
+				}
+			}
+		}
+		every_state = {
+			limit = {
+				OR = {
+					#美国太平洋岛屿
+					state = 638
+					state = 632
+					state = 631
+					state = 630
+					state = 629
+					state = 727
+					state = 642
+					state = 633
+					state = 684
+					state = 647
+					#香港澳门广州湾
+					state = 326
+					state = 729
+					state = 728
+					#南太平洋非巴布亚岛屿
+					state = 636
+					state = 635
+					state = 643
+					state = 725
+					state = 639
+					state = 941
+					state = 726
+					#帝汶
+					state = 721
+					#新加坡
+					state = 336
+				}
+				CONTROLLER = {
+					OR = {
+						is_in_faction_with = JAP
+						is_subject_of = JAP
+						tag = JAP
+					}
+				}
+			}
+			JAP = {
+				transfer_state = PREV
+			}
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					tag = CHI
+					is_in_faction_with = CHI
+				}
+				has_war_with = JAP
+				OR = {
+					is_in_faction_with = USA
+					is_puppet_of = USA
+					tag = USA
+				}
+			}
+			white_peace = JAP
+		}
+		hidden_effect = {
+			#play_song = "wa_tension_13"
+			#news_event = {
+			#id = afo_news.11
+			#hours = 6
+			#}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = jap_peace.999
+	title = jap_peace.999.t
+	desc = jap_peace.999.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = jap_peace.999.a
+		if = {
+			limit = {
+				NOT = {
+					country_exists = MAL
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = MAL
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = AST
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = AST
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = PNG
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = SIA
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = SIA
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = BUR
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = BUR
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = RAJ
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = RAJ
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = FIC
+					tag = MAL
+					tag = RAJ
+					tag = SIA
+					tag = BUR
+					tag = AST
+				}
+				#has_capitulated = yes
+				#has_war_With = JAP
+			}
+			JAP = {
+				annex_country = {
+					target = PREV
+				}
+			}
+		}
+		#胜利后不用维持表面功夫
+		if = {
+			limit = {
+				NOT = {
+					country_exists = INI
+				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = INI
+				}
+				JAP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		every_state = {
+			limit = {
+				OR = {
+					#美国太平洋岛屿
+					state = 638
+					state = 632
+					state = 631
+					state = 630
+					state = 629
+					state = 727
+					state = 642
+					state = 633
+					state = 684
+					state = 647
+					#香港澳门广州湾
+					state = 326
+					state = 729
+					state = 728
+					#香港澳门广州湾
+					state = 636
+					state = 635
+					state = 643
+					state = 725
+					state = 639
+					state = 941
+					state = 726
+				}
+				#CONTROLLER = {
+				#OR = {
+				#is_in_faction_with = JAP
+				#is_subject_of = JAP
+				#tag = JAP
+				#}
+				#}
+			}
+			JAP = {
+				transfer_state = PREV
+			}
+		}
+		hidden_effect = {
+			#play_song = "wa_tension_13"
+			#news_event = {
+			#id = afo_news.11
+			#hours = 6
+			#}
+		}
+		ai_chance = {
+			base = 1
 		}
 	}
 }
