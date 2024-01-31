@@ -26,7 +26,7 @@ focus_tree = {
 			factor = 100
 		}
 		allow_branch = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		completion_reward = {
 		}
@@ -289,7 +289,7 @@ focus_tree = {
 			focus = SPA_the_popular_front
 		}
 		available = {
-			SPA_spainish_civil_war_ongoing_trigger = no
+			has_global_flag = Spain_civil_war_not_start_flag
 		}
 		ai_will_do = {
 			factor = 1
@@ -319,7 +319,7 @@ focus_tree = {
 			focus = SPA_negotiate_carlist_support
 		}
 		available = {
-			SPA_spainish_civil_war_ongoing_trigger = no
+			has_global_flag = Spain_civil_war_not_start_flag
 		}
 		ai_will_do = {
 			factor = 1
@@ -351,7 +351,7 @@ focus_tree = {
 			focus = SPA_fortify_madrid
 		}
 		available = {
-			SPA_spainish_civil_war_ongoing_trigger = no
+			has_global_flag = Spain_civil_war_not_start_flag
 		}
 		ai_will_do = {
 			factor = 1
@@ -378,12 +378,9 @@ focus_tree = {
 	focus = {
 		id = SPA_a_great_spain
 		available = {
-			NOT = {
-				SPA_spainish_civil_war_ongoing_trigger = yes
-			}
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		icon = GFX_focus_SPA_una_grande_y_libre
 		x = -4
@@ -394,15 +391,16 @@ focus_tree = {
 		}
 		cost = 5
 		completion_reward = {
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.1
+			if = {
+				limit = {
+					has_idea = SPA_fragmented_society_2_idea
+				}
+				swap_ideas = {
+					remove_idea = SPA_fragmented_society_2_idea
+					add_idea = SPA_fragmented_society_1_idea
+				}
 			}
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.05
-			}
-			add_political_power = 15
+			add_political_power = 30
 		}
 	}
 	focus = {
@@ -410,7 +408,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		prerequisite = {
 			focus = SPA_a_great_spain
@@ -428,7 +426,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		prerequisite = {
 			focus = SPA_a_great_spain
@@ -447,7 +445,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		prerequisite = {
 			focus = SPA_hand_over_the_ceda_campaign_chest
@@ -613,7 +611,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		prerequisite = {
 			focus = SPA_secure_the_northern_garrisons
@@ -636,7 +634,7 @@ focus_tree = {
 		bypass = {
 			OR = {
 				controls_province = 858
-				SPA_spainish_civil_war_end_trigger = yes
+				has_global_flag = Spain_civil_war_end_flag
 			}
 		}
 		prerequisite = {
@@ -691,7 +689,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		prerequisite = {
 			focus = SPA_a_great_spain
@@ -742,7 +740,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		prerequisite = {
 			focus = SPA_negotiate_carlist_support
@@ -755,12 +753,13 @@ focus_tree = {
 		cost = 5
 		completion_reward = {
 			army_experience = 10
+			custom_effect_tooltip = SPA_the_army_of_africa_tt
 		}
 	}
 	focus = {
 		id = SPA_relocate_the_gold_reserves
 		available = {
-			SPA_spainish_civil_war_ongoing_trigger = no
+			has_global_flag = Spain_civil_war_not_start_flag
 		}
 		bypass = {
 		}
@@ -790,16 +789,23 @@ focus_tree = {
 		prerequisite = {
 			focus = SPA_consolidate_spain
 		}
+		available = {
+		}
 		ai_will_do = {
 			factor = 50
 		}
 		completion_reward = {
-			add_stability = 0.05
-			add_political_power = 30
-			custom_effect_tooltip = SPA_picking_our_route_tt
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
+			add_political_power = -50
+			SPA_bop_move_to_monarchy_minor_effect = yes
+			if = {
+				limit = {
+					has_idea = SPA_economic_crisis_worsen_idea
+				}
+				swap_ideas = {
+					remove_idea = SPA_economic_crisis_worsen_idea
+					add_idea = SPA_economic_crisis_idea
+				}
+			}
 		}
 	}
 	focus = {
@@ -817,6 +823,7 @@ focus_tree = {
 		relative_position_id = SPA_consolidate_spain
 		cost = 5
 		completion_reward = {
+			add_war_support = 0.05
 			division_template = {
 				name = "Carabineros"
 				template_counter = 3
@@ -936,7 +943,7 @@ focus_tree = {
 		id = SPA_take_the_initiative
 		available = {
 			NOT = {
-				SPA_spainish_civil_war_end_trigger = yes
+				has_global_flag = Spain_civil_war_end_flag
 			}
 		}
 		bypass = {
@@ -957,7 +964,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		prerequisite = {
 			focus = SPA_take_the_initiative
@@ -975,7 +982,7 @@ focus_tree = {
 		id = SPA_anti_fascist_unity
 		available = {
 			NOT = {
-				SPA_spainish_civil_war_end_trigger = yes
+				has_global_flag = Spain_civil_war_end_flag
 			}
 		}
 		bypass = {
@@ -996,7 +1003,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		prerequisite = {
 			focus = SPA_the_popular_front
@@ -1051,7 +1058,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		prerequisite = {
 			focus = SPA_the_popular_army
@@ -1079,7 +1086,7 @@ focus_tree = {
 		available = {
 			has_full_control_of_state = 792
 			NOT = {
-				SPA_spainish_civil_war_end_trigger = yes
+				has_global_flag = Spain_civil_war_end_flag
 			}
 		}
 		bypass = {
@@ -1108,10 +1115,10 @@ focus_tree = {
 	focus = {
 		id = SPA_no_pasaran
 		available = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		bypass = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		prerequisite = {
 			focus = SPA_distribute_arms_to_the_people
@@ -1274,7 +1281,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		prerequisite = {
 			focus = SPA_unbreakable_spirit
@@ -1291,10 +1298,10 @@ focus_tree = {
 	focus = {
 		id = SPA_foreign_arms_purchases
 		available = {
-			SPA_spainish_civil_war_end_trigger = no
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		bypass = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		prerequisite = {
 			focus = SPA_no_pasaran
@@ -1346,10 +1353,10 @@ focus_tree = {
 		x = -3
 		y = 10
 		available = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		allow_branch = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		ai_will_do = {
 			factor = 100
@@ -1602,7 +1609,7 @@ focus_tree = {
 	focus = {
 		id = SPA_caudillo_of_spain
 		available = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		bypass = {
 		}
@@ -1610,7 +1617,7 @@ focus_tree = {
 			focus = SPA_the_phalanx_ascendant
 		}
 		allow_branch = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		icon = GFX_focus_spa_caudillo_of_spain
 		x = -14
@@ -1633,7 +1640,7 @@ focus_tree = {
 			focus = SPA_caudillo_of_spain
 		}
 		allow_branch = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		icon = GFX_focus_spa_the_phalanx_ascendant
 		x = 4
@@ -1888,7 +1895,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		prerequisite = {
 			focus = SPA_caudillo_of_spain
@@ -2026,7 +2033,7 @@ focus_tree = {
 	focus = {
 		id = SPA_the_national_syndicalist_state
 		available = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		bypass = {
 		}
@@ -2111,7 +2118,7 @@ focus_tree = {
 	focus = {
 		id = SPA_adopt_the_26_points
 		available = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		bypass = {
 		}
@@ -2153,7 +2160,7 @@ focus_tree = {
 			factor = 30
 		}
 		available = {
-			SPA_spainish_civil_war_ongoing_trigger = yes
+			has_global_flag = Spain_civil_war_start_flag
 		}
 		completion_reward = {
 			army_experience = 25
@@ -3465,10 +3472,10 @@ focus_tree = {
 			factor = 150
 		}
 		available = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		allow_branch = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		completion_reward = {
 			add_tech_bonus = {
@@ -3851,7 +3858,7 @@ focus_tree = {
 	focus = {
 		# Industrial Expansions in Northern Spain
 		id = SPA_northern_industry
-		icon = GFX_goal_factory_complex
+		icon = GFX_focus_generic_railroad
 		cost = 8
 		relative_position_id = SPA_electrification_program
 		x = -1
@@ -4146,7 +4153,7 @@ focus_tree = {
 			has_completed_focus = SPA_spanish_miracle
 		}
 		allow_branch = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 		}
 		ai_will_do = {
 			factor = 70
@@ -4158,7 +4165,7 @@ focus_tree = {
 	focus = {
 		id = SPA_join_the_axis
 		available = {
-			SPA_spainish_civil_war_end_trigger = yes
+			has_global_flag = Spain_civil_war_end_flag
 			is_in_faction = no
 			OR = {
 				AND = {
@@ -5264,7 +5271,7 @@ focus_tree = {
 			NOT = {
 				has_war_with = FRA
 			}
-			SPA_spainish_civil_war_end_trigger = no
+			has_global_flag = Spain_civil_war_start_flag
 			FRA = {
 				OR = {
 					has_government = democratic

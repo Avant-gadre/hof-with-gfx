@@ -1,59 +1,140 @@
 # Scripted AI desire for peace actions.
 # See documentation.info file for more detailed scripting information.
-
 peace_ai_desires = {
-
-    # Try to grab cities and hainan
-    JAP_take_chinese_cities_if_possible = {
-        peace_action_type = take_states
-        enable = {
-            FROM.FROM.FROM = {
-               is_state_japan_wants = yes
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = 150
-    }
-
-
-    # If Mengkukuo exists, increase the Inner Mongolian state
-    JAP_inner_mongolia = {
-        peace_action_type = take_states
-        enable = {
-            FROM = {
-                original_tag = MEN
-                is_subject_of = ROOT
-            }
-            FROM.FROM.FROM = {
-                    state = 621 # Suiyuan
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = 100
-    }
-
-
-    # Create a chinese puppet state from the rest of China
-    JAP_create_chinese_puppet = {
-        peace_action_type = puppet
-        enable = {
-            FROM = {
-                original_tag = CHI
-            }
-            FROM.FROM.FROM = {
-                NOT = {
-                    is_state_japan_wants = yes
-                }
-                any_neighbor_state = {
-                    OR = {
-                        is_owned_by = ROOT.FROM
-                        pc_is_state_claimed_by = ROOT.FROM
-                        is_coastal = yes
-                    }
-                }
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = 50
-    }
+	# don't create warlord or PRC puppets
+	JAP_avoid_puppeting_warlords_prc = {
+		peace_action_type = {
+			puppet
+			force_government
+		}
+		enable = {
+			FROM = {
+				OR = {
+					tag = PRC
+					WTT_is_chinese_warlord = yes
+					tag = BEY
+					tag = GDC
+				}
+			}
+			ROOT = {
+				original_tag = JAP
+			}
+		}
+		ai_desire = -200
+	}
+	# Try to grab cities and hainan
+	JAP_take_chinese_cities_if_possible = {
+		peace_action_type = take_states
+		enable = {
+			FROM.FROM.FROM = {
+				OR = {
+					# 东百
+					state = 885
+					state = 716
+					state = 715
+					state = 886
+					state = 717
+					state = 883
+					state = 714
+					state = 610
+					state = 744					# Qingdao
+					state = 1065					# jiaodong
+					state = 996					# 威海卫
+					state = 608					# Beijing
+					state = 609					# tianjing
+					state = 614					# tangshan
+					state = 743					# shanghai
+					state = 1113					# wuxi
+					state = 1075					# nantong
+					state = 596					# hangzhou
+					state = 746					# ningbo
+					state = 803					# wenzhou
+					state = 747					# fulao
+					state = 802					# xiamen
+					state = 801					# chaoshan
+					state = 326					# Hong Kong
+					state = 729					# Macao
+					state = 592					# Guangzhou
+					state = 728					# Guangzhouwan
+					state = 591					# Hainan
+				}
+			}
+			ROOT = {
+				original_tag = JAP
+			}
+		}
+		ai_desire = 150
+	}
+	# If Mengkukuo exists, increase the Inner Mongolian state
+	JAP_inner_mongolia = {
+		peace_action_type = take_states
+		enable = {
+			FROM = {
+				original_tag = MEN
+				is_subject_of = ROOT
+			}
+			FROM.FROM.FROM = {
+				state = 621				# Suiyuan
+			}
+			ROOT = {
+				original_tag = JAP
+			}
+		}
+		ai_desire = 100
+	}
+	# Create a chinese puppet state from the rest of China
+	JAP_create_chinese_puppet = {
+		peace_action_type = puppet
+		enable = {
+			FROM.FROM = {
+				original_tag = CHI
+			}
+			FROM.FROM.FROM = {
+				NOT = {
+					is_state_japan_wants = yes
+				}
+				any_neighbor_state = {
+					OR = {
+						is_owned_by = ROOT.FROM
+						pc_is_state_claimed_by = ROOT
+						is_coastal = yes
+					}
+				}
+			}
+			ROOT = {
+				original_tag = JAP
+			}
+		}
+		ai_desire = 150
+	}
+	JAP_dont_eat_chinese_puppet = {
+		peace_action_type = take_states
+		enable = {
+			FROM.FROM = {
+				original_tag = CHI
+			}
+			FROM.FROM.FROM = {
+				NOT = {
+					is_state_japan_wants = yes
+				}
+			}
+			ROOT = {
+				original_tag = JAP
+			}
+		}
+		ai_desire = -100
+	}
+	#Don't give things to beiyang china
+	JAP_dont_support_bey = {
+		peace_action_type = take_states
+		enable = {
+			FROM = {
+				tag = BEY
+			}
+			ROOT = {
+				original_tag = JAP
+			}
+		}
+		ai_desire = -200
+	}
 }

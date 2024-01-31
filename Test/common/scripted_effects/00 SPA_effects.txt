@@ -1018,37 +1018,75 @@ SPA_create_anarchist_brigade_template = {
 }
 
 SPA_start_civil_war_effect = {
-	if = {
-		limit = {
-			OR = {
-				has_country_flag = SPA_carlist_will_oppose_us_flag
-				has_country_flag = SPA_the_nationalist_will_oppose_us
+	hidden_effect = {
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = SPA_carlist_will_oppose_us_flag
+					has_country_flag = SPA_the_nationalist_will_oppose_us
+				}
+			}
+			SPA_start_civil_war_all_effect = yes
+		}
+		else = {
+			SPA_start_civil_war_only_SPC_effect = yes
+			every_state = {
+				limit = {
+					OR = {
+						is_claimed_by = SPB
+						is_core_of = SPB
+					}
+				}
+				remove_claim_by = SPB
+				remove_core_of = SPB
 			}
 		}
-		SPA_start_civil_war_all_effect = yes
-	}
-	else = {
-		SPA_start_civil_war_only_SPC_effect = yes
-	}
-}
-
-SPA_start_civil_war_all_effect = {
-	add_named_threat = {
-		threat = 5
-		name = SPA_civil_war_threat
-	}
-	hidden_effect = {
 		SPA = {
-			every_core_state = {
-				add_core_of = SPB
-				add_core_of = SPC
-			}
-			every_owned_state = {
+			add_war_support = 0.3
+			add_stability = 0.3
+			SPA_pre_civil_negative_clear_all_effect = yes
+			increase_economic_mobilisation = yes
+			increase_economic_mobilisation = yes
+			increase_conscription = yes
+			increase_conscription = yes
+			if = {
 				limit = {
-					is_claimed_by = ROOT
+					has_completed_focus = SPA_the_army_of_africa
 				}
-				add_claim_by = SPB
+				SPA_army_of_africa_template = yes
 			}
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				increase_economic_mobilisation = yes
+				increase_conscription = yes
+			}
+			if = {
+				limit = {
+					has_political_power < 0
+				}
+				set_political_power = 0
+			}
+			set_temp_variable = {
+				SPA_militia = 10
+			}
+			for_loop_effect = {
+				start = 1
+				end = SPA_militia
+				compare = less_than_or_equals
+				random_owned_controlled_state = {
+					limit = {
+						valid_state_for_spawning_friendly_unit = yes
+					}
+					create_unit = {
+						division = "division_template = \"División de Guarnición\" start_experience_factor = 0.1"
+						owner = PREV
+					}
+				}
+			}
+			country_lock_all_division_template = no
+			SPA_spawn_reinforcement_effect = yes
 			add_to_temp_array = {
 				SPA_kingdom_states = 41.id
 			}
@@ -1071,6 +1109,39 @@ SPA_start_civil_war_all_effect = {
 				teleport_armies = {
 					to_state_array = SPA_kingdom_states
 				}
+			}
+		}
+		SPB = {
+			increase_economic_mobilisation = yes
+			increase_economic_mobilisation = yes
+			increase_conscription = yes
+			increase_conscription = yes
+		}
+		SPC = {
+			increase_economic_mobilisation = yes
+			increase_economic_mobilisation = yes
+			increase_conscription = yes
+			increase_conscription = yes
+		}
+	}
+}
+
+SPA_start_civil_war_all_effect = {
+	add_named_threat = {
+		threat = 5
+		name = SPA_civil_war_threat
+	}
+	hidden_effect = {
+		SPA = {
+			every_core_state = {
+				add_core_of = SPB
+				add_core_of = SPC
+			}
+			every_owned_state = {
+				limit = {
+					is_claimed_by = ROOT
+				}
+				add_claim_by = SPB
 			}
 			every_owned_state = {
 				limit = {
@@ -1098,32 +1169,6 @@ SPA_start_civil_war_all_effect = {
 				}
 				transfer_state_to = SPB
 			}
-		}
-		SPA = {
-			add_war_support = 0.3
-			add_stability = 0.3
-			if = {
-				limit = {
-					has_political_power < 0
-				}
-				set_political_power = 0
-			}
-			increase_economic_mobilisation = yes
-			increase_conscription = yes
-			SPA_spawn_reinforcement_effect = yes
-			if = {
-				limit = {
-					has_completed_focus = SPA_the_army_of_africa
-				}
-				SPA_army_of_africa_template = yes
-			}
-			if = {
-				limit = {
-					has_completed_focus = SPA_german_assistance
-				}
-				SPA_german_light_tank_template = yes
-			}
-			country_lock_all_division_template = no
 		}
 		SPB = {
 			inherit_technology = SPA
@@ -1356,29 +1401,6 @@ SPA_start_civil_war_only_SPC_effect = {
 		every_core_state = {
 			add_core_of = SPC
 		}
-		add_to_temp_array = {
-			SPA_kingdom_states = 41.id
-		}
-		add_to_temp_array = {
-			SPA_kingdom_states = 173.id
-		}
-		add_to_temp_array = {
-			SPA_kingdom_states = 175.id
-		}
-		add_to_temp_array = {
-			SPA_kingdom_states = 795.id
-		}
-		add_to_temp_array = {
-			SPA_kingdom_states = 951.id
-		}
-		add_to_temp_array = {
-			SPA_kingdom_states = 1082.id
-		}
-		every_owned_state = {
-			teleport_armies = {
-				to_state_array = SPA_kingdom_states
-			}
-		}
 		every_owned_state = {
 			limit = {
 				is_controlled_by = ROOT
@@ -1392,41 +1414,10 @@ SPA_start_civil_war_only_SPC_effect = {
 					state = 175
 					state = 795
 					state = 173
-					state = 1070
 					state = 793
 				}
 			}
 			transfer_state_to = SPC
-		}
-		SPA = {
-			add_war_support = 0.65
-			set_stability = 0.6
-			if = {
-				limit = {
-					has_political_power < 0
-				}
-				set_political_power = 0
-			}
-			if = {
-				limit = {
-					is_ai = yes
-				}
-				increase_economic_mobilisation = yes
-				increase_conscription = yes
-			}
-			if = {
-				limit = {
-					has_completed_focus = SPA_the_army_of_africa
-				}
-				SPA_army_of_africa_template = yes
-			}
-			if = {
-				limit = {
-					has_completed_focus = SPA_german_assistance
-				}
-				SPA_german_light_tank_template = yes
-			}
-			country_lock_all_division_template = no
 		}
 		SPC = {
 			inherit_technology = SPA
@@ -1441,10 +1432,10 @@ SPA_start_civil_war_only_SPC_effect = {
 			SPA_create_anarchist_brigade_template = yes
 			SPA_SPC_spawn_reinforcement_effect = yes
 			set_temp_variable = {
-				SWF_militia = 13
+				SWF_militia = 24
 			}
 			set_temp_variable = {
-				SWF_infantry = 8
+				SWF_infantry = 13
 			}
 			add_offsite_building = {
 				type = arms_factory
@@ -1654,89 +1645,88 @@ SPA_SPC_spawn_reinforcement_effect = {
 	}
 }
 
+##非洲军团
 SPA_army_of_africa_template = {
-	hidden_effect = {
-		if = {
-			limit = {
-				NOT = {
-					has_template = "Ejército de África"
-				}
-			}
-			division_template = {
-				name = "Ejército de África"
-				is_locked = yes
-				division_names_group = SPA_INF_05
-				regiments = {
-					infantry = {
-						x = 0
-						y = 0
-					}
-					infantry = {
-						x = 0
-						y = 1
-					}
-					infantry = {
-						x = 0
-						y = 2
-					}
-					infantry = {
-						x = 1
-						y = 0
-					}
-					infantry = {
-						x = 1
-						y = 1
-					}
-					infantry = {
-						x = 1
-						y = 2
-					}
-					infantry = {
-						x = 2
-						y = 0
-					}
-					infantry = {
-						x = 2
-						y = 1
-					}
-					infantry = {
-						x = 2
-						y = 2
-					}
-					artillery_brigade = {
-						x = 3
-						y = 0
-					}
-				}
-				support = {
-					artillery = {
-						x = 0
-						y = 0
-					}
-					engineer = {
-						x = 0
-						y = 1
-					}
-					recon = {
-						x = 0
-						y = 2
-					}
-				}
-				template_counter = 3
-				priority = 2
+	if = {
+		limit = {
+			NOT = {
+				has_template = "Ejército de África"
 			}
 		}
-		169 = {
-			create_unit = {
-				division = "division_template = \"Ejército de África\" start_experience_factor = 3 start_equipment_factor = 1.0"
-				owner = SPA
-				prioritize_location = 7183
+		division_template = {
+			name = "Ejército de África"
+			is_locked = no
+			division_names_group = SPA_INF_05
+			regiments = {
+				infantry = {
+					x = 0
+					y = 0
+				}
+				infantry = {
+					x = 0
+					y = 1
+				}
+				infantry = {
+					x = 0
+					y = 2
+				}
+				infantry = {
+					x = 1
+					y = 0
+				}
+				infantry = {
+					x = 1
+					y = 1
+				}
+				infantry = {
+					x = 1
+					y = 2
+				}
+				infantry = {
+					x = 2
+					y = 0
+				}
+				infantry = {
+					x = 2
+					y = 1
+				}
+				infantry = {
+					x = 2
+					y = 2
+				}
+				artillery_brigade = {
+					x = 3
+					y = 0
+				}
 			}
-			create_unit = {
-				division = "division_template = \"Ejército de África\" start_experience_factor = 3 start_equipment_factor = 1.0"
-				owner = SPA
-				prioritize_location = 7183
+			support = {
+				artillery = {
+					x = 0
+					y = 0
+				}
+				engineer = {
+					x = 0
+					y = 1
+				}
+				recon = {
+					x = 0
+					y = 2
+				}
 			}
+			template_counter = 3
+			priority = 2
+		}
+	}
+	169 = {
+		create_unit = {
+			division = "division_template = \"Ejército de África\" start_experience_factor = 3 start_equipment_factor = 1.0"
+			owner = SPA
+			prioritize_location = 7183
+		}
+		create_unit = {
+			division = "division_template = \"Ejército de África\" start_experience_factor = 3 start_equipment_factor = 1.0"
+			owner = SPA
+			prioritize_location = 7183
 		}
 	}
 }
@@ -1839,4 +1829,17 @@ SPA_german_light_tank_template = {
 			}
 		}
 	}
+}
+
+##
+SPA_pre_civil_negative_clear_all_effect = {
+	remove_ideas = SPA_economic_crisis_idea
+	remove_ideas = SPA_economic_crisis_worsen_idea
+	remove_ideas = SPA_fragmented_society_1_idea
+	remove_ideas = SPA_fragmented_society_2_idea
+	remove_ideas = SPA_national_strikes1_idea
+	remove_ideas = SPA_national_strikes2_idea
+	remove_ideas = SPA_national_strikes3_idea
+	remove_ideas = SPA_national_strikes4_idea
+	remove_ideas = SPA_national_strikes5_idea
 }
