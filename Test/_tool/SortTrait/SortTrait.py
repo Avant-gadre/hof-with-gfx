@@ -86,7 +86,7 @@ for variable_name, variable_content in sorted_variables:
     output_str += f"{variable_name} = {{\n{variable_content}\n}}\n"
 
 # 将结果写入新文件
-with open(outputpath + inputfilename, "w") as output_file:
+with open(outputpath + inputfilename, "w", encoding="utf-8") as output_file:
     output_file.write(output_str)
 
 print(f"结果已保存到文件")
