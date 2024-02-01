@@ -4,15 +4,15 @@ characters_string = """
         name = {}
         icon = GFX_idea_{}
         allowed = {{
-            original_tag = SPA
+            is_British_Sphere_tags = yes
         }}
         visible = {{
-            original_tag = SPA
+            is_British_Sphere = yes
         }}
         }}
 """
 
-characters_string = """
+characters_string1 = """
 		{} = {{
             name = {}
             picture = {}
