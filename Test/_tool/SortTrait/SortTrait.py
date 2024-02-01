@@ -3,7 +3,7 @@ import os
 # 获取当前脚本所在的目录
 inputpath = ".\\common\\country_leader\\"
 outputpath = ".\\_tool\\SortTrait\\"
-inputfilename = "_Generic_industial_concerns.txt"
+inputfilename = "ENG_new_traits.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
@@ -19,7 +19,7 @@ else:
     print("对了，这玩意存在")
 
 # 读取输入文件
-with open(inputfullpath, "r") as input_file:
+with open(inputfullpath, "r", encoding="utf-8") as input_file:
     input_str = input_file.read()
 
 # 将输入字符串按行分割
