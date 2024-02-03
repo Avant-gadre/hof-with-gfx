@@ -1,7 +1,4 @@
-﻿###########################
-# Turkey Events
-###########################
-add_namespace = martian
+﻿add_namespace = martian
 country_event = {
 	id = martian.1
 	title = martian.1.t
@@ -1903,7 +1900,11 @@ country_event = {
 		tag = GER
 		is_ai = yes
 		has_completed_focus = GER_General_Mobilization_Act
-		has_idea = konstantin_von_neurath
+		ROOT = {
+			GER_konstantin_von_neurath = {
+				is_hired_as_advisor = yes
+			}
+		}
 	}
 	mean_time_to_happen = {
 		days = 2
@@ -1913,8 +1914,10 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
-		remove_ideas = konstantin_von_neurath
-		add_ideas = joseph_goebbels
+		ROOT = {
+			deactivate_advisor = GER_konstantin_von_neurath
+			activate_advisor = GER_joseph_goebbels
+		}
 	}
 }
 
@@ -1924,13 +1927,20 @@ country_event = {
 	title = martian.58.t
 	desc = martian.58.d
 	picture = GFX_report_event_generic_funeral
+	fire_only_once = yes
 	trigger = {
 		tag = GER
 		is_ai = yes
 		has_country_flag = GER_ostreich_return
 		OR = {
-			has_idea = walther_von_brauchitsch
-			has_idea = ludwig_beck
+			ROOT = {
+				GER_walther_von_brauchitsch = {
+					is_hired_as_advisor = yes
+				}
+				GER_ludwig_beck = {
+					is_hired_as_advisor = yes
+				}
+			}
 		}
 	}
 	mean_time_to_happen = {
@@ -1943,17 +1953,25 @@ country_event = {
 		}
 		if = {
 			limit = {
-				has_idea = walther_von_brauchitsch
+				ROOT = {
+					GER_walther_von_brauchitsch = {
+						is_hired_as_advisor = yes
+					}
+				}
 			}
-			remove_ideas = walther_von_brauchitsch
-			add_ideas = GER_prince_eugen
+			deactivate_advisor = GER_walther_von_brauchitsch
+			activate_advisor = GER_prince_eugen
 		}
 		if = {
 			limit = {
-				has_idea = ludwig_beck
+				ROOT = {
+					GER_ludwig_beck = {
+						is_hired_as_advisor = yes
+					}
+				}
 			}
-			remove_ideas = ludwig_beck
-			add_ideas = GER_prince_eugen
+			deactivate_advisor = GER_ludwig_beck
+			activate_advisor = GER_prince_eugen
 		}
 	}
 }
@@ -1964,11 +1982,16 @@ country_event = {
 	title = martian.59.t
 	desc = martian.59.d
 	picture = GFX_report_event_generic_funeral
+	fire_only_once = yes
 	trigger = {
 		tag = GER
 		is_ai = yes
 		has_completed_focus = GER_Ensure_air_superiority
-		has_idea = goering
+		ROOT = {
+			GER_hermann_goring = {
+				is_hired_as_advisor = yes
+			}
+		}
 	}
 	mean_time_to_happen = {
 		days = 2
@@ -1978,8 +2001,8 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
-		remove_ideas = goering
-		add_ideas = GER_gertrud_barkhorn
+		deactivate_advisor = GER_hermann_goring
+		activate_advisor = GER_gertrud_barkhorn
 	}
 }
 
@@ -1989,6 +2012,7 @@ country_event = {
 	title = martian.60.t
 	desc = martian.60.d
 	picture = GFX_report_event_generic_funeral
+	fire_only_once = yes
 	trigger = {
 		always = no
 		tag = JAP
@@ -2014,6 +2038,7 @@ country_event = {
 	title = martian.61.t
 	desc = martian.61.d
 	picture = GFX_report_event_generic_funeral
+	fire_only_once = yes
 	trigger = {
 		always = no
 		date > 1940.1.1
@@ -2325,14 +2350,12 @@ country_event = {
 		date > 1940.1.1
 		tag = JAP
 		is_ai = yes
-
 		is_subject = no
 		has_government = democratic
 		is_faction_leader = yes
 		NOT = {
 			has_war_with = CHI
 		}
-
 		CHI = {
 			is_subject = no
 			has_government = democratic
