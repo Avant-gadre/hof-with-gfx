@@ -34,7 +34,7 @@ for file_name in files:
     # 检查是否是文件且是.ogg文件
     if os.path.isfile(file_path) and file_name.lower().endswith(target_type):
         # 构建目标文件名
-        target_prefix = ""
+        target_prefix = "Ent_"
         target_suffix = "11111png" + target_type
         new_prefix = ""
         BoolLower = 0
@@ -62,8 +62,6 @@ for file_name in files:
             name_part = file_name[len(target_prefix) :]
 
             name_part = name_part.replace("-", "_")
-
-            name_part = name_part.replace(" ", "_")
 
             # 处理包含括号的部分
             processed_name = process_filename_without_brackets(name_part)
