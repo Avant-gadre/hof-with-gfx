@@ -241,6 +241,20 @@ war_measures = {
 				BEY = {
 					surrender_progress > 0.85
 				}
+				if = {
+					limit = {
+						is_ai = yes
+						JAP = {
+							is_ai = no
+						}
+					}
+					OR = {
+						BEY = {
+							surrender_progress > 0.6
+						}
+						surrender_progress > 0.4
+					}
+				}
 			}
 			has_war = yes
 		}
@@ -996,19 +1010,24 @@ CHI_the_resistance_war_category = {
 					}
 				}
 			}
-			OR = {
-				has_equipment = {
-					train_equipment > 10
+			if = {
+				limit = {
+					is_ai = no
 				}
-				has_equipment = {
-					convoy > 5
+				OR = {
+					has_equipment = {
+						train_equipment > 10
+					}
+					has_equipment = {
+						convoy > 5
+					}
 				}
 			}
 			#20 equip per factory
 		}
 		visible = {
 			FROM = {
-				arms_factory > 0
+				industrial_complex > 0
 			}
 		}
 		cancel_if_not_visible = no
@@ -1026,7 +1045,7 @@ CHI_the_resistance_war_category = {
 					state = 607					#Luoyang
 				}
 				free_building_slots = {
-					building = arms_factory
+					building = industrial_complex
 					size > 0
 					include_locked = yes
 				}
@@ -1067,30 +1086,35 @@ CHI_the_resistance_war_category = {
 			factor = 100
 		}
 		complete_effect = {
-			add_to_variable = {
-				CHI_evacuation_cost = 10
-			}
 			FROM = {
 				remove_building = {
-					type = arms_factory
+					type = industrial_complex
 					level = 1
 				}
 			}
 			if = {
 				limit = {
-					has_equipment = {
-						convoy > 5
+					is_ai = no
+				}
+				add_to_variable = {
+					CHI_evacuation_cost = 10
+				}
+				if = {
+					limit = {
+						has_equipment = {
+							convoy > 5
+						}
+					}
+					add_equipment_to_stockpile = {
+						type = convoy
+						amount = -5
 					}
 				}
-				add_equipment_to_stockpile = {
-					type = convoy
-					amount = -5
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-					type = convoy
-					amount = -5
+				else = {
+					add_equipment_to_stockpile = {
+						type = train_equipment
+						amount = -10
+					}
 				}
 			}
 		}
@@ -1134,12 +1158,17 @@ CHI_the_resistance_war_category = {
 					}
 				}
 			}
-			OR = {
-				has_equipment = {
-					train_equipment > 10
+			if = {
+				limit = {
+					is_ai = no
 				}
-				has_equipment = {
-					convoy > 5
+				OR = {
+					has_equipment = {
+						train_equipment > 10
+					}
+					has_equipment = {
+						convoy > 5
+					}
 				}
 			}
 			#20 equip per factory
@@ -1205,30 +1234,35 @@ CHI_the_resistance_war_category = {
 			factor = 100
 		}
 		complete_effect = {
-			add_to_variable = {
-				CHI_evacuation_cost = 10
-			}
 			FROM = {
 				remove_building = {
-					type = industrial_complex
+					type = arms_factory
 					level = 1
 				}
 			}
 			if = {
 				limit = {
-					has_equipment = {
-						convoy > 5
+					is_ai = no
+				}
+				add_to_variable = {
+					CHI_evacuation_cost = 10
+				}
+				if = {
+					limit = {
+						has_equipment = {
+							convoy > 5
+						}
+					}
+					add_equipment_to_stockpile = {
+						type = convoy
+						amount = -5
 					}
 				}
-				add_equipment_to_stockpile = {
-					type = convoy
-					amount = -5
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-					type = convoy
-					amount = -5
+				else = {
+					add_equipment_to_stockpile = {
+						type = train_equipment
+						amount = -10
+					}
 				}
 			}
 		}
@@ -1277,11 +1311,11 @@ CHI_the_resistance_war_category = {
 		}
 		days_remove = 180
 		modifier = {
-			political_power_cost = 0.2
+			political_power_cost = 0.25
 
-			org_loss_at_low_org_factor = -0.5
+			org_loss_at_low_org_factor = -0.75
 			army_morale_Factor = 0.25
-			land_reinforce_rate = 0.15
+			land_reinforce_rate = 0.25
 			dig_in_speed_factor = 0.5
 			max_dig_in = 5
 
