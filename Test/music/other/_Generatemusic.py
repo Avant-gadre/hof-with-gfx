@@ -28,7 +28,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 def process_ogg_files(script_folder):
     # 获取当前文件夹中所有的ogg文件
-    ogg_files = [file for file in os.listdir() if file.endswith(".ogg")]
+    ogg_files_without_suffix = [os.path.splitext(ogg_file)[0] for ogg_file in ogg_files]
 
     ogg_files_without_suffix = [
         ogg_file.rstrip(suffix_to_remove) for ogg_file in ogg_files
