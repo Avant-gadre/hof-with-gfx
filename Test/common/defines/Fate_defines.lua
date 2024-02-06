@@ -150,8 +150,9 @@
     NDefines.NDiplomacy.VOLUNTEERS_TRANSFER_SPEED = 7						    -- Vanilla is 14
     NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 0						-- Vanilla is 30 
 
-    NDefines.NDiplomacy.OPINION_PER_VOLUNTEER = 30,						        -- Vanilia is 3
-	NDefines.NDiplomacy.MAX_OPINION_FROM_VOLUNTEERS = 30,				        -- Vanilia is 30
+    NDefines.NDiplomacy.OPINION_PER_VOLUNTEER = 30						        -- Vanilia is 3
+	NDefines.NDiplomacy.MAX_OPINION_FROM_VOLUNTEERS = 30				        -- Vanilia is 30
 
-    NDefines.NCountry.AIR_VOLUNTEER_PLANES_RATIO = 0,				            -- Vanilia is 0.1
-    NDefines.NCountry.AIR_VOLUNTEER_BASES_CAPACITY_LIMIT = 0,		            -- Vanilia is 0.2
+    NDefines.NCountry.AIR_VOLUNTEER_PLANES_RATIO = 0				            -- Vanilia is 0.1
+    NDefines.NCountry.AIR_VOLUNTEER_BASES_CAPACITY_LIMIT = 0		            -- Vanilia is 0.2
+
