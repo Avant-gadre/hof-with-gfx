@@ -102,6 +102,17 @@ characters_string2 = """
 			idea_token = {}
 			traits = {{
 			}}
+            visible = {{
+                has_global_flag = Show_all_advisor_flag
+            }}
+            available = {{
+            }}
+            modifier = {{
+            }}
+            on_add = {{
+            }}
+            on_remove = {{
+            }}
 			cost = 150
 			ai_will_do = {{
 				factor = 1
