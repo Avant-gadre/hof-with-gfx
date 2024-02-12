@@ -203,12 +203,15 @@ characters = {
 		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FRA_Albert_Camus
+			idea_token = FRA_albert_camus
 			visible = {
 				OR = {
 					has_global_flag = Show_all_advisor_flag
-					has_liberal_government = yes
-					has_socialist_government = yes
+					AND = {
+						has_liberal_government = yes
+						has_socialist_government = yes
+						has_completed_focus = FRA_Blum_Proposal
+					}
 				}
 			}
 			available = {
@@ -911,7 +914,10 @@ characters = {
 			visible = {
 				OR = {
 					has_global_flag = Show_all_advisor_flag
-					has_conservative_government = yes
+					AND = {
+						has_completed_focus = FRA_unite_royalist
+						has_conservative_government = yes
+					}
 				}
 			}
 			available = {
@@ -1182,8 +1188,16 @@ characters = {
 			visible = {
 				OR = {
 					has_global_flag = Show_all_advisor_flag
-					has_conservative_government = yes
-					has_dictatorship_government = yes
+					AND = {
+						OR = {
+							has_conservative_government = yes
+							has_dictatorship_government = yes
+						}
+						OR = {
+							has_completed_focus = FRA_Notre_Grand_Pere_a_Tous
+							has_completed_focus = FRA_integralism
+						}
+					}
 				}
 			}
 			available = {
@@ -2402,6 +2416,12 @@ characters = {
 			available = {
 				has_completed_focus = FRA_Diplomatic_Effort
 			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					has_completed_focus = FRA_Diplomatic_Effort
+				}
+			}
 			traits = {
 				FRA_emissary_trait
 			}
@@ -2542,13 +2562,12 @@ characters = {
 				has_country_flag = FRA_Catholic
 				NOT = {
 					has_completed_focus = FRA_the_path_of_avenger
-				}
-				NOT = {
 					has_government = fascism
-				}
-				NOT = {
 					has_country_flag = martha_oppose
 				}
+			}
+			modifier = {
+				army_defence_factor = 0.05
 			}
 			ai_will_do = {
 				factor = 50
@@ -2935,10 +2954,16 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
+			slot = high_command
 			idea_token = FRA_gilles_de_rais_alter
 			available = {
 				has_completed_focus = FRA_Hedonic
+			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					has_completed_focus = FRA_Hedonic
+				}
 			}
 			traits = {
 				FRA_pleasure_trait
@@ -2966,7 +2991,14 @@ characters = {
 			slot = political_advisor
 			idea_token = FRA_francesca_prelati
 			available = {
+				has_dictatorship_government = yes
 				has_completed_focus = FRA_faster
+			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					has_completed_focus = FRA_faster
+				}
 			}
 			cost = 75
 			traits = {
@@ -3013,6 +3045,12 @@ characters = {
 					has_completed_focus = FRA_the_path_of_avenger
 				}
 			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					has_completed_focus = FRA_puppet_austria
+				}
+			}
 			ai_will_do = {
 				factor = 40
 				modifier = {
@@ -3038,12 +3076,15 @@ characters = {
 			slot = political_advisor
 			idea_token = FRA_pierre_cauchon
 			traits = {
-				Generic_trait_national_catholic
+				FRA_representative_of_church_trait
 			}
 			available = {
+				has_country_flag = FRA_Catholic
+			}
+			visible = {
 				OR = {
-					has_government = fascism
-					has_government = neutrality
+					has_global_flag = Show_all_advisor_flag
+					has_country_flag = FRA_Catholic
 				}
 			}
 			cost = 150

@@ -2,14 +2,145 @@ change_ruling_party_popularity = {
 	if = {
 		limit = {
 			OR = {
-				check_variable = { ideology_change_var > 1 }
-				check_variable = { ideology_change_var < -1 }
+				check_variable = {
+					ideology_change_var > 1
+				}
+				check_variable = {
+					ideology_change_var < -1
+				}
 			}
 		}
-		multiply_temp_variable = { ideology_change_var = 0.01 }
+		multiply_temp_variable = {
+			ideology_change_var = 0.01
+		}
 	}
 	add_popularity = {
 		ideology = var:current_party_ideology_group
 		popularity = ideology_change_var
+	}
+}
+
+increase_women_rights = {
+	if = {
+		limit = {
+			has_idea = laws_womens_no_political_rights
+		}
+		swap_ideas = {
+			remove_idea = laws_womens_no_political_rights
+			add_idea = laws_womens_basic_political_rights
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_womens_basic_political_rights
+			OR = {
+				has_totalism_government = yes
+				has_valkism_government = yes
+			}
+		}
+		swap_ideas = {
+			remove_idea = laws_womens_basic_political_rights
+			add_idea = laws_organized_womens_organizations
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_womens_basic_political_rights
+			OR = {
+				has_elected_socialist_government = yes
+				has_liberal_government = yes
+			}
+		}
+		swap_ideas = {
+			remove_idea = laws_womens_basic_political_rights
+			add_idea = laws_womens_suffrage
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_womens_basic_political_rights
+		}
+		swap_ideas = {
+			remove_idea = laws_womens_basic_political_rights
+			add_idea = laws_women_equality_in_law
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_women_equality_in_law
+		}
+		swap_ideas = {
+			remove_idea = laws_women_equality_in_law
+			add_idea = laws_women_full_equality
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_womens_suffrage
+		}
+		swap_ideas = {
+			remove_idea = laws_womens_suffrage
+			add_idea = laws_women_full_equality
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_organized_womens_organizations
+		}
+		add_political_power = 150
+		add_stability = 0.1
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_women_full_equality
+		}
+		add_political_power = 150
+		add_stability = 0.1
+	}
+}
+
+increase_women_status = {
+	if = {
+		limit = {
+			has_idea = laws_family_women
+		}
+		swap_ideas = {
+			remove_idea = laws_family_women
+			add_idea = laws_women_workers_limited
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_women_workers_limited
+		}
+		swap_ideas = {
+			remove_idea = laws_women_workers_limited
+			add_idea = laws_women_workers
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_women_workers
+		}
+		swap_ideas = {
+			remove_idea = laws_women_workers
+			add_idea = laws_women_in_the_army
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_women_in_the_army
+		}
+		swap_ideas = {
+			remove_idea = laws_women_in_the_army
+			add_idea = laws_women_in_the_frontlines
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = laws_women_in_the_frontlines
+		}
+		add_political_power = 100
+		add_stability = 0.1
 	}
 }
