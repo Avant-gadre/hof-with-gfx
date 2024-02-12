@@ -13,7 +13,7 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "POL_"
+target = "POL_trait_"
 
 end = "_idea"
 
