@@ -100,11 +100,12 @@ characters_string2 = """
         advisor = {{
 			slot = political_advisor
 			idea_token = {}
-			traits = {{
-			}}
+            cost = 150
             visible = {{
                 has_global_flag = Show_all_advisor_flag
             }}
+			traits = {{
+			}}
             available = {{
             }}
             modifier = {{
@@ -113,7 +114,8 @@ characters_string2 = """
             }}
             on_remove = {{
             }}
-			cost = 150
+            research_bonus = {{
+            }}
 			ai_will_do = {{
 				factor = 1
 			}}

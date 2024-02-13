@@ -37,19 +37,30 @@ characters_string = '''
 		portraits = {{
 			civilian = {{
 				small = GFX_idea_{}
-				large = GFX_Portrait_Unknown
 			}}
 			army = {{
 				small = GFX_idea_{}
-				large = GFX_Portrait_Unknown
 			}}
 		}}
 		advisor = {{
 			slot = political_advisor
 			idea_token = {}
-			cost = 100
+			cost = 150
+            visible = {{
+                has_global_flag = Show_all_advisor_flag
+            }}
 			traits = {{
 			}}
+            available = {{
+            }}
+            modifier = {{
+            }}
+            on_add = {{
+            }}
+            on_remove = {{
+            }}
+            research_bonus = {{
+            }}
 		}}
 	}}
 '''
