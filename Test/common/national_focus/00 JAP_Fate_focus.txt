@@ -701,6 +701,7 @@ focus_tree = {
 		relative_position_id = JAP_local_science_fund
 		completion_reward = {
 			add_research_slot_until_six = yes
+			add_research_slot = 1
 		}
 		ai_will_do = {
 			factor = 200
@@ -7646,6 +7647,7 @@ focus_tree = {
 			add_political_power = 50
 			JAP_navy_focus_activated = yes
 			navy_experience = 50
+			add_ideas = JAP_new_naval_estimates_idea
 			JAP_new_navy_estimates_effect = yes
 			random_owned_controlled_state = {
 				limit = {
@@ -7957,26 +7959,11 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			show_unit_leaders_tooltip = JAP_taiho
-			add_naval_commander_role = {
-				character = JAP_taiho
-				skill = 5
-				attack_skill = 5
-				defense_skill = 5
-				maneuvering_skill = 3
-				coordination_skill = 3
-				traits = {
-					bold
-					craven
-					navy_career_officer
-					aviation_enthusiast
-					superior_tactician
-					blockade_runner
-					air_controller
-				}
-			}
 			JAP_navy_focus_activated = yes
-			add_ideas = JAP_first_air_fleet
+			swap_ideas = {
+				remove_idea = JAP_new_naval_estimates_idea
+				add_idea = JAP_first_air_fleet
+			}
 		}
 		ai_will_do = {
 			factor = 5
@@ -8007,11 +7994,38 @@ focus_tree = {
 		y = 1
 		relative_position_id = JAP_first_air_fleet
 		available = {
+			OR = {
+				AND = {
+					has_tech = centimetric_radar
+					has_tech = advanced_depth_charges
+					has_tech = antiair2
+				}
+				AND = {
+					has_war = yes
+					any_enemy_country = {
+						is_major = yes
+						OR = {
+							has_navy_size = {
+								unit = submarine
+								size > 50
+							}
+							has_navy_size = {
+								unit = carrier
+								size > 8
+							}
+						}
+					}
+				}
+			}
 		}
 		bypass = {
 		}
 		completion_reward = {
 			JAP_navy_focus_activated = yes
+			swap_ideas = {
+				remove_idea = JAP_first_air_fleet
+				add_idea = JAP_modern_escorts_idea
+			}
 			add_tech_bonus = {
 				name = JAP_modern_escorts
 				bonus = 1
@@ -8020,7 +8034,140 @@ focus_tree = {
 			}
 		}
 		ai_will_do = {
-			factor = 5
+			factor = 100
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+	}
+	focus = {
+		id = JAP_five_air_fleet
+		icon = GFX_focus_generic_coastal_navy2
+		#cost = 5
+		cost = 3
+		prerequisite = {
+			focus = JAP_modern_escorts
+		}
+		prerequisite = {
+			focus = JAP_the_zero
+		}
+		x = 1
+		y = 1
+		relative_position_id = JAP_modern_escorts
+		available = {
+			OR = {
+				date > 1942.1.1
+				has_completed_focus = JAP_claim_defeating_imperialism
+				has_completed_focus = JAP_Operation_Ketsugou
+				has_navy_size = {
+					unit = carrier
+					size < 3
+				}
+			}
+			has_war = yes
+			any_enemy_country = {
+				is_major = yes
+			}
+		}
+		bypass = {
+		}
+		completion_reward = {
+			JAP_navy_focus_activated = yes
+			show_unit_leaders_tooltip = JAP_taiho
+			add_naval_commander_role = {
+				character = JAP_taiho
+				skill = 5
+				attack_skill = 5
+				defense_skill = 5
+				maneuvering_skill = 3
+				coordination_skill = 3
+				traits = {
+					bold
+					craven
+					navy_career_officer
+					aviation_enthusiast
+					superior_tactician
+					blockade_runner
+					air_controller
+				}
+			}
+			JAP_zuikaku = {
+				add_skill_level = 2
+				add_attack = 2
+				add_defense = 2
+				add_maneuvering = 2
+				add_coordination = 2
+			}
+			JAP_shoukaku = {
+				add_skill_level = 2
+				add_attack = 2
+				add_defense = 2
+				add_maneuvering = 2
+				add_coordination = 2
+			}
+			if = {
+				limit = { # 仅由航母数量决定
+					has_navy_size = {
+						unit = carrier
+						size > 2
+					}
+				}
+				swap_ideas = {
+					remove_idea = JAP_modern_escorts_idea
+					add_idea = JAP_five_air_fleet_idea
+				}
+			}
+			else = { # 如果损失惨重
+				swap_ideas = {
+					remove_idea = JAP_modern_escorts_idea
+					add_idea = JAP_five_air_fleet_idea_alt
+				}
+				create_equipment_variant = {
+					name = "Taiho Class Kai"
+					type = ship_hull_carrier_2
+					name_group = JAP_CV_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_deck_slot_1 = ship_deck_space
+						fixed_ship_deck_slot_2 = ship_deck_space
+						fixed_ship_anti_air_slot = ship_anti_air_3
+						fixed_ship_radar_slot = ship_radar_3
+						fixed_ship_engine_slot = carrier_ship_engine_3
+						fixed_ship_armor_slot = ship_armor_cruiser_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_3
+						front_1_custom_slot = ship_deck_space
+						mid_1_custom_slot = ship_armor_carrier_deck
+						mid_2_custom_slot = ship_armor_carrier_deck
+					}
+				}
+				# 造了也没啥用
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_2
+						creator = "JAP"
+						version_name = "Taiho Class Kai"
+					}
+					requested_factories = 1
+					progress = 0.8
+					amount = 1
+					industrial_manufacturer = mio:JAP_yokosuka_naval_arsenal_organization
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_2
+						creator = "JAP"
+						version_name = "Taiho Class Kai"
+					}
+					requested_factories = 1
+					progress = 0.8
+					amount = 1
+					industrial_manufacturer = mio:JAP_yokosuka_naval_arsenal_organization
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
 			modifier = {
 				factor = 3
 				has_war = yes

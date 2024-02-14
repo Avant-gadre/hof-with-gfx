@@ -80,6 +80,19 @@
     NDefines.NAI.RECON_PLANES_LAND_COMBAT = 25                   	 					-- scale on recon for land combat areas
     NDefines.NAI.RECON_PLANES_STRATEGIC = 50                     	 					-- scale on recon for strategic areas
 
+    -- Hof-Navy
+	NDefines.NAI.AGGRESSION_LIGHT_GUN_EFFICIENCY_ON_LIGHT_SHIPS = 0.8  -- Vanilla is 1.0
+	NDefines.NAI.AGGRESSION_HEAVY_GUN_EFFICIENCY_ON_LIGHT_SHIPS = 0.6  -- Vanilla is 0.25
+	NDefines.NAI.AGGRESSION_TORPEDO_EFFICIENCY_ON_LIGHT_SHIPS = 0.25   -- Vanilla is 0.1
+
+	NDefines.NAI.AGGRESSION_LIGHT_GUN_EFFICIENCY_ON_HEAVY_SHIPS = 0.05 -- Vanilla is 0.1
+
+	NDefines.NAI.CARRIER_HOURS_DELAY_AFTER_EACH_COMBAT = 0			   -- Vanilla is 3
+
+    NDefines.NAI.CARRIER_STACK_PENALTY = 10							   -- Vanilla is 4
+
+    NDefines.NAI.CARRIER_STACK_PENALTY_EFFECT = 0.6					   -- Vanilla is 0.2
+
     -- Diplomacy
     NDefines.NAI.FASCISTS_BEFRIEND_FASCISTS = 0									-- Vanilla is 10
     NDefines.NAI.FASCISTS_ALLY_FASCISTS = 0										-- Vanilla is 0
@@ -156,3 +169,4 @@
     NDefines.NCountry.AIR_VOLUNTEER_PLANES_RATIO = 0				            -- Vanilia is 0.1
     NDefines.NCountry.AIR_VOLUNTEER_BASES_CAPACITY_LIMIT = 0		            -- Vanilia is 0.2
 
+    NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 0						-- Vanilla is 30 
