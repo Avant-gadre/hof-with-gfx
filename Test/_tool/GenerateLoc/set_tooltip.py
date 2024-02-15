@@ -22,7 +22,7 @@ pattern = """
 """
 
 ## Example
-target = "BEL_the_belgian_army_dynamic_modifier"
+target = "ROM_yg_dm"
 tag = target[:3]
 name = target[4:]
 
