@@ -262,7 +262,7 @@ country_event = {
 	picture = GFX_report_event_ger_civil_war
 	is_triggered_only = yes
 	fire_only_once = yes
-	# Bomb has succeeded, Darnic begins to arrest Iron Guards, Remilia goes to Poland
+	## Bomb has succeeded, Darnic begins to arrest Iron Guards, Remilia goes to Poland
 	option = {
 		name = RomaniaCore.8.a
 		ai_chance = {
@@ -272,9 +272,7 @@ country_event = {
 			id = RomaniaCore.9
 			days = 2
 		}
-		set_country_flag = ROM_Remilia_fled_flag
-		remove_unit_leader = 5600
-		kill_ideology_leader = neutrality
+		retire_character = ROM_remilia_scarlet
 		add_country_leader_role = {
 			character = "ROM_darnic_prestone_yggdmillennia"
 			country_leader = {
@@ -314,8 +312,7 @@ country_event = {
 			id = RomaniaCore.20
 			days = 5
 		}
-		remove_unit_leader = 5600
-		kill_ideology_leader = neutrality
+		retire_character = ROM_remilia_scarlet
 		add_country_leader_role = {
 			character = ROM_gheorghe_tatarescu
 			country_leader = {
@@ -386,7 +383,7 @@ country_event = {
 			base = 35
 		}
 		add_country_leader_role = {
-			character = "ROM_horia_sima"
+			character = ROM_horia_sima
 			country_leader = {
 				ideology = nazism
 			}
@@ -398,7 +395,6 @@ country_event = {
 				days = 15
 			}
 		}
-		set_country_flag = ROM_Codreanu_dead_flag
 		retire_character = ROM_corneliu_zelea_codreanu
 	}
 	# Assassinate failed, Iron Guard contacts Ion Antonescu
@@ -470,15 +466,7 @@ country_event = {
 		ai_chance = {
 			base = 40
 		}
-		if = {
-			limit = {
-				has_unit_leader = 5610
-			}
-			remove_unit_leader = 5610
-		}
-		remove_dynamic_modifier = {
-			modifier = ROM_yg_dm
-		}
+		retire_character = ROM_darnic_prestone_yggdmillennia
 		country_event = {
 			id = RomaniaCore.17
 			days = 2
@@ -494,6 +482,7 @@ country_event = {
 			id = RomaniaCore.16
 			days = 20
 		}
+		retire_character = ROM_ion_antonescu
 		### Purge Antonescu
 	}
 }
@@ -517,16 +506,13 @@ country_event = {
 		ai_chance = {
 			base = 20
 		}
-		remove_unit_leader = 5610
-		remove_dynamic_modifier = {
-			modifier = ROM_yg_dm
-		}
+		set_global_flag = Darnic_run
+		retire_character = ROM_darnic_prestone_yggdmillennia
 		hidden_effect = {
 			country_event = {
 				id = RomaniaCore.15
 				days = 10
 			}
-			set_global_flag = Darnic_run
 		}
 	}
 	# Sanatescu and Forvedge controls
@@ -535,13 +521,13 @@ country_event = {
 		ai_chance = {
 			base = 20
 		}
-		remove_unit_leader = 5610
+		set_global_flag = Darnic_run
+		retire_character = ROM_darnic_prestone_yggdmillennia
 		hidden_effect = {
 			country_event = {
 				id = RomaniaCore.16
 				days = 10
 			}
-			set_global_flag = Darnic_run
 		}
 	}
 }
@@ -560,18 +546,11 @@ country_event = {
 		ai_chance = {
 			base = 20
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_government = neutrality
-				}
-			}
-			set_politics = {
-				ruling_party = neutrality
-				last_election = "1933.12.20"
-				election_frequency = 48
-				elections_allowed = no
-			}
+		set_politics = {
+			ruling_party = neutrality
+			last_election = "1933.12.20"
+			election_frequency = 48
+			elections_allowed = no
 		}
 		if = {
 			limit = {
@@ -585,7 +564,7 @@ country_event = {
 				country_leader = {
 					ideology = stratocracy
 					traits = {
-						Realpolitik
+						ROM_trait_realpolitik
 					}
 				}
 			}
@@ -617,7 +596,7 @@ country_event = {
 	picture = GFX_report_event_german_politician_speech
 	is_triggered_only = yes
 	fire_only_once = yes
-	# Darnic Holds, he could secure his plan
+	## Darnic Holds, he could secure his plan
 	option = {
 		name = RomaniaCore.15.a
 		ai_chance = {
@@ -649,14 +628,14 @@ country_event = {
 			ruling_party = democratic
 			last_election = "1933.12.20"
 			election_frequency = 48
-			elections_allowed = no
+			elections_allowed = yes
 		}
 		add_country_leader_role = {
-			character = "ROM_fiore_forvedge_yggdmillennia"
+			character = ROM_fiore_forvedge_yggdmillennia
 			country_leader = {
 				ideology = social_democracy
 				traits = {
-					moderate
+					ROM_trait_moderate
 				}
 			}
 			promote_leader = yes
@@ -695,18 +674,11 @@ country_event = {
 		ai_chance = {
 			base = 20
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_government = fascism
-				}
-			}
-			set_politics = {
-				ruling_party = fascism
-				last_election = "1933.12.20"
-				election_frequency = 48
-				elections_allowed = no
-			}
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1933.12.20"
+			election_frequency = 48
+			elections_allowed = no
 		}
 		if = {
 			limit = {
@@ -715,7 +687,7 @@ country_event = {
 				}
 			}
 			add_country_leader_role = {
-				character = "ROM_corneliu_zelea_codreanu"
+				character = ROM_corneliu_zelea_codreanu
 				country_leader = {
 					ideology = classical_fascism
 				}
@@ -745,25 +717,18 @@ country_event = {
 		ai_chance = {
 			base = 20
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_government = fascism
-				}
-			}
-			set_politics = {
-				ruling_party = fascism
-				last_election = "1933.12.20"
-				election_frequency = 48
-				elections_allowed = no
-			}
+		set_politics = {
+			ruling_party = fascism
+			last_election = "1933.12.20"
+			election_frequency = 48
+			elections_allowed = no
 		}
 		add_country_leader_role = {
-			character = "ROM_flandre_scarlet"
+			character = ROM_flandre_scarlet
 			country_leader = {
 				ideology = classical_fascism
 				traits = {
-					Laevatein
+					ROM_trait_laevatein
 				}
 			}
 			promote_leader = yes
@@ -817,7 +782,7 @@ country_event = {
 				##desc = "POLITICS_FLANDRE_MONARCH_DESC"
 				ideology = nazism
 				traits = {
-					And_then_there_are_none
+					ROM_trait_and_then_there_are_none
 				}
 			}
 			promote_leader = yes
@@ -825,10 +790,10 @@ country_event = {
 		ROM_flandre_scarlet = {
 			set_portraits = {
 				civilian = {
-					large = "gfx/leaders/ROM/Portrait_flander_scarlet_capitanul.png"
+					large = GFX_Portrait_ROM_Flander_Scarlet_Capitanul
 				}
 			}
-			set_character_name = ROM_flandre_scarlet_capitanul
+			##set_character_name = ROM_flandre_scarlet_capitanul
 		}
 		##custom_effect_tooltip = ROM_Flandre_Iron_Guard_Revolution_tt
 		hidden_effect = {
@@ -873,7 +838,7 @@ country_event = {
 				}
 			}
 			add_country_leader_role = {
-				character = "ROM_izayoi_sakuya"
+				character = ROM_izayoi_sakuya
 				country_leader = {
 					ideology = stratocracy
 				}
@@ -884,9 +849,7 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					NOT = {
-						has_country_flag = ROM_Codreanu_dead_flag
-					}
+					has_character = ROM_corneliu_zelea_codreanu
 				}
 				country_event = {
 					id = RomaniaCore.21
@@ -935,7 +898,6 @@ country_event = {
 			}
 			promote_leader = yes
 		}
-		set_country_flag = ROM_Codreanu_dead_flag
 		retire_character = ROM_corneliu_zelea_codreanu
 		hidden_effect = {
 			country_event = {
@@ -1039,9 +1001,7 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					NOT = {
-						has_country_flag = ROM_Codreanu_dead_flag
-					}
+					has_character = ROM_corneliu_zelea_codreanu
 				}
 				country_event = {
 					id = RomaniaCore.17
@@ -1209,10 +1169,9 @@ country_event = {
 		add_country_leader_role = {
 			character = ROM_patchouli_knowledge
 			country_leader = {
-				##desc = "POLITICS_PATCHOULI_KNOWLEDGE_DESC"
 				ideology = conservatism
 				traits = {
-					unmovable_library
+					ROM_trait_unmovable_library
 				}
 			}
 			promote_leader = yes
@@ -1431,7 +1390,6 @@ country_event = {
 			}
 			promote_leader = yes
 		}
-		set_country_flag = ROM_Codreanu_dead_flag
 		retire_character = ROM_corneliu_zelea_codreanu
 		hidden_effect = {
 			country_event = {
@@ -1460,7 +1418,7 @@ country_event = {
 }
 
 country_event = {
-	# Romania: Assissnate Vlad
+	## Romania: Assissnate Vlad
 	id = RomaniaCore.33
 	title = RomaniaCore.33.t
 	desc = RomaniaCore.33.d
@@ -1482,9 +1440,8 @@ country_event = {
 		}
 		kill_ideology_leader = neutrality
 		add_country_leader_role = {
-			character = "ROM_izayoi_sakuya"
+			character = ROM_izayoi_sakuya
 			country_leader = {
-				##desc = "POLITICS_SAKUYA_DESC"
 				ideology = stratocracy
 			}
 			promote_leader = yes
@@ -1815,7 +1772,7 @@ country_event = {
 		}
 		set_global_flag = rom_alice_invited
 		custom_effect_tooltip = available_theorist
-		show_ideas_tooltip = alice_margatroid
+		show_ideas_tooltip = ROM_alice_margatroid
 		add_ideas = {
 			ROM_Homunculus_workshop
 		}
@@ -2189,13 +2146,12 @@ country_event = {
 			mark_focus_tree_layout_dirty = yes
 		}
 		add_country_leader_role = {
-			character = "ROM_alice_margatroid"
+			character = ROM_alice_margatroid
 			country_leader = {
 				ideology = stratocracy
 				traits = {
-					Puppeteer_of_Bucharest
+					ROM_trait_puppeteer_of_bucharest
 				}
-				id = 5666
 			}
 			promote_leader = yes
 		}
@@ -2221,9 +2177,12 @@ country_event = {
 		ai_chance = {
 			base = 10
 		}
-		retire_character = ROM_ion_antonescu
-		retire_character = ROM_ion_mota
-		retire_character = ROM_vasile_marin
+		every_character = {
+			limit = {
+				has_character_flag = ROM_is_iron_guard_character_flag
+			}
+			retire_character = THIS
+		}
 		retire_character = ROM_darnic_prestone_yggdmillennia
 		add_popularity = {
 			ideology = fascism

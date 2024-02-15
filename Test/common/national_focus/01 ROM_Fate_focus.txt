@@ -126,11 +126,6 @@ focus_tree = {
 			has_dynamic_modifier = {
 				modifier = ROM_yg_dm
 			}
-			NOT = {
-				has_completed_focus = ROM_crack_factions
-				has_completed_focus = ROM_Iron_guard_revolution
-				has_global_flag = Darnic_run
-			}
 		}
 		x = 0
 		y = 1
@@ -139,9 +134,7 @@ focus_tree = {
 			set_temp_var_negative_one_per_twenty = yes
 			ROM_modify_yg_dm_off_subversive_activites_upkeep_effect = yes
 			ROM_modify_yg_dm_off_foreign_subversive_activites_effect = yes
-			add_ideas = {
-				ROM_Zugzwang
-			}
+			activate_advisor = ROM_celenike_icecolle_yggdmillennia_special_fifth
 			custom_effect_tooltip = ROM_this_will_affect_our_political_pattern_tt
 		}
 		ai_will_do = {
@@ -417,7 +410,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_kindle_the_flames_of_war
 		will_lead_to_war_with = HUN
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 9
 		}
@@ -738,7 +731,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ROM_flexible_foreign_policy
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -953,7 +946,7 @@ focus_tree = {
 		x = 4
 		y = 1
 		relative_position_id = ROM_flexible_foreign_policy
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -1108,7 +1101,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = ROM_flexible_foreign_policy
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -1971,7 +1964,7 @@ focus_tree = {
 		relative_position_id = ROM_dominance_in_the_aegean_sea
 		x = -1
 		y = 1
-		cost = 10
+		cost = 6
 		available = {
 			any_controlled_state = {
 				State_is_in_the_black_sea = yes
@@ -2095,7 +2088,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_puppet_bulgaria
 		will_lead_to_war_with = GRE
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 		}
@@ -2139,7 +2132,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = ROM_puppet_bulgaria
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 		}
@@ -2695,7 +2688,7 @@ focus_tree = {
 		icon = GFX_focus_ROM_trifas_experimental_city
 		cost = 5
 		prerequisite = {
-			focus = ROM_connect_railway
+			focus = ROM_weapon_contracts
 		}
 		available = {
 			76 = {
@@ -2703,8 +2696,8 @@ focus_tree = {
 			}
 		}
 		x = 0
-		y = 2
-		relative_position_id = ROM_connect_railway
+		y = 1
+		relative_position_id = ROM_weapon_contracts
 		completion_reward = {
 			add_ideas = {
 				ROM_Trifas_experimental_city
@@ -2716,7 +2709,7 @@ focus_tree = {
 	focus = {
 		id = ROM_nuclear_bomb_project
 		icon = GFX_focus_generic_nuclear
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_Trifas_experimental_city
 		}
@@ -3058,9 +3051,29 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_Taranism
 		completion_reward = {
-			add_political_power = 200
+			if = {
+				limit = {
+					ROM_horia_sima = {
+						is_hired_as_advisor = yes
+						has_trait = ROM_trait_minister_of_economy
+					}
+				}
+				add_political_power = 200
+			}
+			else_if = {
+				limit = {
+					ROM_fiore_forvedge_yggdmillennia = {
+						is_hired_as_advisor = yes
+						has_trait = ROM_trait_minister_of_economy
+					}
+				}
+				add_political_power = 200
+			}
+			else = {
+				activate_advisor = ROM_mitita_constantinescu_special_fourth
+			}
 			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = ROM_mitita_constantinescu
+			show_ideas_tooltip = ROM_mitita_constantinescu_special_fourth
 		}
 		ai_will_do = {
 			factor = 100
@@ -3315,7 +3328,7 @@ focus_tree = {
 	focus = {
 		id = ROM_Borzesti_Petrochemical_Plant
 		icon = GFX_focus_ROM_borzesti_petrochemical_plant
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_expand_ploiesti_oil_production
 		}
@@ -3421,8 +3434,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = ROM_heisenberg_industry
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -4940,13 +4951,13 @@ focus_tree = {
 		}
 		completion_reward = {
 			army_experience = 5
-			add_ideas = ROM_carpathian_hunters
+			##add_ideas = ROM_carpathian_hunters
 		}
 	}
 	focus = {
 		id = ROM_artillery_modernization
 		icon = GFX_focus_generic_artillery_factories
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_UNAV
 		}
@@ -4996,7 +5007,7 @@ focus_tree = {
 	focus = {
 		id = ROM_mountain_artillery
 		icon = GFX_focus_generic_mountainous_artillery
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_artillery_modernization
 		}
@@ -5725,7 +5736,7 @@ focus_tree = {
 				}
 				navy_experience = 15
 				add_tech_bonus = {
-					name = ROM_modern_randunica
+					name = ROM_river_gunboats
 					bonus = 1
 					uses = 1
 					category = cat_torpedoes
@@ -6500,6 +6511,11 @@ focus_tree = {
 					hours = 24
 				}
 			}
+			deactivate_advisor = ROM_remilia_scarlet_special_political_advisor
+			activate_advisor = ROM_gordes_musik_yggdmillennia_special_first
+			activate_advisor = ROM_caules_forvedge_yggdmillennia_special_third
+			activate_advisor = ROM_fiore_forvedge_yggdmillennia_special_fourth
+			activate_advisor = ROM_celenike_icecolle_yggdmillennia_special_fifth
 		}
 		ai_will_do = {
 			factor = 1000
@@ -6607,16 +6623,9 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_Golden_Millenium_Tree
 		available = {
-			OR = {
-				is_subject = no
-				OVERLORD = {
-					has_government = fascism
-				}
-			}
 			ROM_darnic_prestone_yggdmillennia = {
 				is_country_leader = yes
 			}
-			has_government = neutrality
 		}
 		bypass = {
 			ROM_darnic_prestone_yggdmillennia = {
@@ -6640,11 +6649,13 @@ focus_tree = {
 				elections_allowed = no
 			}
 			add_country_leader_role = {
-				character = "ROM_darnic_prestone_yggdmillennia"
+				character = ROM_darnic_prestone_yggdmillennia
 				country_leader = {
 					ideology = valkism
 					traits = {
-						Realpolitik
+						Generic_trait_great_restorer
+						Generic_trait_autocratic_imperialist
+						Generic_trait_autocratic_charmer
 					}
 				}
 				promote_leader = yes
@@ -6658,12 +6669,15 @@ focus_tree = {
 	focus = {
 		id = ROM_expand_Zugzwang
 		icon = GFX_focus_ROM_expand_zugzwang
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_our_own_party
 		}
 		available = {
-			has_idea = ROM_Zugzwang
+			ROM_celenike_icecolle_yggdmillennia = {
+				is_hired_as_advisor = yes
+				has_trait = ROM_trait_minister_of_intelligence
+			}
 			ROM_darnic_prestone_yggdmillennia = {
 				is_country_leader = yes
 			}
@@ -6672,12 +6686,17 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_our_own_party
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = ROM_Zugzwang
-				add_idea = ROM_Zugzwang_expanded
+			ROM_celenike_icecolle_yggdmillennia = {
+				remove_trait = {
+					trait = ROM_trait_zugzwang_commander_0
+					slot = special_fifth
+				}
+				add_trait = {
+					trait = ROM_trait_zugzwang_commander_1
+					slot = special_fifth
+				}
 			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = rom_celenike_political
+			##show_ideas_tooltip = ROM_celenike_icecolle_yggdmillennia_special_fifth
 		}
 	}
 	focus = {
@@ -6739,9 +6758,6 @@ focus_tree = {
 			ROM_darnic_prestone_yggdmillennia = {
 				is_country_leader = yes
 			}
-			has_dynamic_modifier = {
-				modifier = ROM_yg_dm
-			}
 		}
 		x = 0
 		y = 1
@@ -6772,10 +6788,6 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 80
 			add_stability = 0.05
-			add_popularity = {
-				ideology = paternal_autocrat
-				popularity = 0.05
-			}
 		}
 	}
 	focus = {
@@ -6802,7 +6814,7 @@ focus_tree = {
 	focus = {
 		id = ROM_Cult_of_Technology
 		icon = GFX_focus_generic_science_research
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_build_Yggdmillennia_Empire
 			focus = ROM_a_new_dictator
@@ -6863,6 +6875,9 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_New_Order_Triumph
 		available = {
+			ROM_darnic_prestone_yggdmillennia = {
+				is_country_leader = yes
+			}
 		}
 		bypass = {
 		}
@@ -6972,8 +6987,8 @@ focus_tree = {
 		relative_position_id = ROM_Doll_Judgement
 		completion_reward = {
 			swap_ruler_traits = {
-				remove = Puppeteer_of_Bucharest
-				add = Genius_of_Carpathian
+				remove = ROM_trait_puppeteer_of_bucharest
+				add = ROM_trait_genius_of_carpathian
 			}
 			set_country_flag = ROM_Scarlet_flag_available_flag
 			unlock_national_focus = ROM_Scarlet_Fog
@@ -6992,7 +7007,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ROM_a_new_dictator
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 		}
@@ -7039,9 +7054,8 @@ focus_tree = {
 					##desc = "POLITICS_VLAD_DESC"
 					ideology = liberalism
 					traits = {
-						Puppeteer_of_Bucharest
+						ROM_trait_puppeteer_of_bucharest
 					}
-					id = 5666
 				}
 				promote_leader = yes
 			}
@@ -7084,7 +7098,7 @@ focus_tree = {
 					ROM_flandre_scarlet = {
 						is_country_leader = yes
 					}
-					has_country_leader_with_trait = Laevatein
+					has_country_leader_with_trait = ROM_trait_laevatein
 				}
 			}
 			has_country_flag = ROM_Legionary_Kingdom_available
@@ -7107,6 +7121,15 @@ focus_tree = {
 				}
 				set_cosmetic_tag = ROM_kingdom_garda
 			}
+			if = {
+				limit = {
+					ROM_flandre_scarlet = {
+						is_country_leader = yes
+					}
+				}
+				deactivate_advisor = ROM_remilia_scarlet_special_political_advisor
+			}
+			activate_advisor = ROM_gordes_musik_yggdmillennia_special_sixth
 		}
 		ai_will_do = {
 			factor = 1000
@@ -7120,7 +7143,7 @@ focus_tree = {
 		y = 0
 		relative_position_id = ROM_kingdom_of_legion
 		available = {
-			ROM_Remilia_scarlet = {
+			ROM_remilia_scarlet = {
 				is_country_leader = yes
 			}
 			has_country_flag = ROM_Scarlet_flag_available_flag
@@ -7136,7 +7159,21 @@ focus_tree = {
 				idea = ROM_Scarlet_Fog
 				days = 180
 			}
+			ROM_remilia_scarlet = {
+				remove_trait = {
+					trait = ROM_trait_princess_of_terror
+					slot = special_political_advisor
+				}
+				add_trait = {
+					trait = ROM_trait_queen_of_terror
+					slot = special_political_advisor
+				}
+			}
 			retire_character = ROM_ion_antonescu
+			activate_advisor = ROM_patchouli_knowledge_special_first
+			activate_advisor = ROM_nicolae_radescu_special_third
+			activate_advisor = ROM_izayoi_sakuya_special_fifth
+			activate_advisor = ROM_lemina_eltfromm_yggdmillennia_special_sixth
 			if = {
 				limit = {
 					NOT = {
@@ -7174,6 +7211,30 @@ focus_tree = {
 				popularity = 0.05
 			}
 			drop_cosmetic_tag = yes
+			deactivate_advisor = ROM_remilia_scarlet_special_political_advisor
+			##
+			if = {
+				limit = {
+					ROM_patchouli_knowledge = {
+						is_country_leader = yes
+					}
+				}
+				activate_advisor = ROM_gheorghe_tatarescu_special_first
+				activate_advisor = ROM_constantin_sanatescu_special_third
+				activate_advisor = ROM_izayoi_sakuya_special_fifth
+				activate_advisor = ROM_fiore_forvedge_yggdmillennia_special_sixth
+			}
+			if = {
+				limit = {
+					ROM_fiore_forvedge_yggdmillennia = {
+						is_country_leader = yes
+					}
+				}
+				activate_advisor = ROM_gheorghe_argeseanu_special_first
+				activate_advisor = ROM_caules_forvedge_yggdmillennia_special_third
+				activate_advisor = ROM_celenike_icecolle_yggdmillennia_special_fifth
+				activate_advisor = ROM_fiore_forvedge_yggdmillennia_special_sixth
+			}
 		}
 		ai_will_do = {
 			factor = 1000
@@ -7188,7 +7249,7 @@ focus_tree = {
 		x = -3
 		y = 1
 		relative_position_id = ROM_end_of_tyranny
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 9
 		}
@@ -7291,7 +7352,7 @@ focus_tree = {
 		icon = GFX_focus_ROM_country_as_sun_in_sky
 		cost = 6
 		relative_position_id = ROM_prosperity_for_all
-		x = 0
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = ROM_prosperity_for_all
@@ -7495,13 +7556,14 @@ focus_tree = {
 	focus = {
 		id = ROM_Voile_Library
 		icon = GFX_focus_generic_ration
-		cost = 10
+		cost = 6
 		prerequisite = {
-			focus = ROM_supervise_markets
+			focus = ROM_Consolidate_judicial_independence
+			focus = ROM_Rebuild_Bucharest_Palace
 		}
-		x = 0
+		x = -1
 		y = 1
-		relative_position_id = ROM_supervise_markets
+		relative_position_id = ROM_Consolidate_judicial_independence
 		completion_reward = {
 			add_research_slot_until_six = yes
 		}
@@ -7655,8 +7717,12 @@ focus_tree = {
 				}
 				remove_ideas = ROM_iron_guard_purged
 			}
-			retire_character = ROM_ion_mota
-			retire_character = ROM_vasile_marin
+			every_character = {
+				limit = {
+					has_character_flag = ROM_is_iron_guard_character_flag
+				}
+				retire_character = THIS
+			}
 		}
 		ai_will_do = {
 			factor = 1000
@@ -7677,61 +7743,26 @@ focus_tree = {
 			remove_ideas = {
 				ROM_boyars_idea
 			}
-			if = {
+			retire_character = ROM_darnic_prestone_yggdmillennia
+			every_character = {
 				limit = {
-					has_idea = ROM_Zugzwang
+					has_character_flag = ROM_is_iron_guard_character_flag
 				}
-				remove_ideas = {
-					ROM_Zugzwang
-				}
+				retire_character = THIS
 			}
-			if = {
-				limit = {
-					has_idea = ROM_Zugzwang_expanded
-				}
-				remove_ideas = {
-					ROM_Zugzwang_expanded
-				}
+			remove_dynamic_modifier = {
+				modifier = ROM_yg_dm
 			}
-			custom_effect_tooltip = remove_military_high_command
-			show_ideas_tooltip = rom_darnic
-			if = {
-				limit = {
-					NOT = {
-						has_country_flag = ROM_Margatroid_allegiance_flag
+		}
+		bypass = {
+			OR = {
+				ROM_fiore_forvedge_yggdmillennia = {
+					OR = {
+						is_hired_as_advisor = yes
+						is_country_leader = yes
 					}
 				}
-				custom_effect_tooltip = remove_military_high_command
-				show_ideas_tooltip = rom_fiore
-				show_ideas_tooltip = rom_celenike
-				show_ideas_tooltip = rom_caules
-				if = {
-					limit = {
-						has_unit_leader = 5610
-					}
-					remove_unit_leader = 5610
-				}
-				if = {
-					limit = {
-						has_unit_leader = 5611
-					}
-					remove_unit_leader = 5611
-				}
-				if = {
-					limit = {
-						has_unit_leader = 5612
-					}
-					remove_unit_leader = 5612
-				}
-				if = {
-					limit = {
-						has_unit_leader = 5614
-					}
-					remove_unit_leader = 5614
-				}
-				remove_dynamic_modifier = {
-					modifier = ROM_yg_dm
-				}
+				has_completed_focus = ROM_swear_allegiance
 			}
 		}
 		ai_will_do = {
@@ -7825,10 +7856,10 @@ focus_tree = {
 		relative_position_id = ROM_reform_civil_service
 		completion_reward = {
 			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = rom_patchouli_knowledge
-			show_ideas_tooltip = rom_nicolae_radescu
-			show_ideas_tooltip = rom_petru_groza
-			show_ideas_tooltip = rom_gheorghe_tatarescu
+			# show_ideas_tooltip = rom_patchouli_knowledge
+			# show_ideas_tooltip = rom_nicolae_radescu
+			# show_ideas_tooltip = rom_petru_groza
+			# show_ideas_tooltip = rom_gheorghe_tatarescu
 		}
 	}
 	focus = {
@@ -7861,11 +7892,11 @@ focus_tree = {
 	focus = {
 		id = ROM_freedom_of_thought
 		icon = GFX_focus_ROM_academia_romana
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_Consolidate_judicial_independence
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = ROM_Consolidate_judicial_independence
 		available = {
@@ -7920,7 +7951,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ROM_militarize_the_sentinels
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 5
 		}
@@ -8017,17 +8048,21 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			always = no
 		}
 		x = -2
 		y = 1
 		relative_position_id = ROM_Partidul_Natiunii
 		completion_reward = {
-			add_ideas = {
-				ROM_Lunar_Dial
+			ROM_izayoi_sakuya = {
+				remove_trait = {
+					trait = ROM_trait_lunar_dial_0
+					slot = special_fifth
+				}
+				add_trait = {
+					trait = ROM_trait_lunar_dial_0
+					slot = special_fifth
+				}
 			}
-			custom_effect_tooltip = available_military_high_command
-			show_ideas_tooltip = ROM_izayoi_sakuya
 		}
 		ai_will_do = {
 			factor = 1
@@ -8040,7 +8075,7 @@ focus_tree = {
 	focus = {
 		id = ROM_the_royal_foundation
 		icon = GFX_focus_generic_cinema
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_Partidul_Natiunii
 		}
@@ -8136,7 +8171,7 @@ focus_tree = {
 					ROM_flandre_scarlet = {
 						is_country_leader = yes
 					}
-					has_country_leader_with_trait = Laevatein
+					has_country_leader_with_trait = ROM_trait_laevatein
 				}
 			}
 		}
@@ -8156,7 +8191,7 @@ focus_tree = {
 						##desc = "POLITICS_VLAD_DESC"
 						ideology = classical_fascism
 						traits = {
-							Demonic_Defender_of_the_State
+							ROM_trait_demonic_defender_of_the_state
 						}
 					}
 					promote_leader = yes
@@ -8171,15 +8206,14 @@ focus_tree = {
 					ROM_flandre_scarlet = {
 						is_country_leader = yes
 					}
-					has_country_leader_with_trait = Laevatein
+					has_country_leader_with_trait = ROM_trait_laevatein
 				}
 				add_country_leader_role = {
 					character = "ROM_flandre_scarlet"
 					country_leader = {
-						##desc = "POLITICS_VLAD_DESC"
 						ideology = absolute_monarchy
 						traits = {
-							Laevatein
+							ROM_trait_laevatein
 						}
 					}
 					promote_leader = yes
@@ -8280,7 +8314,7 @@ focus_tree = {
 					ROM_flandre_scarlet = {
 						is_country_leader = yes
 					}
-					has_country_leader_with_trait = Laevatein
+					has_country_leader_with_trait = ROM_trait_laevatein
 				}
 			}
 			has_idea = ROM_echipa_mortii
@@ -8486,7 +8520,7 @@ focus_tree = {
 					ROM_flandre_scarlet = {
 						is_country_leader = yes
 					}
-					has_country_leader_with_trait = Laevatein
+					has_country_leader_with_trait = ROM_trait_laevatein
 				}
 			}
 		}
@@ -8511,7 +8545,7 @@ focus_tree = {
 	focus = {
 		id = ROM_nationalist_intellectuals
 		icon = GFX_focus_ROM_send_out_greenshirts
-		cost = 10
+		cost = 6
 		prerequisite = {
 			focus = ROM_glorify_the_church
 		}
@@ -8567,7 +8601,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = ROM_legion_cooperatives
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 		}
@@ -8651,7 +8685,7 @@ focus_tree = {
 			ROM_flandre_scarlet = {
 				is_country_leader = yes
 			}
-			has_country_leader_with_trait = And_then_there_are_none
+			has_country_leader_with_trait = ROM_trait_and_then_there_are_none
 			has_country_flag = ROM_Iron_Guard_Revolution_available
 		}
 		allow_branch = {
@@ -8664,6 +8698,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_kingdom_of_legion
 		completion_reward = {
+			deactivate_advisor = ROM_remilia_scarlet_special_political_advisor
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.1
@@ -8688,35 +8723,16 @@ focus_tree = {
 			}
 			add_political_power = 100
 			drop_cosmetic_tag = yes
-			custom_effect_tooltip = remove_military_high_command
-			show_ideas_tooltip = rom_fiore
-			show_ideas_tooltip = rom_celenike
-			custom_effect_tooltip = remove_chief_of_army
-			show_ideas_tooltip = rom_caules
-			if = {
+			every_character = {
 				limit = {
-					has_unit_leader = 5610
+					has_character_flag = ROM_is_yggdmillennia_character_flag
 				}
-				remove_unit_leader = 5610
+				retire_character = THIS
 			}
-			if = {
-				limit = {
-					has_unit_leader = 5611
-				}
-				remove_unit_leader = 5611
-			}
-			if = {
-				limit = {
-					has_unit_leader = 5612
-				}
-				remove_unit_leader = 5612
-			}
-			if = {
-				limit = {
-					has_unit_leader = 5614
-				}
-				remove_unit_leader = 5614
-			}
+			activate_advisor = ROM_alexandru_cantacuzino_special_first
+			activate_advisor = ROM_flandre_scarlet_special_second
+			activate_advisor = ROM_ion_mota_special_third
+			activate_advisor = ROM_rumia_misty_special_fifth
 		}
 		ai_will_do = {
 			factor = 1000
@@ -8824,7 +8840,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ROM_alliance_with_the_church
-		cost = 10
+		cost = 6
 		ai_will_do = {
 			factor = 1
 		}
@@ -8844,11 +8860,14 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ROM_New_Order_Triumph
-		cost = 10
+		cost = 7
 		ai_will_do = {
 			factor = 1
 		}
 		available = {
+			ROM_darnic_prestone_yggdmillennia = {
+				is_country_leader = yes
+			}
 		}
 		bypass = {
 		}
