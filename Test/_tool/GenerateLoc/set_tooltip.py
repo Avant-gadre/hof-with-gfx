@@ -29,7 +29,7 @@ pattern = """
 """
 
 ## Example
-target = "ROM_yg_dm"
+target = "ROM_army_dm"
 tag = target[:3]
 name = target[4:]
 
