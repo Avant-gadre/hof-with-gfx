@@ -12,11 +12,18 @@ file_path2 = os.path.join(current_dir, file_name2)
 
 pattern = """
     {}_modify_{}_off_{}_effect = {{
-        custom_effect_tooltip = {}_modify_{}_tooltip
-        add_to_variable = {{
-            var = {}
-            value =  var:temp_variable
-            tooltip = {}_tooltip
+        if = {{
+            limit = {{
+                has_dynamic_modifier = {{
+                    modifier = {}
+                }}
+            }}
+            custom_effect_tooltip = {}_modify_{}_tooltip
+            add_to_variable = {{
+                var = {}
+                value =  var:temp_variable
+                tooltip = {}_tooltip
+            }}
         }}
     }}
 """
@@ -34,7 +41,7 @@ with open(file_path1, "r", encoding="utf-8") as file1:
         if line.startswith(target):
             modifier_name = line[len(target) + 1 :]
             output_line = pattern.format(
-                tag, name, modifier_name, tag, name, line, modifier_name
+                tag, name, modifier_name, target, tag, name, line, modifier_name
             )
             output_lines.append(output_line)
 

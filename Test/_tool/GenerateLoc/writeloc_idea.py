@@ -13,9 +13,9 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "HUN_trait_"
+target = "generic_"
 
-end = "_idea"
+end = "_opinion"
 
 with open(file_path1, "r", errors="ignore") as file:
     lines = file.readlines()
