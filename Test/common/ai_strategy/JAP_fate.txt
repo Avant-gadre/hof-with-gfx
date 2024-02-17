@@ -1300,9 +1300,15 @@ JAP_kamikaze = { #
 
 	enable = {
 		date > 1939.1.1
-		has_navy_size = {
-			unit = carrier
-			size < 2
+		OR = {
+			has_navy_size = {
+				unit = carrier
+				size < 2
+			}
+			has_navy_size = {
+				unit = destroyer
+				size < 50
+			}
 		}
 		has_completed_focus = JAP_strengthen_the_divine_wind
 		JAP_is_liberals_trigger = no
@@ -2013,6 +2019,30 @@ JAP_protect_island = {
 	}
 
 	ai_strategy = {
+		type = front_unit_request
+		area = Pacific
+		value = 10
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		order_id = 1
+
+		# 特鲁克是我们的珍珠港！
+		states = {
+			684
+		}
+
+		ratio = 0.3
+
+		area = Pacific
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+
+	ai_strategy = {
 		type = put_unit_buffers
 
 		order_id = 1
@@ -2021,16 +2051,12 @@ JAP_protect_island = {
 		states = {
 			737
 			634
-
 			633
-			684
-
 			629
 			630
 			631
 			632
 			638
-
 			646
 			648
 			645
@@ -2807,6 +2833,11 @@ JAP_love_islands = {
 		type = area_priority
 		id = JAP_Absolute_Defense_Circle_hof
 		value = 80
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		area = pacific
+		value = 20
 	}
 	ai_strategy = {
 		type = front_unit_request

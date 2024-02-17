@@ -2346,9 +2346,25 @@ country_event = {
 		NOT = {
 			has_war_with = GER
 		}
-		ITA = {
-			surrender_progress > 0.5
+
+		OR = {
+			AND = {
+				ITA = {
+					surrender_progress > 0.5
+				}
+			}
+			AND = { #哎 你还是找个机会悄悄地加德子阵营吧 上来就擦鞋总比命定之死强多了
+				ITA = {
+					is_ai = yes
+					has_war_together_with = GER
+				}
+				GER = {
+					is_ai = yes
+					has_war_together_with = ITA
+				}
+			}
 		}
+
 		OR = {
 			ITA = {
 				is_faction_leader = yes
@@ -2405,13 +2421,20 @@ country_event = {
 			}
 		}
 		set_country_flag = GER_pre_attack_FLAG
-		every_country = {
+		if = {
 			limit = {
-				has_war_with = ITA
+				ITA = {
+					surrender_progress > 0.5
+				}
 			}
-			country_event = {
-				id = ror.19
-				hours = 1
+			every_country = {
+				limit = {
+					has_war_with = ITA
+				}
+				country_event = {
+					id = ror.19
+					hours = 1
+				}
 			}
 		}
 		ITA = {
