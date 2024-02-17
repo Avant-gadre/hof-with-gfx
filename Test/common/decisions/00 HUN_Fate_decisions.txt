@@ -13,19 +13,50 @@ HUN_form_true_kingdom_decision = {
 			has_full_control_of_state = 1090
 			has_full_control_of_state = 73
 			has_full_control_of_state = 70
-			has_full_control_of_state = 71
-			has_full_control_of_state = 864
+			##
 			has_full_control_of_state = 784
+			has_full_control_of_state = 155
+			has_full_control_of_state = 71
+			has_full_control_of_state = 70
+			has_full_control_of_state = 73
+			has_full_control_of_state = 664
+			##
+			has_full_control_of_state = 45
+			has_full_control_of_state = 875
+			has_full_control_of_state = 794
+			##
+			has_full_control_of_state = 83
 			has_full_control_of_state = 84
 			has_full_control_of_state = 789
 			has_full_control_of_state = 82
 			has_full_control_of_state = 76
-			has_full_control_of_state = 45
-			has_full_control_of_state = 875
-			has_full_control_of_state = 794
-			has_full_control_of_state = 45
 			has_completed_focus = HUN_Personality_cult
 			has_completed_focus = HUN_Military_dictatorship
+		}
+		##highlight_color_while_active = yes
+		highlight_states = {
+			highlight_state_targets = {
+				state = 1090
+				state = 73
+				state = 70
+				##
+				state = 784
+				state = 155
+				state = 71
+				state = 70
+				state = 73
+				state = 664
+				##
+				state = 45
+				state = 875
+				state = 794
+				##
+				state = 83
+				state = 84
+				state = 789
+				state = 82
+				state = 76
+			}
 		}
 		cost = 10
 		fire_only_once = yes
@@ -42,7 +73,7 @@ HUN_form_true_kingdom_decision = {
 					}
 				}
 				add_country_leader_trait = the_soldier_king
-				set_character_name = HUN_bathori_erzsebet_king
+				set_character_name = HUN_bathori_erzsebet_full
 			}
 			add_stability = 0.05
 		}
@@ -51,9 +82,14 @@ HUN_form_true_kingdom_decision = {
 
 ##打仗
 operations = {
+	##读条
 	ROM_Start_ROM_HUN_War = {
 		allowed = {
-			tag = ROM
+			OR = {
+				tag = ROM
+				tag = HUN
+				tag = CZE
+			}
 		}
 		available = {
 			always = no
@@ -62,7 +98,11 @@ operations = {
 		days_mission_timeout = 180
 		activation = {
 			date < 1936.1.10
-			tag = ROM
+			OR = {
+				tag = ROM
+				tag = HUN
+				tag = CZE
+			}
 		}
 		cancel_trigger = {
 			OR = {
@@ -74,19 +114,50 @@ operations = {
 		timeout_effect = {
 			#Attack 
 			set_global_flag = ROM_carpathians_war_broke_out_flag
-			unlock_national_focus = ROM_kindle_the_flames_of_war
-			add_timed_idea = {
-				idea = HUN_Passion_for_fighting
-				days = 150
-			}
-			declare_war_on = {
-				target = HUN
-				type = take_core_state
-				generator = {
-					76
-					82
-					93
+			ROM = {
+				declare_war_on = {
+					target = HUN
+					type = take_core_state
 				}
+			}
+			CZE = {
+				declare_war_on = {
+					target = SLO
+					type = puppet_wargoal_focus
+				}
+			}
+			ROM = {
+				if = {
+					limit = {
+						NOT = {
+							has_completed_focus = ROM_kindle_the_flames_of_war
+						}
+					}
+					unlock_national_focus = ROM_kindle_the_flames_of_war
+					add_political_power = -50
+					add_stability = -0.05
+				}
+			}
+			HUN = {
+				add_timed_idea = {
+					idea = HUN_Passion_for_fighting
+					days = 150
+				}
+			}
+			ROM = {
+				add_timed_idea = {
+					idea = HUN_Passion_for_fighting
+					days = 150
+				}
+			}
+			ROM = {
+				activate_mission = ROMHUN_ROM_occupy_transylvania
+			}
+			HUN = {
+				activate_mission = ROMHUN_ROM_occupy_transylvania
+			}
+			CZE = {
+				activate_mission = ROMHUN_ROM_occupy_transylvania
 			}
 			if = {
 				limit = {
@@ -99,26 +170,13 @@ operations = {
 						idea = HUN_Passion_for_fighting
 						days = 150
 					}
-					declare_war_on = {
-						target = SLO
-						type = puppet_wargoal_focus
-					}
 				}
 			}
-			add_political_power = -50
-			add_stability = -0.05
-			activate_mission = ROMHUN_ROM_occupy_transylvania
-			HUN = {
-				activate_mission = ROMHUN_HUN_fight_off_romania
-			}
-			HUN = {
+			CZE = {
 				activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
 			}
 			HUN = {
-				add_timed_idea = {
-					idea = HUN_Passion_for_fighting
-					days = 150
-				}
+				activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
 			}
 			hidden_effect = {
 				news_event = {
@@ -128,39 +186,53 @@ operations = {
 			}
 		}
 	}
+	##读条
 	ROMHUN_ROM_occupy_transylvania = {
+		name = ROM_HUN_WARMISSION_NAME
+		is_good = no
+		days_mission_timeout = 150
 		allowed = {
-			tag = ROM
+			OR = {
+				tag = ROM
+				tag = HUN
+				tag = CZE
+			}
 		}
 		available = {
 			OR = {
 				count_triggers = {
 					amount = 4
+					##Kolozvar
 					NOT = {
 						76 = {
 							is_controlled_by = HUN
 						}
 					}
+					##Banat
 					NOT = {
 						82 = {
 							is_controlled_by = HUN
 						}
 					}
+					##Reszek
 					NOT = {
 						83 = {
 							is_controlled_by = HUN
 						}
 					}
+					##Sekeford
 					NOT = {
 						789 = {
 							is_controlled_by = HUN
 						}
 					}
+					##Alofrd
 					NOT = {
 						154 = {
 							is_controlled_by = HUN
 						}
 					}
+					##Budapest
 					NOT = {
 						43 = {
 							is_controlled_by = HUN
@@ -179,7 +251,7 @@ operations = {
 			}
 		}
 		activation = {
-			always = no			#triggered by event
+			always = no			##triggered by event
 		}
 		cancel_trigger = {
 			OR = {
@@ -188,11 +260,13 @@ operations = {
 				}
 				count_triggers = {
 					amount = 2
+					##Trans
 					NOT = {
 						81 = {
 							is_controlled_by = ROM
 						}
 					}
+					##Oltenia
 					NOT = {
 						84 = {
 							is_controlled_by = ROM
@@ -207,10 +281,43 @@ operations = {
 				}
 			}
 		}
-		is_good = no
-		days_mission_timeout = 140
+		cancel_effect = {
+			#HUN WIN
+			set_global_flag = HUN_wins_the_war_flag
+			HUN = {
+				if = {
+					limit = {
+						has_war_with = ROM
+					}
+					white_peace = ROM
+					else = {
+						effect_tooltip = {
+							white_peace = ROM
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_war_with = CZE
+					}
+					white_peace = CZE
+					else = {
+						effect_tooltip = {
+							white_peace = CZE
+						}
+					}
+				}
+				add_political_power = 150
+				add_state_claim = 84
+				transfer_state = 84
+			}
+			ROM = {
+				complete_national_focus = ROM_setback
+			}
+			set_global_flag = HUN_force_romiania_lost_flag
+		}
 		timeout_effect = {
-			#ceasefire
+			##Ceasefire
 			set_global_flag = HUN_wins_the_war_flag
 			if = {
 				limit = {
@@ -240,62 +347,72 @@ operations = {
 					}
 				}
 			}
-			add_stability = -0.1
-			add_war_support = -0.15
 			ROM = {
+				add_stability = -0.1
+				add_war_support = -0.15
 				complete_national_focus = ROM_setback
+			}
+			CZE = {
+				add_stability = -0.05
+				add_war_support = -0.1
 			}
 		}
 		complete_effect = {
 			#ROM WIN
 			set_global_flag = HUN_lost_the_war_flag
-			if = {
-				limit = {
-					has_war_with = HUN
-				}
-				white_peace = HUN
-				else = {
-					effect_tooltip = {
-						white_peace = HUN
-					}
-				}
-			}
-			transfer_state = 76
-			transfer_state = 82
-			transfer_state = 83
-			transfer_state = 789
-			add_stability = 0.1
-			add_war_support = 0.05
-			if = {
-				limit = {
-					CZE = {
-						has_war_with = HUN
-					}
-				}
-				CZE = {
-					white_peace = HUN
-				}
-				else = {
-					effect_tooltip = {
-						CZE = {
-							white_peace = HUN
-						}
-					}
-				}
-			}
 			HUN = {
 				annex_country = {
 					target = SLO
 					transfer_troops = yes
 				}
 			}
+			ROM = {
+				if = {
+					limit = {
+						has_war_with = HUN
+					}
+					white_peace = HUN
+					else = {
+						effect_tooltip = {
+							white_peace = HUN
+						}
+					}
+				}
+			}
+			ROM = {
+				transfer_state = 76
+				transfer_state = 82
+				transfer_state = 83
+				transfer_state = 789
+				add_stability = 0.1
+				add_war_support = 0.05
+				complete_national_focus = ROM_a_total_victory
+			}
 			CZE = {
+				if = {
+					limit = {
+						has_war_with = HUN
+					}
+					white_peace = HUN
+					else = {
+						effect_tooltip = {
+							CZE = {
+								white_peace = HUN
+							}
+						}
+					}
+				}
 				transfer_state = 70
 				transfer_state = 71
 				transfer_state = 73
 				transfer_state = 1090
+				add_stability = 0.1
+				add_war_support = 0.05
 				complete_national_focus = CZE_the_new_czechoslovakia
 				complete_national_focus = CZE_political_direction
+			}
+			AUS = {
+				transfer_state = 784
 			}
 			if = {
 				limit = {
@@ -310,15 +427,22 @@ operations = {
 			if = {
 				limit = {
 					HUN = {
-						owns_state = 764
+						owns_state = 875
 					}
 				}
-				764 = {
+				875 = {
 					set_demilitarized_zone = yes
 				}
 			}
-			ROM = {
-				complete_national_focus = ROM_a_total_victory
+			if = {
+				limit = {
+					HUN = {
+						owns_state = 794
+					}
+				}
+				794 = {
+					set_demilitarized_zone = yes
+				}
 			}
 			hidden_effect = {
 				news_event = {
@@ -327,270 +451,14 @@ operations = {
 				}
 			}
 		}
-		cancel_effect = {
-			#HUN WIN
-			effect_tooltip = {
-				HUN = {
-					if = {
-						limit = {
-							has_war_with = ROM
-						}
-						white_peace = ROM
-						else = {
-							effect_tooltip = {
-								white_peace = ROM
-							}
-						}
-					}
-					if = {
-						limit = {
-							has_war_with = CZE
-						}
-						white_peace = CZE
-						else = {
-							effect_tooltip = {
-								white_peace = CZE
-							}
-						}
-					}
-					add_political_power = 150
-					add_state_claim = 84
-					transfer_state = 84
-				}
-			}
-			ROM = {
-				complete_national_focus = ROM_setback
-			}
-		}
-	}
-	ROMHUN_HUN_fight_off_romania = {
-		allowed = {
-			tag = HUN
-		}
-		available = {
-			OR = {
-				count_triggers = {
-					amount = 2
-					NOT = {
-						81 = {
-							is_controlled_by = ROM
-						}
-					}
-					NOT = {
-						84 = {
-							is_controlled_by = ROM
-						}
-					}
-					ROM = {
-						surrender_progress > 0.45
-					}
-				}
-				ROM = {
-					surrender_progress > 0.7
-				}
-			}
-		}
-		activation = {
-			always = no			#triggered by event
-		}
-		cancel_trigger = {
-			OR = {
-				has_global_flag = HUN_lost_the_war_flag
-				count_triggers = {
-					amount = 4
-					NOT = {
-						76 = {
-							is_controlled_by = HUN
-						}
-					}
-					NOT = {
-						82 = {
-							is_controlled_by = HUN
-						}
-					}
-					NOT = {
-						83 = {
-							is_controlled_by = HUN
-						}
-					}
-					NOT = {
-						664 = {
-							is_controlled_by = HUN
-						}
-					}
-					NOT = {
-						154 = {
-							is_controlled_by = HUN
-						}
-					}
-					NOT = {
-						43 = {
-							is_controlled_by = HUN
-						}
-					}
-					SLO = {
-						has_capitulated = yes
-					}
-					HUN = {
-						surrender_progress > 0.45
-					}
-				}
-				HUN = {
-					surrender_progress > 0.7
-				}
-			}
-		}
-		is_good = no
-		days_mission_timeout = 140
-		timeout_effect = {
-			#ceasefire
-			set_global_flag = HUN_wins_the_war_flag
-			if = {
-				limit = {
-					has_war_with = ROM
-				}
-				white_peace = ROM
-				else = {
-					effect_tooltip = {
-						white_peace = ROM
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_war_with = CZE
-				}
-				white_peace = CZE
-				else = {
-					effect_tooltip = {
-						white_peace = CZE
-					}
-				}
-			}
-			add_stability = 0.1
-			add_war_support = -0.02
-			hidden_effect = {
-				news_event = {
-					id = more_News.36
-					days = 1
-				}
-			}
-		}
-		complete_effect = {
-			#HUN WIN
-			set_global_flag = HUN_wins_the_war_flag
-			if = {
-				limit = {
-					has_war_with = ROM
-				}
-				white_peace = ROM
-				else = {
-					effect_tooltip = {
-						white_peace = ROM
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_war_with = CZE
-				}
-				white_peace = CZE
-				else = {
-					effect_tooltip = {
-						white_peace = CZE
-					}
-				}
-			}
-			add_political_power = 150
-			if = {
-				limit = {
-					ROM = {
-						owns_state = 81
-					}
-				}
-				81 = {
-					set_demilitarized_zone = yes
-				}
-			}
-			transfer_state = 84
-			hidden_effect = {
-				news_event = {
-					id = more_News.36
-					days = 1
-				}
-			}
-		}
-		cancel_effect = {
-			#ROM WIN
-			effect_tooltip = {
-				ROM = {
-					if = {
-						limit = {
-							has_war_with = HUN
-						}
-						white_peace = HUN
-						else = {
-							effect_tooltip = {
-								white_peace = HUN
-							}
-						}
-					}
-					transfer_state = 76
-					transfer_state = 82
-					transfer_state = 83
-					transfer_state = 789
-					add_stability = 0.1
-					add_war_support = 0.05
-					if = {
-						limit = {
-							CZE = {
-								has_war_with = HUN
-							}
-						}
-						CZE = {
-							white_peace = HUN
-						}
-						else = {
-							effect_tooltip = {
-								CZE = {
-									white_peace = HUN
-								}
-							}
-						}
-					}
-					CZE = {
-						transfer_state = 70
-						transfer_state = 73
-						transfer_state = 71
-						transfer_state = 664
-					}
-					if = {
-						limit = {
-							HUN = {
-								owns_state = 45
-							}
-						}
-						45 = {
-							set_demilitarized_zone = yes
-						}
-					}
-					if = {
-						limit = {
-							HUN = {
-								owns_state = 764
-							}
-						}
-						764 = {
-							set_demilitarized_zone = yes
-						}
-					}
-				}
-			}
-		}
 	}
 	Forcing_the_Czech_Republic_to_withdraw_from_the_war = {
+		name = CZE_HUN_WARMISSION_NAME
 		allowed = {
-			tag = HUN
+			OR = {
+				tag = HUN
+				tag = CZE
+			}
 		}
 		available = {
 			OR = {
@@ -626,23 +494,25 @@ operations = {
 			}
 		}
 		is_good = no
-		days_mission_timeout = 140
+		days_mission_timeout = 150
 		timeout_effect = {
 			#ceasefire
 		}
 		complete_effect = {
-			#
-			if = {
-				limit = {
-					has_war_with = CZE
-				}
-				white_peace = CZE
-				else = {
-					effect_tooltip = {
-						white_peace = CZE
+			HUN = {
+				if = {
+					limit = {
+						has_war_with = CZE
+					}
+					white_peace = CZE
+					else = {
+						effect_tooltip = {
+							white_peace = CZE
+						}
 					}
 				}
 			}
+			set_global_flag = HUN_force_czech_lost_flag
 		}
 		cancel_effect = {
 		}
@@ -656,40 +526,20 @@ HUN_Banat_TST_decision = {
 			num_of_civilian_factories_available_for_projects > 3
 			has_army_experience > 29
 			82 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 			875 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 		}
 		visible = {
 			is_subject = no
 			is_in_faction_with = GER
 			82 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 			875 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 		}
 		cost = 25
@@ -813,40 +663,20 @@ HUN_Banat_TST_decision = {
 				has_template_containing_unit = medium_sp_anti_air_brigade
 			}
 			82 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 			875 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 		}
 		visible = {
 			is_subject = no
 			is_in_faction_with = GER
 			82 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 			875 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 		}
 		cost = 25
@@ -970,40 +800,20 @@ HUN_Banat_TST_decision = {
 				has_template_containing_unit = medium_sp_anti_air_brigade
 			}
 			82 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 			875 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 		}
 		visible = {
 			is_subject = no
 			is_in_faction_with = GER
 			82 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 			875 = {
-				CONTROLLER = {
-					OR = {
-						original_tag = HUN
-						is_subject_of = HUN
-					}
-				}
+				is_controlled_by_ROOT_or_subject = yes
 			}
 		}
 		cost = 25
@@ -2651,614 +2461,150 @@ HUN_buy_land_from_nero = {
 }
 
 HUN_Take_over_the_core_territory_decision = {
-	HUN_Integrating_SLO_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 102
-				state = 683
-				state = 1107
-			}
-		}
+	HUN_integrate_land_decision = {
+		icon = agriculture
 		allowed = {
-			tag = HUN
+			always = yes
 		}
 		visible = {
-			102 = {
-				is_controlled_by_ROOT_or_subject = yes
+			is_subject = no
+		}
+		on_map_mode = map_and_decisions_view
+		cancel_if_not_visible = no
+		cancel_trigger = {
+			always = no
+		}
+		state_target = yes
+		target_array = controlled_states
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_core_of = CRO
+					is_core_of = SLO
+					is_core_of = SLV
+					state = 488
+					state = 736
+					state = 103
+				}
+				NOT = {
+					is_core_of = HUN
+				}
 			}
-			683 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-			1107 = {
-				is_controlled_by_ROOT_or_subject = yes
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM
 			}
 		}
 		available = {
-			NOT = {
-				has_country_flag = GER_Integrating_core_flag
-			}
-			is_subject = no
 			has_completed_focus = HUN_glory
-		}
-		cancel_if_not_visible = yes
-		cost = 100
-		complete_effect = {
-			set_country_flag = {
-				value = 1
-				days = 120
-				flag = GER_Integrating_core_flag
+			FROM = {
+				resistance < 40
+				compliance > 40
 			}
-			add_timed_idea = {
-				idea = Integrate_medium_idea
-				days = 120
-			}
-		}
-		cancel_trigger = {
-		}
-		days_remove = 120
-		remove_effect = {
-			102 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
-			683 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
-			1107 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
+			is_paying_efforts_trigger = no
 		}
 		ai_will_do = {
-			factor = 50
+			factor = 1
 			modifier = {
-				factor = 2
-				has_political_power > 50
-			}
-			modifier = {
-				factor = 4
-				has_political_power > 100
-			}
-			modifier = {
-				factor = 0.1
-				has_war = yes
+				factor = 10
+				has_political_power > 250
 			}
 		}
-	}
-	HUN_Integrating_CRO_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 109
-				state = 1112
-			}
-		}
-		allowed = {
-			tag = HUN
-		}
-		visible = {
-			109 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-			1112 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-		}
-		available = {
-			NOT = {
-				has_country_flag = GER_Integrating_core_flag
-			}
-			is_subject = no
-			has_completed_focus = HUN_glory
-		}
-		cancel_if_not_visible = yes
-		cost = 100
-		complete_effect = {
-			set_country_flag = {
-				value = 1
-				days = 120
-				flag = GER_Integrating_core_flag
-			}
-			add_timed_idea = {
-				idea = Integrate_medium_idea
-				days = 120
-			}
-		}
-		cancel_trigger = {
-		}
-		days_remove = 120
-		remove_effect = {
-			109 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
-			1112 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
-		}
-		ai_will_do = {
-			factor = 50
-			modifier = {
-				factor = 2
-				has_political_power > 50
-			}
-			modifier = {
-				factor = 4
-				has_political_power > 100
-			}
-			modifier = {
-				factor = 0.1
-				has_war = yes
-			}
-		}
-	}
-	HUN_Integrating_Istria_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 103
-				state = 736
-				state = 488
-			}
-		}
-		allowed = {
-			tag = HUN
-		}
-		visible = {
-			103 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-			736 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-			488 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-		}
-		available = {
-			NOT = {
-				has_country_flag = GER_Integrating_core_flag
-			}
-			is_subject = no
-			has_completed_focus = HUN_glory
-		}
-		cancel_if_not_visible = yes
-		cost = 50
-		complete_effect = {
-			set_country_flag = {
-				value = 1
-				days = 80
-				flag = GER_Integrating_core_flag
-			}
-			add_timed_idea = {
-				idea = Integrate_medium_idea
-				days = 80
-			}
-		}
-		cancel_trigger = {
-		}
+		fire_only_once = yes
 		days_remove = 60
-		remove_effect = {
-			103 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
-			736 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
-			488 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
-			}
-		}
-		ai_will_do = {
-			factor = 50
-			modifier = {
-				factor = 2
-				has_political_power > 50
-			}
-			modifier = {
-				factor = 4
-				has_political_power > 100
-			}
-			modifier = {
-				factor = 0.1
-				has_war = yes
-			}
-		}
-	}
-	HUN_Integrating_Dalmatia_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 163
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			has_completed_focus = HUN_glory
-			163 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-		}
-		available = {
-			NOT = {
-				has_country_flag = GER_Integrating_core_flag
-			}
-		}
-		cancel_if_not_visible = yes
-		cost = 50
+		cost = 30
 		complete_effect = {
-			set_country_flag = {
-				value = 1
-				days = 80
-				flag = GER_Integrating_core_flag
-			}
 			add_timed_idea = {
 				idea = Integrate_medium_idea
 				days = 80
 			}
 		}
+		remove_effect = {
+			FROM = {
+				enable_state_integration_80_compliance = yes
+			}
+			add_stability = 0.02
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	HUN_give_me_land_decisions = {
+		icon = agriculture
+		allowed = {
+			always = yes
+		}
+		visible = {
+			is_subject = no
+		}
+		on_map_mode = map_and_decisions_view
+		cancel_if_not_visible = no
 		cancel_trigger = {
+			always = no
 		}
-		days_remove = 60
-		remove_effect = {
-			163 = {
-				remove_claim_and_add_core_and_transfer_of_ROOT = yes
+		state_target = yes
+		target_array = controlled_states
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_core_of = CRO
+					is_core_of = SLO
+					is_core_of = HUN
+					ROM_is_transilvania_state_trigger = yes
+				}
+				NOT = {
+					state = 103
+					#is_core_of = HUN
+				}
+			}
+			FROM.controller = {
+				HUN_target_can_Take_over_land = yes
 			}
 		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM
+			}
+		}
+		available = {
+			tag = HUN
+			is_subject = no
+			is_in_faction = yes
+		}
 		ai_will_do = {
-			factor = 50
+			factor = 1
 			modifier = {
-				factor = 2
-				has_political_power > 50
-			}
-			modifier = {
-				factor = 4
-				has_political_power > 100
-			}
-			modifier = {
-				factor = 0.1
-				has_war = yes
+				factor = 10
+				has_political_power > 250
 			}
 		}
-	}
-	## Slovakia
-	HUN_Take_over_70_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 70
-			}
+		fire_only_once = yes
+		days_remove = 10
+		cost = 30
+		complete_effect = {
 		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			70 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
+		remove_effect = {
+			if = {
+				limit = {
+					FROM = {
+						NOT = {
+							is_owned_by = ROOT.FROM.controller
+						}
+					}
+				}
+				ROOT = {
+					set_state_controller = ROOT.FROM
+				}
+			}
+			else = {
+				ROOT = {
+					transfer_state = ROOT.FROM
 				}
 			}
 		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 70
-		}
 		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_1090_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 1090
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			1090 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 1090
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_664_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 664
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			664 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 664
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_71_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 71
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			71 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 71
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_73_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 73
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			73 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 73
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	##Transylvania
-	HUN_Take_over_789_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 789
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			789 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 789
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_84_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 84
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			84 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 84
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_76_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 76
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			76 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 76
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_82_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 82
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			82 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 82
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_83_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 83
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			83 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 83
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	##Vajdaság
-	HUN_Take_over_875_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 875
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			875 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 875
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_794_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 794
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			794 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 875
-		}
-		ai_will_do = {
-			factor = 50
-		}
-	}
-	HUN_Take_over_45_decisions = {
-		icon = eng_trade_unions_demand
-		highlight_states = {
-			highlight_state_targets = {
-				state = 45
-			}
-		}
-		visible = {
-			tag = HUN
-			is_subject = no
-			is_in_faction = yes
-			45 = {
-				is_core_of = ROOT
-				controller = {
-					HUN_target_can_Take_over_land = yes
-				}
-			}
-		}
-		cost = 0
-		remove_effect = {
-			transfer_state = 45
-		}
-		ai_will_do = {
-			factor = 50
+			factor = 1000
 		}
 	}
 }

@@ -1,0 +1,53 @@
+scripted_gui = {
+	HOF_hun_power_balance_view_ui = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "HOF_hun_power_balance_view"
+		visible = {
+			tag = HUN
+			##always = no
+		}
+		effects = {
+			view_button_click = {
+				if = {
+					limit = {
+						has_country_flag = show_power_balance_context
+					}
+					clr_country_flag = show_power_balance_context
+				}
+				else = {
+					set_country_flag = show_power_balance_context
+				}
+			}
+		}
+	}
+	HOF_hun_power_balance_window_ui = {
+		context_type = player_context
+		# parent_window_token = politics_tab
+		window_name = "HOF_hun_power_balance_window"
+		visible = {
+			tag = HUN
+			has_country_flag = show_power_balance_context
+			NOT = {
+				has_country_flag = HUN_political_situation_has_stabilized_flag
+			}
+			##always = no
+		}
+		effects = {
+			button_close_click = {
+				clr_country_flag = show_power_balance_context
+			}
+		}
+		properties = {
+			left_value = {
+				image = "[ROOT.GetHunLeftValue]"
+			}
+			center_value = {
+				image = "[ROOT.GetHunLeftValue]"
+			}
+			right_value = {
+				image = "[ROOT.GetHunRightValue]"
+			}
+		}
+	}
+}

@@ -418,11 +418,8 @@ country_event = {
 		effect_tooltip = {
 			remove_ideas = ARTURIA_king_arthur_idea
 		}
-		remove_unit_leader = 801
-		create_field_marshal = {
-			name = "Arturia Pendragon(Alter)"
-			id = 802
-			picture = "Portrait_Arturia_Pendragon_Alter.png"
+		add_field_marshal_role = {
+			character = ENG_artoria_pendragon_alter
 			traits = {
 				inspirational_leader
 				organisational_leader
@@ -439,27 +436,13 @@ country_event = {
 			planning_skill = 5
 			logistics_skill = 3
 		}
-		create_country_leader = {
-			name = "Arturia Pendragon(Alter)"
-			picture = "gfx/leaders/ENG/Portrait_Arturia_Pendragon_Alter.png"
-			ideology = classical_fascism
-			traits = {
-				black_king
-				motorized_expert
-			}
-			id = 901
+		promote_character = {
+			character = ENG_artoria_pendragon_alter
+			ideology = rexism
 		}
-		hidden_effect = {
-			create_country_leader = {
-				name = "Mordred"
-				##desc = "POLITICS_MORDRED_DESC"
-				picture = "gfx/leaders/ENG/Portrait_mordred.png"
-				ideology = oligarchism
-				traits = {
-					Knight_of_Rebellion
-				}
-				id = 903
-			}
+		promote_character = {
+			character = ENG_medraut_pendragon
+			ideology = authoritarianism
 		}
 	}
 }
@@ -483,7 +466,6 @@ country_event = {
 			country_event = {
 				id = britain.20
 				days = 500
-				random = 100
 			}
 		}
 	}
@@ -1022,6 +1004,9 @@ country_event = {
 	desc = gsk_britain.9.d
 	picture = GFX_report_event_saberalter
 	is_triggered_only = yes
+	trigger = {
+		always = no
+	}
 	option = {
 		name = gsk_britain.9.a
 		add_ai_strategy = {
@@ -1074,11 +1059,6 @@ country_event = {
 			ruling_party = fascism
 			ideology = democratic
 			size = 0.35
-			keep_unit_leaders = {
-				803
-				809
-				806
-			}
 		}
 		hidden_effect = {
 			news_event = {
@@ -1289,11 +1269,11 @@ country_event = {
 			}
 		}
 		add_country_leader_role = {
-			character = ENG_Waver
+			character = ENG_waver_velvet_el_melloi_archisorte
 			country_leader = {
 				ideology = liberalism
 				traits = {
-					strategy_educator
+					ENG_trait_strategy_educator
 				}
 			}
 			promote_leader = yes
@@ -1315,11 +1295,11 @@ country_event = {
 			}
 		}
 		add_country_leader_role = {
-			character = ENG_Olga_Marie_Animusphere
+			character = ENG_olga_marie_arsimilat_animusphere
 			country_leader = {
 				ideology = conservatism
 				traits = {
-					elite_action
+					ENG_trait_elite_action
 				}
 			}
 			promote_leader = yes
@@ -1791,6 +1771,7 @@ country_event = {
 			base = 75
 		}
 		kill_country_leader = yes
+		##TODO
 		create_country_leader = {
 			name = "Rimea II"
 			##desc = "POLITICS_ELIZARD_DESC"
@@ -1864,6 +1845,7 @@ country_event = {
 					}
 				}
 			}
+			##TODO
 			create_country_leader = {
 				name = "Carissa"
 				##desc = "POLITICS_CARISSA_DESC"
@@ -2099,11 +2081,9 @@ country_event = {
 	desc = more_britain.4.d
 	picture = GFX_report_event_generic_clock_tower
 	trigger = {
+		always = no
 		original_tag = CAN
 		has_government = democratic
-		ENG = {
-			has_completed_focus = ENG_london_incident_focus
-		}
 		ENG = {
 			has_government = fascism
 		}
@@ -2120,17 +2100,6 @@ country_event = {
 			base = 85
 		}
 		add_stability = -0.05
-		create_country_leader = {
-			name = "Olga Marie Animusphere"
-			desc = POLITICS_ANIMUSPHERE_DESC
-			picture = "gfx/leaders/ENG/Portrait_Olga_Marie_Animusphere.png"
-			expire = "1950.1.1"
-			ideology = conservatism
-			traits = {
-				clock_tower_exiled
-				elite_action
-			}
-		}
 		set_rule = {
 			can_declare_war_on_same_ideology = yes
 		}
@@ -2142,47 +2111,6 @@ country_event = {
 				is_in_faction = no
 			}
 			create_faction = ENG_Clock_Tower_Faction
-		}
-		if = {
-			limit = {
-				SAF = {
-					has_government = democratic
-				}
-			}
-			SAF = {
-				create_country_leader = {
-					name = "Gray"
-					desc = "POLITICS_ANIMUSPHERE_DESC"
-					picture = "gfx/leaders/ENG/Portrait_Gray.png"
-					expire = "1950.1.1"
-					ideology = liberalism
-					traits = {
-						clock_tower_exiled
-					}
-				}
-			}
-			add_to_faction = SAF
-		}
-		if = {
-			limit = {
-				AST = {
-					has_government = democratic
-				}
-			}
-			AST = {
-				create_country_leader = {
-					name = "Lev Lainur Flauros"
-					##desc = "POLITICS_LEV_DESC"
-					picture = "Portrait_Lev_Lainur_Flauros.png"
-					expire = "1950.1.1"
-					ideology = liberalism
-					traits = {
-						clock_tower_exiled
-						Generic_trait_war_industrialist
-					}
-				}
-			}
-			add_to_faction = AST
 		}
 	}
 }
@@ -2362,9 +2290,7 @@ country_event = {
 		ai_chance = {
 			base = 85
 		}
-		hidden_effect = {
-			set_country_flag = round_table_controlled
-		}
+		set_country_flag = round_table_controlled
 		set_politics = {
 			ruling_party = neutrality
 			elections_allowed = no
@@ -2376,50 +2302,6 @@ country_event = {
 			}
 		}
 		set_country_flag = britain_enforced_our_loyalty
-		if = {
-			limit = {
-				tag = CAN
-			}
-			create_country_leader = {
-				name = "Agravain"
-				desc = "POLITICS_AGRAVAIN_DESC"
-				picture = "gfx/leaders/ENG/Portrait_agravain.png"
-				ideology = oligarchism
-				traits = {
-					Generic_trait_prince_of_terror
-					army_commando_3
-				}
-			}
-		}
-		if = {
-			limit = {
-				tag = SAF
-			}
-			create_country_leader = {
-				name = "Mordred"
-				##desc = "POLITICS_MORDRED_DESC"
-				picture = "gfx/leaders/ENG/Portrait_mordred.png"
-				ideology = oligarchism
-				traits = {
-					Knight_of_Rebellion
-					navy_chief_maneuver_3
-					army_armored_3
-				}
-			}
-			set_cosmetic_tag = SAF_round_table
-		}
-		if = {
-			limit = {
-				tag = AST
-			}
-			create_country_leader = {
-				name = "Bedivere"
-				##desc = "POLITICS_BEDIVERE_DESC"
-				picture = "gfx/leaders/ENG/Portrait_bedivere.png"
-				ideology = oligarchism
-			}
-			set_cosmetic_tag = AST_round_table
-		}
 	}
 }
 
@@ -3152,6 +3034,7 @@ country_event = {
 		ai_chance = {
 			base = 60
 		}
+		##TODO
 		create_country_leader = {
 			name = "Rama"
 			picture = "gfx/leaders/RAJ/Portrait_Rama.png"
@@ -3166,6 +3049,7 @@ country_event = {
 		ai_chance = {
 			base = 640
 		}
+		##TODO
 		create_country_leader = {
 			name = "Sita"
 			picture = "gfx/leaders/RAJ/Portrait_Sita.png"
@@ -3584,6 +3468,7 @@ country_event = {
 		unlock_decision_tooltip = ENG_Help_Germany_attack_France_dec
 		hidden_effect = {
 			news_event = {
+				##TODO
 				id = eng_news.2
 				hours = 4
 			}
