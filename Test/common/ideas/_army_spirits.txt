@@ -6,7 +6,7 @@ ideas = {
 				custom_modifier_tooltip = bold_attack_spirit_tt
 			}
 			ai_will_do = {
-				factor = 3
+				factor = 5
 			}
 		}
 		tenacious_defense_spirit = {
@@ -109,8 +109,7 @@ ideas = {
 			modifier = {
 				custom_modifier_tooltip = superior_firepower_academy_spirit_tt
 				trait_engineer_xp_gain_factor = 0.2
-				trait_fortress_buster_xp_gain_factor = 0.1
-				trait_scavenger_xp_gain_factor = 0.1
+				initiative_factor = 0.04
 			}
 			ai_will_do = {
 				factor = 1
@@ -164,7 +163,7 @@ ideas = {
 				trait_engineer_xp_gain_factor = 0.25
 				unit_engineer_design_cost_factor = -1
 				dig_in_speed_factor = 0.1
-				railway_gun_bombardment_factor = 0.05
+				railway_gun_bombardment_factor = 0.20
 			}
 			ai_will_do = {
 				factor = 1
@@ -225,6 +224,10 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 15
+					has_government = communism
+				}
 			}
 		}
 		state_serves_the_military_spirit = {
@@ -237,7 +240,7 @@ ideas = {
 				mobilization_laws_cost_factor = -0.25
 			}
 			ai_will_do = {
-				factor = 10
+				factor = 5
 			}
 		}
 		mobile_warfare_army_spirit = {
@@ -293,19 +296,19 @@ ideas = {
 		grand_battleplan_army_spirit = {
 			visible = {
 				OR = {
-					has_tech = fate_elastic_defence
-					has_tech = fate_depth_defence
+					has_tech = special_forces_mountaineers
+					has_tech = special_forces_marines
+					has_tech = special_forces_paratroopers
 				}
 			}
 			ledger = army
 			modifier = {
-				unit_marine_design_cost_factor = -1
-				unit_mountaineers_design_cost_factor = -1
-				unit_paratrooper_design_cost_factor = -1
-				naval_invasion_capacity = 10
+				unit_marine_design_cost_factor = -0.5
+				unit_mountaineers_design_cost_factor = -0.5
+				unit_paratrooper_design_cost_factor = -0.5
+				special_forces_cap_flat = 24
 				extra_paratrooper_supply_grace = 24
 				extra_marine_supply_grace = 24
-				naval_invasion_planning_bonus_speed = 0.2
 			}
 			ai_will_do = {
 				factor = 1
@@ -314,10 +317,7 @@ ideas = {
 		mass_assault_army_spirit = {
 			ledger = army
 			visible = {
-				OR = {
-					has_tech = fate_elastic_defence
-					has_tech = fate_depth_defence
-				}
+				has_tech = fate_modern_command
 			}
 			modifier = {
 				experience_gain_infantry_combat_factor = 0.1
@@ -327,6 +327,16 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+			}
+		}
+		heritage_of_accomplishment = {
+			ledger = army
+			modifier = {
+				grant_medal_cost_factor = -0.5
+				field_officer_promotion_penalty = -1.0
+			}
+			ai_will_do = {
+				factor = 0
 			}
 		}
 	}
@@ -340,7 +350,7 @@ ideas = {
 				dig_in_speed_factor = 0.1
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 2
 			}
 		}
 		flexible_organization_spirit = {
@@ -351,7 +361,7 @@ ideas = {
 				choose_preferred_tactics_cost = -15
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 0
 			}
 		}
 		aggressive_reconnaisance_spirit = {
@@ -377,19 +387,23 @@ ideas = {
 		}
 		victory_or_death_spirit = {
 			ledger = army
+			visible = {
+				tag = JAP
+			}
 			modifier = {
-				tactic_human_wave_tactics_preferred_weight_factor = 1
-				org_loss_at_low_org_factor = -0.15
+				#tactic_human_wave_tactics_preferred_weight_factor = 1
+				org_loss_at_low_org_factor = -0.25
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 5
 			}
 		}
 		maneuver_warfare_spirit = {
+			ledger = army
 			visible = {
 				OR = {
-					has_tech = fate_long_range_strike
-					has_tech = fate_close_range_strike
+					has_tech = fate_blitzkrieg
+					tag = GER
 				}
 			}
 			modifier = {
@@ -404,20 +418,27 @@ ideas = {
 		smoke_and_fire_spirit = {
 			ledger = army
 			visible = {
-				has_tech = fate_superior_firepower
+				OR = {
+					has_tech = fate_superior_firepower
+					tag = USA
+					tag = FRA
+				}
 			}
 			modifier = {
 				tactic_barrage_preferred_weight_factor = 1
 				breakthrough_factor = 0.05
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 5
 			}
 		}
 		logistical_focus_spirit = {
 			ledger = army
 			visible = {
-				has_tech = fate_kampfgruppe
+				OR = {
+					has_tech = fate_air_ground_coordination
+					tag = ENG
+				}
 			}
 			modifier = {
 				tactic_planned_attack_preferred_weight_factor = 1
@@ -432,14 +453,18 @@ ideas = {
 		operational_reserve_spirit = {
 			ledger = army
 			visible = {
-				has_tech = fate_kampfgruppe
+				OR = {
+					has_tech = fate_depth_breakthrough
+					tag = SOV
+					tag = RUS
+				}
 			}
 			modifier = {
 				tactic_relentless_assault_preferred_weight_factor = 1
 				army_strength_factor = 0.1
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 5
 			}
 		}
 	}
@@ -540,7 +565,7 @@ ideas = {
 				air_accidents_factor = -0.25
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 10
 			}
 		}
 	}
@@ -562,6 +587,7 @@ ideas = {
 			}
 			modifier = {
 				air_carrier_night_penalty_reduction_factor = 0.33
+				carrier_night_traffic = 0.5
 			}
 			ai_will_do = {
 				factor = 1
@@ -583,7 +609,7 @@ ideas = {
 				air_mission_efficiency = 0.1
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 10
 			}
 		}
 		steel_wings_steel_hearts_spirit = {
@@ -788,10 +814,9 @@ ideas = {
 			}
 			research_bonus = {
 				ship_modules_tech = 0.2
-				naval_equipment = 0.2
 			}
 			ai_will_do = {
-				factor = 15
+				factor = 5
 			}
 		}
 		naval_reform_spirit = {
@@ -800,7 +825,7 @@ ideas = {
 				experience_gain_navy_factor = 0.15
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 5
 			}
 		}
 		naval_refit_yards_spirit = {
@@ -810,7 +835,7 @@ ideas = {
 				repair_speed_factor = 0.15
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 5
 			}
 		}
 		fleet_in_being_navy_spirit = {
@@ -901,7 +926,7 @@ ideas = {
 				positioning = 0.15
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 10
 			}
 		}
 		#discrete_valor_spirit = {

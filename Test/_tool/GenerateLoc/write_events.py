@@ -44,9 +44,9 @@ country_event = {{
 """
 
 
-target = "fate_rhine"
+target = "fate_hungarian"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 13):
+    for i in range(1, 20):
         current_statement = statement_template.format(i,target=target)
         file.write(current_statement)
