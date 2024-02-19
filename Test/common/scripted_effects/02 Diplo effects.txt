@@ -495,9 +495,6 @@ copy_laws_of_PREV = {
 	}
 }
 
-# the following effects are excellent for preserving a puppet's government so it doesn't change to the overlord
-# use the first command in the scope of the about-to-be-puppeted country right before the puppet command is executed
-# and then the second, also in the scope of the puppet, right after
 embargo_ROOT = {
 	if = {
 		limit = {
@@ -628,14 +625,6 @@ remove_puppet_and_leave_faction = {
 	}
 }
 
-##TODO
-incoming_war_notification_effect = {
-	hidden_effect = {
-		country_event = generic_events.30
-	}
-	#warning event
-}
-
 ##ROOT to join Other's Faction
 ask_to_join_faction = {
 	country_event = {
@@ -750,5 +739,269 @@ white_peace_with_ROOT = {
 				}
 			}
 		}
+	}
+}
+
+##To From
+incoming_war_notification_effect = {
+	hidden_effect = {
+		country_event = generic_events.30
+	}
+	#warning event
+}
+
+incoming_war_notification_for_ally_effect = {
+	every_other_country = {
+		limit = {
+			is_ally_with = ROOT
+		}
+		country_event = generic_events.32
+	}
+}
+
+set_war_flag_effect = {
+	set_country_flag = {
+		flag = imminent_war
+		days = 30
+		value = 1
+	}
+}
+
+incoming_war_all_effect = {
+	FROM = {
+		incoming_war_notification_effect = yes
+	}
+	ROOT = {
+		incoming_war_notification_for_ally_effect = yes
+		set_war_flag_effect = yes
+	}
+}
+
+### For use in decisions ###
+setup_decision_attack_AI = {
+	if = {
+		limit = {
+			has_country_flag = imminent_war
+		}
+		modify_country_flag = {
+			flag = imminent_war
+			value = 1
+		}
+	}
+	else = {
+		set_country_flag = {
+			flag = imminent_war
+			value = 1
+			days = 50
+		}
+	}
+	hidden_effect = {
+		if = {
+			limit = {
+				FROM = {
+					has_civil_war = yes
+				}
+			}
+			every_country_with_original_tag = {
+				original_tag_to_check = FROM
+				limit = {
+					NOT = {
+						has_country_flag = preparing_for_war_with_@ROOT
+					}
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = 100
+				}
+				set_country_flag = preparing_for_war_with_@ROOT
+				ROOT = {
+					add_to_array = {
+						preparing_for_war_with_@FROM = PREV
+					}
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = FROM
+						value = 100
+					}
+				}
+				if = {
+					limit = {
+						is_in_faction = yes						#shouldn't ever happen, but just in case
+						is_faction_leader = no
+						faction_leader = {
+							NOT = {
+								has_country_flag = preparing_for_war_with_@ROOT
+							}
+						}
+					}
+					faction_leader = {
+						add_ai_strategy = {
+							type = prepare_for_war
+							id = ROOT
+							value = 100
+						}
+						set_country_flag = preparing_for_war_with_@ROOT
+						ROOT = {
+							add_to_array = {
+								preparing_for_war_with_@FROM = PREV
+							}
+							add_ai_strategy = {
+								type = prepare_for_war
+								id = PREV
+								value = 100
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						is_subject = yes						#shouldn't ever happen, but just in case
+						overlord = {
+							NOT = {
+								has_country_flag = preparing_for_war_with_@ROOT
+							}
+						}
+					}
+					overlord = {
+						add_ai_strategy = {
+							type = prepare_for_war
+							id = ROOT
+							value = 100
+						}
+						set_country_flag = preparing_for_war_with_@ROOT
+						ROOT = {
+							add_to_array = {
+								preparing_for_war_with_@FROM = PREV
+							}
+							add_ai_strategy = {
+								type = prepare_for_war
+								id = PREV
+								value = 100
+							}
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					FROM = {
+						has_country_flag = preparing_for_war_with_@ROOT
+					}
+				}
+			}
+			add_to_array = {
+				preparing_for_war_with_@FROM = FROM
+			}
+			add_ai_strategy = {
+				type = prepare_for_war
+				id = FROM
+				value = 100
+			}
+			FROM = {
+				set_country_flag = preparing_for_war_with_@ROOT
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = 100
+				}
+				if = {
+					limit = {
+						is_in_faction = yes
+						is_faction_leader = no
+						faction_leader = {
+							NOT = {
+								has_country_flag = preparing_for_war_with_@ROOT
+							}
+						}
+					}
+					faction_leader = {
+						add_ai_strategy = {
+							type = prepare_for_war
+							id = ROOT
+							value = 100
+						}
+						set_country_flag = preparing_for_war_with_@ROOT
+						ROOT = {
+							add_to_array = {
+								preparing_for_war_with_@FROM = PREV
+							}
+							add_ai_strategy = {
+								type = prepare_for_war
+								id = PREV
+								value = 100
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						is_subject = yes
+						overlord = {
+							NOT = {
+								has_country_flag = preparing_for_war_with_@ROOT
+							}
+						}
+					}
+					overlord = {
+						add_ai_strategy = {
+							type = prepare_for_war
+							id = ROOT
+							value = 100
+						}
+						set_country_flag = preparing_for_war_with_@ROOT
+						ROOT = {
+							add_to_array = {
+								preparing_for_war_with_@FROM = PREV
+							}
+							add_ai_strategy = {
+								type = prepare_for_war
+								id = PREV
+								value = 100
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+clear_decision_attack_AI = {
+	if = {
+		limit = {
+			has_country_flag = {
+				flag = imminent_war
+				value > 1
+			}
+		}
+		modify_country_flag = {
+			flag = imminent_war
+			value = -1
+		}
+	}
+	else = {
+		clr_country_flag = imminent_war
+	}
+	hidden_effect = {
+		for_each_scope_loop = {
+			array = preparing_for_war_with_@FROM
+			clr_country_flag = preparing_for_war_with_@ROOT
+			add_ai_strategy = {
+				type = prepare_for_war
+				id = ROOT
+				value = -100
+			}
+			ROOT = {
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = PREV
+					value = -100
+				}
+			}
+		}
+		clear_array = preparing_for_war_with_@FROM
 	}
 }

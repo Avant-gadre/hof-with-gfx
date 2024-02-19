@@ -2032,7 +2032,7 @@ focus_tree = {
 	focus = {
 		id = FRA_army_command_focus
 		icon = GFX_focus_FRA_army_generic
-		cost = 5
+		cost = 8
 		prerequisite = {
 			focus = FRA_Royal_military_parade
 		}
@@ -2050,13 +2050,9 @@ focus_tree = {
 			has_civil_war = yes
 		}
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = FRA_shadow_of_World_War_I_idea_I
-				add_idea = FRA_shadow_of_World_War_I_idea_II
-			}
 			add_doctrine_cost_reduction = {
 				name = FRA_army_command_focus
-				cost_reduction = 0.5
+				cost_reduction = 0.75
 				uses = 1
 				category = cat_grand_battle_plan
 			}
@@ -2165,6 +2161,15 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_army_command_focus
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = FRA_shadow_of_World_War_I_idea_I
+				}
+				swap_ideas = {
+					remove_idea = FRA_shadow_of_World_War_I_idea_I
+					add_idea = FRA_shadow_of_World_War_I_idea_II_New_Era
+				}
+			}
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
@@ -2298,6 +2303,15 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = FRA_shadow_of_World_War_I_idea_I
+				}
+				swap_ideas = {
+					remove_idea = FRA_shadow_of_World_War_I_idea_I
+					add_idea = FRA_shadow_of_World_War_I_idea_II_Old_Glory
+				}
+			}
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
@@ -2520,6 +2534,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = FRA_army_command_focus
 		available = {
+			has_civil_war = no
 			FRA = {
 				is_puppet = no
 			}
@@ -2537,7 +2552,7 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			has_civil_war = yes
+			#has_civil_war = yes
 		}
 		completion_reward = {
 			army_experience = 25
@@ -2574,11 +2589,25 @@ focus_tree = {
 					}
 				}
 			}
-			add_ideas = FRA_infantry_focus
-			add_ideas = FRA_motorized_focus
-			swap_ideas = {
-				remove_idea = FRA_shadow_of_World_War_I_idea_II
-				add_idea = FRA_shadow_of_World_War_I_idea_III
+			if = {
+				limit = {
+					has_idea = FRA_shadow_of_World_War_I_idea_II_Old_Glory
+				}
+				add_ideas = FRA_infantry_focus
+				swap_ideas = {
+					remove_idea = FRA_shadow_of_World_War_I_idea_II_Old_Glory
+					add_idea = FRA_shadow_of_World_War_I_idea_III_Old_Glory
+				}
+			}
+			if = {
+				limit = {
+					has_idea = FRA_shadow_of_World_War_I_idea_II_New_Era
+				}
+				add_ideas = FRA_motorized_focus
+				swap_ideas = {
+					remove_idea = FRA_shadow_of_World_War_I_idea_II_New_Era
+					add_idea = FRA_shadow_of_World_War_I_idea_III_New_Era
+				}
 			}
 		}
 	}
@@ -2665,7 +2694,7 @@ focus_tree = {
 				name = FRA_Modern_strategy
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_mobile_warfare
+				category = cat_grand_battle_plan
 			}
 			add_doctrine_cost_reduction = {
 				name = FRA_Modern_strategy
@@ -2710,7 +2739,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = FRA_French_lion
 				cost_reduction = 0.5
-				uses = 1
+				uses = 2
 				category = cat_grand_battle_plan
 			}
 			add_doctrine_cost_reduction = {
@@ -2727,41 +2756,19 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_idea = FRA_shadow_of_World_War_I_idea_I
+					has_idea = FRA_shadow_of_World_War_I_idea_III_Old_Glory
 				}
 				swap_ideas = {
-					remove_idea = FRA_shadow_of_World_War_I_idea_I
+					remove_idea = FRA_shadow_of_World_War_I_idea_III_Old_Glory
 					add_idea = FRA_The_lion_awakens
 				}
 			}
 			if = {
 				limit = {
-					has_idea = FRA_shadow_of_World_War_I_idea_II
+					has_idea = FRA_shadow_of_World_War_I_idea_III_New_Era
 				}
 				swap_ideas = {
-					remove_idea = FRA_shadow_of_World_War_I_idea_II
-					add_idea = FRA_The_lion_awakens
-				}
-			}
-			if = {
-				limit = {
-					has_idea = FRA_shadow_of_World_War_I_idea_III
-				}
-				swap_ideas = {
-					remove_idea = FRA_shadow_of_World_War_I_idea_III
-					add_idea = FRA_The_lion_awakens
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_government = communism
-						has_government = fascism
-					}
-					has_idea = FRA_The_lion_awakens
-				}
-				swap_ideas = {
-					remove_idea = FRA_The_lion_awakens
+					remove_idea = FRA_shadow_of_World_War_I_idea_III_New_Era
 					add_idea = FRA_The_lion_awakens_2
 				}
 			}
@@ -5452,6 +5459,10 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = FRA_dominant_middle_east
+		offset = {
+			x = 0
+			y = 0
+		}
 		ai_will_do = {
 			factor = 500
 			modifier = {
@@ -5480,9 +5491,6 @@ focus_tree = {
 					has_war = yes
 				}
 			}
-			553 = {
-				is_fully_controlled_by_ROOT_or_subject = yes
-			}
 		}
 		bypass = {
 			owns_state = 455
@@ -5490,14 +5498,70 @@ focus_tree = {
 			owns_state = 453
 		}
 		completion_reward = {
-			declare_war_on = {
-				target = ENG
+			add_state_claim = 455
+			add_state_claim = 454
+			add_state_claim = 453
+			if = {
+				limit = {
+					455.owner = {
+						tag = ENG
+					}
+					454.owner = {
+						OR = {
+							tag = ENG
+							tag = ISR
+						}
+					}
+					453.owner = {
+						tag = ENG
+					}
+				}
+				create_wargoal = {
+					type = take_state
+					target = 455.owner
+					generator = {
+						455
+					}
+				}
+				create_wargoal = {
+					type = take_state
+					target = 454.owner
+					generator = {
+						454
+					}
+				}
+				hidden_effect = {
+					create_wargoal = {
+						type = take_state
+						target = 453.owner
+						generator = {
+							453
+						}
+					}
+				}
 			}
-			declare_war_on = {
-				target = EGY
-			}
-			declare_war_on = {
-				target = ISR
+			else = {
+				create_wargoal = {
+					type = take_state
+					target = 455.owner
+					generator = {
+						455
+					}
+				}
+				create_wargoal = {
+					type = take_state
+					target = 454.owner
+					generator = {
+						454
+					}
+				}
+				create_wargoal = {
+					type = take_state
+					target = 453.owner
+					generator = {
+						453
+					}
+				}
 			}
 		}
 	}

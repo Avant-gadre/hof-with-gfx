@@ -2448,3 +2448,81 @@ country_event = {
 		puppet = CHI
 	}
 }
+
+country_event = {
+	id = martian.68
+	title = martian.68.t
+	desc = martian.68.d
+	picture = GFX_report_event_generic_funeral
+	hidden = yes
+	mean_time_to_happen = {
+		days = 7
+	}
+	trigger = {
+		ROOT = {
+			is_subject = no
+			# is_ai = no			##是玩家吧
+		}
+		any_other_country = {
+			has_war = yes
+			is_in_faction_with = ROOT
+			any_other_country = {
+				has_war_with = PREV
+				ROOT = {
+					NOT = {
+						has_war_with = PREV
+					}
+				}
+				##没接电话吧
+			}
+		}
+	}
+	immediate = {
+		every_other_country = {
+			limit = {
+				is_in_faction_with = ROOT
+			}
+			every_enemy_country = {
+				ROOT = {
+					add_to_war = {
+						targeted_alliance = PREV.PREV
+						enemy = PREV
+					}
+				}
+			}
+		}
+	}
+	option = {
+	}
+}
+
+country_event = {
+	# 炸了也不给你
+	id = martian.69
+	title = martian.69.t
+	desc = martian.69.d
+	picture = GFX_report_event_generic_funeral
+	hidden = yes
+	mean_time_to_happen = {
+		days = 1
+	}
+	trigger = {
+		tag = ITA
+		is_ai = yes
+		is_subject = no
+		is_faction_leader = yes
+		surrender_progress > 0.8
+	}
+	immediate = {
+		destroy_ships = {
+			type = battleship
+			count = all
+		}
+		destroy_ships = {
+			type = heavy_cruiser
+			count = all
+		}
+	}
+	option = {
+	}
+}

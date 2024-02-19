@@ -254,6 +254,366 @@ country_event = {
 }
 
 country_event = {
+	#event to remove the alert after ten days (donotlog)
+	id = generic_events.25
+	hidden = yes
+	trigger = {
+		is_in_array = {
+			global.faction_joining_alerts = THIS
+		}
+	}
+	is_triggered_only = yes
+	option = {
+		remove_from_array = {
+			global.faction_joining_alerts = THIS
+		}
+		set_variable_to_random = global.kaiserreich_alerts_dirty
+	}
+}
+
+#########################
+### Incoming War-ning ###
+#########################
+# Warning about impending declaration of war (used for decisions)
+country_event = {
+	#donotlog
+	id = generic_events.30
+	hidden = yes
+	is_triggered_only = yes
+	option = {
+		every_other_country = {
+			limit = {
+				OR = {
+					is_ally_with = ROOT
+					has_guaranteed = ROOT
+					civilwar_target = ROOT
+				}
+			}
+			setup_decision_attack_AI = yes
+		}
+		every_country = {
+			limit = {
+				is_ai = no
+				OR = {
+					is_ally_with = ROOT
+					has_guaranteed = ROOT
+					civilwar_target = ROOT
+				}
+				NOT = {
+					is_ally_with = FROM
+				}
+			}
+			set_variable = {
+				alert_war_target_@FROM = ROOT
+			}
+			add_to_array = {
+				incoming_war_alerts = FROM
+			}
+			scoped_sound_effect = alert_enemy_generate_wargoal_sound
+		}
+		set_variable_to_random = global.kaiserreich_alerts_dirty
+	}
+}
+
+# Warning about impending declaration of war for allies (used for decisions)
+country_event = {
+	id = generic_events.32	#donotlog
+	title = generic_events.30.t
+	desc = generic_events.32.d
+	picture = GFX_report_event_generic_towar
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+	}
+	option = {
+		name = generic_events.30.a
+	}
+}
+
+# country_event = {
+# 	#donotlog
+# 	id = generic_events.50
+# 	hidden = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		GER = {
+# 			exists = yes
+# 			is_ally_with = ROOT
+# 		}
+# 		NOT = {
+# 			has_variable = GER_faction
+# 		}
+# 	}
+# 	immediate = {
+# 		every_other_country = {
+# 			limit = {
+# 				OR = {
+# 					AND = {
+# 						ENT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = ENT
+# 					}
+# 					AND = {
+# 						INT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = INT
+# 					}
+# 				}
+# 			}
+# 			add_opinion_modifier = {
+# 				target = ROOT
+# 				modifier = KR_factional_rivalry
+# 			}
+# 			if = {
+# 				limit = {
+# 					is_ally_with = INT
+# 				}
+# 				embargo_PREV = yes
+# 			}
+# 		}
+# 		set_variable = {
+# 			GER_faction = 1
+# 		}
+# 	}
+# }
+# country_event = {
+# 	#donotlog
+# 	id = generic_events.51
+# 	hidden = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		has_variable = GER_faction
+# 		GER = {
+# 			exists = yes
+# 			NOT = {
+# 				is_ally_with = ROOT
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		every_other_country = {
+# 			limit = {
+# 				OR = {
+# 					AND = {
+# 						ENT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = ENT
+# 					}
+# 					AND = {
+# 						INT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = INT
+# 					}
+# 				}
+# 			}
+# 			remove_opinion_modifier = {
+# 				target = ROOT
+# 				modifier = KR_factional_rivalry
+# 			}
+# 			ROOT = {
+# 				remove_opinion_modifier = {
+# 					target = PREV
+# 					modifier = KR_factional_rivalry
+# 				}
+# 			}
+# 			clear_embargo_PREV = yes
+# 		}
+# 		clear_variable = GER_faction
+# 	}
+# }
+# country_event = {
+# 	#donotlog
+# 	id = generic_events.52
+# 	hidden = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		ENT = {
+# 			exists = yes
+# 			is_ally_with = ROOT
+# 		}
+# 		NOT = {
+# 			has_variable = ENT_faction
+# 		}
+# 	}
+# 	immediate = {
+# 		every_other_country = {
+# 			limit = {
+# 				OR = {
+# 					AND = {
+# 						GER = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = GER
+# 					}
+# 					AND = {
+# 						INT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = INT
+# 					}
+# 				}
+# 			}
+# 			add_opinion_modifier = {
+# 				target = ROOT
+# 				modifier = KR_factional_rivalry
+# 			}
+# 			if = {
+# 				limit = {
+# 					INT = {
+# 						exists = yes
+# 					}
+# 					is_ally_with = INT
+# 				}
+# 				embargo_PREV = yes
+# 			}
+# 		}
+# 		set_variable = {
+# 			ENT_faction = 1
+# 		}
+# 	}
+# }
+# country_event = {
+# 	#donotlog
+# 	id = generic_events.53
+# 	hidden = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		has_variable = ENT_faction
+# 		ENT = {
+# 			exists = yes
+# 			NOT = {
+# 				is_ally_with = ROOT
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		every_other_country = {
+# 			limit = {
+# 				OR = {
+# 					AND = {
+# 						GER = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = GER
+# 					}
+# 					AND = {
+# 						INT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = INT
+# 					}
+# 				}
+# 			}
+# 			remove_opinion_modifier = {
+# 				target = ROOT
+# 				modifier = KR_factional_rivalry
+# 			}
+# 			ROOT = {
+# 				remove_opinion_modifier = {
+# 					target = PREV
+# 					modifier = KR_factional_rivalry
+# 				}
+# 			}
+# 			clear_embargo_PREV = yes
+# 		}
+# 		clear_variable = ENT_faction
+# 	}
+# }
+# country_event = {
+# 	#donotlog
+# 	id = generic_events.54
+# 	hidden = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		INT = {
+# 			exists = yes
+# 			is_ally_with = ROOT
+# 		}
+# 		NOT = {
+# 			has_variable = INT_faction
+# 		}
+# 	}
+# 	immediate = {
+# 		every_other_country = {
+# 			limit = {
+# 				OR = {
+# 					AND = {
+# 						GER = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = GER
+# 					}
+# 					AND = {
+# 						ENT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = ENT
+# 					}
+# 				}
+# 			}
+# 			add_opinion_modifier = {
+# 				target = ROOT
+# 				modifier = KR_factional_rivalry
+# 			}
+# 			embargo_PREV = yes
+# 		}
+# 		set_variable = {
+# 			INT_faction = 1
+# 		}
+# 	}
+# }
+# country_event = {
+# 	#donotlog
+# 	id = generic_events.55
+# 	hidden = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		has_variable = INT_faction
+# 		INT = {
+# 			exists = yes
+# 			NOT = {
+# 				is_ally_with = ROOT
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		every_other_country = {
+# 			limit = {
+# 				OR = {
+# 					AND = {
+# 						GER = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = GER
+# 					}
+# 					AND = {
+# 						INT = {
+# 							exists = yes
+# 						}
+# 						is_ally_with = INT
+# 					}
+# 				}
+# 			}
+# 			remove_opinion_modifier = {
+# 				target = ROOT
+# 				modifier = KR_factional_rivalry
+# 			}
+# 			ROOT = {
+# 				remove_opinion_modifier = {
+# 					target = PREV
+# 					modifier = KR_factional_rivalry
+# 				}
+# 			}
+# 			clear_embargo_PREV = yes
+# 		}
+# 		clear_variable = INT_faction
+# 	}
+# }
+country_event = {
 	id = generic_events.75
 	title = generic_events.75.t
 	desc = generic_events.75.d
