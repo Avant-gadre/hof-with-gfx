@@ -1,0 +1,252 @@
+foreign_politics = {
+	generic_join_german_faction_decision = {
+		icon = generic_industry
+		target_trigger = {
+		}
+		target_root_trigger = {
+		}
+		available = {
+			has_war = yes
+			all_enemy_country = {
+				has_war_with = ROOT.FROM
+			}
+			NOT = {
+				has_war_with = ROOT.FROM
+				has_government = communism
+			}
+			GER = {
+				has_government = fascism
+			}
+		}
+		targets = {
+			GER
+		}
+		visible = {
+			is_in_faction = no
+			is_puppet = no
+			FROM = {
+				is_faction_leader = yes
+				is_puppet = no
+			}
+		}
+		targets_dynamic = yes
+		cost = 30
+		days_remove = 7
+		remove_effect = {
+			FROM = {
+				ask_to_join_faction = yes
+				add_political_power = 30
+			}
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_government = democratic
+				}
+				add_stability = -0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+	}
+	generic_join_french_faction_decision = {
+		icon = generic_industry
+		target_trigger = {
+		}
+		target_root_trigger = {
+		}
+		targets = {
+			FRA
+		}
+		available = {
+			NOT = {
+				has_war_with = ROOT.FROM
+				has_government = fascism
+			}
+			has_war = yes
+			all_enemy_country = {
+				has_war_with = ROOT.FROM
+			}
+			FRA = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+		}
+		visible = {
+			is_in_faction = no
+			is_puppet = no
+			FROM = {
+				is_faction_leader = yes
+				is_puppet = no
+			}
+		}
+		targets_dynamic = yes
+		cost = 30
+		days_remove = 7
+		remove_effect = {
+			FROM = {
+				ask_to_join_faction = yes
+				add_political_power = 30
+			}
+		}
+		complete_effect = {
+		}
+	}
+	generic_join_british_faction_decision = {
+		icon = generic_industry
+		target_trigger = {
+		}
+		target_root_trigger = {
+		}
+		targets = {
+			ENG
+		}
+		available = {
+			NOT = {
+				has_war_with = ROOT.FROM
+				has_government = communism
+				has_government = fascism
+			}
+			has_war = yes
+			all_enemy_country = {
+				has_war_with = ROOT.FROM
+			}
+			ENG = {
+				NOT = {
+					has_government = communism
+					has_government = fascism
+				}
+			}
+		}
+		visible = {
+			is_in_faction = no
+			is_puppet = no
+			FROM = {
+				is_faction_leader = yes
+				is_puppet = no
+			}
+		}
+		targets_dynamic = yes
+		cost = 30
+		days_remove = 7
+		remove_effect = {
+			FROM = {
+				ask_to_join_faction = yes
+				add_political_power = 30
+			}
+		}
+		complete_effect = {
+		}
+	}
+	generic_join_usa_faction_decision = {
+		icon = generic_industry
+		target_trigger = {
+		}
+		target_root_trigger = {
+		}
+		available = {
+			NOT = {
+				has_war_with = ROOT.FROM
+				has_government = communism
+				has_government = fascism
+			}
+			OR = {
+				AND = {
+					has_war = yes
+					all_enemy_country = {
+						has_war_with = ROOT.FROM
+					}
+				}
+				AND = {
+					ROOT.capital = {
+						is_in_americas = yes
+					}
+					date > 1943.1.1
+				}
+			}
+		}
+		visible = {
+			is_in_faction = no
+			is_puppet = no
+			FROM = {
+				NOT = {
+					has_government = communism
+					has_government = fascism
+				}
+				OR = {
+					is_faction_leader = yes
+					ENG = {
+						is_faction_leader = yes
+						is_in_faction_with = USA
+					}
+				}
+			}
+		}
+		targets = {
+			USA
+		}
+		targets_dynamic = yes
+		cost = 30
+		days_remove = 7
+		remove_effect = {
+			FROM = {
+				ask_to_join_faction = yes
+				add_political_power = 30
+			}
+		}
+		complete_effect = {
+		}
+	}
+	generic_join_comitern_faction_decision = {
+		icon = generic_industry
+		target_trigger = {
+		}
+		target_root_trigger = {
+		}
+		available = {
+			NOT = {
+				has_war_with = ROOT.FROM
+				has_government = fascism
+			}
+			OR = {
+				has_government = communism
+				AND = {
+					SOV = {
+						has_completed_focus = SOV_Humane_communism
+					}
+					has_government = democratic
+				}
+			}
+			has_war = yes
+			all_enemy_country = {
+				has_war_with = ROOT.FROM
+			}
+		}
+		visible = {
+			is_in_faction = no
+			is_puppet = no
+			FROM = {
+				has_government = communism
+				is_faction_leader = yes
+				is_puppet = no
+			}
+		}
+		targets = {
+			SOV
+		}
+		targets_dynamic = yes
+		cost = 30
+		days_remove = 7
+		remove_effect = {
+			FROM = {
+				ask_to_join_faction = yes
+				add_political_power = 30
+			}
+		}
+		complete_effect = {
+		}
+	}
+}
