@@ -114,8 +114,6 @@ characters_string2 = """
             }}
             on_remove = {{
             }}
-            research_bonus = {{
-            }}
 			ai_will_do = {{
 				factor = 1
 			}}
