@@ -1,174 +1,3 @@
-ITA_is_italian_colony = { #State scope
-	OR = {
-		is_core_of = ERI
-		is_core_of = LBA
-		is_core_of = SOM
-		is_core_of = ETH
-	}
-}
-
-ITA_is_protestant_or_orthodox_country_in_europe_for_pope = {
-	OR = {
-		original_tag = ENG
-		original_tag = DEN
-		original_tag = NOR
-		original_tag = SWE
-		original_tag = FIN
-		original_tag = GER
-		original_tag = HOL
-		original_tag = LIT
-		original_tag = EST
-		original_tag = SOV
-		original_tag = ALB
-		original_tag = GRE
-		original_tag = ROM
-		original_tag = BUL
-		original_tag = YUG
-		original_tag = SER
-		original_tag = MNT
-		original_tag = KOS
-		original_tag = MAC
-		original_tag = UKR
-		original_tag = BLR
-	}
-}
-
-ITA_is_valid_free_states_of_europe_target = {
-	has_government = democratic
-	is_in_faction = no
-	is_subject = no
-	NOT = { has_war_with = ROOT }
-	OR = {
-		original_tag = FRA
-		original_tag = SPA
-		original_tag = POR
-		original_tag = SWI
-		original_tag = AUS
-		original_tag = YUG
-		original_tag = SER
-		original_tag = CRO
-		original_tag = MNT
-		original_tag = KOS
-		original_tag = GRE
-		original_tag = ALB
-		original_tag = TUR
-		AND = {
-			OR = {
-				original_tag = GER
-				original_tag = BUL
-				original_tag = ROM
-				original_tag = HUN
-				original_tag = CZE
-				original_tag = SLO
-				original_tag = SLV
-				original_tag = MAC
-				original_tag = LUX
-				original_tag = BEL
-				original_tag = HOL
-				original_tag = POL
-			}
-			is_neighbor_of = ROOT
-		}
-	}
-}
-
-ITA_state_is_in_north_africa = { #West/East Maghreb + Tripoli + Egypt + Upper Nile
-	OR = {
-		region = 182 #WESTERN MAGHREB
-		region = 126 #EASTERN MAGHREB
-		region = 225 #TRIPOLI
-		region = 128 #EGYPT
-		region = 216 #UPPER NILE
-	}
-}
-
-ITA_state_is_in_east_africa = { #Danakil + ETH Highlands + Ogaden + Lake Victoria + SE Africa + Madagascar
-	is_on_continent = africa
-	OR = {
-		region = 273 #DANAKIL
-		region = 17 #ETHIOPIAN HIGHLANDS
-		region = 274 #OGADEN
-		region = 217 #LAKE VICTORIA
-		region = 185 #SOUTH EAST AFRICA
-		region = 181 #MADAGASCAR
-	}
-}
-
-ITA_state_is_in_west_africa = { #West Africa + Sub-Saharian Africa
-	is_on_continent = africa
-	OR = {
-		region = 226 #WEST AFRICA
-		region = 140 #SUB-SAHARIAN AFRICA
-	}
-}
-
-ITA_state_is_in_central_africa = { #Cameroon + Central Africa + W Congo + NE Congo + SE Congo + Angola
-	is_on_continent = africa
-	OR = {
-		region = 184 #CAMEROON
-		region = 183 #CENTRAL AFRICA
-		region = 272 #WEST CONGO
-		region = 227 #NORTH EAST CONGO
-		region = 271 #SOUTH EAST CONGO
-		region = 224 #ANGOLA
-	}
-}
-
-ITA_state_is_in_south_africa = { #Namibia + Zambezi + South Africa
-	is_on_continent = africa
-	OR = {
-		region = 215 #NAMIBIA
-		region = 223 #ZAMBEZI
-		region = 139 #SOUTH EAST AFRICA
-		region = 181 #MADAGASCAR
-	}
-}
-
-ITA_state_is_in_middle_east = { #Levant + Middle East + Hejaz + Central Arabia + S Arabia + E Arabia + Asia Minor
-	is_on_continent = middle_east
-}
-
-ITA_state_is_in_asia = {
-	is_on_continent = asia
-}
-
-ITA_state_is_in_latin_america = {
-	OR = {
-		is_on_continent = south_america
-		is_core_of = MEX
-	}
-}
-
-ITA_state_is_in_north_america = { #Not Mexico
-	OR = {
-		is_on_continent = north_america
-		NOT = { is_core_of = MEX }
-	}
-}
-
-ITA_state_is_in_oceania = {
-	is_on_continent = australia
-}
-
-#Used to change name of States and VPs when appropriate. Expected to be used inside on_state_control_changed. FROM.FROM is state / ROOT is new controller / FROM is former controller
-ITA_state_or_vp_name_should_change = {
-	OR = {
-		AND = {
-			ROOT = { original_tag = ITA }
-			NOT = { FROM = { original_tag = ITA } } #Not civil wars
-		}
-		AND = {
-			FROM = { original_tag = ITA }
-			NOT = { ROOT = { original_tag = ITA } } #Not civil wars
-		}
-	}
-	OR = {
-		FROM.FROM = { state = 852 } # ISTRIA (Fiume / Rijeka)
-		FROM.FROM = { state = 163 } # ZARA / ZADAR // (Zara / Zadar)
-		FROM.FROM = { state = 164 } # DODECANESO / DODECANESE // (Rodi / Rhodes)
-	}
-}
-
 ENG_tyrant_possibly_alliance = {
 	ENG = {
 		exists = yes
@@ -219,5 +48,55 @@ ITA_nero_system_available = {
 }
 
 ITA_nero_cd_ready = {
-	NOT = { has_country_flag = ITA_nero_activated_recently_flag }
+	NOT = {
+		has_country_flag = ITA_nero_activated_recently_flag
+	}
+}
+
+ITA_can_attack_other_tier1_trigger = {
+	OR = {
+		AND = {
+			ENG = {
+				NOT = {
+					is_in_faction_with = ROOT
+				}
+			}
+			OR = {
+				threat > 0.3
+				date > 1938.1.1
+			}
+		}
+		AND = {
+			is_in_faction_with = ENG
+			ENG = {
+				has_government = neutrality
+				is_subject = no
+			}
+			threat > 0.5
+		}
+	}
+}
+
+ITA_can_attack_other_tier2_trigger = {
+	OR = {
+		AND = {
+			ENG = {
+				NOT = {
+					is_in_faction_with = ROOT
+				}
+			}
+			OR = {
+				threat > 0.35
+				date > 1938.1.1
+			}
+		}
+		AND = {
+			is_in_faction_with = ENG
+			ENG = {
+				has_government = neutrality
+				is_subject = no
+			}
+			threat > 0.5
+		}
+	}
 }

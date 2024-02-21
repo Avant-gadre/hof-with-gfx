@@ -1,0 +1,561 @@
+add_namespace = fate_roman_diplo
+##GRE as receiver-make choice
+country_event = {
+	id = fate_roman_diplo.1
+	title = fate_roman_diplo.1.title
+	desc = fate_roman_diplo.1.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	##Greece being annexed
+	option = {
+		name = fate_roman_diplo.1.a
+		custom_effect_tooltip = GAME_OVER_TT
+		GRE = {
+			every_unit_leader = {
+				set_unit_leader_flag = flag_former_greek_general
+				set_nationality = ITA
+			}
+		}
+		ITA = {
+			annex_country = {
+				target = GRE
+				transfer_troops = yes
+			}
+			country_event = {
+				id = fate_roman_diplo.3
+				days = 1
+			}
+		}
+		if = {
+			limit = {
+				is_ai = no
+			}
+			ITA = {
+				change_tag_from = GRE
+			}
+		}
+		##TODO
+		set_global_flag = GRE_being_annexed_flag
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 0
+				is_subject = yes
+				NOT = {
+					is_subject_of = ITA
+				}
+			}
+			modifier = {
+				factor = 0.5
+				is_puppet = no
+			}
+			modifier = {
+				factor = 2
+				is_subject_of = ITA
+			}
+		}
+	}
+	##Only accept economy integration
+	option = {
+		name = fate_roman_diplo.1.b
+		trigger = {
+		}
+		GRE = {
+			add_ideas = ITA_economy_integration_idea
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	##We refuse
+	option = {
+		name = fate_roman_diplo.1.c
+		trigger = {
+			##always = no
+		}
+		custom_effect_tooltip = GRE_will_lead_to_independence_war_tt
+		add_political_power = -30
+		ITA = {
+			country_event = {
+				id = fate_roman_diplo.2
+				days = 2
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+##ITA as receiver-greek denied
+country_event = {
+	id = fate_roman_diplo.2
+	title = fate_roman_diplo.2.title
+	desc = fate_roman_diplo.2.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	##War
+	option = {
+		name = fate_roman_diplo.2.a
+		ai_chance = {
+			base = 10
+		}
+		add_political_power = -50
+		add_war_support = 0.05
+		GRE = {
+			clear_all_relations = yes
+		}
+		ITA = {
+			declare_war_on = {
+				target = GRE
+				type = annex_everything
+			}
+		}
+		add_named_threat = {
+			threat = 1
+			name = GRE_independence_war_threat
+		}
+		##A news need here TODO
+	}
+	##Smooth
+	option = {
+		name = fate_roman_diplo.2.b
+		trigger = {
+		}
+		add_political_power = -50
+		GRE = {
+			add_autonomy_score = {
+				value = -500
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	##Do nothing
+	option = {
+		name = fate_roman_diplo.2.c
+		trigger = {
+		}
+		add_stability = -0.05
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+##ITA as receiver-greek accept
+country_event = {
+	id = fate_roman_diplo.3
+	title = fate_roman_diplo.3.title
+	desc = fate_roman_diplo.3.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	##Good
+	option = {
+		name = fate_roman_diplo.3.a
+		news_event = {
+			id = fate_roman_news.1
+			hours = 3
+		}
+		add_political_power = 30
+		ai_chance = {
+			base = 1
+		}
+	}
+	# option = {
+	# 	name = fate_roman_diplo.3.b
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+	# option = {
+	# 	name = fate_roman_diplo.3.c
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+}
+
+##ITA as receiver-greek accept economy integration
+country_event = {
+	id = fate_roman_diplo.4
+	title = fate_roman_diplo.4.title
+	desc = fate_roman_diplo.4.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	##Good
+	option = {
+		name = fate_roman_diplo.4.a
+		news_event = {
+			id = fate_roman_news.2
+			hours = 3
+		}
+		add_political_power = 10
+		ai_chance = {
+			base = 1
+		}
+	}
+	# option = {
+	# 	name = fate_roman_diplo.4.b
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+	# option = {
+	# 	name = fate_roman_diplo.4.c
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+}
+
+country_event = {
+	id = fate_roman_diplo.5
+	title = fate_roman_diplo.5.title
+	desc = fate_roman_diplo.5.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.5.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.5.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.5.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.6
+	title = fate_roman_diplo.6.title
+	desc = fate_roman_diplo.6.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.6.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.6.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.6.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.7
+	title = fate_roman_diplo.7.title
+	desc = fate_roman_diplo.7.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.7.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.7.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.7.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.8
+	title = fate_roman_diplo.8.title
+	desc = fate_roman_diplo.8.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.8.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.8.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.8.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.9
+	title = fate_roman_diplo.9.title
+	desc = fate_roman_diplo.9.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.9.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.9.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.9.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.10
+	title = fate_roman_diplo.10.title
+	desc = fate_roman_diplo.10.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.10.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.10.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.10.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.11
+	title = fate_roman_diplo.11.title
+	desc = fate_roman_diplo.11.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.11.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.11.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.11.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.12
+	title = fate_roman_diplo.12.title
+	desc = fate_roman_diplo.12.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.12.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.12.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.12.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.13
+	title = fate_roman_diplo.13.title
+	desc = fate_roman_diplo.13.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.13.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.13.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.13.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = fate_roman_diplo.14
+	title = fate_roman_diplo.14.title
+	desc = fate_roman_diplo.14.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_roman_diplo.14.a
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.14.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fate_roman_diplo.14.c
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}

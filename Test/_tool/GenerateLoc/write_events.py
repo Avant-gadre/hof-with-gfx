@@ -43,10 +43,46 @@ country_event = {{
 }}
 """
 
+statement_template1 = """
+news_event = {{
+	id = {target}.{0}
+	title = {target}.{0}.title
+	desc = {target}.{0}.desc
+	immediate = {{
+	}}
+	picture = GFX_news_event_generic_nero
+	is_triggered_only = yes
+	fire_only_once = yes
+    major = yes
+	option = {{
+		name = {target}.{0}.a
+		ai_chance = {{
+			base = 1
+		}}
+	}}
+	option = {{
+		name = {target}.{0}.b
+		trigger = {{
+		}}
+		ai_chance = {{
+			base = 1
+		}}
+	}}
+	option = {{
+		name = {target}.{0}.c
+		trigger = {{
+		}}
+		ai_chance = {{
+			base = 1
+		}}
+	}}
+}}
+"""
 
-target = "fate_hungarian"
+
+target = "fate_roman_news"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 20):
-        current_statement = statement_template.format(i,target=target)
+    for i in range(1, 15):
+        current_statement = statement_template1.format(i,target=target)
         file.write(current_statement)

@@ -27,11 +27,11 @@ kill_character = {
 			}
 			remove_unit_leader_role = yes
 		}
-		clr_character_flag = is_monarch
-		clr_character_flag = is_regent
-		clr_character_flag = character_event_only
-		clr_character_flag = show_unit_leader_role
-		clr_character_flag = show_political_advisor_role
+		# clr_character_flag = is_monarch
+		# clr_character_flag = is_regent
+		# clr_character_flag = character_event_only
+		# clr_character_flag = show_unit_leader_role
+		# clr_character_flag = show_political_advisor_role
 		set_character_as_dead = yes
 		retire = yes
 	}
@@ -42,171 +42,166 @@ set_character_as_dead = {
 	set_character_flag = is_dead
 }
 
-generate_generic_sics = {
-	if = {
-		limit = {
-			NOT = {
-				has_country_flag = has_generic_sics
-			}
-		}
-		set_country_flag = has_generic_sics
-		### make sure that the below are exactly the same as in history/general/generic_sic_advisors
-		generate_character = {
-			token_base = empowered_legislative			# token will be TAG_token_base
-			name = KR_generic_parliament_sic
-			advisor = {
-				slot = second_in_command
-				idea_token = sic
-				traits = {
-					KR_parliament_sic
-				}
-				cost = 0
-				can_be_fired = no
-			}
-			portraits = {
-				army = {
-					small = "gfx/interface/advisors/Generic/generic_empowered_legislature.png"
-				}
-			}
-		}
-		generate_character = {
-			token_base = empowered_executive			# token will be TAG_token_base
-			name = KR_generic_authoritarian_sic
-			advisor = {
-				slot = second_in_command
-				idea_token = sic
-				traits = {
-					KR_authoritarian_sic
-				}
-				cost = 0
-				can_be_fired = no
-			}
-			portraits = {
-				army = {
-					small = "gfx/interface/advisors/Generic/generic_controlled_parliament.png"
-				}
-			}
-		}
-		generate_character = {
-			token_base = empowered_trade_unions			# token will be TAG_token_base
-			name = KR_generic_socialist_sic
-			advisor = {
-				slot = second_in_command
-				idea_token = sic
-				traits = {
-					KR_socialist_sic
-				}
-				cost = 0
-				can_be_fired = no
-			}
-			portraits = {
-				army = {
-					small = "gfx/interface/advisors/Generic/generic_trade_unions_empowered.png"
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_character = empowered_legislative
-			}
-			#avoids error log
-			empowered_legislative = {
-				set_character_flag = is_generic
-			}
-		}
-		if = {
-			limit = {
-				has_character = empowered_executive
-			}
-			#avoids error log
-			empowered_executive = {
-				set_character_flag = is_generic
-			}
-		}
-		if = {
-			limit = {
-				has_character = empowered_trade_unions
-			}
-			#avoids error log
-			empowered_trade_unions = {
-				set_character_flag = is_generic
-			}
-		}
-	}
-	else = {
-		enable_generic_sics = yes
-	}
-}
-
-activate_generic_sics = {
-	if = {
-		limit = {
-			has_socialist_government = yes
-			has_character = empowered_trade_unions
-		}
-		activate_advisor = empowered_trade_unions_sic
-	}
-	else_if = {
-		limit = {
-			has_authoritarian_government = yes
-			has_character = empowered_executive
-		}
-		activate_advisor = empowered_executive_sic
-	}
-	else_if = {
-		limit = {
-			has_character = empowered_legislative
-		}
-		activate_advisor = empowered_legislative_sic
-	}
-}
-
-generate_generic_sics_and_activate = {
-	generate_generic_sics = yes
-	activate_generic_sics = yes
-}
-
-enable_generic_sics = {
-	if = {
-		limit = {
-			has_country_flag = has_generic_sics
-		}
-		empowered_legislative = {
-			set_nationality = PREV
-		}
-		empowered_executive = {
-			set_nationality = PREV
-		}
-		empowered_trade_unions = {
-			set_nationality = PREV
-		}
-	}
-	else = {
-		generate_generic_sics = yes
-	}
-}
-
-disable_generic_sics = {
-	if = {
-		limit = {
-			has_character = empowered_legislative
-		}
-		retire_character = empowered_legislative
-	}
-	if = {
-		limit = {
-			has_character = empowered_legislative
-		}
-		retire_character = empowered_legislative
-	}
-	if = {
-		limit = {
-			has_character = empowered_legislative
-		}
-		retire_character = empowered_legislative
-	}
-}
-
+# generate_generic_sics = {
+# 	if = {
+# 		limit = {
+# 			NOT = {
+# 				has_country_flag = has_generic_sics
+# 			}
+# 		}
+# 		set_country_flag = has_generic_sics
+# 		### make sure that the below are exactly the same as in history/general/generic_sic_advisors
+# 		generate_character = {
+# 			token_base = empowered_legislative			# token will be TAG_token_base
+# 			name = KR_generic_parliament_sic
+# 			advisor = {
+# 				slot = second_in_command
+# 				idea_token = sic
+# 				traits = {
+# 					KR_parliament_sic
+# 				}
+# 				cost = 0
+# 				can_be_fired = no
+# 			}
+# 			portraits = {
+# 				army = {
+# 					small = "gfx/interface/advisors/Generic/generic_empowered_legislature.png"
+# 				}
+# 			}
+# 		}
+# 		generate_character = {
+# 			token_base = empowered_executive			# token will be TAG_token_base
+# 			name = KR_generic_authoritarian_sic
+# 			advisor = {
+# 				slot = second_in_command
+# 				idea_token = sic
+# 				traits = {
+# 					KR_authoritarian_sic
+# 				}
+# 				cost = 0
+# 				can_be_fired = no
+# 			}
+# 			portraits = {
+# 				army = {
+# 					small = "gfx/interface/advisors/Generic/generic_controlled_parliament.png"
+# 				}
+# 			}
+# 		}
+# 		generate_character = {
+# 			token_base = empowered_trade_unions			# token will be TAG_token_base
+# 			name = KR_generic_socialist_sic
+# 			advisor = {
+# 				slot = second_in_command
+# 				idea_token = sic
+# 				traits = {
+# 					KR_socialist_sic
+# 				}
+# 				cost = 0
+# 				can_be_fired = no
+# 			}
+# 			portraits = {
+# 				army = {
+# 					small = "gfx/interface/advisors/Generic/generic_trade_unions_empowered.png"
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_character = empowered_legislative
+# 			}
+# 			#avoids error log
+# 			empowered_legislative = {
+# 				set_character_flag = is_generic
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_character = empowered_executive
+# 			}
+# 			#avoids error log
+# 			empowered_executive = {
+# 				set_character_flag = is_generic
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_character = empowered_trade_unions
+# 			}
+# 			#avoids error log
+# 			empowered_trade_unions = {
+# 				set_character_flag = is_generic
+# 			}
+# 		}
+# 	}
+# 	else = {
+# 		enable_generic_sics = yes
+# 	}
+# }
+# activate_generic_sics = {
+# 	if = {
+# 		limit = {
+# 			has_socialist_government = yes
+# 			has_character = empowered_trade_unions
+# 		}
+# 		activate_advisor = empowered_trade_unions_sic
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			has_authoritarian_government = yes
+# 			has_character = empowered_executive
+# 		}
+# 		activate_advisor = empowered_executive_sic
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			has_character = empowered_legislative
+# 		}
+# 		activate_advisor = empowered_legislative_sic
+# 	}
+# }
+# generate_generic_sics_and_activate = {
+# 	generate_generic_sics = yes
+# 	activate_generic_sics = yes
+# }
+# enable_generic_sics = {
+# 	if = {
+# 		limit = {
+# 			has_country_flag = has_generic_sics
+# 		}
+# 		empowered_legislative = {
+# 			set_nationality = PREV
+# 		}
+# 		empowered_executive = {
+# 			set_nationality = PREV
+# 		}
+# 		empowered_trade_unions = {
+# 			set_nationality = PREV
+# 		}
+# 	}
+# 	else = {
+# 		generate_generic_sics = yes
+# 	}
+# }
+# disable_generic_sics = {
+# 	if = {
+# 		limit = {
+# 			has_character = empowered_legislative
+# 		}
+# 		retire_character = empowered_legislative
+# 	}
+# 	if = {
+# 		limit = {
+# 			has_character = empowered_legislative
+# 		}
+# 		retire_character = empowered_legislative
+# 	}
+# 	if = {
+# 		limit = {
+# 			has_character = empowered_legislative
+# 		}
+# 		retire_character = empowered_legislative
+# 	}
+# }
 generate_all_generic_advisors = {
 	generate_generic_political_advisors = yes
 	generate_generic_military_advisors = yes
@@ -228,7 +223,7 @@ generate_generic_political_advisors = {
 			advisor = {
 				slot = political_advisor
 				traits = {
-					KR_silent_workhorse
+					Generic_trait_silent_workhorse
 				}
 			}
 			portraits = {
@@ -279,66 +274,65 @@ generate_generic_political_advisors = {
 				}
 			}
 		}
-		generic_silent_workhorse = {
-			set_character_flag = is_generic
-		}
-		generic_captain_of_industry = {
-			set_character_flag = is_generic
-		}
-		generic_fortification_engineer = {
-			set_character_flag = is_generic
-		}
-		generic_war_industrialist = {
-			set_character_flag = is_generic
-		}
+		# generic_silent_workhorse = {
+		# 	set_character_flag = is_generic
+		# }
+		# generic_captain_of_industry = {
+		# 	set_character_flag = is_generic
+		# }
+		# generic_fortification_engineer = {
+		# 	set_character_flag = is_generic
+		# }
+		# generic_war_industrialist = {
+		# 	set_character_flag = is_generic
+		# }
 	}
-	generate_generic_head_of_intelligence = yes
+	#generate_generic_head_of_intelligence = yes
 }
 
 ### make sure that the below are exactly the same as in history/general/head_of_intelligence
-generate_generic_head_of_intelligence = {
-	if = {
-		limit = {
-			NOT = {
-				has_allowed_idea_with_traits = {
-					idea = Generic_trait_head_of_intelligence
-					characters = yes
-				}
-			}
-		}
-		generate_character = {
-			token_base = generic_head_of_intelligence			# token will be TAG_token_base
-			advisor = {
-				slot = political_advisor
-				traits = {
-					Generic_trait_head_of_intelligence
-				}
-				allowed = {
-					has_dlc_lar = yes
-				}
-				available = {
-					has_intelligence_agency = yes
-				}
-				ai_will_do = {
-					factor = 1
-					modifier = {
-						factor = 0
-						has_intelligence_agency = no
-					}
-				}
-			}
-			portraits = {
-				army = {
-					small = GFX_idea_generic_head_of_intelligence
-				}
-			}
-		}
-		generic_head_of_intelligence = {
-			set_character_flag = is_generic
-		}
-	}
-}
-
+# generate_generic_head_of_intelligence = {
+# 	if = {
+# 		limit = {
+# 			NOT = {
+# 				has_allowed_idea_with_traits = {
+# 					idea = Generic_trait_head_of_intelligence
+# 					characters = yes
+# 				}
+# 			}
+# 		}
+# 		generate_character = {
+# 			token_base = generic_head_of_intelligence			# token will be TAG_token_base
+# 			advisor = {
+# 				slot = political_advisor
+# 				traits = {
+# 					Generic_trait_head_of_intelligence
+# 				}
+# 				allowed = {
+# 					has_dlc_lar = yes
+# 				}
+# 				available = {
+# 					has_intelligence_agency = yes
+# 				}
+# 				ai_will_do = {
+# 					factor = 1
+# 					modifier = {
+# 						factor = 0
+# 						has_intelligence_agency = no
+# 					}
+# 				}
+# 			}
+# 			portraits = {
+# 				army = {
+# 					small = GFX_idea_generic_head_of_intelligence
+# 				}
+# 			}
+# 		}
+# 		generic_head_of_intelligence = {
+# 			set_character_flag = is_generic
+# 		}
+# 	}
+# }
 ### make sure that the below are exactly the same as in history/general/generic_military_advisors
 generate_generic_military_advisors = {
 	# generic army chiefs
@@ -380,12 +374,12 @@ generate_generic_military_advisors = {
 				}
 			}
 		}
-		generic_army_chief_off = {
-			set_character_flag = is_generic
-		}
-		generic_army_chief_def = {
-			set_character_flag = is_generic
-		}
+		# generic_army_chief_off = {
+		# 	set_character_flag = is_generic
+		# }
+		# generic_army_chief_def = {
+		# 	set_character_flag = is_generic
+		# }
 	}
 	# generic navy chiefs
 	if = {
@@ -434,12 +428,12 @@ generate_generic_military_advisors = {
 				}
 			}
 		}
-		generic_navy_chief_decisive_bat = {
-			set_character_flag = is_generic
-		}
-		generic_navy_anti_submarine = {
-			set_character_flag = is_generic
-		}
+		# generic_navy_chief_decisive_bat = {
+		# 	set_character_flag = is_generic
+		# }
+		# generic_navy_anti_submarine = {
+		# 	set_character_flag = is_generic
+		# }
 	}
 	# generic air chiefs
 	if = {
@@ -480,12 +474,12 @@ generate_generic_military_advisors = {
 				}
 			}
 		}
-		generic_air_close_air_sup = {
-			set_character_flag = is_generic
-		}
-		generic_air_chief_all_weather = {
-			set_character_flag = is_generic
-		}
+		# generic_air_close_air_sup = {
+		# 	set_character_flag = is_generic
+		# }
+		# generic_air_chief_all_weather = {
+		# 	set_character_flag = is_generic
+		# }
 	}
 	# generic high command
 	if = {
@@ -529,12 +523,12 @@ generate_generic_military_advisors = {
 				}
 			}
 		}
-		generic_army_art = {
-			set_character_flag = is_generic
-		}
-		generic_army_log = {
-			set_character_flag = is_generic
-		}
+		# generic_army_art = {
+		# 	set_character_flag = is_generic
+		# }
+		# generic_army_log = {
+		# 	set_character_flag = is_generic
+		# }
 		if = {
 			limit = {
 				OR = {
@@ -568,9 +562,9 @@ generate_generic_military_advisors = {
 					}
 				}
 			}
-			generic_navy_fleet_log = {
-				set_character_flag = is_generic
-			}
+			# generic_navy_fleet_log = {
+			# 	set_character_flag = is_generic
+			# }
 		}
 		if = {
 			limit = {
@@ -586,7 +580,7 @@ generate_generic_military_advisors = {
 				advisor = {
 					slot = high_command
 					traits = {
-						air_combat_training_2
+						air_air_combat_training_2
 					}
 					ledger = air
 					cost = 100
@@ -597,9 +591,9 @@ generate_generic_military_advisors = {
 					}
 				}
 			}
-			generic_air_combat_trainer = {
-				set_character_flag = is_generic
-			}
+			# generic_air_combat_trainer = {
+			# 	set_character_flag = is_generic
+			# }
 		}
 	}
 }
@@ -634,9 +628,9 @@ generate_generic_theorists = {
 				}
 			}
 		}
-		generic_military_theorist = {
-			set_character_flag = is_generic
-		}
+		# generic_military_theorist = {
+		# 	set_character_flag = is_generic
+		# }
 	}
 	if = {
 		limit = {
@@ -645,7 +639,7 @@ generate_generic_theorists = {
 					has_advisor_role = theorist
 					OR = {
 						has_navy_ledger = yes
-						has_trait = KR_council_of_theorists
+						#has_trait = Generic_trait_council_of_theorist
 					}
 				}
 			}
@@ -674,9 +668,9 @@ generate_generic_theorists = {
 				}
 			}
 		}
-		generic_naval_theorist = {
-			set_character_flag = is_generic
-		}
+		# generic_naval_theorist = {
+		# 	set_character_flag = is_generic
+		# }
 	}
 	if = {
 		limit = {
@@ -706,9 +700,9 @@ generate_generic_theorists = {
 				}
 			}
 		}
-		generic_air_warfare_theorist = {
-			set_character_flag = is_generic
-		}
+		# generic_air_warfare_theorist = {
+		# 	set_character_flag = is_generic
+		# }
 	}
 }
 
@@ -743,7 +737,6 @@ remove_country_leader_role_democratic = {
 		}
 	}
 }
-
 
 remove_second_in_command_role = {
 	if = {
@@ -1006,20 +999,20 @@ character_becomes_leader_of_ruling_party_effect_tooltip = {
 	}
 }
 
-add_country_leader_role_to_all_non_socialist_ideologies = {
-	remove_all_country_leader_roles = yes
-	for_each_loop = {
-		array = global.ideologies_non_socialist
-		meta_effect = {
-			text = {
-				add_country_leader_role = {
-					country_leader = {
-						ideology = [IDEOLOGY]
-					}
-					promote_leader = yes
-				}
-			}
-			IDEOLOGY = "[?v.GetTokenKey]"
-		}
-	}
-}
+# add_country_leader_role_to_all_non_socialist_ideologies = {
+# 	remove_all_country_leader_roles = yes
+# 	for_each_loop = {
+# 		array = global.ideologies_non_socialist
+# 		meta_effect = {
+# 			text = {
+# 				add_country_leader_role = {
+# 					country_leader = {
+# 						ideology = [IDEOLOGY]
+# 					}
+# 					promote_leader = yes
+# 				}
+# 			}
+# 			IDEOLOGY = "[?v.GetTokenKey]"
+# 		}
+# 	}
+# }
