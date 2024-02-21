@@ -33,7 +33,6 @@ focus_tree = {
 			}
 		}
 		available = {
-			has_country_flag = HUN_Unlock_military_policy_flag
 		}
 		bypass = {
 		}
@@ -210,6 +209,8 @@ focus_tree = {
 				}
 				add_dynamic_modifier = {
 					modifier = HUN_infiltrate_the_occupied_area_dm
+					scope = HUN
+					days = 720
 				}
 			}
 		}
@@ -270,7 +271,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = HUN_reaffirm_territorial_claims
-		will_lead_to_war_with = YUG
+		will_lead_to_war_with = SER
 		ai_will_do = {
 			factor = 10
 			modifier = {
@@ -302,15 +303,19 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
-			always = yes
+			45 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			875 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			794 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
 		}
 		completion_reward = {
 			declare_war_on = {
 				target = SER
-				type = puppet_wargoal_focus
-			}
-			declare_war_on = {
-				target = YUG
 				type = puppet_wargoal_focus
 			}
 		}
@@ -321,11 +326,7 @@ focus_tree = {
 		cost = 4
 		prerequisite = {
 			focus = HUN_demand_transylvania
-		}
-		prerequisite = {
 			focus = HUN_demand_the_vojvodina
-		}
-		prerequisite = {
 			focus = HUN_demand_southern_slovakia
 		}
 		x = -1
@@ -336,20 +337,39 @@ focus_tree = {
 		}
 		available = {
 			count_triggers = {
-				amount = 3
-				has_full_control_of_state = 664
-				has_full_control_of_state = 73
-				has_full_control_of_state = 76
-				has_full_control_of_state = 84
-				has_full_control_of_state = 83
-				has_full_control_of_state = 82
-				has_full_control_of_state = 45
+				amount = 2
+				AND = {
+					83 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					76 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					82 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+				}
+				SLO = {
+					all_core_state = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+				}
+				AND = {
+					45 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					875 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					794 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+				}
 			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			custom_effect_tooltip = HUN_GREATER_tt
 			set_country_flag = HUN_GREATER_flag
 			if = {
 				limit = {
@@ -372,10 +392,8 @@ focus_tree = {
 				set_cosmetic_tag = HUN_GREATER
 			}
 			add_stability = 0.1
-			hidden_effect = {
-				news_event = {
-					id = news.299
-				}
+			news_event = {
+				id = news.299
 			}
 		}
 	}
@@ -468,6 +486,8 @@ focus_tree = {
 		cost = 4
 		prerequisite = {
 			focus = HUN_demand_southern_slovakia
+			focus = HUN_demand_the_vojvodina
+			focus = HUN_demand_transylvania
 		}
 		x = -1
 		y = 1
@@ -555,11 +575,7 @@ focus_tree = {
 				}
 				ROM = {
 					has_war = no
-				}
-				ROM = {
 					is_in_faction = yes
-				}
-				ROM = {
 					is_faction_leader = no
 				}
 			}
@@ -741,23 +757,13 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = HUN_I_am_a_soldier_in_Batori_idea
-			add_field_marshal_role = {
-				character = HUN_bathori_erzsebet
-				traits = {
-					politically_connected
-					war_hero
-					media_personality
-					harsh_leader
-					trickster
-					urban_assault_specialist
-				}
-				skill = 4
-				attack_skill = 4
-				defense_skill = 3
-				planning_skill = 3
-				logistics_skill = 3
+			HUN_bathori_erzsebet = {
+				add_skill_level = 1
+				add_attack = 1
+				add_defense = 1
+				add_planning = 1
+				add_logistics = 1
 			}
-			set_country_flag = HUN_Unlock_military_policy_flag
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
 	}
@@ -945,10 +951,9 @@ focus_tree = {
 			factor = 200
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = PP_150_tt
-				OR = {
-					has_political_power > 149
+			OR = {
+				has_political_power > 149
+				hidden_trigger = {
 					is_ai = yes
 				}
 			}
@@ -960,7 +965,6 @@ focus_tree = {
 			remove_ideas = HUN_Appease_workers_idea
 			remove_ideas = HUN_hunter_idea
 			add_ideas = HUN_New_state_system_idea
-			set_country_flag = HUN_Unlocking_national_economic_policies_flag
 			custom_effect_tooltip = HUN_Unlocking_national_economic_policies_tooltip
 		}
 	}
@@ -1130,11 +1134,9 @@ focus_tree = {
 				target = GER
 				modifier = HUN_Cross_and_triangle_op
 			}
-			hidden_effect = {
-				news_event = {
-					id = more_News.62
-					days = 1
-				}
+			news_event = {
+				id = more_News.62
+				days = 1
 			}
 		}
 	}
@@ -1219,6 +1221,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = {
+			has_completed_focus = HUN_Whip_of_god
 		}
 		completion_reward = {
 			add_timed_idea = {
@@ -1236,7 +1239,6 @@ focus_tree = {
 				}
 				promote_leader = yes
 			}
-			set_country_flag = HUN_Unlock_military_policy_flag
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
 	}
@@ -1259,7 +1261,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			activate_mission = HUN_Great_Land_Reform_Plan_mission
-			set_country_flag = HUN_Unlocking_national_economic_policies_flag
 			custom_effect_tooltip = HUN_Unlocking_national_economic_policies_tooltip
 		}
 	}
@@ -1401,6 +1402,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			effect_tooltip = {
+				country_event = more_hun.90
+				country_event = more_hun.91
+			}
 			if = {
 				limit = {
 					has_country_flag = HUN_Bartoli_Arrested_flag
@@ -1570,7 +1575,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = HUN_War_is_a_good_civilization_idea
-			set_country_flag = HUN_Unlock_military_policy_flag
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
 	}
@@ -1593,7 +1597,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = HUN_nomadic_spirit
-			set_country_flag = HUN_Unlocking_national_economic_policies_flag
 			custom_effect_tooltip = HUN_Unlocking_national_economic_policies_tooltip
 		}
 	}
@@ -2061,7 +2064,6 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			set_country_flag = HUN_Unlocking_national_economic_policies_flag
 			custom_effect_tooltip = HUN_Unlocking_national_economic_policies_tooltip
 		}
 	}
@@ -2378,7 +2380,6 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			custom_effect_tooltip = HUN_federal_constitution_tt
 			add_stability = 0.05
 		}
 	}
@@ -2469,7 +2470,7 @@ focus_tree = {
 	}
 	focus = {
 		id = HUN_royal_local_governance
-		icon = GFX_goal_generic_elections
+		icon = GFX_focus_generic_government2
 		cost = 6
 		relative_position_id = HUN_royal_referendum_federalism
 		x = 0
@@ -2619,7 +2620,6 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			custom_effect_tooltip = HUN_denationalisation_campaign_tt
 		}
 	}
 	focus = {
@@ -2682,7 +2682,7 @@ focus_tree = {
 	}
 	focus = {
 		id = HUN_republican_concordat
-		icon = GFX_goal_accord_with_pope
+		icon = GFX_focus_generic_befriend_catholic
 		cost = 6
 		relative_position_id = HUN_abolish_habsburg_legal_code
 		x = 1
@@ -2705,7 +2705,7 @@ focus_tree = {
 	}
 	focus = {
 		id = HUN_referendum_federalism
-		icon = GFX_goal_DOM_Call_Special_Election
+		icon = GFX_focus_generic_elections
 		cost = 6
 		relative_position_id = HUN_republican_concordat
 		x = 0
@@ -2723,7 +2723,7 @@ focus_tree = {
 	}
 	focus = {
 		id = HUN_local_governance
-		icon = GFX_goal_generic_elections
+		icon = GFX_focus_generic_government12
 		cost = 6
 		relative_position_id = HUN_referendum_federalism
 		x = 0
@@ -2820,7 +2820,7 @@ focus_tree = {
 	}
 	focus = {
 		id = HUN_invite_illyrian_officers
-		icon = GFX_focus_HUN_other_crown_of_st_stephen
+		icon = GFX_focus_CRO_coa_army
 		cost = 6
 		relative_position_id = HUN_language_standardisation
 		x = 0
@@ -3406,7 +3406,7 @@ focus_tree = {
 			}
 			HUN_janos_kadar = {
 				remove_trait = {
-					trait = HUN_trait_ambitious_union_boss
+					trait = HUN_trait_janos_kadar
 					slot = special_fourth
 				}
 				add_trait = {
@@ -3435,7 +3435,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = HUN_Workers_and_Peasants_Union_idea
-			set_country_flag = HUN_Unlock_military_policy_flag
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
 	}
@@ -3515,40 +3514,40 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					HUN_matyas_rakoski = {
-						is_hired_as_advisor = yes
-					}
-				}
-				HUN_matyas_rakoski = {
-					remove_trait = {
-						trait = HUN_trait_head_of_the_ministry_of_national_security
-						slot = special_fourth
-					}
-					add_trait = {
-						trait = HUN_trait_head_of_the_ministry_of_national_security_1
-						slot = special_fourth
-					}
-				}
-			}
-			if = {
-				limit = {
-					HUN_laszlo_rajk = {
-						is_hired_as_advisor = yes
-					}
-				}
-				HUN_laszlo_rajk = {
-					remove_trait = {
-						trait = HUN_trait_head_of_the_ministry_of_national_security
-						slot = special_fourth
-					}
-					add_trait = {
-						trait = HUN_trait_head_of_the_ministry_of_national_security_1
-						slot = special_fourth
-					}
-				}
-			}
+			# if = {
+			# 	limit = {
+			# 		HUN_matyas_rakoski = {
+			# 			is_hired_as_advisor = yes
+			# 		}
+			# 	}
+			# 	HUN_matyas_rakoski = {
+			# 		remove_trait = {
+			# 			trait = HUN_trait_head_of_the_ministry_of_national_security
+			# 			slot = special_fourth
+			# 		}
+			# 		add_trait = {
+			# 			trait = HUN_trait_head_of_the_ministry_of_national_security_1
+			# 			slot = special_fourth
+			# 		}
+			# 	}
+			# }
+			# if = {
+			# 	limit = {
+			# 		HUN_laszlo_rajk = {
+			# 			is_hired_as_advisor = yes
+			# 		}
+			# 	}
+			# 	HUN_laszlo_rajk = {
+			# 		remove_trait = {
+			# 			trait = HUN_trait_head_of_the_ministry_of_national_security
+			# 			slot = special_fourth
+			# 		}
+			# 		add_trait = {
+			# 			trait = HUN_trait_head_of_the_ministry_of_national_security_1
+			# 			slot = special_fourth
+			# 		}
+			# 	}
+			# }
 			swap_ideas = {
 				remove_idea = HUN_Red_horror_idea
 				add_idea = HUN_Ministry_of_National_Security_idea
@@ -3667,7 +3666,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = HUN_Militarization_of_labor_idea
-			set_country_flag = HUN_Unlock_military_policy_flag
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
 	}
@@ -3812,7 +3810,13 @@ focus_tree = {
 			}
 		}
 		available = {
-			has_country_flag = HUN_Unlocking_national_economic_policies_flag
+			OR = {
+				has_completed_focus = HUN_New_state_system
+				has_completed_focus = HUN_Great_Land_Reform_Plan
+				has_completed_focus = HUN_Nomadism_is_a_good_civilization
+				has_completed_focus = HUN_Investment_promotion
+				has_completed_focus = HUN_improve_danube
+			}
 		}
 		bypass = {
 		}
@@ -4029,6 +4033,7 @@ focus_tree = {
 		available = {
 			OR = {
 				has_government = neutrality
+				has_government = democratic
 				AND = {
 					has_government = communism
 					has_completed_focus = HUN_Native_triumph
@@ -4393,11 +4398,9 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = HUN_announce_the_gyor_program_tooltip
-			# custom_effect_tooltip = available_political_advisor
-			# show_ideas_tooltip = HUN_Bela_Imredy
 			HUN_bela_imredy = {
 				remove_trait = {
-					trait = Generic_trait_financial_expert
+					trait = HUN_trait_bela_imredy
 					slot = special_fourth
 				}
 				whiteline = yes
@@ -5289,6 +5292,13 @@ focus_tree = {
 			}
 		}
 		available = {
+			OR = {
+				has_completed_focus = HUN_I_am_a_soldier_in_Batori
+				has_completed_focus = HUN_Ethnic_purity
+				has_completed_focus = HUN_War_is_a_good_civilization
+				has_completed_focus = HUN_Workers_and_Peasants_Union
+				has_completed_focus = HUN_Militarization_of_labor
+			}
 		}
 		bypass = {
 		}
@@ -5353,14 +5363,14 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.02
 			add_tech_bonus = {
-				name = support_bonus
+				name = HUN_commissars
 				bonus = 1
 				uses = 1
 				category = support_tech
 				technology = tech_military_police
 			}
 			add_tech_bonus = {
-				name = infantry_bonus
+				name = HUN_commissars
 				bonus = 1
 				uses = 1
 				category = infantry_weapons
@@ -5813,6 +5823,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_doctrine_cost_reduction = {
+				name = HUN_strategic_destruction
 				cost_reduction = 0.55
 				uses = 3
 				category = cat_strategic_destruction
@@ -6078,7 +6089,7 @@ focus_tree = {
 		completion_reward = {
 			navy_experience = 25
 			add_doctrine_cost_reduction = {
-				name = HUN_reform
+				name = HUN_Adria_Defense
 				cost_reduction = 0.5
 				uses = 2
 				category = cat_trade_interdiction
@@ -6360,7 +6371,7 @@ focus_tree = {
 			navy_experience = 15
 			add_ideas = HUN_coastal_defense_ships
 			add_tech_bonus = {
-				name = HUN_cruisers
+				name = HUN_coastal_defense_ships
 				bonus = 1
 				uses = 2
 				category = cl_tech
@@ -8472,12 +8483,10 @@ focus_tree = {
 				amount = 100
 				producer = GER
 			}
-			hidden_effect = {
-				GER = {
-					country_event = {
-						id = more_hun.10
-						days = 5
-					}
+			GER = {
+				country_event = {
+					id = more_hun.10
+					days = 5
 				}
 			}
 		}
@@ -8500,121 +8509,40 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					any_country = {
-						OR = {
-							tag = HUN
-							is_in_faction_with = HUN
-						}
-						has_full_control_of_state = 76
+			82 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						limit_to_border_country = ROM
 					}
-				}
-				76 = {
-					add_building_construction = {
-						type = bunker
-						province = 727
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9685
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 711
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 3689
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9668
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9670
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9672
-						level = 3
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 6714
-						level = 3
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 6711
-						level = 4
-						instant_build = yes
-					}
+					level = 2
+					instant_build = yes
 				}
 			}
-			if = {
-				limit = {
-					any_country = {
-						OR = {
-							tag = HUN
-							is_in_faction_with = HUN
-						}
-						has_full_control_of_state = 83
+			76 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						limit_to_border_country = ROM
 					}
-				}
-				83 = {
-					add_building_construction = {
-						type = bunker
-						province = 696
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9640
-						level = 2
-						instant_build = yes
-					}
+					level = 2
+					instant_build = yes
 				}
 			}
-			if = {
-				limit = {
-					any_country = {
-						OR = {
-							tag = HUN
-							is_in_faction_with = HUN
-						}
-						has_full_control_of_state = 82
+			789 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						limit_to_border_country = ROM
 					}
-				}
-				82 = {
-					add_building_construction = {
-						type = bunker
-						province = 662
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 3649
-						level = 2
-						instant_build = yes
-					}
+					level = 2
+					instant_build = yes
 				}
 			}
 		}
@@ -8640,35 +8568,33 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					any_country = {
-						OR = {
-							tag = SLO
-							is_in_faction_with = SLO
-						}
-						has_full_control_of_state = 70
+			70 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						limit_to_border_country = CZE
 					}
+					level = 2
+					instant_build = yes
 				}
-				70 = {
-					add_building_construction = {
-						type = bunker
-						province = 9539
-						level = 3
-						instant_build = yes
+			}
+			1090 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						#limit_to_border_country = CZE
 					}
+					level = 2
+					instant_build = yes
 				}
 			}
 			SLO = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech = gw_artillery
-						}
-					}
-					set_technology = {
-						gw_artillery = 1
-					}
+				set_technology = {
+					artillery1 = 1
 				}
 				add_equipment_to_stockpile = {
 					type = infantry_equipment
@@ -8706,103 +8632,54 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			custom_effect_tooltip = HUN_light_infantry_divisions_doctrine_tech_tt
-			custom_effect_tooltip = HUN_light_infantry_divisions_doctrine_unit_tt
-			hidden_effect = {
-				if = {
-					limit = {
-						has_tech = tech_engineers
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Light Division"
 					}
-					division_template = {
-						name = "Light Division"
-						division_names_group = HUN_INF_01
-						priority = 2
-						regiments = {
-							infantry = {
-								x = 0
-								y = 0
-							}
-							infantry = {
-								x = 0
-								y = 1
-							}
-							infantry = {
-								x = 0
-								y = 2
-							}
-							infantry = {
-								x = 1
-								y = 0
-							}
-							infantry = {
-								x = 1
-								y = 1
-							}
-							infantry = {
-								x = 1
-								y = 2
-							}
+				}
+				division_template = {
+					name = "Light Division"
+					division_names_group = HUN_INF_01
+					priority = 2
+					regiments = {
+						infantry = {
+							x = 0
+							y = 0
 						}
-						support = {
-							recon = {
-								x = 0
-								y = 0
-							}
-							artillery = {
-								x = 0
-								y = 1
-							}
-							engineer = {
-								x = 0
-								y = 1
-							}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+						infantry = {
+							x = 1
+							y = 0
+						}
+						infantry = {
+							x = 1
+							y = 1
+						}
+						infantry = {
+							x = 1
+							y = 2
 						}
 					}
-					else = {
-						division_template = {
-							name = "Light Division"
-							division_names_group = HUN_INF_01
-							priority = 2
-							regiments = {
-								infantry = {
-									x = 0
-									y = 0
-								}
-								infantry = {
-									x = 0
-									y = 1
-								}
-								infantry = {
-									x = 0
-									y = 2
-								}
-								infantry = {
-									x = 1
-									y = 0
-								}
-								infantry = {
-									x = 1
-									y = 1
-								}
-								infantry = {
-									x = 1
-									y = 2
-								}
-							}
-							support = {
-								recon = {
-									x = 0
-									y = 0
-								}
-								artillery = {
-									x = 0
-									y = 1
-								}
-								engineer = {
-									x = 0
-									y = 1
-								}
-							}
+					support = {
+						recon = {
+							x = 0
+							y = 0
+						}
+						artillery = {
+							x = 0
+							y = 1
+						}
+						engineer = {
+							x = 0
+							y = 1
 						}
 					}
 				}
@@ -8835,10 +8712,8 @@ focus_tree = {
 					}
 				}
 			}
-			hidden_effect = {
-				set_technology = {
-					HUN_light_infantry_tech = 1
-				}
+			set_technology = {
+				HUN_light_infantry_tech = 1
 			}
 		}
 	}
@@ -8864,11 +8739,9 @@ focus_tree = {
 				idea = HUN_Hunt_for_infiltrators_idea
 				days = 365
 			}
-			hidden_effect = {
-				country_event = {
-					id = more_hun.6
-					days = 15
-				}
+			country_event = {
+				id = more_hun.6
+				days = 15
 			}
 		}
 	}
@@ -9020,101 +8893,54 @@ focus_tree = {
 			set_technology = {
 				HUN_Hussar_tech = 1
 			}
-			hidden_effect = {
-				if = {
-					limit = {
-						has_tech = tech_engineers
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Hussar Division"
 					}
-					division_template = {
-						name = "Hussar Division"
-						division_names_group = HUN_CAV_01
-						priority = 2
-						regiments = {
-							cavalry = {
-								x = 0
-								y = 0
-							}
-							cavalry = {
-								x = 0
-								y = 1
-							}
-							cavalry = {
-								x = 0
-								y = 2
-							}
-							cavalry = {
-								x = 1
-								y = 0
-							}
-							cavalry = {
-								x = 1
-								y = 1
-							}
-							cavalry = {
-								x = 1
-								y = 2
-							}
+				}
+				division_template = {
+					name = "Hussar Division"
+					division_names_group = HUN_CAV_01
+					priority = 2
+					regiments = {
+						cavalry = {
+							x = 0
+							y = 0
 						}
-						support = {
-							recon = {
-								x = 0
-								y = 0
-							}
-							artillery = {
-								x = 0
-								y = 1
-							}
-							engineer = {
-								x = 0
-								y = 1
-							}
+						cavalry = {
+							x = 0
+							y = 1
+						}
+						cavalry = {
+							x = 0
+							y = 2
+						}
+						cavalry = {
+							x = 1
+							y = 0
+						}
+						cavalry = {
+							x = 1
+							y = 1
+						}
+						cavalry = {
+							x = 1
+							y = 2
 						}
 					}
-					else = {
-						division_template = {
-							name = "Hussar Division"
-							division_names_group = HUN_INF_01
-							priority = 2
-							regiments = {
-								cavalry = {
-									x = 0
-									y = 0
-								}
-								cavalry = {
-									x = 0
-									y = 1
-								}
-								cavalry = {
-									x = 0
-									y = 2
-								}
-								cavalry = {
-									x = 1
-									y = 0
-								}
-								cavalry = {
-									x = 1
-									y = 1
-								}
-								cavalry = {
-									x = 1
-									y = 2
-								}
-							}
-							support = {
-								recon = {
-									x = 0
-									y = 0
-								}
-								artillery = {
-									x = 0
-									y = 1
-								}
-								engineer = {
-									x = 0
-									y = 1
-								}
-							}
+					support = {
+						recon = {
+							x = 0
+							y = 0
+						}
+						artillery = {
+							x = 0
+							y = 1
+						}
+						engineer = {
+							x = 0
+							y = 1
 						}
 					}
 				}
@@ -9178,6 +9004,11 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			effect_tooltip = {
+				add_ideas = tot_economic_mobilisation
+				add_ideas = extensive_conscription
+				add_ideas = HUN_National_Mobilization_idea
+			}
 			custom_effect_tooltip = HUN_Victory_is_certain_tooltip
 		}
 	}
@@ -9566,11 +9397,9 @@ focus_tree = {
 					modifier = HUN_What_the_hell_op
 				}
 			}
-			hidden_effect = {
-				news_event = {
-					id = more_News.64
-					days = 1
-				}
+			news_event = {
+				id = more_News.64
+				days = 1
 			}
 		}
 	}
@@ -11385,11 +11214,9 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = HUN_Balkan_Union_tooltip
-			hidden_effect = {
-				news_event = {
-					id = more_News.63
-					days = 1
-				}
+			news_event = {
+				id = more_News.63
+				days = 1
 			}
 		}
 	}
@@ -13060,7 +12887,7 @@ focus_tree = {
 	}
 	focus = {
 		id = HUN_Request_Croatia
-		icon = GFX_focus_HUN_journey_to_the_sea
+		icon = GFX_focus_CRO_croatia
 		prerequisite = {
 			focus = HUN_Destroy_Romania
 		}

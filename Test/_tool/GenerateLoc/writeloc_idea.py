@@ -38,7 +38,7 @@ with open(file_path2, "w", errors="ignore") as file:
         else:
             name0 = (prefix[len(target) :]).replace("_", " ").title().strip()
 
-        full = " " + prefix + ":" + " " + '"' + name0 + '"'
+        full = " " + prefix + ":" + " " + '"$' + '$"'
         full1 = " " + prefix + "_desc" + ":" + " " + '"' + name0 + '"'
         file.write(full + "\n")
         #file.write(full1 + "\n")
