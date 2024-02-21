@@ -89,9 +89,9 @@
 
 	NDefines.NAI.CARRIER_HOURS_DELAY_AFTER_EACH_COMBAT = 0			   -- Vanilla is 3
 
-    NDefines.NAI.CARRIER_STACK_PENALTY = 10							   -- Vanilla is 4
+    NDefines.NAI.CARRIER_STACK_PENALTY = 16							   -- Vanilla is 4 Hof is 10
 
-    NDefines.NAI.CARRIER_STACK_PENALTY_EFFECT = 0.6					   -- Vanilla is 0.2
+    NDefines.NAI.CARRIER_STACK_PENALTY_EFFECT = 0.4					   -- Vanilla is 0.2 Hof is 0.6
 
     -- Diplomacy
     NDefines.NAI.FASCISTS_BEFRIEND_FASCISTS = 0									-- Vanilla is 10
