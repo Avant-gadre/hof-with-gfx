@@ -59,8 +59,6 @@ characters_string = '''
             }}
             on_remove = {{
             }}
-            research_bonus = {{
-            }}
 		}}
 	}}
 '''

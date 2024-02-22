@@ -1,3 +1,4 @@
+##加冕
 HUN_form_true_kingdom_decision = {
 	HUN_form_true_kingdom = {
 		icon = generic_army_support
@@ -72,7 +73,9 @@ HUN_form_true_kingdom_decision = {
 						large = GFX_Portrait_HUN_Bathori_Erzsebet_Monarch
 					}
 				}
-				add_country_leader_trait = the_soldier_king
+				add_trait = {
+					trait = HUN_trait_bathory_the_kiraly
+				}
 				set_character_name = HUN_bathori_erzsebet_full
 			}
 			add_stability = 0.05
@@ -105,27 +108,11 @@ operations = {
 			}
 		}
 		cancel_trigger = {
-			OR = {
-				has_war_with = HUN
-				is_subject = yes
-				exists = no
-			}
+			always = no
 		}
 		timeout_effect = {
 			#Attack 
 			set_global_flag = ROM_carpathians_war_broke_out_flag
-			ROM = {
-				declare_war_on = {
-					target = HUN
-					type = take_core_state
-				}
-			}
-			CZE = {
-				declare_war_on = {
-					target = SLO
-					type = puppet_wargoal_focus
-				}
-			}
 			ROM = {
 				if = {
 					limit = {
@@ -137,52 +124,55 @@ operations = {
 					add_political_power = -50
 					add_stability = -0.05
 				}
+				declare_war_on = {
+					target = HUN
+					type = take_core_state
+				}
+				add_timed_idea = {
+					idea = HUN_Passion_for_fighting
+					days = 150
+				}
+				hidden_effect = {
+					activate_mission = ROMHUN_ROM_occupy_transylvania
+					activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
+				}
+			}
+			CZE = {
+				declare_war_on = {
+					target = SLO
+					type = puppet_wargoal_focus
+				}
+				if = {
+					limit = {
+						ROM = {
+							has_completed_focus = ROM_contact_czechs
+						}
+					}
+					CZE = {
+						add_timed_idea = {
+							idea = HUN_Passion_for_fighting
+							days = 150
+						}
+					}
+				}
+				hidden_effect = {
+					activate_mission = ROMHUN_ROM_occupy_transylvania
+					activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
+				}
 			}
 			HUN = {
 				add_timed_idea = {
 					idea = HUN_Passion_for_fighting
 					days = 150
 				}
-			}
-			ROM = {
-				add_timed_idea = {
-					idea = HUN_Passion_for_fighting
-					days = 150
+				hidden_effect = {
+					activate_mission = ROMHUN_ROM_occupy_transylvania
+					activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
 				}
 			}
-			ROM = {
-				activate_mission = ROMHUN_ROM_occupy_transylvania
-			}
-			HUN = {
-				activate_mission = ROMHUN_ROM_occupy_transylvania
-			}
-			CZE = {
-				activate_mission = ROMHUN_ROM_occupy_transylvania
-			}
-			if = {
-				limit = {
-					ROM = {
-						has_completed_focus = ROM_contact_czechs
-					}
-				}
-				CZE = {
-					add_timed_idea = {
-						idea = HUN_Passion_for_fighting
-						days = 150
-					}
-				}
-			}
-			CZE = {
-				activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
-			}
-			HUN = {
-				activate_mission = Forcing_the_Czech_Republic_to_withdraw_from_the_war
-			}
-			hidden_effect = {
-				news_event = {
-					id = more_News.35
-					days = 1
-				}
+			news_event = {
+				id = more_News.35
+				days = 1
 			}
 		}
 	}
@@ -365,6 +355,10 @@ operations = {
 					target = SLO
 					transfer_troops = yes
 				}
+				add_timed_idea = {
+					idea = HUN_treaty_of_triannon_idea
+					days = 360
+				}
 			}
 			ROM = {
 				if = {
@@ -452,6 +446,7 @@ operations = {
 			}
 		}
 	}
+	##让捷克滚
 	Forcing_the_Czech_Republic_to_withdraw_from_the_war = {
 		name = CZE_HUN_WARMISSION_NAME
 		allowed = {
@@ -519,6 +514,7 @@ operations = {
 	}
 }
 
+##SS
 HUN_Banat_TST_decision = {
 	SS_Sepp = {
 		icon = generic_army_support
@@ -652,14 +648,8 @@ HUN_Banat_TST_decision = {
 			has_tech = mechanised_infantry
 			GER = {
 				has_tech = mechanised_infantry
-			}
-			GER = {
 				has_template_containing_unit = medium_armor
-			}
-			GER = {
 				has_template_containing_unit = medium_sp_artillery_brigade
-			}
-			GER = {
 				has_template_containing_unit = medium_sp_anti_air_brigade
 			}
 			82 = {
@@ -789,14 +779,8 @@ HUN_Banat_TST_decision = {
 			has_tech = mechanised_infantry
 			GER = {
 				has_tech = mechanised_infantry
-			}
-			GER = {
 				has_template_containing_unit = medium_armor
-			}
-			GER = {
 				has_template_containing_unit = medium_sp_artillery_brigade
-			}
-			GER = {
 				has_template_containing_unit = medium_sp_anti_air_brigade
 			}
 			82 = {
@@ -920,6 +904,7 @@ HUN_Banat_TST_decision = {
 	}
 }
 
+##Join faction
 HUN_Seek_backer_decision = {
 	HUN_Seeking_to_join_the_German_camp_decision = {
 		icon = generic_army_support
@@ -935,8 +920,6 @@ HUN_Seek_backer_decision = {
 			has_completed_focus = HUN_Seek_backer
 			GER = {
 				is_faction_leader = yes
-			}
-			GER = {
 				has_government = fascism
 			}
 			has_government = neutrality
@@ -1069,52 +1052,13 @@ HUN_Seek_backer_decision = {
 			}
 		}
 		available = {
+			SOV_has_industrialized_trigger = yes
 		}
 		visible = {
 			original_tag = HUN
 			has_completed_focus = HUN_Seek_backer
 			SOV = {
 				is_faction_leader = yes
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_1
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_2
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_3
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_4
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_5
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_6
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_7
-				}
-			}
-			NOT = {
-				SOV = {
-					has_idea = SOV_lacking_industrialization_8
-				}
 			}
 			OR = {
 				AND = {
@@ -1367,6 +1311,7 @@ HUN_join_comintern_decision = {
 	}
 }
 
+##Commie
 HUN_agricultural_collectivization_decision = {
 	HUN_Great_Land_Reform_Plan_mission = {
 		icon = eng_trade_unions_demand
@@ -1710,89 +1655,57 @@ HUN_agricultural_collectivization_decision = {
 	}
 }
 
+##Give me factory
 HUN_Investment_promotion_decision = {
-	HUN_invite_donations_USA = {
+	HUN_invite_donations_desicion = {
 		icon = ger_mefo_bills
 		available = {
 			has_war = no
 		}
-		visible = {
-			has_completed_focus = HUN_Investment_promotion
-			has_war = no
-			has_government = communism
-		}
-		target_trigger = {
-			FROM = {
-				original_tag = USA
-				exists = yes
-				has_war = no
-				has_government = democratic
-			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-		days_re_enable = 45
-		complete_effect = {
-			FROM = {
-				country_event = more_hun.60
-			}
-		}
-	}
-	HUN_invite_donations_ENG = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
+		targets = {
+			USA
+			ENG
+			FRA
+			JAP
+			SOV
+			GER
+			ITA
 		}
 		visible = {
 			has_completed_focus = HUN_Investment_promotion
-			has_war = no
-			has_government = communism
 		}
 		target_trigger = {
 			FROM = {
-				original_tag = ENG
 				exists = yes
 				has_war = no
-				OR = {
-					has_government = neutrality
-					has_government = democratic
-				}
-			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-		days_re_enable = 45
-		complete_effect = {
-			FROM = {
-				country_event = more_hun.60
-			}
-		}
-	}
-	HUN_invite_donations_FRA = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
-		}
-		visible = {
-			has_completed_focus = HUN_Investment_promotion
-			has_war = no
-			has_government = communism
-		}
-		target_trigger = {
-			FROM = {
-				original_tag = FRA
-				exists = yes
-				has_war = no
-				OR = {
-					has_government = neutrality
-					has_government = democratic
+				if = {
+					limit = {
+						tag = SOV
+					}
 					has_government = communism
+					has_completed_focus = SOV_Humane_communism
+				}
+				if = {
+					limit = {
+						OR = {
+							tag = JAP
+							tag = ENG
+						}
+					}
+					OR = {
+						has_government = neutrality
+						has_government = democratic
+					}
+				}
+				if = {
+					limit = {
+						tag = FRA
+					}
+					OR = {
+						has_government = neutrality
+						has_government = democratic
+						has_government = communism
+					}
 				}
 			}
 		}
@@ -1801,71 +1714,6 @@ HUN_Investment_promotion_decision = {
 		ai_will_do = {
 			factor = 1
 		}
-		days_re_enable = 45
-		complete_effect = {
-			FROM = {
-				country_event = more_hun.60
-			}
-		}
-	}
-	HUN_invite_donations_JAP = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
-		}
-		visible = {
-			has_completed_focus = HUN_Investment_promotion
-			has_war = no
-			has_government = communism
-		}
-		target_trigger = {
-			FROM = {
-				original_tag = JAP
-				exists = yes
-				has_war = no
-				OR = {
-					has_government = neutrality
-					has_government = democratic
-				}
-			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-		days_re_enable = 45
-		complete_effect = {
-			FROM = {
-				country_event = more_hun.60
-			}
-		}
-	}
-	HUN_invite_donations_SOV = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
-		}
-		visible = {
-			has_completed_focus = HUN_Investment_promotion
-			has_war = no
-			has_government = communism
-		}
-		target_trigger = {
-			FROM = {
-				original_tag = SOV
-				exists = yes
-				has_war = no
-				has_government = communism
-				has_completed_focus = SOV_Humane_communism
-			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-		days_re_enable = 45
 		complete_effect = {
 			FROM = {
 				country_event = more_hun.60
@@ -1874,6 +1722,7 @@ HUN_Investment_promotion_decision = {
 	}
 }
 
+##Give me land
 HUN_buy_land_from_nero = {
 	buy_transylvania = {
 		icon = infiltrate_state
@@ -2121,7 +1970,7 @@ HUN_Take_over_the_core_territory_decision = {
 				}
 			}
 			FROM.controller = {
-				HUN_target_can_Take_over_land = yes
+				HUN_target_can_give_me_land_trigger = yes
 			}
 		}
 		highlight_states = {
@@ -2163,6 +2012,89 @@ HUN_Take_over_the_core_territory_decision = {
 				ROOT = {
 					transfer_state = ROOT.FROM
 				}
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+}
+
+prestigious_projects = {
+	HUN_make_macha_bathori_decision = {
+		icon = agriculture
+		allowed = {
+			tag = HUN
+		}
+		visible = {
+			is_subject = no
+		}
+		#on_map_mode = map_and_decisions_view
+		cancel_if_not_visible = no
+		cancel_trigger = {
+			always = no
+		}
+		available = {
+			has_tech = improved_computing_machine
+			has_completed_focus = HUN_glory
+			has_country_leader = {
+				character = HUN_bathori_erzsebet
+				ruling_only = yes
+			}
+			num_of_available_civilian_factories > 20
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				has_political_power > 250
+			}
+		}
+		fire_only_once = yes
+		days_remove = 90
+		cost = 100
+		complete_effect = {
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		remove_effect = {
+			set_country_flag = HUN_Made_the_machine_Elizabeth_flag
+			add_corps_commander_role = {
+				character = HUN_magus_aegis_erzsebet_channel
+				traits = {
+					politically_connected
+					war_hero
+					media_personality
+					harsh_leader
+					trickster
+					urban_assault_specialist
+					panzer_leader
+					panzer_expert
+				}
+				skill = 4
+				attack_skill = 4
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			add_corps_commander_role = {
+				character = HUN_magus_aegis_erzsebet_channel_ii
+				traits = {
+					politically_connected
+					war_hero
+					media_personality
+					harsh_leader
+					trickster
+					urban_assault_specialist
+					panzer_leader
+					panzer_expert
+				}
+				skill = 4
+				attack_skill = 4
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
 			}
 		}
 		ai_will_do = {

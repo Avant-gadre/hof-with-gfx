@@ -3,7 +3,7 @@ import os
 # 获取当前脚本所在的目录
 inputpath = ".\\common\\country_leader\\"
 outputpath = ".\\_tool\\SortTrait\\"
-inputfilename = "HUN_cabinet_traits.txt"
+inputfilename = "ROM_cabinet_traits.txt"
 
 if ".txt" not in inputfilename:
     inputfilename = inputfilename + ".txt"
