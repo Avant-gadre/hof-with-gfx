@@ -91,10 +91,14 @@ focus_tree = {
 		available = {
 			has_global_flag = FRA_Economic_crisis_flag
 			has_idea = FRA_Economic_crisis_idea
+			has_completed_focus = FRA_Emergency_allocation
 			OR = {
 				has_country_flag = FRA_the_new_monarchy_settled_flag
 				has_country_flag = FRA_the_autocracy_settled_flag
 				has_country_flag = FRA_the_monarchy_end_flag
+			}
+			NOT = {
+				has_global_flag = FRA_civil_war_start_flag
 			}
 			OR = {
 				has_country_leader = {
@@ -112,8 +116,6 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			has_government = communism
-			has_civil_war = yes
 		}
 		completion_reward = {
 			country_event = {
@@ -138,10 +140,6 @@ focus_tree = {
 			has_global_flag = FRA_civil_war_start_flag
 			NOT = {
 				has_government = communism
-			}
-			OR = {
-				has_completed_focus = FRA_Out_of_the_darkness
-				has_completed_focus = FRA_Miraculous_recovery
 			}
 		}
 		completion_reward = {
@@ -653,6 +651,9 @@ focus_tree = {
 		}
 		available = {
 			has_global_flag = FRA_Economic_crisis_flag
+			NOT = {
+				has_global_flag = FRA_civil_war_start_flag
+			}
 			OR = {
 				has_country_flag = FRA_the_autocracy_settled_flag
 				has_country_flag = FRA_the_monarchy_end_flag
@@ -985,12 +986,8 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			add_stability = 0.5
-			remove_ideas = {
-				FRA_Economic_crisis_idea
-			}
-			hidden_effect = {
-				set_global_flag = FRA_Out_of_the_darkness_flag
-			}
+			remove_ideas = FRA_Economic_crisis_idea
+			set_global_flag = FRA_Out_of_the_darkness_flag
 		}
 	}
 	focus = {
@@ -1007,23 +1004,19 @@ focus_tree = {
 			factor = 1500
 		}
 		available = {
-			OR = {
-				has_completed_focus = FRA_Out_of_the_darkness
-				has_completed_focus = FRA_Miraculous_recovery
-			}
-			hidden_trigger = {
-				date > 1936.6.11
-			}
-			OR = {
+			if = {
+				limit = {
+					has_global_flag = FRA_Out_of_the_darkness_flag
+				}
 				NOT = {
-					has_global_flag = FRA_civil_war_start_flag
+					has_war_with = FRC
 				}
 				has_government = communism
 			}
-			has_civil_war = no
-			OR = {
-				NOT = {
-					has_global_flag = FRA_Economic_crisis_flag
+			else = {
+				OR = {
+					has_completed_focus = FRA_Out_of_the_darkness
+					has_completed_focus = FRA_Miraculous_recovery
 				}
 				has_global_flag = FRA_Out_of_the_darkness_flag
 			}
@@ -2738,6 +2731,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_research_slot_until_six = yes
 			add_doctrine_cost_reduction = {
 				name = FRA_French_lion
 				cost_reduction = 0.5

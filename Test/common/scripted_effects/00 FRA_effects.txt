@@ -339,6 +339,7 @@ FRA_civil_war_south = {
 	}
 }
 
+##糠米
 FRA_civil_war_north = {
 	hidden_effect = {
 		GER = {
@@ -613,615 +614,285 @@ FRA_french_civil_war_alter = {
 	}
 }
 
-remove_worker_shortage_effect = {
-	if = {
-		limit = {
-			has_idea = FRA_worker_shortage
+##黑贞
+FRA_civil_war_alter_effect = {
+	FRA = {
+		every_owned_state = {
+			teleport_armies = {
+				to_state = 33
+			}
 		}
-		remove_ideas = FRA_worker_shortage
+		every_core_state = {
+			add_core_of = FRC
+		}
+		every_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				OR = {
+					state = 762
+					state = 763
+					state = 735
+					state = 943
+					state = 29
+					state = 980
+					state = 24
+					state = 17
+					state = 28
+					state = 785
+					state = 15
+					state = 16
+					state = 18
+					state = 27
+					state = 20
+					state = 32
+					state = 21
+				}
+			}
+			transfer_state_to = FRC
+		}
 	}
-	else_if = {
-		limit = {
-			has_idea = FRA_full_employment
+	FRC = {
+		set_popularities = {
+			neutrality = 30
+			fascism = 0
+			communism = 15
+			democratic = 55
 		}
-		remove_ideas = FRA_full_employment
+		set_politics = {
+			ruling_party = democratic
+		}
+		create_country_leader = {
+			name = FRA_jeanne_d_arc
+			picture = GFX_Portrait_FRA_Jeanne_d_Arc
+			ideology = social_democracy
+		}
+		FRA = {
+			set_nationality = {
+				target_country = FRC
+				character = FRA_jeanne_d_arc
+			}
+			set_nationality = {
+				target_country = FRC
+				character = FRA_napoleon_bonaparte
+			}
+			set_nationality = {
+				target_country = FRC
+				character = FRA_charlemagne_carolingian
+			}
+			set_nationality = {
+				target_country = FRC
+				character = FRA_astolfo_argalia
+			}
+		}
+		RHI = {
+			every_character = {
+				limit = {
+					has_character_flag = FRA_is_french_to_rhineland_general_flag
+				}
+				set_nationality = {
+					target_country = FRC
+					character = THIS
+				}
+			}
+		}
 	}
-}
-
-FRA_congress_of_paris_italian_claims_setup_effect = {
-	add_state_claim = 452
-	add_state_claim = 447
-	add_state_claim = 446
-	add_state_claim = 457
-	add_state_claim = 456
-	add_state_claim = 551
-	add_state_claim = 549
-	add_state_claim = 269
-	add_state_claim = 547
-	add_state_claim = 548
-	add_state_claim = 546
-}
-
-FRA_congress_of_paris_portugese_claims_setup_effect = {
-	add_state_claim = 295
-	add_state_claim = 771
-	add_state_claim = 770
-	add_state_claim = 545
-	add_state_claim = 542
-	add_state_claim = 541
-	add_state_claim = 681
-	add_state_claim = 275
-	add_state_claim = 719
-}
-
-FRA_right_wing_riot_effect = {
-	if = {
-		limit = {
-			has_idea = FRA_political_violence
+	FRA = {
+		transfer_units_fraction = {
+			target = FRC
+			army_ratio = 0.4
 		}
-		country_event = lar_france_political_violence.1
+		set_capital = {
+			state = 33
+		}
+		swap_ideas = {
+			remove_idea = FRA_dragon_witch_activity_idea
+			add_idea = FRA_Sanguang_Policy_idea
+		}
+		add_victory_points = {
+			province = 512
+			value = 25
+		}
 	}
-}
-
-FRA_communism_riot_effect = {
-	if = {
-		limit = {
-			has_idea = FRA_political_violence
+	add_field_marshal_role = {
+		character = FRA_gilles_de_rais_alter
+		traits = {
+			career_officer
+			cavalry_leader
+			combined_arms_expert
+			infantry_leader
+			infantry_expert
 		}
-		country_event = lar_france_political_violence.2
+		skill = 4
+		attack_skill = 5
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 3
 	}
-}
-
-FRA_transfer_indochina_effect = {
-	if = {
-		limit = {
-			VIN = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
+	add_corps_commander_role = {
+		character = FRA_jeanne_d_arc_alter
+		traits = {
+			trait_reckless
+			harsh_leader
+			career_officer
+			brilliant_strategist
 		}
-		puppet = VIN
+		skill = 4
+		attack_skill = 7
+		defense_skill = 1
+		planning_skill = 3
+		logistics_skill = 2
 	}
-	else_if = {
-		limit = {
-			671 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			286 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
+	add_corps_commander_role = {
+		character = FRA_eugene_deloncle
+		traits = {
+			politically_connected
+			naval_invader
 		}
-		transfer_state = 671
-		transfer_state = 286
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
 	}
-	if = {
-		limit = {
-			CAM = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
+	add_corps_commander_role = {
+		character = FRA_jacques_correze
+		traits = {
+			politically_connected
 		}
-		puppet = CAM
+		skill = 2
+		attack_skill = 4
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
 	}
-	else_if = {
-		limit = {
-			741 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
+	add_corps_commander_role = {
+		character = FRA_jean_fontenoy
+		traits = {
+			substance_abuser
 		}
-		transfer_state = 741
+		skill = 2
+		attack_skill = 4
+		defense_skill = 1
+		planning_skill = 3
+		logistics_skill = 1
 	}
-	if = {
-		limit = {
-			LAO = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
+	add_corps_commander_role = {
+		character = FRA_marcel_petiot
+		traits = {
+			trait_reckless
+			organizer
+			trickster
 		}
-		puppet = LAO
+		skill = 3
+		attack_skill = 4
+		defense_skill = 2
+		planning_skill = 4
+		logistics_skill = 2
 	}
-	else_if = {
-		limit = {
-			670 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
+	add_corps_commander_role = {
+		character = FRA_robert_brasillach
+		traits = {
+			trickster
 		}
-		transfer_state = 670
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
 	}
-}
-
-FRA_transfer_syria_effect = {
-	if = {
-		limit = {
-			LEB = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
+	FRA = {
+		division_template = {
+			name = "French Regiment of Dragons"
+			division_names_group = FRA_INF_01
+			is_locked = no
+			regiments = {
+				militia = {
+					x = 0
+					y = 0
+				}
+				militia = {
+					x = 1
+					y = 0
+				}
+				militia = {
+					x = 2
+					y = 0
+				}
+				militia = {
+					x = 0
+					y = 1
 				}
 			}
 		}
-		puppet = LEB
+		set_temp_variable = {
+			FRA_militia = 36
+		}
+		for_loop_effect = {
+			start = 1
+			end = FRA_militia
+			compare = less_than_or_equals
+			random_owned_controlled_state = {
+				limit = {
+					valid_state_for_spawning_friendly_unit = yes
+				}
+				create_unit = {
+					division = "division_template = \"French Regiment of Dragons\" start_experience_factor = 0.1"
+					owner = FRA
+				}
+			}
+		}
 	}
-	else_if = {
-		limit = {
-			553 = {
-				CONTROLLER = {
-					original_tag = FRA
+	FRC = {
+		inherit_technology = FRA
+		set_technology = {
+			militia_tech = 1
+		}
+		division_template = {
+			name = "French Royalist Regiment"
+			division_names_group = FRA_INF_01
+			is_locked = no
+			regiments = {
+				infantry = {
+					x = 0
+					y = 0
+				}
+				infantry = {
+					x = 1
+					y = 0
+				}
+				infantry = {
+					x = 0
+					y = 1
+				}
+				infantry = {
+					x = 1
+					y = 1
 				}
 			}
 		}
-		transfer_state = 553
+		set_temp_variable = {
+			FRC_militia = 24
+		}
+		for_loop_effect = {
+			start = 1
+			end = FRC_militia
+			compare = less_than_or_equals
+			random_owned_controlled_state = {
+				limit = {
+					valid_state_for_spawning_friendly_unit = yes
+				}
+				create_unit = {
+					division = "division_template = \"French Royalist Regiment\" start_experience_factor = 0.1"
+					owner = FRC
+				}
+			}
+		}
 	}
-	if = {
-		limit = {
-			SYR = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
+	FRA = {
+		declare_war_on = {
+			target = FRC
+			type = annex_everything
 		}
-		puppet = SYR
-	}
-	else_if = {
-		limit = {
-			680 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			677 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			554 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 680
-		transfer_state = 677
-		transfer_state = 554
-	}
-}
-
-FRA_transfer_north_africa_effect = {
-	if = {
-		limit = {
-			TUN = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = TUN
-	}
-	else_if = {
-		limit = {
-			458 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			665 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 458
-		transfer_state = 665
-	}
-	if = {
-		limit = {
-			MOR = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = MOR
-	}
-	else_if = {
-		limit = {
-			461 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			462 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 461
-		transfer_state = 462
-	}
-	if = {
-		limit = {
-			ALG = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = ALG
-	}
-	else_if = {
-		limit = {
-			513 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			459 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			460 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 513
-		transfer_state = 459
-		transfer_state = 460
-	}
-}
-
-FRA_transfer_central_africa_effect = {
-	if = {
-		limit = {
-			RCG = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = RCG
-	}
-	else_if = {
-		limit = {
-			772 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 772
-	}
-	if = {
-		limit = {
-			GAB = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = GAB
-	}
-	else_if = {
-		limit = {
-			539 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 539
-	}
-	if = {
-		limit = {
-			CAR = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = CAR
-	}
-	else_if = {
-		limit = {
-			660 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 660
-	}
-	if = {
-		limit = {
-			CMR = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = CMR
-	}
-	else_if = {
-		limit = {
-			773 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 773
-	}
-	if = {
-		limit = {
-			CHA = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = CHA
-	}
-	else_if = {
-		limit = {
-			774 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 774
-	}
-}
-
-FRA_transfer_western_africa_effect = {
-	if = {
-		limit = {
-			NGR = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = NGR
-	}
-	else_if = {
-		limit = {
-			781 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 781
-	}
-	if = {
-		limit = {
-			DAH = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = DAH
-	}
-	else_if = {
-		limit = {
-			776 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 776
-	}
-	if = {
-		limit = {
-			TOG = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = TOG
-	}
-	else_if = {
-		limit = {
-			777 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 777
-	}
-	if = {
-		limit = {
-			VOL = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = VOL
-	}
-	else_if = {
-		limit = {
-			778 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 778
-	}
-	if = {
-		limit = {
-			IVO = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = IVO
-	}
-	else_if = {
-		limit = {
-			779 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 779
-	}
-	if = {
-		limit = {
-			MLI = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = MLI
-	}
-	else_if = {
-		limit = {
-			556 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			898 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-			899 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 556
-		transfer_state = 898
-		transfer_state = 899
-	}
-	if = {
-		limit = {
-			GNA = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = GNA
-	}
-	else_if = {
-		limit = {
-			780 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 780
-	}
-	if = {
-		limit = {
-			SEN = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = SEN
-	}
-	else_if = {
-		limit = {
-			272 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 272
-	}
-	if = {
-		limit = {
-			MRT = {
-				exists = yes
-				is_subject = yes
-				OVERLORD = {
-					original_tag = FRA
-				}
-			}
-		}
-		puppet = MRT
-	}
-	else_if = {
-		limit = {
-			557 = {
-				CONTROLLER = {
-					original_tag = FRA
-				}
-			}
-		}
-		transfer_state = 557
 	}
 }
 
