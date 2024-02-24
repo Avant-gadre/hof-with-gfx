@@ -1,7 +1,4 @@
-﻿###########################
-# French Indochina Events
-###########################
-add_namespace = French_Indochina
+﻿add_namespace = French_Indochina
 country_event = {
 	id = French_Indochina.1
 	title = French_Indochina.1.t
@@ -33,12 +30,6 @@ country_event = {
 		set_country_flag = Vietnam_war_flag
 		VIN = {
 			transfer_state = 286
-		}
-		VIN = {
-			add_state_core = 670
-		}
-		VIN = {
-			add_state_core = 741
 		}
 		VIN = {
 			load_oob = "VIN_1936_rev"
@@ -184,12 +175,6 @@ country_event = {
 		ai_chance = {
 			base = 50
 		}
-		global_every_army_leader = {
-			limit = {
-				has_id = 815
-			}
-			set_nationality = FIC
-		}
 		FIC = {
 			add_offsite_building = {
 				type = industrial_complex
@@ -198,7 +183,7 @@ country_event = {
 		}
 		random_owned_state = {
 			limit = {
-				is_core_of = JAP
+				is_core_of = FRA
 				industrial_complex > 1
 			}
 			remove_building = {
@@ -212,49 +197,36 @@ country_event = {
 					has_government = communism
 				}
 			}
-			add_popularity = {
-				ideology = communism
-				popularity = 0.35
-			}
 			FIC = {
-				if = {
-					limit = {
-						has_character = FRA_saint_martha
-					}
-					add_country_leader_role = {
-						character = FRA_saint_martha
-						promote_leader = yes
-						country_leader = {
-							ideology = libertarian_socialism
-							traits = {
-								Generic_trait_cultural_organizer
-							}
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = communism
+					popularity = 0.35
+				}
+				add_country_leader_role = {
+					character = FRA_saint_martha
+					promote_leader = yes
+					country_leader = {
+						ideology = libertarian_socialism
+						traits = {
+							Generic_trait_cultural_organizer
 						}
 					}
 				}
 			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					FRA = {
-						has_government = communism
-					}
-				}
-			}
+		else = {
 			FIC = {
-				if = {
-					limit = {
-						has_character = FRA_saint_martha
-					}
-					add_country_leader_role = {
-						character = FRA_saint_martha
-						promote_leader = yes
-						country_leader = {
-							ideology = authoritarianism
-							traits = {
-								Generic_trait_cultural_organizer
-							}
+				add_country_leader_role = {
+					character = FRA_saint_martha
+					promote_leader = yes
+					country_leader = {
+						ideology = authoritarianism
+						traits = {
+							Generic_trait_cultural_organizer
 						}
 					}
 				}
@@ -264,8 +236,8 @@ country_event = {
 	option = {
 		name = French_Indochina.6.b
 		trigger = {
-			NOT = {
-				FRA = {
+			FRA = {
+				NOT = {
 					has_government = communism
 				}
 			}
@@ -289,12 +261,52 @@ country_event = {
 				level = 2
 			}
 		}
-		add_country_leader_role = {
-			character = FIC_duc_de_richelieu
-			country_leader = {
-				ideology = authoritarianism
+		set_nationality = {
+			target_country = FIC
+			character = FRA_duc_de_richelieu
+		}
+		set_nationality = {
+			target_country = FRA
+			character = FRA_saint_martha
+		}
+		FIC = {
+			add_country_leader_role = {
+				character = FRA_duc_de_richelieu
+				country_leader = {
+					ideology = authoritarianism
+					traits = {
+						Generic_trait_admiral_dictator
+					}
+				}
+				promote_leader = yes
 			}
-			promote_leader = yes
+			add_country_leader_role = {
+				character = FRA_duc_de_richelieu
+				promote_leader = yes
+				country_leader = {
+					ideology = rexism
+					traits = {
+						Generic_trait_admiral_dictator
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					has_government = fascism
+				}
+			}
+			FIC = {
+				set_politics = {
+					ruling_party = fascism
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = fascism
+					popularity = 0.35
+				}
+			}
 		}
 	}
 }

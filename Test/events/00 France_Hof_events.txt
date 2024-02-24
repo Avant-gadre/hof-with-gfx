@@ -1936,7 +1936,7 @@ country_event = {
 	option = {
 		name = lr_france.28.a
 		hidden_effect = {
-			FRA = {
+			GER = {
 				annex_country = {
 					target = RHI
 					transfer_troops = yes
@@ -1962,11 +1962,6 @@ country_event = {
 					active = no
 				}
 			}
-		}
-		GER = {
-			transfer_state = 42
-			transfer_state = 51
-			transfer_state = 781
 		}
 		set_global_flag = FRA_civil_war_start_flag
 		remove_ideas = {
@@ -3244,22 +3239,19 @@ country_event = {
 	trigger = {
 		tag = FRA
 		is_puppet = no
-		NOT = {
-			FRA = {
-				has_completed_focus = FRA_war_of_dragons
-			}
-		}
 		date > 1936.5.1
+		has_war = no
 		has_civil_war = no
 	}
 	mean_time_to_happen = {
 		days = 15
 	}
+	##玛尔达
 	option = {
 		name = lr_france.64.a
 		trigger = {
 			NOT = {
-				has_country_flag = martha_oppose
+				has_government = fascism
 			}
 			FIC = {
 				is_ai = yes
@@ -3267,12 +3259,6 @@ country_event = {
 		}
 		ai_chance = {
 			base = 25
-		}
-		global_every_army_leader = {
-			limit = {
-				has_id = 815
-			}
-			set_nationality = FIC
 		}
 		FIC = {
 			add_offsite_building = {
@@ -3305,44 +3291,27 @@ country_event = {
 					ideology = communism
 					popularity = 0.35
 				}
-				if = {
-					limit = {
-						has_character = FRA_saint_martha
-					}
-					add_country_leader_role = {
-						character = FRA_saint_martha
-						promote_leader = yes
-						country_leader = {
-							ideology = libertarian_socialism
-							traits = {
-								Generic_trait_cultural_organizer
-							}
+				add_country_leader_role = {
+					character = FRA_saint_martha
+					promote_leader = yes
+					country_leader = {
+						ideology = libertarian_socialism
+						traits = {
+							Generic_trait_cultural_organizer
 						}
 					}
 				}
 			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					FRA = {
-						has_government = communism
-					}
-				}
-			}
+		else = {
 			FIC = {
-				if = {
-					limit = {
-						has_character = FRA_saint_martha
-					}
-					add_country_leader_role = {
-						character = FRA_saint_martha
-						promote_leader = yes
-						country_leader = {
-							ideology = authoritarianism
-							traits = {
-								Generic_trait_cultural_organizer
-							}
+				add_country_leader_role = {
+					character = FRA_saint_martha
+					promote_leader = yes
+					country_leader = {
+						ideology = authoritarianism
+						traits = {
+							Generic_trait_cultural_organizer
 						}
 					}
 				}
@@ -3352,8 +3321,8 @@ country_event = {
 	option = {
 		name = lr_france.64.b
 		trigger = {
-			NOT = {
-				FRA = {
+			FRA = {
+				NOT = {
 					has_government = communism
 				}
 			}
@@ -3384,6 +3353,10 @@ country_event = {
 			target_country = FIC
 			character = FRA_duc_de_richelieu
 		}
+		set_nationality = {
+			target_country = FRA
+			character = FRA_saint_martha
+		}
 		FIC = {
 			add_country_leader_role = {
 				character = FRA_duc_de_richelieu
@@ -3394,6 +3367,33 @@ country_event = {
 					}
 				}
 				promote_leader = yes
+			}
+			add_country_leader_role = {
+				character = FRA_duc_de_richelieu
+				promote_leader = yes
+				country_leader = {
+					ideology = rexism
+					traits = {
+						Generic_trait_admiral_dictator
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					has_government = fascism
+				}
+			}
+			FIC = {
+				set_politics = {
+					ruling_party = fascism
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = fascism
+					popularity = 0.35
+				}
 			}
 		}
 	}

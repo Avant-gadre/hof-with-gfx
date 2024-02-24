@@ -389,7 +389,7 @@ country_event = {
 		add_country_leader_role = {
 			character = ROM_horia_sima
 			country_leader = {
-				ideology = nazism
+				ideology = classical_fascism
 			}
 			promote_leader = yes
 		}
@@ -791,8 +791,7 @@ country_event = {
 		add_country_leader_role = {
 			character = ROM_flandre_scarlet
 			country_leader = {
-				##desc = "POLITICS_FLANDRE_MONARCH_DESC"
-				ideology = nazism
+				ideology = rexism
 				traits = {
 					ROM_trait_and_then_there_are_none
 				}
@@ -905,7 +904,7 @@ country_event = {
 		add_country_leader_role = {
 			character = ROM_alexandru_cantacuzino
 			country_leader = {
-				ideology = nazism
+				ideology = rexism
 			}
 			promote_leader = yes
 		}
@@ -1403,7 +1402,7 @@ country_event = {
 		add_country_leader_role = {
 			character = ROM_alexandru_cantacuzino
 			country_leader = {
-				ideology = nazism
+				ideology = rexism
 			}
 			promote_leader = yes
 		}
@@ -1734,9 +1733,6 @@ country_event = {
 	}
 }
 
-###########################
-# Alice Margatroid Events
-###########################
 add_namespace = alice_event
 country_event = {
 	id = alice_event.1
@@ -2469,341 +2465,96 @@ country_event = {
 	}
 }
 
-###########################
-# Romanian Events
-###########################
-add_namespace = romania
-# Soviet Union demands Bessarabia
 country_event = {
-	id = romania.1
-	title = romania.1.t
-	desc = romania.1.d
-	picture = GFX_report_event_generic_read_write
+	id = RomaniaEvent.10
+	title = RomaniaEvent.10.title
+	desc = RomaniaEvent.10.desc
 	is_triggered_only = yes
-	option = {
-		# Accept demands
-		name = romania.1.a
-		ai_chance = {
-			base = 10
-			modifier = {
-				# Don't accept if in a faction that can protect them
-				factor = 0
-				OR = {
-					any_other_country = {
-						is_major = yes
-						NOT = {
-							tag = SOV
-						}
-						OR = {
-							is_in_faction_with = ROM
-							has_guaranteed = ROM
-						}
-					}
-					has_idea = anti_soviet_pact
-				}
-			}
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-		}
-		SOV = {
-			country_event = {
-				days = 1
-				id = soviet.4
-			}
-		}
-		set_country_flag = bessarabia_ceded
-	}
-	option = {
-		# Refuse
-		name = romania.1.b
-		ai_chance = {
-			base = 90
-			modifier = {
-				add = 10
-				is_in_faction = yes
-				NOT = {
-					is_in_faction_with = SOV
-				}
-			}
-		}
-		SOV = {
-			country_event = {
-				days = 1
-				id = soviet.5
-			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state
-					target = ROM
-					generator = {
-						78
-					}
-				}
-			}
-		}
-	}
-}
-
-# Second Vienna Award - Northern Transylvania
-country_event = {
-	id = romania.2
-	title = romania.2.t
-	desc = romania.2.d
-	picture = GFX_report_event_second_vienna_award_pact
-	is_triggered_only = yes
-	option = {
-		# Accept demands
-		name = romania.2.a
-		ai_chance = {
-			base = 90
-		}
-		HUN = {
-			country_event = {
-				days = 1
-				id = hungary.2
-			}
-		}
-		set_country_flag = second_vienna_accepted_north
-	}
-	option = {
-		# Refuse
-		name = romania.2.b
-		ai_chance = {
-			base = 10
-		}
-		HUN = {
-			country_event = {
-				days = 1
-				id = hungary.4
-			}
-		}
-		GER = {
-			country_event = {
-				days = 1
-				id = germany.21
-			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state
-					target = ROM
-					generator = {
-						76
-					}
-				}
-			}
-		}
-	}
-}
-
-# Second Vienna Award - All of Transylvania
-country_event = {
-	id = romania.3
-	title = romania.2.t
-	desc = romania.3.d
-	picture = GFX_report_event_second_vienna_award_pact
-	is_triggered_only = yes
-	option = {
-		# Accept demands
-		name = romania.2.a
-		ai_chance = {
-			base = 10
-			modifier = {
-				# Don't accept if in a faction that can protect them
-				factor = 0
-				OR = {
-					is_in_faction_with = ENG
-					is_in_faction_with = FRA
-					is_in_faction_with = SOV
-				}
-			}
-		}
-		HUN = {
-			country_event = {
-				days = 1
-				id = hungary.3
-			}
-		}
-		set_country_flag = second_vienna_accepted_all
-	}
-	option = {
-		# Refuse
-		name = romania.2.b
-		ai_chance = {
-			base = 90
-		}
-		HUN = {
-			country_event = {
-				days = 1
-				id = hungary.5
-			}
-		}
-		GER = {
-			country_event = {
-				days = 1
-				id = germany.21
-			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state
-					target = ROM
-					generator = {
-						76
-					}
-				}
-			}
-		}
-	}
-}
-
-# Second Vienna Award - No Concessions
-country_event = {
-	id = romania.4
-	title = romania.4.t
-	desc = romania.4.d
-	picture = GFX_report_event_germany_politician_handshake
-	is_triggered_only = yes
-	option = {
-		name = romania.4.a
-	}
-}
-
-# Treaty of Craiova - Bulgaria Demands Territory
-country_event = {
-	id = romania.5
-	title = romania.5.t
-	desc = romania.5.d
-	picture = GFX_report_event_hitler_croatia_handshake
-	is_triggered_only = yes
-	option = {
-		# Accept
-		name = romania.5.a
-		ai_chance = {
-			base = 20
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-		effect_tooltip = {
-			BUL = {
-				transfer_state = 77
-			}
-		}
-		BUL = {
-			country_event = {
-				days = 1
-				id = bulgaria.1
-			}
-		}
-	}
-	option = {
-		# Refuse
-		name = romania.5.b
-		ai_chance = {
-			base = 80
-		}
-		BUL = {
-			country_event = {
-				days = 1
-				id = bulgaria.2
-			}
-		}
-	}
-}
-
-# Seek an alliance - Since everyone is out to get us
-country_event = {
-	id = romania.6
-	title = romania.6.t
-	desc = romania.6.d
-	picture = GFX_report_event_hitler_croatia_handshake
+	picture = GFX_report_event_king_speech
 	trigger = {
-		has_country_flag = bessarabia_ceded
-		is_in_faction = no
-		NOT = {
-			GER = {
-				is_in_faction_with = SOV
-			}
-		}
-		NOT = {
-			has_war_with = GER
-		}
-		NOT = {
-			has_war_with = SOV
-		}
-		NOT = {
-			has_dlc = "Death or Dishonor"
-		}
-	}
-	mean_time_to_happen = {
-		days = 7
-	}
-	fire_only_once = yes
-	option = {
-		# Seek german alliance
-		name = romania.6.a
-		set_politics = {
-			ruling_party = fascism
-			elections_allowed = no
-		}
-		add_popularity = {
-			ideology = fascism
-			popularity = 0.35
-		}
-		add_opinion_modifier = {
-			target = GER
-			modifier = ROM_seek_alliance_GER
-		}
-		add_ideas = ROM_revenge_against_soviet
-		ai_chance = {
-			base = 2
-			modifier = {
-				factor = 0
-				has_war_with = GER
-			}
-		}
+		tag = ROM
+		has_completed_focus = ROM_end_of_tyranny
+		has_government = democratic
 	}
 	option = {
-		# Seek soviet alliance
-		name = romania.6.b
-		set_politics = {
-			ruling_party = communism
-			elections_allowed = no
-		}
-		add_popularity = {
-			ideology = communism
-			popularity = 0.5
-		}
-		add_opinion_modifier = {
-			target = SOV
-			modifier = ROM_seek_alliance_SOV
-		}
-		add_ideas = ROM_revenge_against_germany
-		ai_chance = {
-			base = 1
-			modifier = {
-				factor = 0
-				NOT = {
-					has_war_with = GER
-				}
-				has_war_with = SOV
-			}
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-				NOT = {
-					has_war_with = GER
+		name = RomaniaEvent.10.a
+		add_country_leader_role = {
+			character = ROM_patchouli_knowledge
+			country_leader = {
+				ideology = conservatism
+				traits = {
+					ROM_trait_unmovable_library
 				}
 			}
+			promote_leader = yes
 		}
+		set_party_name = {
+			ideology = democratic
+			long_name = ROM_democratic_PC_party_long
+			name = ROM_democratic_PC_party
+		}
+		activate_advisor = ROM_gheorghe_tatarescu_special_first
 	}
 	option = {
-		# Dear democracy... NEVER GONNA GIVE YOU UP!
-		name = romania.6.c
-		ai_chance = {
-			base = 0
+		name = RomaniaEvent.10.b
+		add_country_leader_role = {
+			character = ROM_alice_margatroid
+			country_leader = {
+				ideology = liberalism
+				traits = {
+					ROM_trait_puppeteer_of_bucharest
+				}
+			}
+			promote_leader = yes
 		}
+		set_party_name = {
+			ideology = democratic
+			long_name = ROM_democratic_NLP_party
+			name = ROM_democratic_NLP_party_long
+		}
+		activate_advisor = ROM_patchouli_knowledge_special_first
+	}
+	option = {
+		name = RomaniaEvent.10.c
+		add_country_leader_role = {
+			character = ROM_fiore_forvedge_yggdmillennia
+			country_leader = {
+				ideology = social_democracy
+				traits = {
+					ROM_trait_moderate
+				}
+			}
+			promote_leader = yes
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = ROM_democratic_PSDR_party_long
+			name = ROM_democratic_PSDR_party
+		}
+		activate_advisor = ROM_gordes_musik_yggdmillennia_special_first
+	}
+	option = {
+		name = RomaniaEvent.10.d
+		trigger = {
+			ROM_sieg_yggdmillennia = {
+				skill > 4
+			}
+		}
+		add_country_leader_role = {
+			character = ROM_sieg_yggdmillennia
+			country_leader = {
+				ideology = social_democracy
+				traits = {
+					Generic_trait_respected_war_hero
+				}
+			}
+			promote_leader = yes
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = ROM_democratic_PSDR_party_long
+			name = ROM_democratic_PSDR_party
+		}
+		activate_advisor = ROM_gheorghe_argeseanu_special_first
 	}
 }

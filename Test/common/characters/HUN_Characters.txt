@@ -314,7 +314,6 @@ characters = {
 			slot = high_command
 			idea_token = HUN_belle_chess
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				ENG_trait_army_hygene
@@ -349,7 +348,6 @@ characters = {
 			slot = navy_chief
 			idea_token = HUN_eusford_crowley
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				navy_chief_commerce_raiding_3
@@ -371,7 +369,6 @@ characters = {
 			slot = theorist
 			idea_token = HUN_eusford_crowley_theorist
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				submarine_specialist
@@ -452,7 +449,6 @@ characters = {
 			slot = high_command
 			idea_token = HUN_fegyvercsalad_gepard
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				army_commando_3
@@ -502,7 +498,6 @@ characters = {
 			slot = high_command
 			idea_token = HUN_geales_urd
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				ENG_trait_army_territory_accommodation
@@ -537,7 +532,6 @@ characters = {
 			slot = army_chief
 			idea_token = HUN_geppisztoly_danuvia
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				army_chief_defensive_1
@@ -574,9 +568,9 @@ characters = {
 			slot = political_advisor
 			idea_token = HUN_karr_lest
 			visible = {
-				has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
+				ENG_trait_mage_association
 			}
 			available = {
 			}
@@ -604,27 +598,27 @@ characters = {
 				large = GFX_Portrait_HUN_Kolibiri_Pfannl
 			}
 		}
-		# advisor = {
-		# 	slot = political_advisor
-		# 	idea_token = HUN_kolibiri_pfannl
-		# 	visible = {
-		# 		has_global_flag = Show_all_advisor_flag
-		# 	}
-		# 	traits = {
-		# 	}
-		# 	available = {
-		# 	}
-		# 	modifier = {
-		# 	}
-		# 	on_add = {
-		# 	}
-		# 	on_remove = {
-		# 	}
-		# 	cost = 150
-		# 	ai_will_do = {
-		# 		factor = 1
-		# 	}
-		# }
+		advisor = {
+			slot = theorist
+			idea_token = HUN_kolibiri_pfannl
+			visible = {
+			}
+			traits = {
+				grand_battle_plan_expert
+			}
+			available = {
+			}
+			modifier = {
+			}
+			on_add = {
+			}
+			on_remove = {
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
 	}
 	HUN_luc_ky = {
 		name = HUN_luc_ky
@@ -642,9 +636,9 @@ characters = {
 			slot = political_advisor
 			idea_token = HUN_luc_ky
 			visible = {
-				has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
+				ROM_trait_silent_scholar
 			}
 			available = {
 			}
@@ -900,7 +894,6 @@ characters = {
 			slot = political_advisor
 			idea_token = HUN_skuld_horn
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_feminist_ultranationalist
@@ -946,7 +939,6 @@ characters = {
 			slot = political_advisor
 			idea_token = HUN_tepes_krul
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_natiocrat
@@ -995,7 +987,6 @@ characters = {
 			slot = political_advisor
 			idea_token = HUN_tepes_mihaly
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_naive_optimist
@@ -1724,23 +1715,32 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = HUN_friedrich_franz
+			slot = special_political_advisor
+			idea_token = HUN_friedrich_franz_special_political_advisor
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_popular_nobleman
 			}
 			available = {
+				has_character_flag = can_be_hired_as_special
 			}
 			modifier = {
 			}
 			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = Generic_trait_the_king
+					slot = special_political_advisor
+				}
 			}
 			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = Generic_trait_the_king
+					slot = special_political_advisor
+				}
 			}
-			cost = 150
 			ai_will_do = {
 				factor = 1
 			}
@@ -2540,24 +2540,34 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = HUN_mihaly_karolyi
+			slot = special_first
+			idea_token = HUN_mihaly_karolyi_special_first
+			cost = 0
 			visible = {
 			}
 			traits = {
 				Generic_trait_determined_democrat
 			}
 			available = {
-				has_government = democratic
-				has_completed_focus = HUN_The_dream_of_the_Union
+				has_character_flag = can_be_hired_as_special
 			}
 			modifier = {
 			}
 			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = HUN_trait_primer					# political_power_gain = 0.05
+					slot = special_first
+				}
 			}
 			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = HUN_trait_primer
+					slot = special_first
+				}
 			}
-			cost = 150
+			can_be_fired = no
 			ai_will_do = {
 				factor = 1
 			}
@@ -2690,6 +2700,37 @@ characters = {
 			army = {
 				small = GFX_idea_hun_otto_von_habsburg
 				large = GFX_Portrait_HUN_Otto_Von_Habsburg
+			}
+		}
+		advisor = {
+			slot = special_political_advisor
+			idea_token = HUN_otto_von_habsburg_special_political_advisor
+			visible = {
+			}
+			traits = {
+				Generic_trait_young_king
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = Generic_trait_the_king
+					slot = special_political_advisor
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = Generic_trait_the_king
+					slot = special_political_advisor
+				}
+			}
+			ai_will_do = {
+				factor = 1
 			}
 		}
 		advisor = {
@@ -3266,7 +3307,6 @@ characters = {
 			idea_token = HUN_gusztav_gratz
 			cost = 150
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_aristocratic_industrialist
@@ -3296,7 +3336,6 @@ characters = {
 			idea_token = HUN_gyorgy_jendrassik
 			cost = 150
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_rocket_scientist
@@ -3534,7 +3573,6 @@ characters = {
 			idea_token = HUN_kalman_daranyi
 			cost = 150
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_silent_workhorse
@@ -3564,7 +3602,6 @@ characters = {
 			idea_token = HUN_kalman_kanya
 			cost = 150
 			visible = {
-				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 				Generic_trait_conscientious_diplomat

@@ -1681,7 +1681,7 @@ focus_tree = {
 		}
 		available = {
 			is_faction_leader = yes
-			has_decision = HUN_form_true_kingdom
+			has_decision = HUN_crown_bathori_decision
 		}
 		bypass = {
 		}
@@ -3374,19 +3374,25 @@ focus_tree = {
 				remove_idea = HUN_Socialist_constitution_idea
 				add_idea = HUN_Socialist_constitution_Native_idea
 			}
-			retire_character = HUN_bela_kun
-			retire_character = HUN_matyas_rakoski
+			effect_tooltip = {
+				retire_character = HUN_bela_kun
+				retire_character = HUN_matyas_rakoski
+			}
 			whiteline = yes
 			activate_advisor = HUN_arpad_szakasits_special_first
 			whiteline = yes
-			HUN_arpad_szakasits = {
-				remove_trait = {
-					trait = HUN_trait_arpad_szakasits
-					slot = special_first
-				}
-				add_trait = {
-					trait = HUN_trait_arpad_szakasits_c
-					slot = special_first
+			activate_advisor = HUN_mihaly_farkas_special_second
+			whiteline = yes
+			ROOT = {
+				HUN_arpad_szakasits = {
+					remove_trait = {
+						trait = HUN_trait_arpad_szakasits
+						slot = special_first
+					}
+					add_trait = {
+						trait = HUN_trait_arpad_szakasits_c
+						slot = special_first
+					}
 				}
 			}
 			whiteline = yes
@@ -3532,40 +3538,6 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			# if = {
-			# 	limit = {
-			# 		HUN_matyas_rakoski = {
-			# 			is_hired_as_advisor = yes
-			# 		}
-			# 	}
-			# 	HUN_matyas_rakoski = {
-			# 		remove_trait = {
-			# 			trait = HUN_trait_head_of_the_ministry_of_national_security
-			# 			slot = special_fourth
-			# 		}
-			# 		add_trait = {
-			# 			trait = HUN_trait_head_of_the_ministry_of_national_security_1
-			# 			slot = special_fourth
-			# 		}
-			# 	}
-			# }
-			# if = {
-			# 	limit = {
-			# 		HUN_laszlo_rajk = {
-			# 			is_hired_as_advisor = yes
-			# 		}
-			# 	}
-			# 	HUN_laszlo_rajk = {
-			# 		remove_trait = {
-			# 			trait = HUN_trait_head_of_the_ministry_of_national_security
-			# 			slot = special_fourth
-			# 		}
-			# 		add_trait = {
-			# 			trait = HUN_trait_head_of_the_ministry_of_national_security_1
-			# 			slot = special_fourth
-			# 		}
-			# 	}
-			# }
 			swap_ideas = {
 				remove_idea = HUN_Red_horror_idea
 				add_idea = HUN_Ministry_of_National_Security_idea
@@ -3614,18 +3586,31 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 50
 			add_war_support = 0.1
-			# custom_effect_tooltip = available_political_advisor
-			# show_ideas_tooltip = HUN_Bela_Kun
 			swap_ideas = {
 				remove_idea = HUN_Socialist_constitution_idea
 				add_idea = HUN_Socialist_constitution_International_idea
 			}
-			retire_character = HUN_janos_kadar
-			retire_character = HUN_laszlo_rajk
+			effect_tooltip = {
+				retire_character = HUN_janos_kadar
+				retire_character = HUN_laszlo_rajk
+			}
 			whiteline = yes
 			activate_advisor = HUN_matyas_rakoski_special_third
 			whiteline = yes
-			activate_advisor = HUN_zoltan_tildy_special_fourth
+			activate_advisor = HUN_imre_nagy_special_fourth
+			whiteline = yes
+			add_corps_commander_role = {
+				character = HUN_matyas_rakoski
+				traits = {
+					politically_connected
+					harsh_leader
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 1
+			}
 		}
 	}
 	focus = {
@@ -3684,6 +3669,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = HUN_Militarization_of_labor_idea
+			add_ideas = laws_women_in_the_frontlines
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
 	}
@@ -3805,8 +3791,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_stability = 0.05
-			add_war_support = 0.05
+			add_ideas = laws_women_full_equality
 		}
 	}
 	focus = {
@@ -4491,6 +4476,9 @@ focus_tree = {
 			}
 			add_one_random_civilian_factory = yes
 			add_one_random_civilian_factory = yes
+			154 = {
+				upgrade_industrial_region = yes
+			}
 		}
 	}
 	focus = {
@@ -4630,8 +4618,14 @@ focus_tree = {
 			set_technology = {
 				synth_oil_experiments = 1
 			}
+			155 = {
+				prioritize_state = yes
+			}
 			add_one_random_synthetic_refinery = yes
 			add_one_random_synthetic_refinery = yes
+			155 = {
+				upgrade_industrial_region = yes
+			}
 		}
 	}
 	focus = {
@@ -4781,6 +4775,9 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_research_slot_until_six = yes
+			43 = {
+				upgrade_industrial_region = yes
+			}
 		}
 	}
 	focus = {
@@ -7759,7 +7756,10 @@ focus_tree = {
 				76 = {
 					is_controlled_by_ROOT_or_subject = yes
 				}
-				84 = {
+				82 = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+				789 = {
 					is_controlled_by_ROOT_or_subject = yes
 				}
 			}
@@ -7767,117 +7767,57 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					any_country = {
-						OR = {
-							tag = HUN
-							is_in_faction_with = HUN
-						}
-						has_full_control_of_state = 76
+			custom_effect_tooltip = HUN_Alpad_Line_more_tt
+			82 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						limit_to_border_country = ROM
 					}
+					level = 2
+					instant_build = yes
 				}
-				76 = {
-					add_building_construction = {
-						type = bunker
-						province = 727
-						level = 1
-						instant_build = yes
+			}
+			76 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						limit_to_border_country = ROM
 					}
-					add_building_construction = {
-						type = bunker
-						province = 9685
-						level = 1
-						instant_build = yes
+					level = 2
+					instant_build = yes
+				}
+			}
+			789 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+						limit_to_border_country = ROM
 					}
-					add_building_construction = {
-						type = bunker
-						province = 711
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 3689
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9668
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9670
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9672
-						level = 3
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 6714
-						level = 3
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 6711
-						level = 4
-						instant_build = yes
-					}
+					level = 2
+					instant_build = yes
 				}
 			}
 			if = {
 				limit = {
-					any_country = {
-						OR = {
-							tag = HUN
-							is_in_faction_with = HUN
-						}
-						has_full_control_of_state = 84
+					84 = {
+						is_controlled_by_ROOT_or_subject = yes
 					}
 				}
 				84 = {
 					add_building_construction = {
 						type = bunker
-						province = 690
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 3676
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 6709
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 6679
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 3365
-						level = 3
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9619
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							limit_to_border_country = ROM
+						}
 						level = 2
 						instant_build = yes
 					}
@@ -7927,6 +7867,17 @@ focus_tree = {
 						amount = 16
 					}
 				}
+				76 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				76 = {
+					upgrade_industrial_region = yes
+				}
 			}
 			if = {
 				limit = {
@@ -7962,7 +7913,7 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				764 = {
+				875 = {
 					is_controlled_by_ROOT_or_subject = yes
 				}
 				82 = {
@@ -7975,15 +7926,15 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					764 = {
+					875 = {
 						is_controlled_by_ROOT_or_subject = yes
 					}
 				}
-				764 = {
-					add_extra_state_shared_building_slots = 2
+				875 = {
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -7995,12 +7946,15 @@ focus_tree = {
 					}
 				}
 				82 = {
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
+				}
+				82 = {
+					upgrade_industrial_region = yes
 				}
 			}
 		}
@@ -8027,7 +7981,7 @@ focus_tree = {
 				45 = {
 					is_controlled_by_ROOT_or_subject = yes
 				}
-				109 = {
+				71 = {
 					is_controlled_by_ROOT_or_subject = yes
 				}
 			}
@@ -8047,20 +8001,8 @@ focus_tree = {
 						amount = 12
 					}
 				}
-			}
-			if = {
-				limit = {
-					109 = {
-						is_controlled_by_ROOT_or_subject = yes
-					}
-				}
-				109 = {
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
+				155 = {
+					upgrade_industrial_region = yes
 				}
 			}
 		}
@@ -8118,6 +8060,9 @@ focus_tree = {
 				664 = {
 					is_controlled_by_ROOT_or_subject = yes
 				}
+				1090 = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
 			}
 		}
 		bypass = {
@@ -8130,10 +8075,10 @@ focus_tree = {
 					}
 				}
 				70 = {
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -8145,10 +8090,10 @@ focus_tree = {
 					}
 				}
 				71 = {
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -8166,6 +8111,24 @@ focus_tree = {
 						level = 1
 						instant_build = yes
 					}
+				}
+			}
+			if = {
+				limit = {
+					1090 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+				}
+				1090 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				1090 = {
+					upgrade_industrial_region = yes
 				}
 			}
 		}
@@ -8188,21 +8151,16 @@ focus_tree = {
 		y = 1
 		relative_position_id = HUN_Develop_Slovakia
 		available = {
-			OR = {
-				HUN = {
-					controls_state = 70
-				}
-				any_other_country = {
-					OR = {
-						is_in_faction_with = HUN
-						is_subject_of = HUN
-					}
-					controls_state = 70
-				}
+			70 = {
+				is_controlled_by_ROOT_or_subject = yes
 			}
 		}
 		completion_reward = {
 			add_research_slot_until_six = yes
+			70 = {
+				increase_state_category = yes
+				upgrade_industrial_region = yes
+			}
 		}
 	}
 	focus = {
