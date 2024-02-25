@@ -3,8 +3,8 @@ focus_tree = {
 	id = hungarian_focus
 	default = no
 	continuous_focus_position = {
-		x = 3350
-		y = 1850
+		x = 50
+		y = 550
 	}
 	country = {
 		factor = 0
@@ -472,10 +472,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			declare_war_on = {
-				target = CZE
-				type = puppet_wargoal_focus
-			}
+			# declare_war_on = {
+			# 	target = CZE
+			# 	type = puppet_wargoal_focus
+			# }
 		}
 	}
 	focus = {
@@ -594,10 +594,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			declare_war_on = {
-				target = ROM
-				type = puppet_wargoal_focus
-			}
+			# declare_war_on = {
+			# 	target = ROM
+			# 	type = puppet_wargoal_focus
+			# }
 		}
 	}
 	focus = {
@@ -1664,7 +1664,7 @@ focus_tree = {
 		icon = GFX_focus_generic_letat_cest_moi
 		cost = 6
 		x = 0
-		y = 6
+		y = 7
 		relative_position_id = HUN_Who_else
 		ai_will_do = {
 			factor = 1
@@ -2199,8 +2199,8 @@ focus_tree = {
 		id = HUN_royal_federation
 		icon = GFX_focus_HUN_kriegsmarine
 		cost = 1
-		x = -9
-		y = 9
+		x = -6
+		y = 10
 		relative_position_id = HUN_United_forces
 		available = {
 		}
@@ -3318,9 +3318,12 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_stability = 0.05
-			add_war_support = 0.05
-			###Unlocks decisions to expand the revolution
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+			add_stability = -0.1
+			add_war_support = 0.1
 		}
 	}
 	focus = {
@@ -3423,14 +3426,12 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			# custom_effect_tooltip = available_political_advisor
-			# show_ideas_tooltip = HUN_Janos_Kadar
 			add_ideas = {
 				free_trade
 			}
 			swap_ideas = {
 				remove_idea = HUN_Socialist_constitution_Native_idea
-				add_idea = HUN_Goulash_with_potatoes_idea
+				add_idea = HUN_Socialist_constitution_Native_1_idea
 			}
 			HUN_janos_kadar = {
 				remove_trait = {
@@ -3462,7 +3463,10 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = HUN_Workers_and_Peasants_Union_idea
+			swap_ideas = {
+				remove_idea = HUN_Socialist_constitution_Native_1_idea
+				add_idea = HUN_Socialist_constitution_Native_2_idea
+			}
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
 	}
@@ -3485,8 +3489,8 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			add_political_power = 50
 			unlock_decision_tooltip = HUN_invite_donations_desicion
-			set_country_flag = HUN_Unlocking_national_economic_policies_flag
 			custom_effect_tooltip = HUN_Unlocking_national_economic_policies_tooltip
 		}
 	}
@@ -3513,8 +3517,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			swap_ideas = {
-				remove_idea = HUN_Workers_and_Peasants_Union_idea
-				add_idea = HUN_Establish_a_new_economic_system_idea
+				remove_idea = HUN_Socialist_constitution_Native_2_idea
+				add_idea = HUN_Socialist_constitution_Native_3_idea
 			}
 		}
 	}
@@ -3534,6 +3538,10 @@ focus_tree = {
 		available = {
 			communism > 0.6
 			has_stability > 0.6
+			OR = {
+				has_completed_focus = HUN_Native_triumph
+				has_completed_focus = HUN_International_triumph
+			}
 		}
 		bypass = {
 		}
@@ -3633,9 +3641,16 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_political_power = 150
-			swap_ideas = {
-				remove_idea = HUN_Socialist_constitution_International_idea
-				add_idea = HUN_Socialist_constitution_International_ex_idea
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = HUN_Native_triumph
+					}
+				}
+				swap_ideas = {
+					remove_idea = HUN_Socialist_constitution_International_idea
+					add_idea = HUN_Socialist_constitution_International_ex_idea
+				}
 			}
 			add_corps_commander_role = {
 				character = HUN_matyas_rakosi
@@ -3668,7 +3683,17 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = HUN_Militarization_of_labor_idea
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = HUN_Native_triumph
+					}
+				}
+				swap_ideas = {
+					remove_idea = HUN_Socialist_constitution_International_ex_idea
+					add_idea = HUN_Socialist_constitution_International_3_idea
+				}
+			}
 			add_ideas = laws_women_in_the_frontlines
 			custom_effect_tooltip = HUN_Unlock_military_policy_tooltip
 		}
@@ -3714,8 +3739,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = HUN_agricultural_collectivization_1
 			unlock_decision_tooltip = HUN_Set_up_checkpoints
+			unlock_decision_tooltip = HUN_Encourage_internal_reporting
 			unlock_decision_tooltip = HUN_creating_the_25_thousand
-			set_country_flag = HUN_Unlocking_national_economic_policies_flag
+			unlock_decision_tooltip = HUN_Hunt_for_rich_peasants
+			unlock_decision_tooltip = HUN_Development_of_agricultural_machinery
 			custom_effect_tooltip = HUN_Unlocking_national_economic_policies_tooltip
 		}
 	}
@@ -3738,41 +3765,20 @@ focus_tree = {
 		available = {
 			is_subject = no
 			num_of_factories > 70
+			NOT = {
+				has_completed_focus = HUN_Native_triumph
+			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = HUN_state_socialism
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
+			swap_ideas = {
+				remove_idea = HUN_Socialist_constitution_International_3_idea
+				add_idea = HUN_Socialist_constitution_International_4_idea
 			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
+			add_one_random_military_factory = yes
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -5809,10 +5815,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
-		search_filters = {
-			FOCUS_FILTER_NAVY_XP
-			FOCUS_FILTER_RESEARCH
-		}
 		completion_reward = {
 			navy_experience = 15
 			add_doctrine_cost_reduction = {
@@ -5844,10 +5846,6 @@ focus_tree = {
 				factor = 2
 				enemies_naval_strength_ratio > 1
 			}
-		}
-		search_filters = {
-			FOCUS_FILTER_NAVY_XP
-			FOCUS_FILTER_NAVY_BONUS
 		}
 		completion_reward = {
 			navy_experience = 30
@@ -6015,9 +6013,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
 		completion_reward = {
 			add_tech_bonus = {
 				name = HUN_First_Naval_Exercises
@@ -6045,9 +6040,6 @@ focus_tree = {
 		}
 		ai_will_do = {
 			factor = 10
-		}
-		search_filters = {
-			FOCUS_FILTER_NAVY_BONUS
 		}
 		completion_reward = {
 			if = {
@@ -6238,9 +6230,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
-		search_filters = {
-			FOCUS_FILTER_NAVY_BONUS
-		}
 		completion_reward = {
 		}
 	}
@@ -6261,9 +6250,6 @@ focus_tree = {
 		}
 		ai_will_do = {
 			factor = 10
-		}
-		search_filters = {
-			FOCUS_FILTER_NAVY_BONUS
 		}
 		completion_reward = {
 			if = {
@@ -7207,28 +7193,22 @@ focus_tree = {
 				uses = 1
 				category = cat_superior_firepower
 			}
-			if = {
-				limit = {
-					is_ai = no
+			create_equipment_variant = {
+				name = "Zrinyi"
+				type = medium_tank_artillery_chassis_1
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_medium_howitzer
+					turret_type_slot = tank_medium_fixed_superstructure_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_gasoline_engine
+					special_type_slot_1 = tank_radio_2
+					special_type_slot_2 = additional_machine_guns
 				}
-				create_equipment_variant = {
-					name = "Zrinyi"
-					type = medium_tank_artillery_chassis_1
-					parent_version = 0
-					modules = {
-						main_armament_slot = tank_medium_howitzer
-						turret_type_slot = tank_medium_fixed_superstructure_turret
-						suspension_type_slot = tank_bogie_suspension
-						armor_type_slot = tank_riveted_armor
-						engine_type_slot = tank_gasoline_engine
-						special_type_slot_1 = tank_radio_2
-						special_type_slot_2 = additional_machine_guns
-					}
-					upgrades = {
-						tank_nsb_engine_upgrade = 6
-						tank_nsb_armor_upgrade = 3
-					}
-					icon = "GFX_focus_HUN_basic_medium_tank"
+				upgrades = {
+					tank_nsb_engine_upgrade = 6
+					tank_nsb_armor_upgrade = 3
 				}
 			}
 		}
@@ -7469,17 +7449,8 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = {
-					109
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
+			add_one_random_military_factory = yes
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -7703,12 +7674,8 @@ focus_tree = {
 					}
 					HUN = {
 						is_subject = no
-					}
-					OR = {
-						HUN = {
+						OR = {
 							has_government = neutrality
-						}
-						HUN = {
 							has_government = fascism
 						}
 					}
@@ -7727,10 +7694,6 @@ focus_tree = {
 					target = SLO
 					transfer_troops = yes
 				}
-				remove_state_claim = 70
-				remove_state_claim = 71
-				add_state_core = 70
-				add_state_core = 71
 			}
 		}
 	}
@@ -9051,7 +9014,7 @@ focus_tree = {
 		id = HUN_Long_live_Attila
 		icon = GFX_focus_HUN_attila
 		x = 1
-		y = 3
+		y = 4
 		relative_position_id = HUN_Danube_project
 		cost = 6
 		ai_will_do = {
@@ -10120,7 +10083,7 @@ focus_tree = {
 		icon = GFX_focus_SOV_ussr
 		cost = 6
 		x = 1
-		y = 3
+		y = 4
 		relative_position_id = HUN_Danube_project
 		ai_will_do = {
 			factor = 10
@@ -10827,7 +10790,7 @@ focus_tree = {
 		id = HUN_Balkan_Union
 		icon = GFX_focus_ROM_balkan_pact
 		x = 0
-		y = 6
+		y = 7
 		relative_position_id = HUN_New_legend
 		cost = 6
 		ai_will_do = {
@@ -11944,9 +11907,7 @@ focus_tree = {
 			}
 		}
 		available = {
-			is_subject = no
-			is_in_faction = yes
-			is_faction_leader = no
+			always = no
 			OR = {
 				is_neighbor_of = BUL
 				any_neighbor_country = {
@@ -12365,11 +12326,7 @@ focus_tree = {
 			}
 		}
 		available = {
-			is_subject = no
-			OR = {
-				threat > 0.4
-				date > 1938.7.15
-			}
+			always = no
 			has_country_flag = HUN_GREATER_flag
 		}
 		bypass = {
