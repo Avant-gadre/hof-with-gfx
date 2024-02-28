@@ -146,15 +146,44 @@ music = {
 music = {
 	song = "Repose_of_souls_at_the_atlantic_ocean_KanC"
 	chance = {
-		factor = 1.5
-		modifier = { # 不是盎系不放
+		factor = 1
+		modifier = { # 没船别放海军bgm
 			factor = 0
-			NOT = {
-				tag = ENG
-				tag = CAN
-				tag = AST
-				tag = SAF
+			has_navy_size = {
+				size < 20
 			}
+		}
+		modifier = { # 很可能的alter
+			factor = 2
+			OR = {
+				tag = ENG
+				tag = FRA
+			}
+			ENG = { has_war_with = FRA }
+			FRA = {
+				has_navy_size = {
+					unit = submarine
+					size > 50
+				}
+			}
+		}
+		modifier = { # 大西洋潜艇战限定？
+			factor = 2
+			OR = {
+				tag = ENG
+				tag = GER
+			}
+			ENG = { has_war_with = GER }
+			GER = {
+				has_navy_size = {
+					unit = submarine
+					size > 50
+				}
+			}
+		}
+		modifier = { # 战时
+			factor = 0
+			has_war = no
 		}
 	}
 }
