@@ -2125,7 +2125,8 @@ focus_tree = {
 	focus = {
 		id = FRA_Strategies_for_New_Era
 		icon = GFX_focus_generic_army_command_power
-		cost = 5
+		#cost = 5
+		cost = 8
 		prerequisite = {
 			focus = FRA_army_command_focus
 		}
@@ -2157,6 +2158,23 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_army_command_focus
 		completion_reward = {
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = FRA_panhard_organization
+						is_military_industrial_organization = FRA_matra_organization
+						is_military_industrial_organization = FRA_renault_organization
+						is_military_industrial_organization = FRA_hotchkiss_organization
+						is_military_industrial_organization = FRA_altelier_de_puteaux_organization
+						is_military_industrial_organization = FRA_citroen_organization
+						is_military_industrial_organization = FRA_nexter_organization
+					}
+				}
+				#add_mio_funds = 1000
+				add_mio_funds_gain_factor = 0.1
+				#add_mio_design_team_assign_cost = -0.3
+				#add_mio_design_team_change_cost = -0.3
+			}
 			if = {
 				limit = {
 					has_idea = FRA_shadow_of_World_War_I_idea_I
@@ -2280,7 +2298,8 @@ focus_tree = {
 		id = FRA_Old_Glory
 		icon = GFX_goal_generic_army_artillery2
 		#cost = 5
-		cost = 3
+		#cost = 3
+		cost = 6
 		prerequisite = {
 			focus = FRA_army_command_focus
 		}
@@ -2299,6 +2318,25 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = FRA_manufacture_saint_etienne_organization
+						is_military_industrial_organization = FRA_manufacture_bayonne_organization
+					}
+				}
+				add_mio_funds = 1000
+				add_mio_funds_gain_factor = 0.1
+			}
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = FRA_schneider_organization
+					}
+				}
+				add_mio_funds = 2000
+				add_mio_funds_gain_factor = 0.2
+			}
 			if = {
 				limit = {
 					has_idea = FRA_shadow_of_World_War_I_idea_I
@@ -3112,7 +3150,8 @@ focus_tree = {
 	focus = {
 		id = FRA_BSEB
 		icon = GFX_focus_generic_shipyard
-		cost = 3
+		#cost = 3
+		cost = 5
 		prerequisite = {
 			focus = FRA_Return_to_World_Stage
 		}
@@ -3127,6 +3166,18 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = FRA_ateliers_de_la_loire_organization
+						is_military_industrial_organization = FRA_ateliers_de_saint_nazaire_organization
+						is_military_industrial_organization = FRA_ocean_industry_group_organization
+						is_military_industrial_organization = FRA_ateliers_et_chantiers_de_france_organization
+					}
+				}
+				add_mio_funds = 1000
+				add_mio_funds_gain_factor = 0.1
+			}
 			country_event = {
 				id = france.960
 				days = 2
@@ -3758,8 +3809,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = Ocean_Industry_Group
+			mio:FRA_ocean_industry_group_organization = { #
+				add_mio_funds = 2000
+				#add_mio_funds_gain_factor = 0.1
+			}
 		}
 	}
 	focus = {
@@ -4104,7 +4157,22 @@ focus_tree = {
 						has_government = fascism
 					}
 				}
-				add_ideas = FRA_Plan_five_idea
+				add_timed_idea = {
+					idea = FRA_Plan_five_idea
+					days = 365
+				}
+				#add_ideas = FRA_Plan_five_idea
+				every_military_industrial_organization = {
+					limit = {
+						OR = {
+							is_military_industrial_organization = FRA_morane_saulnier_organization
+							is_military_industrial_organization = FRA_bloch_organization
+							is_military_industrial_organization = FRA_amiot_organization
+							is_military_industrial_organization = FRA_levasseur_organization
+						}
+					}
+					add_mio_funds_gain_factor = 0.1
+				}
 			}
 		}
 	}

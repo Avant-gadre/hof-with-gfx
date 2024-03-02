@@ -700,7 +700,7 @@ characters = {
 			}
 			cost = 200
 			ai_will_do = {
-				factor = 10
+				factor = 100
 			}
 		}
 	}
@@ -1153,18 +1153,14 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = navy_chief
+			slot = high_command
 			idea_token = JAP_akashi
 			traits = {
 				Naval_Logistics_Officer
 			}
 			cost = 200
 			ai_will_do = {
-				factor = 2
-				modifier = {
-					factor = 0
-					has_war = no
-				}
+				factor = 4
 			}
 		}
 	}
@@ -1198,10 +1194,18 @@ characters = {
 		advisor = {
 			slot = navy_chief
 			idea_token = JAP_hiei
-			ledger = navy
-			cost = 100
+			available = {
+			}
 			traits = {
-				navy_chief_reform_2
+				Fleet_decisive_battle
+			}
+			cost = 200
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					has_war = no
+				}
 			}
 		}
 	}
@@ -1460,20 +1464,15 @@ characters = {
 			coordination_skill = 5
 		}
 		advisor = {
-			slot = navy_chief
+			slot = high_command
 			idea_token = JAP_akagi
-			available = {
-			}
 			traits = {
-				Fleet_decisive_battle
+				Sneak_attack
+				navy_carrier_3
 			}
 			cost = 200
 			ai_will_do = {
-				factor = 1
-				modifier = {
-					factor = 0
-					has_war = no
-				}
+				factor = 4
 			}
 		}
 	}
@@ -1549,12 +1548,15 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = high_command
+			slot = theorist
 			idea_token = JAP_taiho
 			ledger = navy
-			cost = 100
+			cost = 150
+			research_bonus = {
+				cv_tech = 0.15
+			}
 			traits = {
-				navy_fleet_logistics_2
+				naval_aviation_pioneer
 			}
 		}
 	}
@@ -1596,7 +1598,7 @@ characters = {
 			}
 			cost = 200
 			ai_will_do = {
-				factor = 2
+				factor = 5
 			}
 		}
 	}
@@ -1831,21 +1833,21 @@ characters = {
 				air_controller
 			}
 			skill = 4
-			attack_skill = 6
-			defense_skill = 2
+			attack_skill = 5
+			defense_skill = 3
 			maneuvering_skill = 4
 			coordination_skill = 3
 		}
 		advisor = {
-			slot = theorist
-			idea_token = JAP_zuikaku_theorist
-			ledger = navy
-			cost = 150
-			research_bonus = {
-				cv_tech = 0.15
-			}
+			slot = high_command
+			idea_token = JAP_zuikaku
 			traits = {
-				naval_aviation_pioneer
+				Shuttle_bombing
+				navy_carrier_2
+			}
+			cost = 200
+			ai_will_do = {
+				factor = 4
 			}
 		}
 	}
@@ -2196,12 +2198,16 @@ characters = {
 			slot = high_command
 			idea_token = JAP_takeda_shingen
 			traits = {
-				army_CombinedArms_2
+				army_CombinedArms_3
 				army_motorized_expert
 			}
 			cost = 200
 			ai_will_do = {
-				factor = 1
+				factor = 5
+				modifier = {
+					factor = 10
+					has_war = yes
+				}
 			}
 		}
 	}
@@ -3944,7 +3950,7 @@ characters = {
 			}
 			cost = 200
 			ai_will_do = {
-				factor = 100
+				factor = 1
 			}
 		}
 	}
@@ -3974,6 +3980,9 @@ characters = {
 		advisor = {
 			slot = air_chief
 			idea_token = JAP_kishinami_hakunatsu
+			available = {
+				has_completed_focus = JAP_japanese_air_power_theory
+			}
 			traits = {
 				air_chief_all_weather_3
 			}
@@ -4765,12 +4774,30 @@ characters = {
 				aircraft_tycoon
 			}
 			available = {
-				has_completed_focus = JAP_ally_with_the_zaibatsus
+				OR = {
+				    has_completed_focus = JAP_ally_with_the_zaibatsus
+				    has_completed_focus = JAP_capital_management_separation
+				    has_completed_focus = JAP_guide_the_zaibatsus
+				}
 				NOT = {
 					has_completed_focus = JAP_dissolute_the_zaibatsus
 				}
 				NOT = {
 					has_completed_focus = JAP_showa_resotration
+				}
+			}
+			on_add = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = JAP_kongou_mitsuko_be_hired
+						}
+					}
+					set_country_flag = JAP_kongou_mitsuko_be_hired
+					mio:JAP_suzuki_organization = { #这并不是她家的 就当有股份吧
+						#add_mio_funds = 1000
+						add_mio_funds_gain_factor = 0.1
+					}
 				}
 			}
 			ai_will_do = {
@@ -5020,10 +5047,28 @@ characters = {
 				jap_winter_expert
 			}
 			available = {
-				has_completed_focus = JAP_ally_with_the_zaibatsus
+				OR = {
+				    has_completed_focus = JAP_ally_with_the_zaibatsus
+				    has_completed_focus = JAP_capital_management_separation
+				    has_completed_focus = JAP_guide_the_zaibatsus
+				}
 				NOT = {
 					has_completed_focus = JAP_dissolute_the_zaibatsus
 					has_completed_focus = JAP_challenge_the_zaibatsus
+				}
+			}
+			on_add = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = JAP_shiba_miyuki_be_hired
+						}
+					}
+					set_country_flag = JAP_shiba_miyuki_be_hired
+					mio:JAP_yotsuba_organization = { #
+						#add_mio_funds = 1000
+						add_mio_funds_gain_factor = 0.1
+					}
 				}
 			}
 			ai_will_do = {
