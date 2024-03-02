@@ -1,6 +1,6 @@
 ##I hate DOD
 add_namespace = more_hun
-country_event = {
+unit_leader_event = {
 	# 巴托里政权的组成
 	id = more_hun.1
 	title = more_hun.1.t
@@ -200,13 +200,18 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 61岁老同志
 	id = more_hun.6
 	title = more_hun.6.t
 	desc = more_hun.6.d
 	picture = GFX_report_event_hungary_refused
 	is_triggered_only = yes
+	immediate = {
+		# THIS = {
+		# 	add_temp_unit_leader_role = yes
+		# }
+	}
 	option = {
 		name = more_hun.6.a
 		ai_chance = {
@@ -223,6 +228,11 @@ country_event = {
 		}
 		HUN_increase_right_wing = yes
 		HUN_decrease_left_wing = yes
+		hidden_effect = {
+			THIS = {
+				remove_temp_unit_leader_role = yes
+			}
+		}
 		add_corps_commander_role = {
 			character = HUN_pal_pronay
 			traits = {
@@ -234,12 +244,9 @@ country_event = {
 			defense_skill = 3
 			planning_skill = 2
 			logistics_skill = 1
-			legacy_id = 4029
 			visible = {
 				NOT = {
 					has_government = communism
-				}
-				NOT = {
 					has_country_flag = HUN_Ban_the_far_right_wing_completely_flag
 				}
 				has_country_flag = HUN_pal_Restore_rank_flag
@@ -256,21 +263,18 @@ country_event = {
 			defense_skill = 4
 			planning_skill = 1
 			logistics_skill = 2
-			legacy_id = 4027
 			visible = {
 				NOT = {
 					has_government = communism
-				}
-				NOT = {
 					has_country_flag = HUN_Ban_the_far_right_wing_completely_flag
 				}
 				has_country_flag = HUN_pal_Restore_rank_flag
 			}
 		}
-		hidden_effect = {
-			country_event = {
+		HUN_pal_pronay = {
+			unit_leader_event = {
 				id = more_hun.7
-				days = 15
+				days = 14
 			}
 		}
 	}
@@ -279,11 +283,16 @@ country_event = {
 		ai_chance = {
 			base = 50
 		}
+		hidden_effect = {
+			THIS = {
+				remove_temp_unit_leader_role = yes
+			}
+		}
 		add_political_power = -25
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 61岁老同志制造屠杀
 	id = more_hun.7
 	title = more_hun.7.t
@@ -333,7 +342,7 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 逝世一周年纪念
 	id = more_hun.8
 	title = more_hun.8.t
@@ -355,17 +364,19 @@ country_event = {
 		}
 		HUN_increase_government = yes
 		HUN_increase_right_wing = yes
+		remove_temp_unit_leader_role = yes
 	}
 	option = {
 		name = more_hun.8.b
 		ai_chance = {
 			base = 50
 		}
+		remove_temp_unit_leader_role = yes
 		add_political_power = -25
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 扬科的建议
 	id = more_hun.9
 	title = more_hun.9.t
@@ -377,28 +388,26 @@ country_event = {
 		ai_chance = {
 			base = 50
 		}
-		hidden_effect = {
-			GER = {
-				country_event = {
-					id = more_hun.11
-					days = 1
-				}
+		GER = {
+			country_event = {
+				id = more_hun.11
+				days = 1
 			}
 		}
+		remove_temp_unit_leader_role = yes
 	}
 	option = {
 		name = more_hun.9.b
 		ai_chance = {
 			base = 50
 		}
-		hidden_effect = {
-			GER = {
-				country_event = {
-					id = more_hun.13
-					days = 1
-				}
+		GER = {
+			country_event = {
+				id = more_hun.13
+				days = 1
 			}
 		}
+		remove_temp_unit_leader_role = yes
 	}
 }
 
@@ -415,8 +424,9 @@ country_event = {
 			base = 100
 		}
 		hidden_effect = {
-			HUN = {
-				country_event = {
+			HUN_sepp_janko = {
+				add_temp_unit_leader_role = yes
+				unit_leader_event = {
 					id = more_hun.9
 					days = 1
 				}
@@ -431,6 +441,7 @@ country_event = {
 	}
 }
 
+##Ger as receiver
 country_event = {
 	# 派遣军事顾问
 	id = more_hun.11
@@ -495,6 +506,7 @@ country_event = {
 	}
 }
 
+##Ger as receiver
 country_event = {
 	# 被拒绝
 	id = more_hun.13
@@ -510,7 +522,7 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 演唱会
 	id = more_hun.14
 	title = more_hun.14.t
@@ -532,25 +544,14 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 贝拉昆煽动工人
 	id = more_hun.15
 	title = more_hun.15.t
 	desc = more_hun.15.d
 	picture = GFX_report_event_worker_protests
 	fire_only_once = yes
-	trigger = {
-		tag = HUN
-		OR = {
-			has_idea = HUN_influence_of_the_left_wing_group_idea_2
-			has_idea = HUN_influence_of_the_left_wing_group_idea_3
-			has_idea = HUN_influence_of_the_left_wing_group_idea_4
-			has_idea = HUN_influence_of_the_left_wing_group_idea_5
-		}
-	}
-	mean_time_to_happen = {
-		days = 10
-	}
+	is_triggered_only = yes
 	option = {
 		name = more_hun.15.a
 		ai_chance = {
@@ -567,24 +568,25 @@ country_event = {
 		}
 		HUN_decrease_right_wing = yes
 		HUN_decrease_left_wing = yes
+		remove_temp_unit_leader_role = yes
 	}
 	option = {
 		name = more_hun.15.b
 		ai_chance = {
 			base = 25
 		}
-		hidden_effect = {
-			country_event = {
-				id = more_hun.16
-				days = 1
-			}
+		country_event = {
+			id = more_hun.16
+			days = 1
 		}
+		remove_temp_unit_leader_role = yes
 	}
 	option = {
 		name = more_hun.15.c
 		ai_chance = {
 			base = 25
 		}
+		remove_temp_unit_leader_role = yes
 		set_country_flag = HUN_Provided_weapons_flag
 	}
 	option = {
@@ -598,6 +600,7 @@ country_event = {
 		}
 		HUN_increase_left_wing = yes
 		HUN_decrease_right_wing = yes
+		remove_temp_unit_leader_role = yes
 	}
 }
 
@@ -672,30 +675,21 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 拉科西
 	id = more_hun.17
 	title = more_hun.17.t
 	desc = more_hun.17.d
 	picture = GFX_report_event_communist_leader
 	fire_only_once = yes
-	trigger = {
-		tag = HUN
-		OR = {
-			has_idea = HUN_influence_of_the_left_wing_group_idea_3
-			has_idea = HUN_influence_of_the_left_wing_group_idea_4
-			has_idea = HUN_influence_of_the_left_wing_group_idea_5
-		}
-	}
-	mean_time_to_happen = {
-		days = 15
-	}
+	is_triggered_only = yes
 	option = {
 		name = more_hun.17.a
 		ai_chance = {
 			base = 50
 		}
 		HUN_decrease_left_wing = yes
+		remove_temp_unit_leader_role = yes
 	}
 	option = {
 		name = more_hun.17.b
@@ -707,16 +701,19 @@ country_event = {
 			popularity = 0.05
 		}
 		HUN_increase_left_wing = yes
+		remove_temp_unit_leader_role = yes
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	# 参观
 	id = more_hun.18
 	title = more_hun.18.t
 	desc = more_hun.18.d
 	picture = GFX_report_event_german_speech
 	is_triggered_only = yes
+	immediate = {
+	}
 	option = {
 		name = more_hun.18.a
 		ai_chance = {
@@ -728,6 +725,11 @@ country_event = {
 			popularity = -0.05
 		}
 		HUN_decrease_right_wing = yes
+		hidden_effect = {
+			THIS = {
+				remove_temp_unit_leader_role = yes
+			}
+		}
 	}
 	option = {
 		name = more_hun.18.b
@@ -741,9 +743,16 @@ country_event = {
 		}
 		HUN_increase_government = yes
 		HUN_increase_right_wing = yes
+		hidden_effect = {
+			THIS = {
+				remove_temp_unit_leader_role = yes
+			}
+		}
 	}
 }
 
+##19-29 is missing
+##Win the war
 country_event = {
 	id = more_hun.30
 	title = more_hun.30.t
@@ -767,13 +776,7 @@ country_event = {
 	}
 	picture = GFX_report_event_british_inspect_troops
 	fire_only_once = yes
-	trigger = {
-		tag = HUN
-		has_global_flag = HUN_wins_the_war_flag
-	}
-	mean_time_to_happen = {
-		days = 1
-	}
+	is_triggered_only = yes
 	option = {
 		name = more_hun.30.a
 		ai_chance = {
@@ -866,6 +869,8 @@ country_event = {
 	}
 }
 
+##33-36 is missing
+##TODO you are here
 country_event = {
 	# 处理民族主义者
 	id = more_hun.37
@@ -876,7 +881,19 @@ country_event = {
 	option = {
 		name = more_hun.37.a
 		trigger = {
-			always = no
+			OR = {
+				has_idea = HUN_influence_of_the_government_idea_4
+				has_idea = HUN_influence_of_the_government_idea_5
+			}
+			OR = {
+				has_idea = HUN_influence_of_the_right_wing_group_idea_1
+				has_idea = HUN_influence_of_the_right_wing_group_idea_2
+				has_idea = HUN_influence_of_the_right_wing_group_idea_3
+			}
+			OR = {
+				has_idea = HUN_influence_of_the_left_wing_group_idea_1
+				has_idea = HUN_influence_of_the_left_wing_group_idea_2
+			}
 		}
 		ai_chance = {
 			base = 50
@@ -895,17 +912,13 @@ country_event = {
 			base = 50
 		}
 		add_political_power = -25
-		hidden_effect = {
-			country_event = {
-				id = more_hun.38
-				days = 2
-			}
+		country_event = {
+			id = more_hun.38
+			days = 2
 		}
-		hidden_effect = {
-			news_event = {
-				id = more_News.50
-				days = 1
-			}
+		news_event = {
+			id = more_News.50
+			days = 1
 		}
 	}
 }
@@ -2625,20 +2638,7 @@ country_event = {
 	}
 }
 
-# country_event = {
-# 	# 背刺提示
-# 	id = more_hun.68
-# 	title = more_hun.68.t
-# 	desc = more_hun.68.d
-# 	picture = GFX_report_event_germany_victory
-# 	is_triggered_only = yes
-# 	option = {
-# 		name = more_hun.68.a
-# 		ai_chance = {
-# 			base = 100
-# 		}
-# 	}
-# }
+##68 is missing
 country_event = {
 	# 康米对同意识形态的外交
 	id = more_hun.69
