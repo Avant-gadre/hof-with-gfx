@@ -3104,9 +3104,6 @@
 		available = {
 			JAP = {
 				exists = yes
-				NOT = {
-					has_government = ROOT
-				}
 			}
 		}
 		will_lead_to_war_with = JAP
@@ -3118,21 +3115,6 @@
 			factor = 1
 		}
 		completion_reward = {
-			650 = {
-				#Fortify naval bases
-				add_building_construction = {
-					type = coastal_bunker
-					province = 13067
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = naval_base
-					province = 13067
-					level = 2
-					instant_build = yes
-				}
-			}
 			631 = {
 				#Fortify naval bases
 				add_building_construction = {
@@ -3369,6 +3351,7 @@
 			factor = 50
 		}
 		available = {
+            has_idea = tot_economic_mobilisation
 		}
 		bypass = {
 		}
@@ -3406,6 +3389,14 @@
 			FOCUS_FILTER_MANPOWER
 		}
 		completion_reward = {
+			if = {
+				limit = {
+					OR = {
+						has_idea = laws_women_workers
+					}
+				}
+				add_ideas = laws_women_in_the_army
+			}
 			add_ideas = USA_womens_armed_service_integration_act
 		}
 	}
@@ -3427,6 +3418,10 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			mio:USA_rock_island_arsenal_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_doctrine_cost_reduction = {
 				name = USA_support_rock_island
 				cost_reduction = 0.5
@@ -3459,6 +3454,7 @@
 			factor = 100
 		}
 		available = {
+            has_idea = tot_economic_mobilisation
 		}
 		bypass = {
 		}
@@ -3466,6 +3462,10 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			mio:USA_chrysler_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_tech_bonus = {
 				name = USA_tank_experiments
 				uses = 2
@@ -3482,9 +3482,6 @@
 		prerequisite = {
 			focus = USA_tank_experiments
 		}
-		mutually_exclusive = {
-			focus = USA_main_battle_tanks
-		}
 		relative_position_id = USA_selective_training_act
 		cost = 10
 		ai_will_do = {
@@ -3495,8 +3492,10 @@
 		bypass = {
 		}
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = tank_destroyer_board
+			mio:USA_tank_destroyer_board_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 		}
 	}
 	focus = {
@@ -3506,9 +3505,6 @@
 		y = 3
 		prerequisite = {
 			focus = USA_tank_experiments
-		}
-		mutually_exclusive = {
-			focus = USA_tank_destroyer_doctrine
 		}
 		relative_position_id = USA_selective_training_act
 		cost = 10
@@ -3523,17 +3519,13 @@
 			add_doctrine_cost_reduction = {
 				name = USA_main_battle_tanks
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = cat_mobile_warfare
 			}
-			if = {
-				limit = {
-					is_ai = yes
-				}
-				add_political_power = 150
+			mio:USA_detroit_arsenal_organization = {
+				add_mio_funds = 12000
+				add_mio_funds_gain_factor = 0.6
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = detroit_arsenal
 		}
 	}
 	focus = {
@@ -3558,6 +3550,14 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			mio:USA_springfield_armory_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
+			mio:USA_ford_motor_company_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_doctrine_cost_reduction = {
 				name = USA_armored_infantry
 				cost_reduction = 0.5
@@ -3653,12 +3653,19 @@
 			focus = USA_war_department
 		}
 		relative_position_id = USA_war_department
+		available = {
+            has_idea = tot_economic_mobilisation
+		}
 		available_if_capitulated = yes
 		search_filters = {
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
 			air_experience = 25
+			mio:USA_north_american_aviation_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_doctrine_cost_reduction = {
 				name = USA_air_war_plans_division
 				cost_reduction = 0.5
@@ -3698,9 +3705,9 @@
 		y = 1
 		relative_position_id = USA_air_war_plans_division
 		cost = 10
-		#ai_will_do = {
-		#	factor = 1
-		#}
+		ai_will_do = {
+			factor = 300
+		}
 		available_if_capitulated = yes
 		completion_reward = {
 			air_experience = 25
@@ -3726,6 +3733,10 @@
 		}
 		completion_reward = {
 			air_experience = 25
+			mio:USA_lockheed_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_tech_bonus = {
 				name = USA_TAC
 				uses = 2
@@ -3753,6 +3764,10 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			mio:USA_douglas_aircraft_company_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_tech_bonus = {
 				name = CAS_effort
 				uses = 2
@@ -3783,15 +3798,19 @@
 		y = 2
 		relative_position_id = USA_strategic_bombing
 		cost = 10
-		#ai_will_do = {
-		#	factor = 1
-		#}
+		ai_will_do = {
+			factor = 300
+		}
 		available_if_capitulated = yes
 		search_filters = {
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
 			air_experience = 25
+			mio:USA_boeing_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_tech_bonus = {
 				name = USA_combined_bomber_offensive
 				bonus = 3
@@ -3935,13 +3954,12 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
-			add_tech_bonus = {
+			add_doctrine_cost_reduction = {
 				name = USA_escort_fighters
-				bonus = 3
-				uses = 1
-				technology = heavy_fighter1
-				technology = heavy_fighter2
-				technology = heavy_fighter3
+				cost_reduction = 0.5
+				uses = 3
+				category = cat_operational_integrity
+				category = cat_strategic_destruction
 			}
 		}
 	}
@@ -4169,6 +4187,10 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			mio:USA_norfolk_naval_yard_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_tech_bonus = {
 				name = USA_battleship_primacy
 				bonus = 1
@@ -4221,27 +4243,46 @@
 		bypass = {
 		}
 		completion_reward = {
-			638 = {
-				add_building_construction = {
-					type = naval_base
-					province = 12140
-					level = 2
-					instant_build = yes
-				}
-			}
 			if = {
 				limit = {
-					327 = {
-						CONTROLLER = {
-							is_subject_of = ROOT
-						}
-					}
+					has_full_control_of_state = 629
 				}
-				327 = {
+				629 = {
+					#夏威夷
 					add_building_construction = {
 						type = naval_base
-						province = 10265
-						level = 2
+						province = 12021
+						level = 3
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = coastal_bunker
+						level = 7
+						province = 12021
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = coastal_bunker
+						level = 5
+						province = 7112
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = coastal_bunker
+						level = 5
+						province = 7195
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = coastal_bunker
+						level = 5
+						province = 10048
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = coastal_bunker
+						level = 10
+						province = 4180
 						instant_build = yes
 					}
 				}
@@ -4266,6 +4307,10 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			mio:USA_newport_news_shipbuilding_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_tech_bonus = {
 				name = USA_carrier_primacy
 				bonus = 1
@@ -4292,12 +4337,15 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = USA_bureau_of_aeronautics
-				bonus = 1
+			mio:USA_grumman_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
+			add_doctrine_cost_reduction = {
+				name = USA_advanced_mahanian_doctrine
+				cost_reduction = 0.5
 				uses = 2
-				category = naval_bomber
-				category = naval_air
+				category = cat_base_strike
 			}
 		}
 	}
@@ -4345,6 +4393,10 @@
 		#}
 		available_if_capitulated = yes
 		completion_reward = {
+			mio:USA_brooklyn_naval_yard_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_ideas = escort_effort_focus
 		}
 	}
@@ -4396,6 +4448,10 @@
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			mio:USA_electric_boat_company_organization = {
+				add_mio_funds = 4000
+				add_mio_funds_gain_factor = 0.2
+			}
 			add_tech_bonus = {
 				name = USA_fleet_submarines
 				bonus = 1
