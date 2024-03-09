@@ -82,50 +82,6 @@ all_china_must_prosper_in_my_prosperity_sphere_BEY = {
 	}
 }
 
-JAP_wants_arms = {
-	allowed = {
-		original_tag = JAP
-	}
-	enable = {
-		OR = {
-			has_government = fascism
-			has_government = neutrality
-		}
-		OR = {
-			date < 1939.1.1
-			has_war_with = CHI
-		}
-	}
-	abort = {
-		OR = {
-			has_war_with = ENG
-			has_war_with = FRA
-			has_war_with = USA
-			NOT = {
-				country_exists = CHI
-			}
-			CHI = {
-				has_capitulated = yes
-			}
-			CHI = {
-				is_in_faction_with = JAP
-			}
-			CHI = {
-				is_subject = yes
-			}
-		}
-	}
-	ai_strategy = {
-		type = building_target
-		id = arms_factory
-		value = 59
-	}
-	ai_strategy = {
-		type = air_factory_balance
-		value = -30
-	}
-}
-
 jap_never_cares_germany_and_italian_in_africa = {
 	allowed = {
 		original_tag = JAP
@@ -263,12 +219,11 @@ jap_early_invasions_are_risky_and_best_wait_for_later = {
 	}
 }
 
-JAP_in_for_the_long_haul_bruv = {
+JAP_wants_complex = {
 	allowed = {
 		original_tag = JAP
 	}
 	enable = {
-		has_government = democratic
 		date < 1937.1.1
 		has_war = no
 	}
@@ -276,11 +231,166 @@ JAP_in_for_the_long_haul_bruv = {
 	ai_strategy = {
 		type = building_target
 		id = industrial_complex
-		value = 49
+		value = 100
+	}
+}
+
+JAP_wants_dock_early = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		date > 1937.1.1
+		date < 1937.6.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = dockyard
+		value = 100
+	}
+}
+
+JAP_wants_arms = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		OR = {
+			AND = {
+				has_government = democratic
+				has_war_with = CHI
+			}
+			has_government = fascism
+			has_government = neutrality
+		}
+		date > 1937.6.1
+		date < 1939.1.1
+	}
+	abort = {
+		OR = {
+			has_war_with = ENG
+			has_war_with = FRA
+			has_war_with = USA
+			NOT = {
+				country_exists = CHI
+			}
+			CHI = {
+				has_capitulated = yes
+			}
+			CHI = {
+				is_in_faction_with = JAP
+			}
+			CHI = {
+				is_subject = yes
+			}
+		}
+	}
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 100
 	}
 	ai_strategy = {
 		type = air_factory_balance
-		value = 20
+		value = -30
+	}
+}
+
+JAP_wants_dock_late = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		date > 1939.1.1
+		date < 1939.6.1
+		has_war_with = CHI
+		CHI = {
+			OR = {
+				surrender_progress > 0.35
+				has_completed_focus = CHI_war_of_national_liberation
+			}
+		}
+	}
+	abort = {
+		OR = {
+			has_war_with = ENG
+			has_war_with = FRA
+			has_war_with = USA
+			NOT = {
+				country_exists = CHI
+			}
+			CHI = {
+				has_capitulated = yes
+			}
+			CHI = {
+				is_in_faction_with = JAP
+			}
+			CHI = {
+				is_subject = yes
+			}
+		}
+	}
+	ai_strategy = {
+		type = building_target
+		id = dockyard
+		value = 100
+	}
+}
+
+JAP_wants_dock_toratoratora = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		has_idea = JAP_tora_tora_tora_idea
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = dockyard
+		value = 100
+	}
+	ai_strategy = {
+		type = air_factory_balance
+		value = 50
+	}
+}
+
+jap_building_boats_is_great = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		OR = {
+			has_war_with = ENG
+			has_war_with = FRA
+			has_war_with = USA
+		}
+		num_of_naval_factories < 75
+        NOT = { has_completed_focus = JAP_Operation_Ketsugou }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dockyard_to_military_factory_ratio
+		value = 40		#aim for a 2-1 ratio on naval factories
+	}
+}
+
+JAP_wants_arms = {
+	allowed = {
+		original_tag = JAP
+	}
+	enable = {
+		has_idea = JAP_ichi_go
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 100
 	}
 }
 
@@ -656,10 +766,7 @@ JAP_Dying_white = {
 		original_tag = JAP
 	}
 	enable = {
-		OR = {
-			has_idea = JAP_tora_tora_tora_idea
-			has_idea = JAP_tora_tora_tora_with_CHI_idea
-		}
+		has_idea = JAP_tora_tora_tora_with_CHI_idea
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -2286,22 +2393,6 @@ all_china_must_prosper_in_my_prosperity_sphere_YUN = {
 	}
 }
 
-jap_building_boats_is_great = {
-	allowed = {
-		original_tag = JAP
-	}
-	enable = {
-		num_of_civilian_factories_available_for_projects > 15
-	}
-	abort_when_not_enabled = yes
-	abort = {
-	}
-	ai_strategy = {
-		type = dockyard_to_military_factory_ratio
-		value = 40		#aim for a 2-1 ratio on naval factories
-	}
-}
-
 JAP_dont_mess_with_volunteers = {
 	# Reverse strategy
 	reversed = yes
@@ -2788,9 +2879,9 @@ JAP_hold_up_in_china = {
 		NOT = {
 			has_idea = JAP_ichi_go
 		}
-		NOT = {
-			has_idea = JAP_tora_tora_tora_with_CHI_idea
-		}
+		#NOT = {
+		#has_idea = JAP_tora_tora_tora_with_CHI_idea
+		#}
 		has_war_with = CHI
 		CHI = {
 			has_capitulated = no
@@ -2823,8 +2914,8 @@ JAP_hold_up_in_china = {
 		id = "CHI"
 		value = -500
 	}
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio
-		value = 15
-	}
+	#ai_strategy = {
+	#type = added_military_to_civilian_factory_ratio
+	#value = 15
+	#}
 }

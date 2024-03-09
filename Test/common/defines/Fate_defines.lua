@@ -92,7 +92,7 @@
     NDefines.NAI.CARRIER_STACK_PENALTY = 16							   -- Vanilla is 4 Hof is 10
 
     NDefines.NAI.CARRIER_STACK_PENALTY_EFFECT = 0.4					   -- Vanilla is 0.2 Hof is 0.6
-    NDefines.NAI.SUBMARINE_BASE_TORPEDO_REVEAL_CHANCE = 0.05		   -- Vanilla is 0.035
+    NDefines.NAI.SUBMARINE_BASE_TORPEDO_REVEAL_CHANCE = 0.2		   -- Vanilla is 0.035 Hof is 0.05
 
     -- Diplomacy
     NDefines.NAI.FASCISTS_BEFRIEND_FASCISTS = 0									-- Vanilla is 10
