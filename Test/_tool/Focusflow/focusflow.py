@@ -6,7 +6,7 @@ import os.path
 inputpath = '.\\common\\national_focus\\'
 outputpath = '.\\_tool\\Focusflow\\'
 # inputfilename = input()
-inputfilename = '00 HUN_Fate_focus.txt'
+inputfilename = '00 FRA_Fate_focus.txt'
 if '.txt' not in inputfilename:
     inputfilename = inputfilename + '.txt'
 if not os.path.exists(outputpath):
