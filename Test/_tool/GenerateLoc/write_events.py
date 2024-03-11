@@ -80,9 +80,9 @@ news_event = {{
 """
 
 
-target = "fate_roman_news"
+target = "fra_crisis"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 15):
+    for i in range(1, 10):
         current_statement = statement_template1.format(i,target=target)
         file.write(current_statement)
