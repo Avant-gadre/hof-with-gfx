@@ -1408,21 +1408,32 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_ideas = FRA_national_grid_focus_1_idea
 			custom_effect_tooltip = FRA_national_grid_focus_tt
-			hidden_effect = {
-				every_owned_state = {
-					if = {
-						limit = {
-							is_controlled_by = ROOT
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
+			16 = {
+				prioritize_state = yes
 			}
+			add_one_random_infrastructure = yes
+			20 = {
+				prioritize_state = yes
+			}
+			add_one_random_infrastructure = yes
+			21 = {
+				prioritize_state = yes
+			}
+			add_one_random_infrastructure = yes
+			14 = {
+				prioritize_state = yes
+			}
+			add_one_random_infrastructure = yes
+			19 = {
+				prioritize_state = yes
+			}
+			add_one_random_infrastructure = yes
+			980 = {
+				prioritize_state = yes
+			}
+			add_one_random_infrastructure = yes
 		}
 	}
 	focus = {
@@ -1436,46 +1447,26 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_national_grid_focus
 		available = {
-			has_government = democratic
-			is_puppet = no
+			has_completed_focus = FRA_Expanding_Industrial_Networks
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 500
 		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-					is_core_of = ROOT
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+			swap_ideas = {
+				remove_idea = FRA_national_grid_focus_3_idea
+				add_idea = FRA_national_grid_focus_4_idea
 			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-					is_core_of = ROOT
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+			31 = {
+				prioritize_state = yes
 			}
+			add_one_random_civilian_factory = yes
+			33 = {
+				prioritize_state = yes
+			}
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -1487,7 +1478,7 @@ focus_tree = {
 			focus = FRA_national_construction_plan
 		}
 		relative_position_id = FRA_national_construction_plan
-		cost = 6
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1496,6 +1487,16 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = FRA_national_grid_focus_4_idea
+				add_idea = FRA_national_grid_focus_5_idea
+			}
+			27 = {
+				prioritize_state = yes
+			}
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -1510,11 +1511,15 @@ focus_tree = {
 			focus = FRA_Amendments_to_Labor_Law
 		}
 		relative_position_id = FRA_nationalize_key_industry
-		cost = 6
+		cost = 4
 		ai_will_do = {
 			factor = 1
 		}
 		available = {
+			OR = {
+				FRA_in_us_path_trigger = yes
+				FRA_in_pf_path_trigger = yes
+			}
 		}
 		bypass = {
 		}
@@ -1532,10 +1537,10 @@ focus_tree = {
 	focus = {
 		id = FRA_secure_labor_agreements
 		icon = GFX_focus_generic_enforce_labor_regulation
-		cost = 5
+		cost = 4
 		relative_position_id = FRA_general_work_council
-		x = -2
-		y = 2
+		x = -1
+		y = 1
 		prerequisite = {
 			focus = FRA_general_work_council
 		}
@@ -1545,16 +1550,16 @@ focus_tree = {
 	focus = {
 		id = FRA_dirigisme
 		icon = GFX_focus_RUS_true_equality_between_youkai_and_human
-		x = -3
+		x = -1
 		y = 1
 		prerequisite = {
-			focus = FRA_national_champions
+			focus = FRA_nationalize_key_industry
 		}
 		prerequisite = {
-			focus = FRA_general_work_council
+			focus = FRA_Expanding_Industrial_Networks
 		}
-		relative_position_id = FRA_general_work_council
-		cost = 6
+		relative_position_id = FRA_nationalize_key_industry
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1563,9 +1568,12 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = FRA_dirigisme_idea
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = FRA_louis_marin
+			add_stability = 0.05
+			add_political_power = 50
+			swap_ideas = {
+				remove_idea = FRA_national_grid_focus_5_idea
+				add_idea = FRA_national_grid_focus_6_idea
+			}
 		}
 	}
 	focus = {
@@ -1573,10 +1581,11 @@ focus_tree = {
 		icon = GFX_focus_generic_female_workers
 		cost = 5
 		relative_position_id = FRA_general_work_council
-		x = -1
+		x = -3
 		y = 1
 		prerequisite = {
 			focus = FRA_general_work_council
+			focus = FRA_national_champions
 		}
 		ai_will_do = {
 			factor = 10
@@ -1590,14 +1599,11 @@ focus_tree = {
 		icon = GFX_focus_generic_bridge
 		cost = 7
 		prerequisite = {
-			focus = FRA_national_construction_plan
+			focus = FRA_algerie_france
 		}
-		prerequisite = {
-			focus = FRA_Expanding_Industrial_Networks
-		}
-		x = -1
+		x = 0
 		y = 2
-		relative_position_id = FRA_national_construction_plan
+		relative_position_id = FRA_algerie_france
 		ai_will_do = {
 			factor = 750
 		}
@@ -1684,7 +1690,7 @@ focus_tree = {
 			focus = FRA_national_grid_focus
 		}
 		relative_position_id = FRA_national_grid_focus
-		cost = 6
+		cost = 4
 		ai_will_do = {
 			factor = 1
 		}
@@ -1716,7 +1722,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Amendments_to_Labor_Law
 		icon = GFX_focus_POL_socialist_radical_program
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = FRA_reform_the_labour_laws
 		}
@@ -1734,9 +1740,9 @@ focus_tree = {
 	focus = {
 		id = FRA_national_Labour_Union
 		icon = GFX_focus_generic_syndicalist_workers
-		cost = 5
+		cost = 4
 		prerequisite = {
-			focus = FRA_Amendments_to_Labor_Law
+			focus = FRA_general_work_council
 		}
 		x = 0
 		y = 2
@@ -1745,7 +1751,6 @@ focus_tree = {
 			factor = 750
 		}
 		bypass = {
-			has_completed_focus = FRA_encourage_bankruptcy
 		}
 		completion_reward = {
 			if = {
@@ -1769,23 +1774,26 @@ focus_tree = {
 	focus = {
 		id = FRA_work_charter
 		icon = GFX_focus_OTT_constitution
-		cost = 5
+		cost = 4
 		relative_position_id = FRA_national_Labour_Union
 		x = -1
 		y = 1
 		prerequisite = {
-			focus = FRA_national_Labour_Union
+			focus = FRA_secure_labor_agreements
 		}
 		prerequisite = {
-			focus = FRA_working_women
+			focus = FRA_national_Labour_Union
 		}
+		# mutually_exclusive = {
+		# 	focus = FRA_Advanced_assembly_line
+		# }
 		completion_reward = {
 		}
 	}
 	focus = {
 		id = FRA_national_power_corporation
 		icon = GFX_focus_POL_centrolew_economic_stimulus
-		cost = 7
+		cost = 5
 		prerequisite = {
 			focus = FRA_national_grid_focus
 		}
@@ -1796,51 +1804,28 @@ focus_tree = {
 			factor = 750
 		}
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = FRA_national_grid_focus_1_idea
+				add_idea = FRA_national_grid_focus_2_idea
+			}
 			16 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
+				prioritize_state = yes
 			}
-			27 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
+			add_one_random_civilian_factory = yes
+			20 = {
+				prioritize_state = yes
 			}
-			24 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
+			add_one_random_civilian_factory = yes
+			21 = {
+				prioritize_state = yes
 			}
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
 		id = FRA_Expanding_Industrial_Networks
 		icon = GFX_focus_generic_expanding_industrial_networks
-		cost = 7
+		cost = 5
 		prerequisite = {
 			focus = FRA_national_power_corporation
 		}
@@ -1850,111 +1835,23 @@ focus_tree = {
 		ai_will_do = {
 			factor = 750
 		}
-		complete_tooltip = {
-			every_state = {
-				limit = {
-					has_state_flag = FRA_industrial_expansion_2IC
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			every_state = {
-				limit = {
-					has_state_flag = FRA_industrial_expansion_1IC
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
 		completion_reward = {
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-					OR = {
-						region = 19
-						region = 20
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = FRA_industrial_expansion_2IC
+			swap_ideas = {
+				remove_idea = FRA_national_grid_focus_2_idea
+				add_idea = FRA_national_grid_focus_3_idea
 			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-					OR = {
-						region = 19
-						region = 20
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				set_state_flag = FRA_industrial_expansion_1IC
+			16 = {
+				prioritize_state = yes
 			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-					OR = {
-						region = 19
-						region = 20
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				set_state_flag = FRA_industrial_expansion_1IC
+			add_one_random_civilian_factory = yes
+			20 = {
+				prioritize_state = yes
 			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-					OR = {
-						region = 19
-						region = 20
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				set_state_flag = FRA_industrial_expansion_1IC
+			add_one_random_civilian_factory = yes
+			21 = {
+				prioritize_state = yes
 			}
+			add_one_random_civilian_factory = yes
 		}
 	}
 	focus = {
@@ -1966,7 +1863,7 @@ focus_tree = {
 			focus = FRA_Expanding_Industrial_Networks
 		}
 		relative_position_id = FRA_Expanding_Industrial_Networks
-		cost = 20
+		cost = 7
 		ai_will_do = {
 			factor = 1
 		}
@@ -1975,6 +1872,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			add_political_power = -100
 			add_one_random_civilian_factory = yes
 			add_one_random_civilian_factory = yes
 			add_one_random_military_factory = yes
@@ -1988,7 +1886,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Research_Assembly_line
 		icon = GFX_focus_generic_state_economy
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_national_grid_focus
 		}
@@ -1999,19 +1897,11 @@ focus_tree = {
 			factor = 2000
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_country_leader = {
-						character = FRA_leo_bistario_harvey
-						ruling_only = yes
-					}
-				}
-				add_tech_bonus = {
-					name = FRA_Research_Assembly_line
-					bonus = 1
-					uses = 1
-					category = industry
-				}
+			add_tech_bonus = {
+				name = FRA_Research_Assembly_line
+				bonus = 1
+				uses = 1
+				category = industry
 			}
 			add_tech_bonus = {
 				ahead_reduction = 1
@@ -2020,12 +1910,6 @@ focus_tree = {
 				name = FRA_Research_Assembly_line
 				technology = advanced_machine_tools
 				technology = assembly_line_production
-			}
-			add_tech_bonus = {
-				name = FRA_Research_Assembly_line
-				bonus = 0.75
-				uses = 2
-				category = industry
 			}
 		}
 	}
@@ -2076,6 +1960,9 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_national_champions
 		}
+		# mutually_exclusive = {
+		# 	focus = FRA_work_charter
+		# }
 		x = 1
 		y = 1
 		relative_position_id = FRA_French_Academy_of_Sciences
@@ -2109,7 +1996,12 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_Investing_national_education
 		completion_reward = {
-			add_research_slot_until_six = yes
+			add_tech_bonus = {
+				name = FRA_laissez_faire
+				category = industry
+				uses = 3
+				bonus = 1
+			}
 		}
 	}
 	focus = {
@@ -2138,8 +2030,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = fra_auto_bypass_tooltip
-			add_stability = -0.05
-			add_political_power = -100
+			add_stability = -0.1
 		}
 	}
 	focus = {
@@ -2207,20 +2098,14 @@ focus_tree = {
 		y = 2
 		relative_position_id = FRA_reemployment_guidance
 		available = {
-			NOT = {
-				has_government = communism
-			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			add_ideas = {
-				free_trade
-			}
 			FRA_pending_reduce_event_effect = yes
 			add_offsite_building = {
 				type = industrial_complex
-				level = 4
+				level = 2
 			}
 		}
 	}
@@ -2243,7 +2128,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			FRA_pending_reduce_event_effect = yes
-			unlock_decision_category_tooltip = FRA_Invite_Western_world_Investment_categorie
+			unlock_decision_category_tooltip = FRA_invite_western_world_investment_category
+			unlock_decision_tooltip = FRA_invite_donations_USA
+			unlock_decision_tooltip = FRA_invite_donations_SWI
+			unlock_decision_tooltip = FRA_invite_donations_ENG
+			unlock_decision_tooltip = FRA_invite_donations_POL
+			unlock_decision_tooltip = FRA_invite_donations_SOV
 		}
 	}
 	focus = {
@@ -2268,7 +2158,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			FRA_pending_reduce_event_effect = yes
-			add_political_power = 200
+			add_political_power = 90
 		}
 	}
 	focus = {
@@ -2289,6 +2179,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			add_political_power = 30
 			FRA_pending_reduce_event_effect = yes
 		}
 	}
@@ -2310,10 +2201,8 @@ focus_tree = {
 			factor = 2000
 		}
 		completion_reward = {
+			add_political_power = 30
 			FRA_pending_reduce_event_effect = yes
-			add_ideas = {
-				FRA_entrepeneurship
-			}
 		}
 	}
 	focus = {
@@ -2332,6 +2221,7 @@ focus_tree = {
 			focus = FRA_promote_entrepeneurship
 		}
 		completion_reward = {
+			add_stability = 0.03
 			FRA_pending_reduce_event_effect = yes
 		}
 	}
@@ -2357,12 +2247,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			FRA_pending_reduce_event_effect = yes
-			add_tech_bonus = {
-				name = FRA_laissez_faire
-				category = industry
-				uses = 3
-				bonus = 1.5
-			}
 		}
 	}
 	focus = {
@@ -2370,11 +2254,11 @@ focus_tree = {
 		icon = GFX_focus_generic_positive_trade_relations_gold
 		cost = 3
 		prerequisite = {
-			focus = FRA_laissez_faire
+			focus = FRA_Encourage_scientist_entrepreneur
 		}
-		x = 0
-		y = 2
-		relative_position_id = FRA_laissez_faire
+		x = -1
+		y = 1
+		relative_position_id = FRA_Encourage_scientist_entrepreneur
 		ai_will_do = {
 			factor = 2000
 		}
@@ -2383,7 +2267,24 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			FRA_pending_reduce_event_effect = yes
+			FRA_leo_bistario_harvey = {
+				remove_trait = {
+					trait = FRA_trait_laissez_faire
+					slot = special_fourth
+				}
+				remove_trait = {
+					trait = FRA_trait_laissez_faire_1
+					slot = special_fourth
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_idea = FRA_leo_bistario_harvey_special_fourth
+					}
+				}
+				activate_advisor = FRA_leo_bistario_harvey_special_fourth
+			}
 		}
 	}
 	focus = {
@@ -2405,7 +2306,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			FRA_pending_reduce_event_effect = yes
-			add_political_power = 100
+			add_political_power = 30
 		}
 	}
 	focus = {
@@ -2430,9 +2331,10 @@ focus_tree = {
 		}
 		completion_reward = {
 			FRA_pending_reduce_event_effect = yes
-			add_timed_idea = {
-				idea = FRA_disband_unions_by_force
-				days = 300
+			FRA_decrease_left_effect = yes
+			add_popularity = {
+				ideology = communism
+				popularity = -0.05
 			}
 		}
 	}
@@ -2478,6 +2380,7 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
+			add_political_power = 30
 			FRA_pending_reduce_event_effect = yes
 		}
 	}
@@ -2555,6 +2458,8 @@ focus_tree = {
 			focus = FRA_Emergency_allocation
 		}
 		completion_reward = {
+			add_political_power = -20
+			add_stability = 0.03
 			FRA_pending_reduce_event_effect = yes
 		}
 	}
@@ -2574,6 +2479,16 @@ focus_tree = {
 			focus = FRA_Emergency_allocation
 		}
 		completion_reward = {
+			add_political_power = -20
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.01
+			}
+			FRA_increase_left_effect = yes
 			FRA_pending_reduce_event_effect = yes
 		}
 	}
@@ -2593,7 +2508,10 @@ focus_tree = {
 		available = {
 		}
 		completion_reward = {
+			add_political_power = -40
 			FRA_pending_reduce_event_effect = yes
+			add_one_random_infrastructure = yes
+			add_one_random_infrastructure = yes
 		}
 	}
 	focus = {
@@ -2636,7 +2554,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_political_power = 100
+			add_political_power = 60
+			add_stability = 0.03
 			FRA_pending_reduce_event_effect = yes
 			##custom_effect_tooltip = FRA_fireside_talk_tt
 		}
@@ -2657,6 +2576,8 @@ focus_tree = {
 			focus = FRA_fireside_talk
 		}
 		completion_reward = {
+			add_political_power = -20
+			add_stability = 0.03
 			FRA_pending_reduce_event_effect = yes
 		}
 	}
@@ -2681,6 +2602,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			add_stability = 0.03
 			FRA_pending_reduce_event_effect = yes
 			custom_effect_tooltip = available_industrial_concern
 			show_ideas_tooltip = FRA_SEPC
@@ -2713,86 +2635,10 @@ focus_tree = {
 				remove_idea = FRA_National_Relief_Agency_idea
 				add_idea = FRA_Unemployment_compensation_idea
 			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			add_one_random_military_factory = yes
 		}
 	}
 	focus = {
@@ -2814,9 +2660,6 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			NOT = {
-				has_country_flag = FRA_the_new_monarchy_settled_flag
-			}
 		}
 		completion_reward = {
 			FRA_pending_reduce_event_effect = yes
@@ -6426,7 +6269,7 @@ focus_tree = {
 			focus = FRA_War_of_Communications
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
@@ -6570,7 +6413,7 @@ focus_tree = {
 			focus = FRA_railway_guns
 		}
 		completion_reward = {
-			add_research_slot_until_five = yes
+			add_research_slot_until_six = yes
 		}
 	}
 	focus = {
@@ -8071,7 +7914,6 @@ focus_tree = {
 			factor = 1000
 		}
 		completion_reward = {
-			add_country_leader_trait = princess_of_loveliness
 		}
 	}
 	focus = {
@@ -9857,8 +9699,6 @@ focus_tree = {
 				category = cat_superior_firepower
 			}
 			set_cosmetic_tag = FRA_third_empire
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = FRA_louis_napoleon
 		}
 	}
 	focus = {
@@ -10610,8 +10450,6 @@ focus_tree = {
 				}
 				add_core_of = FRA
 			}
-			add_country_leader_trait = Holy_King
-			add_country_leader_trait = Great_Emperor_Privilege
 			hidden_effect = {
 				news_event = {
 					hours = 6
@@ -13475,8 +13313,6 @@ focus_tree = {
 			add_ideas = {
 				FRA_revolutionary_zeal
 			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = FRA_georges_valois
 		}
 	}
 	focus = {
@@ -14270,11 +14106,11 @@ focus_tree = {
 		icon = GFX_focus_POL_sanacja_land_reform
 		cost = 5
 		prerequisite = {
-			focus = FRA_Blum_Proposal
+			focus = FRA_North_African_holistic_citizenship
 		}
 		x = 2
-		y = 1
-		relative_position_id = FRA_Blum_Proposal
+		y = 2
+		relative_position_id = FRA_North_African_holistic_citizenship
 		available = {
 			OR = {
 				has_government = democratic
@@ -15114,14 +14950,14 @@ focus_tree = {
 		icon = GFX_focus_FRA_french_africa
 		cost = 5
 		prerequisite = {
-			focus = FRA_algerie_france
+			focus = FRA_North_African_industry
 		}
 		ai_will_do = {
 			factor = 0
 		}
 		x = 0
-		y = 2
-		relative_position_id = FRA_algerie_france
+		y = 1
+		relative_position_id = FRA_North_African_industry
 		available = {
 			ALG = {
 				all_core_state = {
