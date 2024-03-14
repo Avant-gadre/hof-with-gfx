@@ -1,21 +1,3 @@
-##WIP
-characters = {
-	##TODO
-	FRA_francois_mitterand = {
-		name = FRA_francois_mitterand
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_francois_mitterand
-				large = GFX_Portrait_FRA_Francois_Mitterand
-			}
-			army = {
-				small = GFX_idea_fra_francois_mitterand
-				large = GFX_Portrait_FRA_Francois_Mitterand
-			}
-		}
-	}
-}
-
 ##Specical
 characters = {
 	FRA_french_provisional_government = {
@@ -73,12 +55,34 @@ characters = {
 			logistics_skill = 2
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = FRA_charles_henri_sanson
-			traits = {
-				Generic_trait_pockmarked_detective
+			slot = special_sixth
+			idea_token = FRA_charles_henri_sanson_special_sixth
+			cost = 0
+			visible = {
 			}
-			cost = 150
+			traits = {
+				FRA_trait_executioner
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			can_be_fired = no
 			ai_will_do = {
 				factor = 1
 			}
@@ -461,20 +465,27 @@ characters = {
 				FRA_illiterate_trait
 			}
 		}
-		# advisor = {
-		# 	slot = political_advisor
-		# 	idea_token = FRA_jeanne_d_arc_alter
-		# 	available = {
-		# 		has_completed_focus = FRA_revenge
-		# 	}
-		# 	cost = 75
-		# 	traits = {
-		# 		FRA_revenger_trait
-		# 	}
-		# 	ai_will_do = {
-		# 		factor = 5
-		# 	}
-		# }
+		advisor = {
+			slot = army_chief
+			idea_token = FRA_jeanne_d_arc_alter
+			traits = {
+				FRA_trait_charge
+			}
+			cost = 200
+			available = {
+				is_corps_commander = yes
+			}
+			modifier = {
+				army_defence_factor = -0.05
+			}
+			ai_will_do = {
+				factor = 50
+				modifier = {
+					factor = 2
+					has_war = no
+				}
+			}
+		}
 	}
 	FRA_jeanne_d_arc = {
 		name = FRA_jeanne_d_arc
@@ -506,31 +517,39 @@ characters = {
 			planning_skill = 4
 			logistics_skill = 4
 		}
-		# advisor = {
-		# 	slot = political_advisor
-		# 	idea_token = FRA_jeanne_d_arc
-		# 	cost = 150
-		# 	traits = {
-		# 		FRA_la_pucelle_trait
-		# 	}
-		# 	available = {
-		# 		has_country_flag = FRA_the_new_monarchy_settled_flag
-		# 		has_government = neutrality
-		# 		NOT = {
-		# 			has_completed_focus = FRA_the_path_of_avenger
-		# 		}
-		# 		NOT = {
-		# 			has_country_flag = jeanne_oppose
-		# 		}
-		# 	}
-		# 	ai_will_do = {
-		# 		factor = 30
-		# 		modifier = {
-		# 			factor = 2
-		# 			has_war = no
-		# 		}
-		# 	}
-		# }
+		advisor = {
+			slot = special_first
+			idea_token = FRA_jeanne_d_arc_special_first
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_la_pucelle
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
 	}
 	FRA_marie_antoinette_habsbourg = {
 		name = FRA_marie_antoinette_habsbourg
@@ -561,24 +580,31 @@ characters = {
 			desc = "POLITICS_MARIE_ANTOINETTE_DESC"
 			ideology = authoritarianism
 			traits = {
-				Generic_trait_ruthless_regent
+				Generic_trait_autocratic_tendencies
 			}
 		}
 		advisor = {
 			slot = special_political_advisor
-			idea_token = FRA_marie_antoinette_habsbourg
-			cost = 150
+			idea_token = FRA_marie_antoinette_habsbourg_special_political_advisor
+			cost = 0
+			visible = {
+			}
 			traits = {
 			}
 			available = {
-				always = no
+				has_character_flag = can_be_hired_as_special
 			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+			}
+			can_be_fired = no
 			ai_will_do = {
-				factor = 30
-				modifier = {
-					factor = 2
-					has_war = no
-				}
+				factor = 1
 			}
 		}
 	}
@@ -595,16 +621,30 @@ characters = {
 				large = GFX_Portrait_FRA_Marie_Antoinette_Habsbourg_Alter
 			}
 		}
-		# advisor = {
-		# 	slot = political_advisor
-		# 	idea_token = FRA_marie_antoinette_habsbourg_alter
-		# 	traits = {
-		# 	}
-		# 	cost = 150
-		# 	ai_will_do = {
-		# 		factor = 1
-		# 	}
-		# }
+		advisor = {
+			slot = special_political_advisor
+			idea_token = FRA_marie_antoinette_habsbourg_alter_special_political_advisor
+			cost = 0
+			visible = {
+			}
+			traits = {
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
 	}
 	FRA_gilles_de_rais = {
 		name = FRA_gilles_de_rais
@@ -791,16 +831,13 @@ characters = {
 				Generic_trait_genius_musician
 			}
 			available = {
-				has_completed_focus = FRA_puppet_austria
-				NOT = {
-					has_completed_focus = FRA_the_path_of_avenger
-				}
+				FRA_has_active_maire_trigger = yes
 			}
 			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_completed_focus = FRA_puppet_austria
-				}
+				FRA_has_active_maire_trigger = yes
+			}
+			modifier = {
+				stability_weekly = 0.001
 			}
 			ai_will_do = {
 				factor = 40
@@ -902,6 +939,16 @@ characters = {
 				factor = 1
 			}
 		}
+		corps_commander = {
+			traits = {
+				trickster
+			}
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
+		}
 	}
 	FRA_leo_bistario_harvey = {
 		name = FRA_leo_bistario_harvey
@@ -981,19 +1028,48 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = FRA_charlotte_corday
-			available = {
-				has_government = democratic
-				has_completed_focus = FRA_Charottes_misson
+			slot = special_sixth
+			idea_token = FRA_charlotte_corday_special_sixth
+			cost = 0
+			visible = {
 			}
-			cost = 150
 			traits = {
-				FRA_assassin_moderate_trait
+				FRA_trait_moderate_trait
 			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			can_be_fired = no
 			ai_will_do = {
-				factor = 10
+				factor = 1
 			}
+		}
+		corps_commander = {
+			traits = {
+				camouflage_expert
+				trickster
+			}
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
 		}
 	}
 	FRA_ciel_elesia = {
@@ -1041,6 +1117,22 @@ characters = {
 				factor = 1
 			}
 		}
+		country_leader = {
+			ideology = conservatism
+		}
+		corps_commander = {
+			traits = {
+				inflexible_strategist
+				hidden_sympathies
+				organizer
+				commando
+			}
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 1
+			logistics_skill = 3
+		}
 	}
 	FRA_erik_phantom = {
 		name = FRA_erik_phantom
@@ -1086,6 +1178,17 @@ characters = {
 			ai_will_do = {
 				factor = 1
 			}
+		}
+		corps_commander = {
+			traits = {
+				brilliant_strategist
+				trickster
+			}
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
 		}
 	}
 	FRA_jacques_de_molay = {
@@ -1147,6 +1250,7 @@ characters = {
 			logistics_skill = 1
 		}
 	}
+	##All
 	FRA_heine_istari = {
 		name = FRA_heine_istari
 		portraits = {
@@ -1164,9 +1268,9 @@ characters = {
 			idea_token = FRA_heine_istari
 			cost = 150
 			visible = {
-				has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
+				Generic_trait_captain_of_industry
 			}
 			available = {
 			}
@@ -1194,13 +1298,14 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
+			slot = high_command
 			idea_token = FRA_jacque_de_monet
-			cost = 150
+			cost = 200
 			visible = {
-				has_global_flag = Show_all_advisor_flag
+				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
+				army_CombinedArms_3
 			}
 			available = {
 			}
@@ -1213,6 +1318,18 @@ characters = {
 			ai_will_do = {
 				factor = 1
 			}
+		}
+		corps_commander = {
+			traits = {
+				combined_arms_expert
+				panzer_leader
+				cavalry_leader
+			}
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
 		}
 	}
 	FRA_noelle_lenoir = {
@@ -1253,6 +1370,67 @@ characters = {
 				remove_trait = {
 					trait = FRA_trait_prime_minister
 					slot = special_first
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_charles_de_beaumont = {
+		name = FRA_charles_de_beaumont
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_charles_de_beaumont
+				large = GFX_Portrait_FRA_Charles_de_Beaumont
+			}
+			army = {
+				small = GFX_idea_fra_charles_de_beaumont
+				large = GFX_Portrait_FRA_Charles_de_Beaumont
+			}
+		}
+		corps_commander = {
+			traits = {
+				brilliant_strategist
+				career_officer
+				infantry_officer
+				commando
+				paratrooper
+				camouflage_expert
+			}
+			skill = 4
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 3
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = special_sixth
+			idea_token = FRA_charles_de_beaumont_special_sixth
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_emissary
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
 				}
 			}
 			can_be_fired = no
@@ -1367,54 +1545,6 @@ characters = {
 			}
 		}
 	}
-	FRA_charles_de_beaumont = {
-		name = FRA_charles_de_beaumont
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_charles_de_beaumont
-				large = GFX_Portrait_FRA_Charles_de_Beaumont
-			}
-			army = {
-				small = GFX_idea_fra_charles_de_beaumont
-				large = GFX_Portrait_FRA_Charles_de_Beaumont
-			}
-		}
-		corps_commander = {
-			traits = {
-				brilliant_strategist
-				career_officer
-				infantry_officer
-				commando
-				paratrooper
-				camouflage_expert
-			}
-			skill = 4
-			attack_skill = 4
-			defense_skill = 4
-			planning_skill = 3
-			logistics_skill = 2
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_charles_de_beaumont
-			available = {
-				has_completed_focus = FRA_Diplomatic_Effort
-			}
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_completed_focus = FRA_Diplomatic_Effort
-				}
-			}
-			traits = {
-				FRA_emissary_trait
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
 	FRA_cosette_pontmercy = {
 		name = FRA_cosette_pontmercy
 		portraits = {
@@ -1496,12 +1626,34 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = FRA_eugene_nivernais
-			traits = {
-				Generic_trait_head_of_intelligence
+			slot = special_sixth
+			idea_token = FRA_eugene_nivernais_special_sixth
+			cost = 0
+			visible = {
 			}
-			cost = 150
+			traits = {
+				FRA_trait_shadowy_operative
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			can_be_fired = no
 			ai_will_do = {
 				factor = 1
 			}
@@ -1668,22 +1820,25 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = FRA_josephine_de_beauharnais
-			cost = 150
+			slot = special_political_advisor
+			idea_token = FRA_josephine_de_beauharnais_special_political_advisor
+			cost = 0
 			visible = {
-				has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 			}
 			available = {
+				has_character_flag = can_be_hired_as_special
 			}
 			modifier = {
 			}
 			on_add = {
+				set_character_flag = can_be_hired_as_special
 			}
 			on_remove = {
+				clr_character_flag = can_be_hired_as_special
 			}
+			can_be_fired = no
 			ai_will_do = {
 				factor = 1
 			}
@@ -1804,13 +1959,14 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
+			slot = high_command
 			idea_token = FRA_louis_antoine_desaix
-			cost = 150
+			cost = 200
 			visible = {
-				has_global_flag = Show_all_advisor_flag
+				##has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
+				army_infantry_3
 			}
 			available = {
 			}
@@ -1823,6 +1979,19 @@ characters = {
 			ai_will_do = {
 				factor = 1
 			}
+		}
+		corps_commander = {
+			traits = {
+				infantry_expert
+				infantry_officer
+				infantry_leader
+				career_officer
+			}
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
 		}
 	}
 	FRA_louis_de_boubron = {
@@ -2273,22 +2442,25 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = FRA_therese_antoinette
-			cost = 150
+			slot = special_political_advisor
+			idea_token = FRA_therese_antoinette_special_political_advisor
+			cost = 0
 			visible = {
-				has_global_flag = Show_all_advisor_flag
 			}
 			traits = {
 			}
 			available = {
+				has_character_flag = can_be_hired_as_special
 			}
 			modifier = {
 			}
 			on_add = {
+				set_character_flag = can_be_hired_as_special
 			}
 			on_remove = {
+				clr_character_flag = can_be_hired_as_special
 			}
+			can_be_fired = no
 			ai_will_do = {
 				factor = 1
 			}
@@ -2476,18 +2648,25 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = high_command
+			slot = political_advisor
 			idea_token = FRA_asparagus_charles
 			available = {
-				NOT = {
-					has_country_flag = KR_Makhno_flag
+				OR = {
+					FRA_in_af_path_trigger = yes
+					FRA_in_alter_path_trigger = yes
+				}
+			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_af_path_trigger = yes
+					FRA_in_alter_path_trigger = yes
 				}
 			}
 			traits = {
-				army_armored_2
-				FRA_armored_vanguard_trait
+				FRA_trait_nationalist_theologist
 			}
-			cost = 200
+			cost = 150
 			ai_will_do = {
 				factor = 10
 			}
@@ -2553,10 +2732,10 @@ characters = {
 			}
 		}
 		advisor = {
-			slot = political_advisor
+			slot = high_command
 			idea_token = FRA_ruka_oshida
 			traits = {
-				Generic_trait_tank_advocate
+				army_armored_2
 			}
 			cost = 150
 			ai_will_do = {
@@ -2602,7 +2781,16 @@ characters = {
 			slot = political_advisor
 			idea_token = FRA_marie_thomas
 			traits = {
-				Generic_trait_womens_organizer
+				Generic_trait_feminist_ultranationalist
+			}
+			available = {
+				OR = {
+					has_country_leader = {
+						character = FRA_marie_antoinette_habsbourg
+					}
+					has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
+					has_idea = FRA_marie_antoinette_habsbourg_alter_special_political_advisor
+				}
 			}
 			cost = 150
 			ai_will_do = {
@@ -2853,40 +3041,6 @@ characters = {
 			}
 		}
 	}
-	FRA_georges_thierry_dargenlieu = {
-		name = FRA_georges_thierry_dargenlieu
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_georges_thierry_dargenlieu
-				large = GFX_Portrait_FRA_Georges_Thierry_Dargenlieu
-			}
-			army = {
-				small = GFX_idea_fra_georges_thierry_dargenlieu
-				large = GFX_Portrait_FRA_Georges_Thierry_Dargenlieu
-			}
-		}
-		navy_leader = {
-			traits = {
-				fleet_protector
-			}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 2
-			maneuvering_skill = 1
-			coordination_skill = 2
-		}
-		advisor = {
-			slot = navy_chief
-			idea_token = FRA_georges_thierry_dargenlieu
-			traits = {
-				navy_chief_commerce_raiding_2
-			}
-			cost = 100
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
 	##Nationality
 	FRA_duc_de_richelieu = {
 		name = FRA_duc_de_richelieu
@@ -3033,16 +3187,16 @@ characters = {
 				large = GFX_Portrait_FRA_Dahut_Ahes
 			}
 		}
-		# navy_leader = {
-		# 	traits = {
-		# 		naval_lineage
-		# 	}
-		# 	skill = 3
-		# 	attack_skill = 2
-		# 	defense_skill = 2
-		# 	maneuvering_skill = 4
-		# 	coordination_skill = 2
-		# }
+		navy_leader = {
+			traits = {
+				naval_lineage
+			}
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			maneuvering_skill = 4
+			coordination_skill = 2
+		}
 		advisor = {
 			slot = special_third
 			idea_token = FRA_dahut_ahes_special_third
@@ -3116,39 +3270,6 @@ characters = {
 
 ####Advisor-with-no-big
 characters = {
-	FRA_jean_paul_sartre = {
-		name = FRA_jean_paul_sartre
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_jean_paul_sartre
-				large = GFX_Portrait_Unknown
-			}
-			army = {
-				small = GFX_idea_fra_jean_paul_sartre
-				large = GFX_Portrait_Unknown
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_jean_paul_sartre
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_socialist_government = yes
-				}
-			}
-			available = {
-				has_socialist_government = yes
-				has_completed_focus = FRA_avantgarde
-			}
-			traits = {
-				FRA_socialist_intellectuals_trait
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-	}
 	FRA_frederic_irene_joliot_curie = {
 		name = FRA_frederic_irene_joliot_curie
 		portraits = {
@@ -3180,454 +3301,51 @@ characters = {
 			}
 		}
 	}
-	FRA_francois_lehideux = {
-		name = FRA_francois_lehideux
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_francois_lehideux
-				large = GFX_Portrait_Unknown
-			}
-			army = {
-				small = GFX_idea_fra_francois_lehideux
-				large = GFX_Portrait_Unknown
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_francois_lehideux
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
-				}
-			}
-			available = {
-				has_dictatorship_government = yes
-				OR = {
-					has_completed_focus = FRA_Four_year_plan
-					has_completed_focus = FRA_faster
-				}
-			}
-			traits = {
-				FRA_technocrats_trait
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-	}
-	FRA_tristan_tzara = {
-		name = FRA_tristan_tzara
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_tristan_tzara
-				large = GFX_Portrait_Unknown
-			}
-			army = {
-				small = GFX_idea_fra_tristan_tzara
-				large = GFX_Portrait_Unknown
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_tristan_tzara
-			cost = 100
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_liberal_government = yes
-					has_socialist_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_liberal_government = yes
-					has_socialist_government = yes
-				}
-				OR = {
-					has_completed_focus = FRA_avantgarde
-					has_completed_focus = FRA_France_Idealism
-				}
-			}
-			traits = {
-				FRA_avant_garde_trait
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-	}
-	FRA_albert_camus = {
-		name = FRA_albert_camus
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_albert_camus
-				large = GFX_Portrait_Unknown
-			}
-			army = {
-				small = GFX_idea_fra_albert_camus
-				large = GFX_Portrait_Unknown
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_albert_camus
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					AND = {
-						has_liberal_government = yes
-						has_socialist_government = yes
-						has_completed_focus = FRA_Blum_Proposal
-					}
-				}
-			}
-			available = {
-				OR = {
-					has_liberal_government = yes
-					has_socialist_government = yes
-				}
-				has_completed_focus = FRA_Blum_Proposal
-			}
-			traits = {
-				FRA_reconcile_advocator_trait
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-	}
-	FRA_jacques_barnaud = {
-		name = FRA_jacques_barnaud
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_jacques_barnaud
-				large = GFX_Portrait_Unknown
-			}
-			army = {
-				small = GFX_idea_fra_jacques_barnaud
-				large = GFX_Portrait_Unknown
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_jacques_barnaud
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
-				}
-			}
-			available = {
-				has_dictatorship_government = yes
-				has_completed_focus = FRA_Introduce_German_capital
-			}
-			traits = {
-				FRA_supplier_trait
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-	}
-	FRA_sebastien_faure = {
-		name = FRA_sebastien_faure
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_sebastien_faure
-				large = GFX_Portrait_Unknown
-			}
-			army = {
-				small = GFX_idea_fra_sebastien_faure
-				large = GFX_Portrait_Unknown
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_sebastien_faure
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_socialist_government = yes
-				}
-			}
-			available = {
-				has_completed_focus = FRA_industrial_collectivization
-				has_socialist_government = yes
-			}
-			traits = {
-				Generic_trait_socialist_economist
-			}
-			ai_will_do = {
-				factor = 2
-			}
-		}
-	}
 }
 
 ##3D-may-only-advisor
 characters = {
-	FRA_pierre_laval = {
-		name = FRA_pierre_laval
+	FRA_francois_mitterand = {
+		name = FRA_francois_mitterand
 		portraits = {
 			civilian = {
-				small = GFX_idea_fra_pierre_laval
-				large = GFX_Portrait_FRA_Pierre_Laval
+				small = GFX_idea_fra_francois_mitterand
+				large = GFX_Portrait_FRA_Francois_Mitterand
 			}
 			army = {
-				small = GFX_idea_fra_pierre_laval
-				large = GFX_Portrait_FRA_Pierre_Laval
+				small = GFX_idea_fra_francois_mitterand
+				large = GFX_Portrait_FRA_Francois_Mitterand
 			}
 		}
 		advisor = {
-			slot = political_advisor
-			idea_token = FRA_pierre_laval
+			slot = special_sixth
+			idea_token = FRA_francois_mitterand_special_sixth
+			cost = 0
 			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
-				}
-			}
-			available = {
-				has_dictatorship_government = yes
-				OR = {
-					has_completed_focus = FRA_Rally_Nationalists
-					has_global_flag = FRA_Recruiting_collaborators_flag
-				}
 			}
 			traits = {
-				Generic_trait_tenacious_negotiator
-			}
-			ai_will_do = {
-				factor = 5
-			}
-		}
-	}
-	FRA_marcel_peyrouton = {
-		name = FRA_marcel_peyrouton
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_marcel_peyrouton
-				large = GFX_Portrait_FRA_Marcel_Peyrouton
-			}
-			army = {
-				small = GFX_idea_fra_marcel_peyrouton
-				large = GFX_Portrait_FRA_Marcel_Peyrouton
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_marcel_peyrouton
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_liberal_government = yes
-					has_conservative_government = yes
-				}
+				FRA_trait_eager_collaborator
 			}
 			available = {
-				OR = {
-					has_liberal_government = yes
-					has_conservative_government = yes
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
 				}
 			}
-			traits = {
-				Generic_trait_administrative_expert
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_pierre_appell = {
-		name = FRA_pierre_appell
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_pierre_appell
-				large = GFX_Portrait_FRA_Pierre_Appell
-			}
-			army = {
-				small = GFX_idea_fra_pierre_appell
-				large = GFX_Portrait_FRA_Pierre_Appell
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_pierre_appell
-			visible = {
-				OR = {
-					OR = {
-						has_country_flag = FRA_the_monarchy_end_flag
-						has_global_flag = Show_all_advisor_flag
-					}
-					has_liberal_government = yes
-					has_conservative_government = yes
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
 				}
 			}
-			available = {
-				OR = {
-					has_liberal_government = yes
-					has_conservative_government = yes
-				}
-				has_country_flag = FRA_the_monarchy_end_flag
-			}
-			traits = {
-				Generic_trait_republican_firebrand
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_paul_bechard = {
-		name = FRA_paul_bechard
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_paul_bechard
-				large = GFX_Portrait_FRA_Paul_Bechard
-			}
-			army = {
-				small = GFX_idea_fra_paul_bechard
-				large = GFX_Portrait_FRA_Paul_Bechard
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_paul_bechard
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_socialist_government = yes
-				}
-			}
-			available = {
-				has_socialist_government = yes
-				has_completed_focus = FRA_general_work_council
-			}
-			traits = {
-				Generic_trait_socialism_proponent
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_joachim_napoleon_murat = {
-		name = FRA_joachim_napoleon_murat
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_joachim_napoleon_murat
-				large = GFX_Portrait_FRA_Joachim_Napoleon_Murat
-			}
-			army = {
-				small = GFX_idea_fra_joachim_napoleon_murat
-				large = GFX_Portrait_FRA_Joachim_Napoleon_Murat
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_joachim_napoleon_murat
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
-					has_conservative_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_dictatorship_government = yes
-					has_conservative_government = yes
-				}
-				has_country_leader = {
-					character = FRA_napoleon_bonaparte
-					ruling_only = yes
-				}
-				has_completed_focus = FRA_Private_Cooperation
-			}
-			traits = {
-				Generic_trait_kingmaker
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_fernand_bouisson = {
-		name = FRA_fernand_bouisson
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_fernand_bouisson
-				large = GFX_Portrait_FRA_Fernand_Bouisson
-			}
-			army = {
-				small = GFX_idea_fra_fernand_bouisson
-				large = GFX_Portrait_FRA_Fernand_Bouisson
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_fernand_bouisson
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_liberal_government = yes
-					has_conservative_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_liberal_government = yes
-					has_conservative_government = yes
-				}
-				has_completed_focus = FRA_new_senatorial_elections
-			}
-			traits = {
-				Generic_trait_political_dancer
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_jacques_bainville = {
-		name = FRA_jacques_bainville
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_jacques_bainville
-				large = GFX_Portrait_FRA_Jacques_Bainville
-			}
-			army = {
-				small = GFX_idea_fra_jacques_bainville
-				large = GFX_Portrait_FRA_Jacques_Bainville
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_jacques_bainville
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
-					has_conservative_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_dictatorship_government = yes
-					has_conservative_government = yes
-				}
-				has_completed_focus = FRA_End_Republican_Demagogy
-			}
-			traits = {
-				Generic_trait_nationalist_media_magnate
-			}
-			cost = 150
+			can_be_fired = no
 			ai_will_do = {
 				factor = 1
 			}
@@ -3725,47 +3443,6 @@ characters = {
 			}
 		}
 	}
-	FRA_pierre_marcilhacy = {
-		name = FRA_pierre_marcilhacy
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_pierre_marcilhacy
-				large = GFX_Portrait_FRA_Pierre_Marcilhacy
-			}
-			army = {
-				small = GFX_idea_fra_pierre_marcilhacy
-				large = GFX_Portrait_FRA_Pierre_Marcilhacy
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_pierre_marcilhacy
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_liberal_government = yes
-					has_conservative_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_liberal_government = yes
-					has_conservative_government = yes
-				}
-				OR = {
-					has_completed_focus = FRA_constitutional_referendum
-					has_completed_focus = FRA_Control_all_the_newspapers
-				}
-			}
-			traits = {
-				Generic_trait_national_unity_proponent
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
 	FRA_joseph_darnand = {
 		name = FRA_joseph_darnand
 		portraits = {
@@ -3807,43 +3484,6 @@ characters = {
 				}
 			}
 			can_be_fired = no
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_pierre_taittinger = {
-		name = FRA_pierre_taittinger
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_pierre_taittinger
-				large = GFX_Portrait_FRA_Pierre_Taittinger
-			}
-			army = {
-				small = GFX_idea_fra_pierre_taittinger
-				large = GFX_Portrait_FRA_Pierre_Taittinger
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_pierre_taittinger
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
-					has_conservative_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_dictatorship_government = yes
-					has_conservative_government = yes
-				}
-			}
-			traits = {
-				Generic_trait_silent_workhorse
-			}
-			cost = 150
 			ai_will_do = {
 				factor = 1
 			}
@@ -3895,6 +3535,1094 @@ characters = {
 			}
 		}
 	}
+	FRA_edouard_daladier = {
+		name = FRA_edouard_daladier
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_edouard_daladier
+				large = GFX_Portrait_FRA_Edouard_Daladier
+			}
+			army = {
+				small = GFX_idea_fra_edouard_daladier
+				large = GFX_Portrait_FRA_Edouard_Daladier
+			}
+		}
+		advisor = {
+			slot = special_fourth
+			idea_token = FRA_edouard_daladier_special_fourth
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_statism_apporach
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_minister_of_economy
+					slot = special_fourth
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_minister_of_economy
+					slot = special_fourth
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	##莫拉斯
+	FRA_charles_maurras = {
+		name = FRA_charles_maurras
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_charles_maurras
+				large = GFX_Portrait_FRA_Charles_Maurras
+			}
+			army = {
+				small = GFX_idea_fra_charles_maurras
+				large = GFX_Portrait_FRA_Charles_Maurras
+			}
+		}
+		advisor = {
+			slot = special_first
+			idea_token = FRA_charles_maurras_special_first
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_national_integralist
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_jules_brevie = {
+		name = FRA_jules_brevie
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_jules_brevie
+				large = GFX_Portrait_FRA_Jules_Brevie
+			}
+			army = {
+				small = GFX_idea_fra_jules_brevie
+				large = GFX_Portrait_FRA_Jules_Brevie
+			}
+		}
+		advisor = {
+			slot = special_third
+			idea_token = FRA_jules_brevie_special_third
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_compassionate_gentleman
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_minister_of_colony
+					slot = special_third
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_minister_of_colony
+					slot = special_third
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}
+
+##3D-generals
+characters = {
+	FRA_henri_giraud = {
+		name = FRA_henri_giraud
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_henri_giraud
+				large = GFX_Portrait_FRA_Henri_Giraud
+			}
+			army = {
+				small = GFX_idea_fra_henri_giraud
+				large = GFX_Portrait_FRA_Henri_Giraud
+			}
+		}
+		corps_commander = {
+			traits = {
+				media_personality
+			}
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_henri_giraud
+			visible = {
+			}
+			available = {
+				surrender_progress > 0.3
+			}
+			traits = {
+				FRA_trait_resistance_leader
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_francois_de_la_rocque = {
+		name = FRA_francois_de_la_rocque
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_francois_de_la_rocque
+				large = GFX_Portrait_FRA_Francois_de_la_Rocque
+			}
+			army = {
+				small = GFX_idea_fra_francois_de_la_rocque
+				large = GFX_Portrait_FRA_Francois_de_la_Rocque
+			}
+		}
+		advisor = {
+			slot = special_first
+			idea_token = FRA_francois_de_la_rocque_special_first
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_social_d_abord
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+		corps_commander = {
+			traits = {
+				politically_connected
+			}
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
+		}
+	}
+	FRA_philippe_petain = {
+		name = FRA_philippe_petain
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_philippe_petain
+				large = GFX_Portrait_FRA_Philippe_Petain
+			}
+			army = {
+				small = GFX_idea_fra_philippe_petain
+				large = GFX_Portrait_FRA_Philippe_Petain
+			}
+		}
+		field_marshal = {
+			traits = {
+				old_guard
+				organisational_leader
+				inspirational_leader
+			}
+			skill = 3
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+		advisor = {
+			slot = special_second
+			idea_token = FRA_philippe_petain_special_second
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_old_general
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_staff
+					slot = special_second
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_staff
+					slot = special_second
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_louis_franchet_desperey = {
+		name = FRA_louis_franchet_desperey
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_louis_franchet_desperey
+				large = GFX_Portrait_FRA_Louis_Franchet_Desperey
+			}
+			army = {
+				small = GFX_idea_fra_louis_franchet_desperey
+				large = GFX_Portrait_FRA_Louis_Franchet_Desperey
+			}
+		}
+		field_marshal = {
+			traits = {
+				old_guard
+				brilliant_strategist
+				infantry_leader
+			}
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = special_third
+			idea_token = FRA_louis_franchet_desperey_special_third
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_lion
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_minister_of_colony
+					slot = special_third
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_minister_of_colony
+					slot = special_third
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_maurice_gamelin = {
+		name = FRA_maurice_gamelin
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_maurice_gamelin
+				large = GFX_Portrait_FRA_Maurice_Gamelin
+			}
+			army = {
+				small = GFX_idea_fra_maurice_gamelin
+				large = GFX_Portrait_FRA_Maurice_Gamelin
+			}
+		}
+		corps_commander = {
+			traits = {
+				old_guard
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = FRA_maurice_gamelin
+			traits = {
+				army_chief_old_guard
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_maxime_weygand = {
+		name = FRA_maxime_weygand
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_maxime_weygand
+				large = GFX_Portrait_FRA_Maxime_Weygand
+			}
+			army = {
+				small = GFX_idea_fra_maxime_weygand
+				large = GFX_Portrait_FRA_Maxime_Weygand
+			}
+		}
+		corps_commander = {
+			traits = {
+				old_guard
+			}
+			skill = 2
+			attack_skill = 1
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = high_command
+			idea_token = FRA_maxime_weygand
+			traits = {
+				army_entrenchment_2
+			}
+		}
+	}
+	FRA_maurice_grisot = {
+		name = FRA_maurice_grisot
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_maurice_grisot
+				large = GFX_Portrait_FRA_Maurice_Grisot
+			}
+			army = {
+				small = GFX_idea_fra_maurice_grisot
+				large = GFX_Portrait_FRA_Maurice_Grisot
+			}
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = FRA_maurice_grisot
+			traits = {
+				army_chief_maneuver_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1
+			}
+		}
+		corps_commander = {
+			traits = {
+				career_officer
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 1
+		}
+	}
+	##Add by events
+	FRA_jacques_doriot = {
+		name = FRA_jacques_doriot
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_jacques_doriot
+				large = GFX_Portrait_FRA_Jacques_Doriot
+			}
+			army = {
+				small = GFX_idea_fra_jacques_doriot
+				large = GFX_Portrait_FRA_Jacques_Doriot
+			}
+		}
+		advisor = {
+			slot = special_sixth
+			idea_token = FRA_jacques_doriot_special_sixth
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_executives_of_intelligence
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	##Add by events-com
+	FRA_henri_rol_tanguy = {
+		name = FRA_henri_rol_tanguy
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_henri_rol_tanguy
+				large = GFX_Portrait_FRA_Henri_Rol_Tanguy
+			}
+			army = {
+				small = GFX_idea_fra_henri_rol_tanguy
+				large = GFX_Portrait_FRA_Henri_Rol_Tanguy
+			}
+		}
+	}
+	##Add by events-com
+	FRA_roger_belbeoch = {
+		name = FRA_roger_belbeoch
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_roger_belbeoch
+				large = GFX_Portrait_FRA_Roger_Belbeoch
+			}
+			army = {
+				small = GFX_idea_fra_roger_belbeoch
+				large = GFX_Portrait_FRA_Roger_Belbeoch
+			}
+		}
+	}
+	##Add by events-com
+	FRA_missak_manouchian = {
+		name = FRA_missak_manouchian
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_missak_manouchian
+				large = GFX_Portrait_FRA_Missak_Manouchian
+			}
+			army = {
+				small = GFX_idea_fra_missak_manouchian
+				large = GFX_Portrait_FRA_Missak_Manouchian
+			}
+		}
+	}
+	##Add by events-com
+	FRA_jean_fontenoy = {
+		name = FRA_jean_fontenoy
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_jean_fontenoy
+				large = GFX_Portrait_FRA_Jean_Fontenoy
+			}
+			army = {
+				small = GFX_idea_fra_jean_fontenoy
+				large = GFX_Portrait_FRA_Jean_Fontenoy
+			}
+		}
+	}
+	##Add by events-com
+	FRA_marcel_petiot = {
+		name = FRA_marcel_petiot
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_marcel_petiot
+				large = GFX_Portrait_FRA_Marcel_Petiot
+			}
+			army = {
+				small = GFX_idea_fra_marcel_petiot
+				large = GFX_Portrait_FRA_Marcel_Petiot
+			}
+		}
+	}
+}
+
+##Af-Nb-C
+characters = {
+	##AF
+	FRA_henri_d_orleans = {
+		name = FRA_henri_d_orleans
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_henri_d_orleans
+				large = GFX_Portrait_FRA_Henri_D_Orleans
+			}
+			army = {
+				small = GFX_idea_fra_henri_d_orleans
+				large = GFX_Portrait_FRA_Henri_D_Orleans
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_henri_d_orleans
+			traits = {
+				FRA_duke_of_orleans_trait
+			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			available = {
+				FRA_in_af_path_trigger = yes
+				has_completed_focus = FRA_unite_royalist
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	##AF-C
+	FRA_jacques_bainville = {
+		name = FRA_jacques_bainville
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_jacques_bainville
+				large = GFX_Portrait_FRA_Jacques_Bainville
+			}
+			army = {
+				small = GFX_idea_fra_jacques_bainville
+				large = GFX_Portrait_FRA_Jacques_Bainville
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_jacques_bainville
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			traits = {
+				Generic_trait_nationalist_media_magnate
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_marcel_peyrouton = {
+		name = FRA_marcel_peyrouton
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_marcel_peyrouton
+				large = GFX_Portrait_FRA_Marcel_Peyrouton
+			}
+			army = {
+				small = GFX_idea_fra_marcel_peyrouton
+				large = GFX_Portrait_FRA_Marcel_Peyrouton
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_marcel_peyrouton
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			traits = {
+				Generic_trait_administrative_expert
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	##AF-NB-C
+	FRA_pierre_appell = {
+		name = FRA_pierre_appell
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_pierre_appell
+				large = GFX_Portrait_FRA_Pierre_Appell
+			}
+			army = {
+				small = GFX_idea_fra_pierre_appell
+				large = GFX_Portrait_FRA_Pierre_Appell
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_pierre_appell
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			traits = {
+				Generic_trait_conservative_democrat
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_fernand_bouisson = {
+		name = FRA_fernand_bouisson
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_fernand_bouisson
+				large = GFX_Portrait_FRA_Fernand_Bouisson
+			}
+			army = {
+				small = GFX_idea_fra_fernand_bouisson
+				large = GFX_Portrait_FRA_Fernand_Bouisson
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_fernand_bouisson
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			traits = {
+				Generic_trait_political_dancer
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_pierre_taittinger = {
+		name = FRA_pierre_taittinger
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_pierre_taittinger
+				large = GFX_Portrait_FRA_Pierre_Taittinger
+			}
+			army = {
+				small = GFX_idea_fra_pierre_taittinger
+				large = GFX_Portrait_FRA_Pierre_Taittinger
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_pierre_taittinger
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			traits = {
+				Generic_trait_silent_workhorse
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_pierre_marcilhacy = {
+		name = FRA_pierre_marcilhacy
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_pierre_marcilhacy
+				large = GFX_Portrait_FRA_Pierre_Marcilhacy
+			}
+			army = {
+				small = GFX_idea_fra_pierre_marcilhacy
+				large = GFX_Portrait_FRA_Pierre_Marcilhacy
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_pierre_marcilhacy
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_nb_path_trigger = yes
+					FRA_in_gmp_path_trigger = yes
+					FRA_in_af_path_trigger = yes
+				}
+			}
+			traits = {
+				Generic_trait_national_unity_proponent
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}
+
+##Nb-Nap
+characters = {
+	FRA_joachim_napoleon_murat = {
+		name = FRA_joachim_napoleon_murat
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_joachim_napoleon_murat
+				large = GFX_Portrait_FRA_Joachim_Napoleon_Murat
+			}
+			army = {
+				small = GFX_idea_fra_joachim_napoleon_murat
+				large = GFX_Portrait_FRA_Joachim_Napoleon_Murat
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_joachim_napoleon_murat
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_nb_path_trigger = yes
+				}
+			}
+			available = {
+				FRA_in_nb_path_trigger = yes
+				has_country_leader = {
+					character = FRA_napoleon_bonaparte
+					ruling_only = yes
+				}
+				has_completed_focus = FRA_Private_Cooperation
+			}
+			traits = {
+				Generic_trait_kingmaker
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}
+
+##Nb-Us
+characters = {
+	FRA_camille_chautemps = {
+		name = FRA_camille_chautemps
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_camille_chautemps
+				large = GFX_Portrait_FRA_Camille_Chautemps
+			}
+			army = {
+				small = GFX_idea_fra_camille_chautemps
+				large = GFX_Portrait_FRA_Camille_Chautemps
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_camille_chautemps
+			traits = {
+				Generic_trait_veteran_democrat
+			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_nb_path_trigger = yes
+					FRA_in_us_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_nb_path_trigger = yes
+					FRA_in_us_path_trigger = yes
+				}
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}
+
+##Us-Pf
+characters = {
+	FRA_leon_blum = {
+		name = FRA_leon_blum
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_leon_blum
+				large = GFX_Portrait_FRA_Leon_Blum
+			}
+			army = {
+				small = GFX_idea_fra_leon_blum
+				large = GFX_Portrait_FRA_Leon_Blum
+			}
+		}
+		advisor = {
+			slot = special_first
+			idea_token = FRA_leon_blum_special_first
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_great_compromiser
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_prime_minister
+					slot = special_first
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_louis_marin = {
+		name = FRA_louis_marin
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_louis_marin
+				large = GFX_Portrait_FRA_Louis_Marin
+			}
+			army = {
+				small = GFX_idea_fra_louis_marin
+				large = GFX_Portrait_FRA_Louis_Marin
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_louis_marin
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
+			}
+			traits = {
+				Generic_trait_left_wing_educator
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+	}
+	FRA_danielle_casanova = {
+		name = FRA_danielle_casanova
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_danielle_casanova
+				large = GFX_Portrait_FRA_Danielle_Casanova
+			}
+			army = {
+				small = GFX_idea_fra_danielle_casanova
+				large = GFX_Portrait_FRA_Danielle_Casanova
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_danielle_casanova
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
+				has_completed_focus = FRA_national_Labour_Union
+			}
+			traits = {
+				Generic_trait_female_labour_activist
+			}
+			ai_will_do = {
+				factor = 3
+			}
+		}
+	}
+	FRA_tristan_tzara = {
+		name = FRA_tristan_tzara
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_tristan_tzara
+				large = GFX_Portrait_Unknown
+			}
+			army = {
+				small = GFX_idea_fra_tristan_tzara
+				large = GFX_Portrait_Unknown
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_tristan_tzara
+			cost = 100
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
+			}
+			available = {
+				OR = {
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
+				OR = {
+					has_completed_focus = FRA_avantgarde
+					has_completed_focus = FRA_France_Idealism
+				}
+			}
+			traits = {
+				FRA_avant_garde_trait
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+	}
 	FRA_edouard_peisson = {
 		name = FRA_edouard_peisson
 		portraits = {
@@ -3914,17 +4642,95 @@ characters = {
 			visible = {
 				OR = {
 					has_global_flag = Show_all_advisor_flag
-					has_socialist_government = yes
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
 				}
 			}
 			available = {
-				has_socialist_government = yes
+				OR = {
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
 			}
 			traits = {
 				Generic_trait_socialist_novelist
 			}
 			ai_will_do = {
 				factor = 10
+			}
+		}
+	}
+	FRA_paul_bechard = {
+		name = FRA_paul_bechard
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_paul_bechard
+				large = GFX_Portrait_FRA_Paul_Bechard
+			}
+			army = {
+				small = GFX_idea_fra_paul_bechard
+				large = GFX_Portrait_FRA_Paul_Bechard
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_paul_bechard
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_us_path_trigger = yes
+					FRA_in_pf_path_trigger = yes
+				}
+			}
+			available = {
+				FRA_in_us_path_trigger = yes
+				FRA_in_pf_path_trigger = yes
+				has_completed_focus = FRA_general_work_council
+			}
+			traits = {
+				Generic_trait_socialism_proponent
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}
+
+##Pf-Left
+characters = {
+	FRA_marcel_deat = {
+		name = FRA_marcel_deat
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_marcel_deat
+				large = GFX_Portrait_FRA_Marcel_Deat
+			}
+			army = {
+				small = GFX_idea_fra_marcel_deat
+				large = GFX_Portrait_FRA_Marcel_Deat
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_marcel_deat
+			traits = {
+				FRA_navy_commissar_trait
+			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					has_socialist_government = yes
+				}
+			}
+			available = {
+				has_socialist_government = yes
+				has_completed_focus = FRA_Return_to_World_Stage
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1
 			}
 		}
 	}
@@ -3958,84 +4764,6 @@ characters = {
 			}
 			ai_will_do = {
 				factor = 10
-			}
-		}
-	}
-	FRA_louis_marin = {
-		name = FRA_louis_marin
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_louis_marin
-				large = GFX_Portrait_FRA_Louis_Marin
-			}
-			army = {
-				small = GFX_idea_fra_louis_marin
-				large = GFX_Portrait_FRA_Louis_Marin
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_louis_marin
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_liberal_government = yes
-					has_socialist_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_liberal_government = yes
-					has_socialist_government = yes
-				}
-				has_completed_focus = FRA_dirigisme
-			}
-			traits = {
-				Generic_trait_left_wing_educator
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-	}
-	FRA_henri_d_orleans = {
-		name = FRA_henri_d_orleans
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_henri_d_orleans
-				large = GFX_Portrait_FRA_Henri_D_Orleans
-			}
-			army = {
-				small = GFX_idea_fra_henri_d_orleans
-				large = GFX_Portrait_FRA_Henri_D_Orleans
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_henri_d_orleans
-			traits = {
-				FRA_duke_of_orleans_trait
-			}
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					AND = {
-						has_completed_focus = FRA_unite_royalist
-						has_conservative_government = yes
-					}
-				}
-			}
-			available = {
-				has_conservative_government = yes
-				has_country_leader = {
-					character = FRA_marie_antoinette_habsbourg
-					ruling_only = yes
-				}
-				has_completed_focus = FRA_unite_royalist
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
 			}
 		}
 	}
@@ -4152,85 +4880,6 @@ characters = {
 			}
 		}
 	}
-	FRA_edouard_daladier = {
-		name = FRA_edouard_daladier
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_edouard_daladier
-				large = GFX_Portrait_FRA_Edouard_Daladier
-			}
-			army = {
-				small = GFX_idea_fra_edouard_daladier
-				large = GFX_Portrait_FRA_Edouard_Daladier
-			}
-		}
-		advisor = {
-			slot = special_fourth
-			idea_token = FRA_edouard_daladier_special_fourth
-			cost = 0
-			visible = {
-			}
-			traits = {
-				FRA_trait_statism_apporach
-			}
-			available = {
-				has_character_flag = can_be_hired_as_special
-			}
-			modifier = {
-			}
-			on_add = {
-				set_character_flag = can_be_hired_as_special
-				add_trait = {
-					trait = FRA_trait_minister_of_economy
-					slot = special_fourth
-				}
-			}
-			on_remove = {
-				clr_character_flag = can_be_hired_as_special
-				remove_trait = {
-					trait = FRA_trait_minister_of_economy
-					slot = special_fourth
-				}
-			}
-			can_be_fired = no
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_camille_chautemps = {
-		name = FRA_camille_chautemps
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_camille_chautemps
-				large = GFX_Portrait_FRA_Camille_Chautemps
-			}
-			army = {
-				small = GFX_idea_fra_camille_chautemps
-				large = GFX_Portrait_FRA_Camille_Chautemps
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_camille_chautemps
-			traits = {
-				Generic_trait_veteran_democrat
-			}
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_liberal_government = yes
-				}
-			}
-			available = {
-				has_liberal_government = yes
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
 	FRA_pierre_monatte = {
 		name = FRA_pierre_monatte
 		portraits = {
@@ -4269,87 +4918,6 @@ characters = {
 				remove_trait = {
 					trait = FRA_trait_minister_of_overseas
 					slot = special_third
-				}
-			}
-			can_be_fired = no
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_marcel_deat = {
-		name = FRA_marcel_deat
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_marcel_deat
-				large = GFX_Portrait_FRA_Marcel_Deat
-			}
-			army = {
-				small = GFX_idea_fra_marcel_deat
-				large = GFX_Portrait_FRA_Marcel_Deat
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_marcel_deat
-			traits = {
-				FRA_navy_commissar_trait
-			}
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_socialist_government = yes
-				}
-			}
-			available = {
-				has_socialist_government = yes
-				has_completed_focus = FRA_Return_to_World_Stage
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	##莫拉斯
-	FRA_charles_maurras = {
-		name = FRA_charles_maurras
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_charles_maurras
-				large = GFX_Portrait_FRA_Charles_Maurras
-			}
-			army = {
-				small = GFX_idea_fra_charles_maurras
-				large = GFX_Portrait_FRA_Charles_Maurras
-			}
-		}
-		advisor = {
-			slot = special_first
-			idea_token = FRA_charles_maurras_special_first
-			cost = 0
-			visible = {
-			}
-			traits = {
-				FRA_trait_national_integralist
-			}
-			available = {
-				has_character_flag = can_be_hired_as_special
-			}
-			modifier = {
-			}
-			on_add = {
-				set_character_flag = can_be_hired_as_special
-				add_trait = {
-					trait = FRA_trait_prime_minister
-					slot = special_first
-				}
-			}
-			on_remove = {
-				clr_character_flag = can_be_hired_as_special
-				remove_trait = {
-					trait = FRA_trait_prime_minister
-					slot = special_first
 				}
 			}
 			can_be_fired = no
@@ -4435,43 +5003,6 @@ characters = {
 			cost = 150
 			ai_will_do = {
 				factor = 1
-			}
-		}
-	}
-	FRA_danielle_casanova = {
-		name = FRA_danielle_casanova
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_danielle_casanova
-				large = GFX_Portrait_FRA_Danielle_Casanova
-			}
-			army = {
-				small = GFX_idea_fra_danielle_casanova
-				large = GFX_Portrait_FRA_Danielle_Casanova
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_danielle_casanova
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_socialist_government = yes
-					has_liberal_government = yes
-				}
-			}
-			available = {
-				OR = {
-					has_socialist_government = yes
-					has_liberal_government = yes
-				}
-				has_completed_focus = FRA_national_Labour_Union
-			}
-			traits = {
-				Generic_trait_female_labour_activist
-			}
-			ai_will_do = {
-				factor = 3
 			}
 		}
 	}
@@ -4574,6 +5105,120 @@ characters = {
 			}
 		}
 	}
+}
+
+##Left-No Big
+characters = {
+	FRA_jean_paul_sartre = {
+		name = FRA_jean_paul_sartre
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_jean_paul_sartre
+				large = GFX_Portrait_Unknown
+			}
+			army = {
+				small = GFX_idea_fra_jean_paul_sartre
+				large = GFX_Portrait_Unknown
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_jean_paul_sartre
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					has_socialist_government = yes
+				}
+			}
+			available = {
+				has_socialist_government = yes
+				has_completed_focus = FRA_avantgarde
+			}
+			traits = {
+				FRA_socialist_intellectuals_trait
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+	}
+	FRA_albert_camus = {
+		name = FRA_albert_camus
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_albert_camus
+				large = GFX_Portrait_Unknown
+			}
+			army = {
+				small = GFX_idea_fra_albert_camus
+				large = GFX_Portrait_Unknown
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_albert_camus
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					AND = {
+						has_liberal_government = yes
+						has_socialist_government = yes
+						has_completed_focus = FRA_Blum_Proposal
+					}
+				}
+			}
+			available = {
+				OR = {
+					has_liberal_government = yes
+					has_socialist_government = yes
+				}
+				has_completed_focus = FRA_Blum_Proposal
+			}
+			traits = {
+				FRA_reconcile_advocator_trait
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+	}
+	FRA_sebastien_faure = {
+		name = FRA_sebastien_faure
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_sebastien_faure
+				large = GFX_Portrait_Unknown
+			}
+			army = {
+				small = GFX_idea_fra_sebastien_faure
+				large = GFX_Portrait_Unknown
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_sebastien_faure
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					has_socialist_government = yes
+				}
+			}
+			available = {
+				has_completed_focus = FRA_industrial_collectivization
+				has_socialist_government = yes
+			}
+			traits = {
+				Generic_trait_socialist_economist
+			}
+			ai_will_do = {
+				factor = 2
+			}
+		}
+	}
+}
+
+##Alter
+characters = {
 	FRA_jacques_correze = {
 		name = FRA_jacques_correze
 		portraits = {
@@ -4592,11 +5237,11 @@ characters = {
 			visible = {
 				OR = {
 					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
+					FRA_in_alter_path_trigger = yes
 				}
 			}
 			available = {
-				has_dictatorship_government = yes
+				FRA_in_alter_path_trigger = yes
 				OR = {
 					has_completed_focus = FRA_Catastrophe_and_rebirth
 					has_completed_focus = FRA_Introduce_German_capital
@@ -4604,6 +5249,133 @@ characters = {
 			}
 			traits = {
 				FRA_fascist_entrepreneur_trait
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+	}
+	FRA_eugene_deloncle = {
+		name = FRA_eugene_deloncle
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_eugene_deloncle
+				large = GFX_Portrait_FRA_Eugene_Deloncle
+			}
+			army = {
+				small = GFX_idea_fra_eugene_deloncle
+				large = GFX_Portrait_FRA_Eugene_Deloncle
+			}
+		}
+		advisor = {
+			slot = special_sixth
+			idea_token = FRA_eugene_deloncle_special_sixth
+			cost = 0
+			visible = {
+			}
+			traits = {
+				FRA_trait_la_cagoule
+			}
+			available = {
+				has_character_flag = can_be_hired_as_special
+			}
+			modifier = {
+			}
+			on_add = {
+				set_character_flag = can_be_hired_as_special
+				add_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			on_remove = {
+				clr_character_flag = can_be_hired_as_special
+				remove_trait = {
+					trait = FRA_trait_chief_of_intelligence
+					slot = special_sixth
+				}
+			}
+			can_be_fired = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_pierre_laval = {
+		name = FRA_pierre_laval
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_pierre_laval
+				large = GFX_Portrait_FRA_Pierre_Laval
+			}
+			army = {
+				small = GFX_idea_fra_pierre_laval
+				large = GFX_Portrait_FRA_Pierre_Laval
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_pierre_laval
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_alter_path_trigger = yes
+				}
+			}
+			available = {
+				FRA_in_alter_path_trigger = yes
+			}
+			traits = {
+				Generic_trait_tenacious_negotiator
+			}
+			modifier = {
+				stability_weekly = 0.001
+			}
+			ai_will_do = {
+				factor = 5
+			}
+		}
+	}
+	FRA_paul_carbone = {
+		name = FRA_paul_carbone
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_paul_carbone
+				large = GFX_Portrait_FRA_Paul_Carbone
+			}
+			army = {
+				small = GFX_idea_fra_paul_carbone
+				large = GFX_Portrait_FRA_Paul_Carbone
+			}
+		}
+	}
+	FRA_francois_spirito = {
+		name = FRA_francois_spirito
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_francois_spirito
+				large = GFX_Portrait_FRA_Francois_Spirito
+			}
+			army = {
+				small = GFX_idea_fra_francois_spirito
+				large = GFX_Portrait_FRA_Francois_Spirito
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = FRA_francois_spirito
+			available = {
+				FRA_in_alter_path_trigger = yes
+				has_completed_focus = FRA_Hedonic
+			}
+			visible = {
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_alter_path_trigger = yes
+				}
+			}
+			traits = {
+				FRA_trait_drug_gangster
 			}
 			ai_will_do = {
 				factor = 10
@@ -4628,11 +5400,11 @@ characters = {
 			visible = {
 				OR = {
 					has_global_flag = Show_all_advisor_flag
-					has_dictatorship_government = yes
+					FRA_in_alter_path_trigger = yes
 				}
 			}
 			available = {
-				has_dictatorship_government = yes
+				FRA_in_alter_path_trigger = yes
 				has_completed_focus = FRA_revenge
 			}
 			traits = {
@@ -4643,145 +5415,83 @@ characters = {
 			}
 		}
 	}
-	FRA_leon_blum = {
-		name = FRA_leon_blum
+}
+
+##Alter-No Big
+characters = {
+	FRA_francois_lehideux = {
+		name = FRA_francois_lehideux
 		portraits = {
 			civilian = {
-				small = GFX_idea_fra_leon_blum
-				large = GFX_Portrait_FRA_Leon_Blum
+				small = GFX_idea_fra_francois_lehideux
+				large = GFX_Portrait_Unknown
 			}
 			army = {
-				small = GFX_idea_fra_leon_blum
-				large = GFX_Portrait_FRA_Leon_Blum
+				small = GFX_idea_fra_francois_lehideux
+				large = GFX_Portrait_Unknown
 			}
 		}
 		advisor = {
-			slot = special_first
-			idea_token = FRA_leon_blum_special_first
-			cost = 0
+			slot = political_advisor
+			idea_token = FRA_francois_lehideux
 			visible = {
-			}
-			traits = {
-				FRA_trait_great_compromiser
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_alter_path_trigger = yes
+				}
 			}
 			available = {
-				has_character_flag = can_be_hired_as_special
-			}
-			modifier = {
-			}
-			on_add = {
-				set_character_flag = can_be_hired_as_special
-				add_trait = {
-					trait = FRA_trait_prime_minister
-					slot = special_first
+				FRA_in_alter_path_trigger = yes
+				OR = {
+					has_completed_focus = FRA_Four_year_plan
+					has_completed_focus = FRA_faster
 				}
 			}
-			on_remove = {
-				clr_character_flag = can_be_hired_as_special
-				remove_trait = {
-					trait = FRA_trait_prime_minister
-					slot = special_first
-				}
+			traits = {
+				FRA_technocrats_trait
 			}
-			can_be_fired = no
 			ai_will_do = {
-				factor = 1
+				factor = 10
 			}
 		}
 	}
-	FRA_jules_brevie = {
-		name = FRA_jules_brevie
+	FRA_jacques_barnaud = {
+		name = FRA_jacques_barnaud
 		portraits = {
 			civilian = {
-				small = GFX_idea_fra_jules_brevie
-				large = GFX_Portrait_FRA_Jules_Brevie
+				small = GFX_idea_fra_jacques_barnaud
+				large = GFX_Portrait_Unknown
 			}
 			army = {
-				small = GFX_idea_fra_jules_brevie
-				large = GFX_Portrait_FRA_Jules_Brevie
+				small = GFX_idea_fra_jacques_barnaud
+				large = GFX_Portrait_Unknown
 			}
 		}
 		advisor = {
-			slot = special_third
-			idea_token = FRA_jules_brevie_special_third
-			cost = 0
+			slot = political_advisor
+			idea_token = FRA_jacques_barnaud
 			visible = {
-			}
-			traits = {
-				FRA_trait_compassionate_gentleman
+				OR = {
+					has_global_flag = Show_all_advisor_flag
+					FRA_in_alter_path_trigger = yes
+				}
 			}
 			available = {
-				has_character_flag = can_be_hired_as_special
+				FRA_in_alter_path_trigger = yes
+				has_completed_focus = FRA_Introduce_German_capital
 			}
-			modifier = {
+			traits = {
+				FRA_supplier_trait
 			}
-			on_add = {
-				set_character_flag = can_be_hired_as_special
-				add_trait = {
-					trait = FRA_trait_minister_of_colony
-					slot = special_third
-				}
-			}
-			on_remove = {
-				clr_character_flag = can_be_hired_as_special
-				remove_trait = {
-					trait = FRA_trait_minister_of_colony
-					slot = special_third
-				}
-			}
-			can_be_fired = no
 			ai_will_do = {
-				factor = 1
+				factor = 10
 			}
 		}
 	}
 }
 
-##3D-generals-advisor
+##Rhineland
 characters = {
-	FRA_henri_giraud = {
-		name = FRA_henri_giraud
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_henri_giraud
-				large = GFX_Portrait_FRA_Henri_Giraud
-			}
-			army = {
-				small = GFX_idea_fra_henri_giraud
-				large = GFX_Portrait_FRA_Henri_Giraud
-			}
-		}
-		corps_commander = {
-			traits = {
-				media_personality
-			}
-			skill = 1
-			attack_skill = 1
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 1
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_henri_giraud
-			visible = {
-				OR = {
-					has_global_flag = Show_all_advisor_flag
-					has_completed_focus = FRA_Manufacture_d_Armes_de_St_Etienne
-				}
-			}
-			available = {
-				has_completed_focus = FRA_Manufacture_d_Armes_de_St_Etienne
-			}
-			traits = {
-				Generic_trait_infantry_proponent
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
 	FRA_louis_napoleon = {
 		name = FRA_louis_napoleon
 		portraits = {
@@ -4830,437 +5540,6 @@ characters = {
 			logistics_skill = 1
 		}
 	}
-	FRA_francois_de_la_rocque = {
-		name = FRA_francois_de_la_rocque
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_francois_de_la_rocque
-				large = GFX_Portrait_FRA_Francois_de_la_Rocque
-			}
-			army = {
-				small = GFX_idea_fra_francois_de_la_rocque
-				large = GFX_Portrait_FRA_Francois_de_la_Rocque
-			}
-		}
-		advisor = {
-			slot = special_first
-			idea_token = FRA_francesca_prelati_special_first
-			cost = 0
-			visible = {
-			}
-			traits = {
-				FRA_trait_social_d_abord
-			}
-			available = {
-				has_character_flag = can_be_hired_as_special
-			}
-			modifier = {
-			}
-			on_add = {
-				set_character_flag = can_be_hired_as_special
-				add_trait = {
-					trait = FRA_trait_prime_minister
-					slot = special_first
-				}
-			}
-			on_remove = {
-				clr_character_flag = can_be_hired_as_special
-				remove_trait = {
-					trait = FRA_trait_prime_minister
-					slot = special_first
-				}
-			}
-			can_be_fired = no
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		corps_commander = {
-			traits = {
-				politically_connected
-			}
-			skill = 1
-			attack_skill = 1
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 1
-		}
-	}
-	FRA_philippe_petain = {
-		name = FRA_philippe_petain
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_philippe_petain
-				large = GFX_Portrait_FRA_Philippe_Petain
-			}
-			army = {
-				small = GFX_idea_fra_philippe_petain
-				large = GFX_Portrait_FRA_Philippe_Petain
-			}
-		}
-		field_marshal = {
-			traits = {
-				old_guard
-				organisational_leader
-				inspirational_leader
-			}
-			skill = 3
-			attack_skill = 4
-			defense_skill = 3
-			planning_skill = 3
-			logistics_skill = 3
-		}
-		advisor = {
-			slot = special_third
-			idea_token = FRA_philippe_petain_special_third
-			cost = 0
-			visible = {
-			}
-			traits = {
-				FRA_trait_lion
-			}
-			available = {
-				has_character_flag = can_be_hired_as_special
-			}
-			modifier = {
-			}
-			on_add = {
-				set_character_flag = can_be_hired_as_special
-				add_trait = {
-					trait = FRA_trait_minister_of_colony
-					slot = special_third
-				}
-			}
-			on_remove = {
-				clr_character_flag = can_be_hired_as_special
-				remove_trait = {
-					trait = FRA_trait_minister_of_colony
-					slot = special_third
-				}
-			}
-			can_be_fired = no
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-}
-
-##3D-generals
-characters = {
-	FRA_louis_franchet_desperey = {
-		name = FRA_louis_franchet_desperey
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_louis_franchet_desperey
-				large = GFX_Portrait_FRA_Louis_Franchet_Desperey
-			}
-			army = {
-				small = GFX_idea_fra_louis_franchet_desperey
-				large = GFX_Portrait_FRA_Louis_Franchet_Desperey
-			}
-		}
-		corps_commander = {
-			traits = {
-				old_guard
-				brilliant_strategist
-				infantry_leader
-			}
-			skill = 3
-			attack_skill = 3
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-		}
-		advisor = {
-			slot = high_command
-			idea_token = FRA_louis_franchet_desperey
-			cost = 100
-			traits = {
-				army_regrouping_2
-			}
-		}
-	}
-	FRA_maurice_gamelin = {
-		name = FRA_maurice_gamelin
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_maurice_gamelin
-				large = GFX_Portrait_FRA_Maurice_Gamelin
-			}
-			army = {
-				small = GFX_idea_fra_maurice_gamelin
-				large = GFX_Portrait_FRA_Maurice_Gamelin
-			}
-		}
-		corps_commander = {
-			skill = 2
-			attack_skill = 2
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_maurice_gamelin
-			traits = {
-				Generic_trait_old_general
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-	FRA_maxime_weygand = {
-		name = FRA_maxime_weygand
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_maxime_weygand
-				large = GFX_Portrait_FRA_Maxime_Weygand
-			}
-			army = {
-				small = GFX_idea_fra_maxime_weygand
-				large = GFX_Portrait_FRA_Maxime_Weygand
-			}
-		}
-		corps_commander = {
-			traits = {
-				old_guard
-			}
-			skill = 2
-			attack_skill = 1
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-		}
-		advisor = {
-			slot = high_command
-			idea_token = FRA_maxime_weygand
-			traits = {
-				army_entrenchment_2
-			}
-		}
-	}
-	FRA_maurice_grisot = {
-		name = FRA_maurice_grisot
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_maurice_grisot
-				large = GFX_Portrait_FRA_Maurice_Grisot
-			}
-			army = {
-				small = GFX_idea_fra_maurice_grisot
-				large = GFX_Portrait_FRA_Maurice_Grisot
-			}
-		}
-		advisor = {
-			slot = army_chief
-			idea_token = FRA_maurice_grisot
-			traits = {
-				army_chief_maneuver_2
-			}
-			cost = 100
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		corps_commander = {
-			traits = {
-				career_officer
-			}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 1
-		}
-	}
-	##Add by events
-	FRA_jacques_doriot = {
-		name = FRA_jacques_doriot
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_jacques_doriot
-				large = GFX_Portrait_FRA_Jacques_Doriot
-			}
-			army = {
-				small = GFX_idea_fra_jacques_doriot
-				large = GFX_Portrait_FRA_Jacques_Doriot
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_jacques_doriot_political_advisor
-			available = {
-				not_already_hired_except_as = political_advisor
-			}
-			traits = {
-				Generic_trait_national_determinist
-			}
-			ai_will_do = {
-				factor = 5
-			}
-		}
-		advisor = {
-			slot = high_command
-			idea_token = FRA_jacques_doriot_high_command
-			cost = 100
-			available = {
-				not_already_hired_except_as = high_command
-			}
-			traits = {
-				army_infantry_2
-			}
-			ai_will_do = {
-				factor = 5
-			}
-		}
-	}
-	##Add by events-alter
-	FRA_eugene_deloncle = {
-		name = FRA_eugene_deloncle
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_eugene_deloncle
-				large = GFX_Portrait_FRA_Eugene_Deloncle
-			}
-			army = {
-				small = GFX_idea_fra_eugene_deloncle
-				large = GFX_Portrait_FRA_Eugene_Deloncle
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_eugene_deloncle
-			available = {
-				OR = {
-					has_completed_focus = FRA_Catastrophe_and_rebirth
-					has_completed_focus = FRA_Introduce_the_German_police
-				}
-			}
-			traits = {
-				FRA_la_cagoule_trait
-			}
-			ai_will_do = {
-				factor = 3
-			}
-		}
-	}
-	##Add by events-com
-	FRA_henri_rol_tanguy = {
-		name = FRA_henri_rol_tanguy
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_henri_rol_tanguy
-				large = GFX_Portrait_FRA_Henri_Rol_Tanguy
-			}
-			army = {
-				small = GFX_idea_fra_henri_rol_tanguy
-				large = GFX_Portrait_FRA_Henri_Rol_Tanguy
-			}
-		}
-	}
-	##Add by events-com
-	FRA_roger_belbeoch = {
-		name = FRA_roger_belbeoch
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_roger_belbeoch
-				large = GFX_Portrait_FRA_Roger_Belbeoch
-			}
-			army = {
-				small = GFX_idea_fra_roger_belbeoch
-				large = GFX_Portrait_FRA_Roger_Belbeoch
-			}
-		}
-	}
-	##Add by events-com
-	FRA_missak_manouchian = {
-		name = FRA_missak_manouchian
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_missak_manouchian
-				large = GFX_Portrait_FRA_Missak_Manouchian
-			}
-			army = {
-				small = GFX_idea_fra_missak_manouchian
-				large = GFX_Portrait_FRA_Missak_Manouchian
-			}
-		}
-	}
-	FRA_francois_spirito = {
-		name = FRA_francois_spirito
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_francois_spirito
-				large = GFX_Portrait_FRA_Francois_Spirito
-			}
-			army = {
-				small = GFX_idea_fra_francois_spirito
-				large = GFX_Portrait_FRA_Francois_Spirito
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = FRA_francois_spirito
-			available = {
-				has_completed_focus = FRA_Hedonic
-			}
-			traits = {
-				FRA_drug_gangster_trait
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-	}
-	##Add by events-com
-	FRA_jean_fontenoy = {
-		name = FRA_jean_fontenoy
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_jean_fontenoy
-				large = GFX_Portrait_FRA_Jean_Fontenoy
-			}
-			army = {
-				small = GFX_idea_fra_jean_fontenoy
-				large = GFX_Portrait_FRA_Jean_Fontenoy
-			}
-		}
-	}
-	##Add by events-com
-	FRA_marcel_petiot = {
-		name = FRA_marcel_petiot
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_marcel_petiot
-				large = GFX_Portrait_FRA_Marcel_Petiot
-			}
-			army = {
-				small = GFX_idea_fra_marcel_petiot
-				large = GFX_Portrait_FRA_Marcel_Petiot
-			}
-		}
-	}
-	##Add in fascism
-	FRA_paul_carbone = {
-		name = FRA_paul_carbone
-		portraits = {
-			civilian = {
-				small = GFX_idea_fra_paul_carbone
-				large = GFX_Portrait_FRA_Paul_Carbone
-			}
-			army = {
-				small = GFX_idea_fra_paul_carbone
-				large = GFX_Portrait_FRA_Paul_Carbone
-			}
-		}
-	}
-}
-
-##Rhineland
-characters = {
 	FRA_alphonse_juin = {
 		name = FRA_alphonse_juin
 		portraits = {
@@ -5727,6 +6006,40 @@ characters = {
 			idea_token = FRA_emile_muselier
 			traits = {
 				navy_screen_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	FRA_georges_thierry_dargenlieu = {
+		name = FRA_georges_thierry_dargenlieu
+		portraits = {
+			civilian = {
+				small = GFX_idea_fra_georges_thierry_dargenlieu
+				large = GFX_Portrait_FRA_Georges_Thierry_Dargenlieu
+			}
+			army = {
+				small = GFX_idea_fra_georges_thierry_dargenlieu
+				large = GFX_Portrait_FRA_Georges_Thierry_Dargenlieu
+			}
+		}
+		navy_leader = {
+			traits = {
+				fleet_protector
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			maneuvering_skill = 1
+			coordination_skill = 2
+		}
+		advisor = {
+			slot = navy_chief
+			idea_token = FRA_georges_thierry_dargenlieu
+			traits = {
+				navy_chief_commerce_raiding_2
 			}
 			cost = 100
 			ai_will_do = {
