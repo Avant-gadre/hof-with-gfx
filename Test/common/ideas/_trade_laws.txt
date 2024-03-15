@@ -17,7 +17,8 @@ ideas = {
 					}
 				}
 			}
-			cost = 150
+			cost = 100
+			level = 4
 			removal_cost = -1
 			modifier = {
 				min_export = 0.8
@@ -63,7 +64,8 @@ ideas = {
 					}
 				}
 			}
-			cost = 150
+			cost = 100
+			level = 4
 			removal_cost = -1
 			modifier = {
 				min_export = 0.5
@@ -125,7 +127,8 @@ ideas = {
 					}
 				}
 			}
-			cost = 150
+			cost = 100
+			level = 4
 			removal_cost = -1
 			modifier = {
 				min_export = 0.25
@@ -154,59 +157,114 @@ ideas = {
 			}
 		}
 		closed_economy = {
+			on_add = {
+			}
+			on_remove = {
+			}
+			cost = 100
+			level = 4
+			removal_cost = -1
+			cancel_if_invalid = no
 			available = {
 				has_war = yes
-				OR = {
-					has_government = fascism
-					has_government = communism
-				}
 				OR = {
 					has_idea = war_economy
 					has_idea = tot_economic_mobilisation
 				}
 				if = {
 					limit = {
-						original_tag = GER
+						tag = GER
 					}
 					NOT = {
 						has_idea = GER_autarky_idea
-					}
-					NOT = {
 						has_idea = GER_grosraumwirtschaft
 					}
 				}
-				OR = {
-					NOT = {
+				if = {
+					limit = {
 						tag = SOV
 					}
 					NOT = {
-						has_opinion_modifier = MR_pact
+						has_completed_focus = SOV_Humane_communism
 					}
 				}
 			}
-			cost = 150
-			removal_cost = -1
 			modifier = {
 				min_export = 0
+				lend_lease_tension = 0.4
+				cic_construction_boost = -0.1
 			}
-			cancel_if_invalid = no
+			rule = {
+				can_access_market = no
+				desc = can_not_access_market_closed_economy
+			}
 			ai_will_do = {
 				factor = 1
 				modifier = {
 					factor = 0
-					is_major = yes
+					is_major = no					#only majors should choose limited exports
 				}
 				modifier = {
 					factor = 0
-					is_major = no
-					is_in_faction = yes
-					has_war = yes
+					is_in_faction = yes					#don't screw over your allies
 				}
-				# minors not at war should want to get the bonuses from free trade
 				modifier = {
 					factor = 0
-					is_major = no
-					has_war = no
+					has_war = no					#if at peace, prioritise the bonuses
+				}
+				modifier = {
+					check_variable = {
+						resource_produced@steel > 0
+					}
+					subtract_from_temp_variable = {
+						steel_deficit = resource@steel
+					}
+					add = steel_deficit
+				}
+				modifier = {
+					check_variable = {
+						resource_produced@oil > 0
+					}
+					subtract_from_temp_variable = {
+						oil_deficit = resource@oil
+					}
+					add = oil_deficit
+				}
+				modifier = {
+					check_variable = {
+						resource_produced@rubber > 0
+					}
+					subtract_from_temp_variable = {
+						rubber_deficit = resource@rubber
+					}
+					add = rubber_deficit
+				}
+				modifier = {
+					check_variable = {
+						resource_produced@aluminium > 0
+					}
+					subtract_from_temp_variable = {
+						aluminium_deficit = resource@aluminium
+					}
+					add = aluminium_deficit
+				}
+				modifier = {
+					check_variable = {
+						resource_produced@tungsten > 0
+					}
+					subtract_from_temp_variable = {
+						tungsten_deficit = resource@tungsten
+					}
+					add = tungsten_deficit
+				}
+				modifier = {
+					check_variable = {
+						resource_produced@chromium > 0
+					}
+					subtract_from_temp_variable = {
+						chromium_deficit = resource@chromium
+					}
+					add = chromium_deficit
 				}
 			}
 		}

@@ -99,6 +99,7 @@ unit_leader_event = {
 			base = 1
 		}
 		FRA_increase_black_monday_effect = yes
+		remove_ideas = FRA_full_employment_1_idea
 		hidden_effect = {
 			country_event = {
 				id = fra_crisis.3
@@ -164,6 +165,7 @@ country_event = {
 	# }
 }
 
+##政治暴力
 country_event = {
 	id = fra_crisis.4
 	title = fra_crisis.4.title
@@ -179,6 +181,10 @@ country_event = {
 			base = 1
 		}
 		FRA_increase_black_monday_effect = yes
+		add_timed_idea = {
+			idea = FRA_political_violence_idea
+			days = 180
+		}
 		hidden_effect = {
 			country_event = {
 				id = fra_crisis.5
@@ -675,7 +681,7 @@ unit_leader_event = {
 			country_leader = {
 				traits = {
 					FRA_trait_nationalism_symbol
-					FRA_trait_la_pucelle
+					FRA_trait_maid_of_orelan
 				}
 				ideology = classical_liberalism
 			}
@@ -1236,7 +1242,7 @@ unit_leader_event = {
 	immediate = {
 		country_event = {
 			id = fra_core.24
-			days = 200
+			days = 190
 		}
 		set_country_flag = FRA_1936_election_end_flag
 	}
@@ -1257,6 +1263,7 @@ unit_leader_event = {
 				FRA_election_center_support > FRA_election_bloc_support
 			}
 		}
+		set_country_flag = FRA_the_absolute_monarchy_secured_flag
 		set_politics = {
 			ruling_party = neutrality
 			election_frequency = 48
@@ -1310,7 +1317,7 @@ unit_leader_event = {
 				ideology = social_democracy
 				traits = {
 					FRA_trait_nationalism_symbol
-					FRA_trait_la_pucelle
+					FRA_trait_maid_of_orelan
 				}
 			}
 		}
@@ -1559,6 +1566,7 @@ unit_leader_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = FRA_the_fourth_republic_settled_flag
 		set_country_flag = FRA_politics_stabilized_flag
 		FRA_marie_antoinette_habsbourg = {
 			retire_character_fake = yes
@@ -1571,6 +1579,10 @@ unit_leader_event = {
 					Generic_trait_eager_collaborator
 				}
 			}
+		}
+		promote_character = {
+			character = FRA_pierre_laval
+			ideology = neutrality
 		}
 		add_popularity = {
 			ideology = democratic
@@ -1633,7 +1645,7 @@ unit_leader_event = {
 					ideology = liberalism
 					traits = {
 						FRA_trait_nationalism_symbol
-						FRA_trait_la_pucelle
+						FRA_trait_maid_of_orelan
 					}
 				}
 			}
@@ -1693,6 +1705,8 @@ unit_leader_event = {
 				damage = 2
 			}
 		}
+		set_country_flag = FRA_bourbon_dynasty_overthrow_flag
+		complete_national_focus = FRA_overthrow_bourbon
 		add_country_leader_role = {
 			character = FRA_charlemagne_carolingian
 			country_leader = {
@@ -1842,6 +1856,8 @@ unit_leader_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = FRA_the_fourth_republic_settled_flag
+		deactivate_advisor = FRA_marie_antoinette_habsbourg_special_political_advisor
 		activate_advisor = FRA_francois_de_la_rocque_special_first
 		whiteline = yes
 		##
@@ -1885,6 +1901,8 @@ unit_leader_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = FRA_the_fourth_republic_settled_flag
+		deactivate_advisor = FRA_marie_antoinette_habsbourg_special_political_advisor
 		activate_advisor = FRA_noelle_lenoir_special_first
 		whiteline = yes
 		##
@@ -1928,7 +1946,10 @@ unit_leader_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = FRA_the_fourth_republic_settled_flag
 		remove_temp_unit_leader_role = yes
+		deactivate_advisor = FRA_marie_antoinette_habsbourg_special_political_advisor
+		whiteline = yes
 		activate_advisor = FRA_leon_blum_special_first
 		whiteline = yes
 		##
@@ -1973,6 +1994,7 @@ country_event = {
 			base = 1
 		}
 	}
+	##No
 	option = {
 		name = fra_core.24.b
 		trigger = {
@@ -1993,6 +2015,7 @@ country_event = {
 			}
 		}
 	}
+	##Yes
 	option = {
 		name = fra_core.24.c
 		trigger = {
@@ -2157,7 +2180,7 @@ country_event = {
 				ideology = democratic_socialism
 				traits = {
 					FRA_trait_nationalism_symbol
-					FRA_trait_la_pucelle
+					FRA_trait_maid_of_orelan
 				}
 			}
 		}
@@ -2457,6 +2480,9 @@ unit_leader_event = {
 			ideology = fascism
 			popularity = 0.3
 		}
+		set_capital = {
+			state = 33
+		}
 		set_country_flag = FRA_politics_stabilized_flag
 		complete_national_focus = FRA_the_path_of_avenger
 		activate_advisor = FRA_francesca_prelati_special_first
@@ -2503,6 +2529,7 @@ unit_leader_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = FRA_the_constitutional_monarchy_formed_flag
 		activate_advisor = FRA_honore_de_mirabeau_special_first
 	}
 	# option = {
@@ -2522,3 +2549,624 @@ unit_leader_event = {
 	# 	}
 	# }
 }
+
+add_namespace = fra_for
+unit_leader_event = {
+	id = fra_for.1
+	title = fra_for.1.title
+	desc = fra_for.1.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_leo_harvey
+	is_triggered_only = yes
+	option = {
+		name = fra_for.1.a
+		ai_chance = {
+			base = 0
+		}
+		trigger = {
+			NOT = {
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
+				}
+			}
+		}
+		set_country_flag = FRA_diplo_chosen_flag
+		complete_national_focus = FRA_viva_la_france
+	}
+	option = {
+		name = fra_for.1.b
+		ai_chance = {
+			base = 100
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = FRA_britsih_refused_ally_flag
+			}
+		}
+		##complete_national_focus = FRA_go_with_britain_fate
+		ENG = {
+			country_event = {
+				id = fra_for.2
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = fra_for.1.c
+		trigger = {
+			OR = {
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
+				}
+				has_country_leader = {
+					character = FRA_marie_antoinette_habsbourg
+				}
+				has_country_leader = {
+					character = FRA_charlemagne_carolingian
+				}
+			}
+			NOT = {
+				has_country_flag = FRA_germany_refused_spheres_flag
+			}
+		}
+		custom_effect_tooltip = FRA_british_angry_tt
+		add_stability = -0.1
+		ai_chance = {
+			base = 0
+		}
+	}
+	# option = {
+	# 	name = fra_core.22.b
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+	# option = {
+	# 	name = fra_core.22.c
+	# 	trigger = {
+	# 	}
+	# 	ai_chance = {
+	# 		base = 1
+	# 	}
+	# }
+}
+
+##French ask to join British
+country_event = {
+	id = fra_for.2
+	title = fra_for.2.title
+	desc = fra_for.2.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		FRA = {
+			country_event = fra_for.3
+		}
+		every_other_country = {
+			limit = {
+				is_in_faction_with = FRA
+				NOT = {
+					tag = FRA
+				}
+				is_subject = no
+			}
+			country_event = fra_for.5
+		}
+	}
+	option = {
+		#refuse
+		name = fra_for.1.b
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+		FROM = {
+			country_event = fra_for.4
+		}
+	}
+}
+
+#second event - French joins British faction, move them and all their subjects, fire event to independent nations in their faction
+country_event = {
+	id = fra_for.3
+	title = fra_for.3.title
+	desc = fra_for.3.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		dismantle_faction = yes
+		ENG = {
+			add_to_faction = FRA
+		}
+		FRA = {
+			complete_national_focus = FRA_go_with_britain_fate
+		}
+	}
+}
+
+#second event - country refuses
+country_event = {
+	id = fra_for.4
+	title = fra_for.4.title
+	desc = fra_for.4.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -20
+		if = {
+			limit = {
+				tag = FRA
+			}
+			var:country_leader = {
+				unit_leader_event = {
+					id = fra_for.1
+					days = 1
+				}
+			}
+			set_country_flag = FRA_britsih_refused_ally_flag
+		}
+	}
+}
+
+# event for independent countries in France faction - join British?
+country_event = {
+	id = fra_for.5
+	title = fra_for.2.title
+	desc = fra_for.2.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		ENG = {
+			country_event = fra_for.6
+		}
+	}
+	option = {
+		#refuse
+		name = fra_for.2.b
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+		ENG = {
+			country_event = fra_for.4
+		}
+		FRA = {
+			country_event = fra_for.4
+		}
+	}
+}
+
+# event for British - non-british sovereign nation wants to join
+country_event = {
+	id = fra_for.6
+	title = fra_for.2.title
+	desc = fra_for.2.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		add_to_faction = FROM
+	}
+}
+
+##Ger-Fra
+country_event = {
+	id = fra_for.7
+	title = fra_for.7.title
+	desc = fra_for.7.desc
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = fra_for.7.a		#agree
+		ai_chance = {
+			base = 100
+		}
+		FROM = {
+			country_event = fra_for.2
+		}
+		custom_effect_tooltip = accept_offer_tt
+		add_political_power = 20
+		effect_tooltip = {
+			HOL = {
+				transfer_state = 6
+				transfer_state = 979
+				transfer_state = 925
+				transfer_state = 35
+				transfer_state = 978
+			}
+			GER = {
+				transfer_state = 781
+				transfer_state = 42
+				transfer_state = 1115
+			}
+			FRA = {
+				transfer_state = 34
+				transfer_state = 948
+				transfer_state = 741
+				transfer_state = 8
+			}
+		}
+		FRA = {
+			country_event = {
+				id = fra_for.8
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = fra_for.7.b		#refuse
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+		FROM = {
+			country_event = fra_for.9
+			set_country_flag = FRA_germany_refused_spheres_flag
+		}
+	}
+}
+
+# rasponse event for France - country agrees
+country_event = {
+	id = fra_for.8
+	title = fra_for.8.title
+	desc = fra_for.8.desc
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = fra_for.8.a		#agree
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -50
+		BEL = {
+			country_event = {
+				id = fra_for.10
+				days = 3
+			}
+		}
+		LUX = {
+			country_event = {
+				id = fra_for.10
+				days = 3
+			}
+		}
+		RHI = {
+			country_event = {
+				id = fra_for.10
+				days = 3
+			}
+		}
+		# hidden_effect = {
+		# 	news_event = {
+		# 		id = lar_news.7
+		# 		days = 3
+		# 		random_days = 7
+		# 	}
+		# }
+	}
+}
+
+#response event for France - country refuses
+country_event = {
+	id = fra_for.9
+	title = fra_for.9.title
+	desc = fra_for.9.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.9.a		#agree
+		ai_chance = {
+			base = 80
+		}
+		var:country_leader = {
+			unit_leader_event = {
+				id = fra_for.1
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = fra_for.10
+	title = fra_for.10.title
+	desc = fra_for.10.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.10.a		#agree
+		ai_chance = {
+			base = 90
+		}
+		custom_effect_tooltip = GAME_OVER_TT
+		FRA = {
+			country_event = {
+				id = fra_for.11
+				hours = 12
+			}
+		}
+		FRA = {
+			annex_country = {
+				target = THIS
+				transfer_troops = yes
+			}
+		}
+	}
+	option = {
+		name = fra_for.10.b		#agree
+		ai_chance = {
+			base = 10
+		}
+		FRA = {
+			country_event = {
+				id = fra_for.12
+				hours = 12
+			}
+		}
+		THIS = {
+			leave_faction = yes
+		}
+	}
+}
+
+country_event = {
+	id = fra_for.11
+	title = fra_for.11.title
+	desc = fra_for.11.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.11.a		#agree
+		ai_chance = {
+			base = 90
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = BEL
+				}
+			}
+			HOL = {
+				transfer_state = 6
+				transfer_state = 979
+				transfer_state = 925
+				transfer_state = 35
+				transfer_state = 978
+			}
+			FRA = {
+				transfer_state = 34
+				transfer_state = 948
+				transfer_state = 741
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = RHI
+				}
+			}
+			GER = {
+				transfer_state = 781
+				transfer_state = 42
+				transfer_state = 1115
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = LUX
+				}
+			}
+			FRA = {
+				transfer_state = 8
+			}
+		}
+		FRA = {
+			dismantle_faction = yes
+		}
+		GER = {
+			add_to_faction = FRA
+		}
+	}
+}
+
+country_event = {
+	id = fra_for.12
+	title = fra_for.12.title
+	desc = fra_for.12.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.12.a		#agree
+		ai_chance = {
+			base = 90
+		}
+		FRA = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+		GER = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+		6 = {
+			add_claim_by = HOL
+		}
+		979 = {
+			add_claim_by = HOL
+		}
+		925 = {
+			add_claim_by = HOL
+		}
+		8 = {
+			add_claim_by = FRA
+		}
+		FRA = {
+			dismantle_faction = yes
+		}
+		GER = {
+			add_to_faction = FRA
+		}
+	}
+}
+
+##Buy arm from america
+country_event = {
+	id = fra_for.13
+	title = fra_for.13.title
+	desc = fra_for.13.desc
+	picture = GFX_report_event_generic_lend_lease
+	is_triggered_only = yes
+	option = {
+		name = fra_for.13.a		#agree
+		ai_chance = {
+			base = 40
+		}
+		trigger = {
+			USA_can_sell_weapons_trigger = yes
+		}
+		FRA = {
+			country_event = fra_for.14
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = THIS
+				modifier = generic_approves_of_government_opinion
+			}
+		}
+		effect_tooltip = {
+			USA = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = generic_approves_of_government_opinion
+				}
+			}
+		}
+		army_experience = 10
+	}
+	option = {
+		name = fra_for.13.b		#refuse
+		ai_chance = {
+			base = 60
+			modifier = {
+				FRA = {
+					has_war = yes
+				}
+				factor = 0.5
+			}
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = THIS
+				modifier = generic_displeased_opinion
+			}
+		}
+		effect_tooltip = {
+			USA = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = generic_displeased_opinion
+				}
+			}
+		}
+		FRA = {
+			country_event = fra_for.15
+		}
+	}
+}
+
+# rasponse event for France - country agrees
+country_event = {
+	id = fra_for.14
+	title = fra_for.14.t
+	desc = fra_for.14.desc
+	picture = GFX_report_event_merchant_ship_01
+	is_triggered_only = yes
+	option = {
+		name = fra_for.14.a		#agree
+		effect_tooltip = {
+			FRA = {
+				add_opinion_modifier = {
+					target = THIS
+					modifier = generic_approves_of_government_opinion
+				}
+			}
+		}
+		USA = {
+			add_opinion_modifier = {
+				target = FRA
+				modifier = generic_approves_of_government_opinion
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+#response event for France - US refuse
+country_event = {
+	id = fra_for.15
+	title = fra_for.15.title
+	desc = fra_for.15.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.15.a		#agree
+		effect_tooltip = {
+			FRA = {
+				add_opinion_modifier = {
+					target = THIS
+					modifier = generic_displeased_opinion
+				}
+			}
+		}
+		USA = {
+			add_opinion_modifier = {
+				target = FRA
+				modifier = generic_displeased_opinion
+			}
+		}
+		ai_chance = {
+			base = 80
+		}
+	}
+}
+
+##
