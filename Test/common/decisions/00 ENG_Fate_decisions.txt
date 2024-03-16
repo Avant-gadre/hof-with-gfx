@@ -1630,34 +1630,195 @@ political_actions = {
 }
 
 operations = {
-	operation_fork = {
+	ENG_oberon_operations_decisions = {
 		icon = generic_operation
 		allowed = {
 			tag = ENG
 		}
 		available = {
-			tag = ENG
-			has_government = democratic
-			has_war_with = GER
-			NOR = {
-				has_capitulated = yes
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_deployed_air_force_size = {
+					type = strategic_bomber
+					size > 3000
+				}
 			}
-			is_in_faction_with = NOR
-		}
-		cost = 50
-		fire_only_once = yes
-		ai_will_do = {
-			factor = 1
+			else = {
+				has_deployed_air_force_size = {
+					type = strategic_bomber
+					size > 1500
+				}
+			}
+			OR = {
+				controls_state = 122
+				controls_state = 126
+			}
 		}
 		visible = {
-			tag = ENG
-			has_war_with = GER
+			has_completed_focus = ENG_Secretary_of_Aviation
+		}
+		cost = 0
+		custom_cost_trigger = {
+			command_power > 14.9
+		}
+		custom_cost_text = CP_15
+		days_remove = 720
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
 		}
 		complete_effect = {
-			add_popularity = {
-				ideology = democratic
-				popularity = -0.05
+			hidden_effect = {
+				add_command_power = -15
 			}
+			set_country_flag = {
+				value = 1
+				days = 720
+				flag = ENG_oberon_operations_start_flag
+			}
+		}
+		targeted_modifier = {
+
+		}
+		modifier = {
+			air_range_factor = 0.25
+
+			air_night_penalty = -0.1
+
+			air_superiority_efficiency = 0.1
+			air_escort_efficiency = 0.1
+
+			air_strategic_bomber_defence_factor = 0.1
+			air_strategic_bomber_bombing_factor = 0.1
+
+			air_fuel_consumption_factor = 0.25
+		}
+		remove_effect = {
+		}
+	}
+	USA_Doolittle_operations_decisions = {
+		icon = generic_operation
+		allowed = {
+			tag = USA
+		}
+		available = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_deployed_air_force_size = {
+					type = strategic_bomber
+					size > 3000
+				}
+			}
+			else = {
+				has_deployed_air_force_size = {
+					type = strategic_bomber
+					size > 1500
+				}
+			}
+			is_in_faction_with = ENG
+			OR = {
+				ENG = { controls_state = 122 }
+				ENG = { controls_state = 126 }
+			}
+		}
+		visible = {
+			has_completed_focus = USA_combined_bomber_offensive
+		}
+		cost = 0
+		custom_cost_trigger = {
+			command_power > 14.9
+		}
+		custom_cost_text = CP_15
+		days_remove = 720
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_country_flag = {
+				value = 1
+				days = 720
+				flag = USA_Doolittle_operations_start_flag
+			}
+		}
+		targeted_modifier = {
+
+		}
+		modifier = {
+			air_range_factor = 0.25
+
+			air_superiority_efficiency = 0.1
+			air_escort_efficiency = 0.1
+
+			air_strategic_bomber_attack_factor = 0.1
+			air_strategic_bomber_defence_factor = 0.1
+			air_strategic_bomber_bombing_factor = 0.3
+
+			air_fuel_consumption_factor = 0.5
+		}
+		remove_effect = {
+		}
+	}
+	ENG_Excalibur_operations_decisions = {
+		icon = generic_operation
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			OR = {
+				controls_state = 122
+				controls_state = 126
+			}
+		}
+		visible = {
+			has_completed_focus = ENG_radiant_path_focus
+		}
+		cost = 0
+		custom_cost_trigger = {
+			command_power > 14.9
+		}
+		custom_cost_text = CP_15
+		days_remove = 180
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ENG_Excalibur_operations_start_flag
+			}
+		}
+		targeted_modifier = {
+
+		}
+		modifier = {
+
+			army_attack_factor = 0.1
+			army_defence_factor = 0.1
+			breakthrough_factor = 0.1
+
+			army_bonus_air_superiority_factor = 0.2
+
+			invasion_preparation = -0.25
+			amphibious_invasion = 0.15
+
+			army_fuel_consumption_factor = 0.25
+			air_fuel_consumption_factor = 0.25
+			navy_fuel_consumption_factor = 0.25
+		}
+		remove_effect = {
 		}
 	}
 	invade_ireland = {

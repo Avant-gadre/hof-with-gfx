@@ -5777,6 +5777,8 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = {
 			add_ideas = ENG_Secretary_of_Aviation_idea
+
+			unlock_decision_tooltip = ENG_oberon_operations_decisions
 		}
 	}
 	focus = {
@@ -5832,6 +5834,27 @@ focus_tree = {
 			remove_ideas = ENG_Minister_of_shipping_idea
 			remove_ideas = ENG_Minister_of_shipping_idea
 			add_ideas = ARTURIA_ideal_king_idea
+		}
+	}
+	focus = {
+		id = ENG_radiant_path_focus
+		icon = GFX_focus_ENG_cabinet9
+		cost = 5
+		prerequisite = {
+			focus = ENG_ideal_king_focus
+		}
+		x = 0
+		y = 1
+		relative_position_id = ENG_ideal_king_focus
+		available = {
+			has_war = yes
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			unlock_decision_tooltip = ENG_Excalibur_operations_decisions
 		}
 	}
 	focus = {
@@ -8737,29 +8760,16 @@ focus_tree = {
 				has_war_with = JAP
 			}
 			JAP = {
-				NOT = {
-					has_completed_focus = JAP_strike_south_doctrine
-				}
-				NOT = {
-					has_completed_focus = JAP_pan_asianism
-				}
-				NOT = {
-					has_completed_focus = JAP_unite_the_sinoshpere
-				}
-				NOT = {
-					has_country_flag = jap_western_condemned
+				has_completed_focus = JAP_showdown
+			}
+			NOT = {
+				ENG = {
+					has_completed_focus = ENG_reines_china
 				}
 			}
-			OR = {
-				NOT = {
-					ENG = {
-						has_completed_focus = ENG_reines_china
-					}
-				}
-				NOT = {
-					JAP = {
-						has_war_with = CHI
-					}
+			NOT = {
+				JAP = {
+					has_war_with = CHI
 				}
 			}
 		}
@@ -8772,7 +8782,7 @@ focus_tree = {
 		completion_reward = {
 			JAP = {
 				country_event = {
-					id = inter_britain.1
+					id = more_britain_jap_dlc.1
 					hours = 12
 				}
 			}
@@ -8800,7 +8810,12 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_cooperate_with_japan
 		available = {
-			always = no
+			NOT = {
+				has_war_with = JAP
+			}
+			JAP = {
+				has_completed_focus = JAP_smaller_japan
+			}
 		}
 		bypass = {
 			has_idea = ENG_cooperate_with_japan
@@ -8809,7 +8824,7 @@ focus_tree = {
 		completion_reward = {
 			JAP = {
 				country_event = {
-					id = gsk_britain.6
+					id = more_britain_jap_dlc.4
 					hours = 6
 				}
 			}
@@ -8849,7 +8864,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = ENG_tohsaka_el_melloi
+		id = ENG_singapore_Conference
 		icon = GFX_focus_JAP_maintain_our_kokutai
 		cost = 4
 		prerequisite = {
@@ -8859,31 +8874,12 @@ focus_tree = {
 		y = 2
 		relative_position_id = ENG_cooperate_with_japan
 		available = {
-			JAP = {
-				has_government = democratic
-			}
-			NOT = {
-				has_war_with = JAP
-			}
-			OR = {
-				JAP = {
-					has_country_leader = {
-						name = "Tohsaka Tokiomi"
-						ruling_only = yes
-					}
-				}
-				JAP = {
-					has_country_leader = {
-						name = "Tohsaka Rin"
-						ruling_only = yes
-					}
-				}
-			}
+
 		}
 		completion_reward = {
 			JAP = {
 				country_event = {
-					id = trs_japan.22
+					id = more_britain_jap_dlc.5
 					hours = 12
 				}
 			}
@@ -8893,26 +8889,29 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = ENG_alliance_with_japan_dem
+		id = ENG_manila_Conference
 		icon = GFX_focus_JAP_tokyo_conf
 		cost = 5
 		prerequisite = {
-			focus = ENG_tohsaka_el_melloi
+			focus = ENG_singapore_Conference
 		}
 		x = 1
 		y = 1
-		relative_position_id = ENG_tohsaka_el_melloi
+		relative_position_id = ENG_singapore_Conference
 		available = {
-			always = no
+			NOT = {
+				has_war_with = USA
+			}
 			is_faction_leader = yes
 			JAP = {
-				is_in_faction = no
+				is_in_faction_with = ENG
 			}
+		    has_global_flag = ENG_JAP_singapore_Conference_flag
 		}
 		completion_reward = {
-			JAP = {
+			USA = {
 				country_event = {
-					id = generic.5
+					id = more_britain_jap_dlc.6
 					hours = 12
 				}
 			}

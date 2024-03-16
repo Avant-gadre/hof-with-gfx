@@ -696,7 +696,20 @@ unit_leader_event = {
 			long_name = FRA_democratic_party_us_long
 			name = FRA_democratic_party_us
 		}
+		hidden_effect = {
+			set_cosmetic_tag = FRA_kingdom_classical_liberalism
+		}
 		activate_advisor = FRA_marie_antoinette_habsbourg_special_political_advisor
+		FRA_marie_antoinette_habsbourg = {
+			add_trait = {
+				trait = FRA_trait_princess_of_loveliness_1
+				slot = special_political_advisor
+			}
+			remove_trait = {
+				trait = FRA_trait_princess_of_loveliness
+				slot = special_political_advisor
+			}
+		}
 		FRA_increase_center_effect = yes
 	}
 	##No
@@ -1276,10 +1289,6 @@ unit_leader_event = {
 			long_name = FRA_neutrality_party_af_long
 			name = FRA_neutrality_party_af
 		}
-		add_popularity = {
-			ideology = neutrality
-			popularity = 0.15
-		}
 		FRA_marie_antoinette_habsbourg = {
 			unit_leader_event = {
 				id = fra_core.20
@@ -1322,6 +1331,9 @@ unit_leader_event = {
 					FRA_trait_maid_of_orelan
 				}
 			}
+		}
+		hidden_effect = {
+			drop_cosmetic_tag = yes
 		}
 		promote_character = {
 			character = FRA_jeanne_d_arc
@@ -1370,6 +1382,9 @@ unit_leader_event = {
 			ideology = democratic
 			long_name = FRA_democratic_party_ard_long
 			name = FRA_democratic_party_ard
+		}
+		hidden_effect = {
+			drop_cosmetic_tag = yes
 		}
 		if = {
 			limit = {
@@ -1574,13 +1589,16 @@ unit_leader_event = {
 			retire_character_fake = yes
 		}
 		add_country_leader_role = {
-			character = FRA_pierre_laval
+			character = FRA_marie_thomas
 			country_leader = {
 				ideology = authoritarianism
 				traits = {
 					Generic_trait_eager_collaborator
 				}
 			}
+		}
+		hidden_effect = {
+			drop_cosmetic_tag = yes
 		}
 		promote_character = {
 			character = FRA_pierre_laval
@@ -1597,6 +1615,7 @@ unit_leader_event = {
 			set_politics = {
 				ruling_party = democratic
 				election_frequency = 48
+				elections_allowed = yes
 			}
 			set_party_name = {
 				ideology = democratic
@@ -1635,6 +1654,7 @@ unit_leader_event = {
 			set_politics = {
 				ruling_party = democratic
 				election_frequency = 48
+				elections_allowed = yes
 			}
 			set_party_name = {
 				ideology = democratic
@@ -1721,6 +1741,10 @@ unit_leader_event = {
 		promote_character = {
 			character = FRA_charlemagne_carolingian
 			ideology = neutrality
+		}
+		hidden_effect = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = FRA_stratocracy
 		}
 		deactivate_advisor = FRA_jeanne_d_arc_special_first
 		set_party_name = {
@@ -1822,6 +1846,14 @@ unit_leader_event = {
 		name = fra_core.20.a
 		ai_chance = {
 			base = 1
+		}
+		hidden_effect = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = FRA_kingdom_authoritarianism
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.2
 		}
 		activate_advisor = FRA_charles_maurras_special_first
 		##
@@ -2005,6 +2037,19 @@ country_event = {
 			base = 1
 		}
 		add_war_support = -0.05
+		if = {
+			limit = {
+				FRA_in_pf_path_trigger = yes
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.03
+			}
+		}
 		hidden_effect = {
 			if = {
 				limit = {
@@ -2026,6 +2071,19 @@ country_event = {
 			base = 1
 		}
 		add_stability = -0.05
+		if = {
+			limit = {
+				FRA_in_nb_path_trigger = yes
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.03
+			}
+		}
 		hidden_effect = {
 			if = {
 				limit = {
@@ -2323,7 +2381,7 @@ unit_leader_event = {
 			retire_character_fake = yes
 		}
 		add_country_leader_role = {
-			character = FRA_pierre_laval
+			character = FRA_bradamante_renaud
 			country_leader = {
 				ideology = stratocracy
 				traits = {
@@ -2334,6 +2392,10 @@ unit_leader_event = {
 		set_politics = {
 			ruling_party = fascism
 			elections_allowed = no
+		}
+		hidden_effect = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = FRA_orlean_system
 		}
 		add_country_leader_role = {
 			character = FRA_jeanne_d_arc_alter
@@ -2359,6 +2421,21 @@ unit_leader_event = {
 			defense_skill = 4
 			planning_skill = 2
 			logistics_skill = 3
+		}
+		add_field_marshal_role = {
+			character = FRA_marie_antoinette_habsbourg_alter
+			traits = {
+				group_commander
+				cavalry_officer
+				politically_connected
+				defensive_doctrine
+				inspirational_leader
+			}
+			skill = 5
+			attack_skill = 3
+			defense_skill = 5
+			planning_skill = 3
+			logistics_skill = 5
 		}
 		add_field_marshal_role = {
 			character = FRA_jeanne_d_arc_alter
@@ -2487,8 +2564,8 @@ unit_leader_event = {
 		}
 		set_country_flag = FRA_politics_stabilized_flag
 		complete_national_focus = FRA_the_path_of_avenger
-		activate_advisor = FRA_francesca_prelati_special_first
-		whiteline = yes
+		##activate_advisor = FRA_francesca_prelati_special_first
+		##whiteline = yes
 		activate_advisor = FRA_gilles_de_rais_alter_special_second
 		whiteline = yes
 		activate_advisor = FRA_dahut_ahes_special_third
@@ -3116,7 +3193,7 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = fra_for.14
-	title = fra_for.14.t
+	title = fra_for.14.title
 	desc = fra_for.14.desc
 	picture = GFX_report_event_merchant_ship_01
 	is_triggered_only = yes

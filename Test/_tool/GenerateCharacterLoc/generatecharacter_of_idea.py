@@ -11,7 +11,7 @@ output3 = os.path.join(folder_path1, 'generatecharacterhistory.txt')
 files = os.listdir(folder_path)
 # 要删除的特定前缀和后缀
 prefix_to_remove = "idea_"
-suffix_to_remove = ".png"  # 你想要删除的后缀，例如 ".txt"
+suffix_to_remove = ".tga"  # 你想要删除的后缀，例如 ".txt"
 # 处理文件名并存入集合
 files_set = set()
 for file_name in files:

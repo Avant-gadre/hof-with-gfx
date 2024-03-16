@@ -563,166 +563,59 @@ FRA_military_operation_category = {
 }
 
 FRA_invite_western_world_investment_category = {
-	FRA_invite_donations_USA = {
+	FRA_invite_donations_decision = {
 		icon = ger_mefo_bills
 		available = {
-			has_war = no
-		}
-		visible = {
 			has_completed_focus = FRA_Invite_Western_world_Investment
 			has_war = no
 			NOT = {
-				has_government = communism
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = USA
-				exists = yes
-				has_war = no
-				has_government = democratic
-			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 25
-		}
-		days_re_enable = 45
-		complete_effect = {
-			FROM = {
-				country_event = fra_foreign_support.1
-			}
-		}
-	}
-	FRA_invite_donations_SWI = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
-		}
-		visible = {
-			has_completed_focus = FRA_Invite_Western_world_Investment
-			has_war = no
-			NOT = {
-				has_government = communism
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = SWI
-				exists = yes
-				has_war = no
-				has_government = democratic
-			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 25
-		}
-		days_re_enable = 45
-		complete_effect = {
-			FROM = {
-				country_event = fra_foreign_support.1
-			}
-		}
-	}
-	FRA_invite_donations_ENG = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
-		}
-		visible = {
-			has_completed_focus = FRA_Invite_Western_world_Investment
-			has_war = no
-			NOT = {
-				has_government = communism
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = ENG
-				exists = yes
-				has_war = no
-				OR = {
-					has_government = neutrality
-					has_government = democratic
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
 				}
 			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 25
-		}
-		days_re_enable = 45
-		complete_effect = {
 			FROM = {
-				country_event = fra_foreign_support.1
+				exists = yes
+				has_war = no
 			}
-		}
-	}
-	FRA_invite_donations_POL = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
 		}
 		visible = {
 			has_completed_focus = FRA_Invite_Western_world_Investment
 			has_war = no
 			NOT = {
-				has_government = communism
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = POL
-				exists = yes
-				has_war = no
-				OR = {
-					has_government = neutrality
-					has_government = democratic
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
 				}
 			}
-		}
-		fire_only_once = yes
-		cost = 10
-		ai_will_do = {
-			factor = 25
-		}
-		days_re_enable = 45
-		complete_effect = {
 			FROM = {
-				country_event = fra_foreign_support.1
+				exists = yes
+				has_war = no
 			}
 		}
-	}
-	FRA_invite_donations_SOV = {
-		icon = ger_mefo_bills
-		available = {
-			has_war = no
-		}
-		visible = {
-			has_completed_focus = FRA_Invite_Western_world_Investment
-			has_war = no
-			NOT = {
-				has_government = communism
+		on_map_mode = map_and_decisions_view
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM.capital
 			}
 		}
 		target_trigger = {
 			FROM = {
-				tag = SOV
+				OR = {
+					tag = USA
+					tag = SWI
+					tag = ENG
+					tag = SOV
+					tag = POL
+					tag = SWE
+				}
 				exists = yes
 				has_war = no
-				has_government = neutrality
 			}
 		}
 		fire_only_once = yes
-		cost = 10
+		cost = 50
 		ai_will_do = {
 			factor = 25
 		}
-		days_re_enable = 45
 		complete_effect = {
 			FROM = {
 				country_event = fra_foreign_support.1
@@ -732,11 +625,66 @@ FRA_invite_western_world_investment_category = {
 }
 
 FRA_build_metropole_project_category = {
+	FRA_build_dams_in_savoy = {
+		icon = wrenches
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM
+			}
+		}
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				OR = {
+					state = 943
+					state = 735
+				}
+			}
+		}
+		available = {
+			FROM = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 4
+		}
+		visible = {
+			FROM = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			FROM = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	##
 	FRA_rebuild_loire_valley_dams = {
-		icon = electrify
+		icon = cement
 		highlight_states = {
 			highlight_state_targets = {
 				state = 33
+				state = 30
 			}
 		}
 		available = {
@@ -752,7 +700,7 @@ FRA_build_metropole_project_category = {
 					is_core_of = FRA
 				}
 			}
-			num_of_civilian_factories_available_for_projects > 4
+			num_of_civilian_factories_available_for_projects > 9
 			controls_state = 30
 			controls_state = 33
 		}
@@ -773,16 +721,17 @@ FRA_build_metropole_project_category = {
 			owns_state = 33
 		}
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		fire_only_once = yes
-		cost = 35
+		cost = 100
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
 		}
 		remove_effect = {
 			33 = {
+				upgrade_industrial_region = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -796,6 +745,7 @@ FRA_build_metropole_project_category = {
 				}
 			}
 			30 = {
+				upgrade_industrial_region = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
@@ -805,6 +755,7 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
+	##
 	FRA_revive_la_rochelle = {
 		icon = generic_construction
 		highlight_states = {
@@ -835,7 +786,7 @@ FRA_build_metropole_project_category = {
 			civilian_factory_use = 5
 		}
 		fire_only_once = yes
-		cost = 30
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
@@ -863,8 +814,9 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
+	##
 	FRA_refit_caen_naval_base = {
-		icon = generic_scorched_earth
+		icon = merge_plant_ship
 		highlight_states = {
 			highlight_state_targets = {
 				state = 15
@@ -877,7 +829,7 @@ FRA_build_metropole_project_category = {
 					is_core_of = FRA
 				}
 			}
-			num_of_civilian_factories_available_for_projects > 4
+			num_of_civilian_factories_available_for_projects > 9
 			controls_state = 15
 		}
 		visible = {
@@ -890,16 +842,17 @@ FRA_build_metropole_project_category = {
 			owns_state = 15
 		}
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		fire_only_once = yes
-		cost = 20
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
 		}
 		remove_effect = {
 			15 = {
+				upgrade_industrial_region = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -920,6 +873,7 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
+	##
 	FRA_renovate_champagne = {
 		icon = generic_operation
 		highlight_states = {
@@ -950,7 +904,7 @@ FRA_build_metropole_project_category = {
 			civilian_factory_use = 5
 		}
 		fire_only_once = yes
-		cost = 30
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
@@ -966,8 +920,56 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
+	##
+	FRA_expand_military_industry_in_provence = {
+		icon = ger_military_buildup
+		highlight_states = {
+			highlight_state_targets = {
+				state = 21
+			}
+		}
+		available = {
+			21 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			controls_state = 21
+		}
+		visible = {
+			21 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 21
+		}
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			21 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
 	FRA_renovate_marseille = {
-		icon = generic_operation
+		icon = merge_plant_ship
 		highlight_states = {
 			highlight_state_targets = {
 				state = 21
@@ -996,7 +998,7 @@ FRA_build_metropole_project_category = {
 			civilian_factory_use = 5
 		}
 		fire_only_once = yes
-		cost = 30
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
@@ -1024,8 +1026,9 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
+	##
 	FRA_light_up_lyon = {
-		icon = electrify
+		icon = goods
 		highlight_states = {
 			highlight_state_targets = {
 				state = 20
@@ -1038,7 +1041,7 @@ FRA_build_metropole_project_category = {
 					is_core_of = FRA
 				}
 			}
-			num_of_civilian_factories_available_for_projects > 4
+			num_of_civilian_factories_available_for_projects > 5
 			controls_state = 20
 		}
 		visible = {
@@ -1051,10 +1054,10 @@ FRA_build_metropole_project_category = {
 			owns_state = 20
 		}
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 6
 		}
 		fire_only_once = yes
-		cost = 30
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
@@ -1076,6 +1079,54 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
+	FRA_expand_military_in_lyonnais = {
+		icon = ger_military_buildup
+		highlight_states = {
+			highlight_state_targets = {
+				state = 20
+			}
+		}
+		available = {
+			20 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			controls_state = 20
+		}
+		visible = {
+			20 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 20
+		}
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			20 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	##
 	FRA_expand_civilian_industry_in_amiens = {
 		icon = generic_construction
 		highlight_states = {
@@ -1106,13 +1157,14 @@ FRA_build_metropole_project_category = {
 			civilian_factory_use = 3
 		}
 		fire_only_once = yes
-		cost = 25
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
 		}
 		remove_effect = {
 			24 = {
+				increase_state_category = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -1152,13 +1204,14 @@ FRA_build_metropole_project_category = {
 			civilian_factory_use = 3
 		}
 		fire_only_once = yes
-		cost = 25
+		cost = 100
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
 		}
 		remove_effect = {
 			17 = {
+				upgrade_industrial_region = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
@@ -1168,11 +1221,13 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
+	##
 	FRA_expand_industry_in_burgundy = {
 		icon = generic_scorched_earth
 		highlight_states = {
 			highlight_state_targets = {
 				state = 27
+				state = 785
 			}
 		}
 		available = {
@@ -1188,7 +1243,7 @@ FRA_build_metropole_project_category = {
 					is_core_of = FRA
 				}
 			}
-			num_of_civilian_factories_available_for_projects > 4
+			num_of_civilian_factories_available_for_projects > 9
 			controls_state = 27
 			controls_state = 785
 		}
@@ -1209,16 +1264,17 @@ FRA_build_metropole_project_category = {
 			owns_state = 785
 		}
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		fire_only_once = yes
-		cost = 35
+		cost = 100
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
 		}
 		remove_effect = {
 			27 = {
+				increase_state_category = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -1232,6 +1288,7 @@ FRA_build_metropole_project_category = {
 				}
 			}
 			785 = {
+				increase_state_category = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
@@ -1241,54 +1298,9 @@ FRA_build_metropole_project_category = {
 			}
 		}
 	}
-	FRA_expand_military_industry_in_provence = {
-		icon = ger_military_buildup
-		highlight_states = {
-			highlight_state_targets = {
-				state = 21
-			}
-		}
-		available = {
-			21 = {
-				OR = {
-					compliance > 60
-					is_core_of = FRA
-				}
-			}
-			num_of_civilian_factories_available_for_projects > 2
-			controls_state = 21
-		}
-		visible = {
-			21 = {
-				OR = {
-					compliance > 30
-					is_core_of = FRA
-				}
-			}
-			owns_state = 21
-		}
-		modifier = {
-			civilian_factory_use = 3
-		}
-		fire_only_once = yes
-		cost = 25
-		days_remove = 90
-		ai_will_do = {
-			factor = 50
-		}
-		remove_effect = {
-			21 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
+	##
 	FRA_expand_civilian_industry_in_bordeaux = {
-		icon = generic_construction
+		icon = industry
 		highlight_states = {
 			highlight_state_targets = {
 				state = 19
@@ -1301,7 +1313,7 @@ FRA_build_metropole_project_category = {
 					is_core_of = FRA
 				}
 			}
-			num_of_civilian_factories_available_for_projects > 2
+			num_of_civilian_factories_available_for_projects > 5
 			controls_state = 19
 		}
 		visible = {
@@ -1314,16 +1326,17 @@ FRA_build_metropole_project_category = {
 			owns_state = 19
 		}
 		modifier = {
-			civilian_factory_use = 3
+			civilian_factory_use = 6
 		}
 		fire_only_once = yes
-		cost = 25
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
 		}
 		remove_effect = {
 			19 = {
+				increase_state_category = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -1334,7 +1347,7 @@ FRA_build_metropole_project_category = {
 		}
 	}
 	FRA_expand_military_industry_in_bordeaux = {
-		icon = ger_military_buildup
+		icon = merge_plant_tank
 		highlight_states = {
 			highlight_state_targets = {
 				state = 19
@@ -1347,7 +1360,7 @@ FRA_build_metropole_project_category = {
 					is_core_of = FRA
 				}
 			}
-			num_of_civilian_factories_available_for_projects > 2
+			num_of_civilian_factories_available_for_projects > 5
 			controls_state = 19
 		}
 		visible = {
@@ -1360,62 +1373,17 @@ FRA_build_metropole_project_category = {
 			owns_state = 19
 		}
 		modifier = {
-			civilian_factory_use = 3
+			civilian_factory_use = 6
 		}
 		fire_only_once = yes
-		cost = 25
+		cost = 50
 		days_remove = 90
 		ai_will_do = {
 			factor = 50
 		}
 		remove_effect = {
 			19 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
-	FRA_expand_military_in_lyonnais = {
-		icon = ger_military_buildup
-		highlight_states = {
-			highlight_state_targets = {
-				state = 20
-			}
-		}
-		available = {
-			20 = {
-				OR = {
-					compliance > 60
-					is_core_of = FRA
-				}
-			}
-			num_of_civilian_factories_available_for_projects > 2
-			controls_state = 20
-		}
-		visible = {
-			20 = {
-				OR = {
-					compliance > 30
-					is_core_of = FRA
-				}
-			}
-			owns_state = 20
-		}
-		modifier = {
-			civilian_factory_use = 3
-		}
-		fire_only_once = yes
-		cost = 25
-		days_remove = 90
-		ai_will_do = {
-			factor = 50
-		}
-		remove_effect = {
-			20 = {
+				upgrade_industrial_region = yes
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
@@ -2445,33 +2413,26 @@ FRA_final_war_plan_category = {
 				tag = ITA
 			}
 		}
-		allowed = {
-		}
 		available = {
 			has_completed_focus = FRA_Let_this_world_burn
-			NOT = {
-				has_idea = ITA_warwarwar
-			}
 		}
 		visible = {
 			is_subject = no
 			has_completed_focus = FRA_Let_this_world_burn
-			tag = FRA
-			ITA = {
+			can_declare_war_on = FROM
+			FROM = {
 				exists = yes
 				NOT = {
-					is_in_faction_with = FRA
-				}
-				NOT = {
-					has_war_with = FRA
+					is_in_faction_with = ROOT
+					has_war_with = ROOT
 				}
 			}
 			FROM = {
 				any_neighbor_country = {
 					OR = {
-						is_subject_of = FRA
-						is_in_faction_with = FRA
-						tag = FRA
+						tag = ROOT
+						is_subject_of = ROOT
+						is_in_faction_with = ROOT
 					}
 				}
 			}
@@ -2480,25 +2441,12 @@ FRA_final_war_plan_category = {
 		days_remove = 60
 		cost = 50
 		complete_effect = {
-			hidden_effect = {
-				ITA = {
-					country_event = {
-						id = lr_france.61
-						days = 2
-					}
-				}
-			}
-			set_country_flag = FRA_jingong_ITA
-			add_timed_idea = {
-				idea = ITA_warwarwar
-				days = 60
-			}
 		}
 		remove_effect = {
-			FRA = {
+			ROOT = {
 				declare_war_on = {
 					type = annex_everything
-					target = ITA
+					target = FROM
 				}
 			}
 		}
@@ -2528,5 +2476,15 @@ FRA_final_war_plan_category = {
 				}
 			}
 		}
+	}
+	FRA_Both_lowlands_and_highlands_will_burn = {
+	}
+	FRA_last_revenge = {
+	}
+	FRA_Iberian_Fire = {
+	}
+	FRA_Solve_the_fuel_problem = {
+	}
+	FRA_east_Fire = {
 	}
 }

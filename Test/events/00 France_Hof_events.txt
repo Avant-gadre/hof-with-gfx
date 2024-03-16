@@ -136,7 +136,6 @@ country_event = {
 			}
 		}
 		add_ideas = FRA_support_la_pucelle
-		add_ideas = FRA_Marie_Antoinette
 		hidden_effect = {
 			news_event = {
 				hours = 6
@@ -159,11 +158,6 @@ country_event = {
 				}
 			}
 			promote_leader = yes
-		}
-		set_party_name = {
-			ideology = democratic
-			long_name = FRA_democratic_party_lapucelle_long
-			name = FRA_democratic_party_lapucelle
 		}
 		complete_national_focus = FRA_stablize_status_quo
 	}
@@ -398,11 +392,6 @@ country_event = {
 				}
 			}
 		}
-		set_party_name = {
-			ideology = communism
-			long_name = FRA_communism_party_lapucelle_long
-			name = FRA_communism_party_lapucelle
-		}
 		FRA_path_flag_clear_all_effect = yes
 		set_country_flag = French_commune
 		set_country_flag = FRA_the_monarchy_end_flag
@@ -621,11 +610,6 @@ country_event = {
 			}
 		}
 		set_cosmetic_tag = FRA_THIRD_EMPIRE
-		set_party_name = {
-			ideology = neutrality
-			long_name = FRA_bonepartist_party_long
-			name = FRA_bonepartist_party
-		}
 		hidden_effect = {
 			news_event = {
 				id = lr_france_news.8
@@ -734,19 +718,11 @@ country_event = {
 			ruling_party = neutrality
 			elections_allowed = no
 		}
-		set_party_name = {
-			ideology = neutrality
-			long_name = FRA_bonepartist_party_long
-			name = FRA_bonepartist_party
-		}
 		FRA_napoleon_bonaparte = {
 			add_country_leader_role = {
 				promote_leader = yes
 				country_leader = {
 					ideology = stratocracy
-					traits = {
-						emperor
-					}
 				}
 			}
 		}
@@ -778,11 +754,6 @@ country_event = {
 			ruling_party = neutrality
 			elections_allowed = no
 		}
-		set_party_name = {
-			ideology = neutrality
-			long_name = FRA_charlemagne_party_long
-			name = FRA_charlemagne_party
-		}
 		FRA_charlemagne_carolingian = {
 			add_country_leader_role = {
 				promote_leader = yes
@@ -791,7 +762,6 @@ country_event = {
 				}
 			}
 		}
-		FRA_civil_war_south = yes
 		hidden_effect = {
 			BEL = {
 				country_event = {
@@ -984,7 +954,6 @@ country_event = {
 		}
 		release = ALG
 		ALG = {
-			FRA_add_template_algeria = yes
 			declare_war_on = {
 				target = ROOT
 				type = annex_everything
@@ -1007,7 +976,6 @@ country_event = {
 		ai_chance = {
 			base = 85
 		}
-		FRA_french_civil_war_alter = yes
 	}
 }
 
@@ -1854,9 +1822,6 @@ country_event = {
 			FRA_semi_restoration_idea
 			FRA_Economic_crisis_idea
 		}
-		hidden_effect = {
-			FRA_civil_war_alter_effect = yes
-		}
 		news_event = {
 			hours = 6
 			id = jd_news.17
@@ -1874,9 +1839,7 @@ country_event = {
 	option = {
 		name = lr_france.29.a
 		trigger = {
-			FRA = {
-				controls_state = 26
-			}
+			always = no
 		}
 		ai_chance = {
 			base = 50
@@ -1888,7 +1851,7 @@ country_event = {
 			}
 		}
 	}
-	# Faster！
+	##Faster！
 	option = {
 		name = lr_france.29.b
 		ai_chance = {
@@ -1974,12 +1937,6 @@ country_event = {
 		}
 		add_political_power = -50
 		add_war_support = -0.05
-		FRA = {
-			country_event = {
-				id = lr_france.33
-				days = 1
-			}
-		}
 	}
 }
 
@@ -1995,11 +1952,12 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
-		set_country_flag = our_fast
 		add_political_power = 50
+		whiteline = yes
+		activate_advisor = FRA_francesca_prelati_special_first
+		whiteline = yes
 		add_corps_commander_role = {
 			character = FRA_francesca_prelati
-			legacy_id = 900
 			traits = {
 				politically_connected
 				media_personality
@@ -4985,16 +4943,8 @@ country_event = {
 	picture = GFX_report_event_gathering_protest
 	fire_only_once = yes
 	trigger = {
-		has_global_flag = FRA_Economic_crisis_flag
 		tag = FRA
-		FRA = {
-			NOT = {
-				has_government = communism
-			}
-			NOT = {
-				has_government = fascism
-			}
-		}
+		has_global_flag = FRA_Economic_crisis_flag
 	}
 	mean_time_to_happen = {
 		days = 15
@@ -5003,9 +4953,6 @@ country_event = {
 		name = france.913.a
 		FRA = {
 			add_ideas = FRA_Anti_royal_family_idea
-		}
-		hidden_effect = {
-			set_global_flag = FRA_Anti_royal_family_flag
 		}
 	}
 }
@@ -5018,17 +4965,9 @@ country_event = {
 	picture = GFX_report_event_pact_jdfire
 	fire_only_once = yes
 	trigger = {
-		has_global_flag = FRA_Economic_recovery_flag
 		tag = FRA
+		FRA_economic_crisis_end_trigger = yes
 		has_idea = FRA_Anti_royal_family_idea
-		FRA = {
-			NOT = {
-				has_government = communism
-			}
-			NOT = {
-				has_government = fascism
-			}
-		}
 	}
 	mean_time_to_happen = {
 		days = 15
@@ -5037,74 +4976,6 @@ country_event = {
 		name = france.914.a
 		FRA = {
 			remove_ideas = FRA_Anti_royal_family_idea
-		}
-		hidden_effect = {
-			set_global_flag = FRA_not_Anti_royal_family_flag
-		}
-	}
-}
-
-country_event = {
-	#殖民地之血
-	id = france.391
-	title = france.391.t
-	desc = france.391.d
-	picture = GFX_report_event_french_resistance_02
-	is_triggered_only = yes
-	option = {
-		name = france.391.a
-		FRA = {
-			add_ideas = Colonial_economy_idea
-		}
-	}
-	option = {
-		name = france.391.b
-		FRA = {
-			add_ideas = Colonial_conscription_idea
-		}
-	}
-	option = {
-		name = france.391.c
-		FRA = {
-			458 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = arms_factory
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
-			460 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = arms_factory
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
-			459 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = arms_factory
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
 		}
 	}
 }
@@ -5119,6 +4990,9 @@ country_event = {
 	option = {
 		name = france.920.a
 		add_political_power = -100
+		ai_chance = {
+			base = 10
+		}
 		FRA_pending_reduce_event_effect = yes
 		hidden_effect = {
 			news_event = {
@@ -5130,6 +5004,9 @@ country_event = {
 	option = {
 		name = france.920.b
 		add_political_power = -200
+		ai_chance = {
+			base = 20
+		}
 		FRA_reduce_black_monday_effect = yes
 		hidden_effect = {
 			news_event = {
@@ -5140,6 +5017,9 @@ country_event = {
 	}
 	option = {
 		name = france.920.c
+		ai_chance = {
+			base = 30
+		}
 		add_political_power = -300
 		FRA_reduce_black_monday_effect = yes
 		FRA_reduce_black_monday_effect = yes

@@ -1,6 +1,44 @@
 ideas = {
 	country = {
 		############### New ideas start here
+		JAP_Absolute_Defense_Circle = {
+			picture = YUG_federal_defense_council
+			allowed = {
+				original_tag = JAP
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			cancel = {
+				OR = {
+					is_subject = yes
+					#has_navy_size = {
+					#size < 50
+					#}
+					has_navy_size = {
+						unit = destroyer
+						size < 30
+					}
+					AND = {
+						NOT = { has_full_control_of_state = 645 }
+						NOT = { has_full_control_of_state = 646 }
+						NOT = { has_full_control_of_state = 684 }
+					}
+				}
+			}
+			on_remove = {
+				add_stability = -0.05
+				add_war_support = -0.05
+			}
+			removal_cost = -1
+			modifier = {
+				army_core_attack_factor = 0.2
+				army_core_defence_factor = 0.2
+
+				convoy_escort_efficiency = 0.1
+			}
+		}
 		JAP_Operation_Ketsugou = {
 			available = {
 				has_war = yes
@@ -26,7 +64,10 @@ ideas = {
 				#naval_strike_attack_factor = 0.1
 				#naval_strike_targetting_factor = 0.1
 				conscription_factor = 0.2
+				minimum_training_level = -0.2
 				surrender_limit = 0.05
+
+				experience_loss_factor = 0.2
 			}
 
 			equipment_bonus = {
