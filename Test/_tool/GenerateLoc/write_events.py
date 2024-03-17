@@ -27,14 +27,7 @@ country_event = {{
 	option = {{
 		name = {target}.{0}.b
 		trigger = {{
-		}}
-		ai_chance = {{
-			base = 1
-		}}
-	}}
-	option = {{
-		name = {target}.{0}.c
-		trigger = {{
+            always = no
 		}}
 		ai_chance = {{
 			base = 1
@@ -42,6 +35,15 @@ country_event = {{
 	}}
 }}
 """
+
+	# option = {{
+	# 	name = {target}.{0}.c
+	# 	trigger = {{
+	# 	}}
+	# 	ai_chance = {{
+	# 		base = 1
+	# 	}}
+	# }}
 
 statement_template1 = """
 news_event = {{
@@ -80,9 +82,9 @@ news_event = {{
 """
 
 
-target = "fra_core"
+target = "fra_alter"
 
 with open(output_full_path, "w") as file:
-    for i in range(20, 30):
-        current_statement = statement_template1.format(i,target=target)
+    for i in range(1, 15):
+        current_statement = statement_template.format(i,target=target)
         file.write(current_statement)

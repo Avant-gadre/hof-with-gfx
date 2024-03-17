@@ -8,18 +8,6 @@ ideas = {
 				stability_factor = 0.05
 			}
 		}
-		FRA_dirigisme_idea = {
-			picture = generic_central_management
-			modifier = {
-				industrial_capacity_factory = 0.05
-			}
-		}
-		FRA_agricultural_collectivization_idea = {
-			picture = generic_agrarian_reform
-			modifier = {
-				conscription_factor = 0.15
-			}
-		}
 	}
 	##Collectivization
 	country = {
@@ -74,7 +62,7 @@ ideas = {
 			}
 		}
 	}
-	##Crisis
+	##Crisis-and react
 	country = {
 		FRA_black_monday_1 = {
 			on_add = {
@@ -190,9 +178,6 @@ ideas = {
 				consumer_goods_factor = 1
 			}
 		}
-	}
-	##Crisis-and react
-	country = {
 		FRA_full_employment_1_idea = {
 			name = FRA_full_employment_idea
 			picture = generic_booming_economy
@@ -279,6 +264,24 @@ ideas = {
 				industrial_capacity_dockyard = -0.2
 				stability_factor = -0.1
 				war_support_factor = -0.1
+			}
+		}
+		##To Other Country
+		FRA_Economic_crisis_influence_idea = {
+			#市场崩溃的影响
+			available = {
+				NOT = {
+					has_government = fascism
+					has_government = communism
+				}
+			}
+			picture = chi_hyper_inflation3
+			modifier = {
+				stability_factor = -0.15
+				production_speed_buildings_factor = -0.15
+				industrial_capacity_factory = -0.15
+				industrial_capacity_dockyard = -0.15
+				consumer_goods_factor = 0.3
 			}
 		}
 	}
@@ -878,16 +881,10 @@ ideas = {
 				OR = {
 					NOT = {
 						controls_state = 28
-					}
-					NOT = {
 						controls_state = 16
 					}
-					FRA = {
-						has_capitulated = yes
-					}
-					FRA = {
-						is_subject = yes
-					}
+					has_capitulated = yes
+					is_subject = yes
 				}
 			}
 			on_remove = {
@@ -1150,6 +1147,7 @@ ideas = {
 	}
 	##Alter
 	country = {
+		##Start
 		FRA_dragon_witch_activity_idea = {
 			picture = fra_witchactive2
 			modifier = {
@@ -1157,87 +1155,194 @@ ideas = {
 				fascism_drift = 0.05
 			}
 		}
-		FRA_Sanguang_Policy_idea = {
-			available = {
-				has_civil_war = yes
-			}
+		##
+		FRA_dragon_witch_activity_1_idea = {
+			name = FRA_war_of_dragons
 			picture = fra_witchactive2
 			modifier = {
-				stability_weekly = -0.02
-				fascism_drift = 0.1
-				industrial_capacity_factory = 0.25
-				army_core_attack_factor = 0.35
-				army_core_defence_factor = 0.35
-			}
-		}
-		FRA_support_dragon_witch_idea = {
-			picture = generic_fascism_drift_bonus
-			modifier = {
-				fascism_drift = 0.18
-				stability_weekly = -0.005
-			}
-		}
-		FRA_la_grondement_du_haine_idea = {
-			picture = chi_war_of_resistance3
-			modifier = {
+				stability_weekly = -0.001
 				fascism_drift = 0.05
-				army_attack_factor = 0.1
-				conscription = 0.05
-				army_morale_factor = 0.25
+				intelligence_agency_defense = 0.5
+				foreign_subversive_activites = -0.5
 			}
 		}
-		FRA_Meurs_Ou_tu_Dois_idea = {
-			picture = FRA_scw_intervention_nationalists_focus
+		##Left Branch 2-3-4
+		FRA_dragon_witch_activity_2_idea = {
+			name = FRA_la_grondement_du_haine
+			picture = fra_witchactive2
 			modifier = {
-				offensive_war_stability_factor = 0.3
-				surrender_limit = 0.15
-				mobilization_speed = 0.25
+				party_popularity_stability_factor = 0.1
+				stability_weekly = 0.001
+			}
+		}
+		FRA_dragon_witch_activity_3_idea = {
+			name = FRA_la_grondement_du_haine
+			picture = fra_witchactive2
+			modifier = {
+				party_popularity_stability_factor = 0.1
+				stability_weekly = 0.001
+				army_attack_factor = 0.1
+				conscription = 0.03
+				army_morale_factor = 0.1
+			}
+		}
+		FRA_dragon_witch_activity_4_idea = {
+			name = FRA_la_grondement_du_haine
+			picture = fra_witchactive2
+			modifier = {
+				party_popularity_stability_factor = 0.1
+				stability_weekly = 0.001
+				army_attack_factor = 0.1
+				conscription = 0.03
+				army_morale_factor = 0.1
+				war_support_factor = 0.1
+				mobilization_laws_cost_factor = -0.1
+			}
+		}
+		##Center 5-6-7
+		FRA_dragon_witch_activity_5_idea = {
+			name = FRA_Tiffauges_model
+			picture = fra_witchactive2
+			modifier = {
+				monthly_population = 0.2
+				recruitable_population_factor = -0.1
+				consumer_goods_factor = 0.1
+			}
+		}
+		FRA_dragon_witch_activity_6_idea = {
+			name = FRA_Tiffauges_model
+			picture = fra_witchactive2
+			modifier = {
+				monthly_population = 0.2
+				recruitable_population_factor = -0.1
+				consumer_goods_factor = 0.1
+				stability_weekly = 0.001
+				resistance_damage_to_garrison = -0.3
+			}
+		}
+		FRA_dragon_witch_activity_7_idea = {
+			name = FRA_Tiffauges_model
+			picture = fra_witchactive2
+			modifier = {
+				monthly_population = 0.2
+				recruitable_population_factor = -0.1
+				consumer_goods_factor = 0.1
+				stability_weekly = 0.001
+				resistance_damage_to_garrison = -0.3
+				production_speed_buildings_factor = 0.1
+				industry_air_damage_factor = 0.2
+			}
+		}
+		##Right 8-9-10
+		FRA_dragon_witch_activity_8_idea = {
+			name = FRA_faster
+			picture = fra_witchactive2
+			modifier = {
+				master_ideology_drift = 0.2
+				democratic_drift = -0.05
+				communism_drift = -0.06
+				neutrality_drift = -0.04
+			}
+		}
+		FRA_dragon_witch_activity_9_idea = {
+			name = FRA_faster
+			picture = fra_witchactive2
+			modifier = {
+				master_ideology_drift = 0.2
+				democratic_drift = -0.05
+				communism_drift = -0.06
+				neutrality_drift = -0.04
+				political_power_gain = 0.1
+				political_advisor_cost_factor = -0.1
+			}
+		}
+		FRA_dragon_witch_activity_10_idea = {
+			name = FRA_faster
+			picture = fra_witchactive2
+			modifier = {
+				master_ideology_drift = 0.2
+				democratic_drift = -0.05
+				communism_drift = -0.06
+				neutrality_drift = -0.04
+				political_power_gain = 0.1
+				political_advisor_cost_factor = -0.1
+				research_speed_factor = 0.1
+				military_industrial_organization_funds_gain = 0.1
+			}
+		}
+		##11 Merge		
+		FRA_dragon_witch_activity_11_idea = {
+			name = FRA_la_grondement_du_haine
+			picture = fra_witchactive2
+			modifier = {
+				master_ideology_drift = 0.2
+				democratic_drift = -0.05
+				communism_drift = -0.06
+				neutrality_drift = -0.04
+				political_power_gain = 0.1
+				political_advisor_cost_factor = -0.1
+				research_speed_factor = 0.1
+				military_industrial_organization_funds_gain = 0.1
+				monthly_population = 0.2
+				recruitable_population_factor = -0.1
+				consumer_goods_factor = 0.1
+				stability_weekly = 0.002
+				resistance_damage_to_garrison = -0.3
+				production_speed_buildings_factor = 0.1
+				industry_air_damage_factor = 0.2
+				party_popularity_stability_factor = 0.1
+				army_attack_factor = 0.1
+				conscription = 0.03
+				army_morale_factor = 0.1
+				war_support_factor = 0.1
+				mobilization_laws_cost_factor = -0.1
+			}
+		}
+		FRA_dragon_witch_activity_12_idea = {
+			name = FRA_la_grondement_du_haine
+			picture = fra_witchactive2
+			modifier = {
+				master_ideology_drift = 0.2
+				democratic_drift = -0.05
+				communism_drift = -0.06
+				neutrality_drift = -0.04
+				political_power_gain = 0.1
+				political_advisor_cost_factor = -0.1
+				research_speed_factor = 0.1
+				military_industrial_organization_funds_gain = 0.1
+				monthly_population = 0.2
+				recruitable_population_factor = -0.1
+				consumer_goods_factor = 0.1
+				stability_weekly = 0.002
+				resistance_damage_to_garrison = -0.3
+				production_speed_buildings_factor = 0.1
+				industry_air_damage_factor = 0.2
+				party_popularity_stability_factor = 0.1
+				army_attack_factor = 0.1
+				conscription = 0.03
+				army_morale_factor = 0.1
+				war_support_factor = 0.1
+				mobilization_laws_cost_factor = -0.1
+				offensive_war_stability_factor = 0.2
+				surrender_limit = 0.2
+				mobilization_speed = 0.2
 				training_time_factor = -0.2
 			}
 		}
-		FRA_Japanese_militarism_idea = {
-			picture = warrior_traditions_idea
+		##
+		FRA_down_with_marianne_idea = {
+			name = FRA_down_with_marianne
+			picture = FRA_down_marianne
 			modifier = {
-				conscription = 0.03
-				war_support_factor = 0.25
-				mobilization_laws_cost_factor = -0.25
-				justify_war_goal_time = -0.3
+				war_support_weekly = 0.002
+				democratic_drift = -0.02
 			}
 		}
-		FRA_destory_vatican_idea = {
-			picture = chi_war_of_resistance3
+	}
+	country = {
+		FRA_dummy = {
 			modifier = {
-				stability_weekly = 0.005
-				fascism_drift = 0.1
-				war_support_factor = 0.2
-			}
-		}
-		FRA_pierce_siegfried_idea = {
-			picture = generic_fascism_drift_bonus
-			targeted_modifier = {
-				tag = GER
-				attack_bonus_against = 0.2
-			}
-		}
-		FRA_mobile_assaultive_idea = {
-			picture = chi_wargaming_division
-			modifier = {
-				motorized_attack_factor = 0.15
-				motorized_defence_factor = 0.15
-				mechanized_attack_factor = 0.1
-				mechanized_defence_factor = 0.1
-			}
-		}
-		FRA_support_the_right_focus = {
-			picture = generic_fascism_drift_bonus
-			modifier = {
-				fascism_drift = 0.2
-			}
-		}
-		FRA_communism_banned = {
-			picture = anti_soviet_pact
-			modifier = {
-				communism_drift = -0.05
+				
 			}
 		}
 	}
