@@ -1,3 +1,4 @@
+##Local Autonomy
 FRA_muslim_local_autonomy_modifier = {
 	icon = GFX_modifiers_raj_marginalized_muslim_community_happy
 	enable = {
@@ -77,9 +78,31 @@ FRA_local_autonomy_modifier = {
 	compliance_gain = 0.01
 }
 
-##
+##Alter
+FRA_resistance_modifier = {
+	icon = GFX_modifiers_looting_resistance
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		OR = {
+			FRA = {
+				has_capitulated = yes
+				is_subject = yes
+			}
+		}
+	}
+	resistance_decay = -0.2
+	resistance_target = 0.2
+	resistance_damage_to_garrison = -0.5
+	local_manpower = -0.2
+	local_resources_factor = -0.2
+	local_building_slots_factor = -0.2
+	state_production_speed_buildings_factor = -0.2
+}
+
 FRA_build_castle_modifier = {
-	icon = GFX_idea_fra_witchactive2
+	icon = GFX_modifiers_fin_weapon_caches
 	enable = {
 		always = yes
 	}
@@ -103,7 +126,7 @@ FRA_build_castle_modifier = {
 }
 
 FRA_meurs_ou_tu_dois_modifier = {
-	icon = GFX_idea_fra_witchactive2
+	icon = GFX_modifiers_generic_fascist_corporatism
 	enable = {
 		always = yes
 	}
@@ -133,9 +156,9 @@ FRA_meurs_ou_tu_dois_modifier = {
 	army_attack_factor = 0.05
 }
 
-##圣母院
 FRA_reshape_notre_dame_modifier = {
-	icon = GFX_idea_fra_witchactive2
+	##圣母院
+	icon = GFX_modifiers_nor_monarchism
 	enable = {
 		always = yes
 	}
@@ -157,9 +180,9 @@ FRA_reshape_notre_dame_modifier = {
 	army_attack_factor = 0.1
 }
 
-##监狱塔
 FRA_reshape_prison_tower_modifier = {
-	icon = GFX_idea_fra_witchactive2
+	##监狱塔
+	icon = GFX_modifiers_riaportu_cloudtower_icon
 	enable = {
 		always = yes
 	}
@@ -181,8 +204,8 @@ FRA_reshape_prison_tower_modifier = {
 	army_attack_factor = 0.1
 }
 
-##老巢
 FRA_dragon_lair_modifier = {
+	##老巢
 	icon = GFX_idea_fra_witchactive2
 	enable = {
 		always = yes
@@ -205,8 +228,10 @@ FRA_dragon_lair_modifier = {
 	army_attack_factor = 0.2
 }
 
+##Line
 FRA_uncompleted_maginot_line_modifier = {
-	icon = GFX_idea_fra_anti_communard
+	##马奇诺
+	icon = GFX_modifiers_sov_civilian_labor_in_defense
 	enable = {
 		always = yes
 	}
@@ -231,7 +256,7 @@ FRA_uncompleted_maginot_line_modifier = {
 }
 
 FRA_completed_maginot_line_modifier = {
-	icon = GFX_idea_fra_anti_communard
+	icon = GFX_modifiers_sov_armored_battery
 	enable = {
 		always = yes
 	}
@@ -250,4 +275,28 @@ FRA_completed_maginot_line_modifier = {
 	army_defence_factor = 0.1
 	army_attack_factor = 0.1
 	army_speed_factor = 0.1
+}
+
+FRA_defensive_line_modifier = {
+	icon = GFX_modifiers_sov_armored_battery
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		OR = {
+			FRA = {
+				NOT = {
+					controls_state = 16
+				}
+				NOT = {
+					controls_state = FROM
+				}
+				has_capitulated = yes
+				is_subject = yes
+			}
+		}
+	}
+	army_defence_factor = 0.05
+	army_attack_factor = 0.05
+	army_speed_factor = 0.05
 }
