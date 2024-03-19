@@ -94,6 +94,13 @@
     NDefines.NAI.CARRIER_STACK_PENALTY_EFFECT = 0.4					   -- Vanilla is 0.2 Hof is 0.6
     NDefines.NAI.SUBMARINE_BASE_TORPEDO_REVEAL_CHANCE = 0.2		   -- Vanilla is 0.035 Hof is 0.05
 
+	NDefines.NAI.CARRIER_TASKFORCE_MAX_CARRIER_COUNT = 4		   -- Vanilla is 4
+	NDefines.NAI.CAPITAL_TASKFORCE_MAX_CAPITAL_COUNT = 10		   -- Vanilla is 12
+	NDefines.NAI.SCREEN_TASKFORCE_MAX_SHIP_COUNT = 8		   -- Vanilla is 12 WA is 5
+	NDefines.NAI.SUB_TASKFORCE_MAX_SHIP_COUNT = 10		   -- Vanilla is 16 WA is 5
+
+	NDefines.NAI.MIN_CAPITALS_FOR_CARRIER_TASKFORCE = 6		   -- Vanilla is 6
+
     -- Diplomacy
     NDefines.NAI.FASCISTS_BEFRIEND_FASCISTS = 0									-- Vanilla is 10
     NDefines.NAI.FASCISTS_ALLY_FASCISTS = 0										-- Vanilla is 0
