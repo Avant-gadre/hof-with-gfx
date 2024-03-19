@@ -2636,7 +2636,7 @@ focus_tree = {
 		}
 		available = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		bypass = {
@@ -3042,7 +3042,7 @@ focus_tree = {
 		}
 		available = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		bypass = {
@@ -3825,7 +3825,7 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					FRA_has_alter_trigger = yes
+					FRA_in_alter_path_trigger = yes
 				}
 				add_ideas = FRA_state_machine_10_idea
 			}
@@ -6290,7 +6290,6 @@ focus_tree = {
 		}
 		available = {
 			has_completed_focus = FRA_prison_tower
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		x = 0
@@ -6309,6 +6308,7 @@ focus_tree = {
 				uses = 1
 				category = nuclear
 			}
+			unlock_decision_tooltip = FRA_invite_matou_alter_decision
 		}
 	}
 	focus = {
@@ -10015,7 +10015,7 @@ focus_tree = {
 		}
 		allow_branch = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		relative_position_id = FRA_overthrow_bourbon
@@ -10447,7 +10447,7 @@ focus_tree = {
 		}
 		allow_branch = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		available = {
@@ -10971,7 +10971,7 @@ focus_tree = {
 			x = -9
 			y = 0
 			trigger = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		relative_position_id = FRA_overthrow_bourbon
@@ -10981,7 +10981,7 @@ focus_tree = {
 			factor = 50
 		}
 		allow_branch = {
-			FRA_has_alter_trigger = yes
+			FRA_in_alter_path_trigger = yes
 		}
 		completion_reward = {
 			news_event = {
@@ -10996,7 +10996,10 @@ focus_tree = {
 				remove_idea = FRA_dragon_witch_activity_idea
 				add_idea = FRA_dragon_witch_activity_1_idea
 			}
+			whiteline = yes
 			unlock_decision_category_tooltip = FRA_consolidate_control_alter_category
+			whiteline = yes
+			unlock_decision_category_tooltip = FRA_diplomacy_alter_category
 			whiteline = yes
 			add_popularity = {
 				ideology = fascism
@@ -11009,10 +11012,30 @@ focus_tree = {
 				}
 				set_faction_name = FRA_orlean_axis
 			}
-			FRA_edmond_dantes = {
-				unit_leader_event = {
-					id = fra_alter.10
-					days = 7
+			hidden_effect = {
+				FRA_edmond_dantes = {
+					unit_leader_event = {
+						id = fra_alter.10
+						days = 7
+					}
+				}
+			}
+			every_core_state = {
+				limit = {
+					is_in_home_area = yes
+					OR = {
+						region = 19						#Northern France
+						region = 20						#Southern France
+						region = 164						#Western France
+						state = 1
+					}
+					NOT = {
+						state = 16
+						state = 33
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_resistance_modifier
 				}
 			}
 		}
@@ -11020,7 +11043,7 @@ focus_tree = {
 	focus = {
 		id = FRA_war_of_dragons
 		icon = GFX_focus_FRA_orlean_system
-		cost = 4
+		cost = 2
 		prerequisite = {
 			focus = FRA_the_path_of_avenger
 		}
@@ -11054,7 +11077,7 @@ focus_tree = {
 	focus = {
 		id = FRA_End_Parliamentarism
 		icon = GFX_focus_generic_purge_opposition
-		cost = 4
+		cost = 5
 		relative_position_id = FRA_down_with_marianne
 		x = 0
 		y = 1
@@ -11077,7 +11100,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Catastrophe_and_rebirth
 		icon = GFX_focus_FRA_theatre_of_death
-		cost = 4
+		cost = 6
 		prerequisite = {
 			focus = FRA_purge_heretics
 		}
@@ -11151,7 +11174,7 @@ focus_tree = {
 	focus = {
 		id = FRA_revenge
 		icon = GFX_focus_FRA_alter_skull
-		cost = 4
+		cost = 3
 		prerequisite = {
 			focus = FRA_war_of_dragons
 		}
@@ -11159,7 +11182,6 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_war_of_dragons
 		available = {
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		ai_will_do = {
@@ -11170,7 +11192,10 @@ focus_tree = {
 		completion_reward = {
 			FRA_purged_down_effect = yes
 			whiteline = yes
-			add_ideas = FRA_dragon_witch_activity_2_idea
+			swap_ideas = {
+				remove_idea = FRA_dragon_witch_activity_1_idea
+				add_idea = FRA_dragon_witch_activity_2_idea
+			}
 			whiteline = yes
 			effect_tooltip = {
 				FRA_jeanne_d_arc_alter = {
@@ -11192,7 +11217,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Hedonic
 		icon = GFX_focus_FRA_dahut
-		cost = 4
+		cost = 3
 		prerequisite = {
 			focus = FRA_the_path_of_avenger
 		}
@@ -11244,7 +11269,7 @@ focus_tree = {
 			focus = FRA_Ephemeral_Dream
 		}
 		relative_position_id = FRA_Ephemeral_Dream
-		cost = 8
+		cost = 5
 		ai_will_do = {
 			factor = 50
 		}
@@ -11279,7 +11304,7 @@ focus_tree = {
 			focus = FRA_revenge
 		}
 		relative_position_id = FRA_revenge
-		cost = 8
+		cost = 4
 		ai_will_do = {
 			factor = 50
 		}
@@ -11325,7 +11350,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Let_this_world_burn
 		icon = GFX_focus_generic_contract_burn
-		cost = 5
+		cost = 8
 		x = 0
 		y = 1
 		relative_position_id = FRA_Meurs_Ou_tu_Dois
@@ -11357,6 +11382,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = FRA_merge_idea_tt
 			hidden_effect = {
+				remove_ideas = FRA_dragon_witch_activity_1_idea
 				remove_ideas = FRA_dragon_witch_activity_4_idea
 				remove_ideas = FRA_dragon_witch_activity_7_idea
 				remove_ideas = FRA_dragon_witch_activity_10_idea
@@ -11364,6 +11390,7 @@ focus_tree = {
 				remove_ideas = FRA_dragon_witch_activity_16_idea
 			}
 			add_ideas = FRA_dragon_witch_activity_17_idea
+			whiteline = yes
 			unlock_decision_category_tooltip = FRA_final_war_plan_category
 			unlock_decision_tooltip = FRA_Both_lowlands_and_highlands_will_burn
 			unlock_decision_tooltip = FRA_last_revenge
@@ -11373,6 +11400,8 @@ focus_tree = {
 			unlock_decision_tooltip = FRA_attack_soviet
 			unlock_decision_tooltip = FRA_invade_America
 			unlock_decision_tooltip = FRA_go_after_phillipines
+			whiteline = yes
+			unlock_decision_tooltip = FRA_finish_control_of_france_decision
 			hidden_effect = {
 				FRA_francesca_prelati = {
 					unit_leader_event = {
@@ -11404,7 +11433,6 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_revenge
 		available = {
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		bypass = {
@@ -11416,6 +11444,7 @@ focus_tree = {
 			FRA_purged_down_effect = yes
 			whiteline = yes
 			add_ideas = FRA_dragon_witch_activity_13_idea
+			whiteline = yes
 			every_country = {
 				limit = {
 					NOT = {
@@ -11436,7 +11465,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Volkermord_Feuerdrache
 		icon = GFX_focus_GER_goal_werewolf
-		cost = 4
+		cost = 5
 		prerequisite = {
 			focus = FRA_la_grondement_du_haine
 		}
@@ -11444,7 +11473,6 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_la_grondement_du_haine
 		available = {
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		bypass = {
@@ -11464,7 +11492,7 @@ focus_tree = {
 	focus = {
 		id = FRA_Japanese_militarism
 		icon = GFX_focus_JAP_japanese_glory
-		cost = 4
+		cost = 6
 		prerequisite = {
 			focus = FRA_the_path_of_avenger
 		}
@@ -11475,9 +11503,8 @@ focus_tree = {
 			NOT = {
 				has_idea = FRA_military_unrest_idea
 			}
-			FRA_has_alter_trigger = yes
-			has_character = JAP_chiemon
 			FRA_in_alter_path_trigger = yes
+			has_character = JAP_chiemon
 		}
 		bypass = {
 		}
@@ -11488,7 +11515,9 @@ focus_tree = {
 			FRA_purged_down_effect = yes
 			whiteline = yes
 			add_ideas = FRA_spiritual_mobilization_idea
+			whiteline = yes
 			activate_advisor = JAP_chiemon_special_sixth
+			whiteline = yes
 			add_corps_commander_role = {
 				character = JAP_chiemon
 				traits = {
@@ -11501,6 +11530,7 @@ focus_tree = {
 				planning_skill = 1
 				logistics_skill = 1
 			}
+			whiteline = yes
 			JAP_chiemon = {
 				unit_leader_event = {
 					id = fra_alter.19
@@ -11537,9 +11567,10 @@ focus_tree = {
 				limit = {
 					is_in_home_area = yes
 				}
-				add_manpower = -1000
+				add_manpower = -500
 			}
-			unlock_decision_tooltip = FRA_build_castle_decision
+			whiteline = yes
+			unlock_decision_tooltip = FRA_consolidate_decision
 			whiteline = yes
 			FRA_gilles_de_rais_alter = {
 				unit_leader_event = {
@@ -11586,7 +11617,7 @@ focus_tree = {
 			focus = FRA_the_path_of_avenger
 		}
 		relative_position_id = FRA_the_path_of_avenger
-		cost = 4
+		cost = 3
 		ai_will_do = {
 			factor = 50
 		}
@@ -11634,42 +11665,42 @@ focus_tree = {
 		}
 		available = {
 			always = no
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		bypass = {
 		}
 		allow_branch = {
-			FRA_has_alter_trigger = yes
+			FRA_in_alter_path_trigger = yes
 		}
 		completion_reward = {
 			custom_effect_tooltip = fra_auto_bypass_tooltip
 			whiteline = yes
-			FRA_jeanne_d_arc = {
-				add_field_marshal_role = {
-					character = FRA_jeanne_d_arc
-					traits = {
-						inflexible_strategist
-						politically_connected
-						war_hero
-						organizer
-						defensive_doctrine
-						fast_planner
-						unyielding_defender
-						organisational_leader
-						inspirational_leader
-					}
-					skill = 6
-					attack_skill = 5
-					defense_skill = 6
-					planning_skill = 4
-					logistics_skill = 4
+			add_field_marshal_role = {
+				character = FRA_jeanne_d_arc
+				traits = {
+					inflexible_strategist
+					politically_connected
+					war_hero
+					organizer
+					defensive_doctrine
+					fast_planner
+					unyielding_defender
+					organisational_leader
+					inspirational_leader
 				}
+				skill = 6
+				attack_skill = 5
+				defense_skill = 6
+				planning_skill = 4
+				logistics_skill = 4
 			}
+			whiteline = yes
 			FRA_jeanne_d_arc = {
+				whiteline = yes
 				remove_trait = {
 					trait = FRA_trait_la_pucelle
 				}
+				whiteline = yes
 				add_trait = {
 					trait = FRA_trait_trisresse_de_la_vierge
 				}
@@ -11685,7 +11716,7 @@ focus_tree = {
 			focus = FRA_the_path_of_avenger
 		}
 		relative_position_id = FRA_the_path_of_avenger
-		cost = 4
+		cost = 6
 		ai_will_do = {
 			factor = 50
 		}
@@ -11718,7 +11749,6 @@ focus_tree = {
 			factor = 50
 		}
 		available = {
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		bypass = {
@@ -11745,12 +11775,11 @@ focus_tree = {
 			focus = FRA_prison_tower
 		}
 		relative_position_id = FRA_prison_tower
-		cost = 4
+		cost = 6
 		ai_will_do = {
 			factor = 50
 		}
 		available = {
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		bypass = {
@@ -11758,6 +11787,19 @@ focus_tree = {
 		completion_reward = {
 			FRA_purged_down_effect = yes
 			whiteline = yes
+			FRA_ciel_elesia = {
+				custom_effect_tooltip = FRA_if_accept_tt
+			}
+			effect_tooltip = {
+				add_ideas = FRA_coop_with_bury_institute_idea
+			}
+			whiteline = yes
+			FRA_ciel_elesia = {
+				unit_leader_event = {
+					id = fra_alter.21
+					days = 3
+				}
+			}
 		}
 	}
 	focus = {
@@ -11769,7 +11811,7 @@ focus_tree = {
 			focus = FRA_Tiffauges_model
 		}
 		relative_position_id = FRA_Tiffauges_model
-		cost = 4
+		cost = 5
 		ai_will_do = {
 			factor = 50
 		}
@@ -11777,11 +11819,11 @@ focus_tree = {
 			has_decision = FRA_recruit_collaborators_decision
 			has_character = FRA_jacques_de_molay
 			FRA_in_alter_path_trigger = yes
-			FRA_has_alter_trigger = yes
 		}
 		bypass = {
 		}
 		completion_reward = {
+			unlock_decision_tooltip = FRA_cleansing_church_decision
 			FRA_purged_down_effect = yes
 			whiteline = yes
 			swap_ideas = {
@@ -11818,12 +11860,11 @@ focus_tree = {
 			focus = FRA_End_Parliamentarism
 		}
 		relative_position_id = FRA_End_Parliamentarism
-		cost = 4
+		cost = 6
 		ai_will_do = {
 			factor = 50
 		}
 		available = {
-			FRA_has_alter_trigger = yes
 			FRA_in_alter_path_trigger = yes
 		}
 		bypass = {
@@ -11861,7 +11902,7 @@ focus_tree = {
 		y = 1
 		available = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		mutually_exclusive = {
@@ -11898,7 +11939,7 @@ focus_tree = {
 		available = {
 			FRA_has_jeanne_trigger = yes
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		mutually_exclusive = {
@@ -13809,7 +13850,7 @@ focus_tree = {
 		relative_position_id = FRA_intervention_in_spain
 		available = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 			OR = {
 				has_global_flag = Spain_civil_war_start_flag
@@ -13964,7 +14005,7 @@ focus_tree = {
 		}
 		available = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 			is_in_faction = yes
 			threat > 0.3
@@ -14622,7 +14663,7 @@ focus_tree = {
 				has_war_with = ENG
 			}
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 			ENG = {
 				exists = yes
@@ -14961,7 +15002,7 @@ focus_tree = {
 		available = {
 			is_subject = no
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 			NOT = {
 				has_completed_focus = FRA_Our_new_ally
@@ -15342,7 +15383,7 @@ focus_tree = {
 		}
 		available = {
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		bypass = {
@@ -15374,7 +15415,7 @@ focus_tree = {
 			}
 			FRA_expansion_focus_trigger = yes
 			NOT = {
-				FRA_has_alter_trigger = yes
+				FRA_in_alter_path_trigger = yes
 			}
 		}
 		bypass = {
@@ -16156,7 +16197,7 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					FRA_has_alter_trigger = yes
+					FRA_in_alter_path_trigger = yes
 				}
 				GER = {
 					country_event = {

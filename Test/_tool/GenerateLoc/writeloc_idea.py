@@ -15,7 +15,7 @@ file_path2 = os.path.join(current_dir, file_name2)
 
 target = "FRA_"
 
-end = "_opinion"
+end = "_decision"
 
 with open(file_path1, "r", errors="ignore") as file:
     lines = file.readlines()

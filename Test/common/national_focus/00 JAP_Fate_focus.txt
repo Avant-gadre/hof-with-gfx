@@ -1330,38 +1330,37 @@ focus_tree = {
 			}
 		}
 		available = {
-			NOT = {
-				has_idea = ger_cooperate_with_japan
-			}
-			has_civil_war = no
-			OR = {
-				has_government = democratic
-				AND = {
-					has_government = neutrality
-					has_completed_focus = JAP_reflect_continential_policy
-				}
-			}
-			is_subject = no
-			ENG = {
-				OR = {
-					has_government = democratic
-					has_government = neutrality
-				}
-			}
-			NOT = {
-				has_war_with = ENG
-			}
+			always = no
+			#NOT = {
+			#has_idea = ger_cooperate_with_japan
+			#}
+			#has_civil_war = no
+			#OR = {
+			#has_government = democratic
+			#AND = {
+			#has_government = neutrality
+			#has_completed_focus = JAP_reflect_continential_policy
+			#}
+			#}
+			#is_subject = no
+			#has_completed_focus = JAP_smaller_japan
+			#ENG = {
+			#has_government = democratic
+			#}
+			#NOT = {
+			#has_war_with = ENG
+			#}
 		}
 		bypass = {
 			is_in_faction_with = ENG
 		}
 		completion_reward = {
-			ENG = {
-				country_event = {
-					id = jap_diplo.1
-					hours = 10
-				}
-			}
+			#ENG = {
+			#country_event = {
+			#id = jap_diplo.1
+			#hours = 10
+			#}
+			#}
 			### Anglo-Japanese alliance events
 		}
 	}
@@ -1383,16 +1382,18 @@ focus_tree = {
 			}
 		}
 		available = {
-			has_idea = ENG_cooperate_with_japan
+			is_in_faction_with = ENG
 		}
 		bypass = {
 		}
 		completion_reward = {
+			navy_experience = 50
 			add_to_tech_sharing_group = JAP_naval_exercise
 			every_country = {
 				limit = {
 					original_tag = ENG
 				}
+				navy_experience = 50
 				add_to_tech_sharing_group = JAP_naval_exercise
 			}
 		}
@@ -1415,7 +1416,7 @@ focus_tree = {
 			}
 		}
 		available = {
-			has_idea = ENG_cooperate_with_japan
+			is_in_faction_with = ENG
 		}
 		bypass = {
 		}
@@ -1429,8 +1430,22 @@ focus_tree = {
 			add_tech_bonus = {
 				name = JAP_pacific_route
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = dd_tech
+			}
+			ENG = {
+				add_tech_bonus = {
+					name = JAP_pacific_route
+					bonus = 1
+					uses = 2
+					category = convoy_defense_tree
+				}
+				add_tech_bonus = {
+					name = JAP_pacific_route
+					bonus = 1
+					uses = 1
+					category = dd_tech
+				}
 			}
 		}
 	}
@@ -1452,7 +1467,7 @@ focus_tree = {
 			}
 		}
 		available = {
-			has_idea = ENG_cooperate_with_japan
+			is_in_faction_with = ENG
 		}
 		bypass = {
 		}
@@ -1464,6 +1479,10 @@ focus_tree = {
 			# show_ideas_tooltip = JAP_riesbyfe_stridberg
 			custom_effect_tooltip = available_chief_of_army
 			show_ideas_tooltip = JAP_yumiduka_satsuki
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = JAP_fujimaru_ritsuka
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = JAP_fujimaru_rika
 		}
 	}
 	focus = {
@@ -1487,17 +1506,12 @@ focus_tree = {
 			}
 		}
 		available = {
-			has_idea = ENG_cooperate_with_japan
-			ENG = {
-				NOT = {
-					has_government = fascism
-				}
-				is_subject = no
-			}
+			is_in_faction_with = ENG
 		}
 		bypass = {
 		}
 		completion_reward = {
+			add_to_tech_sharing_group = ENG_commonwealth_research
 			add_tech_bonus = {
 				name = JAP_clock_tower_mission
 				bonus = 1
@@ -2353,6 +2367,9 @@ focus_tree = {
 			factor = 25
 		}
 		available = {
+			NOT = {
+				is_in_faction_with = ENG
+			}
 			OR = {
 				has_idea = JAP_kirisame_marisa
 				has_country_leader = {
@@ -4846,7 +4863,10 @@ focus_tree = {
 			JAP_is_liberals_trigger = yes
 			has_completed_focus = JAP_smaller_japan
 			has_government = democratic
-			is_faction_leader = yes
+			OR = {
+				is_faction_leader = yes
+				is_in_faction_with = ENG
+			}
 			is_subject = no
 			date > 1939.1.1
 			OR = {
@@ -4870,6 +4890,31 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				SIA = {
+					country_event = generic.5
+				}
+			}
+			else_if = {
+				limit = {
+					JAP = {
+						is_in_faction = yes
+						is_faction_leader = no
+					}
+				}
+				random_country = {
+					limit = {
+						is_in_faction_with = JAP
+						is_faction_leader = yes
+					}
+					SIA = {
+						country_event = generic.2
+					}
+				}
+			}
 			unlock_decision_category_tooltip = JAP_pacific_guardian
 		}
 	}
