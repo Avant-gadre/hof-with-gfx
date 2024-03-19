@@ -736,6 +736,76 @@ FRA_diplomacy_alter_category = {
 			}
 		}
 	}
+	##
+	FRA_learn_from_germany_alter_decision = {
+		icon = brainwash
+		available = {
+			num_of_civilian_factories_available_for_projects > 19
+			OR = {
+				AND = {
+					54 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					52 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					55 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					GER = {
+						exists = no
+					}
+				}
+				GER = {
+					is_in_faction_with = ROOT
+					is_puppet_of = ROOT
+				}
+			}
+		}
+		visible = {
+			OR = {
+				AND = {
+					54 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					52 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					55 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					GER = {
+						exists = no
+					}
+				}
+				GER = {
+					is_in_faction_with = ROOT
+					is_puppet_of = ROOT
+				}
+			}
+		}
+		targets = {
+			GER
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 30
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		remove_effect = {
+			set_country_flag = FRA_can_learn_from_germany_flag
+			effect_tooltip = {
+				unlock_national_focus = FRA_Our_new_ally
+			}
+		}
+	}
 }
 
 FRA_consolidate_control_alter_category = {
@@ -986,6 +1056,19 @@ FRA_consolidate_control_alter_category = {
 		remove_effect = {
 			remove_ideas = FRA_military_unrest_idea
 			add_ideas = FRA_officers_purged_1
+			whiteline = yes
+			remove_unit_leader_role = {
+				character = FRA_pauline_bonaparte
+			}
+			remove_unit_leader_role = {
+				character = FRA_joachim_murat
+			}
+			remove_unit_leader_role = {
+				character = FRA_nicolette_oudinot
+			}
+			remove_unit_leader_role = {
+				character = FRA_louis_antoine_desaix
+			}
 		}
 		ai_will_do = {
 			factor = 1000
@@ -2364,7 +2447,7 @@ FRA_special_project_alter_category = {
 		days_remove = 20
 		cost = 20
 		complete_effect = {
-			FRA_swawn_fafnir_tempale_effect = yes
+			FRA_spawn_fafnir_tempale_effect = yes
 		}
 		remove_effect = {
 			FRA_jacque_de_monet = {

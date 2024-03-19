@@ -54,7 +54,7 @@ replace_path="history/states"
 replace_path="history/units"
 replace_path="map/strategicregions"
 replace_path="map/supplyareas"
-name="Hearts of Fate - Beta"
+name="Hearts of Fate - Beta WIP"
 picture="thumbnail.jpg"
 tags={
 	"Alternative History"

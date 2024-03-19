@@ -1,3 +1,4 @@
+##经济危机
 FRA_increase_black_monday_effect = {
 	effect_tooltip = {
 		swap_ideas = {
@@ -192,6 +193,7 @@ FRA_pending_reduce_event_effect = {
 	}
 }
 
+##黑贞特供
 FRA_purged_down_effect = {
 	effect_tooltip = {
 		swap_ideas = {
@@ -285,7 +287,7 @@ FRA_purged_down_effect = {
 			limit = {
 				has_idea = FRA_officers_purged_10
 			}
-			remove_idea = FRA_officers_purged_10
+			remove_ideas = FRA_officers_purged_10
 		}
 	}
 }
@@ -355,15 +357,7 @@ FRA_purged_remove_all_effect = {
 	}
 }
 
-##
-FRA_add_pop_by_five_effect = {
-	add_popularity = {
-		ideology = ROOT
-		popularity = 0.05
-	}
-}
-
-##
+##选举
 FRA_increase_center_effect = {
 	custom_effect_tooltip = FRA_increase_center_effect_tt
 	add_to_variable = {
@@ -412,56 +406,7 @@ FRA_decrease_bloc_effect = {
 	}
 }
 
-##
-FRA_upgrade_collectivization_effect = {
-	if = {
-		limit = {
-			has_idea = FRA_agricultural_collectivization_1
-		}
-		swap_ideas = {
-			remove_idea = FRA_agricultural_collectivization_1
-			add_idea = FRA_agricultural_collectivization_2
-		}
-	}
-	if = {
-		limit = {
-			has_idea = FRA_agricultural_collectivization_2
-		}
-		swap_ideas = {
-			remove_idea = FRA_agricultural_collectivization_2
-			add_idea = FRA_agricultural_collectivization_3
-		}
-	}
-	if = {
-		limit = {
-			has_idea = FRA_agricultural_collectivization_3
-		}
-		swap_ideas = {
-			remove_idea = FRA_agricultural_collectivization_3
-			add_idea = FRA_agricultural_collectivization_4
-		}
-	}
-	if = {
-		limit = {
-			has_idea = FRA_agricultural_collectivization_4
-		}
-		swap_ideas = {
-			remove_idea = FRA_agricultural_collectivization_4
-			add_idea = FRA_agricultural_collectivization_5
-		}
-	}
-	if = {
-		limit = {
-			has_idea = FRA_agricultural_collectivization_5
-		}
-		swap_ideas = {
-			remove_idea = FRA_agricultural_collectivization_5
-			add_idea = FRA_agricultural_collectivization_6
-		}
-	}
-}
-
-##
+##黑贞刷兵
 FRA_spawn_fafnir_tempale_effect = {
 	if = {
 		limit = {
@@ -567,7 +512,7 @@ FRA_spawn_fafnir_tempale_effect = {
 	}
 }
 
-FRA_swawn_fafnir_tempale_effect = {
+FRA_spawn_fafnir_tempale_effect = {
 	if = {
 		limit = {
 			NOT = {
@@ -664,6 +609,161 @@ FRA_swawn_fafnir_tempale_effect = {
 				division = "division_template = \"Schutzstaffel Fáfnir Guard\" start_experience_factor = 0.1"
 				owner = PREV
 			}
+		}
+	}
+}
+
+##灰线刷兵
+FRA_spawn_imperial_guard_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_template = "Imperial Guard"
+			}
+		}
+		division_template = {
+			name = "Imperial Guard"
+			regiments = {
+				infantry = {
+					x = 0
+					y = 0
+				}
+				infantry = {
+					x = 0
+					y = 1
+				}
+				infantry = {
+					x = 0
+					y = 2
+				}
+				infantry = {
+					x = 1
+					y = 0
+				}
+				infantry = {
+					x = 1
+					y = 1
+				}
+				infantry = {
+					x = 1
+					y = 2
+				}
+				infantry = {
+					x = 2
+					y = 0
+				}
+				infantry = {
+					x = 2
+					y = 1
+				}
+				infantry = {
+					x = 2
+					y = 2
+				}
+				artillery_brigade = {
+					x = 3
+					y = 0
+				}
+				artillery_brigade = {
+					x = 3
+					y = 1
+				}
+				artillery_brigade = {
+					x = 3
+					y = 2
+				}
+			}
+			support = {
+				engineer = {
+					x = 0
+					y = 0
+				}
+				recon = {
+					x = 0
+					y = 1
+				}
+				artillery = {
+					x = 0
+					y = 2
+				}
+			}
+		}
+		set_temp_variable = {
+			FRA_guard = 12
+		}
+		for_loop_effect = {
+			start = 1
+			end = FRA_guard
+			compare = less_than_or_equals
+			random_owned_controlled_state = {
+				limit = {
+					valid_state_for_spawning_friendly_unit = yes
+				}
+				create_unit = {
+					division = "name = \"Imperial Guard\" division_template = \"emperor imperial guard\" start_experience_factor = 1"
+					owner = FRA
+				}
+			}
+		}
+	}
+	else = {
+		army_experience = 150
+	}
+}
+
+##支持率
+FRA_add_pop_by_five_effect = {
+	add_popularity = {
+		ideology = ROOT
+		popularity = 0.05
+	}
+}
+
+##集体化
+FRA_upgrade_collectivization_effect = {
+	if = {
+		limit = {
+			has_idea = FRA_agricultural_collectivization_1
+		}
+		swap_ideas = {
+			remove_idea = FRA_agricultural_collectivization_1
+			add_idea = FRA_agricultural_collectivization_2
+		}
+	}
+	if = {
+		limit = {
+			has_idea = FRA_agricultural_collectivization_2
+		}
+		swap_ideas = {
+			remove_idea = FRA_agricultural_collectivization_2
+			add_idea = FRA_agricultural_collectivization_3
+		}
+	}
+	if = {
+		limit = {
+			has_idea = FRA_agricultural_collectivization_3
+		}
+		swap_ideas = {
+			remove_idea = FRA_agricultural_collectivization_3
+			add_idea = FRA_agricultural_collectivization_4
+		}
+	}
+	if = {
+		limit = {
+			has_idea = FRA_agricultural_collectivization_4
+		}
+		swap_ideas = {
+			remove_idea = FRA_agricultural_collectivization_4
+			add_idea = FRA_agricultural_collectivization_5
+		}
+	}
+	if = {
+		limit = {
+			has_idea = FRA_agricultural_collectivization_5
+		}
+		swap_ideas = {
+			remove_idea = FRA_agricultural_collectivization_5
+			add_idea = FRA_agricultural_collectivization_6
 		}
 	}
 }
