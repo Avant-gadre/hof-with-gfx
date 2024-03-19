@@ -170,3 +170,63 @@ is_owned_by_ROOT_or_ally = {
 		is_ally_with = ROOT
 	}
 }
+
+all_enemy_country_workaround_trigger = {
+	NOT = {
+		any_enemy_country = {
+			NOT = {
+				has_war_with = THIS
+			}
+		}
+	}
+}
+
+any_enemy_has_war_with_THIS = {
+	##任意敌人和他交战
+	NOT = {
+		any_enemy_country = {
+			NOT = {
+				has_war_with = THIS
+			}
+		}
+	}
+}
+
+can_invite_join_faction = {
+	exists = yes
+	has_capitulated = no
+	is_subject = no
+	NOT = {
+		has_war_with = ROOT
+	}
+	OR = {
+		AND = {
+			is_faction_leader = yes
+			NOT = {
+				any_other_country = {
+					is_in_faction_with = PREV
+				}
+			}
+		}
+		is_in_faction = no
+	}
+	ROOT = {
+		NOT = {
+			any_enemy_country = {
+				NOT = {
+					has_war_with = PREV
+				}
+			}
+		}
+	}
+}
+
+can_release_FROM = {
+	OR = {
+		exists = no
+		is_subject_of = ROOT
+	}
+	any_core_state = {
+		is_controlled_by_ROOT_or_ally = yes
+	}
+}

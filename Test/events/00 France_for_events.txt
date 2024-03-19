@@ -1,0 +1,620 @@
+add_namespace = fra_for
+unit_leader_event = {
+	id = fra_for.1
+	title = fra_for.1.title
+	desc = fra_for.1.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_leo_harvey
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fra_for.1.a
+		ai_chance = {
+			base = 0
+		}
+		trigger = {
+			NOT = {
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
+				}
+			}
+		}
+		complete_national_focus = FRA_viva_la_france
+	}
+	option = {
+		name = fra_for.1.b
+		ai_chance = {
+			base = 100
+		}
+		ENG = {
+			country_event = {
+				id = fra_for.2
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = fra_for.1.c
+		trigger = {
+			OR = {
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
+				}
+				has_country_leader = {
+					character = FRA_marie_antoinette_habsbourg
+				}
+				has_country_leader = {
+					character = FRA_charlemagne_carolingian
+				}
+			}
+		}
+		custom_effect_tooltip = FRA_british_angry_tt
+		add_stability = -0.1
+		GER = {
+			country_event = {
+				id = fra_for.7
+				days = 1
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+##ENG-Receive:French ask to join British
+country_event = {
+	id = fra_for.2
+	title = fra_for.2.title
+	desc = fra_for.2.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		FRA = {
+			country_event = fra_for.3
+		}
+		every_other_country = {
+			limit = {
+				is_in_faction_with = FRA
+				NOT = {
+					tag = FRA
+				}
+				is_subject = no
+			}
+			country_event = fra_for.5
+		}
+	}
+	option = {
+		#refuse
+		name = fra_for.1.b
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+		FROM = {
+			country_event = fra_for.4
+		}
+	}
+}
+
+country_event = {
+	id = fra_for.3
+	title = fra_for.3.title
+	desc = fra_for.3.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		dismantle_faction = yes
+		ENG = {
+			add_to_faction = FRA
+		}
+		FRA = {
+			complete_national_focus = FRA_go_with_britain_fate
+		}
+	}
+}
+
+country_event = {
+	id = fra_for.4
+	title = fra_for.4.title
+	desc = fra_for.4.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -20
+		##British Refuse
+		complete_national_focus = FRA_viva_la_france
+	}
+}
+
+country_event = {
+	id = fra_for.5
+	title = fra_for.2.title
+	desc = fra_for.2.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		ENG = {
+			country_event = fra_for.6
+		}
+	}
+	option = {
+		#refuse
+		name = fra_for.2.b
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+		ENG = {
+			country_event = fra_for.4
+		}
+		FRA = {
+			country_event = fra_for.4
+		}
+	}
+}
+
+country_event = {
+	id = fra_for.6
+	title = fra_for.2.title
+	desc = fra_for.2.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		#accept
+		name = fra_for.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		add_to_faction = FROM
+	}
+}
+
+##GER-Receive:Ally with France,Yes or no?
+country_event = {
+	id = fra_for.7
+	title = fra_for.7.title
+	desc = fra_for.7.desc
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = fra_for.7.a		#agree
+		ai_chance = {
+			base = 100
+		}
+		FROM = {
+			country_event = {
+				id = fra_for.8
+				days = 1
+			}
+		}
+		custom_effect_tooltip = accept_offer_tt
+		add_political_power = 20
+		effect_tooltip = {
+			HOL = {
+				transfer_state = 6
+				transfer_state = 979
+				transfer_state = 925
+				transfer_state = 35
+				transfer_state = 978
+			}
+			GER = {
+				transfer_state = 781
+				transfer_state = 42
+				transfer_state = 1115
+			}
+			FRA = {
+				transfer_state = 34
+				transfer_state = 948
+				transfer_state = 741
+				transfer_state = 8
+			}
+		}
+		FRA = {
+			country_event = {
+				id = fra_for.8
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = fra_for.7.b		#refuse
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+		FROM = {
+			country_event = fra_for.9
+		}
+	}
+}
+
+##FRA-Receive:Send events to BEL,LUX,RHI
+country_event = {
+	id = fra_for.8
+	title = fra_for.8.title
+	desc = fra_for.8.desc
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = fra_for.8.a		#agree
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -50
+		BEL = {
+			country_event = {
+				id = fra_for.10
+				days = 3
+			}
+		}
+		LUX = {
+			country_event = {
+				id = fra_for.10
+				days = 3
+			}
+		}
+		RHI = {
+			country_event = {
+				id = fra_for.10
+				days = 3
+			}
+		}
+	}
+}
+
+##GER-Send,FRA-Receive:GER refuses
+country_event = {
+	id = fra_for.9
+	title = fra_for.9.title
+	desc = fra_for.9.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.9.a		#agree
+		ai_chance = {
+			base = 80
+		}
+		complete_national_focus = FRA_viva_la_france
+	}
+}
+
+##BEL,LUX,RHI-Receive:Surrend or fight?
+country_event = {
+	id = fra_for.10
+	title = fra_for.10.title
+	desc = fra_for.10.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.10.a		#agree
+		ai_chance = {
+			base = 90
+		}
+		custom_effect_tooltip = GAME_OVER_TT
+		FRA = {
+			country_event = {
+				id = fra_for.11
+				hours = 12
+			}
+		}
+		if = {
+			limit = {
+				tag = BEL
+			}
+			BEL = {
+				transfer_units_fraction = {
+					target = HOL
+					size = 0
+					stockpile_ratio = 0
+					army_ratio = 0.2
+					navy_ratio = 0
+					air_ratio = 0
+					keep_unit_leaders_trigger = {
+						always = yes
+					}
+				}
+			}
+			FRA = {
+				annex_country = {
+					target = BEL
+					transfer_troops = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = LUX
+			}
+			FRA = {
+				annex_country = {
+					target = LUX
+					transfer_troops = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = RHI
+			}
+			FRA = {
+				annex_country = {
+					target = RHI
+					transfer_troops = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = fra_for.10.b		#agree
+		ai_chance = {
+			base = 10
+		}
+		FRA = {
+			country_event = {
+				id = fra_for.12
+				hours = 12
+			}
+		}
+		THIS = {
+			leave_faction = yes
+		}
+	}
+}
+
+##FRA-Receive:Divide lands
+country_event = {
+	id = fra_for.11
+	title = fra_for.11.title
+	desc = fra_for.11.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.11.a		#agree
+		ai_chance = {
+			base = 90
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = BEL
+				}
+			}
+			HOL = {
+				transfer_state = 979
+				transfer_state = 35
+				transfer_state = 978
+			}
+			FRA = {
+				transfer_state = 6
+				transfer_state = 925
+				transfer_state = 34
+				transfer_state = 948
+				transfer_state = 741
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = RHI
+				}
+			}
+			GER = {
+				transfer_state = 781
+				transfer_state = 42
+				transfer_state = 1115
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = LUX
+				}
+			}
+			FRA = {
+				transfer_state = 8
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					is_faction_leader = yes
+				}
+			}
+			FRA = {
+				dismantle_faction = yes
+			}
+			GER = {
+				add_to_faction = FRA
+			}
+		}
+	}
+}
+
+##FRA-Receive:FROM refuses,then attack.
+country_event = {
+	id = fra_for.12
+	title = fra_for.12.title
+	desc = fra_for.12.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.12.a		#agree
+		ai_chance = {
+			base = 90
+		}
+		FRA = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+		GER = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					is_faction_leader = yes
+				}
+			}
+			FRA = {
+				dismantle_faction = yes
+			}
+			GER = {
+				add_to_faction = FRA
+			}
+		}
+	}
+}
+
+##Buy arm from america
+country_event = {
+	id = fra_for.13
+	title = fra_for.13.title
+	desc = fra_for.13.desc
+	picture = GFX_report_event_generic_lend_lease
+	is_triggered_only = yes
+	option = {
+		name = fra_for.13.a		#agree
+		ai_chance = {
+			base = 40
+		}
+		trigger = {
+			USA_can_sell_weapons_trigger = yes
+		}
+		FRA = {
+			country_event = fra_for.14
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = THIS
+				modifier = generic_approves_of_government_opinion
+			}
+		}
+		effect_tooltip = {
+			USA = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = generic_approves_of_government_opinion
+				}
+			}
+		}
+		army_experience = 10
+	}
+	option = {
+		name = fra_for.13.b		#refuse
+		ai_chance = {
+			base = 60
+			modifier = {
+				FRA = {
+					has_war = yes
+				}
+				factor = 0.5
+			}
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = THIS
+				modifier = generic_displeased_opinion
+			}
+		}
+		effect_tooltip = {
+			USA = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = generic_displeased_opinion
+				}
+			}
+		}
+		FRA = {
+			country_event = fra_for.15
+		}
+	}
+}
+
+##FRA-Receive:USA agree
+country_event = {
+	id = fra_for.14
+	title = fra_for.14.title
+	desc = fra_for.14.desc
+	picture = GFX_report_event_merchant_ship_01
+	is_triggered_only = yes
+	option = {
+		name = fra_for.14.a		#agree
+		effect_tooltip = {
+			FRA = {
+				add_opinion_modifier = {
+					target = THIS
+					modifier = generic_approves_of_government_opinion
+				}
+			}
+		}
+		USA = {
+			add_opinion_modifier = {
+				target = FRA
+				modifier = generic_approves_of_government_opinion
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+##FRA-Receive:USA refuse
+country_event = {
+	id = fra_for.15
+	title = fra_for.15.title
+	desc = fra_for.15.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = fra_for.15.a		#agree
+		effect_tooltip = {
+			FRA = {
+				add_opinion_modifier = {
+					target = THIS
+					modifier = generic_displeased_opinion
+				}
+			}
+		}
+		USA = {
+			add_opinion_modifier = {
+				target = FRA
+				modifier = generic_displeased_opinion
+			}
+		}
+		ai_chance = {
+			base = 80
+		}
+	}
+}

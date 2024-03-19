@@ -20,6 +20,8 @@ country_event = {{
 	fire_only_once = yes
 	option = {{
 		name = {target}.{0}.a
+        trigger = {{
+		}}
 		ai_chance = {{
 			base = 1
 		}}
@@ -27,7 +29,6 @@ country_event = {{
 	option = {{
 		name = {target}.{0}.b
 		trigger = {{
-            always = no
 		}}
 		ai_chance = {{
 			base = 1
@@ -85,6 +86,6 @@ news_event = {{
 target = "fra_alter"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 15):
+    for i in range(1, 36):
         current_statement = statement_template.format(i,target=target)
         file.write(current_statement)

@@ -1,5 +1,6 @@
 add_namespace = fate_rhine
 add_namespace = fate_rhine_fra
+##占领鲁尔的遗产
 country_event = {
 	id = fate_rhine.1
 	title = fate_rhine.1.t
@@ -14,25 +15,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.01
 	}
-	# option = {
-	# 	name = fate_rhine.1.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.1.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##工业复兴
+##Crisis End
 country_event = {
 	id = fate_rhine.2
 	title = fate_rhine.2.t
@@ -47,25 +35,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = 50
+		add_stability = 0.05
 	}
-	# option = {
-	# 	name = fate_rhine.2.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.2.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##史诗大崩溃
 country_event = {
 	id = fate_rhine.3
 	title = fate_rhine.3.t
@@ -81,31 +56,23 @@ country_event = {
 			base = 1
 		}
 		add_stability = -0.2
-		add_ideas = RHI_Economic_crisis_idea
+		add_ideas = RHI_economic_crisis_idea
 		add_ideas = RHI_great_riot_idea
+		remove_ideas = RHI_industrial_booming_idea
 		swap_ideas = {
-			remove_idea = RHI_Valkist_weak_opening_idea
-			add_idea = RHI_Valkist_idea
+			remove_idea = RHI_valkist_weak_opening_idea
+			add_idea = RHI_valkist_idea
+		}
+		hidden_effect = {
+			country_event = {
+				id = fate_rhine.4
+				days = 14
+			}
 		}
 	}
-	# option = {
-	# 	name = fate_rhine.3.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.3.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##阿登纳遇刺
 country_event = {
 	id = fate_rhine.4
 	title = fate_rhine.4.t
@@ -120,23 +87,9 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.05
+		add_political_power = -30
 	}
-	# option = {
-	# 	name = fate_rhine.4.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.4.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
 country_event = {
@@ -145,33 +98,30 @@ country_event = {
 	desc = fate_rhine.5.d
 	immediate = {
 	}
+	trigger = {
+		FRA = {
+			##Nor
+			NOT = {
+				has_country_leader = {
+					character = FRA_marie_antoinette_habsbourg
+				}
+				has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
+			}
+		}
+	}
 	picture = GFX_report_event_generic_diplomacy1
-	is_triggered_only = yes
+	##is_triggered_only = yes
 	fire_only_once = yes
 	option = {
 		name = fate_rhine.5.a
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.01
 	}
-	# option = {
-	# 	name = fate_rhine.5.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.5.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##找法国要钱
 country_event = {
 	id = fate_rhine.6
 	title = fate_rhine.6.t
@@ -186,21 +136,51 @@ country_event = {
 		trigger = {
 			has_completed_focus = FRA_Emergency_allocation
 		}
+		add_political_power = -100
+		effect_tooltip = {
+			RHI = {
+				add_political_power = 100
+			}
+		}
+		RHI = {
+			country_event = {
+				id = fate_rhine.7
+				days = 1
+			}
+		}
 	}
 	option = {
 		name = fate_rhine.6.b
 		trigger = {
 			has_completed_focus = FRA_encourage_bankruptcy
 		}
+		add_political_power = -50
+		effect_tooltip = {
+			RHI = {
+				add_stability = -0.05
+				add_political_power = 50
+			}
+		}
+		RHI = {
+			country_event = {
+				id = fate_rhine.7
+				days = 1
+			}
+		}
 	}
 	option = {
 		name = fate_rhine.6.c
-		trigger = {
-			has_completed_focus = FRA_Emergency_allocation
+		add_war_support = -0.05
+		RHI = {
+			country_event = {
+				id = fate_rhine.8
+				days = 1
+			}
 		}
 	}
 }
 
+##法国给了
 country_event = {
 	id = fate_rhine.7
 	title = fate_rhine.7.t
@@ -215,34 +195,42 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		if = {
+			limit = {
+				FRA = {
+					has_completed_focus = FRA_Emergency_allocation
+				}
+			}
+			add_political_power = 100
+		}
+		if = {
+			limit = {
+				FRA = {
+					has_completed_focus = FRA_encourage_bankruptcy
+				}
+			}
+			add_stability = -0.05
+			add_political_power = 50
+		}
+		swap_ideas = {
+			remove_idea = RHI_economic_crisis_idea
+			add_idea = RHI_economic_crisis_interference_idea
+		}
 	}
-	# option = {
-	# 	name = fate_rhine.7.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.7.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##法国没给
 country_event = {
 	id = fate_rhine.8
 	title = fate_rhine.8.t
 	desc = fate_rhine.8.d
 	desc = {
 		text = fate_rhine.8.d1
-	}
-	desc = {
-		text = fate_rhine.8.d2
+		trigger = {
+			FRA = {
+				has_completed_focus = FRA_encourage_bankruptcy
+			}
+		}
 	}
 	immediate = {
 	}
@@ -254,25 +242,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_stability = -0.05
 	}
-	# option = {
-	# 	name = fate_rhine.8.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.8.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##Valkism不满
 country_event = {
 	id = fate_rhine.9
 	title = fate_rhine.9.t
@@ -287,25 +261,28 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		swap_ideas = {
+			remove_idea = RHI_valkist_idea
+			add_idea = RHI_valkist_supressed_idea
+		}
 	}
+	##Current Banned
 	option = {
 		name = fate_rhine.9.b
 		trigger = {
+			always = no
 		}
 		ai_chance = {
 			base = 1
 		}
+		country_event = {
+			id = fate_rhine.13
+			days = 18
+		}
 	}
-	# option = {
-	# 	name = fate_rhine.9.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##莱茵自由军团
 country_event = {
 	id = fate_rhine.10
 	title = fate_rhine.10.t
@@ -320,25 +297,11 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_manpower = -100
 	}
-	# option = {
-	# 	name = fate_rhine.10.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.10.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##反人民主义
 country_event = {
 	id = fate_rhine.11
 	title = fate_rhine.11.t
@@ -353,25 +316,19 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		set_politics = {
+			ruling_party = democratic
+			election_frequency = 48
+			elections_allowed = yes
+		}
 	}
-	# option = {
-	# 	name = fate_rhine.11.b
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
-	# option = {
-	# 	name = fate_rhine.11.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
 }
 
+##动乱结束
 country_event = {
 	id = fate_rhine.12
 	title = fate_rhine.12.t
@@ -386,6 +343,25 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		remove_ideas = RHI_great_riot_idea
+		set_politics = {
+			ruling_party = democratic
+			election_frequency = 48
+			elections_allowed = yes
+		}
+		add_country_leader_role = {
+			character = GEU_irisviel_von_einzbern
+			country_leader = {
+				ideology = conservatism
+				traits = {
+					Generic_trait_catholic_firebrand
+				}
+			}
+		}
+		promote_character = {
+			character = GEU_irisviel_von_einzbern
+			ideology = democratic
+		}
 	}
 	option = {
 		name = fate_rhine.12.b
@@ -394,13 +370,42 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_politics = {
+			ruling_party = democratic
+			election_frequency = 48
+			elections_allowed = yes
+		}
+		remove_ideas = RHI_great_riot_idea
+		add_country_leader_role = {
+			character = GEU_arcueid_brunestud
+			country_leader = {
+				ideology = social_democracy
+				traits = {
+					Generic_trait_social_democrat
+				}
+			}
+		}
+		promote_character = {
+			character = GEU_arcueid_brunestud
+			ideology = democratic
+		}
 	}
-	# option = {
-	# 	name = fate_rhine.12.c
-	# 	trigger = {
-	# 	}
-	# 	ai_chance = {
-	# 		base = 1
-	# 	}
-	# }
+}
+
+##查理曼
+country_event = {
+	id = fate_rhine.13
+	title = fate_rhine.13.t
+	desc = fate_rhine.13.d
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fate_rhine.13.a
+		ai_chance = {
+			base = 1
+		}
+	}
 }

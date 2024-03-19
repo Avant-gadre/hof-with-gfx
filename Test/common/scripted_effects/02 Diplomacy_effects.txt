@@ -482,3 +482,37 @@ calculate_days_since_game_start = {
 		days_to_event = global.num_days
 	}
 }
+
+release_and_puppet_of_FROM = {
+	if = {
+		limit = {
+			FROM = {
+				exists = no
+			}
+		}
+		ROOT = {
+			release_puppet = FROM
+		}
+	}
+	FROM = {
+		if = {
+			limit = {
+				NOT = {
+					has_government = ROOT
+				}
+			}
+			set_politics = {
+				ruling_party = ROOT
+				elections_allowed = no
+			}
+		}
+		add_popularity = {
+			ideology = ROOT
+			popularity = 0.2
+		}
+	}
+	set_autonomy = {
+		target = FROM
+		autonomy_state = autonomy_reichskommissariat
+	}
+}
