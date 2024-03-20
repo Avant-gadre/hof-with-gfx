@@ -11,22 +11,21 @@ output_full_path = os.path.join(os.path.dirname(script_path), output_path)
 statement_template = """
 else_if = {{
     limit = {{
-        has_idea = {target}_{0}
+        has_idea = {target}_{0}_idea
     }}
-    remove_ideas = {target}_{0}
-
+    swap_idea = {{
+        remove_idea = {target}_{0}_idea
+        add_idea =  {target}_{1}_idea
+    }}
 }}
 """
 
-    # swap_ideas = {{
 
-    #     add_idea =  {target}_{1}
-    # }}
 
-target = "FRA_officers_purged"
+target = "FRA_military_government"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 10):
+    for i in range(1, 7):
         current_statement = statement_template.format(i, i + 1, target=target)
         file.write(current_statement)
 

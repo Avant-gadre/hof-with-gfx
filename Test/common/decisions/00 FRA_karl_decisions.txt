@@ -421,50 +421,180 @@ FRA_je_suis_la_deluge_category = {
 	}
 }
 
-FRA_frankish_national_theory_category = {
-	##头文件
-	FRA_setup_naples_kingdom_karl = {
-		icon = ger_wehrmacht
+FRA_future_of_our_country_category = {
+	FRA_frankish_national_theory = {
+		icon = generic_political_discourse
+		visible = {
+			##has_completed_focus = FRA_a_nation_reborn
+			is_faction_leader = yes
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
 		highlight_states = {
-			highlight_state_targets = {
-				state = 114
-				state = 115
-				state = 156
-				state = 117
-				state = 897
-				state = 742
-				state = 837
+			highlight_states_trigger = {
+				OR = {
+					FRA_is_austria_karl_states_triggger = yes
+					FRA_is_north_italy_karl_states_triggger = yes
+					FRA_is_swiss_states_triggger = yes
+					FRA_is_german_karl_states_triggger = yes
+					FRA_is_great_rhine_states_trigger = yes
+					is_core_of = LUX
+					is_core_of = HOL
+					is_core_of = BEL
+				}
+			}
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_completed_focus = FRA_je_suis_la_deluge
+			has_completed_focus = FRA_a_nation_reborn
+			has_completed_focus = FRA_Royal_Guards
+			is_faction_leader = yes
+			FRA_has_charlemagne_trigger = yes
+			2 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			64 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			ITA = {
+				OR = {
+					is_puppet_of = ROOT
+					exists = no
+				}
+			}
+			GER = {
+				OR = {
+					is_puppet_of = ROOT
+					exists = no
+				}
+			}
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			add_war_support = 0.1
+			add_stability = 0.1
+			effect_tooltip = {
+				add_country_leader_trait = FRA_trait_great_emperor_privilege
+			}
+			hidden_effect = {
+				FRA_charlemagne_carolingian = {
+					add_trait = {
+						trait = FRA_trait_great_emperor_privilege
+						ideology = stratocracy
+					}
+					add_trait = {
+						trait = FRA_trait_great_emperor_privilege
+						ideology = rexism
+					}
+				}
+			}
+			set_country_flag = FRA_excute_frankish_national_theory_flag
+			unlock_decision_category_tooltip = FRA_frankish_national_theory_category
+			unlock_decision_tooltip = FRA_setup_naples_kingdom_karl
+			unlock_decision_tooltip = FRA_setup_prussia_kingdom_karl
+			unlock_decision_tooltip = FRA_setup_british_kingdom_karl
+			unlock_decision_tooltip = FRA_setup_papacy_karl
+			unlock_decision_tooltip = FRA_fate_of_rhineland_karl
+			unlock_decision_tooltip = FRA_rebuild_carolingian_empire_ITA
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_SWI
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_AUS
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_GER
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_BEL
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_HOL
+			unlock_decision_tooltip = FRA_puppet_belgium_karl_decision
+			unlock_decision_tooltip = FRA_annex_lux_karl_decision
+		}
+	}
+	FRA_seek_help_of_jeanne_karl_decision = {
+		icon = generic_political_discourse
+		visible = {
+			##has_completed_focus = FRA_a_nation_reborn
+			tag = FRA
+			is_faction_leader = yes
+			FRA_has_charlemagne_trigger = yes
+			OR = {
+				GER = {
+					has_war_with = ROOT
+				}
+				ENG = {
+					has_war_with = ROOT
+				}
 			}
 		}
 		allowed = {
 			tag = FRA
 		}
-		target_trigger = {
-			FROM = {
-				tag = ITA
+		available = {
+			OR = {
+				85 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				surrender_progress > 0.1
 			}
+			OR = {
+				GER = {
+					has_war_with = ROOT
+				}
+				ENG = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		cost = 400
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			activate_advisor = FRA_jeanne_d_arc_special_political_advisor
+		}
+	}
+}
+
+FRA_frankish_national_theory_category = {
+	##头文件
+	FRA_setup_naples_kingdom_karl = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_naples_states_trigger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
 		}
 		on_map_mode = map_and_decisions_view
 		available = {
-			FRA_FROM_can_release_trigger = yes
+			ITA = {
+				FRA_can_release_trigger = yes
+			}
 			FRA_control_all_naples_states_trigger = yes
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 14
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 15
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
-			FRA_annex_FROM_if_available_effect = yes
+			ITA = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
 			set_country_flag = FRA_establish_naples_karl_flag
-			FROM = {
+			ITA = {
 				set_cosmetic_tag = FRA_ITA_naples
 				add_country_leader_role = {
 					character = ITA_lucius_longinus
@@ -491,8 +621,14 @@ FRA_frankish_national_theory_category = {
 					elections_allowed = no
 				}
 			}
+			every_state = {
+				limit = {
+					FRA_is_naples_states_trigger = yes
+				}
+				transfer_state_to = ITA
+			}
 			set_autonomy = {
-				target = FROM
+				target = ITA
 				autonomy_state = autonomy_personal_union
 			}
 		}
@@ -500,51 +636,38 @@ FRA_frankish_national_theory_category = {
 	FRA_setup_prussia_kingdom_karl = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 62
-				state = 61
-				state = 64
-				state = 65
-				state = 63
-				state = 68
-				state = 66
-				state = 67
-				state = 86
-				state = 776
-				state = 777
-				state = 5
-				state = 188
+			highlight_states_trigger = {
+				FRA_is_prussian_states_triggger = yes
 			}
 		}
 		allowed = {
 			tag = FRA
 		}
-		target_trigger = {
-			FROM = {
-				tag = GER
-			}
-		}
 		on_map_mode = map_and_decisions_view
 		available = {
 			FRA_control_all_prussian_states_trigger = yes
-			FRA_FROM_can_release_trigger = yes
-			num_of_available_civilian_factories > 4
+			GER = {
+				FRA_can_release_trigger = yes
+			}
+			num_of_available_civilian_factories > 14
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 15
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
 			set_country_flag = FRA_establish_prussia_karl_flag
-			FRA_annex_FROM_if_available_effect = yes
-			FROM = {
+			GER = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			GER = {
 				set_cosmetic_tag = FRA_GER_prussia
 				add_country_leader_role = {
 					character = GER_kriemhild_gudrun
@@ -572,7 +695,7 @@ FRA_frankish_national_theory_category = {
 				}
 			}
 			set_autonomy = {
-				target = FROM
+				target = GER
 				autonomy_state = autonomy_personal_union
 			}
 		}
@@ -581,15 +704,8 @@ FRA_frankish_national_theory_category = {
 	FRA_setup_british_kingdom_karl = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 122
-				state = 126
-				state = 113
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = ENG
+			highlight_states_trigger = {
+				FRA_is_british_states_trigger = yes
 			}
 		}
 		allowed = {
@@ -597,24 +713,38 @@ FRA_frankish_national_theory_category = {
 		}
 		on_map_mode = map_and_decisions_view
 		available = {
-			FRA_FROM_can_release_trigger = yes
+			ENG = {
+				FRA_can_release_trigger = yes
+			}
 			FRA_control_all_british_states_trigger = yes
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 19
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 20
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
-			FRA_annex_FROM_if_available_effect = yes
-			FROM = {
+			ENG = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			IRE = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			every_state = {
+				limit = {
+					FRA_is_british_states_trigger = yes
+				}
+				transfer_state_to = ENG
+				add_core_of = ENG
+			}
+			ENG = {
 				add_country_leader_role = {
 					character = ENG_morgan_le_fay
 					country_leader = {
@@ -641,7 +771,7 @@ FRA_frankish_national_theory_category = {
 				}
 			}
 			set_autonomy = {
-				target = FROM
+				target = ENG
 				autonomy_state = autonomy_personal_union
 			}
 		}
@@ -650,48 +780,46 @@ FRA_frankish_national_theory_category = {
 	FRA_setup_papacy_karl = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 2
-				state = 764
-				state = 1005
-				state = 157
-				state = 161
+			highlight_states_trigger = {
+				FRA_is_papacy_states_trigger = yes
 			}
 		}
 		allowed = {
 			tag = FRA
 		}
-		target_trigger = {
-			FROM = {
-				tag = PAP
-			}
-		}
 		on_map_mode = map_and_decisions_view
 		available = {
 			has_country_flag = FRA_establish_naples_karl_flag
 			FRA_control_all_papacy_states_trigger = yes
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 9
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
-			FROM = {
+			PAP = {
 				set_politics = {
 					ruling_party = neutrality
 					elections_allowed = no
 				}
 			}
+			every_state = {
+				limit = {
+					FRA_is_papacy_states_trigger = yes
+				}
+				transfer_state_to = PAP
+				add_core_of = PAP
+			}
 			set_autonomy = {
-				target = FROM
+				target = PAP
 				autonomy_state = autonomy_federal_state
 			}
 		}
@@ -700,50 +828,40 @@ FRA_frankish_national_theory_category = {
 	FRA_fate_of_rhineland_karl = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 57
-				state = 51
-				state = 781
-				state = 55
-				state = 42
-				state = 1115
+			highlight_states_trigger = {
+				FRA_is_great_rhine_states_trigger = yes
 			}
 		}
 		allowed = {
 			tag = FRA
 		}
-		target_trigger = {
-			FROM = {
-				tag = RHI
-			}
-		}
 		on_map_mode = map_and_decisions_view
 		available = {
 			has_country_flag = FRA_establish_prussia_karl_flag
 			FRA_control_all_great_rhine_states_trigger = yes
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 9
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
-			FRA_annex_FROM_if_available_effect = yes
+			RHI = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
 			every_state = {
-				if = {
-					limit = {
-						FRA_is_great_rhine_states_trigger = yes
-					}
-					transfer_state_to = ROOT
-					enable_coring_at_eighty_compliance = yes
+				limit = {
+					FRA_is_great_rhine_states_trigger = yes
 				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
 			}
 		}
 	}
@@ -751,20 +869,8 @@ FRA_frankish_national_theory_category = {
 	FRA_rebuild_carolingian_empire_ITA = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 158
-				state = 838
-				state = 159
-				state = 1004
-				state = 162
-				state = 783
-				state = 160
-				state = 759
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = ITA
+			highlight_states_trigger = {
+				FRA_is_north_italy_karl_states_triggger = yes
 			}
 		}
 		allowed = {
@@ -774,28 +880,26 @@ FRA_frankish_national_theory_category = {
 		available = {
 			has_country_flag = FRA_establish_naples_karl_flag
 			FRA_control_all_north_italy_karl_states_trigger = yes
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 19
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 20
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
 			every_state = {
-				if = {
-					limit = {
-						FRA_is_north_italy_karl_states_triggger = yes
-					}
-					transfer_state_to = ROOT
-					enable_coring_at_eighty_compliance = yes
+				limit = {
+					FRA_is_north_italy_karl_states_triggger = yes
 				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
 			}
 		}
 	}
@@ -803,18 +907,8 @@ FRA_frankish_national_theory_category = {
 	FRA_rebuild_carolingian_empire_SWI = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 760
-				state = 3
-				state = 151
-				state = 761
-				state = 942
-				state = 1003
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = SWI
+			highlight_states_trigger = {
+				FRA_is_swiss_states_triggger = yes
 			}
 		}
 		allowed = {
@@ -823,29 +917,29 @@ FRA_frankish_national_theory_category = {
 		on_map_mode = map_and_decisions_view
 		available = {
 			FRA_control_all_swiss_states_trigger = yes
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 9
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
-			FRA_annex_FROM_if_available_effect = yes
+			SWI = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
 			every_state = {
-				if = {
-					limit = {
-						FRA_is_swiss_states_triggger = yes
-					}
-					transfer_state_to = ROOT
-					enable_coring_at_eighty_compliance = yes
+				limit = {
+					FRA_is_swiss_states_triggger = yes
 				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
 			}
 		}
 	}
@@ -853,25 +947,8 @@ FRA_frankish_national_theory_category = {
 	FRA_rebuild_carolingian_empire_AUS = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 153
-				state = 39
-				state = 836
-				state = 835
-				state = 1107
-				state = 683
-				state = 102
-				state = 488
-				state = 736
-				state = 103
-				state = 152
-				state = 4
-				state = 775
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = AUS
+			highlight_states_trigger = {
+				FRA_is_austria_karl_states_triggger = yes
 			}
 		}
 		allowed = {
@@ -880,29 +957,29 @@ FRA_frankish_national_theory_category = {
 		on_map_mode = map_and_decisions_view
 		available = {
 			FRA_control_all_austria_karl_states_trigger = yes
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 14
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 15
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
-			FRA_annex_FROM_if_available_effect = yes
+			AUS = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
 			every_state = {
-				if = {
-					limit = {
-						FRA_is_austria_karl_states_triggger = yes
-					}
-					transfer_state_to = ROOT
-					enable_coring_at_eighty_compliance = yes
+				limit = {
+					FRA_is_austria_karl_states_triggger = yes
 				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
 			}
 		}
 	}
@@ -910,22 +987,8 @@ FRA_frankish_national_theory_category = {
 	FRA_rebuild_carolingian_empire_GER = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 56
-				state = 58
-				state = 59
-				state = 147
-				state = 60
-				state = 54
-				state = 780
-				state = 52
-				state = 53
-				state = 50
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = GER
+			highlight_states_trigger = {
+				FRA_is_german_karl_states_triggger = yes
 			}
 		}
 		allowed = {
@@ -940,8 +1003,8 @@ FRA_frankish_national_theory_category = {
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
 			civilian_factory_use = 5
 		}
@@ -950,35 +1013,20 @@ FRA_frankish_national_theory_category = {
 		}
 		complete_effect = {
 			every_state = {
-				if = {
-					limit = {
-						FRA_is_german_karl_states_triggger = yes
-					}
-					transfer_state_to = ROOT
-					enable_coring_at_eighty_compliance = yes
+				limit = {
+					FRA_is_german_karl_states_triggger = yes
 				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
 			}
 		}
 	}
 	##
-	FRA_rebuild_carolingian_empire_BEL_HOL = {
+	FRA_rebuild_carolingian_empire_HOL = {
 		icon = ger_wehrmacht
 		highlight_states = {
-			highlight_state_targets = {
-				state = 760
-				state = 3
-				state = 151
-				state = 761
-				state = 942
-				state = 1003
-			}
-		}
-		target_trigger = {
-			FROM = {
-				OR = {
-					tag = BEL
-					tag = HOL
-				}
+			highlight_states_trigger = {
+				is_core_of = HOL
 			}
 		}
 		allowed = {
@@ -986,28 +1034,160 @@ FRA_frankish_national_theory_category = {
 		}
 		on_map_mode = map_and_decisions_view
 		available = {
-			FROM = {
+			HOL = {
 				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
+					is_controlled_by_ROOT_or_subject = yes
 				}
 			}
-			num_of_available_civilian_factories > 4
+			num_of_available_civilian_factories > 9
 		}
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 30
-		days_remove = 30
+		cost = 100
+		days_remove = 120
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		ai_will_do = {
 			factor = 10
 		}
 		complete_effect = {
-			FRA_annex_FROM_if_available_effect = yes
-			FROM = {
+			HOL = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			HOL = {
 				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	FRA_rebuild_carolingian_empire_BEL = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				is_core_of = BEL
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			BEL = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+			num_of_available_civilian_factories > 9
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			BEL = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			BEL = {
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	##
+	FRA_puppet_belgium_karl_decision = {
+		icon = oppression
+		available = {
+			BEL = {
+				exists = yes
+				is_in_faction_with = ROOT
+				is_subject = no
+			}
+			army_manpower_in_state = {
+				state = 34
+				amount > 10000
+			}
+			army_manpower_in_state = {
+				state = 925
+				amount > 10000
+			}
+			army_manpower_in_state = {
+				state = 948
+				amount > 10000
+			}
+		}
+		visible = {
+			is_faction_leader = yes
+		}
+		targets = {
+			BEL
+		}
+		target_trigger = {
+		}
+		cost = 150
+		days_remove = 30
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 925
+				state = 34
+				state = 948
+			}
+		}
+		remove_effect = {
+			set_autonomy = {
+				target = BEL
+				autonomy_state = autonomy_personal_union
+			}
+		}
+	}
+	FRA_annex_lux_karl_decision = {
+		icon = spy2
+		available = {
+			LUX = {
+				exists = yes
+				is_in_faction_with = ROOT
+				is_subject = no
+			}
+			army_manpower_in_state = {
+				state = 8
+				amount > 10000
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 8
+			}
+		}
+		visible = {
+			is_faction_leader = yes
+		}
+		targets = {
+			LUX
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 20
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		remove_effect = {
+			annex_country = {
+				target = LUX
+				transfer_troops = yes
 			}
 		}
 	}
