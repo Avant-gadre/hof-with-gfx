@@ -628,12 +628,6 @@ focus_tree = {
 		}
 		available_if_capitulated = yes
 		completion_reward = {
-			unlock_decision_tooltip = {
-				decision = FRA_prepare_coup_in_north_africa
-			}
-			unlock_decision_tooltip = {
-				decision = FRA_promise_independence_to_north_africa
-			}
 		}
 	}
 	focus = {
@@ -658,15 +652,6 @@ focus_tree = {
 		}
 		available_if_capitulated = yes
 		completion_reward = {
-			unlock_decision_tooltip = {
-				decision = FRA_prepare_coup_in_central_africa
-			}
-			unlock_decision_tooltip = {
-				decision = FRA_promise_independence_to_central_africa
-			}
-			unlock_decision_tooltip = {
-				decision = FRA_invasion_in_central_africa
-			}
 		}
 	}
 	focus = {
@@ -9477,7 +9462,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = FRA_Technological_Innovations
 				bonus = 0.75
-				uses = 4
+				uses = 2
 				category = industry
 			}
 		}
@@ -9496,8 +9481,7 @@ focus_tree = {
 			focus = FRA_Technological_Innovations
 		}
 		completion_reward = {
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = FRA_joachim_napoleon_murat
+			add_political_power = 100
 		}
 	}
 	focus = {
@@ -9528,6 +9512,7 @@ focus_tree = {
 			}
 		}
 		available = {
+			has_manpower > 100000
 			has_war = yes
 			any_enemy_country = {
 				is_major = yes
@@ -9556,6 +9541,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			custom_effect_tooltip = FRA_emperor_imperial_guard_tt
 			add_manpower = -100000
 			FRA_spawn_imperial_guard_effect = yes
 		}
@@ -9615,6 +9601,13 @@ focus_tree = {
 			add_ideas = FRA_military_government_1_idea
 			hidden_effect = {
 				set_cosmetic_tag = FRA_junta
+			}
+			whiteline = yes
+			FRA_charlemagne_carolingian = {
+				unit_leader_event = {
+					id = fra_karl.2
+					days = 7
+				}
 			}
 		}
 	}
@@ -9742,7 +9735,7 @@ focus_tree = {
 					}
 				}
 				add_dynamic_modifier = {
-					modifier = FRA_resistance_modifier
+					modifier = FRA_crush_dissent_modifier
 					days = 180
 				}
 			}
@@ -9795,11 +9788,18 @@ focus_tree = {
 			add_stability = 0.1
 			FRA_military_government_upgrade_effect = yes
 			unlock_decision_tooltip = FRA_frankish_national_theory
+			whiteline = yes
+			FRA_charlemagne_carolingian = {
+				unit_leader_event = {
+					id = fra_karl.1
+					days = 7
+				}
+			}
 		}
 	}
 	focus = {
 		id = FRA_Give_Petain_ful_powers
-		icon =  GFX_focus_generic_ideology_authoritarian_democrat
+		icon = GFX_focus_generic_ideology_authoritarian_democrat
 		cost = 4
 		relative_position_id = FRA_military_coup
 		x = 0
@@ -9831,12 +9831,10 @@ focus_tree = {
 			focus = FRA_Give_Petain_ful_powers
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_conservative_government = yes
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = FRA_pierre_marcilhacy
+			add_political_power = 30
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.1
 			}
 		}
 	}
@@ -9851,8 +9849,11 @@ focus_tree = {
 			focus = FRA_Control_all_the_newspapers
 		}
 		completion_reward = {
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = FRA_pierre_laval
+			add_manpower = 10000
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.1
+			}
 		}
 	}
 	focus = {
@@ -9869,7 +9870,11 @@ focus_tree = {
 			focus = FRA_Replace_the_Constitution
 		}
 		completion_reward = {
-			custom_effect_tooltip = available_political_advisor
+			add_manpower = 10000
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.1
+			}
 		}
 	}
 	focus = {
@@ -9984,11 +9989,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			set_country_flag = FRA_strengthen_government_support_focus_flag
-			add_timed_idea = {
-				idea = FRA_strengthen_government_support_focus
-				days = 500
-			}
 		}
 	}
 	focus = {
@@ -10087,10 +10087,6 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_strengthen_government_support
 		available = {
-			NOT = {
-				has_idea = FRA_strengthen_government_support_focus
-			}
-			has_country_flag = FRA_strengthen_government_support_focus_flag
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
