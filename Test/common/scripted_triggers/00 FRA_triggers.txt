@@ -11,25 +11,15 @@ FRA_has_active_maire_trigger = {
 
 FRA_in_nb_path_trigger = {
 	custom_trigger_tooltip = {
-		tooltip = FRA_in_nb_path_tt
+		tooltip = FRA_in_pf_path_tt
+		has_country_flag = FRA_the_fourth_republic_settled_flag
+		has_elections = yes
 		OR = {
-			has_country_leader = {
-				character = FRA_ciel_elesia
-				ruling_only = yes
-			}
-			has_country_leader = {
-				character = FRA_napoleon_bonaparte
-				ruling_only = yes
-			}
-			AND = {
-				FRA_leo_bistario_harvey = {
-					has_character_flag = FRA_with_nb_flag
-				}
-				has_country_leader = {
-					character = FRA_leo_bistario_harvey
-					ruling_only = yes
-				}
-			}
+			has_country_leader_ideology = conservatism
+			has_country_leader_ideology = authoritarianism
+		}
+		NOT = {
+			has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
 		}
 	}
 }
@@ -38,6 +28,7 @@ FRA_in_gmp_path_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = FRA_in_gmp_path_tt
 		FRA_has_charlemagne_trigger = yes
+		has_elections = no
 		NOT = {
 			has_government = democratic
 			has_government = communism
@@ -69,25 +60,15 @@ FRA_in_us_path_trigger = {
 FRA_in_pf_path_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = FRA_in_pf_path_tt
+		has_country_flag = FRA_the_fourth_republic_settled_flag
+		has_elections = yes
 		OR = {
-			AND = {
-				has_country_leader = {
-					character = FRA_jeanne_d_arc
-					ruling_only = yes
-				}
-				NOT = {
-					has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
-				}
-			}
-			AND = {
-				FRA_leo_bistario_harvey = {
-					has_character_flag = FRA_with_pf_flag
-				}
-				has_country_leader = {
-					character = FRA_leo_bistario_harvey
-					ruling_only = yes
-				}
-			}
+			has_country_leader_ideology = social_democracy
+			has_country_leader_ideology = liberalism
+			has_country_leader_ideology = classical_liberalism
+		}
+		NOT = {
+			has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
 		}
 	}
 }
@@ -106,6 +87,12 @@ FRA_in_alter_path_trigger = {
 	}
 }
 
+FRA_in_socialism_path_trigger = {
+	is_puppet = no
+	has_government = communism
+	has_country_flag = FRA_establish_french_commune_flag
+}
+
 FRA_has_jeanne_trigger = {
 	has_country_leader = {
 		character = FRA_jeanne_d_arc
@@ -118,6 +105,10 @@ FRA_has_napoleon_trigger = {
 		character = FRA_jeanne_d_arc_alter
 		ruling_only = yes
 	}
+}
+
+FRA_has_robespierre_trigger = {
+	has_idea = FRA_maximilien_de_robespierre_special_first
 }
 
 FRA_has_marie_trigger = {
@@ -243,6 +234,55 @@ FRA_can_use_war_economy_branch_trigger = {
 	}
 }
 
+FRA_can_use_economy_branch_trigger = {
+	if = {
+		limit = {
+			FRA_in_alter_path_trigger = yes
+		}
+		FRA_parliament = {
+			NOT = {
+				has_trait = FRA_trait_chaotic_parliament
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = FRA_officers_purged_tt
+			NOT = {
+				has_idea = FRA_officers_purged_1
+				has_idea = FRA_officers_purged_2
+				has_idea = FRA_officers_purged_3
+				has_idea = FRA_officers_purged_4
+				has_idea = FRA_officers_purged_5
+				has_idea = FRA_officers_purged_6
+				has_idea = FRA_officers_purged_7
+				has_idea = FRA_officers_purged_8
+				has_idea = FRA_officers_purged_9
+				has_idea = FRA_officers_purged_10
+			}
+		}
+	}
+	if = {
+		limit = {
+			FRA_in_gmp_path_trigger = yes
+		}
+		FRA_parliament = {
+			NOT = {
+				has_trait = FRA_trait_chaotic_parliament
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+		}
+		FRA_parliament = {
+			NOT = {
+				has_trait = FRA_trait_chaotic_parliament
+			}
+		}
+		FRA_disjoint_government_ends_trigger = yes
+	}
+}
+
 FRA_expansion_focus_trigger = {
 	is_faction_leader = yes
 	ENG = {
@@ -265,6 +305,26 @@ FRA_expansion_focus_trigger = {
 	}
 }
 
+FRA_disjoint_government_ends_trigger = {
+	NOT = {
+		has_idea = FRA_disjointed_government_idea
+		has_idea = FRA_disjointed_government_2_idea
+		has_idea = FRA_disjointed_government_3_idea
+		has_idea = FRA_disjointed_government_4_idea
+		has_idea = FRA_disjointed_government_5_idea
+		has_idea = FRA_disjointed_government_6_idea
+		has_idea = FRA_disjointed_government_7_idea
+		has_idea = FRA_disjointed_government_8_idea
+		has_idea = FRA_disjointed_government_9_idea
+		has_idea = FRA_disjointed_government_10_idea
+	}
+}
+
+FRA_before_1940_election_trigger = {
+	date < 1940.5.1
+}
+
+##
 FRA_alter_control_all_france_trigger = {
 	all_core_state = {
 		NOT = {
@@ -276,7 +336,6 @@ FRA_alter_control_all_france_trigger = {
 }
 
 ##Karl
-##
 FRA_is_great_rhine_states_trigger = {
 	OR = {
 		state = 57
@@ -289,8 +348,7 @@ FRA_is_great_rhine_states_trigger = {
 }
 
 FRA_control_all_great_rhine_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_great_rhine_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -316,8 +374,7 @@ FRA_is_naples_states_trigger = {
 }
 
 FRA_control_all_naples_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_naples_state_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -341,8 +398,7 @@ FRA_is_papacy_states_trigger = {
 }
 
 FRA_control_all_papacy_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_papacy_state_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -374,8 +430,7 @@ FRA_is_prussian_states_triggger = {
 }
 
 FRA_control_all_prussian_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_prussian_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -400,8 +455,7 @@ FRA_is_swiss_states_triggger = {
 }
 
 FRA_control_all_swiss_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_swiss_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -428,8 +482,7 @@ FRA_is_north_italy_karl_states_triggger = {
 }
 
 FRA_control_all_north_italy_karl_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_north_italy_karl_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -461,8 +514,7 @@ FRA_is_austria_karl_states_triggger = {
 }
 
 FRA_control_all_austria_karl_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_austria_karl_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -491,8 +543,7 @@ FRA_is_german_karl_states_triggger = {
 }
 
 FRA_control_all_german_karl_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_german_karl_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -523,8 +574,7 @@ FRA_is_british_states_trigger = {
 }
 
 FRA_control_all_british_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_british_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -538,8 +588,7 @@ FRA_control_all_british_states_trigger = {
 }
 
 FRA_control_all_german_karl_states_trigger = {
-	custom_trigger_tooltip = {
-		tooltip = FRA_control_all_german_karl_states_tt
+	hidden_trigger = {
 		all_state = {
 			OR = {
 				AND = {
@@ -556,5 +605,125 @@ FRA_can_release_trigger = {
 	OR = {
 		exists = no
 		is_puppet_of = ROOT
+	}
+}
+
+FRA_is_italy_alter_states_trigger = {
+	OR = {
+		region = 23
+		state = 114
+		state = 1003
+		state = 158
+		state = 838
+		state = 761
+		state = 159
+		state = 1004
+		state = 160
+		state = 161
+	}
+}
+
+FRA_control_all_italy_alter_states_trigger = {
+	hidden_trigger = {
+		all_state = {
+			OR = {
+				AND = {
+					FRA_is_italy_alter_states_trigger = yes
+					is_controlled_by_ROOT_or_subject = yes
+				}
+				FRA_is_italy_alter_states_trigger = no
+			}
+		}
+	}
+}
+
+FRA_is_austria_alter_states_trigger = {
+	OR = {
+		region = 7
+		region = 21
+		region = 22
+		region = 27
+		region = 143
+		state = 3
+		state = 151
+		state = 875
+		state = 783
+		state = 759
+		state = 488
+		state = 683
+		state = 736
+	}
+}
+
+FRA_control_all_austria_alter_states_trigger = {
+	hidden_trigger = {
+		all_state = {
+			OR = {
+				AND = {
+					FRA_is_italy_alter_states_trigger = yes
+					is_controlled_by_ROOT_or_subject = yes
+				}
+				FRA_is_italy_alter_states_trigger = no
+			}
+		}
+	}
+}
+
+FRA_is_polish_alter_states_trigger = {
+	OR = {
+		region = 38
+		state = 189
+		state = 188
+		state = 190
+		state = 11
+		state = 655
+		state = 96
+		state = 207
+		state = 94
+		state = 204
+		state = 997
+		state = 95
+		state = 93
+		state = 792
+	}
+}
+
+FRA_control_all_polish_alter_states_trigger = {
+	hidden_trigger = {
+		all_state = {
+			OR = {
+				AND = {
+					FRA_is_polish_alter_states_trigger = yes
+					is_controlled_by_ROOT_or_subject = yes
+				}
+				FRA_is_polish_alter_states_trigger = no
+			}
+		}
+	}
+}
+
+FRA_is_german_alter_states_trigger = {
+	NOT = {
+		state = 58
+	}
+	OR = {
+		region = 8
+		state = 51
+		state = 55
+		state = 57
+	}
+}
+
+FRA_control_all_german_alter_states_trigger = {
+	hidden_trigger = {
+		all_state = {
+			OR = {
+				AND = {
+					FRA_is_german_alter_states_trigger = yes
+					is_controlled_by_ROOT_or_subject = yes
+				}
+				FRA_is_german_alter_states_trigger = no
+			}
+		}
 	}
 }

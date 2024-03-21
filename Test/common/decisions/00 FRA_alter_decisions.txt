@@ -223,6 +223,56 @@ FRA_diplomacy_alter_category = {
 			}
 		}
 	}
+	FRA_expand_belgium_alter_decision = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				is_core_of = HOL
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			BEL = {
+				is_puppet_of = ROOT
+			}
+			HOL = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+			num_of_available_civilian_factories > 9
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			HOL = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			BEL = {
+				every_state = {
+					limit = {
+						is_core_of = HOL
+					}
+					FRA_kill_pop_alter_effect = yes
+					enable_state_integration_80_compliance = yes
+					transfer_state_to = PREV
+				}
+			}
+		}
+	}
+	##TODO
 	FRA_install_okita_alter_decision = {
 		icon = intelligence_operation
 		available = {
@@ -272,31 +322,107 @@ FRA_diplomacy_alter_category = {
 			}
 		}
 	}
-	FRA_install_draco_decision = {
+	FRA_install_arcueid_decision = {
 		icon = intelligence_operation
 		available = {
-			ROOT_can_release_FROM = yes
-			FROM = {
-				has_character = ITA_nero_draco_babylon
-				NOT = {
-					has_country_leader = {
-						character = ITA_nero_draco_babylon
-						ruling_only = yes
-					}
-				}
+			GER = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_german_alter_states_trigger = yes
+			num_of_available_civilian_factories > 29
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_german_alter_states_trigger = yes
 			}
 		}
-		visible = {
-			ROOT_can_release_FROM = yes
-			is_faction_leader = yes
+		cost = 200
+		days_remove = 200
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
 		}
-		targets = {
-			ITA
+		modifier = {
+			civilian_factory_use = 30
 		}
-		target_trigger = {
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				GER = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			GER = {
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = GEU_arcueid_brunestud
+						picture = GFX_Portrait_GEU_Arcueid_Brunestud_5
+						ideology = orlean_system
+					}
+				}
+				every_state = {
+					limit = {
+						FRA_is_german_alter_states_trigger = yes
+					}
+					set_temp_variable = {
+						var = FRA_population_checker
+						value = state_population_k
+					}
+					multiply_temp_variable = {
+						var = FRA_population_checker
+						value = -20
+					}
+					add_manpower = FRA_population_checker
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = GER
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+	}
+	##
+	FRA_install_marie_alter_decision = {
+		icon = intelligence_operation
+		available = {
+			AUS = {
+				FRA_can_release_trigger = yes
+			}
+			CZE = {
+				FRA_can_release_trigger = yes
+			}
+			HUN = {
+				FRA_can_release_trigger = yes
+			}
+			SLO = {
+				FRA_can_release_trigger = yes
+			}
+			SLV = {
+				FRA_can_release_trigger = yes
+			}
+			CRO = {
+				FRA_can_release_trigger = yes
+			}
+			SWI = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_austria_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_austria_alter_states_trigger = yes
+			}
 		}
 		cost = 20
-		days_remove = 14
+		days_remove = 50
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
@@ -306,45 +432,236 @@ FRA_diplomacy_alter_category = {
 			add_political_power = 100
 		}
 		remove_effect = {
-			release_and_puppet_of_FROM = yes
-			FROM = {
+			hidden_effect = {
+				CZE = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				HUN = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SLO = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SLV = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				CRO = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SWI = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			AUS = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			AUS = {
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_marie_antoinette_habsbourg_alter
+						picture = GFX_Portrait_FRA_Marie_Antoinette_Habsbourg_Alter
+						ideology = orlean_system
+					}
+				}
+				every_state = {
+					limit = {
+						FRA_is_austria_alter_states_trigger = yes
+					}
+					FRA_kill_pop_alter_effect = yes
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = AUS
+				autonomy_state = autonomy_personal_union
+			}
+		}
+	}
+	##
+	FRA_install_firewatcher_decision = {
+		icon = intelligence_operation
+		available = {
+			POL = {
+				FRA_can_release_trigger = yes
+			}
+			LIT = {
+				FRA_can_release_trigger = yes
+			}
+			BAT = {
+				FRA_can_release_trigger = yes
+			}
+			EST = {
+				FRA_can_release_trigger = yes
+			}
+			BLR = {
+				FRA_can_release_trigger = yes
+			}
+			UKR = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_polish_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_polish_alter_states_trigger = yes
+			}
+		}
+		cost = 20
+		days_remove = 50
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+		}
+		remove_effect = {
+			hidden_effect = {
+				POL = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				LIT = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BAT = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				EST = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BLR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				UKR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			POL = {
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = POL_firewatcher
+						picture = GFX_Portrait_POL_Firewatcher
+						ideology = valkism
+					}
+				}
+				every_state = {
+					limit = {
+						FRA_is_polish_alter_states_trigger = yes
+					}
+					FRA_kill_pop_alter_effect = yes
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = POL
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+	}
+	##
+	FRA_install_draco_decision = {
+		icon = intelligence_operation
+		available = {
+			ITA = {
+				FRA_can_release_trigger = yes
+				has_character = ITA_nero_draco_babylon
+			}
+			FRA_control_all_italy_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_italy_alter_states_trigger = yes
+			}
+		}
+		cost = 20
+		days_remove = 50
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+		}
+		remove_effect = {
+			ITA = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			ITA = {
 				add_country_leader_role = {
 					character = ITA_nero_draco_babylon
 					country_leader = {
 						ideology = orlean_system
-						traits = {
-							Generic_trait_backroom_backstabber
-						}
 					}
 				}
+				promote_character = {
+					character = ITA_nero_draco_babylon
+					ideology = orlean_system
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				every_state = {
+					limit = {
+						FRA_is_italy_alter_states_trigger = yes
+					}
+					FRA_kill_pop_alter_effect = yes
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = ITA
+				autonomy_state = autonomy_reichskommissariat
 			}
 		}
 	}
+	##
 	FRA_install_nitocris_decision = {
 		icon = intelligence_operation
 		available = {
-			ROOT_can_release_FROM = yes
-			FROM = {
+			EGY = {
+				FRA_can_release_trigger = yes
 				has_character = EGY_nitocris_alter
-				NOT = {
-					has_country_leader = {
-						character = EGY_nitocris_alter
-						ruling_only = yes
+			}
+			LBA = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				EGY = {
+					all_core_state = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+				}
+				LBA = {
+					all_core_state = {
+						is_controlled_by_ROOT_or_subject = yes
 					}
 				}
 			}
 		}
-		visible = {
-			ROOT_can_release_FROM = yes
-			is_faction_leader = yes
-		}
-		targets = {
-			EGY
-		}
-		target_trigger = {
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					is_core_of = EGY
+					is_core_of = LBA
+				}
+			}
 		}
 		cost = 20
-		days_remove = 14
+		days_remove = 50
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
@@ -354,13 +671,22 @@ FRA_diplomacy_alter_category = {
 			add_political_power = 100
 		}
 		remove_effect = {
-			release_and_puppet_of_FROM = yes
-			FROM = {
+			LBA = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			EGY = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			EGY = {
 				add_country_leader_role = {
 					character = EGY_nitocris_alter
 					country_leader = {
 						ideology = religious_fascism
 					}
+				}
+				promote_character = {
+					character = EGY_nitocris_alter
+					ideology = religious_fascism
 				}
 				EGY_nitocris_alter = {
 					set_portraits = {
@@ -369,34 +695,54 @@ FRA_diplomacy_alter_category = {
 						}
 					}
 				}
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = EGY
+							is_core_of = LBA
+						}
+					}
+					FRA_kill_pop_alter_effect = yes
+					transfer_state_to = EGY
+					enable_state_integration_80_compliance = yes
+				}
 			}
+			set_autonomy = {
+				target = EGY
+				autonomy_state = autonomy_reichskommissariat
+			}
+			transfer_state = 753
 		}
 	}
+	##
 	FRA_install_brynhild_decision = {
 		icon = intelligence_operation
 		available = {
-			ROOT_can_release_FROM = yes
-			FROM = {
+			SWE_control_all_nordic_plus_states_trigger = yes
+			SWE = {
+				FRA_can_release_trigger = yes
 				has_character = SWE_brunhild_budli
-				NOT = {
-					has_country_leader = {
-						character = SWE_brunhild_budli
-						ruling_only = yes
-					}
-				}
+			}
+			FIN = {
+				FRA_can_release_trigger = yes
+			}
+			NOR = {
+				FRA_can_release_trigger = yes
+			}
+			DEN = {
+				FRA_can_release_trigger = yes
+			}
+			EST = {
+				FRA_can_release_trigger = yes
 			}
 		}
-		visible = {
-			ROOT_can_release_FROM = yes
-			is_faction_leader = yes
-		}
-		targets = {
-			SWE
-		}
-		target_trigger = {
+		highlight_states = {
+			highlight_states_trigger = {
+				SWE_is_nordic_plus_states_trigger = yes
+			}
 		}
 		cost = 20
-		days_remove = 14
+		days_remove = 50
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
@@ -406,42 +752,67 @@ FRA_diplomacy_alter_category = {
 			add_political_power = 100
 		}
 		remove_effect = {
-			release_and_puppet_of_FROM = yes
-			FROM = {
+			SWE = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			EST = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			FIN = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			NOR = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			DEN = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			SWE = {
 				add_country_leader_role = {
 					character = SWE_brunhild_budli
 					country_leader = {
-						ideology = rexism
+						ideology = valkism
 					}
 				}
+				promote_character = {
+					character = SWE_brunhild_budli
+					ideology = valkism
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				every_state = {
+					limit = {
+						SWE_is_nordic_plus_states_trigger = yes
+					}
+					FRA_kill_pop_alter_effect = yes
+					transfer_state_to = SWE
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = SWE
+				autonomy_state = autonomy_personal_union
 			}
 		}
 	}
+	##
 	FRA_install_gladiia_decision = {
 		icon = intelligence_operation
 		available = {
-			ROOT_can_release_FROM = yes
-			FROM = {
-				##has_character = SWE_brunhild_budli
-				NOT = {
-					has_country_leader = {
-						character = SPA_gladiia_campeones
-						ruling_only = yes
-					}
-				}
+			SPA = {
+				FRA_can_release_trigger = yes
+			}
+			SPA_control_all_iberian_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				SPA_is_iberian_states_trigger = yes
 			}
 		}
-		visible = {
-			ROOT_can_release_FROM = yes
-			is_faction_leader = yes
-		}
-		targets = {
-			SPA
-		}
-		target_trigger = {
-		}
 		cost = 20
-		days_remove = 14
+		days_remove = 50
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
@@ -451,17 +822,19 @@ FRA_diplomacy_alter_category = {
 			add_political_power = 100
 		}
 		remove_effect = {
-			release_and_puppet_of_FROM = yes
-			every_other_country = {
-				limit = {
-					has_character = SPA_gladiia_campeones
-				}
-				set_nationality = {
-					target_country = SPA
-					character = SPA_gladiia_campeones
+			hidden_effect = {
+				random_other_country = {
+					limit = {
+						has_character = SPA_gladiia_campeones
+					}
+					set_nationality = {
+						target_country = SPA
+						character = SPA_gladiia_campeones
+					}
 				}
 			}
-			FROM = {
+			SPA = {
+				FRA_annex_PREV_if_available_effect = yes
 				add_country_leader_role = {
 					character = SPA_gladiia_campeones
 					country_leader = {
@@ -470,36 +843,54 @@ FRA_diplomacy_alter_category = {
 				}
 				promote_character = {
 					character = SPA_gladiia_campeones
-					ideology = fascism
+					ideology = falangism
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				every_state = {
+					limit = {
+						SPA_is_iberian_states_trigger = yes
+					}
+					FRA_kill_pop_alter_effect = yes
+					transfer_state_to = SPA
+					enable_state_integration_80_compliance = yes
 				}
 			}
+			set_autonomy = {
+				target = SPA
+				autonomy_state = autonomy_reichskommissariat
+			}
+			transfer_state = 118
+			transfer_state = 177
+			transfer_state = 165
 		}
 	}
+	##
 	FRA_install_flanders_decision = {
 		icon = intelligence_operation
 		available = {
-			ROOT_can_release_FROM = yes
-			FROM = {
+			ROM = {
+				FRA_can_release_trigger = yes
 				has_character = ROM_flandre_scarlet
-				NOT = {
-					has_country_leader = {
-						character = ROM_flandre_scarlet
-						ruling_only = yes
-					}
+			}
+			ROM_control_all_intital_romania_states_trigger = yes
+			hidden_trigger = {
+				ROM_control_all_intital_romania_states_trigger = yes
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					ROM_is_transilvania_state_trigger = yes
+					ROM_is_intital_romania_states_trigger = yes
 				}
 			}
 		}
-		visible = {
-			ROOT_can_release_FROM = yes
-			is_faction_leader = yes
-		}
-		targets = {
-			ROM
-		}
-		target_trigger = {
-		}
+		##
 		cost = 20
-		days_remove = 14
+		days_remove = 50
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
@@ -509,49 +900,110 @@ FRA_diplomacy_alter_category = {
 			add_political_power = 100
 		}
 		remove_effect = {
-			release_and_puppet_of_FROM = yes
-			FROM = {
+			ROM = {
+				FRA_annex_PREV_if_available_effect = yes
 				add_country_leader_role = {
 					character = ROM_flandre_scarlet
 					country_leader = {
 						ideology = rexism
 					}
 				}
+				promote_character = {
+					character = ROM_flandre_scarlet
+					ideology = rexism
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			every_state = {
+				limit = {
+					OR = {
+						ROM_is_transilvania_state_trigger = yes
+						ROM_is_intital_romania_states_trigger = yes
+					}
+				}
+				FRA_kill_pop_alter_effect = yes
+				transfer_state_to = ROM
+			}
+			set_autonomy = {
+				target = ROM
+				autonomy_state = autonomy_reichskommissariat
 			}
 		}
 	}
+	##
 	FRA_install_artoria_decision = {
 		icon = intelligence_operation
 		available = {
-			ROOT_can_release_FROM = yes
-			FROM = {
+			ENG = {
+				FRA_can_release_trigger = yes
 				has_character = ENG_artoria_pendragon_alter
 			}
 		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_british_states_trigger = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			ENG = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_british_states_trigger = yes
+			num_of_available_civilian_factories > 19
+		}
 		visible = {
-			ROOT_can_release_FROM = yes
-			is_faction_leader = yes
 		}
-		targets = {
-			ENG
-		}
-		target_trigger = {
-		}
-		cost = 20
-		days_remove = 14
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
 			factor = 100
 		}
-		complete_effect = {
-			add_political_power = 100
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
 		}
 		remove_effect = {
-			release_and_puppet_of_FROM = yes
-			country_event = {
-				id = fra_alter.36
-				days = 14
+			ENG = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			IRE = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			ENG = {
+				every_state = {
+					limit = {
+						FRA_is_british_states_trigger = yes
+					}
+					FRA_kill_pop_alter_effect = yes
+					transfer_state_to = ENG
+					enable_state_integration_80_compliance = yes
+				}
+				promote_character = {
+					character = ENG_artoria_pendragon_alter
+					ideology = rexism
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = ENG
+				autonomy_state = autonomy_reichskommissariat
+			}
+			hidden_effect = {
+				country_event = {
+					id = fra_alter.36
+					days = 14
+				}
 			}
 		}
 	}

@@ -1,0 +1,177 @@
+FRA_future_of_our_country_category = {
+	FRA_begin_civilian_mobilization_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_completed_focus = FRA_begin_civilian_mobilization
+			NOT = {
+				has_idea = FRA_strengthen_government_support_idea
+			}
+		}
+		cost = 150
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			set_country_flag = FRA_strengthen_government_support_focus_flag
+			custom_effect_tooltip = FRA_Imperial_Economic_Regulations_tt
+			if = {
+				limit = {
+					NOT = {
+						has_idea = tot_economic_mobilisation
+					}
+				}
+				add_ideas = war_economy
+			}
+			else = {
+				add_political_power = 100
+			}
+			add_war_support = 0.1
+		}
+	}
+	FRA_hold_referendum_for_socialism_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_war = no
+			has_completed_focus = FRA_work_charter
+			has_completed_focus = FRA_constitutional_referendum
+			FRA_before_1940_election_trigger = yes
+			FRA_has_robespierre_trigger = yes
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			set_country_flag = FRA_establish_french_commune_flag
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = yes
+			}
+			promote_character = {
+				character = FRA_jeanne_d_arc
+				ideology = democratic_socialism
+			}
+		}
+	}
+	##
+	FRA_postpone_1940_election_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_completed_focus = FRA_constitutional_referendum
+			date > 1940.3.1
+			date < 1940.5.1
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			##
+			set_country_flag = FRA_1940_election_postponed_flag
+			add_timed_idea = {
+				idea = FRA_election_postpone_idea
+				days = 180
+			}
+			add_stability = -0.1
+		}
+	}
+	FRA_draft_authoritarian_constitution_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			FRA_has_napoleon_trigger = yes
+			has_completed_focus = FRA_constitutional_referendum
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			set_politics = {
+				elections_allowed = no
+			}
+			add_stability = -0.1
+			complete_national_focus = FRA_Give_Petain_ful_powers
+		}
+	}
+	FRA_hold_referendum_for_napoleon_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_elections = no
+			FRA_has_napoleon_trigger = yes
+			OR = {
+				date < 1940.6.1
+				has_country_flag = FRA_1940_election_postponed_flag
+			}
+			OR = {
+				GER = {
+					OR = {
+						exists = no
+						is_in_faction_with = ROOT
+						is_puppet_of = ROOT
+					}
+				}
+				AND = {
+					64 = {
+						is_controlled_by_ROOT_or_ally = yes
+					}
+					55 = {
+						is_controlled_by_ROOT_or_ally = yes
+					}
+					52 = {
+						is_controlled_by_ROOT_or_ally = yes
+					}
+					has_capitulated = no
+					surrender_progress < 0.1
+				}
+			}
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			complete_national_focus = FRA_proclaim_the_third_empire
+			add_war_support = 0.05
+			hidden_effect = {
+				drop_cosmetic_tag = yes
+				set_cosmetic_tag = FRA_empire
+			}
+			add_country_leader_trait = FRA_trait_the_emperor
+		}
+	}
+}

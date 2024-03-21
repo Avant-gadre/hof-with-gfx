@@ -22,10 +22,10 @@ else_if = {{
 
 
 
-target = "FRA_military_government"
+target = "FRA_disjointed_government"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 7):
+    for i in range(1, 11):
         current_statement = statement_template.format(i, i + 1, target=target)
         file.write(current_statement)
 
