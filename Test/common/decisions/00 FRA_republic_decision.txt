@@ -48,26 +48,93 @@ FRA_future_of_our_country_category = {
 			has_war = no
 			has_completed_focus = FRA_work_charter
 			has_completed_focus = FRA_constitutional_referendum
+			date > 1940.1.1
 			FRA_before_1940_election_trigger = yes
 			FRA_has_robespierre_trigger = yes
+			hidden_trigger = {
+				set_temp_variable = {
+					var = FRA_referendum_communism_checker_var
+					value = ROOT.party_popularity_100@communism
+				}
+				set_temp_variable = {
+					var = FRA_referendum_democratic_checker_var
+					value = ROOT.party_popularity_100@democratic
+				}
+				##
+				set_temp_variable = {
+					var = FRA_referendum_democratic_checker_half_var
+					value = ROOT.party_popularity_100@democratic
+				}
+				multiply_temp_variable = {
+					var = FRA_referendum_democratic_checker_half_var
+					value = 0.5
+				}
+				set_temp_variable = {
+					var = FRA_referendum_sum_checker_var
+					value = FRA_referendum_communism_checker_var
+				}
+				add_to_temp_variable = {
+					var = FRA_referendum_sum_checker_var
+					value = FRA_referendum_democratic_checker_half_var
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = FRA_hold_referendum_for_socialism_tt
+				check_variable = {
+					FRA_referendum_communism_checker_var > FRA_referendum_democratic_checker_half_var
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = FRA_hold_referendum_for_socialism_1_tt
+				check_variable = {
+					FRA_referendum_sum_checker_var > 40
+				}
+			}
+		}
+		visible = {
+			has_war = no
+			FRA_before_1940_election_trigger = yes
 		}
 		cost = 50
 		ai_will_do = {
 			factor = 1000
 		}
 		complete_effect = {
-			set_country_flag = FRA_establish_french_commune_flag
-			set_politics = {
-				ruling_party = communism
-				elections_allowed = yes
+			hidden_effect = {
+				set_temp_variable = {
+					var = FRA_referendum_communism_checker_var
+					value = ROOT.party_popularity_100@communism
+				}
+				set_temp_variable = {
+					var = FRA_referendum_democratic_checker_var
+					value = ROOT.party_popularity_100@democratic
+				}
+				multiply_temp_variable = {
+					var = FRA_referendum_democratic_checker_var
+					value = -1.5
+				}
+				add_to_temp_variable = {
+					var = FRA_referendum_communism_checker_var
+					value = FRA_referendum_democratic_checker_var
+				}
+				multiply_temp_variable = {
+					var = FRA_referendum_communism_checker_var
+					value = 0.01
+				}
 			}
-			promote_character = {
-				character = FRA_jeanne_d_arc
-				ideology = democratic_socialism
+			custom_effect_tooltip = FRA_referendum_communism_result_tt
+			add_stability = FRA_referendum_communism_checker_var
+			add_war_support = FRA_referendum_communism_checker_var
+			FRA_maximilien_de_robespierre = {
+				add_temp_unit_leader_role = yes
+				unit_leader_event = {
+					id = fra_red.1
+					days = 1
+				}
 			}
 		}
 	}
-	##
+	##Nap
 	FRA_postpone_1940_election_decision = {
 		icon = generic_political_discourse
 		visible = {
@@ -106,7 +173,12 @@ FRA_future_of_our_country_category = {
 		}
 		on_map_mode = decision_view_only
 		available = {
+			OR = {
+				date < 1940.6.1
+				has_country_flag = FRA_1940_election_postponed_flag
+			}
 			FRA_has_napoleon_trigger = yes
+			has_idea = FRA_pauline_bonaparte_special_second
 			has_completed_focus = FRA_constitutional_referendum
 		}
 		cost = 50
@@ -115,10 +187,17 @@ FRA_future_of_our_country_category = {
 		}
 		complete_effect = {
 			set_politics = {
+				ruling_party = democratic
 				elections_allowed = no
 			}
 			add_stability = -0.1
 			complete_national_focus = FRA_Give_Petain_ful_powers
+			FRA_napoleon_bonaparte = {
+				unit_leader_event = {
+					id = fra_bonaparte.1
+					days = 1
+				}
+			}
 		}
 	}
 	FRA_hold_referendum_for_napoleon_decision = {
@@ -133,6 +212,7 @@ FRA_future_of_our_country_category = {
 		available = {
 			has_elections = no
 			FRA_has_napoleon_trigger = yes
+			has_idea = FRA_pauline_bonaparte_special_second
 			OR = {
 				date < 1940.6.1
 				has_country_flag = FRA_1940_election_postponed_flag
@@ -166,12 +246,57 @@ FRA_future_of_our_country_category = {
 		}
 		complete_effect = {
 			complete_national_focus = FRA_proclaim_the_third_empire
-			add_war_support = 0.05
-			hidden_effect = {
-				drop_cosmetic_tag = yes
-				set_cosmetic_tag = FRA_empire
+			add_war_support = 0.1
+			FRA_napoleon_bonaparte = {
+				unit_leader_event = {
+					id = fra_bonaparte.2
+					days = 3
+				}
 			}
-			add_country_leader_trait = FRA_trait_the_emperor
+		}
+	}
+	FRA_investigate_jeanne_alter_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_intelligence_agency = yes
+			has_manpower > 50
+			has_equipment = {
+				infantry_equipment > 499
+			}
+			OR = {
+				has_completed_focus = FRA_tame_dragon_witch
+				has_completed_focus = FRA_fate_of_dragon_witch
+			}
+		}
+		cost = 50
+		days_remove = 100
+		ai_will_do = {
+			factor = 1000
+		}
+		remove_effect = {
+			add_manpower = -50
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -500
+			}
+		}
+		complete_effect = {
+			add_manpower = 50
+			hidden_effect = {
+				FRA_ciel_elesia = {
+					unit_leader_event = {
+						id = fra_alter.4
+						days = 7
+					}
+				}
+			}
 		}
 	}
 }
