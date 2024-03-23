@@ -1,3 +1,11 @@
+--Magic
+    NDefines.NGraphics.COUNTRY_FLAG_TEX_MAX_SIZE = 2048
+    NDefines.NGraphics.COUNTRY_FLAG_SMALL_TEX_MAX_SIZE = 512
+    NDefines.NGraphics.COUNTRY_FLAG_STRIPE_TEX_MAX_WIDTH = 10
+    NDefines.NGraphics.COUNTRY_FLAG_STRIPE_TEX_MAX_HEIGHT = 8196
+    NDefines.NGraphics.COUNTRY_FLAG_LARGE_STRIPE_MAX_WIDTH = 41
+    NDefines.NGraphics.COUNTRY_FLAG_LARGE_STRIPE_MAX_HEIGHT = 24000
+
 ---------------------- graphics
 NDefines_Graphics.NMapMode.MAP_MODE_TERRAIN_TRANSPARENCY = 1.0					-- 0.7 How much transparent are the province colors in the simplified terrain map mode
 
@@ -130,3 +138,8 @@ NDefines_Graphics.NGraphics.STRATEGIC_NAVY_COLOR_MISSION = {0.65, 0.65, 0.0, 1}
 NDefines_Graphics.NGraphics.STRATEGIC_NAVY_COLOR_NEUTRAL = {130.0/255, 130.0/255, 130.0/255, 1}
 
 NDefines_Graphics.NGraphics.ROOT_FRONT_OFFSET = 2
+
+--Map modes
+    NDefines.NMapMode.MAP_MODE_MANPOWER_RANGE_MAX = 10000000
+    NDefines.NMapMode.MAP_MODE_MANPOWER_RANGE_COLOR_FROM = { 0.2, 0.2, 0.7, 0.5 }
+    NDefines.NMapMode.MAP_MODE_MANPOWER_RANGE_COLOR_TO = { 1, 0.125, 0.0, 0.75 }

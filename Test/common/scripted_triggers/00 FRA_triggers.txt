@@ -9,10 +9,19 @@ FRA_has_active_maire_trigger = {
 	}
 }
 
+FRA_has_normal_marie_trigger = {
+	OR = {
+		has_country_leader = {
+			character = FRA_marie_antoinette_habsbourg
+			ruling_only = yes
+		}
+		has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
+	}
+}
+
 FRA_in_nb_path_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = FRA_in_nb_path_tt
-		has_country_flag = FRA_the_fourth_republic_settled_flag
 		OR = {
 			has_elections = yes
 			has_completed_focus = FRA_proclaim_the_third_empire
@@ -22,7 +31,7 @@ FRA_in_nb_path_trigger = {
 			has_country_leader_ideology = authoritarianism
 		}
 		NOT = {
-			has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
+			FRA_has_marie_trigger = yes
 		}
 	}
 }
@@ -42,6 +51,7 @@ FRA_in_gmp_path_trigger = {
 FRA_in_af_path_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = FRA_in_af_path_tt
+		has_idea = FRA_marie_thomas_special_first
 		has_country_leader = {
 			character = FRA_marie_antoinette_habsbourg
 			ruling_only = yes
@@ -53,9 +63,11 @@ FRA_in_us_path_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = FRA_in_us_path_tt
 		has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
-		has_country_leader = {
-			character = FRA_jeanne_d_arc
-			ruling_only = yes
+		has_elections = yes
+		OR = {
+			has_classic_liberalism_government = yes
+			has_social_democracy_government = yes
+			has_liberalism_government = yes
 		}
 	}
 }
@@ -66,12 +78,10 @@ FRA_in_pf_path_trigger = {
 		has_country_flag = FRA_the_fourth_republic_settled_flag
 		has_elections = yes
 		OR = {
+			has_government = communism
 			has_country_leader_ideology = social_democracy
 			has_country_leader_ideology = liberalism
 			has_country_leader_ideology = classical_liberalism
-		}
-		NOT = {
-			has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
 		}
 	}
 }
@@ -84,9 +94,6 @@ FRA_in_alter_path_trigger = {
 			ruling_only = yes
 		}
 		has_government = fascism
-		# FRA_jeanne_d_arc_alter = {
-		# 	is_corps_commander = yes
-		# }
 	}
 }
 
@@ -100,6 +107,17 @@ FRA_has_jeanne_trigger = {
 	has_country_leader = {
 		character = FRA_jeanne_d_arc
 		ruling_only = yes
+	}
+}
+
+FRA_has_jeanne_pol_trigger = {
+	OR = {
+		has_country_leader = {
+			character = FRA_jeanne_d_arc
+			ruling_only = yes
+		}
+		has_idea = FRA_jeanne_d_arc_special_first
+		has_idea = FRA_jeanne_d_arc_political_advisor
 	}
 }
 
@@ -135,16 +153,6 @@ FRA_has_charlemagne_trigger = {
 	}
 }
 
-FRA_has_normal_marie_trigger = {
-	OR = {
-		has_country_leader = {
-			character = FRA_marie_antoinette_habsbourg
-			ruling_only = yes
-		}
-		has_idea = FRA_marie_antoinette_habsbourg_special_political_advisor
-	}
-}
-
 FRA_has_ciel_trigger = {
 	has_country_leader = {
 		character = FRA_ciel_elesia
@@ -160,12 +168,8 @@ FRA_has_harvey_trigger = {
 }
 
 FRA_focus_branch_avaliable_trigger = {
-	OR = {
-		NOT = {
-			has_global_flag = FRA_Economic_crisis_flag
-		}
-		FRA_economic_crisis_end_trigger = yes
-	}
+	has_completed_focus = FRA_Diplomatic_Effort
+	FRA_economic_crisis_end_trigger = yes
 }
 
 FRA_1936_crisis_ends_trigger = {
@@ -238,52 +242,10 @@ FRA_can_use_war_economy_branch_trigger = {
 }
 
 FRA_can_use_economy_branch_trigger = {
-	if = {
-		limit = {
-			FRA_in_alter_path_trigger = yes
-		}
-		FRA_parliament = {
-			NOT = {
-				has_trait = FRA_trait_chaotic_parliament
-			}
-		}
-		custom_trigger_tooltip = {
-			tooltip = FRA_officers_purged_tt
-			NOT = {
-				has_idea = FRA_officers_purged_1
-				has_idea = FRA_officers_purged_2
-				has_idea = FRA_officers_purged_3
-				has_idea = FRA_officers_purged_4
-				has_idea = FRA_officers_purged_5
-				has_idea = FRA_officers_purged_6
-				has_idea = FRA_officers_purged_7
-				has_idea = FRA_officers_purged_8
-				has_idea = FRA_officers_purged_9
-				has_idea = FRA_officers_purged_10
-			}
-		}
-	}
-	if = {
-		limit = {
-			FRA_in_gmp_path_trigger = yes
-		}
-		FRA_parliament = {
-			NOT = {
-				has_trait = FRA_trait_chaotic_parliament
-			}
-		}
-	}
-	if = {
-		limit = {
-			has_country_flag = FRA_the_fourth_republic_settled_flag
-		}
-		FRA_parliament = {
-			NOT = {
-				has_trait = FRA_trait_chaotic_parliament
-			}
-		}
-		FRA_disjoint_government_ends_trigger = yes
-	}
+	FRA_economic_crisis_end_trigger = yes
+	FRA_disjoint_government_halfs_trigger = yes
+	FRA_semi_restoration_halfs_trigger = yes
+	FRA_purge_ends_trigger = yes
 }
 
 FRA_expansion_focus_trigger = {
@@ -308,23 +270,103 @@ FRA_expansion_focus_trigger = {
 	}
 }
 
-FRA_disjoint_government_ends_trigger = {
+FRA_can_make_action_trigger = {
 	NOT = {
-		has_idea = FRA_disjointed_government_idea
-		has_idea = FRA_disjointed_government_2_idea
-		has_idea = FRA_disjointed_government_3_idea
-		has_idea = FRA_disjointed_government_4_idea
-		has_idea = FRA_disjointed_government_5_idea
-		has_idea = FRA_disjointed_government_6_idea
-		has_idea = FRA_disjointed_government_7_idea
-		has_idea = FRA_disjointed_government_8_idea
-		has_idea = FRA_disjointed_government_9_idea
-		has_idea = FRA_disjointed_government_10_idea
+		has_country_flag = FRA_1940_election_held_flag
+	}
+	OR = {
+		date < 1940.2.1
+		has_country_flag = FRA_1940_election_postponed_flag
+	}
+}
+
+FRA_disjoint_government_ends_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = FRA_disjoint_government_ends_tt
+		NOT = {
+			has_idea = FRA_disjointed_government_idea
+			has_idea = FRA_disjointed_government_2_idea
+			has_idea = FRA_disjointed_government_3_idea
+			has_idea = FRA_disjointed_government_4_idea
+			has_idea = FRA_disjointed_government_5_idea
+			has_idea = FRA_disjointed_government_6_idea
+			has_idea = FRA_disjointed_government_7_idea
+			has_idea = FRA_disjointed_government_8_idea
+			has_idea = FRA_disjointed_government_9_idea
+			has_idea = FRA_disjointed_government_10_idea
+		}
+	}
+}
+
+FRA_disjoint_government_halfs_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = FRA_disjoint_government_halfs_tt
+		NOT = {
+			has_idea = FRA_disjointed_government_idea
+			has_idea = FRA_disjointed_government_2_idea
+			has_idea = FRA_disjointed_government_3_idea
+			has_idea = FRA_disjointed_government_4_idea
+			has_idea = FRA_disjointed_government_5_idea
+		}
+	}
+}
+
+FRA_purge_ends_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = FRA_purge_ends_tt
+		NOT = {
+			has_idea = FRA_officers_purged_1
+			has_idea = FRA_officers_purged_2
+			has_idea = FRA_officers_purged_3
+			has_idea = FRA_officers_purged_4
+			has_idea = FRA_officers_purged_5
+			has_idea = FRA_officers_purged_6
+			has_idea = FRA_officers_purged_7
+			has_idea = FRA_officers_purged_8
+			has_idea = FRA_officers_purged_9
+			has_idea = FRA_officers_purged_10
+		}
+	}
+}
+
+FRA_semi_restoration_ends_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = FRA_semi_restoration_ends_tt
+		NOT = {
+			has_idea = FRA_semi_restoration_1_idea
+			has_idea = FRA_semi_restoration_2_idea
+			has_idea = FRA_semi_restoration_3_idea
+			has_idea = FRA_semi_restoration_4_idea
+			has_idea = FRA_semi_restoration_5_idea
+			has_idea = FRA_semi_restoration_6_idea
+			has_idea = FRA_semi_restoration_7_idea
+			has_idea = FRA_semi_restoration_8_idea
+			has_idea = FRA_semi_restoration_9_idea
+			has_idea = FRA_semi_restoration_10_idea
+		}
+	}
+}
+
+FRA_semi_restoration_halfs_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = FRA_semi_restoration_halfs_tt
+		NOT = {
+			has_idea = FRA_semi_restoration_1_idea
+			has_idea = FRA_semi_restoration_2_idea
+			has_idea = FRA_semi_restoration_3_idea
+			has_idea = FRA_semi_restoration_4_idea
+			has_idea = FRA_semi_restoration_5_idea
+		}
 	}
 }
 
 FRA_before_1940_election_trigger = {
-	date < 1940.5.1
+	custom_trigger_tooltip = {
+		tooltip = FRA_1940_election_held_flag
+		NOT = {
+			has_country_flag = FRA_1940_election_held_flag
+		}
+	}
 }
 
 ##
@@ -739,4 +781,58 @@ FRA_alter_will_join_elections_trigger = {
 		is_corps_commander = yes
 	}
 	has_country_flag = FRA_jeanne_alter_tamed_flag
+}
+
+FRA_is_austria_marie_states_trigger = {
+	OR = {
+		region = 7
+		region = 21
+		region = 22
+		region = 27
+		region = 143
+		region = 144
+		state = 3
+		state = 151
+		state = 875
+		state = 783
+		state = 759
+		state = 488
+		state = 683
+		state = 736
+		state = 159
+		state = 160
+		state = 144
+		state = 66
+		state = 67
+		state = 88
+		state = 91
+		state = 89
+		state = 3
+		state = 151
+		state = 761
+	}
+}
+
+FRA_control_all_austria_marie_states_trigger = {
+	hidden_trigger = {
+		all_state = {
+			OR = {
+				AND = {
+					FRA_is_austria_marie_states_trigger = yes
+					is_controlled_by_ROOT_or_subject = yes
+				}
+				FRA_is_austria_marie_states_trigger = no
+			}
+		}
+	}
+}
+
+##
+FRA_alter_can_declare_war_trigger = {
+	has_completed_focus = FRA_Let_this_world_burn
+	NOT = {
+		has_idea = FRA_prepare_for_war_idea
+	}
+	ROOT_has_shared_border_with_FROM = yes
+	ROOT_can_declare_on_FROM = yes
 }

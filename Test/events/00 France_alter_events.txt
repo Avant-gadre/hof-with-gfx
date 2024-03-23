@@ -17,6 +17,7 @@ unit_leader_event = {
 		add_manpower = -500
 		add_political_power = 50
 		add_stability = 0.05
+		remove_ideas = FRA_dragon_witch_activity_idea
 		name = fra_alter.1.a
 		ai_chance = {
 			base = 1
@@ -41,6 +42,7 @@ unit_leader_event = {
 		add_manpower = 500
 		add_political_power = 50
 		add_stability = 0.05
+		remove_ideas = FRA_dragon_witch_activity_idea
 		name = fra_alter.2.a
 		ai_chance = {
 			base = 1
@@ -1162,10 +1164,12 @@ unit_leader_event = {
 	title = fra_alter.35.title
 	desc = fra_alter.35.desc
 	immediate = {
-		FRA_jeanne_d_arc_alter = {
-			unit_leader_event = {
-				id = fra_alter.35
-				days = 365
+		hidden_effect = {
+			FRA_jeanne_d_arc_alter = {
+				unit_leader_event = {
+					id = fra_alter.35
+					days = 365
+				}
 			}
 		}
 	}
@@ -1177,6 +1181,18 @@ unit_leader_event = {
 	fire_only_once = yes
 	option = {
 		name = fra_alter.35.a
+		every_controlled_state = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+			ROOT = {
+				add_stability = 0.0001
+			}
+			ROOT = {
+				add_war_support = 0.0001
+			}
+		}
 		ai_chance = {
 			base = 1
 		}

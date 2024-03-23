@@ -43,7 +43,10 @@ ideas = {
 			removal_cost = -1
 			level = 5
 			available = {
-				has_war_support > 0.1
+				OR = {
+					has_war_support > 0.1
+					surrender_progress > 0
+				}
 				NOT = {
 					has_idea = undisturbed_isolation
 				}
@@ -77,14 +80,16 @@ ideas = {
 		extensive_conscription = {
 			available = {
 				OR = {
-					has_government = fascism
-					has_government = communism
+					has_war_support > 0.2
+					surrender_progress > 0
+				}
+				OR = {
+					has_war_support > 0.5
 					AND = {
 						has_war = yes
 						enemies_strength_ratio > 0.5
 					}
 				}
-				has_war_support > 0.2
 			}
 			ai_will_do = {
 				factor = 20
@@ -108,6 +113,26 @@ ideas = {
 					factor = 3
 					tag = CHI
 					has_manpower < 200000
+				}
+				modifier = {
+					#one step at a time
+					factor = 0
+					NOT = {
+						has_idea = limited_conscription
+					}
+				}
+				modifier = {
+					factor = 50					#The tag has enough equipment stockpiled but doesn't have manpower
+					amount_manpower_in_deployment_queue < 40000					# Less than 4 divs in training
+					has_equipment = {
+						infantry_equipment > 5000
+					}
+					# And has enough equipment in stockpile to train new divisions
+				}
+				modifier = {
+					#prio if low on manpower
+					factor = 20
+					manpower_per_military_factory < 2000
 				}
 			}
 			cost = 150
@@ -273,7 +298,6 @@ ideas = {
 				war_support_weekly = -0.005
 				war_stability_factor = -0.25
 				war_support_factor = -0.25
-
 				training_time_factor = 0.5
 				monthly_population = -0.5
 			}

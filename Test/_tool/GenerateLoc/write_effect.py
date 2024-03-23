@@ -22,7 +22,7 @@ else_if = {{
 
 
 
-target = "FRA_disjointed_government"
+target = "FRA_semi_restoration"
 
 with open(output_full_path, "w") as file:
     for i in range(1, 11):

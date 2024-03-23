@@ -175,18 +175,30 @@ unit_leader_event = {
 	}
 }
 
+##Republic
 ##选举 trigger by on_actions
 unit_leader_event = {
 	id = fra_election.5
 	title = fra_election.5.title
 	desc = fra_election.5.desc
 	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = FRA_1940_election_held_flag
+				}
+			}
+			set_country_flag = FRA_1940_election_held_flag
+		}
 	}
 	trigger = {
 		tag = FRA
 		has_elections = yes
 		date > 1939.1.1
 		has_country_flag = FRA_the_fourth_republic_settled_flag
+		NOT = {
+			has_country_flag = FRA_election_is_puppet_flag
+		}
 		NOT = {
 			has_idea = FRA_election_postpone_idea
 		}
@@ -1041,18 +1053,30 @@ unit_leader_event = {
 	}
 }
 
+##Kingdom
 ##选举
 unit_leader_event = {
 	id = fra_election.13
 	title = fra_election.13.title
 	desc = fra_election.13.desc
 	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = FRA_1940_election_held_flag
+				}
+			}
+			set_country_flag = FRA_1940_election_held_flag
+		}
 	}
 	trigger = {
 		tag = FRA
 		has_elections = yes
 		date > 1939.1.1
 		has_country_flag = FRA_the_constitutional_monarchy_formed_flag
+		NOT = {
+			has_country_flag = FRA_election_is_puppet_flag
+		}
 		NOT = {
 			has_government = communism
 		}
@@ -1583,6 +1607,111 @@ unit_leader_event = {
 		}
 		ai_chance = {
 			base = 1
+		}
+	}
+}
+
+##傀儡选举
+unit_leader_event = {
+	id = fra_election.19
+	title = fra_election.19.title
+	desc = fra_election.19.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = FRA_election_is_puppet_flag
+	}
+	option = {
+		name = fra_election.20.a
+		trigger = {
+		}
+		add_manpower = -300
+		add_popularity = {
+			ideology = ROOT
+			popularity = 0.05
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fra_election.20.b
+		trigger = {
+		}
+		add_political_power = -30
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##不信任动议
+unit_leader_event = {
+	id = fra_election.20
+	title = fra_election.20.title
+	desc = fra_election.20.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	# is_triggered_only = yes
+	trigger = {
+		tag = FRA
+		FRA_has_marie_trigger = yes
+		NOT = {
+			has_country_flag = FRA_election_is_puppet_flag
+		}
+		OR = {
+			AND = {
+				NOT = {
+					has_country_flag = FRA_1940_election_postponed_flag
+				}
+				date > 1940.2.1
+			}
+			AND = {
+				has_country_flag = FRA_1940_election_postponed_flag
+				date > 1944.2.1
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	fire_only_once = yes
+	option = {
+		name = fra_election.20.a
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		activate_advisor = FRA_marie_antoinette_habsbourg_special_political_advisor
+		whiteline = yes
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+			election_frequency = 48
+		}
+		promote_character = {
+			character = FRA_jeanne_d_arc
+			ideology = social_democracy
+		}
+		whiteline = yes
+		activate_advisor = FRA_honore_de_mirabeau_special_first
+		whiteline = yes
+		activate_advisor = FRA_jules_brevie_special_third
+		whiteline = yes
+		activate_advisor = FRA_edouard_daladier_special_fourth
+		whiteline = yes
+		activate_advisor = FRA_rene_coty_special_fifth
+		whiteline = yes
+		activate_advisor = FRA_charlotte_corday_special_sixth
+		whiteline = yes
+		set_party_name = {
+			ideology = democratic
+			long_name = FRA_democratic_party_us_long
+			name = FRA_democratic_party_us
 		}
 	}
 }

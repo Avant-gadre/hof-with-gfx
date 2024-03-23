@@ -1,50 +1,7 @@
+##Pol
 FRA_future_of_our_country_category = {
-	FRA_investigate_jeanne_alter_decision = {
-		icon = generic_political_discourse
-		visible = {
-			tag = FRA
-		}
-		allowed = {
-			tag = FRA
-		}
-		on_map_mode = decision_view_only
-		available = {
-			has_intelligence_agency = yes
-			has_manpower > 50
-			has_equipment = {
-				infantry_equipment > 499
-			}
-			OR = {
-				has_completed_focus = FRA_tame_dragon_witch
-				has_completed_focus = FRA_fate_of_dragon_witch
-			}
-		}
-		cost = 50
-		days_remove = 100
-		ai_will_do = {
-			factor = 1000
-		}
-		remove_effect = {
-			add_manpower = -50
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = -500
-			}
-		}
-		complete_effect = {
-			add_manpower = 50
-			hidden_effect = {
-				FRA_ciel_elesia = {
-					unit_leader_event = {
-						id = fra_alter.4
-						days = 7
-					}
-				}
-			}
-		}
-	}
 	FRA_begin_civilian_mobilization_decision = {
-		icon = generic_political_discourse
+		icon = gre_hellenic_academy
 		visible = {
 			tag = FRA
 		}
@@ -53,6 +10,7 @@ FRA_future_of_our_country_category = {
 		}
 		on_map_mode = decision_view_only
 		available = {
+			has_country_flag = FRA_the_fourth_republic_settled_flag
 			has_completed_focus = FRA_begin_civilian_mobilization
 			NOT = {
 				has_idea = FRA_strengthen_government_support_idea
@@ -80,7 +38,7 @@ FRA_future_of_our_country_category = {
 		}
 	}
 	FRA_hold_referendum_for_socialism_decision = {
-		icon = generic_political_discourse
+		icon = sov_secure_the_administration
 		visible = {
 			tag = FRA
 		}
@@ -90,10 +48,10 @@ FRA_future_of_our_country_category = {
 		on_map_mode = decision_view_only
 		available = {
 			has_war = no
+			has_country_flag = FRA_the_fourth_republic_settled_flag
 			has_completed_focus = FRA_work_charter
 			has_completed_focus = FRA_constitutional_referendum
-			date > 1940.1.1
-			FRA_before_1940_election_trigger = yes
+			date < 1940.1.1
 			FRA_has_robespierre_trigger = yes
 			hidden_trigger = {
 				set_temp_variable = {
@@ -166,6 +124,7 @@ FRA_future_of_our_country_category = {
 					value = 0.01
 				}
 			}
+			custom_effect_tooltip = FRA_hold_referendum_for_socialism_2_tt
 			custom_effect_tooltip = FRA_referendum_communism_result_tt
 			add_stability = FRA_referendum_communism_checker_var
 			add_war_support = FRA_referendum_communism_checker_var
@@ -178,9 +137,9 @@ FRA_future_of_our_country_category = {
 			}
 		}
 	}
-	##Nap
+	##Napoleon
 	FRA_postpone_1940_election_decision = {
-		icon = generic_political_discourse
+		icon = ita_colonial_administration
 		visible = {
 			tag = FRA
 		}
@@ -189,9 +148,11 @@ FRA_future_of_our_country_category = {
 		}
 		on_map_mode = decision_view_only
 		available = {
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+			FRA_has_napoleon_trigger = yes
 			has_completed_focus = FRA_constitutional_referendum
-			date > 1940.3.1
-			date < 1940.5.1
+			date > 1940.1.1
+			date < 1940.2.1			##THIS is Important
 		}
 		cost = 50
 		ai_will_do = {
@@ -202,25 +163,25 @@ FRA_future_of_our_country_category = {
 			set_country_flag = FRA_1940_election_postponed_flag
 			add_timed_idea = {
 				idea = FRA_election_postpone_idea
-				days = 180
+				days = 200
 			}
-			add_stability = -0.1
+			add_stability = -0.05
 		}
 	}
 	FRA_draft_authoritarian_constitution_decision = {
-		icon = generic_political_discourse
+		icon = oppression
 		visible = {
 			tag = FRA
+			##FRA_has_napoleon_trigger = yes
 		}
 		allowed = {
 			tag = FRA
 		}
 		on_map_mode = decision_view_only
 		available = {
-			OR = {
-				date < 1940.6.1
-				has_country_flag = FRA_1940_election_postponed_flag
-			}
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+			FRA_disjoint_government_ends_trigger = yes
+			FRA_can_make_action_trigger = yes
 			FRA_has_napoleon_trigger = yes
 			has_idea = FRA_pauline_bonaparte_special_second
 			has_completed_focus = FRA_constitutional_referendum
@@ -230,10 +191,8 @@ FRA_future_of_our_country_category = {
 			factor = 1000
 		}
 		complete_effect = {
-			set_politics = {
-				ruling_party = democratic
-				elections_allowed = no
-			}
+			custom_effect_tooltip = FRA_election_is_puppet_flag
+			set_country_flag = FRA_election_is_puppet_flag
 			add_stability = -0.1
 			complete_national_focus = FRA_Give_Petain_ful_powers
 			FRA_napoleon_bonaparte = {
@@ -245,16 +204,18 @@ FRA_future_of_our_country_category = {
 		}
 	}
 	FRA_hold_referendum_for_napoleon_decision = {
-		icon = generic_political_discourse
+		icon = spy3
 		visible = {
 			tag = FRA
+			##FRA_has_napoleon_trigger = yes
 		}
 		allowed = {
 			tag = FRA
 		}
 		on_map_mode = decision_view_only
 		available = {
-			has_elections = no
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+			has_country_flag = FRA_election_is_puppet_flag
 			FRA_has_napoleon_trigger = yes
 			has_idea = FRA_pauline_bonaparte_special_second
 			OR = {
@@ -295,6 +256,3229 @@ FRA_future_of_our_country_category = {
 				unit_leader_event = {
 					id = fra_bonaparte.2
 					days = 3
+				}
+			}
+		}
+	}
+	##Karl
+	FRA_frankish_national_theory = {
+		icon = ger_reichskommissariats
+		visible = {
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					FRA_is_austria_karl_states_triggger = yes
+					FRA_is_north_italy_karl_states_triggger = yes
+					FRA_is_swiss_states_triggger = yes
+					FRA_is_german_karl_states_triggger = yes
+					FRA_is_great_rhine_states_trigger = yes
+					is_core_of = LUX
+					is_core_of = HOL
+					is_core_of = BEL
+				}
+			}
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_completed_focus = FRA_je_suis_la_deluge
+			has_completed_focus = FRA_a_nation_reborn
+			has_completed_focus = FRA_Royal_Guards
+			is_faction_leader = yes
+			FRA_has_charlemagne_trigger = yes
+			2 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			64 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			ITA = {
+				OR = {
+					is_puppet_of = ROOT
+					exists = no
+				}
+			}
+			GER = {
+				OR = {
+					is_puppet_of = ROOT
+					exists = no
+				}
+			}
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			add_war_support = 0.1
+			add_stability = 0.1
+			effect_tooltip = {
+				add_country_leader_trait = FRA_trait_great_emperor_privilege
+			}
+			hidden_effect = {
+				FRA_charlemagne_carolingian = {
+					add_trait = {
+						trait = FRA_trait_great_emperor_privilege
+						ideology = stratocracy
+					}
+					add_trait = {
+						trait = FRA_trait_great_emperor_privilege
+						ideology = rexism
+					}
+				}
+			}
+			set_country_flag = FRA_excute_frankish_national_theory_flag
+			unlock_decision_category_tooltip = FRA_frankish_national_theory_category
+			unlock_decision_tooltip = FRA_setup_naples_kingdom_karl
+			unlock_decision_tooltip = FRA_setup_prussia_kingdom_karl
+			unlock_decision_tooltip = FRA_setup_british_kingdom_karl
+			unlock_decision_tooltip = FRA_setup_papacy_karl
+			unlock_decision_tooltip = FRA_fate_of_rhineland_karl
+			unlock_decision_tooltip = FRA_rebuild_carolingian_empire_ITA
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_SWI
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_AUS
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_GER
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_BEL
+			# unlock_decision_tooltip = FRA_rebuild_carolingian_empire_HOL
+			unlock_decision_tooltip = FRA_puppet_belgium_karl_decision
+			unlock_decision_tooltip = FRA_annex_lux_karl_decision
+			hidden_effect = {
+				FRA_charlemagne_carolingian = {
+					unit_leader_event = {
+						id = fra_karl.5
+						days = 28
+					}
+				}
+			}
+		}
+	}
+	FRA_seek_help_of_jeanne_karl_decision = {
+		icon = agreement
+		visible = {
+			tag = FRA
+			FRA_has_charlemagne_trigger = yes
+		}
+		allowed = {
+			tag = FRA
+		}
+		available = {
+			FRA_has_charlemagne_trigger = yes
+			OR = {
+				85 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				surrender_progress > 0.1
+			}
+			OR = {
+				GER = {
+					has_war_with = ROOT
+				}
+				ENG = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		cost = 200
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			FRA_jeanne_d_arc = {
+				custom_effect_tooltip = FRA_if_accept_tt
+			}
+			effect_tooltip = {
+				activate_advisor = FRA_jeanne_d_arc_special_political_advisor
+			}
+			FRA_jeanne_d_arc = {
+				unit_leader_event = {
+					id = fra_karl.8
+					days = 7
+				}
+			}
+		}
+	}
+}
+
+##Generic
+political_actions = {
+	FRA_investigate_jeanne_alter_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			has_intelligence_agency = yes
+			has_manpower > 50
+			has_equipment = {
+				infantry_equipment > 499
+			}
+			OR = {
+				has_completed_focus = FRA_tame_dragon_witch
+				has_completed_focus = FRA_fate_of_dragon_witch
+			}
+		}
+		cost = 50
+		days_remove = 100
+		ai_will_do = {
+			factor = 1000
+		}
+		remove_effect = {
+			add_manpower = 50
+			hidden_effect = {
+				FRA_ciel_elesia = {
+					unit_leader_event = {
+						id = fra_alter.4
+						days = 7
+					}
+				}
+			}
+		}
+		complete_effect = {
+			add_manpower = -50
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -500
+			}
+		}
+	}
+	FRA_nominate_harvey_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			NOT = {
+				has_idea = FRA_leo_bistario_harvey_special_fourth
+			}
+			NOT = {
+				FRA_has_harvey_trigger = yes
+			}
+			has_completed_focus = FRA_economic_devolution
+		}
+		cost = 100
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			activate_advisor = FRA_leo_bistario_harvey_special_fourth
+		}
+	}
+	FRA_appoint_corday_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			NOT = {
+				has_idea = FRA_charlotte_corday_special_sixth
+			}
+			has_completed_focus = FRA_Charottes_misson
+		}
+		cost = 100
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			activate_advisor = FRA_charlotte_corday_special_sixth
+		}
+	}
+	FRA_call_back_astolfo_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			RHI = {
+				has_character = FRA_astolfo_argalia
+				NOT = {
+					has_government = neutrality
+				}
+			}
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			RHI = {
+				set_nationality = {
+					target_country = FRA
+					character = FRA_astolfo_argalia
+				}
+			}
+			##TODO set ideology
+			army_experience = 30
+		}
+	}
+}
+
+##Marie
+FRA_guillotine_breaker_category = {
+	FRA_postpone_1940_election_marie_decision = {
+		icon = hol_exchange_intelligence_data
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			date > 1940.1.1
+			date < 1940.2.1			##THIS is Important
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			##
+			set_country_flag = FRA_1940_election_postponed_flag
+			add_timed_idea = {
+				idea = FRA_election_postpone_idea
+				days = 200
+			}
+			add_stability = -0.05
+		}
+	}
+	FRA_draft_authoritarian_constitution_marie_decision = {
+		icon = hol_draw_up_staff_plans
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		available = {
+			FRA_disjoint_government_ends_trigger = yes
+			FRA_semi_restoration_ends_trigger = yes
+			FRA_can_make_action_trigger = yes
+			has_completed_focus = FRA_Let_them_eat_Cake
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = FRA_election_is_puppet_flag
+			set_country_flag = FRA_election_is_puppet_flag
+			add_stability = -0.05
+			effect_tooltip = {
+				FRA_marie_antoinette_habsbourg = {
+					remove_trait = {
+						trait = Generic_trait_autocratic_tendencies
+					}
+					add_trait = {
+						trait = Generic_trait_autocratic_imperialist
+					}
+				}
+			}
+			hidden_effect = {
+				remove_country_leader_trait = Generic_trait_autocratic_tendencies
+				add_country_leader_trait = Generic_trait_autocratic_imperialist
+			}
+			complete_national_focus = FRA_Give_Petain_ful_powers
+		}
+	}
+	FRA_seek_help_of_jeanne_marie_decision = {
+		icon = hol_war_on_pacifism
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		available = {
+			FRA_semi_restoration_halfs_trigger = yes
+		}
+		cost = 150
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			activate_advisor = FRA_jeanne_d_arc_political_advisor
+		}
+	}
+	FRA_Restore_Austrian_Territory = {
+		icon = flags
+		available = {
+			is_faction_leader = yes
+			has_country_flag = FRA_marie_establish_austria_flag
+			HUN = {
+				FRA_can_release_trigger = yes
+			}
+			SLO = {
+				FRA_can_release_trigger = yes
+			}
+			SWI = {
+				FRA_can_release_trigger = yes
+			}
+			CRO = {
+				FRA_can_release_trigger = yes
+			}
+			SLV = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_austria_marie_states_trigger = yes
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_austria_marie_states_trigger = yes
+			}
+		}
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		remove_effect = {
+			HUN = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			SLO = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			SWI = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			CRO = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			SLV = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			AUS = {
+				every_state = {
+					limit = {
+						FRA_is_austria_marie_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+		}
+	}
+	FRA_puppet_austria = {
+		icon = form_nation
+		available = {
+			has_completed_focus = FRA_Restauration
+			AUS = {
+				FRA_can_release_trigger = yes
+			}
+			AUS = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				is_core_of = AUS
+			}
+		}
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 100
+		days_remove = 60
+		modifier = {
+			civilian_factory_use = 10
+		}
+		remove_effect = {
+			AUS = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			AUS = {
+				every_core_state = {
+					transfer_state_to = AUS
+				}
+				##TODO
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_marie_antoinette_habsbourg
+						picture = GFX_Portrait_FRA_Marie_Antoinette_Habsbourg_1
+						ideology = authoritarianism
+					}
+					create_country_leader = {
+						name = FRA_marie_antoinette_habsbourg
+						picture = GFX_Portrait_FRA_Marie_Antoinette_Habsbourg_1
+						ideology = national_populism
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = AUS
+				autonomy_state = autonomy_personal_union
+			}
+			set_country_flag = FRA_marie_establish_austria_flag
+		}
+	}
+}
+
+##Attack
+FRA_je_suis_la_deluge_category = {
+	FRA_return_to_Rome = {
+		icon = generic_decision
+		target_trigger = {
+			FROM = {
+				tag = ITA
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		on_map_mode = decision_view_only
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_retribution_for_sedan = {
+		target_trigger = {
+			FROM = {
+				tag = GER
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_Go_East_Frank = {
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = POL
+					tag = CZE
+					tag = HUN
+					tag = ROM
+					tag = SER
+					tag = MNT
+					tag = CRO
+					tag = BUL
+					tag = GRE
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_return_to_borodino = {
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = SOV
+					tag = RUS
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_avenge_waterloo = {
+		target_trigger = {
+			FROM = {
+				tag = ENG
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			##ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	##Alpes
+	FRA_Attack_Apennines = {
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = SWI
+					tag = AUS
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_return_America = {
+		icon = generic_decision
+		target_trigger = {
+			FROM = {
+				capital_scope = {
+					OR = {
+						is_on_continent = north_america
+						is_on_continent = south_america
+						is_on_continent = central_america
+					}
+				}
+			}
+		}
+		available = {
+			if = {
+				limit = {
+					FROM = {
+						NOT = {
+							tag = USA
+						}
+					}
+				}
+				ROOT_has_shared_border_with_FROM = yes
+			}
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_can_declare_on_FROM = yes
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM.capital
+			}
+		}
+		on_map_mode = map_only
+		war_with_on_remove = FROM
+		visible = {
+			if = {
+				limit = {
+					FROM = {
+						NOT = {
+							tag = USA
+						}
+					}
+				}
+				ROOT_has_shared_border_with_FROM = yes
+			}
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_bring_home_quebec = {
+		icon = generic_decision
+		target_trigger = {
+			FROM = {
+				tag = CAN
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_can_declare_on_FROM = yes
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM.capital
+			}
+		}
+		on_map_mode = map_only
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_dominant_middle_east = {
+		icon = generic_decision
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = IRQ
+					tag = SAU
+					tag = ISR
+					tag = TUR
+					tag = KUR
+					tag = YEM
+					tag = OMA
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM.capital
+			}
+		}
+		on_map_mode = map_only
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_has_shared_border_with_FROM = yes
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+	FRA_war_with_japan = {
+		icon = generic_decision
+		target_trigger = {
+			FROM = {
+				tag = JAP
+			}
+		}
+		available = {
+			NOT = {
+				has_idea = FRA_prepare_for_war_idea
+			}
+			ROOT_can_declare_on_FROM = yes
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM.capital
+			}
+		}
+		on_map_mode = map_only
+		war_with_on_remove = FROM
+		visible = {
+			ROOT_can_declare_on_FROM = yes
+		}
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+		complete_effect = {
+			add_timed_idea = {
+				idea = FRA_prepare_for_war_idea
+				days = 60
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			factor = 700
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = FRA
+					NOT = {
+						has_capitulated = yes
+					}
+					strength_ratio = {
+						tag = FRA
+						ratio > 0.8
+					}
+				}
+			}
+		}
+	}
+}
+
+##Karl
+FRA_frankish_national_theory_category = {
+	##头文件
+	FRA_setup_naples_kingdom_karl = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_naples_states_trigger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			has_character = FRA_bradamante_renaud
+			ITA = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_naples_states_trigger = yes
+			num_of_available_civilian_factories > 14
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 15
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			ITA = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			set_country_flag = FRA_establish_naples_karl_flag
+			every_state = {
+				limit = {
+					FRA_is_naples_states_trigger = yes
+				}
+				transfer_state_to = NPL
+				add_core_of = NPL
+			}
+			set_autonomy = {
+				target = NPL
+				autonomy_state = autonomy_personal_union
+			}
+			NPL = {
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_bradamante_renaud
+						picture = GFX_Portrait_FRA_Bradamante_Renaud
+						ideology = conservatism
+					}
+					create_country_leader = {
+						name = FRA_bradamante_renaud
+						picture = GFX_Portrait_FRA_Bradamante_Renaud
+						ideology = rexism
+					}
+					create_country_leader = {
+						name = FRA_bradamante_renaud
+						picture = GFX_Portrait_FRA_Bradamante_Renaud
+						ideology = authoritarianism
+					}
+					create_country_leader = {
+						name = FRA_bradamante_renaud
+						picture = GFX_Portrait_FRA_Bradamante_Renaud
+						ideology = radical_socialism
+					}
+				}
+			}
+		}
+	}
+	FRA_setup_prussia_kingdom_karl = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_prussian_states_triggger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			FRA_control_all_prussian_states_trigger = yes
+			GER = {
+				FRA_can_release_trigger = yes
+			}
+			num_of_available_civilian_factories > 14
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 15
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			set_country_flag = FRA_establish_prussia_karl_flag
+			GER = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			PRE = {
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = yes
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = GEU_arcueid_brunestud
+						picture = GFX_Portrait_GEU_Arcueid_Brunestud_4
+						ideology = conservatism
+					}
+					create_country_leader = {
+						name = GEU_arcueid_brunestud
+						picture = GFX_Portrait_GEU_Arcueid_Brunestud_4
+						ideology = rexism
+					}
+					create_country_leader = {
+						name = GEU_arcueid_brunestud
+						picture = GFX_Portrait_GEU_Arcueid_Brunestud_4
+						ideology = authoritarianism
+					}
+					create_country_leader = {
+						name = GEU_arcueid_brunestud
+						picture = GFX_Portrait_GEU_Arcueid_Brunestud_4
+						ideology = radical_socialism
+					}
+				}
+			}
+			every_state = {
+				limit = {
+					FRA_is_prussian_states_triggger = yes
+				}
+				transfer_state_to = PRE
+				add_core_of = PRE
+			}
+			set_autonomy = {
+				target = PRE
+				autonomy_state = autonomy_personal_union
+			}
+		}
+	}
+	##昂撒
+	FRA_setup_british_kingdom_karl = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_british_states_trigger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			ENG = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_british_states_trigger = yes
+			num_of_available_civilian_factories > 19
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			ENG = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			IRE = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			every_state = {
+				limit = {
+					FRA_is_british_states_trigger = yes
+				}
+				transfer_state_to = ENG
+				add_core_of = ENG
+			}
+			ENG = {
+				add_country_leader_role = {
+					character = ENG_lancelot_de_maris
+					country_leader = {
+						ideology = stratocracy
+					}
+				}
+				add_country_leader_role = {
+					character = ENG_lancelot_de_maris
+					country_leader = {
+						ideology = rexism
+					}
+				}
+				promote_character = {
+					character = ENG_lancelot_de_maris
+					ideology = stratocracy
+				}
+				promote_character = {
+					character = ENG_lancelot_de_maris
+					ideology = rexism
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = ENG
+				autonomy_state = autonomy_personal_union
+			}
+		}
+	}
+	##教宗
+	FRA_setup_papacy_karl = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_papacy_states_trigger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			has_country_flag = FRA_establish_naples_karl_flag
+			FRA_control_all_papacy_states_trigger = yes
+			num_of_available_civilian_factories > 9
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			PAP = {
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+			}
+			every_state = {
+				limit = {
+					FRA_is_papacy_states_trigger = yes
+				}
+				transfer_state_to = PAP
+				add_core_of = PAP
+			}
+			set_autonomy = {
+				target = PAP
+				autonomy_state = autonomy_federal_state
+			}
+		}
+	}
+	##莱茵
+	FRA_fate_of_rhineland_karl = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_great_rhine_states_trigger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			has_country_flag = FRA_establish_prussia_karl_flag
+			FRA_control_all_great_rhine_states_trigger = yes
+			num_of_available_civilian_factories > 9
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			effect_tooltip = {
+				RHI = {
+					set_nationality = {
+						target_country = PRU
+						character = GEU_arcueid_brunestud
+					}
+				}
+			}
+			RHI = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			every_state = {
+				limit = {
+					FRA_is_great_rhine_states_trigger = yes
+				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	##造核心--面条被吃了
+	FRA_rebuild_carolingian_empire_ITA = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_north_italy_karl_states_triggger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			has_country_flag = FRA_establish_naples_karl_flag
+			FRA_control_all_north_italy_karl_states_trigger = yes
+			num_of_available_civilian_factories > 19
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			every_state = {
+				limit = {
+					FRA_is_north_italy_karl_states_triggger = yes
+				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	##
+	FRA_rebuild_carolingian_empire_SWI = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_swiss_states_triggger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			FRA_control_all_swiss_states_trigger = yes
+			num_of_available_civilian_factories > 9
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			SWI = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			every_state = {
+				limit = {
+					FRA_is_swiss_states_triggger = yes
+				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	##
+	FRA_rebuild_carolingian_empire_AUS = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_austria_karl_states_triggger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			FRA_control_all_austria_karl_states_trigger = yes
+			num_of_available_civilian_factories > 14
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 15
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			AUS = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			every_state = {
+				limit = {
+					FRA_is_austria_karl_states_triggger = yes
+				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	##
+	FRA_rebuild_carolingian_empire_GER = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_german_karl_states_triggger = yes
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			has_country_flag = FRA_establish_prussia_karl_flag
+			FRA_control_all_german_karl_states_trigger = yes
+			num_of_available_civilian_factories > 4
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 5
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			every_state = {
+				limit = {
+					FRA_is_german_karl_states_triggger = yes
+				}
+				transfer_state_to = ROOT
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	##
+	FRA_rebuild_carolingian_empire_HOL = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				is_core_of = HOL
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			HOL = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+			num_of_available_civilian_factories > 9
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			HOL = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			HOL = {
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	FRA_rebuild_carolingian_empire_BEL = {
+		icon = ger_wehrmacht
+		highlight_states = {
+			highlight_states_trigger = {
+				is_core_of = BEL
+			}
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = map_and_decisions_view
+		available = {
+			BEL = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+			num_of_available_civilian_factories > 9
+		}
+		visible = {
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			BEL = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			BEL = {
+				enable_state_integration_80_compliance = yes
+			}
+		}
+	}
+	##
+	FRA_puppet_belgium_karl_decision = {
+		icon = oppression
+		available = {
+			BEL = {
+				exists = yes
+				is_in_faction_with = ROOT
+				is_subject = no
+			}
+			army_manpower_in_state = {
+				state = 34
+				amount > 10000
+			}
+			army_manpower_in_state = {
+				state = 925
+				amount > 10000
+			}
+			army_manpower_in_state = {
+				state = 948
+				amount > 10000
+			}
+		}
+		visible = {
+			is_faction_leader = yes
+		}
+		targets = {
+			BEL
+		}
+		target_trigger = {
+		}
+		cost = 150
+		days_remove = 30
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 925
+				state = 34
+				state = 948
+			}
+		}
+		remove_effect = {
+			set_autonomy = {
+				target = BEL
+				autonomy_state = autonomy_personal_union
+			}
+		}
+	}
+	FRA_annex_lux_karl_decision = {
+		icon = spy2
+		available = {
+			LUX = {
+				exists = yes
+				is_in_faction_with = ROOT
+				is_subject = no
+			}
+			army_manpower_in_state = {
+				state = 8
+				amount > 10000
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 8
+			}
+		}
+		visible = {
+			is_faction_leader = yes
+		}
+		targets = {
+			LUX
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 20
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		remove_effect = {
+			annex_country = {
+				target = LUX
+				transfer_troops = yes
+			}
+		}
+	}
+}
+
+war_measures = {
+	FRA_R_Plan_decisions = {
+		icon = hol_draw_up_staff_plans
+		target_trigger = {
+			FROM = {
+				tag = GER
+			}
+		}
+		available = {
+			has_war_with = GER
+		}
+		visible = {
+			tag = FRA
+			is_subject = no
+			RHI = {
+				is_subject_of = FRA
+			}
+		}
+		cost = 0
+		custom_cost_trigger = {
+			command_power > 14.9
+		}
+		custom_cost_text = CP_15
+		days_remove = 150
+		fire_only_once = yes
+		remove_trigger = {
+			OR = {
+				surrender_progress > 0.1
+				RHI = {
+					has_capitulated = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			activate_mission = FRA_R_Plan_mission
+		}
+		targeted_modifier = {
+			tag = GER
+			defense_bonus_against = 0.15
+		}
+		modifier = {
+			org_loss_at_low_org_factor = -0.15			# -0.5
+			dig_in_speed_factor = 0.25
+			land_reinforce_rate = 0.03			# 0.05
+		}
+		remove_effect = {
+		}
+	}
+	FRA_R_Plan_mission = {
+		icon = generic_operation
+		allowed = {
+			always = no
+			#added through on_action
+		}
+		available = {
+			OR = {
+				surrender_progress > 0.1
+				RHI = {
+					has_capitulated = yes
+				}
+			}
+		}
+		days_mission_timeout = 150
+		fire_only_once = yes
+		activation = {
+		}
+		is_good = no
+		complete_effect = {
+			add_war_support = -0.1
+		}
+		timeout_effect = {
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	FRA_On_ne_passe_pas_decisions = {
+		icon = hol_draw_up_staff_plans
+		available = {
+			casualties > 250000
+			OR = {
+				surrender_progress > 0.1
+				RHI = {
+					has_capitulated = yes
+				}
+			}
+		}
+		visible = {
+			tag = FRA
+			is_subject = no
+			has_civil_war = no
+			has_completed_focus = FRA_total_war
+			NOT = {
+				has_government = fascism
+			}
+		}
+		cost = 0
+		days_remove = 365
+		fire_only_once = yes
+		remove_trigger = {
+			OR = {
+				FRA = {
+					has_capitulated = yes
+				}
+				FRA = {
+					is_subject = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			activate_mission = FRA_On_ne_passe_pas_mission
+		}
+		modifier = {
+			political_power_cost = 0.2
+			org_loss_at_low_org_factor = -0.2			# -0.5
+			army_morale_Factor = 0.1			# 0.2
+			land_reinforce_rate = 0.05
+			dig_in_speed_factor = 0.5
+			army_core_defence_factor = 0.15			# 0.25
+			surrender_limit = 0.1
+			war_support_weekly = 0.002			# 0.005
+			experience_loss_factor = 0.2
+		}
+		remove_effect = {
+		}
+	}
+	FRA_On_ne_passe_pas_mission = {
+		icon = generic_operation
+		allowed = {
+			always = no
+			#added through on_action
+		}
+		available = {
+			OR = {
+				FRA = {
+					has_capitulated = yes
+				}
+				FRA = {
+					is_subject = yes
+				}
+			}
+		}
+		days_mission_timeout = 365
+		fire_only_once = yes
+		activation = {
+		}
+		is_good = no
+		complete_effect = {
+			add_war_support = -0.2
+		}
+		timeout_effect = {
+			add_stability = 0.2
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	FRA_made_mechanized_lancelot_decision = {
+		icon = motorized3
+		available = {
+			ENG = {
+				is_in_faction_with = ROOT
+			}
+			has_tech = mechanised_infantry2
+			has_tech = armor_tech_2
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		allowed = {
+			tag = FRA
+		}
+		visible = {
+		}
+		cost = 100
+		days_remove = 365
+		fire_only_once = yes
+		remove_trigger = {
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+		}
+		modifier = {
+			civilian_factory_use = 10
+		}
+		remove_effect = {
+			add_corps_commander_role = {
+				character = FRA_mechanized_lancelot
+				traits = {
+					trickster
+					brilliant_strategist
+					trait_engineer
+					scavenger
+				}
+				skill = 4
+				attack_skill = 4
+				defense_skill = 4
+				planning_skill = 3
+				logistics_skill = 2
+			}
+		}
+	}
+	FRA_made_mechanized_gilles_decision = {
+		icon = motorized2
+		available = {
+			has_tech = mechanised_infantry2
+			has_tech = armor_tech_2
+			has_completed_focus = FRA_panzer_elite
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		allowed = {
+			tag = FRA
+		}
+		visible = {
+		}
+		cost = 100
+		days_remove = 365
+		fire_only_once = yes
+		remove_trigger = {
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+		}
+		modifier = {
+			civilian_factory_use = 10
+		}
+		remove_effect = {
+			add_corps_commander_role = {
+				character = FRA_bluebeard_zolgen
+				traits = {
+					engineer_officer
+					artillery_officer
+					infantry_officer
+					career_officer
+				}
+				skill = 3
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 2
+				logistics_skill = 3
+			}
+		}
+	}
+}
+
+economy_decisions = {
+	FRA_invite_donations_decision = {
+		icon = ger_mefo_bills
+		available = {
+			has_completed_focus = FRA_Invite_Western_world_Investment
+			has_war = no
+			NOT = {
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
+				}
+			}
+			FROM = {
+				exists = yes
+				has_war = no
+			}
+		}
+		visible = {
+			has_completed_focus = FRA_Invite_Western_world_Investment
+			has_war = no
+			NOT = {
+				has_country_leader = {
+					character = FRA_jeanne_d_arc_alter
+				}
+			}
+			FROM = {
+				exists = yes
+				has_war = no
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM.capital
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = USA
+					tag = SWI
+					tag = ENG
+					tag = SOV
+					tag = POL
+					tag = SWE
+				}
+				exists = yes
+				has_war = no
+			}
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			factor = 25
+		}
+		complete_effect = {
+			FROM = {
+				country_event = fra_foreign_support.1
+			}
+		}
+	}
+	FRA_rural_credit_grants_decision = {
+		icon = generic_agriculture
+		available = {
+			NOT = {
+				FRA_has_alter_trigger = yes
+			}
+			has_completed_focus = FRA_dirigisme
+			num_of_civilian_factories_available_for_projects > 2
+			controls_state = FROM
+		}
+		visible = {
+			has_completed_focus = FRA_dirigisme
+			owns_state = FROM
+			NOT = {
+				FRA_has_alter_trigger = yes
+			}
+			FROM = {
+				is_core_of = ROOT
+			}
+		}
+		cost = 50
+		days_remove = 90
+		fire_only_once = yes
+		state_target = yes
+		target_array = core_states
+		target_trigger = {
+			FROM = {
+				is_core_of = ROOT
+			}
+		}
+		modifier = {
+			civilian_factory_use = 3
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 0
+				num_of_civilian_factories_available_for_projects < 10
+			}
+		}
+		remove_effect = {
+			FROM = {
+				increase_state_category = yes
+			}
+		}
+	}
+	##Communism
+	FRA_set_up_checkpoints = {
+		icon = generic_political_actions
+		cost = 50
+		fire_only_once = yes
+		days_remove = 120
+		visible = {
+			has_completed_focus = FRA_agricultural_collectivization
+		}
+		available = {
+			has_completed_focus = FRA_agricultural_collectivization
+			NOT = {
+				has_idea = Integrate_minor_idea
+			}
+		}
+		complete_effect = {
+			add_timed_idea = {
+				idea = Integrate_minor_idea
+				days = 120
+			}
+		}
+		modifier = {
+			production_speed_buildings_factor = -0.1
+			conscription_factor = -0.1
+		}
+		remove_effect = {
+			FRA_upgrade_collectivization_effect = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	FRA_encourage_internal_trade = {
+		icon = generic_political_actions
+		cost = 50
+		fire_only_once = yes
+		days_remove = 120
+		visible = {
+			has_completed_focus = FRA_agricultural_collectivization
+		}
+		available = {
+			has_completed_focus = FRA_agricultural_collectivization
+			NOT = {
+				has_idea = Integrate_minor_idea
+			}
+		}
+		complete_effect = {
+			add_timed_idea = {
+				idea = Integrate_minor_idea
+				days = 120
+			}
+		}
+		modifier = {
+			political_power_gain = -0.2
+			consumer_goods_factor = 0.03
+		}
+		remove_effect = {
+			FRA_upgrade_collectivization_effect = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	FRA_creating_thousands_into_countryside = {
+		icon = generic_political_actions
+		cost = 50
+		fire_only_once = yes
+		days_remove = 120
+		visible = {
+			has_completed_focus = FRA_agricultural_collectivization
+		}
+		available = {
+			has_completed_focus = FRA_agricultural_collectivization
+			NOT = {
+				has_idea = Integrate_minor_idea
+			}
+		}
+		complete_effect = {
+			add_timed_idea = {
+				idea = Integrate_minor_idea
+				days = 120
+			}
+		}
+		modifier = {
+			political_power_gain = -0.3
+			stability_weekly = -0.003
+		}
+		remove_effect = {
+			FRA_upgrade_collectivization_effect = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	FRA_integrate_rich_peasants = {
+		icon = generic_political_actions
+		cost = 50
+		fire_only_once = yes
+		days_remove = 120
+		visible = {
+			has_completed_focus = FRA_agricultural_collectivization
+		}
+		complete_effect = {
+			add_timed_idea = {
+				idea = Integrate_minor_idea
+				days = 120
+			}
+		}
+		available = {
+			has_completed_focus = FRA_agricultural_collectivization
+			NOT = {
+				has_idea = Integrate_minor_idea
+			}
+		}
+		modifier = {
+			production_speed_buildings_factor = -0.1
+			stability_weekly = -0.002
+		}
+		remove_effect = {
+			FRA_upgrade_collectivization_effect = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	FRA_development_of_agricultural_machinery = {
+		icon = generic_political_actions
+		cost = 50
+		fire_only_once = yes
+		days_remove = 120
+		visible = {
+			has_completed_focus = FRA_agricultural_collectivization
+		}
+		available = {
+			has_completed_focus = FRA_agricultural_collectivization
+			NOT = {
+				has_idea = Integrate_minor_idea
+			}
+		}
+		complete_effect = {
+			add_timed_idea = {
+				idea = Integrate_minor_idea
+				days = 120
+			}
+		}
+		modifier = {
+			research_speed_factor = -0.05
+			consumer_goods_factor = 0.1
+		}
+		remove_effect = {
+			FRA_upgrade_collectivization_effect = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	##
+	FRA_build_dams_in_savoy = {
+		icon = wrenches
+		highlight_states = {
+			highlight_state_targets = {
+				state = 943
+				state = 735
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			943 = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			735 = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		visible = {
+			943 = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			735 = {
+				is_controlled_by_ROOT_or_ally = yes
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			943 = {
+				increase_state_category = yes
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			735 = {
+				increase_state_category = yes
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_rebuild_loire_valley_dams = {
+		icon = cement
+		highlight_states = {
+			highlight_state_targets = {
+				state = 33
+				state = 30
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			30 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			33 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 9
+			controls_state = 30
+			controls_state = 33
+		}
+		visible = {
+			30 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			33 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 30
+			owns_state = 33
+		}
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			33 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			30 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_revive_la_rochelle = {
+		icon = generic_construction
+		highlight_states = {
+			highlight_state_targets = {
+				state = 23
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			23 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 4
+			controls_state = 23
+		}
+		visible = {
+			23 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 23
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			23 = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					province = 6657
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_refit_caen_naval_base = {
+		icon = merge_plant_ship
+		highlight_states = {
+			highlight_state_targets = {
+				state = 15
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			15 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 9
+			controls_state = 15
+		}
+		visible = {
+			15 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 15
+		}
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			15 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					province = 11535
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_renovate_champagne = {
+		icon = generic_operation
+		highlight_states = {
+			highlight_state_targets = {
+				state = 18
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			18 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 4
+			controls_state = 18
+		}
+		visible = {
+			18 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 18
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			18 = {
+				increase_state_category = yes
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_expand_military_industry_in_provence = {
+		icon = ger_military_buildup
+		highlight_states = {
+			highlight_state_targets = {
+				state = 21
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			21 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			controls_state = 21
+		}
+		visible = {
+			21 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 21
+		}
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			21 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_renovate_marseille = {
+		icon = merge_plant_ship
+		highlight_states = {
+			highlight_state_targets = {
+				state = 21
+			}
+		}
+		available = {
+			21 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 4
+			controls_state = 21
+		}
+		visible = {
+			has_completed_focus = FRA_national_construction_plan
+			21 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 21
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			21 = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					province = 11834
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_light_up_lyon = {
+		icon = goods
+		highlight_states = {
+			highlight_state_targets = {
+				state = 20
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			20 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			controls_state = 20
+		}
+		visible = {
+			20 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 20
+		}
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			20 = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_expand_military_in_lyonnais = {
+		icon = ger_military_buildup
+		highlight_states = {
+			highlight_state_targets = {
+				state = 20
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			20 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			controls_state = 20
+		}
+		visible = {
+			20 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 20
+		}
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			20 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_expand_civilian_industry_in_amiens = {
+		icon = generic_construction
+		highlight_states = {
+			highlight_state_targets = {
+				state = 24
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			24 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			controls_state = 24
+		}
+		visible = {
+			24 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 24
+		}
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			24 = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_expand_military_industry_in_calais = {
+		icon = ger_military_buildup
+		highlight_states = {
+			highlight_state_targets = {
+				state = 17
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			17 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			controls_state = 17
+		}
+		visible = {
+			owns_state = 17
+			17 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+		}
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			17 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_expand_industry_in_burgundy = {
+		icon = generic_scorched_earth
+		highlight_states = {
+			highlight_state_targets = {
+				state = 27
+				state = 785
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			27 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			785 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 9
+			controls_state = 27
+			controls_state = 785
+		}
+		visible = {
+			27 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			785 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 27
+			owns_state = 785
+		}
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			27 = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			785 = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_expand_civilian_industry_in_bordeaux = {
+		icon = industry
+		highlight_states = {
+			highlight_state_targets = {
+				state = 19
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			19 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			controls_state = 19
+		}
+		visible = {
+			19 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 19
+		}
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			19 = {
+				increase_state_category = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	FRA_expand_military_industry_in_bordeaux = {
+		icon = merge_plant_tank
+		highlight_states = {
+			highlight_state_targets = {
+				state = 19
+			}
+		}
+		available = {
+			has_completed_focus = FRA_national_construction_plan
+			19 = {
+				OR = {
+					compliance > 60
+					is_core_of = FRA
+				}
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			controls_state = 19
+		}
+		visible = {
+			19 = {
+				OR = {
+					compliance > 30
+					is_core_of = FRA
+				}
+			}
+			owns_state = 19
+		}
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		ai_will_do = {
+			factor = 50
+		}
+		remove_effect = {
+			19 = {
+				upgrade_industrial_region = yes
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
 				}
 			}
 		}

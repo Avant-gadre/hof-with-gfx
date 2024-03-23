@@ -276,12 +276,18 @@ focus_tree = {
 			date > 1936.6.1
 			is_ally_with = FRA
 			has_completed_focus = RHI_Centralized_Government
-			NOT = {
-				has_idea = FRA_Economic_crisis_influence_idea
-			}
 		}
 		completion_reward = {
 			add_political_power = 100
+			if = {
+				limit = {
+					has_idea = RHI_economic_crisis_idea
+				}
+				remove_ideas = RHI_economic_crisis_idea
+			}
+			else = {
+				remove_ideas = RHI_economic_crisis_interference_idea
+			}
 		}
 	}
 	focus = {
@@ -309,15 +315,6 @@ focus_tree = {
 				}
 			}
 			add_stability = 0.05
-			if = {
-				limit = {
-					has_idea = RHI_economic_crisis_idea
-				}
-				remove_ideas = RHI_economic_crisis_idea
-			}
-			else = {
-				remove_ideas = RHI_economic_crisis_interference_idea
-			}
 		}
 	}
 	focus = {
@@ -1329,9 +1326,11 @@ focus_tree = {
 		relative_position_id = RHI_Maintain_Occupation
 		available = {
 			has_global_flag = FRA_Economic_crisis_flag
-			OR = {
-				has_completed_focus = FRA_Emergency_allocation
-				has_completed_focus = FRA_encourage_bankruptcy
+			FRA = {
+				OR = {
+					has_completed_focus = FRA_Emergency_allocation
+					has_completed_focus = FRA_encourage_bankruptcy
+				}
 			}
 		}
 		completion_reward = {

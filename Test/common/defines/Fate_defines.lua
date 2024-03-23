@@ -44,6 +44,11 @@
     NDefines.NAI.STR_BOMB_AA_IMPORTANCE_FACTOR = 0		                        -- Vanilla is 0.5
 
     -- WA-Plane
+    NDefines.NAir.AIR_WING_XP_MAX = 1000.0				 								-- Per plane XP.
+    NDefines.NAir.AIR_WING_XP_LEVELS = { 100, 300, 700, 900 }							-- Experience needed to progress to the next level
+    NDefines.NAir.AIR_WING_XP_TRAINING_MAX = 300.0		 								-- Max average XP achieved with training.
+    NDefines.NAir.AIR_WING_XP_TRAINING_MISSION_GAIN_DAILY = 3.0		 					-- Daily gain when running training exercise mission
+    NDefines.NAir.AIR_WING_XP_TRAINING_MISSION_ACCIDENT_FACTOR = 0.75	 				-- Training exercises cause more accidents
 
     NDefines.NAI.LAND_DEFENSE_AIR_SUPERIORITY_IMPORTANCE = 2.0							-- Strategic importance of air superiority ( amount of enemy planes in area )
 
@@ -102,6 +107,30 @@
 
 	NDefines.NAI.MIN_CAPITALS_FOR_CARRIER_TASKFORCE = 6		   -- Vanilla is 6
 
+    --Army from WA
+    NDefines.NMilitary.MAX_DIVISION_SUPPORT_HEIGHT = 10;                        -- Vanilla is 5
+    NDefines.NMilitary.BATALION_NOT_CHANGED_EXPERIENCE_DROP = 0.0		        -- Vanilla is 0
+    NDefines.NMilitary.BATALION_CHANGED_EXPERIENCE_DROP = 0.2			        -- Vanilla is 0.5
+    NDefines.NMilitary.UNIT_EXPERIENCE_PER_COMBAT_HOUR = 0.00060
+    NDefines.NMilitary.FIELD_EXPERIENCE_SCALE = 0.0015
+    NDefines.NMilitary.FIELD_EXPERIENCE_MAX_PER_DAY = 1									-- Most xp you can gain per day
+    NDefines.NMilitary.XP_DECAY_RATE_PER_HOUR_IN_COMBAT = 0.00125				-- you get reduced XP as combat drags
+    NDefines.NMilitary.LAND_COMBAT_STR_ARMOR_DEFLECTION_FACTOR = 0.5					-- damage reduction if armor outclassing enemy
+    NDefines.NMilitary.LAND_COMBAT_ORG_ARMOR_DEFLECTION_FACTOR = 0.5					-- damage reduction if armor outclassing enemy
+
+    --NDefines.NMilitary.UNIT_EXP_LEVELS = { 0.10, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.25, 0.3, 0.35,	0.4, 0.45, 0.5,	0.55, 0.6, 0.65, 0.7, 0.75,	0.8, 0.85, 0.9,	0.95 }	
+    -- Experience needed to progress to the next level
+    NDefines.NMilitary.EXPERIENCE_COMBAT_FACTOR = 0.1
+    NDefines.NMilitary.TRAINING_EXPERIENCE_SCALE = 30.0
+    NDefines.NMilitary.TRAINING_ATTRITION = 0.12
+    NDefines.NMilitary.TRAINING_MIN_STRENGTH = 0.95										-- if strength is less than this, the unit will pause training until it's been reinforced
+    NDefines.NMilitary.UNIT_EXPERIENCE_SCALE = 0.3
+
+    --NDefines.NMilitary.RIVER_CROSSING_PENALTY = -0.3                					-- small river crossing
+    --NDefines.NMilitary.RIVER_CROSSING_PENALTY_LARGE = -0.6								-- large river crossing
+    --NDefines.NMilitary.RIVER_CROSSING_SPEED_PENALTY = -0.25								-- small river crossing
+    --NDefines.NMilitary.RIVER_CROSSING_SPEED_PENALTY_LARGE = -0.5						-- large river crossing
+
     -- Diplomacy
     NDefines.NAI.FASCISTS_BEFRIEND_FASCISTS = 0									-- Vanilla is 10
     NDefines.NAI.FASCISTS_ALLY_FASCISTS = 0										-- Vanilla is 0
@@ -146,14 +175,10 @@
     NDefines.NMilitary.STRATEGIC_SPEED_RAIL_MAX = 10.0                          -- Vanilla is 25
     NDefines.NMilitary.STRATEGIC_REDEPLOY_ORG_RATIO = 0.01 				        -- Vanilla is 0.1
 
-    -- Other
-    NDefines.NMilitary.BATALION_NOT_CHANGED_EXPERIENCE_DROP = 0.0		        -- Vanilla is 0
-    NDefines.NMilitary.BATALION_CHANGED_EXPERIENCE_DROP = 0.2			        -- Vanilla is 0.5
-
     --Expericence
-    NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 800			                    -- Vanilla is 500
-    NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 800			                    -- Vanilla is 500
-    NDefines.NMilitary.MAX_AIR_EXPERIENCE = 800 				                -- Vanilla is 500
+    NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 999			                    -- Vanilla is 500
+    NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 999			                    -- Vanilla is 500
+    NDefines.NMilitary.MAX_AIR_EXPERIENCE = 999 				                -- Vanilla is 500
     
     NDefines.NMilitary.RIVER_CROSSING_SPEED_PENALTY = -0.3         			    -- Vannilla is -0.25
     NDefines.NMilitary.RIVER_CROSSING_SPEED_PENALTY_LARGE = -0.6   				-- Vannilla is -0.5
@@ -171,11 +196,8 @@
     NDefines.NDiplomacy.VOLUNTEERS_RETURN_EQUIPMENT = 1.0						-- Vanilla is 0.95
     NDefines.NDiplomacy.VOLUNTEERS_TRANSFER_SPEED = 7						    -- Vanilla is 14
     NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 0						-- Vanilla is 30 
-
     NDefines.NDiplomacy.OPINION_PER_VOLUNTEER = 30						        -- Vanilia is 3
 	NDefines.NDiplomacy.MAX_OPINION_FROM_VOLUNTEERS = 30				        -- Vanilia is 30
-
     NDefines.NCountry.AIR_VOLUNTEER_PLANES_RATIO = 0				            -- Vanilia is 0.1
     NDefines.NCountry.AIR_VOLUNTEER_BASES_CAPACITY_LIMIT = 0		            -- Vanilia is 0.2
-
     NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 0						-- Vanilla is 30 
