@@ -108,7 +108,9 @@
 	NDefines.NAI.MIN_CAPITALS_FOR_CARRIER_TASKFORCE = 6		   -- Vanilla is 6
 
     --Army from WA
-    NDefines.NMilitary.MAX_DIVISION_SUPPORT_HEIGHT = 10;                        -- Vanilla is 5
+    NDefines.NMilitary.MAX_DIVISION_SUPPORT_WIDTH = 2
+    NDefines.NMilitary.MAX_DIVISION_SUPPORT_HEIGHT = 5
+    --NDefines.NMilitary.MAX_DIVISION_SUPPORT_HEIGHT = 10;                        -- Vanilla is 5
     NDefines.NMilitary.BATALION_NOT_CHANGED_EXPERIENCE_DROP = 0.0		        -- Vanilla is 0
     NDefines.NMilitary.BATALION_CHANGED_EXPERIENCE_DROP = 0.2			        -- Vanilla is 0.5
     NDefines.NMilitary.UNIT_EXPERIENCE_PER_COMBAT_HOUR = 0.00060

@@ -13,7 +13,7 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "NATFRA_"
+target = "FRA_"
 
 end = "_decision"
 
