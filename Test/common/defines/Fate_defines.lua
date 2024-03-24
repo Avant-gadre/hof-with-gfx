@@ -90,22 +90,21 @@
 	NDefines.NAI.AGGRESSION_LIGHT_GUN_EFFICIENCY_ON_LIGHT_SHIPS = 0.8  -- Vanilla is 1.0
 	NDefines.NAI.AGGRESSION_HEAVY_GUN_EFFICIENCY_ON_LIGHT_SHIPS = 0.6  -- Vanilla is 0.25
 	NDefines.NAI.AGGRESSION_TORPEDO_EFFICIENCY_ON_LIGHT_SHIPS = 0.25   -- Vanilla is 0.1
-
 	NDefines.NAI.AGGRESSION_LIGHT_GUN_EFFICIENCY_ON_HEAVY_SHIPS = 0.05 -- Vanilla is 0.1
-
 	NDefines.NAI.CARRIER_HOURS_DELAY_AFTER_EACH_COMBAT = 0			   -- Vanilla is 3
-
     NDefines.NAI.CARRIER_STACK_PENALTY = 16							   -- Vanilla is 4 Hof is 10
-
     NDefines.NAI.CARRIER_STACK_PENALTY_EFFECT = 0.01				   -- Vanilla is 0.2 Hof is 0.6 0.4
     NDefines.NAI.SUBMARINE_BASE_TORPEDO_REVEAL_CHANCE = 0.2		   -- Vanilla is 0.035 Hof is 0.05
-
 	NDefines.NAI.CARRIER_TASKFORCE_MAX_CARRIER_COUNT = 4		   -- Vanilla is 4
 	NDefines.NAI.CAPITAL_TASKFORCE_MAX_CAPITAL_COUNT = 10		   -- Vanilla is 12
 	NDefines.NAI.SCREEN_TASKFORCE_MAX_SHIP_COUNT = 8		   -- Vanilla is 12 WA is 5
 	NDefines.NAI.SUB_TASKFORCE_MAX_SHIP_COUNT = 10		   -- Vanilla is 16 WA is 5
-
 	NDefines.NAI.MIN_CAPITALS_FOR_CARRIER_TASKFORCE = 6		   -- Vanilla is 6
+    -- WA-Navy
+    NDefines.NNavy.TRAINING_EXPERIENCE_FACTOR = 0.25									-- Amount of exp each ship gain every 24h while training (before modifiers)
+    NDefines.NNavy.FIELD_EXPERIENCE_SCALE = 0.3
+    NDefines.NNavy.UNIT_EXPERIENCE_PER_COMBAT_HOUR = 4
+    NDefines.NNavy.UNIT_EXPERIENCE_SCALE = 1
 
     --Army from WA
     NDefines.NMilitary.MAX_DIVISION_SUPPORT_WIDTH = 2
@@ -119,14 +118,48 @@
     NDefines.NMilitary.XP_DECAY_RATE_PER_HOUR_IN_COMBAT = 0.00125				-- you get reduced XP as combat drags
     NDefines.NMilitary.LAND_COMBAT_STR_ARMOR_DEFLECTION_FACTOR = 0.5					-- damage reduction if armor outclassing enemy
     NDefines.NMilitary.LAND_COMBAT_ORG_ARMOR_DEFLECTION_FACTOR = 0.5					-- damage reduction if armor outclassing enemy
-
-    --NDefines.NMilitary.UNIT_EXP_LEVELS = { 0.10, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.25, 0.3, 0.35,	0.4, 0.45, 0.5,	0.55, 0.6, 0.65, 0.7, 0.75,	0.8, 0.85, 0.9,	0.95 }	
+    NDefines.NMilitary.UNIT_LEADER_USE_NONLINEAR_XP_GAIN = false
+    NDefines.NMilitary.TRAINING_MAX_LEVEL = 15
+    NDefines.NMilitary.UNIT_EXP_LEVELS = { 0.10, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 }	
     -- Experience needed to progress to the next level
-    NDefines.NMilitary.EXPERIENCE_COMBAT_FACTOR = 0.1
+    NDefines.NMilitary.ARMY_EXP_BASE_LEVEL = 10
+    NDefines.NMilitary.EXPERIENCE_COMBAT_FACTOR = 0.02
     NDefines.NMilitary.TRAINING_EXPERIENCE_SCALE = 30.0
     NDefines.NMilitary.TRAINING_ATTRITION = 0.12
     NDefines.NMilitary.TRAINING_MIN_STRENGTH = 0.95										-- if strength is less than this, the unit will pause training until it's been reinforced
     NDefines.NMilitary.UNIT_EXPERIENCE_SCALE = 0.3
+
+    --WA -Ai Planning
+    NDefines.NAI.PLAN_ATTACK_MIN_ORG_FACTOR_LOW = 0.85									-- Minimum org % for a unit to actively attack an enemy unit when executing a plan
+    NDefines.NAI.PLAN_ATTACK_MIN_STRENGTH_FACTOR_LOW = 0.85								-- Minimum strength for a unit to actively attack an enemy unit when executing a plan
+
+    NDefines.NAI.PLAN_ATTACK_MIN_ORG_FACTOR_MED = 0.75									-- (LOW,MED,HIGH) corresponds to the plan execution agressiveness level.
+    NDefines.NAI.PLAN_ATTACK_MIN_STRENGTH_FACTOR_MED = 0.8
+
+    NDefines.NAI.PLAN_ATTACK_MIN_ORG_FACTOR_HIGH = 0.2
+    NDefines.NAI.PLAN_ATTACK_MIN_STRENGTH_FACTOR_HIGH = 0.7
+
+    NDefines.NAI.PLAN_ACTIVATION_SUPERIORITY_AGGRO = 10.0         					    -- How aggressive a country is in activating a plan based on how superiour their force is.
+
+    --NDefines.NAI.PLAN_VALUE_BONUS_FOR_MOVING_UNITS = 0.5								-- AI plans gets a bonus when units are not moving and ready to fight
+    NDefines.NAI.MIN_INVASION_PLAN_VALUE_TO_EXECUTE = 0.05								-- ai will only activate invasions if it is above this
+
+    NDefines.NAI.PLAN_FRONT_SECTION_MAX_LENGTH = 5										-- When a front is longer than this it will be split in two sections for the AI
+    NDefines.NAI.PLAN_FRONT_SECTION_MIN_LENGTH = 2										-- When two front sections together are this short they will be merged for the AI
+
+    NDefines.NAI.PLAN_FACTION_STRONG_TO_EXECUTE = 0.65									-- % or more of units in an order to consider executing the plan
+    NDefines.NAI.ORG_UNIT_STRONG = 0.8													-- Organization % for unit to be considered strong
+    NDefines.NAI.STR_UNIT_STRONG = 0.95													-- Strength (equipment) % for unit to be considered strong
+
+    NDefines.NAI.PLAN_FACTION_NORMAL_TO_EXECUTE = 0.65									-- % or more of units in an order to consider executing the plan
+    NDefines.NAI.ORG_UNIT_NORMAL = 0.5													-- Organization % for unit to be considered normal
+    NDefines.NAI.STR_UNIT_NORMAL = 0.7													-- Strength (equipment) % for unit to be considered normal
+
+    NDefines.NAI.PLAN_FACTION_WEAK_TO_ABORT = 0.3										-- % or more of units in an order to consider executing the plan
+    NDefines.NAI.ORG_UNIT_WEAK = 0.3													-- Organization % for unit to be considered weak
+    NDefines.NAI.STR_UNIT_WEAK = 0.5													-- Strength (equipment) % for unit to be considered weak
+
+    NDefines.NAI.UNIT_ASSIGNMENT_TERRAIN_IMPORTANCE = 0.05								-- Terrain score for units are multiplied by this when the AI is deciding which front they should be assigned to
 
     --NDefines.NMilitary.RIVER_CROSSING_PENALTY = -0.3                					-- small river crossing
     --NDefines.NMilitary.RIVER_CROSSING_PENALTY_LARGE = -0.6								-- large river crossing
