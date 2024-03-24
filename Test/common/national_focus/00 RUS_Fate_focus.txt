@@ -1086,6 +1086,32 @@ focus_tree = {
 		completion_reward = {
 			set_country_flag = SOV_Simplify_production_flag
 			add_ideas = RUS_Army_equipment_simplifies_production_idea
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = SOV_grabin_design_bureau_organization
+						is_military_industrial_organization = SOV_tula_arms_plant_organization
+						is_military_industrial_organization = SOV_gaz_organization
+						is_military_industrial_organization = RUS_kalashnikov_concern_organization
+						is_military_industrial_organization = RUS_kamaz_organization
+					}
+				}
+				add_mio_size_up_requirement_factor = -0.1
+			}
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = SOV_morozov_design_bureau_organization
+						is_military_industrial_organization = SOV_astrov_design_bureau_organization
+						is_military_industrial_organization = SOV_okmo_organization
+						is_military_industrial_organization = SOV_mytishchy_machine_building_plant_organization
+						is_military_industrial_organization = SOV_kirov_organization
+						is_military_industrial_organization = RUS_avtovaz_organization
+						is_military_industrial_organization = RUS_uralvagonzavod
+					}
+				}
+				add_mio_size_up_requirement_factor = -0.15
+			}
 		}
 	}
 	focus = {
@@ -1246,6 +1272,15 @@ focus_tree = {
 				remove_idea = RUS_Army_equipment_simplifies_production_idea
 				add_idea = RUS_Army_equipment_simplifies_production_mech_idea
 			}
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = RUS_kamaz_organization
+						is_military_industrial_organization = SOV_gaz_organization
+					}
+				}
+				add_mio_size_up_requirement_factor = -0.1
+			}
 			add_doctrine_cost_reduction = {
 				name = RUS_Armored_Infantry
 				cost_reduction = 0.5
@@ -1307,6 +1342,15 @@ focus_tree = {
 				technology = super_heavy_tank_chassis
 			}
 			add_ideas = SOV_the_iron_wall_of_russian_resolve
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = RUS_avtovaz_organization
+						is_military_industrial_organization = RUS_uralvagonzavod
+					}
+				}
+				add_mio_size_up_requirement_factor = -0.1
+			}
 		}
 	}
 	focus = {
@@ -1328,6 +1372,18 @@ focus_tree = {
 		completion_reward = {
 			set_country_flag = RUS_increase_aircraft_production_flag
 			add_ideas = RUS_Simplified_production_of_Air_Force_equipment_idea
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = SOV_mig_design_bureau_organization
+						is_military_industrial_organization = SOV_ilyushin_design_bureau_organization
+						is_military_industrial_organization = SOV_yakovlev_design_bureau_organization
+						is_military_industrial_organization = SOV_tupolev_design_bureau_organization
+						is_military_industrial_organization = RUS_united_aircraft_corporation_organization
+					}
+				}
+				add_mio_size_up_requirement_factor = -0.15
+			}
 			add_tech_bonus = {
 				name = RUS_increase_aircraft_production
 				bonus = 1
@@ -6040,9 +6096,7 @@ focus_tree = {
 		prerequisite = {
 			focus = RUS_a_new_better_russia
 		}
-		mutually_exclusive = {
-			focus = RUS_privatize_soviet_industry
-		}
+
 		available = {
 			is_subject = no
 		}
@@ -6060,14 +6114,14 @@ focus_tree = {
 					limit = {
 						free_building_slots = {
 							building = arms_factory
-							size > 1
+							size > 0
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -6075,14 +6129,14 @@ focus_tree = {
 					limit = {
 						free_building_slots = {
 							building = arms_factory
-							size > 1
+							size > 0
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -6090,14 +6144,14 @@ focus_tree = {
 					limit = {
 						free_building_slots = {
 							building = arms_factory
-							size > 1
+							size > 0
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -6114,14 +6168,27 @@ focus_tree = {
 		prerequisite = {
 			focus = RUS_a_new_better_russia
 		}
-		mutually_exclusive = {
-			focus = RUS_inherit_soviet_industry
-		}
+
 		x = 1
 		y = 1
 		relative_position_id = RUS_a_new_better_russia
 		completion_reward = {
-			SOV_increase_industrialization = yes
+			#SOV_increase_industrialization = yes
+			every_military_industrial_organization = {
+				limit = {
+					OR = {
+						is_military_industrial_organization = RUS_avtovaz_organization
+						is_military_industrial_organization = RUS_uralvagonzavod
+						is_military_industrial_organization = RUS_united_shipbuilding_corporation_organization
+						is_military_industrial_organization = RUS_united_aircraft_corporation_organization
+						is_military_industrial_organization = RUS_kalashnikov_concern_organization
+						is_military_industrial_organization = RUS_kamaz_organization
+					}
+				}
+				add_mio_funds = 3000
+				add_mio_funds_gain_factor = 0.15
+				add_mio_size_up_requirement_factor = 0.15
+			}
 			if = {
 				limit = {
 					RUS = {
@@ -6142,14 +6209,14 @@ focus_tree = {
 					limit = {
 						free_building_slots = {
 							building = industrial_complex
-							size > 1
+							size > 0
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -6157,14 +6224,14 @@ focus_tree = {
 					limit = {
 						free_building_slots = {
 							building = industrial_complex
-							size > 1
+							size > 0
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -6172,14 +6239,14 @@ focus_tree = {
 					limit = {
 						free_building_slots = {
 							building = industrial_complex
-							size > 1
+							size > 0
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
