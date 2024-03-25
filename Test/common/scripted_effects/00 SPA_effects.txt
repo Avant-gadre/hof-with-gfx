@@ -1021,9 +1021,61 @@ SPA_start_civil_war_effect = {
 	hidden_effect = {
 		if = {
 			limit = {
-				OR = {
+				has_country_flag = SPA_carlist_will_oppose_us_flag
+				has_country_flag = SPA_the_nationalist_will_oppose_us
+			}
+			if = {
+				limit = {
 					has_country_flag = SPA_carlist_will_oppose_us_flag
+				}
+				SPA = {
+					every_character = {
+						limit = {
+							has_character_flag = SPA_is_carlist_character_flag
+						}
+						set_nationality = {
+							target_country = SPB
+							character = THIS
+						}
+					}
+				}
+				SPB = {
+					promote_character = {
+						character = SPA_laurentienne_specter
+						ideology = stratocracy
+					}
+				}
+			}
+			if = {
+				limit = {
 					has_country_flag = SPA_the_nationalist_will_oppose_us
+				}
+				SPA = {
+					every_character = {
+						limit = {
+							has_character_flag = SPA_is_falangist_character_flag
+						}
+						set_nationality = {
+							target_country = SPB
+							character = THIS
+						}
+					}
+				}
+				SPB = {
+					promote_character = {
+						character = SPA_skadi_agor
+						ideology = falangism
+					}
+				}
+			}
+			SPB = {
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = ROOT
+					popularity = 0.4
 				}
 			}
 			SPA_start_civil_war_all_effect = yes
@@ -1168,6 +1220,14 @@ SPA_start_civil_war_all_effect = {
 					}
 				}
 				transfer_state_to = SPB
+			}
+			declare_war_on = {
+				target = SPB
+				type = civil_war
+			}
+			declare_war_on = {
+				target = SPC
+				type = civil_war
 			}
 		}
 		SPB = {

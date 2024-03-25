@@ -39,7 +39,7 @@
     NDefines.NMilitary.EQUIPMENT_COMBAT_LOSS_FACTOR = 0.60						-- Vanilla is 0.7
     NDefines.NAI.FORTIFIED_RATIO_TO_CONSIDER_A_FRONT_FORTIFIED = 0.6			-- Vanilla is 0.5
     NDefines.NAI.HEAVILY_FORTIFIED_RATIO_TO_CONSIDER_A_FRONT_FORTIFIED = 0.6	-- Vanilla is 0.5
-    NDefines.NMilitary.PLAN_EXECUTE_CAREFUL_MAX_FORT = 8						-- Vanilla is 5
+    NDefines.NMilitary.PLAN_EXECUTE_CAREFUL_MAX_FORT = 11						-- Vanilla is 5 Hof is 8
     NDefines.NAI.ATTACK_HEAVILY_DEFENDED_LIMIT = 0.8							-- Vanilla is 0.5
     NDefines.NAI.STR_BOMB_AA_IMPORTANCE_FACTOR = 0		                        -- Vanilla is 0.5
 
