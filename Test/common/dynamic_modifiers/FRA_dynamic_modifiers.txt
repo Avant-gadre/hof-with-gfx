@@ -1,35 +1,3 @@
-##Local Autonomy
-FRA_local_autonomy_modifier = {
-	icon = GFX_decision_peace_dove
-	enable = {
-		always = yes
-	}
-	remove_trigger = {
-		OR = {
-			has_dynamic_modifier = {
-				modifier = FRA_catholic_local_autonomy_modifier
-			}
-			has_dynamic_modifier = {
-				modifier = FRA_muslim_local_autonomy_modifier
-			}
-			FRA = {
-				is_puppet = yes
-				has_government = fascism
-			}
-			owner = {
-				NOT = {
-					tag = FRA
-					is_ally_with = FRA
-				}
-			}
-		}
-	}
-	local_manpower = -0.5
-	local_non_core_manpower = 0.3
-	compliance_growth = 0.15
-	compliance_gain = 0.01
-}
-
 ##Alter
 FRA_resistance_modifier = {
 	icon = GFX_modifiers_looting_resistance
@@ -289,7 +257,7 @@ FRA_defensive_line_2_modifier = {
 	army_speed_factor = 0.05
 }
 
-##
+##Other
 FRA_crush_dissent_modifier = {
 	icon = GFX_modifiers_looting_resistance
 	enable = {
@@ -309,4 +277,35 @@ FRA_crush_dissent_modifier = {
 	weekly_manpower = -50
 }
 
-##
+##Colony
+FRA_limit_civil_rights_modifier = {
+	icon = GFX_modifiers_can_quebec_crisis
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		FROM = {
+			is_owned_by_ROOT_or_subject = no
+		}
+	}
+	local_manpower = -0.85
+}
+
+##Local Autonomy
+FRA_local_autonomy_modifier = {
+	icon = GFX_decision_peace_dove
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		FROM = {
+			NOT = {
+				is_owned_by = ROOT
+			}
+		}
+	}
+	local_manpower = -0.5
+	local_non_core_manpower = 0.2
+	compliance_growth = 0.3
+	compliance_gain = 0.02
+}

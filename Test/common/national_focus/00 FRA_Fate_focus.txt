@@ -148,25 +148,30 @@ focus_tree = {
 	focus = {
 		id = FRA_invest_in_the_colonies
 		icon = GFX_focus_generic_invest_in_the_keiretsu
-		x = 31
-		y = 0
+		x = 0
+		y = 1
+		relative_position_id = FRA_shock_of_economy_crisis
+		prerequisite = {
+			focus = FRA_shock_of_economy_crisis
+		}
 		mutually_exclusive = {
 		}
 		cost = 6
 		ai_will_do = {
 			factor = 50
 		}
+		allow_branch = {
+			FRA_unlock_colony_branch_trigger = yes
+		}
+		offset = {
+			x = 1
+			y = 0
+			trigger = {
+				FRA_unlock_colony_branch_trigger = yes
+			}
+		}
 		available = {
 			FRA_can_use_economy_branch_trigger = yes
-			any_owned_state = {
-				NOT = {
-					is_core_of = ROOT
-				}
-				NOT = {
-					is_on_continent = europe
-				}
-				is_controlled_by = ROOT
-			}
 		}
 		bypass = {
 		}
@@ -175,125 +180,19 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = FRA_algerie_france
-		icon = GFX_focus_generic_railway_construction
-		available = {
-			any_state = {
-				OR = {
-					state = 459
-					state = 460
-					state = 513
-				}
-				OWNER = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-				}
-				free_building_slots = {
-					building = industrial_complex
-					size > 1
-					include_locked = yes
-				}
-			}
-		}
-		x = 3
-		y = 1
-		cost = 6
-		ai_will_do = {
-			factor = 50
-		}
-		prerequisite = {
-			focus = FRA_invest_in_the_colonies
-		}
-		relative_position_id = FRA_invest_in_the_colonies
-		available_if_capitulated = yes
-		bypass = {
-		}
-		complete_tooltip = {
-			every_state = {
-				limit = {
-					OR = {
-						state = 459
-						state = 460
-						state = 513
-					}
-					is_owned_or_subject_trigger = yes
-					OR = {
-						has_state_flag = FRA_industrial_expansion_target
-						has_state_flag = FRA_colonial_industry_target
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-			}
-		}
-		completion_reward = {
-			random_state = {
-				limit = {
-					OR = {
-						state = 459
-						state = 460
-						state = 513
-					}
-					NOT = {
-						has_state_flag = FRA_industrial_expansion_target
-						has_state_flag = FRA_colonial_industry_target
-					}
-					is_owned_or_subject_trigger = yes
-				}
-				add_extra_state_shared_building_slots = 2
-				set_state_flag = FRA_industrial_expansion_target
-				set_state_flag = FRA_colonial_industry_target
-				random_neighbor_state = {
-					limit = {
-						OR = {
-							state = 459
-							state = 460
-							state = 513
-						}
-						is_owned_or_subject_trigger = yes
-						NOT = {
-							has_state_flag = FRA_industrial_expansion_target
-							has_state_flag = FRA_colonial_industry_target
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					set_state_flag = FRA_industrial_expansion_target
-					set_state_flag = FRA_colonial_industry_target
-				}
-			}
-		}
-	}
-	focus = {
 		id = FRA_North_African_industry
 		icon = GFX_focus_generic_bridge
 		cost = 7
 		prerequisite = {
-			focus = FRA_algerie_france
+			focus = FRA_invest_in_the_colonies
 		}
-		x = 0
-		y = 2
-		relative_position_id = FRA_algerie_france
+		x = 2
+		y = 1
+		relative_position_id = FRA_invest_in_the_colonies
 		ai_will_do = {
 			factor = 50
 		}
 		completion_reward = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						is_core_of = MOR
-						is_core_of = ALG
-						is_core_of = TUN
-					}
-					NOT = {
-						is_core_of = ROOT
-					}
-					NOT = {
-						is_on_continent = europe
-					}
-				}
-				add_compliance = 25
-			}
 			custom_effect_tooltip = FRA_North_African_industry_tt
 			459 = {
 				if = {
@@ -352,338 +251,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = FRA_Northern_African_Autonomy
-		icon = GFX_focus_FRA_french_africa
-		cost = 5
-		prerequisite = {
-			focus = FRA_North_African_industry
-		}
-		ai_will_do = {
-			factor = 50
-		}
-		x = 0
-		y = 1
-		relative_position_id = FRA_North_African_industry
-		available = {
-			ALG = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
-			TUN = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}
-		}
-		completion_reward = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = ALG
-						is_core_of = TUN
-						is_core_of = MOR
-					}
-					is_owned_by_ROOT_or_subject = yes
-				}
-				add_dynamic_modifier = {
-					modifier = FRA_muslim_local_autonomy_modifier
-				}
-				set_state_flag = FRA_local_autonomy_flag
-			}
-		}
-	}
-	focus = {
-		id = FRA_invest_in_west_africa
-		icon = GFX_focus_generic_improvised_farming_machinery
-		x = -3
-		y = 1
-		prerequisite = {
-			focus = FRA_invest_in_the_colonies
-		}
-		mutually_exclusive = {
-		}
-		relative_position_id = FRA_invest_in_the_colonies
-		cost = 6
-		ai_will_do = {
-			factor = 50
-		}
-		available = {
-			any_state = {
-				OR = {
-					state = 272
-					state = 780
-					state = 556
-					state = 779
-					state = 778
-					state = 781
-					state = 776
-					state = 777
-				}
-				is_owned_or_subject_trigger = yes
-			}
-		}
-		bypass = {
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			random_state = {
-				limit = {
-					OR = {
-						state = 272
-						state = 780
-						state = 556
-						state = 779
-						state = 778
-						state = 781
-						state = 776
-						state = 777
-					}
-					OWNER = {
-						is_owned_or_subject_trigger = yes
-					}
-					NOT = {
-						has_state_flag = FRA_colonial_industry_target
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				set_state_flag = FRA_colonial_industry_target
-			}
-		}
-	}
-	focus = {
-		id = FRA_Western_African_Autonomy
-		icon = GFX_focus_generic_africa_liberation
-		cost = 5
-		prerequisite = {
-			focus = FRA_invest_in_west_africa
-		}
-		x = 0
-		y = 2
-		ai_will_do = {
-			factor = 50
-		}
-		relative_position_id = FRA_invest_in_west_africa
-		available = {
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}
-			has_completed_focus = FRA_French_Islamic_Community
-		}
-		completion_reward = {
-			every_state = {
-				limit = {
-					is_core_of = SEN
-					is_owned_by_ROOT_or_subject = yes
-				}
-				add_dynamic_modifier = {
-					modifier = FRA_muslim_local_autonomy_modifier
-				}
-				set_state_flag = FRA_local_autonomy_flag
-			}
-		}
-	}
-	focus = {
-		id = FRA_invest_in_indochina
-		icon = GFX_focus_generic_forestry
-		x = -1
-		y = 1
-		prerequisite = {
-			focus = FRA_invest_in_the_colonies
-		}
-		mutually_exclusive = {
-		}
-		relative_position_id = FRA_invest_in_the_colonies
-		cost = 6
-		ai_will_do = {
-			factor = 50
-		}
-		available = {
-			any_state = {
-				OR = {
-					is_core_of = VIN
-					is_core_of = CAM
-					is_core_of = LAO
-				}
-				is_owned_or_subject_trigger = yes
-			}
-		}
-		bypass = {
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			random_state = {
-				limit = {
-					OR = {
-						state = 741
-						state = 286
-						state = 671
-						state = 670
-					}
-					OWNER = {
-						is_owned_or_subject_trigger = yes
-					}
-					NOT = {
-						has_state_flag = FRA_colonial_industry_target
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				set_state_flag = FRA_colonial_industry_target
-			}
-		}
-	}
-	focus = {
-		id = FRA_south_eastern_asia
-		icon = GFX_focus_FIC_a_true_federation
-		cost = 4
-		prerequisite = {
-			focus = FRA_invest_in_indochina
-		}
-		x = -1
-		y = 1
-		relative_position_id = FRA_invest_in_indochina
-		available = {
-			FIC = {
-				NOT = {
-					has_government = fascism
-				}
-			}
-			has_government = democratic
-			is_puppet = no
-			671 = {
-				is_controlled_by_ROOT_or_ally = yes
-			}
-			286 = {
-				is_controlled_by_ROOT_or_ally = yes
-			}
-		}
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = LAO
-						is_core_of = VIN
-						is_core_of = CAM
-						AND = {
-							OR = {
-								is_core_of = LAO
-								is_core_of = CAM
-							}
-							NOT = {
-								is_controlled_by = SIA
-							}
-						}
-					}
-					is_owned_by_ROOT_or_subject = yes
-				}
-				add_dynamic_modifier = {
-					modifier = FRA_local_autonomy_modifier
-				}
-			}
-		}
-	}
-	focus = {
-		id = FRA_invest_in_syria
-		icon = GFX_focus_generic_silk
-		x = 1
-		y = 1
-		prerequisite = {
-			focus = FRA_invest_in_the_colonies
-		}
-		mutually_exclusive = {
-		}
-		relative_position_id = FRA_invest_in_the_colonies
-		cost = 6
-		ai_will_do = {
-			factor = 50
-		}
-		available = {
-			any_state = {
-				OR = {
-					is_core_of = SYR
-					is_core_of = LEB
-				}
-				is_owned_or_subject_trigger = yes
-			}
-		}
-		bypass = {
-		}
-		available_if_capitulated = yes
-		completion_reward = {
-			random_state = {
-				limit = {
-					OR = {
-						state = 677
-						state = 680
-						state = 554
-						state = 553
-					}
-					OWNER = {
-						is_owned_or_subject_trigger = yes
-					}
-					NOT = {
-						has_state_flag = FRA_colonial_industry_target
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				set_state_flag = FRA_colonial_industry_target
-			}
-		}
-	}
-	focus = {
-		id = FRA_near_east
-		icon = GFX_focus_FRA_french_lebanese
-		cost = 4
-		prerequisite = {
-			focus = FRA_invest_in_syria
-		}
-		x = 1
-		y = 1
-		relative_position_id = FRA_invest_in_syria
-		available = {
-			has_government = democratic
-			is_puppet = no
-			554 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-			553 = {
-				is_controlled_by_ROOT_or_subject = yes
-			}
-			has_completed_focus = FRA_French_Islamic_Community
-		}
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = LEB
-						AND = {
-							is_core_of = SYR
-							NOT = {
-								is_core_of = ISR
-							}
-						}
-					}
-					is_owned_by_ROOT_or_subject = yes
-				}
-				add_dynamic_modifier = {
-					modifier = FRA_local_autonomy_modifier
-				}
-				set_state_flag = FRA_local_autonomy_flag
-			}
-		}
-	}
-	focus = {
 		id = FRA_colonial_industry
 		icon = GFX_focus_generic_railroad_01
 		available = {
@@ -691,8 +258,8 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_invest_in_the_colonies
 		}
-		x = 0
-		y = 2
+		x = -2
+		y = 1
 		relative_position_id = FRA_invest_in_the_colonies
 		cost = 6
 		ai_will_do = {
@@ -705,39 +272,14 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = FRA_global_integration
-		icon = GFX_focus_generic_medium_industry
-		x = -1
-		y = 1
-		prerequisite = {
-			focus = FRA_colonial_industry
-		}
-		mutually_exclusive = {
-		}
-		relative_position_id = FRA_colonial_industry
-		cost = 6
-		ai_will_do = {
-			factor = 50
-		}
-		available = {
-		}
-		bypass = {
-		}
-		completion_reward = {
-			add_ideas = {
-				FRA_global_investments
-			}
-		}
-	}
-	focus = {
 		id = FRA_encourage_immigration
 		icon = GFX_focus_generic_bills
-		x = -2
+		x = 0
 		y = 1
 		prerequisite = {
-			focus = FRA_global_integration
+			focus = FRA_invest_in_the_colonies
 		}
-		relative_position_id = FRA_global_integration
+		relative_position_id = FRA_invest_in_the_colonies
 		cost = 6
 		ai_will_do = {
 			factor = 50
@@ -747,93 +289,92 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			remove_worker_shortage_effect = yes
+			add_stability = -0.05
+			add_political_power = -50
+			unlock_decision_tooltip = FRA_attract_immigrants_from_morocco
+			unlock_decision_tooltip = FRA_attract_immigrants_from_algeria
+			unlock_decision_tooltip = FRA_attract_immigrants_from_tunsia
+			unlock_decision_tooltip = FRA_attract_immigrants_from_west_africa
+			unlock_decision_tooltip = FRA_attract_immigrants_from_indochina
 		}
 	}
 	focus = {
 		id = FRA_Promote_Autonomy
 		icon = GFX_focus_generic_government3
 		cost = 5
-		relative_position_id = FRA_encourage_immigration
-		x = 1
+		relative_position_id = FRA_colonial_industry
+		x = 0
 		y = 1
 		ai_will_do = {
 			factor = 50
 		}
 		prerequisite = {
-			focus = FRA_encourage_immigration
+			focus = FRA_colonial_industry
 		}
 		available = {
 		}
 		completion_reward = {
+			##Add decision
 		}
 	}
 	focus = {
 		id = FRA_Colony_To_Province
 		icon = GFX_focus_generic_government8
-		cost = 4
+		cost = 10
 		relative_position_id = FRA_Promote_Autonomy
-		x = -1
-		y = 1
+		x = 0
+		y = 2
 		prerequisite = {
 			focus = FRA_Promote_Autonomy
 		}
 		completion_reward = {
-			add_political_power = -50
-			# French Saharan Africa #
-			every_owned_state = {
-				limit = {
-					is_on_continent = africa
-					impassable = yes
-					has_resistance = yes
-				}
-				add_compliance = 10
+			add_political_power = -100
+			730 = {
+				enable_state_integration_80_compliance = yes
 			}
-			# French West Africa #
-			every_owned_state = {
-				limit = {
-					is_on_continent = africa
-					has_resistance = yes
-					impassable = no
-					NOT = {
-						state = 458						#Tunis
-						state = 513						#Southern Algeria
-						state = 665						#Gabes
-						state = 700						#Sierra Leone
-						state = 834						#Gambia
-					}
-				}
-				add_compliance = 3
+			694 = {
+				enable_state_integration_80_compliance = yes
 			}
-			# French North Africa #
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 458						#Tunis
-						state = 513						#Southern Algeria
-						state = 665						#Gabes
-						state = 700						#Sierra Leone
-						state = 834						#Gambia
-					}
-					has_resistance = yes
-				}
-				add_compliance = 5
+			706 = {
+				enable_state_integration_80_compliance = yes
 			}
+			707 = {
+				enable_state_integration_80_compliance = yes
+			}
+			708 = {
+				enable_state_integration_80_compliance = yes
+			}
+			709 = {
+				enable_state_integration_80_compliance = yes
+			}
+			818 = {
+				enable_state_integration_80_compliance = yes
+			}
+			635 = {
+				enable_state_integration_80_compliance = yes
+			}
+			641 = {
+				enable_state_integration_80_compliance = yes
+			}
+			unlock_decision_tooltip = FRA_integrate_guayana_decision
 		}
 	}
 	focus = {
 		id = FRA_france_undividable
 		icon = GFX_focus_chi_reach_out_to_france
-		x = 1
-		y = 1
+		x = 0
+		y = 2
 		prerequisite = {
 			focus = FRA_Promote_Autonomy
+		}
+		prerequisite = {
+			focus = FRA_Expand_citizenship
 		}
 		mutually_exclusive = {
 			focus = FRA_french_union
 		}
-		relative_position_id = FRA_Promote_Autonomy
-		cost = 6
+		relative_position_id = FRA_Expand_citizenship
+		cost = 10
 		ai_will_do = {
 			factor = 50
 		}
@@ -846,42 +387,28 @@ focus_tree = {
 				remove_idea = FRA_expanded_citizenship
 				add_idea = FRA_france_undividable
 			}
-			every_owned_state = {
-				limit = {
-					is_controlled_by = ROOT
-					NOT = {
-						is_core_of = ROOT
-					}
-					NOT = {
-						is_on_continent = europe
-					}
-				}
-				add_compliance = 10
-			}
 		}
 	}
 	focus = {
 		id = FRA_Blum_Proposal
 		icon = GFX_focus_FRA_deal
-		cost = 6
+		cost = 5
+		prerequisite = {
+			focus = FRA_encourage_immigration
+		}
 		prerequisite = {
 			focus = FRA_colonial_industry
 		}
-		x = 1
+		prerequisite = {
+			focus = FRA_North_African_industry
+		}
+		x = 2
 		y = 1
 		relative_position_id = FRA_colonial_industry
 		available = {
-			ALG = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
-				}
+			459 = {
+				is_controlled_by = ROOT
 			}
-			TUN = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
-			has_capitulated = no
 		}
 		ai_will_do = {
 			factor = 5
@@ -891,8 +418,17 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_stability = -0.08
-			add_political_power = -30
+			add_stability = -0.05
+			add_political_power = -50
+			add_popularity = {
+				ideology = ROOT
+				popularity = -0.05
+			}
+			459 = {
+				remove_dynamic_modifier = {
+					modifier = FRA_limit_civil_rights_modifier
+				}
+			}
 		}
 	}
 	focus = {
@@ -901,14 +437,15 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = FRA_Blum_Proposal
-			focus = FRA_france_undividable
+			focus = FRA_global_integration
 		}
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = FRA_Blum_Proposal
 		available = {
-			has_stability > 0.45
-			has_capitulated = no
+		}
+		allow_branch = {
+			FRA_unlock_colony_branch_trigger = yes
 		}
 		ai_will_do = {
 			factor = 5
@@ -927,28 +464,42 @@ focus_tree = {
 	focus = {
 		id = FRA_North_African_holistic_citizenship
 		icon = GFX_focus_FRA_north_africa_nationalities
-		cost = 6
+		cost = 5
 		prerequisite = {
 			focus = FRA_Blum_Proposal
 		}
 		available = {
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}
-			date > 1939.8.1
-			ALG = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
+			if = {
+				limit = {
+					FRA_in_alter_path_trigger = yes
 				}
-			}
-			TUN = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
+				805 = {
+					has_dynamic_modifier = {
+						modifier = FRA_build_castle_modifier
+						scope = FRA
+					}
+				}
+				459 = {
+					has_dynamic_modifier = {
+						modifier = FRA_build_castle_modifier
+						scope = FRA
+					}
+				}
+				460 = {
+					has_dynamic_modifier = {
+						modifier = FRA_build_castle_modifier
+						scope = FRA
+					}
+				}
+				865 = {
+					has_dynamic_modifier = {
+						modifier = FRA_build_castle_modifier
+						scope = FRA
+					}
 				}
 			}
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = FRA_Blum_Proposal
 		ai_will_do = {
@@ -959,16 +510,36 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			if = {
+				limit = {
+					FRA_in_alter_path_trigger = yes
+				}
+				805 = {
+					FRA_kill_pop_alter_effect = yes
+				}
+				459 = {
+					FRA_kill_pop_alter_effect = yes
+				}
+				460 = {
+					FRA_kill_pop_alter_effect = yes
+				}
+				865 = {
+					FRA_kill_pop_alter_effect = yes
+				}
+			}
+			else = {
+				add_political_power = -100
+				add_stability = -0.1
+			}
 			every_state = {
 				limit = {
-					OR = {
-						is_core_of = ALG
-						is_core_of = TUN
+					has_dynamic_modifier = {
+						modifier = FRA_limit_civil_rights_modifier
 					}
-					impassable = no
 				}
-				add_claim_of_ROOT = yes
-				enable_state_integration_80_compliance = yes
+				remove_dynamic_modifier = {
+					modifier = FRA_limit_civil_rights_modifier
+				}
 			}
 		}
 	}
@@ -979,13 +550,21 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_North_African_holistic_citizenship
 		}
-		x = 2
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = FRA_North_African_holistic_citizenship
 		available = {
-			OR = {
-				has_government = democratic
-				has_government = communism
+			if = {
+				limit = {
+					FRA_in_alter_path_trigger = yes
+				}
+				any_state = {
+					NOT = {
+						has_dynamic_modifier = {
+							modifier = FRA_crush_dissent_modifier
+						}
+					}
+				}
 			}
 		}
 		ai_will_do = {
@@ -996,17 +575,33 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.08
+			if = {
+				limit = {
+					FRA_in_alter_path_trigger = yes
+				}
+				every_core_state = {
+					limit = {
+						OR = {
+							region = 19							#Northern France
+							region = 20							#Southern France
+							region = 164							#Western France
+							state = 1
+						}
+					}
+					add_dynamic_modifier = {
+						modifier = FRA_crush_dissent_modifier
+						days = 360
+					}
+				}
 			}
-			add_popularity = {
-				ideology = neutrality
-				popularity = -0.08
+			else = {
+				add_political_power = -100
+				add_stability = -0.05
 			}
-			add_political_power = -30
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = FRA_albert_camus
+			add_timed_idea = {
+				idea = FRA_anti_discrimination_idea
+				days = 720
+			}
 		}
 	}
 	focus = {
@@ -1014,24 +609,16 @@ focus_tree = {
 		icon = GFX_focus_FRA_afrique_francaise
 		cost = 6
 		prerequisite = {
-			focus = FRA_North_African_holistic_citizenship
-			focus = FRA_Expand_citizenship
+			focus = FRA_North_African_industry
+		}
+		prerequisite = {
+			focus = FRA_algerie_france
 		}
 		available = {
-			ALG = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
-			TUN = {
-				all_core_state = {
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
 		}
-		x = -1
+		x = 0
 		y = 1
-		relative_position_id = FRA_North_African_holistic_citizenship
+		relative_position_id = FRA_North_African_industry
 		ai_will_do = {
 			factor = 5
 			modifier = {
@@ -1049,12 +636,12 @@ focus_tree = {
 	focus = {
 		id = FRA_french_union
 		icon = GFX_focus_fra_french_union
-		cost = 5
-		prerequisite = {
-			focus = FRA_Transport_Industry_To_Algeria
-		}
+		cost = 10
 		prerequisite = {
 			focus = FRA_French_Islamic_Community
+		}
+		prerequisite = {
+			focus = FRA_anti_discrimination
 		}
 		mutually_exclusive = {
 			focus = FRA_france_undividable
@@ -1068,31 +655,28 @@ focus_tree = {
 				has_government = communism
 				factor = 100
 			}
-			modifier = {
-				FIC = {
-					is_ai = no
-				}
-				factor = 0
-			}
 		}
 		available = {
-			always = no
+			NOT = {
+				GER = {
+					has_war_with = ROOT
+				}
+			}
 			NOT = {
 				JAP = {
 					has_war_with = ROOT
 				}
-				GER = {
-					has_war_with = ROOT
-				}
+			}
+			NOT = {
+				has_idea = FRA_anti_discrimination_idea
+			}
+			NOT = {
+				has_idea = FRA_french_islamic_community_idea
 			}
 		}
 		bypass = {
 		}
 		completion_reward = {
-			annex_country = {
-				target = FIC
-				transfer_troops = yes
-			}
 			annex_country = {
 				target = SEN
 				transfer_troops = yes
@@ -1100,6 +684,25 @@ focus_tree = {
 			annex_country = {
 				target = MAD
 				transfer_troops = yes
+			}
+			if = {
+				limit = {
+					FIC = {
+						is_ai = yes
+					}
+				}
+				annex_country = {
+					target = FIC
+					transfer_troops = yes
+				}
+			}
+			##To do add decision
+			##TODO
+			# SEN = {
+			# 	enable_coring_at_eighty_compliance = yes
+			# }
+			543 = {
+				enable_state_integration_80_compliance = yes
 			}
 		}
 	}
@@ -1111,9 +714,17 @@ focus_tree = {
 			focus = FRA_North_African_holistic_citizenship
 		}
 		available = {
-			OR = {
-				has_government = democratic
-				has_government = communism
+			if = {
+				limit = {
+					FRA_in_alter_path_trigger = yes
+				}
+				any_state = {
+					NOT = {
+						has_dynamic_modifier = {
+							modifier = FRA_crush_dissent_modifier
+						}
+					}
+				}
 			}
 		}
 		x = 1
@@ -1127,31 +738,52 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_stability = -0.1
-			add_timed_idea = {
-				idea = FRA_French_Islamic_Community
-				days = 450
-			}
-			every_state = {
+			if = {
 				limit = {
-					OR = {
-						is_core_of = MAD
-						is_core_of = MOR
+					FRA_in_alter_path_trigger = yes
+				}
+				every_core_state = {
+					limit = {
+						OR = {
+							region = 19							#Northern France
+							region = 20							#Southern France
+							region = 164							#Western France
+							state = 1
+						}
 					}
-					is_owned_by_ROOT_or_subject = yes
+					add_dynamic_modifier = {
+						modifier = FRA_crush_dissent_modifier
+						days = 360
+					}
 				}
-				add_dynamic_modifier = {
-					modifier = FRA_local_autonomy_modifier
-				}
-				set_state_flag = FRA_local_autonomy_flag
+			}
+			else = {
+				add_political_power = -100
+				add_stability = -0.05
+			}
+			add_timed_idea = {
+				idea = FRA_french_islamic_community_idea
+				days = 720
+			}
+			add_relation_modifier = {
+				target = ALG
+				modifier = FRA_french_islamic_community_modifier
+			}
+			add_relation_modifier = {
+				target = TUN
+				modifier = FRA_french_islamic_community_modifier
+			}
+			add_relation_modifier = {
+				target = MOR
+				modifier = FRA_french_islamic_community_modifier
 			}
 		}
 	}
 	focus = {
 		id = FRA_refus_absurde
 		icon = GFX_goal_generic_demand_territory
-		x = 44
-		y = 0
+		x = 38
+		y = 1
 		prerequisite = {
 		}
 		cost = 6
@@ -1717,13 +1349,20 @@ focus_tree = {
 		icon = GFX_focus_generic_bankruptcy
 		cost = 2
 		x = 32
-		y = 8
+		y = 7
 		ai_will_do = {
 			factor = 50
 		}
 		available = {
 			hidden_trigger = {
 				always = no
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				FRA_unlock_colony_branch_trigger = yes
 			}
 		}
 		completion_reward = {
@@ -1741,6 +1380,13 @@ focus_tree = {
 		y = 1
 		ai_will_do = {
 			factor = 50
+		}
+		offset = {
+			x = 2
+			y = 0
+			trigger = {
+				FRA_unlock_colony_branch_trigger = yes
+			}
 		}
 		available = {
 			FRA_can_use_economy_branch_trigger = yes
@@ -2376,6 +2022,13 @@ focus_tree = {
 		available = {
 			FRA_can_use_economy_branch_trigger = yes
 		}
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				FRA_unlock_colony_branch_trigger = yes
+			}
+		}
 		completion_reward = {
 			##FRA_suffer_penalty_if_in_chaos_effect = yes
 			whiteline = yes
@@ -2950,17 +2603,16 @@ focus_tree = {
 		icon = GFX_focus_POL_organic_works
 		cost = 5
 		prerequisite = {
-			focus = FRA_Investing_national_education
-		}
-		prerequisite = {
-			focus = FRA_laissez_faire
+			focus = FRA_Research_Assembly_line
 		}
 		ai_will_do = {
 			factor = 50
 		}
 		available = {
-			NOT = {
-				has_government = communism
+			OR = {
+				has_completed_focus = FRA_encourage_bankruptcy
+				FRA_has_harvey_trigger = yes
+				has_idea = FRA_leo_bistario_harvey_special_fourth
 			}
 		}
 		x = -1
@@ -3044,6 +2696,11 @@ focus_tree = {
 		}
 		ai_will_do = {
 			factor = 50
+		}
+		allow_branch = {
+			NOT = {
+				FRA_unlock_colony_branch_trigger = yes
+			}
 		}
 		available = {
 			hidden_trigger = {
@@ -3176,10 +2833,6 @@ focus_tree = {
 				FRA_economic_crisis_end_trigger = no
 				factor = 2000
 			}
-			# modifier = {
-			# 	FRA_economic_crisis_end_trigger = yes
-			# 	factor = 0
-			# }
 		}
 		available = {
 		}
@@ -3571,6 +3224,7 @@ focus_tree = {
 				id = fra_crisis.9
 				days = 3
 			}
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	focus = {
@@ -3588,6 +3242,11 @@ focus_tree = {
 		}
 		ai_will_do = {
 			factor = 50
+		}
+		allow_branch = {
+			NOT = {
+				FRA_unlock_colony_branch_trigger = yes
+			}
 		}
 		available = {
 			hidden_trigger = {
@@ -3841,6 +3500,7 @@ focus_tree = {
 			add_one_random_military_factory = yes
 			add_one_random_military_factory = yes
 			add_one_random_military_factory = yes
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	##Mi
@@ -3848,7 +3508,7 @@ focus_tree = {
 		id = FRA_Royal_military_parade
 		icon = GFX_focus_FRA_military_government
 		cost = 4
-		x = 18
+		x = 17
 		y = 15
 		ai_will_do = {
 			factor = 50
@@ -5778,9 +5438,6 @@ focus_tree = {
 		}
 		available = {
 			has_war = yes
-			FRA_not_in_alter_path_view_trigger = yes
-		}
-		allow_branch = {
 			FRA_not_in_alter_path_view_trigger = yes
 		}
 		completion_reward = {
@@ -8760,7 +8417,7 @@ focus_tree = {
 		id = FRA_stablize_status_quo
 		icon = GFX_focus_FRA_stablize_status_quo
 		cost = 2
-		x = -1
+		x = -2
 		y = 0
 		available = {
 			FRA_focus_branch_avaliable_trigger = yes
@@ -10948,7 +10605,9 @@ focus_tree = {
 			}
 		}
 		allow_branch = {
-			FRA_not_in_alter_path_view_trigger = yes
+			NOT = {
+				FRA_in_alter_path_trigger = yes
+			}
 		}
 		relative_position_id = FRA_overthrow_bourbon
 		bypass = {
@@ -10977,22 +10636,19 @@ focus_tree = {
 			factor = 50
 		}
 		allow_branch = {
-			FRA_not_in_alter_path_view_trigger = yes
+			NOT = {
+				FRA_in_alter_path_trigger = yes
+			}
 		}
 		available = {
-			always = no
+			hidden_trigger = {
+				always = no
+			}
 		}
 		bypass = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = fra_auto_bypass_tooltip
-			add_stability = 0.1
-			add_doctrine_cost_reduction = {
-				name = FRA_proclaim_the_third_empire
-				cost_reduction = 0.5
-				uses = 1
-				category = cat_superior_firepower
-			}
 			hidden_effect = {
 				drop_cosmetic_tag = yes
 				set_cosmetic_tag = FRA_empire
@@ -13004,7 +12660,7 @@ focus_tree = {
 		id = FRA_Diplomatic_Effort
 		icon = GFX_focus_generic_foreign_diplomacy
 		cost = 3
-		x = 10
+		x = 9
 		y = 8
 		ai_will_do = {
 			factor = 50
