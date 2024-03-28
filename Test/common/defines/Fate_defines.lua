@@ -1,4 +1,4 @@
-    NDefines.NPolitics.BASE_POLITICAL_POWER_INCREASE = 1.5						-- Vanilla is 2
+    NDefines.NPolitics.BASE_POLITICAL_POWER_INCREASE = 2					-- Vanilla is 2
     NDefines.NDiplomacy.OPINION_FOR_DEMO_FROM_WT_GENERATION = 0					-- Vanilla is -2.0
     NDefines.NProduction.MAX_CIV_FACTORIES_PER_LINE = 20                        -- Vanilla is 15
     NDefines.NCountry.MIN_STABILITY = -0.5										-- Vanilla is 0.0
