@@ -1161,6 +1161,21 @@ unit_leader_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = FRA_can_learn_from_germany_flag
+				}
+				hidden_effect = {
+					FRA_ciel_elesia = {
+						unit_leader_event = {
+							id = fra_alter.38
+							days = 60
+						}
+					}
+				}
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
@@ -1168,24 +1183,22 @@ unit_leader_event = {
 }
 
 ##纵火
-unit_leader_event = {
+country_event = {
 	id = fra_alter.35
 	title = fra_alter.35.title
 	desc = fra_alter.35.desc
 	immediate = {
 		hidden_effect = {
-			FRA_jeanne_d_arc_alter = {
-				unit_leader_event = {
-					id = fra_alter.35
-					days = 365
-				}
+			country_event = {
+				id = fra_alter.35
+				days = 365
 			}
 		}
 	}
 	trigger = {
 		FRA_in_alter_path_trigger = yes
 	}
-	picture = GFX_report_event_generic_diplomacy1
+	picture = GFX_report_event_jd_alter
 	is_triggered_only = yes
 	##fire_only_once = no
 	option = {
@@ -1237,21 +1250,41 @@ unit_leader_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
-	##女王
+	##元首
 	option = {
 		name = fra_alter.37.a
 		ai_chance = {
 			base = 1
 		}
-		add_country_leader_trait = FRA_trait_la_reine
+		effect_tooltip = {
+			add_country_leader_trait = FRA_trait_furher
+		}
+		hidden_effect = {
+			FRA_jeanne_d_arc_alter = {
+				add_trait = {
+					trait = FRA_trait_furher
+					ideology = orlean_system
+				}
+			}
+		}
 	}
-	##元首
+	##女王
 	option = {
 		name = fra_alter.37.b
 		ai_chance = {
 			base = 1
 		}
-		add_country_leader_trait = FRA_trait_furher
+		effect_tooltip = {
+			add_country_leader_trait = FRA_trait_la_reine
+		}
+		hidden_effect = {
+			FRA_jeanne_d_arc_alter = {
+				add_trait = {
+					trait = FRA_trait_la_reine
+					ideology = orlean_system
+				}
+			}
+		}
 	}
 	##大护国公
 	option = {
@@ -1259,7 +1292,17 @@ unit_leader_event = {
 		ai_chance = {
 			base = 1
 		}
-		add_country_leader_trait = FRA_trait_grand_protecteur
+		effect_tooltip = {
+			add_country_leader_trait = FRA_trait_grand_protecteur
+		}
+		hidden_effect = {
+			FRA_jeanne_d_arc_alter = {
+				add_trait = {
+					trait = FRA_trait_grand_protecteur
+					ideology = orlean_system
+				}
+			}
+		}
 	}
 }
 
@@ -1278,7 +1321,10 @@ unit_leader_event = {
 		FRA = {
 			has_completed_focus = FRA_coop_with_bury_institute
 			FRA_jeanne_d_arc = {
-				is_corps_commander = yes
+				OR = {
+					is_field_marshal = yes
+					is_corps_commander = yes
+				}
 			}
 		}
 	}
@@ -1312,5 +1358,13 @@ unit_leader_event = {
 			base = 1
 		}
 		add_country_leader_trait = FRA_trait_das_rheingold
+		hidden_effect = {
+			FRA_jeanne_d_arc_alter = {
+				add_trait = {
+					trait = FRA_trait_das_rheingold
+					ideology = orlean_system
+				}
+			}
+		}
 	}
 }
