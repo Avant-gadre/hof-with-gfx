@@ -45,14 +45,60 @@ FRA_debug_decisions = {
 			mark_focus_tree_layout_dirty = yes
 		}
 	}
+	fra_drop_tag = {
+		icon = generic_research
+		cost = 0
+		available = {
+			has_global_flag = Show_all_advisor_flag
+			is_debug = yes
+			is_ai = no
+		}
+		complete_effect = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = FRA_orlean_system
+		}
+	}
 }
 
 ##Pol
 FRA_future_of_our_country_category = {
+	FRA_interve_in_spain_civil_war_decision = {
+		icon = eng_propaganda_campaigns
+		visible = {
+			# has_country_flag = FRA_the_fourth_republic_settled_flag
+		}
+		allowed = {
+			tag = FRA
+		}
+		on_map_mode = decision_view_only
+		fire_only_once = yes
+		available = {
+			date > 1937.1.1
+			date < 1938.1.1
+			has_global_flag = Spain_civil_war_start_flag
+			NOT = {
+				has_global_flag  = Spain_civil_war_end_flag
+			}
+			# has_country_flag = FRA_the_fourth_republic_settled_flag
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			var:country_leader = {
+				unit_leader_event = {
+					id = fra_core.24
+					days = 3
+				}
+			}
+			add_war_support = 0.05
+		}
+	}
 	FRA_begin_civilian_mobilization_decision = {
 		icon = gre_hellenic_academy
 		visible = {
-			tag = FRA
+			has_country_flag = FRA_the_fourth_republic_settled_flag
 		}
 		allowed = {
 			tag = FRA
@@ -90,7 +136,8 @@ FRA_future_of_our_country_category = {
 	FRA_hold_referendum_for_socialism_decision = {
 		icon = sov_secure_the_administration
 		visible = {
-			tag = FRA
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+			FRA_has_robespierre_trigger = yes
 		}
 		allowed = {
 			tag = FRA
@@ -150,7 +197,7 @@ FRA_future_of_our_country_category = {
 			has_war = no
 			FRA_before_1940_election_trigger = yes
 		}
-		cost = 50
+		cost = 10
 		ai_will_do = {
 			factor = 1000
 		}
@@ -190,11 +237,15 @@ FRA_future_of_our_country_category = {
 			}
 		}
 	}
-	##Napoleon
+	##Napoleon-Red
 	FRA_postpone_1940_election_decision = {
 		icon = ita_colonial_administration
 		visible = {
-			tag = FRA
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+			OR = {
+				FRA_has_robespierre_trigger = yes
+				FRA_has_napoleon_trigger = yes
+			}
 		}
 		allowed = {
 			tag = FRA
@@ -211,7 +262,7 @@ FRA_future_of_our_country_category = {
 			date > 1940.1.1
 			date < 1940.2.1			##THIS is Important
 		}
-		cost = 50
+		cost = 10
 		ai_will_do = {
 			factor = 1000
 		}
@@ -228,8 +279,8 @@ FRA_future_of_our_country_category = {
 	FRA_draft_authoritarian_constitution_decision = {
 		icon = oppression
 		visible = {
-			tag = FRA
-			##FRA_has_napoleon_trigger = yes
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+			FRA_has_napoleon_trigger = yes
 		}
 		allowed = {
 			tag = FRA
@@ -238,25 +289,29 @@ FRA_future_of_our_country_category = {
 		fire_only_once = yes
 		available = {
 			has_country_flag = FRA_the_fourth_republic_settled_flag
+			has_completed_focus = FRA_constitutional_referendum
 			FRA_disjoint_government_ends_trigger = yes
 			FRA_can_make_action_trigger = yes
 			FRA_has_napoleon_trigger = yes
-			has_idea = FRA_pauline_bonaparte_special_second
-			has_completed_focus = FRA_constitutional_referendum
 		}
-		cost = 50
+		cost = 10
 		ai_will_do = {
 			factor = 1000
 		}
 		complete_effect = {
+			activate_advisor = FRA_pauline_bonaparte_special_second
+			hidden_effect = {
+				set_country_flag = FRA_election_is_puppet_flag
+			}
 			custom_effect_tooltip = FRA_election_is_puppet_flag
-			set_country_flag = FRA_election_is_puppet_flag
-			add_stability = -0.1
+			unlock_decision_tooltip = FRA_hold_referendum_for_napoleon_decision
 			complete_national_focus = FRA_Give_Petain_ful_powers
-			FRA_napoleon_bonaparte = {
-				unit_leader_event = {
-					id = fra_bonaparte.1
-					days = 1
+			hidden_effect = {
+				FRA_napoleon_bonaparte = {
+					unit_leader_event = {
+						id = fra_bonaparte.1
+						days = 3
+					}
 				}
 			}
 		}
@@ -264,8 +319,9 @@ FRA_future_of_our_country_category = {
 	FRA_hold_referendum_for_napoleon_decision = {
 		icon = spy3
 		visible = {
-			tag = FRA
-			##FRA_has_napoleon_trigger = yes
+			FRA_has_napoleon_trigger = yes
+			has_country_flag = FRA_the_fourth_republic_settled_flag
+			has_country_flag = FRA_election_is_puppet_flag
 		}
 		allowed = {
 			tag = FRA
@@ -273,10 +329,9 @@ FRA_future_of_our_country_category = {
 		on_map_mode = decision_view_only
 		fire_only_once = yes
 		available = {
+			FRA_has_napoleon_trigger = yes
 			has_country_flag = FRA_the_fourth_republic_settled_flag
 			has_country_flag = FRA_election_is_puppet_flag
-			FRA_has_napoleon_trigger = yes
-			has_idea = FRA_pauline_bonaparte_special_second
 			OR = {
 				date < 1940.6.1
 				has_country_flag = FRA_1940_election_postponed_flag
@@ -304,13 +359,14 @@ FRA_future_of_our_country_category = {
 				}
 			}
 		}
-		cost = 50
+		cost = 10
 		ai_will_do = {
 			factor = 1000
 		}
 		complete_effect = {
 			complete_national_focus = FRA_proclaim_the_third_empire
-			add_war_support = 0.1
+			add_political_power = 100
+			add_war_support = 0.15
 			FRA_napoleon_bonaparte = {
 				unit_leader_event = {
 					id = fra_bonaparte.2
@@ -323,6 +379,7 @@ FRA_future_of_our_country_category = {
 	FRA_frankish_national_theory = {
 		icon = ger_reichskommissariats
 		visible = {
+			FRA_has_charlemagne_trigger = yes
 		}
 		allowed = {
 			tag = FRA
@@ -368,7 +425,7 @@ FRA_future_of_our_country_category = {
 			}
 		}
 		fire_only_once = yes
-		cost = 50
+		cost = 10
 		ai_will_do = {
 			factor = 1000
 		}
@@ -376,7 +433,12 @@ FRA_future_of_our_country_category = {
 			add_war_support = 0.1
 			add_stability = 0.1
 			effect_tooltip = {
-				add_country_leader_trait = FRA_trait_the_emperor
+				FRA_charlemagne_carolingian = {
+					add_trait = {
+						trait = FRA_trait_the_emperor
+						ideology = stratocracy
+					}
+				}
 			}
 			hidden_effect = {
 				FRA_charlemagne_carolingian = {
@@ -413,7 +475,6 @@ FRA_future_of_our_country_category = {
 	FRA_seek_help_of_jeanne_karl_decision = {
 		icon = agreement
 		visible = {
-			tag = FRA
 			FRA_has_charlemagne_trigger = yes
 		}
 		allowed = {
@@ -422,12 +483,22 @@ FRA_future_of_our_country_category = {
 		available = {
 			FRA_has_charlemagne_trigger = yes
 			OR = {
-				85 = {
+				785 = {
 					NOT = {
 						is_fully_controlled_by = ROOT
 					}
 				}
-				surrender_progress > 0.1
+				28 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				24 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				surrender_progress > 0.01
 			}
 			OR = {
 				GER = {
@@ -438,7 +509,7 @@ FRA_future_of_our_country_category = {
 				}
 			}
 		}
-		cost = 200
+		cost = 80
 		ai_will_do = {
 			factor = 1000
 		}
@@ -479,10 +550,10 @@ FRA_future_of_our_country_category = {
 			19 = {
 				is_fully_controlled_by = ROOT
 			}
-			surrender_progress > 0.1
+			surrender_progress > 0.02
 		}
-		cost = 50
-		days_remove = 14
+		cost = 10
+		days_remove = 30
 		ai_will_do = {
 			factor = 1000
 		}
@@ -505,6 +576,7 @@ FRA_future_of_our_country_category = {
 			}
 		}
 		complete_effect = {
+			add_stability = -0.05
 			set_country_flag = FRA_capitial_in_bordaux_flag
 			add_victory_points = {
 				province = 9737
@@ -513,7 +585,7 @@ FRA_future_of_our_country_category = {
 		}
 	}
 	FRA_continue_war_in_north_africa_decision = {
-		icon = political_rally
+		icon = coastal_fortification
 		visible = {
 			tag = FRA
 		}
@@ -538,8 +610,8 @@ FRA_future_of_our_country_category = {
 				surrender_progress > 0.4
 			}
 		}
-		cost = 50
-		days_remove = 28
+		cost = 20
+		days_remove = 30
 		ai_will_do = {
 			factor = 1000
 		}
@@ -568,6 +640,7 @@ FRA_future_of_our_country_category = {
 			}
 		}
 		complete_effect = {
+			add_stability = -0.1
 			set_country_flag = FRA_capitial_in_algers_flag
 			add_victory_points = {
 				province = 1145
@@ -576,55 +649,13 @@ FRA_future_of_our_country_category = {
 		}
 	}
 	##
-	FRA_investigate_jeanne_alter_decision = {
-		icon = generic_political_discourse
-		visible = {
-			tag = FRA
-		}
-		allowed = {
-			tag = FRA
-		}
-		fire_only_once = yes
-		on_map_mode = decision_view_only
-		available = {
-			has_intelligence_agency = yes
-			has_manpower > 50
-			has_equipment = {
-				infantry_equipment > 499
-			}
-			OR = {
-				has_completed_focus = FRA_tame_dragon_witch
-				has_completed_focus = FRA_fate_of_dragon_witch
-			}
-		}
-		cost = 50
-		days_remove = 100
-		ai_will_do = {
-			factor = 1000
-		}
-		remove_effect = {
-			add_manpower = 50
-			hidden_effect = {
-				FRA_ciel_elesia = {
-					unit_leader_event = {
-						id = fra_alter.4
-						days = 7
-					}
-				}
-			}
-		}
-		complete_effect = {
-			add_manpower = -50
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = -500
-			}
-		}
-	}
 	FRA_nominate_harvey_decision = {
 		icon = generic_political_discourse
 		visible = {
-			tag = FRA
+			NOT = {
+				has_idea = FRA_leo_bistario_harvey_special_fourth
+				FRA_has_harvey_trigger = yes
+			}
 		}
 		allowed = {
 			tag = FRA
@@ -633,15 +664,12 @@ FRA_future_of_our_country_category = {
 		available = {
 			NOT = {
 				has_idea = FRA_leo_bistario_harvey_special_fourth
-			}
-			NOT = {
 				FRA_has_harvey_trigger = yes
 			}
 			has_completed_focus = FRA_economic_devolution
 		}
 		cost = 80
 		fire_only_once = no
-		days_re_enable = 360
 		ai_will_do = {
 			factor = 1000
 		}
@@ -669,13 +697,68 @@ FRA_future_of_our_country_category = {
 			has_completed_focus = FRA_Charottes_misson
 		}
 		cost = 80
-		days_re_enable = 360
 		fire_only_once = no
 		ai_will_do = {
 			factor = 1000
 		}
 		complete_effect = {
 			activate_advisor = FRA_charlotte_corday_special_sixth
+		}
+	}
+	FRA_investigate_jeanne_alter_decision = {
+		icon = generic_political_discourse
+		visible = {
+			tag = FRA
+		}
+		allowed = {
+			tag = FRA
+		}
+		fire_only_once = yes
+		on_map_mode = decision_view_only
+		available = {
+			has_intelligence_agency = yes
+			num_of_available_civilian_factories > 1
+			has_manpower > 50
+			has_equipment = {
+				infantry_equipment > 499
+			}
+			OR = {
+				has_completed_focus = FRA_tame_dragon_witch
+				has_completed_focus = FRA_fate_of_dragon_witch
+			}
+		}
+		cost = 0
+		days_remove = 90
+		ai_will_do = {
+			factor = 1000
+		}
+		custom_cost_trigger = {
+			command_power > 49
+		}
+		custom_cost_text = CP_50
+		remove_effect = {
+			add_manpower = 50
+			hidden_effect = {
+				FRA_ciel_elesia = {
+					unit_leader_event = {
+						id = fra_alter.4
+						days = 7
+					}
+				}
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
+			add_manpower = -50
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -500
+			}
 		}
 	}
 	FRA_call_back_astolfo_decision = {
@@ -1143,9 +1226,16 @@ FRA_guillotine_breaker_category = {
 		}
 		cost = 0
 		days_remove = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		modifier = {
 		}
 		remove_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_political_power = 300
 			add_stability = 0.15
 			add_war_support = 0.15
@@ -1173,20 +1263,14 @@ FRA_guillotine_breaker_category = {
 					enable_state_integration_80_compliance = yes
 				}
 			}
-			effect_tooltip = {
-				remove_country_leader_trait = FRA_trait_la_reine
-				add_country_leader_trait = FRA_trait_l_imperatrice
-			}
-			hidden_effect = {
-				FRA_marie_antoinette_habsbourg = {
-					remove_trait = {
-						trait = FRA_trait_la_reine
-						ideology = authoritarianism
-					}
-					add_trait = {
-						trait = FRA_trait_l_imperatrice
-						ideology = authoritarianism
-					}
+			FRA_marie_antoinette_habsbourg = {
+				remove_trait = {
+					trait = FRA_trait_la_reine
+					ideology = authoritarianism
+				}
+				add_trait = {
+					trait = FRA_trait_l_imperatrice
+					ideology = authoritarianism
 				}
 			}
 		}
@@ -1217,12 +1301,21 @@ FRA_guillotine_breaker_category = {
 		}
 		fire_only_once = yes
 		cancel_if_not_visible = yes
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		ai_will_do = {
 			factor = 100
 		}
 		cost = 0
 		days_remove = 0
 		modifier = {
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 		}
 		remove_effect = {
 			add_political_power = 100
@@ -2712,9 +2805,9 @@ FRA_shield_of_france_category = {
 		priority = 150
 		cost = 0
 		custom_cost_trigger = {
-			has_army_experience > 149
+			has_army_experience > 99.9
 		}
-		custom_cost_text = army_xp_150
+		custom_cost_text = army_xp_100
 		days_remove = 90
 		fire_only_once = yes
 		remove_trigger = {
@@ -2726,7 +2819,7 @@ FRA_shield_of_france_category = {
 		}
 		complete_effect = {
 			hidden_effect = {
-				army_experience = -150
+				army_experience = -100
 			}
 		}
 		remove_effect = {
@@ -4223,13 +4316,17 @@ economy_decisions = {
 			NOT = {
 				FRA_has_alter_trigger = yes
 			}
+			FROM = {
+				is_fully_controlled_by = ROOT
+			}
 			has_completed_focus = FRA_dirigisme
 			num_of_civilian_factories_available_for_projects > 2
-			controls_state = FROM
 		}
 		visible = {
 			has_completed_focus = FRA_dirigisme
-			owns_state = FROM
+			FROM = {
+				is_fully_controlled_by = ROOT
+			}
 			NOT = {
 				FRA_has_alter_trigger = yes
 			}
@@ -5411,6 +5508,7 @@ FRA_oversea_affairs_category = {
 		}
 		cancel_if_not_visible = yes
 		target_non_existing = yes
+		on_map_mode = decision_view_only
 		target_trigger = {
 			FROM = {
 				tag = FIC

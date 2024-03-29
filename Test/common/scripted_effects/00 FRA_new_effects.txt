@@ -1011,10 +1011,23 @@ FRA_attract_pop_less_effect = {
 
 ##
 FRA_disjoint_government_down_effect = {
-	effect_tooltip = {
-		swap_ideas = {
-			remove_idea = FRA_disjointed_government_idea
-			add_idea = FRA_disjointed_government_2_idea
+	if = {
+		limit = {
+			FRA_disjoint_government_ends_trigger = no
+		}
+		effect_tooltip = {
+			swap_ideas = {
+				remove_idea = FRA_disjointed_government_idea
+				add_idea = FRA_disjointed_government_2_idea
+			}
+		}
+	}
+	if = {
+		limit = {
+			FRA_disjoint_government_ends_trigger = yes
+		}
+		effect_tooltip = {
+			add_political_power = 50
 		}
 	}
 	hidden_effect = {
@@ -1105,15 +1118,34 @@ FRA_disjoint_government_down_effect = {
 			}
 			remove_ideas = FRA_disjointed_government_10_idea
 		}
+		else = {
+			add_political_power = 50
+		}
 	}
 }
 
 ##
 FRA_semi_restoration_down_effect = {
-	effect_tooltip = {
-		swap_ideas = {
-			remove_idea = FRA_semi_restoration_1_idea
-			add_idea = FRA_semi_restoration_2_idea
+	if = {
+		limit = {
+			FRA_semi_restoration_ends_trigger = no
+		}
+		effect_tooltip = {
+			swap_ideas = {
+				remove_idea = FRA_semi_restoration_1_idea
+				add_idea = FRA_semi_restoration_2_idea
+			}
+		}
+	}
+	if = {
+		limit = {
+			FRA_semi_restoration_ends_trigger = yes
+		}
+		effect_tooltip = {
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.05
+			}
 		}
 	}
 	hidden_effect = {
@@ -1203,6 +1235,12 @@ FRA_semi_restoration_down_effect = {
 				has_idea = FRA_semi_restoration_10_idea
 			}
 			remove_ideas = FRA_semi_restoration_10_idea
+		}
+		else = {
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.05
+			}
 		}
 	}
 }

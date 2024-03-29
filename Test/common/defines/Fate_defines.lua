@@ -1,4 +1,4 @@
-    NDefines.NPolitics.BASE_POLITICAL_POWER_INCREASE = 2					-- Vanilla is 2
+    NDefines.NPolitics.BASE_POLITICAL_POWER_INCREASE = 1.5						-- Vanilla is 2
     NDefines.NDiplomacy.OPINION_FOR_DEMO_FROM_WT_GENERATION = 0					-- Vanilla is -2.0
     NDefines.NProduction.MAX_CIV_FACTORIES_PER_LINE = 20                        -- Vanilla is 15
     NDefines.NCountry.MIN_STABILITY = -0.5										-- Vanilla is 0.0
@@ -100,6 +100,8 @@
 	NDefines.NAI.SCREEN_TASKFORCE_MAX_SHIP_COUNT = 8		   -- Vanilla is 12 WA is 5
 	NDefines.NAI.SUB_TASKFORCE_MAX_SHIP_COUNT = 10		   -- Vanilla is 16 WA is 5
 	NDefines.NAI.MIN_CAPITALS_FOR_CARRIER_TASKFORCE = 6		   -- Vanilla is 6
+	NDefines.NAI.NAVAL_STRIKE_CARRIER_MULTIPLIER = 100.0		   -- Vanilla is 10.0
+
     -- WA-Navy
     NDefines.NNavy.TRAINING_EXPERIENCE_FACTOR = 0.25									-- Amount of exp each ship gain every 24h while training (before modifiers)
     NDefines.NNavy.FIELD_EXPERIENCE_SCALE = 0.3

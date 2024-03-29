@@ -1,4 +1,5 @@
 FRA_diplomacy_alter_category = {
+	##Brazil Removed
 	FRA_invite_flan_decision = {
 		icon = eng_ally_imperialist_coup
 		available = {
@@ -8,7 +9,6 @@ FRA_diplomacy_alter_category = {
 					ruling_only = yes
 				}
 			}
-			##任意敌人和他交战
 			FROM = {
 				can_invite_join_faction = yes
 			}
@@ -16,6 +16,10 @@ FRA_diplomacy_alter_category = {
 		visible = {
 			is_faction_leader = yes
 			FROM = {
+				has_country_leader = {
+					character = ROM_flandre_scarlet
+					ruling_only = yes
+				}
 				can_invite_join_faction = no
 			}
 		}
@@ -24,42 +28,7 @@ FRA_diplomacy_alter_category = {
 		}
 		target_trigger = {
 		}
-		cost = 30
-		days_remove = 7
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		remove_effect = {
-			FROM = {
-				invite_country_to_faction = yes
-			}
-		}
-	}
-	FRA_invite_amazon_decision = {
-		icon = rubber
-		available = {
-			FROM = {
-				has_government = fascism
-			}
-			##任意敌人和他交战
-			FROM = {
-				can_invite_join_faction = yes
-			}
-		}
-		visible = {
-			is_faction_leader = yes
-			FROM = {
-				can_invite_join_faction = no
-			}
-		}
-		targets = {
-			BRA
-		}
-		target_trigger = {
-		}
-		cost = 30
+		cost = 20
 		days_remove = 7
 		fire_only_once = yes
 		cancel_if_not_visible = yes
@@ -90,7 +59,12 @@ FRA_diplomacy_alter_category = {
 		visible = {
 			is_faction_leader = yes
 			FROM = {
-				can_invite_join_faction = no
+				has_government = fascism
+				has_country_leader = {
+					character = SWE_brunhild_budli
+					ruling_only = yes
+				}
+				can_invite_join_faction = yes
 			}
 		}
 		targets = {
@@ -98,7 +72,7 @@ FRA_diplomacy_alter_category = {
 		}
 		target_trigger = {
 		}
-		cost = 30
+		cost = 20
 		days_remove = 7
 		fire_only_once = yes
 		cancel_if_not_visible = yes
@@ -130,6 +104,11 @@ FRA_diplomacy_alter_category = {
 		visible = {
 			is_faction_leader = yes
 			FROM = {
+				has_government = fascism
+				has_country_leader = {
+					character = SPA_gladiia_campeones
+					ruling_only = yes
+				}
 				can_invite_join_faction = no
 			}
 		}
@@ -138,7 +117,7 @@ FRA_diplomacy_alter_category = {
 		}
 		target_trigger = {
 		}
-		cost = 30
+		cost = 20
 		days_remove = 7
 		fire_only_once = yes
 		cancel_if_not_visible = yes
@@ -181,7 +160,11 @@ FRA_diplomacy_alter_category = {
 		}
 		target_trigger = {
 		}
-		cost = 100
+		custom_cost_text = CP_50_PP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+			has_political_power > 49.9
+		}
 		days_remove = 30
 		fire_only_once = yes
 		cancel_if_not_visible = yes
@@ -193,6 +176,15 @@ FRA_diplomacy_alter_category = {
 				state = 925
 				state = 34
 				state = 948
+			}
+		}
+		modifier = {
+			command_power_gain = -1
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -50
+				add_command_power = -50
 			}
 		}
 		remove_effect = {
@@ -261,6 +253,9 @@ FRA_diplomacy_alter_category = {
 					is_controlled_by_ROOT_or_subject = yes
 				}
 			}
+			HOL = {
+				FRA_can_release_trigger = yes
+			}
 			num_of_civilian_factories_available_for_projects > 9
 		}
 		target_trigger = {
@@ -272,7 +267,11 @@ FRA_diplomacy_alter_category = {
 		visible = {
 		}
 		fire_only_once = yes
-		cost = 100
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		days_remove = 120
 		modifier = {
 			civilian_factory_use = 10
@@ -280,7 +279,31 @@ FRA_diplomacy_alter_category = {
 		ai_will_do = {
 			factor = 10
 		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_owned_by = BEL
+					region = 5
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
 		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
 			HOL = {
 				FRA_annex_PREV_if_available_effect = yes
 			}
@@ -289,908 +312,12 @@ FRA_diplomacy_alter_category = {
 					limit = {
 						is_core_of = HOL
 					}
-					FRA_kill_pop_alter_effect = yes
 					transfer_state_to = BEL
 					enable_state_integration_80_compliance = yes
 				}
 			}
 		}
 	}
-	##
-	FRA_install_arcueid_decision = {
-		icon = merge_plant_tank
-		available = {
-			GER = {
-				FRA_can_release_trigger = yes
-			}
-			RHI = {
-				FRA_can_release_trigger = yes
-			}
-			FRA_control_all_german_alter_states_trigger = yes
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_german_alter_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = GER
-			}
-		}
-		target_non_existing = yes
-		cost = 0
-		days_remove = 20
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		modifier = {
-		}
-		complete_effect = {
-			add_political_power = 100
-		}
-		remove_effect = {
-			hidden_effect = {
-				GER = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				RHI = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-			}
-			GER = {
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-				hidden_effect = {
-					create_country_leader = {
-						name = GEU_arcueid_brunestud
-						picture = GFX_Portrait_GEU_Arcueid_Brunestud_5
-						ideology = orlean_system
-					}
-				}
-				every_state = {
-					limit = {
-						FRA_is_german_alter_states_trigger = yes
-					}
-					set_temp_variable = {
-						var = FRA_population_checker
-						value = state_population_k
-					}
-					multiply_temp_variable = {
-						var = FRA_population_checker
-						value = -20
-					}
-					add_manpower = FRA_population_checker
-					transfer_state_to = PREV
-					enable_state_integration_80_compliance = yes
-				}
-			}
-			set_autonomy = {
-				target = GER
-				autonomy_state = autonomy_reichskommissariat
-			}
-		}
-	}
-	FRA_install_marie_alter_decision = {
-		icon = wreckers
-		available = {
-			AUS = {
-				FRA_can_release_trigger = yes
-			}
-			CZE = {
-				FRA_can_release_trigger = yes
-			}
-			HUN = {
-				FRA_can_release_trigger = yes
-			}
-			SLO = {
-				FRA_can_release_trigger = yes
-			}
-			SLV = {
-				FRA_can_release_trigger = yes
-			}
-			CRO = {
-				FRA_can_release_trigger = yes
-			}
-			SWI = {
-				FRA_can_release_trigger = yes
-			}
-			FRA_control_all_austria_alter_states_trigger = yes
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_austria_alter_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = AUS
-			}
-		}
-		target_non_existing = yes
-		cost = 0
-		days_remove = 20
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		complete_effect = {
-			add_political_power = 100
-		}
-		remove_effect = {
-			hidden_effect = {
-				CZE = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				HUN = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				SLO = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				SLV = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				CRO = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				SWI = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-			}
-			AUS = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			AUS = {
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-				hidden_effect = {
-					create_country_leader = {
-						name = FRA_marie_antoinette_habsbourg_alter
-						picture = GFX_Portrait_FRA_Marie_Antoinette_Habsbourg_Alter
-						ideology = orlean_system
-					}
-				}
-				every_state = {
-					limit = {
-						FRA_is_austria_alter_states_trigger = yes
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = PREV
-					enable_state_integration_80_compliance = yes
-				}
-			}
-			set_autonomy = {
-				target = AUS
-				autonomy_state = autonomy_personal_union
-			}
-		}
-	}
-	FRA_install_firewatcher_decision = {
-		icon = wrenches
-		available = {
-			POL = {
-				FRA_can_release_trigger = yes
-			}
-			LIT = {
-				FRA_can_release_trigger = yes
-			}
-			BAT = {
-				FRA_can_release_trigger = yes
-			}
-			EST = {
-				FRA_can_release_trigger = yes
-			}
-			BLR = {
-				FRA_can_release_trigger = yes
-			}
-			UKR = {
-				FRA_can_release_trigger = yes
-			}
-			FRA_control_all_polish_alter_states_trigger = yes
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_polish_alter_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = POL
-			}
-		}
-		target_non_existing = yes
-		cost = 0
-		days_remove = 20
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		complete_effect = {
-			add_political_power = 100
-		}
-		remove_effect = {
-			hidden_effect = {
-				POL = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				LIT = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				BAT = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				EST = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-				UKR = {
-					FRA_annex_PREV_if_available_effect = yes
-				}
-			}
-			POL = {
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-				hidden_effect = {
-					create_country_leader = {
-						name = POL_firewatcher
-						picture = GFX_Portrait_POL_Firewatcher
-						ideology = valkism
-					}
-				}
-				every_state = {
-					limit = {
-						FRA_is_polish_alter_states_trigger = yes
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = PREV
-					enable_state_integration_80_compliance = yes
-				}
-			}
-			set_autonomy = {
-				target = POL
-				autonomy_state = autonomy_reichskommissariat
-			}
-		}
-	}
-	FRA_install_draco_decision = {
-		icon = electricity1
-		available = {
-			ITA = {
-				FRA_can_release_trigger = yes
-				has_character = ITA_nero_draco_babylon
-			}
-			FRA_control_all_italy_alter_states_trigger = yes
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_italy_alter_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = ITA
-			}
-		}
-		target_non_existing = yes
-		cost = 0
-		days_remove = 20
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		complete_effect = {
-			add_political_power = 100
-		}
-		remove_effect = {
-			ITA = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			ITA = {
-				add_country_leader_role = {
-					character = ITA_nero_draco_babylon
-					country_leader = {
-						ideology = orlean_system
-					}
-				}
-				promote_character = {
-					character = ITA_nero_draco_babylon
-					ideology = orlean_system
-				}
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-				every_state = {
-					limit = {
-						FRA_is_italy_alter_states_trigger = yes
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = PREV
-					enable_state_integration_80_compliance = yes
-				}
-			}
-			set_autonomy = {
-				target = ITA
-				autonomy_state = autonomy_reichskommissariat
-			}
-		}
-	}
-	FRA_install_nitocris_decision = {
-		icon = cement
-		available = {
-			EGY = {
-				FRA_can_release_trigger = yes
-				has_character = EGY_nitocris_alter
-			}
-			LBA = {
-				FRA_can_release_trigger = yes
-			}
-			hidden_trigger = {
-				EGY = {
-					all_core_state = {
-						is_controlled_by_ROOT_or_subject = yes
-					}
-				}
-				LBA = {
-					all_core_state = {
-						is_controlled_by_ROOT_or_subject = yes
-					}
-				}
-			}
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				OR = {
-					is_core_of = EGY
-					is_core_of = LBA
-				}
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = EGY
-			}
-		}
-		target_non_existing = yes
-		cost = 0
-		days_remove = 20
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		complete_effect = {
-			add_political_power = 100
-		}
-		remove_effect = {
-			LBA = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			EGY = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			EGY = {
-				add_country_leader_role = {
-					character = EGY_nitocris_alter
-					country_leader = {
-						ideology = religious_fascism
-					}
-				}
-				promote_character = {
-					character = EGY_nitocris_alter
-					ideology = religious_fascism
-				}
-				EGY_nitocris_alter = {
-					set_portraits = {
-						civilian = {
-							large = GFX_Portrait_EGY_Nitocris_Alter_Pharaoh
-						}
-					}
-				}
-				every_state = {
-					limit = {
-						OR = {
-							is_core_of = EGY
-							is_core_of = LBA
-						}
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = EGY
-					enable_state_integration_80_compliance = yes
-				}
-			}
-			set_autonomy = {
-				target = EGY
-				autonomy_state = autonomy_reichskommissariat
-			}
-			transfer_state = 753
-		}
-	}
-	FRA_install_brynhild_decision = {
-		icon = train2
-		available = {
-			SWE_control_all_nordic_plus_states_trigger = yes
-			SWE = {
-				FRA_can_release_trigger = yes
-				has_character = SWE_brunhild_budli
-			}
-			FIN = {
-				FRA_can_release_trigger = yes
-			}
-			NOR = {
-				FRA_can_release_trigger = yes
-			}
-			DEN = {
-				FRA_can_release_trigger = yes
-			}
-			EST = {
-				FRA_can_release_trigger = yes
-			}
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				SWE_is_nordic_plus_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = SWE
-			}
-		}
-		target_non_existing = yes
-		cost = 0
-		days_remove = 20
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		complete_effect = {
-			add_political_power = 100
-		}
-		remove_effect = {
-			SWE = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			EST = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			FIN = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			NOR = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			DEN = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			SWE = {
-				add_country_leader_role = {
-					character = SWE_brunhild_budli
-					country_leader = {
-						ideology = valkism
-					}
-				}
-				promote_character = {
-					character = SWE_brunhild_budli
-					ideology = valkism
-				}
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-				every_state = {
-					limit = {
-						SWE_is_nordic_plus_states_trigger = yes
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = SWE
-					enable_state_integration_80_compliance = yes
-				}
-			}
-			set_autonomy = {
-				target = SWE
-				autonomy_state = autonomy_personal_union
-			}
-		}
-	}
-	FRA_install_flanders_decision = {
-		icon = police
-		available = {
-			ROM = {
-				FRA_can_release_trigger = yes
-			}
-			FRA_control_all_romianian_alter_states_trigger = yes
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_romanian_alter_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = ROM
-			}
-		}
-		target_non_existing = yes
-		##
-		cost = 0
-		days_remove = 20
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		complete_effect = {
-			add_political_power = 100
-		}
-		remove_effect = {
-			ROM = {
-				FRA_annex_PREV_if_available_effect = yes
-				add_country_leader_role = {
-					character = ROM_flandre_scarlet
-					promote_leader = yes
-					country_leader = {
-						ideology = orlean_system
-					}
-				}
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-			}
-			every_state = {
-				limit = {
-					OR = {
-						FRA_is_romanian_alter_states_trigger = yes
-					}
-				}
-				FRA_kill_pop_alter_effect = yes
-				transfer_state_to = ROM
-			}
-			set_autonomy = {
-				target = ROM
-				autonomy_state = autonomy_reichskommissariat
-			}
-		}
-	}
-	FRA_install_artoria_decision = {
-		icon = spy3
-		available = {
-			ENG = {
-				FRA_can_release_trigger = yes
-				has_character = ENG_artoria_pendragon_alter
-			}
-		}
-		allowed = {
-			tag = FRA
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_british_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = ENG
-			}
-		}
-		target_non_existing = yes
-		on_map_mode = map_and_decisions_view
-		available = {
-			ENG = {
-				FRA_can_release_trigger = yes
-			}
-			FRA_control_all_british_states_trigger = yes
-			num_of_civilian_factories_available_for_projects > 19
-		}
-		visible = {
-		}
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		cost = 0
-		days_remove = 20
-		modifier = {
-			civilian_factory_use = 20
-		}
-		remove_effect = {
-			add_political_power = 100
-			ENG = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			IRE = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			ENG = {
-				every_state = {
-					limit = {
-						FRA_is_british_states_trigger = yes
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = ENG
-					enable_state_integration_80_compliance = yes
-				}
-				promote_character = {
-					character = ENG_artoria_pendragon_alter
-					ideology = rexism
-				}
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-			}
-			set_autonomy = {
-				target = ENG
-				autonomy_state = autonomy_reichskommissariat
-			}
-			hidden_effect = {
-				country_event = {
-					id = fra_alter.36
-					days = 14
-				}
-			}
-		}
-	}
-	FRA_restore_byzantium_alter_decision = {
-		icon = gre_investment_decisions
-		available = {
-			MNT = {
-				FRA_can_release_trigger = yes
-			}
-			SER = {
-				FRA_can_release_trigger = yes
-			}
-			BUL = {
-				FRA_can_release_trigger = yes
-			}
-			GRE = {
-				FRA_can_release_trigger = yes
-			}
-			TUR = {
-				FRA_can_release_trigger = yes
-			}
-			ALB = {
-				FRA_can_release_trigger = yes
-			}
-			MLT = {
-				FRA_can_release_trigger = yes
-			}
-			FRA_control_all_byz_alter_states_trigger = yes
-			num_of_civilian_factories_available_for_projects > 19
-		}
-		allowed = {
-			tag = FRA
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_byz_alter_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = GRE
-			}
-		}
-		target_non_existing = yes
-		on_map_mode = map_and_decisions_view
-		visible = {
-		}
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		cost = 0
-		days_remove = 20
-		modifier = {
-			civilian_factory_use = 20
-		}
-		remove_effect = {
-			add_political_power = 100
-			MLT = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			ALB = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			MNT = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			SER = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			BUL = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			GRE = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			TUR = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			GRE = {
-				every_state = {
-					limit = {
-						FRA_is_byz_alter_states_trigger = yes
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = GRE
-					enable_state_integration_80_compliance = yes
-				}
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-			}
-			set_autonomy = {
-				target = GRE
-				autonomy_state = autonomy_reichskommissariat
-			}
-		}
-	}
-	FRA_reichskommissariat_russian_alter_decision = {
-		icon = spy3
-		available = {
-			BLR = {
-				FRA_can_release_trigger = yes
-			}
-			UKR = {
-				FRA_can_release_trigger = yes
-			}
-			hidden_trigger = {
-				FRA_control_all_russian_alter_states_trigger = yes
-			}
-			num_of_civilian_factories_available_for_projects > 19
-		}
-		allowed = {
-			tag = FRA
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				FRA_is_russian_alter_states_trigger = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = BLR
-			}
-		}
-		target_non_existing = yes
-		on_map_mode = map_and_decisions_view
-		visible = {
-		}
-		fire_only_once = yes
-		cancel_if_not_visible = yes
-		ai_will_do = {
-			factor = 100
-		}
-		cost = 0
-		days_remove = 20
-		modifier = {
-			civilian_factory_use = 20
-		}
-		remove_effect = {
-			add_political_power = 100
-			BLR = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			UKR = {
-				FRA_annex_PREV_if_available_effect = yes
-			}
-			BLR = {
-				hidden_effect = {
-					set_cosmetic_tag = BLR_alter
-				}
-				every_state = {
-					limit = {
-						FRA_is_russian_alter_states_trigger = yes
-					}
-					FRA_kill_pop_alter_effect = yes
-					transfer_state_to = BLR
-					enable_state_integration_80_compliance = yes
-				}
-				set_politics = {
-					ruling_party = ROOT
-					elections_allowed = no
-				}
-				hidden_effect = {
-					create_country_leader = {
-						name = FRA_edmond_dantes
-						picture = GFX_Portrait_FRA_Edmond_Dantes
-						ideology = orlean_system
-					}
-				}
-			}
-			set_autonomy = {
-				target = BLR
-				autonomy_state = autonomy_reichskommissariat
-			}
-		}
-	}
-	# FRA_reichskommissariat_portgual_alter_decision = {
-	# 	icon = tungsten
-	# 	available = {
-	# 		POR = {
-	# 			FRA_can_release_trigger = yes
-	# 		}
-	# 		hidden_trigger = {
-	# 			FRA_control_all_portugal_alter_states_trigger = yes
-	# 		}
-	# 		num_of_civilian_factories_available_for_projects > 19
-	# 	}
-	# 	allowed = {
-	# 		tag = FRA
-	# 	}
-	# 	highlight_states = {
-	# 		highlight_states_trigger = {
-	# 			FRA_is_portugal_alter_states_trigger = yes
-	# 		}
-	# 	}
-	# 	target_trigger = {
-	# 		FROM = {
-	# 			tag = POR
-	# 		}
-	# 	}
-	# 	target_non_existing = yes
-	# 	on_map_mode = map_and_decisions_view
-	# 	visible = {
-	# 	}
-	# 	fire_only_once = yes
-	# 	cancel_if_not_visible = yes
-	# 	ai_will_do = {
-	# 		factor = 100
-	# 	}
-	# 	cost = 100
-	# 	days_remove = 90
-	# 	modifier = {
-	# 		civilian_factory_use = 20
-	# 	}
-	# 	remove_effect = {
-	# 		POR = {
-	# 			FRA_annex_PREV_if_available_effect = yes
-	# 		}
-	# 		POR = {
-	# 			every_state = {
-	# 				limit = {
-	# 					FRA_is_portugal_alter_states_trigger = yes
-	# 				}
-	# 				FRA_kill_pop_alter_effect = yes
-	# 				transfer_state_to = PREV
-	# 				enable_state_integration_80_compliance = yes
-	# 			}
-	# 			set_politics = {
-	# 				ruling_party = ROOT
-	# 				elections_allowed = no
-	# 			}
-	# 			hidden_effect = {
-	# 				create_country_leader = {
-	# 					name = FRA_ciel_elesia
-	# 					picture = GFX_Portrait_FRA_Ciel_Elesia_Bad
-	# 					ideology = orlean_system
-	# 				}
-	# 			}
-	# 		}
-	# 		set_autonomy = {
-	# 			target = POR
-	# 			autonomy_state = autonomy_reichskommissariat
-	# 		}
-	# 	}
-	# }
-	##
 	FRA_annex_lux_decision = {
 		icon = spy2
 		available = {
@@ -1217,17 +344,29 @@ FRA_diplomacy_alter_category = {
 		}
 		target_trigger = {
 		}
-		cost = 50
-		days_remove = 20
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		days_remove = 30
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
 			factor = 100
 		}
+		modifier = {
+			political_power_gain = -1
+		}
 		remove_effect = {
 			annex_country = {
 				target = LUX
 				transfer_troops = yes
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
 			}
 		}
 	}
@@ -1254,10 +393,15 @@ FRA_diplomacy_alter_category = {
 		days_remove = 30
 		fire_only_once = yes
 		cancel_if_not_visible = yes
+		custom_cost_text = CP_20
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
 		ai_will_do = {
 			factor = 100
 		}
 		complete_effect = {
+			add_command_power = -20
 			add_manpower = -100
 		}
 		remove_effect = {
@@ -1308,6 +452,9 @@ FRA_diplomacy_alter_category = {
 		cancel_if_not_visible = yes
 		ai_will_do = {
 			factor = 100
+		}
+		modifier = {
+			command_power_gain = -1
 		}
 		remove_effect = {
 			JAP = {
@@ -1363,6 +510,9 @@ FRA_diplomacy_alter_category = {
 		ai_will_do = {
 			factor = 100
 		}
+		modifier = {
+			command_power_gain = -1
+		}
 		remove_effect = {
 			effect_tooltip = {
 				JAP_fujimaru_rika = {
@@ -1390,10 +540,10 @@ FRA_diplomacy_alter_category = {
 			}
 		}
 	}
-	##
 	FRA_learn_from_germany_alter_decision = {
 		icon = brainwash
 		available = {
+			has_completed_focus = FRA_Let_this_world_burn
 			GER = {
 				OR = {
 					exists = no
@@ -1435,7 +585,7 @@ FRA_diplomacy_alter_category = {
 		}
 		target_non_existing = yes
 		cost = 50
-		days_remove = 20
+		days_remove = 30
 		fire_only_once = yes
 		cancel_if_not_visible = yes
 		ai_will_do = {
@@ -1444,15 +594,2535 @@ FRA_diplomacy_alter_category = {
 		modifier = {
 			civilian_factory_use = 20
 		}
-		remove_effect = {
-			set_country_flag = FRA_can_learn_from_germany_flag
-			unlock_national_focus = FRA_Our_new_ally
+		complete_effect = {
 			hidden_effect = {
 				FRA_ciel_elesia = {
 					unit_leader_event = {
 						id = fra_alter.38
 						days = 60
 					}
+				}
+			}
+		}
+		remove_effect = {
+			set_country_flag = FRA_can_learn_from_germany_flag
+			unlock_national_focus = FRA_Our_new_ally
+		}
+	}
+	FRA_master_of_the_world_decision = {
+		icon = brainwash
+		available = {
+			has_completed_focus = FRA_Let_this_world_burn
+			num_of_civilian_factories_available_for_projects > 19
+			any_other_country = {
+				is_faction_leader = no
+			}
+		}
+		visible = {
+		}
+		cost = 0
+		days_remove = 30
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
+		}
+		remove_effect = {
+			FRA_jeanne_d_arc_alter = {
+				add_trait = {
+					trait = FRA_trait_master_of_world
+					ideology = orlean_system
+				}
+			}
+		}
+	}
+	##
+	FRA_install_arcueid_decision = {
+		icon = merge_plant_tank
+		available = {
+			GER = {
+				FRA_can_release_trigger = yes
+			}
+			RHI = {
+				FRA_can_release_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+			FRA_control_all_german_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_german_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = GER
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		cost = 0
+		days_remove = 120
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				GER = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				RHI = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			hidden_effect = {
+				add_command_power = -50
+			}
+			GER = {
+				hidden_effect = {
+					set_cosmetic_tag = GER_alter
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = GEU_arcueid_brunestud
+						picture = GFX_Portrait_GEU_Arcueid_Brunestud_5
+						ideology = orlean_system
+					}
+				}
+				every_state = {
+					limit = {
+						FRA_is_german_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = GER
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_german_alter_states_trigger = yes
+				}
+				set_temp_variable = {
+					var = FRA_population_checker
+					value = state_population_k
+				}
+				multiply_temp_variable = {
+					var = FRA_population_checker
+					value = -20
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+				add_manpower = FRA_population_checker
+			}
+		}
+	}
+	FRA_install_marie_alter_decision = {
+		icon = wreckers
+		available = {
+			AUS = {
+				FRA_can_release_trigger = yes
+			}
+			CZE = {
+				FRA_can_release_trigger = yes
+			}
+			HUN = {
+				FRA_can_release_trigger = yes
+			}
+			SLO = {
+				FRA_can_release_trigger = yes
+			}
+			SLV = {
+				FRA_can_release_trigger = yes
+			}
+			CRO = {
+				FRA_can_release_trigger = yes
+			}
+			SWI = {
+				FRA_can_release_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+			FRA_control_all_austria_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_austria_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = AUS
+			}
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		target_non_existing = yes
+		cost = 0
+		days_remove = 120
+		on_map_mode = decision_view_only
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				CZE = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				HUN = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SLO = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SLV = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				CRO = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SWI = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			AUS = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			AUS = {
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = AUS_alter
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_marie_antoinette_habsbourg_alter
+						picture = GFX_Portrait_FRA_Marie_Antoinette_Habsbourg_Alter_1
+						ideology = orlean_system
+					}
+				}
+				every_state = {
+					limit = {
+						FRA_is_austria_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = AUS
+				autonomy_state = autonomy_personal_union
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_austria_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_install_firewatcher_decision = {
+		icon = wrenches
+		available = {
+			POL = {
+				FRA_can_release_trigger = yes
+			}
+			LIT = {
+				FRA_can_release_trigger = yes
+			}
+			BAT = {
+				FRA_can_release_trigger = yes
+			}
+			EST = {
+				FRA_can_release_trigger = yes
+			}
+			BLR = {
+				FRA_can_release_trigger = yes
+			}
+			UKR = {
+				FRA_can_release_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 14
+			FRA_control_all_polish_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_polish_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = POL
+			}
+		}
+		modifier = {
+			civilian_factory_use = 15
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		target_non_existing = yes
+		cost = 0
+		on_map_mode = decision_view_only
+		days_remove = 120
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				POL = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				LIT = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BAT = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				EST = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				UKR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			POL = {
+				hidden_effect = {
+					set_cosmetic_tag = POL_alter
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = POL_firewatcher
+						picture = GFX_Portrait_POL_Firewatcher
+						ideology = orlean_system
+					}
+				}
+				every_state = {
+					limit = {
+						FRA_is_polish_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = POL
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_polish_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_install_draco_decision = {
+		icon = electricity1
+		available = {
+			ITA = {
+				FRA_can_release_trigger = yes
+				has_character = ITA_nero_draco_babylon
+			}
+			num_of_civilian_factories_available_for_projects > 19
+			FRA_control_all_italy_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_italy_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = ITA
+			}
+		}
+		target_non_existing = yes
+		cost = 0
+		days_remove = 120
+		fire_only_once = yes
+		on_map_mode = decision_view_only
+		cancel_if_not_visible = yes
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			ITA = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			ITA = {
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = ITA_alter
+				}
+				add_country_leader_role = {
+					character = ITA_nero_draco_babylon
+					country_leader = {
+						ideology = orlean_system
+					}
+				}
+				promote_character = {
+					character = ITA_nero_draco_babylon
+					ideology = orlean_system
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				every_state = {
+					limit = {
+						FRA_is_italy_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = ITA
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_italy_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_install_nitocris_decision = {
+		icon = cement
+		available = {
+			EGY = {
+				FRA_can_release_trigger = yes
+				has_character = EGY_nitocris_alter
+			}
+			num_of_civilian_factories_available_for_projects > 14
+			LBA = {
+				FRA_can_release_trigger = yes
+			}
+			ISR = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				EGY = {
+					all_core_state = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+				}
+				LBA = {
+					all_core_state = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					is_core_of = ISR
+					is_core_of = EGY
+					is_core_of = LBA
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = EGY
+			}
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		target_non_existing = yes
+		cost = 0
+		on_map_mode = decision_view_only
+		modifier = {
+			civilian_factory_use = 15
+		}
+		days_remove = 120
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				LBA = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				ISR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				EGY = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			EGY = {
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = EGY_alter
+				}
+				add_country_leader_role = {
+					character = EGY_nitocris_alter
+					promote_leader = yes
+					country_leader = {
+						ideology = orlean_system
+					}
+				}
+				EGY_nitocris_alter = {
+					set_portraits = {
+						civilian = {
+							large = GFX_Portrait_EGY_Nitocris_Alter_Pharaoh
+						}
+					}
+				}
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = ISR
+							is_core_of = EGY
+							is_core_of = LBA
+						}
+					}
+					transfer_state_to = EGY
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = EGY
+				autonomy_state = autonomy_reichskommissariat
+			}
+			transfer_state = 753
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = ISR
+						is_core_of = EGY
+						is_core_of = LBA
+					}
+				}
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+				FRA_kill_pop_alter_effect = yes
+			}
+		}
+	}
+	FRA_install_brynhild_decision = {
+		icon = train2
+		available = {
+			SWE_control_all_nordic_plus_states_trigger = yes
+			SWE = {
+				FRA_can_release_trigger = yes
+				has_character = SWE_brunhild_budli
+			}
+			FIN = {
+				FRA_can_release_trigger = yes
+			}
+			NOR = {
+				FRA_can_release_trigger = yes
+			}
+			DEN = {
+				FRA_can_release_trigger = yes
+			}
+			EST = {
+				FRA_can_release_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				SWE_is_nordic_plus_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = SWE
+			}
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		target_non_existing = yes
+		cost = 0
+		days_remove = 120
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		on_map_mode = decision_view_only
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			SWE = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			EST = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			FIN = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			NOR = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			DEN = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			SWE = {
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = SWE_alter
+				}
+				add_country_leader_role = {
+					character = SWE_brunhild_budli
+					country_leader = {
+						ideology = orlean_system
+					}
+				}
+				promote_character = {
+					character = SWE_brunhild_budli
+					ideology = orlean_system
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				every_state = {
+					limit = {
+						SWE_is_nordic_plus_states_trigger = yes
+					}
+					transfer_state_to = SWE
+					enable_state_integration_80_compliance = yes
+				}
+			}
+			set_autonomy = {
+				target = SWE
+				autonomy_state = autonomy_personal_union
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					SWE_is_nordic_plus_states_trigger = yes
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				FRA_kill_pop_alter_effect = yes
+			}
+		}
+	}
+	FRA_install_flanders_decision = {
+		icon = police
+		available = {
+			ROM = {
+				FRA_can_release_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 14
+			FRA_control_all_romianian_alter_states_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_romanian_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = ROM
+			}
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		target_non_existing = yes
+		cost = 0
+		days_remove = 120
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		on_map_mode = decision_view_only
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			ROM = {
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = ROM_alter
+				}
+				FRA_annex_PREV_if_available_effect = yes
+				add_country_leader_role = {
+					character = ROM_flandre_scarlet
+					promote_leader = yes
+					country_leader = {
+						ideology = orlean_system
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			every_state = {
+				limit = {
+					OR = {
+						FRA_is_romanian_alter_states_trigger = yes
+					}
+				}
+				transfer_state_to = ROM
+			}
+			set_autonomy = {
+				target = ROM
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						FRA_is_romanian_alter_states_trigger = yes
+					}
+				}
+				FRA_kill_pop_alter_effect = yes
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_install_artoria_decision = {
+		icon = spy3
+		available = {
+			ENG = {
+				FRA_can_release_trigger = yes
+				has_character = ENG_artoria_pendragon_alter
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_british_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = ENG
+			}
+		}
+		target_non_existing = yes
+		visible = {
+		}
+		custom_cost_text = CP_50
+		on_map_mode = decision_view_only
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			ENG = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			IRE = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			ENG = {
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = ENG_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_british_states_trigger = yes
+					}
+					transfer_state_to = ENG
+					enable_state_integration_80_compliance = yes
+				}
+				add_country_leader_role = {
+					character = ENG_artoria_pendragon_alter
+					promote_leader = yes
+					country_leader = {
+						ideology = orlean_system
+						traits = {
+							ENG_trait_black_king
+						}
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = ENG
+				autonomy_state = autonomy_reichskommissariat
+			}
+			hidden_effect = {
+				country_event = {
+					id = fra_alter.36
+					days = 14
+				}
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_british_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_restore_byzantium_alter_decision = {
+		icon = gre_investment_decisions
+		available = {
+			MNT = {
+				FRA_can_release_trigger = yes
+			}
+			SER = {
+				FRA_can_release_trigger = yes
+			}
+			BUL = {
+				FRA_can_release_trigger = yes
+			}
+			GRE = {
+				FRA_can_release_trigger = yes
+			}
+			TUR = {
+				FRA_can_release_trigger = yes
+			}
+			ALB = {
+				FRA_can_release_trigger = yes
+			}
+			MLT = {
+				FRA_can_release_trigger = yes
+			}
+			FRA_control_all_byz_alter_states_trigger = yes
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_byz_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = GRE
+			}
+		}
+		target_non_existing = yes
+		visible = {
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		on_map_mode = decision_view_only
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				MLT = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				ALB = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				MNT = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SER = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BUL = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				GRE = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				TUR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			GRE = {
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = GRE_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_byz_alter_states_trigger = yes
+					}
+					transfer_state_to = GRE
+					enable_state_integration_80_compliance = yes
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					set_country_leader_ideology = orlean_system
+				}
+			}
+			set_autonomy = {
+				target = GRE
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_byz_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_russian_alter_decision = {
+		icon = spy3
+		available = {
+			BLR = {
+				FRA_can_release_trigger = yes
+			}
+			UKR = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_russian_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 29
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_russian_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = BLR
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 30
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			BLR = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			UKR = {
+				FRA_annex_PREV_if_available_effect = yes
+			}
+			BLR = {
+				hidden_effect = {
+					set_cosmetic_tag = BLR_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_russian_alter_states_trigger = yes
+					}
+					transfer_state_to = BLR
+					enable_state_integration_80_compliance = yes
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_edmond_dantes
+						picture = GFX_Portrait_FRA_Edmond_Dantes_Bad
+						ideology = orlean_system
+						traits = {
+							FRA_trait_monte_cristo
+						}
+					}
+				}
+			}
+			set_autonomy = {
+				target = BLR
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_russian_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_american_alter_decision = {
+		icon = spy3
+		available = {
+			CAN = {
+				FRA_can_release_trigger = yes
+			}
+			USA = {
+				FRA_can_release_trigger = yes
+			}
+			QUE = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_america_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 39
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_america_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = USA
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 40
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				CAN = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				USA = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				QUE = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			QUE = {
+				hidden_effect = {
+					set_cosmetic_tag = QUE_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_america_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_ciel_elesia
+						picture = GFX_Portrait_FRA_Ciel_Elesia_Bad
+						ideology = orlean_system
+					}
+				}
+			}
+			set_autonomy = {
+				target = QUE
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_america_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_caribbean_alter_decision = {
+		icon = spy3
+		available = {
+			CUB = {
+				FRA_can_release_trigger = yes
+			}
+			WIF = {
+				FRA_can_release_trigger = yes
+			}
+			DOM = {
+				FRA_can_release_trigger = yes
+			}
+			HAI = {
+				FRA_can_release_trigger = yes
+			}
+			COL = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_caribbean_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_caribbean_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = WIF
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				CUB = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				WIF = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				DOM = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				HAI = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				COL = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			BRI = {
+				hidden_effect = {
+					set_cosmetic_tag = BRI_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_caribbean_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_dahut_ahes
+						picture = GFX_Portrait_FRA_Dahut_Ahes
+						ideology = orlean_system
+					}
+				}
+			}
+			set_autonomy = {
+				target = BRI
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_caribbean_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_mexico_alter_decision = {
+		icon = spy3
+		available = {
+			MEX = {
+				FRA_can_release_trigger = yes
+			}
+			CEN = {
+				FRA_can_release_trigger = yes
+			}
+			PAN = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_centro_america_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_centro_america_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = MEX
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				MEX = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				CEN = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				PAN = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			MEX = {
+				hidden_effect = {
+					set_cosmetic_tag = MEX_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_centro_america_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = MEX_izcalli
+						picture = GFX_Portrait_MEX_Izcalli
+						ideology = orlean_system
+					}
+				}
+			}
+			set_autonomy = {
+				target = BRI
+				autonomy_state = autonomy_reichskommissariat
+			}
+			transfer_state = 685
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_centro_america_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_lima_alter_decision = {
+		icon = spy3
+		available = {
+			PRU = {
+				FRA_can_release_trigger = yes
+			}
+			BOL = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_centro_america_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_lima_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = ARG
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				PRU = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BOL = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			PRU = {
+				hidden_effect = {
+					set_cosmetic_tag = PRU_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_lima_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = BOL_el_asmodeo
+						picture = GFX_Portrait_BOL_El_Asmodeo
+						ideology = orlean_system
+					}
+				}
+			}
+			set_autonomy = {
+				target = PRU
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_centro_america_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_amazonas_alter_decision = {
+		icon = spy3
+		available = {
+			BRA = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_amazon_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_amazon_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = BRA
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				BRA = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			BRA = {
+				hidden_effect = {
+					set_cosmetic_tag = BRA_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_amazon_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+				hidden_effect = {
+					set_country_leader_ideology = orlean_system
+				}
+			}
+			set_autonomy = {
+				target = BRA
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_amazon_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_laplata_alter_decision = {
+		icon = spy3
+		available = {
+			ARG = {
+				FRA_can_release_trigger = yes
+			}
+			CHL = {
+				FRA_can_release_trigger = yes
+			}
+			PAR = {
+				FRA_can_release_trigger = yes
+			}
+			PIR = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_laplata_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_laplata_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = ARG
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				BRA = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				ARG = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				PAR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				PIR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			ARG = {
+				hidden_effect = {
+					set_cosmetic_tag = ARG_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_laplata_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = ARG_hidalgo_retia
+						picture = GFX_Portrait_ARG_Hidalgo_Retia
+						ideology = orlean_system
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = ARG
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_laplata_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_china_alter_decision = {
+		icon = spy3
+		available = {
+			CHI = {
+				FRA_can_release_trigger = yes
+			}
+			BEY = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_china_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 49
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_china_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = BEY
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 50
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				CHI = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BEY = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			BEY = {
+				hidden_effect = {
+					set_cosmetic_tag = BEY_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_china_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = BEY_yan_qing
+						picture = GFX_Portrait_BEY_Yan_Qing
+						ideology = orlean_system
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = BEY
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_china_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_japan_alter_decision = {
+		icon = spy3
+		available = {
+			JAP = {
+				FRA_can_release_trigger = yes
+			}
+			PHI = {
+				FRA_can_release_trigger = yes
+			}
+			KOR = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_japan_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_japan_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = JAP
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				JAP = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				PHI = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				KOR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			JAP = {
+				hidden_effect = {
+					set_cosmetic_tag = JAP_alter
+				}
+				hidden_effect = {
+					JAP_switch_to_revolutionaries = yes
+				}
+				every_state = {
+					limit = {
+						FRA_is_japan_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = JAP_okita_souji_alter
+						picture = GFX_Portrait_JAP_Okita_Souji_Alter
+						ideology = orlean_system
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = JAP
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_japan_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_siberia_alter_decision = {
+		icon = spy3
+		available = {
+			KAZ = {
+				FRA_can_release_trigger = yes
+			}
+			RUS = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_siberia_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_siberia_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = RUS
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				RUS = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				KAZ = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			RUS = {
+				hidden_effect = {
+					set_cosmetic_tag = RUS_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_siberia_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = RUS_tamamovich_koyanskaya
+						picture = GFX_Portrait_RUS_Tamamovich_Koyanskaya
+						ideology = orlean_system
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = RUS
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_siberia_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_india_alter_decision = {
+		icon = spy3
+		available = {
+			RAJ = {
+				FRA_can_release_trigger = yes
+			}
+			BUR = {
+				FRA_can_release_trigger = yes
+			}
+			NEP = {
+				FRA_can_release_trigger = yes
+			}
+			AFG = {
+				FRA_can_release_trigger = yes
+			}
+			BHU = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_indian_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 39
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_indian_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = RAJ
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 40
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				RAJ = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BHU = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				AFG = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				NEP = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				BUR = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			RAJ = {
+				hidden_effect = {
+					set_cosmetic_tag = RAJ_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_indian_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				set_country_leader_ideology = orlean_system
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = RAJ
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_indian_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_sumer_alter_decision = {
+		icon = spy3
+		available = {
+			IRQ = {
+				FRA_can_release_trigger = yes
+			}
+			SAU = {
+				FRA_can_release_trigger = yes
+			}
+			YEM = {
+				FRA_can_release_trigger = yes
+			}
+			OMA = {
+				FRA_can_release_trigger = yes
+			}
+			PER = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_sumer_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 39
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_sumer_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = IRQ
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 40
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				IRQ = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SAU = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				OMA = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				YEM = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				PER = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			IRQ = {
+				hidden_effect = {
+					set_cosmetic_tag = IRQ_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_sumer_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				hidden_effect = {
+					add_country_leader_role = {
+						character = IRQ_Semiramis
+						promote_leader = yes
+						country_leader = {
+							ideology = orlean_system
+						}
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = IRQ
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_sumer_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
+				}
+			}
+		}
+	}
+	FRA_reichskommissariat_por_alter_decision = {
+		icon = spy3
+		available = {
+			POR = {
+				FRA_can_release_trigger = yes
+			}
+			hidden_trigger = {
+				FRA_control_all_portugal_alter_states_trigger = yes
+			}
+			num_of_civilian_factories_available_for_projects > 14
+		}
+		allowed = {
+			tag = FRA
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				FRA_is_portugal_alter_states_trigger = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				tag = POR
+			}
+		}
+		target_non_existing = yes
+		on_map_mode = decision_view_only
+		visible = {
+		}
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 15
+		}
+		complete_effect = {
+			add_political_power = 100
+			hidden_effect = {
+				add_command_power = -50
+			}
+			hidden_effect = {
+				IRQ = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				SAU = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				OMA = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				YEM = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+				PER = {
+					FRA_annex_PREV_if_available_effect = yes
+				}
+			}
+			POR = {
+				hidden_effect = {
+					set_cosmetic_tag = POR_alter
+				}
+				every_state = {
+					limit = {
+						FRA_is_portugal_alter_states_trigger = yes
+					}
+					transfer_state_to = PREV
+					enable_state_integration_80_compliance = yes
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = FRA_noelle_lenoir
+						picture = GFX_Portrait_FRA_Noelle_Lenoir_Bad
+						ideology = orlean_system
+					}
+				}
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+				}
+			}
+			set_autonomy = {
+				target = POR
+				autonomy_state = autonomy_reichskommissariat
+			}
+		}
+		remove_effect = {
+			every_state = {
+				limit = {
+					FRA_is_portugal_alter_states_trigger = yes
+				}
+				FRA_kill_pop_alter_effect = yes
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 60
+					add_compliance = 30
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_build_castle_modifier
+					scope = FRA
 				}
 			}
 		}
@@ -1471,10 +3141,20 @@ FRA_consolidate_control_alter_category = {
 			##has_completed_focus = FRA_revenge
 		}
 		fire_only_once = yes
-		days_remove = 20
+		days_remove = 30
 		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		modifier = {
+			weekly_manpower = -300
+			political_power_gain = -1
+		}
 		complete_effect = {
-			add_command_power = -20
+			hidden_effect = {
+				add_command_power = -30
+			}
 			add_stability = 0.05
 		}
 		remove_effect = {
@@ -1518,10 +3198,19 @@ FRA_consolidate_control_alter_category = {
 			##has_completed_focus = FRA_revenge
 		}
 		fire_only_once = yes
-		days_remove = 20
-		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		days_remove = 30
+		modifier = {
+			weekly_manpower = -300
+			political_power_gain = -1
+		}
 		complete_effect = {
-			add_command_power = -20
+			hidden_effect = {
+				add_command_power = -30
+			}
 			add_stability = 0.05
 		}
 		remove_effect = {
@@ -1566,8 +3255,18 @@ FRA_consolidate_control_alter_category = {
 		fire_only_once = yes
 		days_remove = 20
 		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		modifier = {
+			weekly_manpower = -300
+			political_power_gain = -1
+		}
 		complete_effect = {
-			add_command_power = -20
+			hidden_effect = {
+				add_command_power = -30
+			}
 			add_stability = 0.05
 		}
 		remove_effect = {
@@ -1620,10 +3319,20 @@ FRA_consolidate_control_alter_category = {
 			##has_completed_focus = FRA_revenge
 		}
 		fire_only_once = yes
-		days_remove = 20
+		days_remove = 30
 		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		modifier = {
+			weekly_manpower = -300
+			political_power_gain = -1
+		}
 		complete_effect = {
-			add_command_power = -20
+			hidden_effect = {
+				add_command_power = -30
+			}
 			add_stability = 0.05
 		}
 		remove_effect = {
@@ -1666,10 +3375,20 @@ FRA_consolidate_control_alter_category = {
 			##has_completed_focus = FRA_revenge
 		}
 		fire_only_once = yes
-		days_remove = 20
+		days_remove = 30
 		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		modifier = {
+			weekly_manpower = -300
+			political_power_gain = -1
+		}
 		complete_effect = {
-			add_command_power = -20
+			hidden_effect = {
+				add_command_power = -30
+			}
 			add_stability = 0.05
 		}
 		remove_effect = {
@@ -1703,22 +3422,26 @@ FRA_consolidate_control_alter_category = {
 			factor = 10
 		}
 	}
-	##
 	FRA_cleasing_army_decision = {
 		icon = oppression
 		available = {
 			has_country_flag = FRA_cleansing_army_available_flag
 		}
 		visible = {
-			##has_country_flag = FRA_cleansing_army_available_flag
 		}
 		fire_only_once = yes
-		days_remove = 20
+		days_remove = 30
 		cost = 0
+		custom_cost_text = CP_200
+		custom_cost_trigger = {
+			command_power > 0
+		}
+		modifier = {
+			weekly_manpower = -1000
+		}
 		complete_effect = {
-			add_stability = 0.05
-			army_experience = -20
 			add_command_power = -200
+			add_stability = 0.05
 		}
 		remove_effect = {
 			remove_ideas = FRA_military_unrest_idea
@@ -1752,18 +3475,27 @@ FRA_consolidate_control_alter_category = {
 			##has_completed_focus = FRA_purge_heretics
 		}
 		fire_only_once = yes
-		days_remove = 20
+		days_remove = 30
 		cost = 0
+		modifier = {
+			weekly_manpower = -1000
+		}
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
 		complete_effect = {
-			add_command_power = -20
 			add_stability = 0.05
+			hidden_effect = {
+				add_command_power = -30
+			}
 		}
 		remove_effect = {
 			effect_tooltip = {
 				retire_character = FRA_pierre_cauchon
 			}
 			FRA_disjoint_government_down_effect = yes
-			add_political_power = 50
+			add_political_power = 100
 		}
 		ai_will_do = {
 			factor = 10
@@ -1794,8 +3526,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -1864,11 +3603,18 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
+			}
+			hidden_effect = {
+				add_command_power = -50
 			}
 			FROM = {
 				setup_decision_attack_AI = yes
@@ -1938,8 +3684,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2013,8 +3766,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2088,8 +3848,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2166,8 +3933,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2246,8 +4020,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2315,8 +4096,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2414,8 +4202,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2491,8 +4286,15 @@ FRA_final_war_plan_category = {
 		}
 		fire_only_once = yes
 		days_remove = 60
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_50
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
 			add_timed_idea = {
 				idea = FRA_prepare_for_war_idea
 				days = 60
@@ -2571,7 +4373,6 @@ FRA_special_project_alter_category = {
 			has_equipment = {
 				support_equipment > 49
 			}
-			command_power > 60
 		}
 		visible = {
 			##has_completed_focus = FRA_prison_tower
@@ -2585,9 +4386,15 @@ FRA_special_project_alter_category = {
 		on_map_mode = map_only
 		fire_only_once = yes
 		cost = 0
+		custom_cost_text = CP_60
+		custom_cost_trigger = {
+			command_power > 59.9
+		}
 		days_remove = 60
 		complete_effect = {
-			add_command_power = -60
+			hidden_effect = {
+				add_command_power = -60
+			}
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
 				amount = -500
@@ -2692,7 +4499,7 @@ FRA_special_project_alter_category = {
 				state = 16
 			}
 		}
-		on_map_mode = map_and_decisions_view
+		on_map_mode = decision_view_only
 		available = {
 			has_completed_focus = FRA_war_of_dragons
 			FROM = {
@@ -2717,7 +4524,7 @@ FRA_special_project_alter_category = {
 			civilian_factory_use = 10
 		}
 		fire_only_once = yes
-		cost = 50
+		cost = 30
 		days_remove = 60
 		ai_will_do = {
 			factor = 50
@@ -2793,9 +4600,9 @@ FRA_special_project_alter_category = {
 		modifier = {
 			civilian_factory_use = 10
 		}
-		on_map_mode = map_and_decisions_view
+		on_map_mode = decision_view_only
 		fire_only_once = yes
-		cost = 50
+		cost = 30
 		days_remove = 60
 		ai_will_do = {
 			factor = 50
@@ -2887,9 +4694,9 @@ FRA_special_project_alter_category = {
 		modifier = {
 			civilian_factory_use = 20
 		}
-		on_map_mode = map_and_decisions_view
+		on_map_mode = decision_view_only
 		fire_only_once = yes
-		cost = 50
+		cost = 30
 		days_remove = 60
 		ai_will_do = {
 			factor = 50
@@ -2986,7 +4793,7 @@ FRA_special_project_alter_category = {
 		}
 		on_map_mode = map_and_decisions_view
 		fire_only_once = yes
-		cost = 50
+		cost = 30
 		days_remove = 60
 		ai_will_do = {
 			factor = 50
@@ -3036,7 +4843,6 @@ FRA_special_project_alter_category = {
 			FRA_disjoint_government_down_effect = yes
 		}
 	}
-	##本土可以造
 	FRA_meurs_ou_tu_dois_decision = {
 		icon = brainwash
 		highlight_states = {
@@ -3048,25 +4854,21 @@ FRA_special_project_alter_category = {
 		target_trigger = {
 			FROM = {
 				is_core_of = ROOT
-			}
-		}
-		available = {
-			has_capitulated = no
-			has_completed_focus = FRA_Meurs_Ou_tu_Dois
-			FROM = {
-				is_core_of = FRA
 				is_fully_controlled_by = ROOT
-			}
-			has_equipment = {
-				infantry_equipment > 499
-			}
-			has_equipment = {
-				support_equipment > 49
-			}
-			num_of_civilian_factories_available_for_projects > 5
-		}
-		visible = {
-			FROM = {
+				NOT = {
+					state = 16
+					state = 33
+					state = 1
+					state = 21
+				}
+				OR = {
+					region = 5
+					region = 6
+					region = 19					#Northern France
+					region = 20					#Southern France
+					region = 164					#Western France
+					##state = 1
+				}
 				has_dynamic_modifier = {
 					modifier = FRA_build_castle_modifier
 					scope = FRA
@@ -3077,41 +4879,68 @@ FRA_special_project_alter_category = {
 						scope = FRA
 					}
 				}
-				NOT = {
-					state = 16
+				any_neighbor_state = {
+					has_dynamic_modifier = {
+						modifier = FRA_meurs_ou_tu_dois_modifier
+					}
+					has_dynamic_modifier = {
+						modifier = FRA_reshape_notre_dame_modifier
+					}
+					has_dynamic_modifier = {
+						modifier = FRA_dragon_lair_modifier
+					}
+					has_dynamic_modifier = {
+						modifier = FRA_reshape_prison_tower_modifier
+					}
 					state = 33
-					state = 1
-					state = 21
-				}
-				OR = {
-					region = 19					#Northern France
-					region = 20					#Southern France
-					region = 164					#Western France
-					##state = 1
+					state = 16
 				}
 			}
+		}
+		available = {
+			has_capitulated = no
+			has_completed_focus = FRA_Meurs_Ou_tu_Dois
+			has_equipment = {
+				infantry_equipment > 999
+			}
+			has_equipment = {
+				support_equipment > 99
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
 		}
 		modifier = {
 			civilian_factory_use = 6
 		}
 		on_map_mode = map_only
 		fire_only_once = yes
-		cost = 40
+		cost = 0
 		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		custom_cost_trigger = {
+			command_power > 19.9
+			has_political_power > 19.9
+		}
 		ai_will_do = {
 			factor = 50
 		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -20
+				add_political_power = -20
+			}
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
-				amount = -500
+				amount = -1000
 			}
 			add_equipment_to_stockpile = {
 				type = support_equipment
-				amount = -50
+				amount = -100
 			}
 		}
 		remove_effect = {
+			add_command_power = -20
 			FROM = {
 				set_temp_variable = {
 					var = FRA_population_checker
@@ -3119,7 +4948,7 @@ FRA_special_project_alter_category = {
 				}
 				multiply_temp_variable = {
 					var = FRA_population_checker
-					value = -3
+					value = -5
 				}
 				add_manpower = FRA_population_checker
 				remove_dynamic_modifier = {
@@ -3131,9 +4960,36 @@ FRA_special_project_alter_category = {
 					scope = FRA
 				}
 				random_list = {
-					80 = {
+					40 = {
+						modifier = {
+							factor = 0
+							ROOT = {
+								has_stability > 0.99
+							}
+						}
 						ROOT = {
-							add_stability = 0.02
+							add_stability = 0.03
+						}
+					}
+					40 = {
+						modifier = {
+							factor = 0
+							ROOT = {
+								has_war_support > 0.99
+							}
+						}
+						ROOT = {
+							add_war_support = 0.03
+						}
+					}
+					40 = {
+						ROOT = {
+							add_political_power = 30
+						}
+					}
+					40 = {
+						ROOT = {
+							army_experience = 15
 						}
 					}
 					10 = {
@@ -3165,25 +5021,7 @@ FRA_special_project_alter_category = {
 		target_trigger = {
 			FROM = {
 				is_core_of = ROOT
-			}
-		}
-		available = {
-			has_capitulated = no
-			has_completed_focus = FRA_Tiffauges_model
-			FROM = {
-				is_core_of = FRA
 				is_fully_controlled_by = ROOT
-			}
-			has_equipment = {
-				infantry_equipment > 499
-			}
-			command_power > 10
-			has_political_power > 10
-			num_of_civilian_factories_available_for_projects > 2
-		}
-		visible = {
-			##has_completed_focus = FRA_Tiffauges_model
-			FROM = {
 				NOT = {
 					has_dynamic_modifier = {
 						modifier = FRA_build_castle_modifier
@@ -3200,6 +5038,8 @@ FRA_special_project_alter_category = {
 					region = 19					#Northern France
 					region = 20					#Southern France
 					region = 164					#Western France
+					region = 5
+					region = 6
 				}
 				NOT = {
 					state = 16					##巴黎
@@ -3207,7 +5047,43 @@ FRA_special_project_alter_category = {
 					state = 1					##科西嘉
 					state = 21					##普罗旺斯
 				}
+				any_neighbor_state = {
+					OR = {
+						has_dynamic_modifier = {
+							modifier = FRA_meurs_ou_tu_dois_modifier
+						}
+						has_dynamic_modifier = {
+							modifier = FRA_build_castle_modifier
+						}
+						has_dynamic_modifier = {
+							modifier = FRA_reshape_notre_dame_modifier
+						}
+						has_dynamic_modifier = {
+							modifier = FRA_dragon_lair_modifier
+						}
+						has_dynamic_modifier = {
+							modifier = FRA_reshape_prison_tower_modifier
+						}
+						state = 33
+						state = 16
+					}
+				}
 			}
+		}
+		available = {
+			has_capitulated = no
+			has_completed_focus = FRA_Tiffauges_model
+			FROM = {
+				is_core_of = FRA
+				is_fully_controlled_by = ROOT
+			}
+			has_equipment = {
+				infantry_equipment > 499
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			##has_completed_focus = FRA_Tiffauges_model
 		}
 		modifier = {
 			civilian_factory_use = 3
@@ -3216,12 +5092,19 @@ FRA_special_project_alter_category = {
 		fire_only_once = yes
 		cost = 0
 		days_remove = 30
+		custom_cost_text = CP_10_PP_10
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 9.9
+		}
 		ai_will_do = {
 			factor = 10000
 		}
 		complete_effect = {
-			add_command_power = -10
-			add_political_power = -10
+			hidden_effect = {
+				add_command_power = -10
+				add_political_power = -10
+			}
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
 				amount = -500
@@ -3240,6 +5123,12 @@ FRA_special_project_alter_category = {
 				add_manpower = FRA_population_checker
 				random_list = {
 					40 = {
+						modifier = {
+							factor = 0
+							ROOT = {
+								has_stability > 0.99
+							}
+						}
 						ROOT = {
 							add_stability = 0.02
 						}
@@ -3294,7 +5183,6 @@ FRA_special_project_alter_category = {
 			}
 		}
 	}
-	##
 	FRA_reorganization_fafnir_guard_decision = {
 		icon = tank1
 		available = {
@@ -3304,7 +5192,7 @@ FRA_special_project_alter_category = {
 			has_template_containing_unit = medium_sp_artillery_brigade
 			has_template_containing_unit = medium_tank_destroyer_brigade
 			has_template_containing_unit = medium_sp_anti_air_brigade
-			num_of_available_civilian_factories > 4
+			num_of_civilian_factories_available_for_projects > 4
 		}
 		visible = {
 		}
@@ -3407,15 +5295,28 @@ FRA_special_project_alter_category = {
 		}
 		on_map_mode = map_only
 		fire_only_once = yes
-		cost = 50
+		cost = 0
+		custom_cost_text = CP_80_PP_20
+		custom_cost_trigger = {
+			command_power > 79.9
+			has_political_power > 19.9
+		}
 		days_remove = 120
 		ai_will_do = {
 			factor = 10000
 		}
 		complete_effect = {
+			hidden_effect = {
+				add_command_power = -80
+				add_political_power = -20
+			}
 			FROM = {
-				add_resistance = 100
-				add_compliance = -100
+				if = {
+					limit = {
+						has_resistance = yes
+					}
+					add_resistance = 100
+				}
 			}
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
