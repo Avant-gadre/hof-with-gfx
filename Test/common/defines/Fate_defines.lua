@@ -101,6 +101,7 @@
 	NDefines.NAI.SUB_TASKFORCE_MAX_SHIP_COUNT = 10		   -- Vanilla is 16 WA is 5
 	NDefines.NAI.MIN_CAPITALS_FOR_CARRIER_TASKFORCE = 6		   -- Vanilla is 6
 	NDefines.NAI.NAVAL_STRIKE_CARRIER_MULTIPLIER = 100.0		   -- Vanilla is 10.0
+	NDefines.NAI.SUBMARINE_REVEAL_ON_MINIMUM_POSITIONING = 10.0		   -- Vanilla is 2.0
 
     -- WA-Navy
     NDefines.NNavy.TRAINING_EXPERIENCE_FACTOR = 0.25									-- Amount of exp each ship gain every 24h while training (before modifiers)
