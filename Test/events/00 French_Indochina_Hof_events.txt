@@ -7,20 +7,10 @@ country_event = {
 	fire_only_once = yes
 	trigger = {
 		tag = FIC
-		date > 1936.8.1
-		NOT = {
-			FRA = {
-				has_government = communism
-			}
-		}
-		NOT = {
-			FRA = {
-				has_completed_focus = FRA_war_of_dragons
-			}
-		}
+		date > 1936.7.1
 	}
 	mean_time_to_happen = {
-		days = 60
+		days = 20
 	}
 	option = {
 		name = French_Indochina.1.a
@@ -30,13 +20,60 @@ country_event = {
 		set_country_flag = Vietnam_war_flag
 		VIN = {
 			transfer_state = 286
+			transfer_state = 856
 		}
 		VIN = {
 			load_oob = "VIN_1936_rev"
+			set_technology = {
+				militia_tech = 1
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Militia"
+					}
+				}
+				division_template = {
+					name = "Militia"
+					division_names_group = VIN_ARM_01
+					regiments = {
+						militia = {
+							x = 0
+							y = 0
+						}
+						militia = {
+							x = 0
+							y = 1
+						}
+						militia = {
+							x = 0
+							y = 2
+						}
+					}
+					priority = 0
+				}
+			}
+			set_temp_variable = {
+				VIN_militia = 24
+			}
+			for_loop_effect = {
+				start = 1
+				end = VIN_militia
+				compare = less_than_or_equals
+				random_owned_controlled_state = {
+					limit = {
+						valid_state_for_spawning_friendly_unit = yes
+					}
+					create_unit = {
+						division = "division_template = \"Militia\" start_experience_factor = 0.1"
+						owner = PREV
+					}
+				}
+			}
 		}
 		country_event = {
 			id = French_Indochina.2
-			days = 10
+			days = 7
 		}
 		add_ai_strategy = {
 			type = antagonize

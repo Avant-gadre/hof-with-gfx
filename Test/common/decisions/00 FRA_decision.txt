@@ -77,7 +77,7 @@ FRA_future_of_our_country_category = {
 			date < 1938.1.1
 			has_global_flag = Spain_civil_war_start_flag
 			NOT = {
-				has_global_flag  = Spain_civil_war_end_flag
+				has_global_flag = Spain_civil_war_end_flag
 			}
 			# has_country_flag = FRA_the_fourth_republic_settled_flag
 		}
@@ -717,7 +717,7 @@ FRA_future_of_our_country_category = {
 		on_map_mode = decision_view_only
 		available = {
 			has_intelligence_agency = yes
-			num_of_available_civilian_factories > 1
+			num_of_civilian_factories_available_for_projects > 1
 			has_manpower > 50
 			has_equipment = {
 				infantry_equipment > 499
@@ -1081,7 +1081,7 @@ FRA_guillotine_breaker_category = {
 			16 = {
 				is_fully_controlled_by = ROOT
 			}
-			date > 1940.1.1
+			date > 1939.6.1
 			date < 1940.2.1			##THIS is Important
 		}
 		visible = {
@@ -1096,7 +1096,7 @@ FRA_guillotine_breaker_category = {
 			set_country_flag = FRA_1940_election_postponed_flag
 			add_timed_idea = {
 				idea = FRA_election_postpone_idea
-				days = 200
+				days = 400
 			}
 			add_stability = -0.05
 		}
@@ -1206,6 +1206,7 @@ FRA_guillotine_breaker_category = {
 			SLV = {
 				FRA_can_release_trigger = yes
 			}
+			num_of_civilian_factories_available_for_projects > 19
 			FRA_control_all_austria_marie_states_trigger = yes
 		}
 		allowed = {
@@ -1225,14 +1226,15 @@ FRA_guillotine_breaker_category = {
 			factor = 100
 		}
 		cost = 0
-		days_remove = 0
+		days_remove = 120
 		custom_cost_text = CP_50
 		custom_cost_trigger = {
 			command_power > 49.9
 		}
 		modifier = {
+			civilian_factory_use = 20
 		}
-		remove_effect = {
+		complete_effect = {
 			hidden_effect = {
 				add_command_power = -50
 			}
@@ -1272,7 +1274,14 @@ FRA_guillotine_breaker_category = {
 					trait = FRA_trait_l_imperatrice
 					ideology = authoritarianism
 				}
+				set_portraits = {
+					civilian = {
+						large = GFX_Portrait_FRA_Marie_Antoinette_Habsbourg_4
+					}
+				}
 			}
+		}
+		remove_effect = {
 		}
 	}
 	FRA_puppet_austria = {
@@ -2772,19 +2781,21 @@ FRA_shield_of_france_category = {
 		icon = hol_draw_up_staff_plans
 		available = {
 			has_idea = FRA_chaotic_army_idea
-			has_army_experience > 149
-			has_deployed_air_force_size = {
-				size > 1499
-				type = fighter
-			}
-			has_deployed_air_force_size = {
-				size > 599
-				type = cas
-			}
+			has_army_experience > 99
 			has_army_manpower = {
 				size > 999999
 			}
 			OR = {
+				AND = {
+					has_deployed_air_force_size = {
+						size > 999
+						type = fighter
+					}
+					has_deployed_air_force_size = {
+						size > 499
+						type = cas
+					}
+				}
 				custom_trigger_tooltip = {
 					check_variable = {
 						num_equipment_in_armies@medium_tank_chassis > FRA_medium_tank_needed_var
@@ -2937,7 +2948,6 @@ FRA_shield_of_france_category = {
 		icon = bomb
 		available = {
 			has_completed_focus = FRA_total_war
-			casualties > 250000
 			OR = {
 				surrender_progress > 0.1
 				RHI = {
