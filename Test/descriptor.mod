@@ -54,7 +54,7 @@ replace_path="history/states"
 replace_path="history/units"
 replace_path="map/strategicregions"
 replace_path="map/supplyareas"
-name="Hearts of Fate - Frozen"
+name="Hearts of Fate"
 picture="thumbnail.jpg"
 tags={
 	"Alternative History"
@@ -63,4 +63,4 @@ tags={
 	"National Focuses"
 }
 supported_version="1.14.3"
-remote_file_id="3058789589"
+remote_file_id="1533160035"
