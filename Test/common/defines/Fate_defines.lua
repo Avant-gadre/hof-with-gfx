@@ -128,7 +128,7 @@
     NDefines.NMilitary.ARMY_EXP_BASE_LEVEL = 10
     NDefines.NMilitary.EXPERIENCE_COMBAT_FACTOR = 0.02
     NDefines.NMilitary.TRAINING_EXPERIENCE_SCALE = 30.0
-    NDefines.NMilitary.TRAINING_ATTRITION = 0.12
+    NDefines.NMilitary.TRAINING_ATTRITION = 0.05
     NDefines.NMilitary.TRAINING_MIN_STRENGTH = 0.95										-- if strength is less than this, the unit will pause training until it's been reinforced
     NDefines.NMilitary.UNIT_EXPERIENCE_SCALE = 0.3
 
