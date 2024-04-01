@@ -13,7 +13,7 @@ file_path1 = os.path.join(current_dir, file_name1)
 
 file_path2 = os.path.join(current_dir, file_name2)
 
-target = "FRA_"
+target = "SOV_"
 
 end = "_decision"
 
@@ -41,6 +41,6 @@ with open(file_path2, "w", errors="ignore") as file:
         full = " " + prefix + ":" + " " + '"' + name0 + '"'
         full1 = " " + prefix + "_desc" + ":" + " " + '"' + name0 + '"'
         file.write(full + "\n")
-        file.write(full1 + "\n")
+        #file.write(full1 + "\n")
 
 # ... （之后的代码）
