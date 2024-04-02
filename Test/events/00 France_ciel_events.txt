@@ -1,0 +1,260 @@
+###
+add_namespace = fra_ciel
+unit_leader_event = {
+	id = fra_ciel.1
+	title = fra_ciel.1.title
+	desc = fra_ciel.1.desc
+	immediate = {
+		hidden_effect = {
+			FRA_ciel_elesia = {
+				unit_leader_event = {
+					id = fra_ciel.3
+					days = 90
+				}
+			}
+		}
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fra_ciel.1.a
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		FRA_ciel_elesia = {
+			add_trait = {
+				trait = FRA_trait_powerful_president
+				ideology = conservatism
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.2
+		}
+		add_political_power = 100
+	}
+	option = {
+		name = fra_ciel.1.b
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		add_stability = -0.1
+		promote_character = {
+			character = FRA_ciel_elesia
+			ideology = stratocracy
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = FRA_democratic_party_fnf_long
+			name = FRA_democratic_party_fnf
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.3
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			FRA_ciel_elesia = {
+				unit_leader_event = {
+					id = fra_ciel.2
+					days = 360
+				}
+			}
+		}
+	}
+}
+
+unit_leader_event = {
+	id = fra_ciel.2
+	title = fra_ciel.2.title
+	desc = fra_ciel.2.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fra_ciel.2.a
+		trigger = {
+		}
+		ai_chance = {
+			base = 1
+		}
+		add_popularity = {
+			ideology = ROOT
+			popularity = 0.1
+		}
+		add_stability = 0.05
+	}
+	option = {
+		name = fra_ciel.2.b
+		trigger = {
+		}
+		add_stability = -0.1
+		promote_character = {
+			character = FRA_ciel_elesia
+			ideology = rexism
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = FRA_fascism_party_ba_long
+			name = FRA_fascism_party_ba
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.3
+		}
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+unit_leader_event = {
+	id = fra_ciel.3
+	title = fra_ciel.3.title
+	desc = fra_ciel.3.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fra_ciel.3.a
+		trigger = {
+		}
+		if = {
+			limit = {
+				RHI = {
+					exists = yes
+				}
+			}
+			RHI = {
+				country_event = {
+					id = fra_ciel.4
+					days = 3
+				}
+			}
+			effect_tooltip = {
+				custom_effect_tooltip = accept_offer_tt
+				RHI = {
+					GEU_nanaya_shiki = {
+						set_nationality = FRA
+					}
+				}
+			}
+		}
+		else = {
+			RHI = {
+				GEU_nanaya_shiki = {
+					set_nationality = FRA
+				}
+			}
+			FRA = {
+				GEU_nanaya_shiki = {
+					unit_leader_event = {
+						id = fra_ciel.5
+						days = 7
+					}
+				}
+			}
+		}
+		add_political_power = -1
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##Rhi as receiver
+country_event = {
+	id = fra_ciel.4
+	title = fra_ciel.4.title
+	desc = fra_ciel.4.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fra_ciel.4.a
+		trigger = {
+			has_country_leader = {
+				character = GEU_arcueid_brunestud
+				ruling_only = yes
+			}
+		}
+		add_stability = -0.01
+		RHI = {
+			GEU_nanaya_shiki = {
+				set_nationality = FRA
+			}
+		}
+		FRA = {
+			GEU_nanaya_shiki = {
+				unit_leader_event = {
+					id = fra_ciel.5
+					days = 4
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = fra_ciel.4.b
+		trigger = {
+		}
+		add_political_power = -1
+		RHI = {
+			GEU_nanaya_shiki = {
+				set_nationality = FRA
+			}
+		}
+		FRA = {
+			GEU_nanaya_shiki = {
+				unit_leader_event = {
+					id = fra_ciel.5
+					days = 4
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+unit_leader_event = {
+	id = fra_ciel.5
+	title = fra_ciel.5.title
+	desc = fra_ciel.5.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = fra_ciel.5.a
+		trigger = {
+		}
+		activate_advisor = GEU_nanaya_shiki_special_political_advisor
+		add_stability = 0.01
+		ai_chance = {
+			base = 1
+		}
+	}
+}
