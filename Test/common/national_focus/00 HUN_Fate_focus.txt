@@ -800,15 +800,11 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			effect_tooltip = {
-				HUN_bathori_erzsebet = {
-					add_trait = {
-						trait = HUN_trait_military_dictatorship
-					}
+			HUN_bathori_erzsebet = {
+				add_trait = {
+					trait = HUN_trait_military_dictatorship
+					ideology = stratocracy
 				}
-			}
-			hidden_effect = {
-				add_country_leader_trait = HUN_trait_military_dictatorship
 			}
 		}
 	}
@@ -872,7 +868,12 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_country_leader_trait = HUN_trait_permanent_regency
+			HUN_bathori_erzsebet = {
+				add_trait = {
+					trait = HUN_trait_permanent_regency
+					ideology = stratocracy
+				}
+			}
 		}
 	}
 	focus = {
@@ -1684,7 +1685,9 @@ focus_tree = {
 		}
 		available = {
 			is_faction_leader = yes
-			has_decision = HUN_crown_bathori_decision
+			HUN_bathori_erzsebet = {
+				has_trait = HUN_trait_bathory_the_kiraly
+			}
 		}
 		bypass = {
 		}
@@ -1710,6 +1713,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			army_experience = 100
 		}
 	}
 	focus = {
@@ -1730,6 +1734,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			add_stability = 0.1
 		}
 	}
 	focus = {
@@ -1753,6 +1758,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
+			add_political_power = 100
 		}
 	}
 	focus = {
@@ -1764,15 +1770,35 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = HUN_Concluded_the_Treaty_of_St_Stephen
-		cost = 6
+		cost = 4
 		ai_will_do = {
 			factor = 1
 		}
+		cancelable = no
 		available = {
+			POL = {
+				can_declare_war = yes
+			}
+		}
+		select_effect = {
+			POL = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+				incoming_war_notification_effect = yes
+			}
+			HUN = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+				incoming_war_notification_effect = yes
+			}
 		}
 		bypass = {
 		}
 		completion_reward = {
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
 		}
 	}
 	focus = {
@@ -1807,15 +1833,44 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = HUN_Concluded_the_Treaty_of_St_Stephen
-		cost = 6
+		cost = 4
 		ai_will_do = {
 			factor = 1
 		}
 		available = {
+			POL = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			10 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			88 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
 		}
 		bypass = {
 		}
 		completion_reward = {
+			every_state = {
+				limit = {
+					region = 38
+				}
+				enable_state_integration_80_compliance = yes
+			}
+			if = {
+				limit = {
+					POL = {
+						is_puppet_of = ROOT
+					}
+				}
+				annex_country = {
+					target = POL
+					transfer_troops = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -1865,7 +1920,7 @@ focus_tree = {
 		bypass = {
 		}
 		completion_reward = {
-			add_country_leader_trait = HUN_trait_bathory_the_kiraly
+			add_political_power = 300
 		}
 	}
 	focus = {
