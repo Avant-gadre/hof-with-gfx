@@ -1,8 +1,11 @@
 from PIL import Image
 import os
 
-# 读取当前目录下所有的PNG文件
-png_files = [file for file in os.listdir() if file.endswith('.png')]
+# 获取当前脚本所在的文件夹路径
+current_dir = os.path.dirname(__file__)
+
+# 读取当前文件夹下所有的PNG文件
+png_files = [os.path.join(current_dir, file) for file in os.listdir(current_dir) if file.endswith('.png')]
 
 # 按照文件名的首字母进行排序
 png_files.sort()
@@ -46,4 +49,4 @@ for i, png_file in enumerate(png_files):
     img.close()
 
 # 保存合并后的图片
-result.save('merged_image.png')
+result.save(os.path.join(current_dir, 'merged_image.png'))
