@@ -6829,7 +6829,6 @@ focus_tree = {
 			focus = GER_anschluss
 		}
 		will_lead_to_war_with = CZE
-		will_lead_to_war_with = HUN
 		will_lead_to_war_with = FRA
 		available = {
 			is_puppet = no
@@ -6939,6 +6938,16 @@ focus_tree = {
 			}
 		}
 		select_effect = {
+			ROOT = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_for_ally_effect = yes
+				set_war_flag_effect = yes
+			}
+			CZE = {
+				incoming_war_notification_for_ally_effect = yes
+				incoming_war_notification_effect = yes
+				setup_decision_attack_AI = yes
+			}
 			##Sent event to FRA
 			random_list = {
 				25 = {
@@ -6988,13 +6997,36 @@ focus_tree = {
 					country_event = lr_france.67
 				}
 			}
+			if = {
+				limit = {
+					country_exists = ENG
+					ENG = {
+						is_subject = no
+					}
+					CZE = {
+						is_subject = no
+					}
+					NOT = {
+						CZE = {
+							is_guaranteed_by = ENG
+							has_added_tension_amount > 5
+							has_government = fascism
+						}
+						ENG = {
+							has_war_with = CZE
+							has_government = fascism
+						}
+					}
+				}
+				ENG = {
+					country_event = {
+						id = eng_core.8
+						days = 3
+					}
+				}
+			}
 		}
 		completion_reward = {
-			set_country_flag = {
-				value = 1
-				days = 30
-				flag = GER_Ready_to_attack_flag
-			}
 			add_named_threat = {
 				threat = 5
 				name = GER_demand_sudetenland
@@ -8984,6 +9016,34 @@ focus_tree = {
 				}
 				FRA = {
 					country_event = lr_france.69
+				}
+			}
+			if = {
+				limit = {
+					country_exists = ENG
+					ENG = {
+						is_subject = no
+					}
+					POL = {
+						is_subject = no
+					}
+					NOT = {
+						POL = {
+							is_guaranteed_by = ENG
+							has_added_tension_amount > 5
+							has_government = fascism
+						}
+						ENG = {
+							has_war_with = CZE
+							has_government = fascism
+						}
+					}
+				}
+				ENG = {
+					country_event = {
+						id = eng_core.9
+						days = 3
+					}
 				}
 			}
 		}

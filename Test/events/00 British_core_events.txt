@@ -1,8 +1,7 @@
 ##32 - Total
 add_namespace = eng_core
-
-##牢所长
-country_event = {
+##牢所长死了
+unit_leader_event = {
 	id = eng_core.1
 	title = eng_core.1.title
 	desc = eng_core.1.desc
@@ -15,21 +14,31 @@ country_event = {
 		name = eng_core.1.a
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		##移除所长所有的顾问/指挥官职位
+		ENG_marisbury_animusphere = {
+			remove_unit_leader_role = yes
 		}
-	}
-	option = {
-		name = eng_core.1.b
-		trigger = {
+		deactivate_advisor = ENG_olga_marie_arsimilat_animusphere_special_first
+		deactivate_advisor = ENG_nursery_rhyme_special_second
+		deactivate_advisor = ENG_goredolf_musik_yggdmillennia_special_third
+		deactivate_advisor = ENG_mash_kyrielight_pelles_special_fourth
+		deactivate_advisor = ENG_inorai_valualeta_atroholm_special_fifth
+		##deactivate_advisor = ENG_sherlock_holmes_special_sixth
+		##领袖更换为议会
+		promote_character = {
+			character = ENG_parliament
+			ideology = classical_liberalism
 		}
-		ai_chance = {
-			base = 1
+		ENG_olga_marie_arsimilat_animusphere = {
+			unit_leader_event = {
+				id = eng_core.2
+				days = 7
+			}
 		}
-	}
-	option = {
-		name = eng_core.1.c
-		trigger = {
+		add_stability = -0.2
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.2
 		}
 		ai_chance = {
 			base = 1
@@ -38,7 +47,7 @@ country_event = {
 }
 
 ##奥尔加
-country_event = {
+unit_leader_event = {
 	id = eng_core.2
 	title = eng_core.2.title
 	desc = eng_core.2.desc
@@ -51,21 +60,43 @@ country_event = {
 		name = eng_core.2.a
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		##领袖更换为奥尔加玛丽
+		promote_character = {
+			character = ENG_olga_marie_arsimilat_animusphere
+			ideology = social_democracy
 		}
-	}
-	option = {
-		name = eng_core.2.b
-		trigger = {
+		##在后续可以更换为罗宾汉
+		activate_advisor = ENG_mary_anning_special_first
+		activate_advisor = ENG_nigel_saward_special_second
+		activate_advisor = ENG_goredolf_musik_yggdmillennia_special_third
+		activate_advisor = ENG_mash_kyrielight_pelles_special_fourth
+		activate_advisor = ENG_inorai_valualeta_atroholm_special_fifth
+		##activate_advisor = ENG_sherlock_holmes_special_sixth
+		ENG_sherlock_holmes = {
+			unit_leader_event = {
+				id = eng_core.3
+				days = 15
+			}
 		}
-		ai_chance = {
-			base = 1
+		ENG_olga_marie_arsimilat_animusphere = {
+			unit_leader_event = {
+				id = eng_core.29
+				days = 30
+			}
 		}
-	}
-	option = {
-		name = eng_core.2.c
-		trigger = {
+		hidden_effect = {
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_core.4
+					days = 120
+				}
+			}
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_core.7
+					days = 60
+				}
+			}
 		}
 		ai_chance = {
 			base = 1
@@ -73,8 +104,8 @@ country_event = {
 	}
 }
 
-##谁是凶手
-country_event = {
+##福尔摩斯:谁是凶手
+unit_leader_event = {
 	id = eng_core.3
 	title = eng_core.3.title
 	desc = eng_core.3.desc
@@ -87,21 +118,53 @@ country_event = {
 		name = eng_core.3.a
 		trigger = {
 		}
+		##这可能会锁住墨西哥加入同盟国的国策，之后再看看
+		add_war_support = 0.05
+		ENG = {
+			add_opinion_modifier = {
+				target = MEX
+				modifier = embargo
+			}
+			add_opinion_modifier = {
+				target = MEX
+				modifier = sanctions_relations
+			}
+		}
+		MEX = {
+			add_opinion_modifier = {
+				target = ENG
+				modifier = embargo
+			}
+			add_opinion_modifier = {
+				target = ENG
+				modifier = sanctions_relations
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
+	##算了
 	option = {
 		name = eng_core.3.b
 		trigger = {
 		}
+		add_political_power = 50
+		add_war_support = -0.05
 		ai_chance = {
 			base = 1
 		}
 	}
+	##阴谋论
 	option = {
 		name = eng_core.3.c
 		trigger = {
+		}
+		ENG_olga_marie_arsimilat_animusphere = {
+			add_timed_unit_leader_trait = {
+				trait = sick
+				days = 14
+			}
 		}
 		ai_chance = {
 			base = 1
@@ -109,8 +172,8 @@ country_event = {
 	}
 }
 
-##--
-country_event = {
+##迦勒底的神秘玩意 ##TODO
+unit_leader_event = {
 	id = eng_core.4
 	title = eng_core.4.title
 	desc = eng_core.4.desc
@@ -123,21 +186,15 @@ country_event = {
 		name = eng_core.4.a
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		add_manpower = 200
+		720 = {
+			add_manpower = 200
 		}
-	}
-	option = {
-		name = eng_core.4.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.4.c
-		trigger = {
+		ENG_olga_marie_arsimilat_animusphere = {
+			unit_leader_event = {
+				id = eng_core.5
+				days = 60
+			}
 		}
 		ai_chance = {
 			base = 1
@@ -145,34 +202,85 @@ country_event = {
 	}
 }
 
-country_event = {
+##政策被批评 ##工党进口 ##TODO
+unit_leader_event = {
 	id = eng_core.5
 	title = eng_core.5.title
 	desc = eng_core.5.desc
 	immediate = {
+		hidden_effect = {
+			ENG_kayneth_el_melloi_archibald = {
+				unit_leader_event = {
+					id = eng_trigger.1
+					days = 120
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##放弃
 	option = {
 		name = eng_core.5.a
 		trigger = {
+			always = no
 		}
+		add_political_power = 100
 		ai_chance = {
 			base = 1
 		}
 	}
+	##更多经费
 	option = {
 		name = eng_core.5.b
 		trigger = {
 		}
+		add_political_power = -100
+		720 = {
+			add_one_civilian_factory = yes
+			add_one_civilian_factory = yes
+		}
+		##红色支持率大于0.2
+		if = {
+			limit = {
+				communism > 0.2
+			}
+			ENG_robinhood_sherwood = {
+				unit_leader_event = {
+					id = eng_core.31
+					days = 15
+				}
+			}
+		}
+		else = {
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.05
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
+	##暂停
 	option = {
 		name = eng_core.5.c
 		trigger = {
+		}
+		##TODO
+		add_timed_idea = {
+			idea = ENG_chaledean_postpone_idea
+			days = 360
+		}
+		add_political_power = 50
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
 		}
 		ai_chance = {
 			base = 1
@@ -180,7 +288,8 @@ country_event = {
 	}
 }
 
-country_event = {
+##保守派
+unit_leader_event = {
 	id = eng_core.6
 	title = eng_core.6.title
 	desc = eng_core.6.desc
@@ -189,25 +298,39 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##搞一点点
 	option = {
 		name = eng_core.6.a
 		trigger = {
 		}
+		##这有个idea要swap一下
+		add_stability = -0.05
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
+	##全面征兵
 	option = {
 		name = eng_core.6.b
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		##这有个idea要swap一下
+		add_stability = -0.1
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.1
 		}
-	}
-	option = {
-		name = eng_core.6.c
-		trigger = {
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.1
 		}
 		ai_chance = {
 			base = 1
@@ -215,7 +338,8 @@ country_event = {
 	}
 }
 
-country_event = {
+##自由派：要不要征兵
+unit_leader_event = {
 	id = eng_core.7
 	title = eng_core.7.title
 	desc = eng_core.7.desc
@@ -224,25 +348,59 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##不征兵
 	option = {
 		name = eng_core.7.a
 		trigger = {
 		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+		add_political_power = 50
 		ai_chance = {
 			base = 1
 		}
 	}
+	##搞一点点
 	option = {
 		name = eng_core.7.b
 		trigger = {
 		}
+		##这有个idea要swap一下
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
+	##全面征兵
 	option = {
 		name = eng_core.7.c
 		trigger = {
+		}
+		##这有个idea要swap一下
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.2
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.1
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.1
 		}
 		ai_chance = {
 			base = 1
@@ -250,6 +408,8 @@ country_event = {
 	}
 }
 
+##卖不卖捷克？
+##Trigger by GER focus
 country_event = {
 	id = eng_core.8
 	title = eng_core.8.title
@@ -259,6 +419,7 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##Nope
 	option = {
 		name = eng_core.8.a
 		trigger = {
@@ -266,7 +427,10 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		add_political_power = 25
+		give_guarantee = CZE
 	}
+	##Sad
 	option = {
 		name = eng_core.8.b
 		trigger = {
@@ -274,17 +438,12 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
-	}
-	option = {
-		name = eng_core.8.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
+		add_war_support = -0.05
 	}
 }
 
+##卖不卖波兰？
+##Trigger by GER focus
 country_event = {
 	id = eng_core.9
 	title = eng_core.9.title
@@ -294,33 +453,31 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##Nope
 	option = {
 		name = eng_core.9.a
 		trigger = {
 		}
+		add_political_power = 25
+		give_guarantee = POL
 		ai_chance = {
 			base = 1
 		}
 	}
+	##Sad
 	option = {
 		name = eng_core.9.b
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.9.c
-		trigger = {
-		}
+		add_war_support = -0.05
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+##肯尼斯对奥尔加的不信任动议
+unit_leader_event = {
 	id = eng_core.10
 	title = eng_core.10.title
 	desc = eng_core.10.desc
@@ -333,21 +490,43 @@ country_event = {
 		name = eng_core.10.a
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		add_stability = -0.1
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
 		}
-	}
-	option = {
-		name = eng_core.10.b
-		trigger = {
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.1
 		}
-		ai_chance = {
-			base = 1
+		promote_character = {
+			character = ENG_kayneth_el_melloi_archibald
+			ideology = conservatism
 		}
-	}
-	option = {
-		name = eng_core.10.c
-		trigger = {
+		set_party_name = {
+			ideology = democratic
+			long_name = ENG_democratic_conservative_party_long
+			name = ENG_democratic_conservative_party
+		}
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = authoritarianism
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = ENG_royal_supporter_party_long
+			name = ENG_royal_supporter_party_long
+		}
+		activate_advisor = ENG_bram_nuadare_sophiari_special_first
+		activate_advisor = ENG_solaui_nuadare_sophiari_special_second
+		activate_advisor = ENG_reines_el_melloi_archisorte_special_third
+		activate_advisor = ENG_waver_velvet_el_melloi_archisorte_special_fourth
+		activate_advisor = ENG_rufleus_nuadare_eulyphis_special_fifth
+		ENG_kayneth_el_melloi_archibald = {
+			unit_leader_event = {
+				id = eng_core.6
+				days = 30
+			}
 		}
 		ai_chance = {
 			base = 1
@@ -355,11 +534,20 @@ country_event = {
 	}
 }
 
-country_event = {
+##肯主任之死
+unit_leader_event = {
 	id = eng_core.11
 	title = eng_core.11.title
 	desc = eng_core.11.desc
 	immediate = {
+		hidden_effect = {
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.13
+					days = 14
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -371,6 +559,15 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		ENG_kayneth_el_melloi_archibald = {
+			remove_unit_leader_role = yes
+		}
+		deactivate_advisor = ENG_kayneth_el_melloi_archibald_special_first
+		##领袖更换为议会
+		promote_character = {
+			character = ENG_parliament
+			ideology = classical_liberalism
+		}
 	}
 	option = {
 		name = eng_core.11.b
@@ -379,18 +576,21 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
-	}
-	option = {
-		name = eng_core.11.c
-		trigger = {
+		ENG_kayneth_el_melloi_archibald = {
+			remove_unit_leader_role = yes
 		}
-		ai_chance = {
-			base = 1
+		deactivate_advisor = ENG_kayneth_el_melloi_archibald_special_first
+		##领袖更换为议会
+		promote_character = {
+			character = ENG_parliament
+			ideology = classical_liberalism
 		}
 	}
 }
 
-country_event = {
+##对肯主任的不信任动议
+##波捷均Game Over
+unit_leader_event = {
 	id = eng_core.12
 	title = eng_core.12.title
 	desc = eng_core.12.desc
@@ -403,21 +603,40 @@ country_event = {
 		name = eng_core.12.a
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = conservatism
 		}
-	}
-	option = {
-		name = eng_core.12.b
-		trigger = {
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = authoritarianism
 		}
-		ai_chance = {
-			base = 1
+		set_party_name = {
+			ideology = neutrality
+			long_name = ENG_royal_supporter_party_long
+			name = ENG_royal_supporter_party
 		}
-	}
-	option = {
-		name = eng_core.12.c
-		trigger = {
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		deactivate_advisor = ENG_artoria_pendragon_special_political_advisor
+		whiteline = yes
+		activate_advisor = ENG_morgan_le_fay_special_first
+		whiteline = yes
+		activate_advisor = ENG_myrddin_wyllt_special_first
+		whiteline = yes
+		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		whiteline = yes
+		activate_advisor = ENG_galahad_pelles_special_fourth
+		whiteline = yes
+		activate_advisor = ENG_barthomeloi_lorelei_special_fifth
+		whiteline = yes
+		ENG_morgan_le_fay = {
+			unit_leader_event = {
+				id = eng_core.14
+				days = 14
+			}
 		}
 		ai_chance = {
 			base = 1
@@ -425,11 +644,20 @@ country_event = {
 	}
 }
 
-country_event = {
+##国王掌权
+unit_leader_event = {
 	id = eng_core.13
 	title = eng_core.13.title
 	desc = eng_core.13.desc
 	immediate = {
+		hidden_effect = {
+			ENG_myrddin_wyllt = {
+				unit_leader_event = {
+					id = eng_core.14
+					days = 14
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -438,6 +666,34 @@ country_event = {
 		name = eng_core.13.a
 		trigger = {
 		}
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = conservatism
+		}
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = authoritarianism
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = ENG_royal_supporter_party_long
+			name = ENG_royal_supporter_party
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		deactivate_advisor = ENG_artoria_pendragon_special_political_advisor
+		whiteline = yes
+		activate_advisor = ENG_morgan_le_fay_special_first
+		whiteline = yes
+		activate_advisor = ENG_myrddin_wyllt_special_first
+		whiteline = yes
+		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		whiteline = yes
+		activate_advisor = ENG_galahad_pelles_special_fourth
+		whiteline = yes
+		activate_advisor = ENG_barthomeloi_lorelei_special_fifth
 		ai_chance = {
 			base = 1
 		}
@@ -446,21 +702,42 @@ country_event = {
 		name = eng_core.13.b
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = conservatism
 		}
-	}
-	option = {
-		name = eng_core.13.c
-		trigger = {
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = authoritarianism
 		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = ENG_royal_supporter_party_long
+			name = ENG_royal_supporter_party
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		deactivate_advisor = ENG_artoria_pendragon_special_political_advisor
+		whiteline = yes
+		activate_advisor = ENG_morgan_le_fay_special_first
+		whiteline = yes
+		activate_advisor = ENG_myrddin_wyllt_special_first
+		whiteline = yes
+		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		whiteline = yes
+		activate_advisor = ENG_galahad_pelles_special_fourth
+		whiteline = yes
+		activate_advisor = ENG_barthomeloi_lorelei_special_fifth
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+##要不要王党
+unit_leader_event = {
 	id = eng_core.14
 	title = eng_core.14.title
 	desc = eng_core.14.desc
@@ -469,25 +746,64 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##Okay
 	option = {
 		name = eng_core.14.a
 		trigger = {
 		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.2
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.2
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = ENG_hmmlg_party_long
+			name = ENG_hmmlg_party
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = ENG_hmmlo_party_long
+			name = ENG_hmmlo_party
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
+	##Nope
 	option = {
 		name = eng_core.14.b
 		trigger = {
 		}
-		ai_chance = {
-			base = 1
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = conservatism
 		}
-	}
-	option = {
-		name = eng_core.14.c
-		trigger = {
+		set_party_name = {
+			ideology = democratic
+			long_name = ENG_royal_supporter_party_long
+			name = ENG_royal_supporter_party
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.2
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.2
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = ENG_hmmlg_party_long
+			name = ENG_hmmlg_party
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = ENG_hmmlo_party_long
+			name = ENG_hmmlo_party
 		}
 		ai_chance = {
 			base = 1
@@ -495,6 +811,8 @@ country_event = {
 	}
 }
 
+##15-28是完整的事件链
+##总动员
 country_event = {
 	id = eng_core.15
 	title = eng_core.15.title
@@ -520,14 +838,6 @@ country_event = {
 			base = 1
 		}
 	}
-	option = {
-		name = eng_core.15.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
 country_event = {
@@ -541,22 +851,6 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = eng_core.16.a
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.16.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.16.c
 		trigger = {
 		}
 		ai_chance = {
@@ -603,7 +897,21 @@ country_event = {
 country_event = {
 	id = eng_core.18
 	title = eng_core.18.title
-	desc = eng_core.18.desc
+	desc = eng_core.18.desc_def
+	desc = {
+		text = eng_core.18.desc_off
+		trigger = {
+			ROOT = {
+				surrender_progress < 0.01
+			}
+			any_enemy_country = {
+				any_owned_state = {
+					is_controlled_by_ROOT_or_ally = yes
+				}
+				surrender_progress > 0.01
+			}
+		}
+	}
 	immediate = {
 	}
 	picture = GFX_report_event_generic_diplomacy1
@@ -619,14 +927,6 @@ country_event = {
 	}
 	option = {
 		name = eng_core.18.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.18.c
 		trigger = {
 		}
 		ai_chance = {
@@ -660,14 +960,6 @@ country_event = {
 			base = 1
 		}
 	}
-	option = {
-		name = eng_core.19.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
 country_event = {
@@ -695,14 +987,6 @@ country_event = {
 			base = 1
 		}
 	}
-	option = {
-		name = eng_core.20.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
 country_event = {
@@ -724,14 +1008,6 @@ country_event = {
 	}
 	option = {
 		name = eng_core.21.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.21.c
 		trigger = {
 		}
 		ai_chance = {
@@ -792,22 +1068,6 @@ country_event = {
 			base = 1
 		}
 	}
-	option = {
-		name = eng_core.23.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.23.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
 country_event = {
@@ -821,22 +1081,6 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = eng_core.24.a
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.24.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.24.c
 		trigger = {
 		}
 		ai_chance = {
@@ -862,22 +1106,6 @@ country_event = {
 			base = 1
 		}
 	}
-	option = {
-		name = eng_core.25.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.25.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
 country_event = {
@@ -891,22 +1119,6 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = eng_core.26.a
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.26.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.26.c
 		trigger = {
 		}
 		ai_chance = {
@@ -932,22 +1144,6 @@ country_event = {
 			base = 1
 		}
 	}
-	option = {
-		name = eng_core.27.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.27.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
 country_event = {
@@ -967,25 +1163,11 @@ country_event = {
 			base = 1
 		}
 	}
-	option = {
-		name = eng_core.28.b
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
-	option = {
-		name = eng_core.28.c
-		trigger = {
-		}
-		ai_chance = {
-			base = 1
-		}
-	}
 }
 
-country_event = {
+##29-32是关于工党的
+##工党进政府?
+unit_leader_event = {
 	id = eng_core.29
 	title = eng_core.29.title
 	desc = eng_core.29.desc
@@ -994,28 +1176,408 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##No
 	option = {
 		name = eng_core.29.a
 		trigger = {
 		}
+		add_political_power = 50
 		ai_chance = {
 			base = 1
 		}
 	}
+	##Yes
 	option = {
 		name = eng_core.29.b
 		trigger = {
 		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.1
+		}
+		##激活罗宾汉-童谣
+		activate_advisor = ENG_robinhood_sherwood_special_first
+		activate_advisor = ENG_nursery_rhyme_special_second
 		ai_chance = {
 			base = 1
 		}
 	}
+}
+
+##不信任动议被打回
+unit_leader_event = {
+	id = eng_core.30
+	title = eng_core.30.title
+	desc = eng_core.30.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
 	option = {
-		name = eng_core.29.c
+		name = eng_core.30.a
 		trigger = {
+		}
+		add_political_power = 50
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.05
 		}
 		ai_chance = {
 			base = 1
+		}
+	}
+}
+
+##工党对奥尔加的不信任动议
+unit_leader_event = {
+	id = eng_core.31
+	title = eng_core.31.title
+	desc = eng_core.31.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		ENG_has_olga_marie_trigger = yes
+	}
+	option = {
+		name = eng_core.31.a
+		trigger = {
+		}
+		promote_character = {
+			character = ENG_robinhood_sherwood
+			ideology = social_democracy
+		}
+		add_stability = -0.1
+		set_party_name = {
+			ideology = democratic
+			long_name = ENG_democratic_labour_party_long
+			name = ENG_democratic_labour_party
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		whiteline = yes
+		activate_advisor = ENG_dan_blackmore_special_first
+		whiteline = yes
+		activate_advisor = ENG_nursery_rhyme_special_second
+		whiteline = yes
+		activate_advisor = ENG_william_shakespeare_special_third
+		whiteline = yes
+		activate_advisor = ENG_mash_kyrielight_pelles_special_fourth
+		whiteline = yes
+		activate_advisor = ENG_karmagliph_meluastea_dulrcoc_special_fifth
+		hidden_effect = {
+			##斗争白热化
+			promote_character = {
+				character = ENG_artoria_pendragon
+				ideology = authoritarianism
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = ENG_neutrality_party_long
+				name = ENG_neutrality_party
+			}
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.32
+					days = 120
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##国王对工党的不信任动议
+unit_leader_event = {
+	id = eng_core.32
+	title = eng_core.32.title
+	desc = eng_core.32.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		##没削弱劳保
+		NOT = {
+			has_completed_focus = ENG_socialist_science_pool
+			has_completed_focus = ENG_spirit_of_the_industrial_revolution
+		}
+	}
+	option = {
+		name = eng_core.32.a
+		trigger = {
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.3
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.3
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		deactivate_advisor = ENG_artoria_pendragon_special_political_advisor
+		whiteline = yes
+		activate_advisor = ENG_morgan_le_fay_special_first
+		whiteline = yes
+		activate_advisor = ENG_myrddin_wyllt_special_first
+		whiteline = yes
+		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		whiteline = yes
+		activate_advisor = ENG_galahad_pelles_special_fourth
+		whiteline = yes
+		activate_advisor = ENG_barthomeloi_lorelei_special_fifth
+		whiteline = yes
+		ENG_morgan_le_fay = {
+			unit_leader_event = {
+				id = eng_core.14
+				days = 14
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+add_namespace = eng_trigger
+##军备废弛触发器
+##这是必然由事件触发的
+##不是隐藏事件
+unit_leader_event = {
+	id = eng_trigger.1
+	title = eng_trigger.1.title
+	desc = eng_trigger.1.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		ENG_has_olga_marie_trigger = yes
+	}
+	##没有和工党联盟
+	option = {
+		name = eng_trigger.1.a
+		trigger = {
+			NOT = {
+				has_idea = ENG_robinhood_sherwood_special_first
+			}
+		}
+		##Agenda完成了多少啊？
+		if = {
+			limit = {
+				count_triggers = {
+					amount = 2
+					has_completed_focus = ENG_secret_research
+					has_completed_focus = ENG_modernized_lab
+					has_completed_focus = ENG_cooperate_with_japan
+					has_completed_focus = ENG_british_austerity
+				}
+			}
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_core.30
+					days = 7
+				}
+			}
+		}
+		##对不起再见
+		else = {
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_core.10
+					days = 7
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	##和工党联盟
+	option = {
+		name = eng_trigger.1.b
+		trigger = {
+			has_idea = ENG_robinhood_sherwood_special_first
+		}
+		##Agenda完成了多少啊？
+		if = {
+			limit = {
+				if = {
+					limit = {
+						has_completed_focus = ENG_spirit_of_the_industrial_revolution
+					}
+					count_triggers = {
+						amount = 1
+						has_completed_focus = ENG_secret_research
+						has_completed_focus = ENG_modernized_lab
+						has_completed_focus = ENG_cooperate_with_japan
+						has_completed_focus = ENG_british_austerity
+					}
+				}
+				else = {
+					count_triggers = {
+						amount = 2
+						has_completed_focus = ENG_secret_research
+						has_completed_focus = ENG_modernized_lab
+						has_completed_focus = ENG_cooperate_with_japan
+						has_completed_focus = ENG_british_austerity
+					}
+				}
+			}
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_core.30
+					days = 7
+				}
+			}
+		}
+		##对不起再见
+		else = {
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_core.10
+					days = 7
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+##不是隐藏事件
+country_event = {
+	id = eng_trigger.2
+	title = eng_trigger.2.title
+	desc = eng_trigger.2.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	fire_only_once = yes
+	mean_time_to_happen = {
+		days = 1
+	}
+	trigger = {
+		has_war = yes
+		has_government = democratic
+		ENG_has_kayneth_trigger = yes
+		##欧洲的敌人
+		date > 1938.1.1
+		date < 1940.1.1
+		OR = {
+			AND = {
+				FRA = {
+					surrender_progress < 0.1
+					is_ally_with = ENG
+				}
+				any_enemy_country = {
+					OR = {
+						tag = GER
+						tag = HOL
+					}
+				}
+			}
+			FRA = {
+				has_war_with = ENG
+				any_owned_state = {
+					is_on_continent = europe
+					is_controlled_by_ROOT_or_ally = yes
+				}
+			}
+		}
+	}
+	##让他去
+	option = {
+		name = eng_trigger.2.a
+		trigger = {
+		}
+		add_war_support = 0.05
+		hidden_effect = {
+			ENG_kayneth_el_melloi_archibald = {
+				unit_leader_event = {
+					id = eng_core.11
+					days = 7
+				}
+			}
+		}
+	}
+	##算了吧
+	option = {
+		name = eng_trigger.2.b
+		trigger = {
+		}
+		ENG_kayneth_el_melloi_archibald = {
+			add_timed_unit_leader_trait = {
+				trait = sick
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {
+	id = eng_trigger.3
+	title = eng_trigger.3.title
+	desc = eng_trigger.3.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+	mean_time_to_happen = {
+		days = 1
+	}
+	trigger = {
+		ENG_has_kayneth_trigger = yes
+		GER = {
+			is_faction_leader = yes
+			NOT = {
+				is_in_faction_with = ROOT
+			}
+			NOT = {
+				has_war_with = ROOT
+			}
+		}
+		9 = {
+			is_controlled_by_PREV_or_ally = yes
+		}
+		10 = {
+			is_controlled_by_PREV_or_ally = yes
+		}
+	}
+	##让他去
+	option = {
+		name = eng_trigger.3.a
+		trigger = {
+		}
+		ENG_artoria_pendragon = {
+			unit_leader_event = {
+				id = eng_core.12
+				days = 7
+			}
 		}
 	}
 }
