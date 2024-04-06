@@ -9,22 +9,34 @@ focus_tree = {
 		}
 	}
 	continuous_focus_position = {
-		x = 150
-		y = 2400
+		x = 225
+		y = 2900
 	}
 	default = no
 	focus = {
 		id = ENG_restructure_the_government
 		icon = GFX_focus_ENG_divide_the_parties
-		prerequisite = {
-			focus = ENG_round_table_focus
-		}
-		x = 11
+		x = 14
 		y = 1
 		relative_position_id = ENG_round_table_focus
 		available = {
+			##通过第二轮不信任动议或者肯主任死了解锁此路线
+			ENG_has_saber_trigger = yes
+			has_completed_focus = ENG_motion_of_no_confidence
+			NOT = {
+				has_completed_focus = ENG_reinforce_the_king_focus
+			}
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = ENG_restructure_the_government_tt
+					check_variable = {
+						ENG_motion_of_no_confidence_checker > 1
+					}
+				}
+				ENG_kayneth_is_dead_trigger = yes
+			}
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -41,9 +53,14 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_restructure_the_government
 		available = {
-			neutrality > 0.4
+			custom_trigger_tooltip = {
+				hidden_trigger = {
+					always = no
+				}
+				tooltip = ENG_auto_bypass_tt
+			}
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -61,7 +78,7 @@ focus_tree = {
 		relative_position_id = ENG_power_to_the_imperial_loyalists
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -72,11 +89,11 @@ focus_tree = {
 		id = ENG_emergency_powers
 		icon = GFX_focus_generic_military_dictatorship
 		prerequisite = {
-			focus = ENG_restructure_the_government
+			focus = ENG_london_incident_focus
 		}
-		x = 2
+		x = 1
 		y = 1
-		relative_position_id = ENG_restructure_the_government
+		relative_position_id = ENG_london_incident_focus
 		# allow_branch = {
 		# 	NOT = {
 		# 		ENG_alter_show_alter_path_trigger = yes
@@ -86,7 +103,7 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -99,14 +116,17 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_emergency_powers
 		}
+		prerequisite = {
+			focus = ENG_the_british_path_to_fascism
+		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = ENG_emergency_powers
 		available = {
 		}
 		bypass = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -117,19 +137,89 @@ focus_tree = {
 		id = ENG_match_against_darkness_focus
 		icon = GFX_focus_FRA_abolish_death_penalty
 		prerequisite = {
-			focus = ENG_renounce_bill_focus
+			focus = ENG_ideal_king_focus
 		}
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = ENG_renounce_bill_focus
+		relative_position_id = ENG_ideal_king_focus
 		available = {
-		}
-		mutually_exclusive = {
-			focus = ENG_darkened_focus
+			custom_trigger_tooltip = {
+				hidden_trigger = {
+					always = no
+				}
+				tooltip = ENG_auto_bypass_tt
+			}
 		}
 		bypass = {
 		}
-		cost = 3
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	focus = {
+		id = ENG_barrier_of_the_wind_king
+		icon = GFX_focue_generic_anti_air
+		prerequisite = {
+			focus = ENG_radiant_path_focus
+		}
+		x = 0
+		y = 1
+		relative_position_id = ENG_radiant_path_focus
+		available = {
+		}
+		offset = {
+		}
+		bypass = {
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = ENG_dragon_reactor_core
+		icon = GFX_focus_ROM_order_of_dragon
+		prerequisite = {
+			focus = ENG_barrier_of_the_wind_king
+		}
+		x = 0
+		y = 1
+		relative_position_id = ENG_barrier_of_the_wind_king
+		available = {
+		}
+		offset = {
+		}
+		bypass = {
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = ENG_sword_of_promised_victory
+		icon = GFX_focus_ENG_roundtable
+		prerequisite = {
+			focus = ENG_dragon_reactor_core
+		}
+		x = 0
+		y = 1
+		relative_position_id = ENG_dragon_reactor_core
+		available = {
+		}
+		offset = {
+		}
+		bypass = {
+		}
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -140,23 +230,63 @@ focus_tree = {
 		id = ENG_darkened_focus
 		icon = GFX_focus_ENG_saberalter
 		prerequisite = {
-			focus = ENG_renounce_bill_focus
+			focus = ENG_restructure_the_government
 		}
-		mutually_exclusive = {
-			focus = ENG_match_against_darkness_focus
-		}
-		x = -1
+		x = 2
 		y = 1
-		relative_position_id = ENG_renounce_bill_focus
+		relative_position_id = ENG_restructure_the_government
 		available = {
+			custom_trigger_tooltip = {
+				hidden_trigger = {
+					always = no
+				}
+				tooltip = ENG_auto_bypass_tt
+			}
 		}
 		bypass = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			promote_character = {
+				character = ENG_artoria_pendragon_alter
+				ideology = rexism
+			}
+			ENG_artoria_pendragon = {
+				remove_unit_leader_role = yes
+				remove_advisor_role = {
+					slot = special_political_advisor
+				}
+			}
+			ENG_artoria_pendragon_alter = {
+				add_field_marshal_role = {
+					traits = {
+						politically_connected
+						war_hero
+						harsh_leader
+						trait_reckless
+						trickster
+						brilliant_strategist
+						skilled_staffer
+						cavalry_officer
+						cavalry_leader
+						combined_arms_expert
+						british_roundtable_commander
+					}
+					skill = 5
+					attack_skill = 8
+					defense_skill = 4
+					planning_skill = 4
+					logistics_skill = 3
+				}
+			}
 		}
 	}
 	focus = {
@@ -164,16 +294,16 @@ focus_tree = {
 		icon = GFX_focus_FRA_end_parliamentarism
 		prerequisite = {
 			focus = ENG_darkened_focus
-			focus = ENG_match_against_darkness_focus
+			##focus = ENG_match_against_darkness_focus
 		}
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = ENG_darkened_focus
 		available = {
 		}
 		bypass = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -192,7 +322,7 @@ focus_tree = {
 		relative_position_id = ENG_the_kings_party
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -204,14 +334,20 @@ focus_tree = {
 		id = ENG_round_table_new_government_focus
 		icon = GFX_focus_generic_monarchism1
 		prerequisite = {
+			focus = ENG_return_to_the_sovereign
+		}
+		prerequisite = {
 			focus = ENG_merlin_cabinet_focus
+		}
+		mutually_exclusive = {
+			focus = ENG_reintroduce_elections
 		}
 		x = 0
 		y = 2
 		relative_position_id = ENG_merlin_cabinet_focus
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -223,24 +359,20 @@ focus_tree = {
 		id = ENG_god_save_the_king
 		icon = GFX_focus_ENG_alter
 		prerequisite = {
-			focus = ENG_restructure_the_government
+			focus = ENG_hearts_of_oak
 		}
-		x = 4
+		prerequisite = {
+			focus = ENG_defend_against_communism_focus
+		}
+		prerequisite = {
+			focus = ENG_renounce_bill_focus
+		}
+		x = 1
 		y = 1
-		relative_position_id = ENG_restructure_the_government
+		relative_position_id = ENG_hearts_of_oak
 		available = {
 		}
-		# allow_branch = {
-		# 	ENG_alter_show_alter_path_trigger = yes
-		# }
-		# offset = {
-		# 	x = -2
-		# 	y = 0
-		# 	trigger = {
-		# 		ENG_alter_show_alter_path_trigger = yes
-		# 	}
-		# }
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -252,14 +384,14 @@ focus_tree = {
 		id = ENG_enact_the_mosley_manifesto
 		icon = GFX_focus_ENG_mosley_manifesto
 		prerequisite = {
-			focus = ENG_god_save_the_king
+			focus = ENG_london_incident_focus
 		}
-		x = 0
+		x = -1
 		y = 1
-		relative_position_id = ENG_god_save_the_king
+		relative_position_id = ENG_london_incident_focus
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -273,12 +405,12 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_enact_the_mosley_manifesto
 		}
-		x = 0
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = ENG_enact_the_mosley_manifesto
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -290,14 +422,14 @@ focus_tree = {
 		id = ENG_defend_against_communism_focus
 		icon = GFX_focus_generic_destroy_communism
 		prerequisite = {
-			focus = ENG_the_british_path_to_fascism
+			focus = ENG_enact_the_mosley_manifesto
 		}
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = ENG_the_british_path_to_fascism
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -316,7 +448,7 @@ focus_tree = {
 		relative_position_id = ENG_restructure_the_government
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -328,13 +460,24 @@ focus_tree = {
 		icon = GFX_focus_ENG_cabinet7
 		prerequisite = {
 			focus = ENG_restructure_the_government
+			focus = ENG_Empire_Mobilization_focus
 		}
-		x = -4
+		x = -7
 		y = 1
 		relative_position_id = ENG_restructure_the_government
 		available = {
+			ENG_has_saber_trigger = yes
+			has_completed_focus = ENG_match_against_darkness_focus
+			##打死了再说
+			GER = {
+				OR = {
+					is_major = no
+					is_faction_leader = no
+					has_capitulated = yes
+				}
+			}
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -352,7 +495,7 @@ focus_tree = {
 		relative_position_id = ENG_king_for_once_and_future_focus
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -366,11 +509,11 @@ focus_tree = {
 			focus = ENG_Pax_Britannica
 		}
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = ENG_Pax_Britannica
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -390,8 +533,11 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_new_imperial_parliament
 		available = {
+			NOT = {
+				has_completed_focus = ENG_the_kings_party
+			}
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -411,8 +557,9 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_new_imperial_parliament
 		available = {
+			has_completed_focus = ENG_the_kings_party
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -431,7 +578,7 @@ focus_tree = {
 		relative_position_id = ENG_round_table_new_government_focus
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -444,14 +591,18 @@ focus_tree = {
 		id = ENG_reintroduce_elections
 		icon = GFX_focus_generic_elections
 		prerequisite = {
+			focus = ENG_return_to_the_sovereign
 			focus = ENG_continue_parliamentry_sovereignty
+		}
+		mutually_exclusive = {
+			focus = ENG_round_table_new_government_focus
 		}
 		x = -1
 		y = 1
 		relative_position_id = ENG_return_to_the_sovereign
 		available = {
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -461,17 +612,18 @@ focus_tree = {
 	#
 	focus = {
 		id = ENG_concessions_to_the_trade_unions
-		icon = GFX_focus_eng_concessions_to_the_trade_unions
+		icon = GFX_focus_ENG_war_works
 		prerequisite = {
 			focus = ENG_not_steady_as_she_goes
 		}
-		x = -3
+		x = -4
 		y = 1
 		relative_position_id = ENG_not_steady_as_she_goes
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -480,21 +632,26 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
 		}
 	}
 	focus = {
 		id = ENG_for_the_good_of_the_revolution
-		icon = GFX_focus_ENG_war_works
+		icon = GFX_focus_generic_ideology_radical_socialist
 		prerequisite = {
-			focus = ENG_not_steady_as_she_goes
+			focus = ENG_concessions_to_the_trade_unions
 		}
-		x = -5
+		x = -1
 		y = 1
-		relative_position_id = ENG_not_steady_as_she_goes
+		relative_position_id = ENG_concessions_to_the_trade_unions
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_leader_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -515,9 +672,10 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_for_the_good_of_the_revolution
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_leader_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -538,9 +696,10 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_eliminate_the_upper_class
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_leader_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -555,15 +714,16 @@ focus_tree = {
 		id = ENG_socialist_science_pool
 		icon = GFX_focus_SOV_superior_war_machines
 		prerequisite = {
-			focus = ENG_tackle_capitalism
+			focus = ENG_spirit_of_the_industrial_revolution
 		}
 		x = 0
 		y = 1
-		relative_position_id = ENG_tackle_capitalism
+		relative_position_id = ENG_spirit_of_the_industrial_revolution
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -572,24 +732,26 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
 		}
 	}
 	focus = {
 		id = ENG_tackle_fascism
 		icon = GFX_focus_ENG_the_revolutions_most_loyal_defenders
 		prerequisite = {
-			focus = ENG_spirit_of_the_industrial_revolution
+			focus = ENG_tackle_capitalism
 		}
-		prerequisite = {
-			focus = ENG_socialist_science_pool
-		}
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = ENG_socialist_science_pool
+		relative_position_id = ENG_tackle_capitalism
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_leader_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -606,16 +768,20 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_tackle_fascism
 		}
+		prerequisite = {
+			focus = ENG_socialist_science_pool
+		}
 		mutually_exclusive = {
 			focus = ENG_liberate_the_home_of_marx
 		}
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = ENG_tackle_fascism
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_leader_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -632,16 +798,20 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_tackle_fascism
 		}
+		prerequisite = {
+			focus = ENG_socialist_science_pool
+		}
 		mutually_exclusive = {
 			focus = ENG_the_british_communist_alternative
 		}
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = ENG_tackle_fascism
 		available = {
-			is_subject = no
+			has_left_wing_government = yes
+			ENG_has_robin_leader_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -658,16 +828,22 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_concessions_to_the_trade_unions
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = ENG_concessions_to_the_trade_unions
 		available = {
+			has_left_wing_government = yes
+			ENG_has_robin_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
 		}
 	}
 	focus = {
@@ -680,12 +856,18 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_increase_social_spending
 		available = {
+			has_left_wing_government = yes
+			ENG_has_robin_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
 		}
 	}
 	focus = {
@@ -698,25 +880,32 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_social_welfare
 		available = {
+			has_left_wing_government = yes
+			ENG_has_robin_trigger = yes
 		}
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
 			add_ideas = ENG_spirit_of_the_industrial_revolution_idea
 		}
 	}
 	focus = {
 		id = ENG_industrial_focus
 		icon = GFX_focus_generic_bankruptcy
-		cost = 5
+		cost = 4
 		x = 9
 		y = 1
 		relative_position_id = ENG_not_steady_as_she_goes
 		prerequisite = {
 			focus = ENG_not_steady_as_she_goes
 		}
+		##开局消Debuff吧
 		ai_will_do = {
 			factor = 10
 		}
@@ -725,10 +914,10 @@ focus_tree = {
 			add_tech_bonus = {
 				name = industrial_bonus
 				bonus = 1
-				ahead_reduction = 0.75
 				uses = 2
 				category = industry
 			}
+			ENG_black_monday_down_effect = yes
 		}
 	}
 	focus = {
@@ -1073,7 +1262,7 @@ focus_tree = {
 	focus = {
 		id = ENG_kickstart_the_war_industry
 		icon = GFX_focus_generic_armed_neutrality
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_general_rearmament_focus
 		}
@@ -1084,6 +1273,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = ENG_modernize_the_royal_army
 		available = {
+			threat > 0.2
 		}
 		continue_if_invalid = yes
 		ai_will_do = {
@@ -1176,7 +1366,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_ground_rearmament_focus
 		available = {
-			threat > 0.1
+			threat > 0.15
 		}
 		continue_if_invalid = yes
 		ai_will_do = {
@@ -1197,7 +1387,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_kickstart_the_war_industry
 		available = {
-			threat > 0.1
+			threat > 0.25
 		}
 		#at war with major or ger in rhineland or high threat
 		ai_will_do = {
@@ -1285,20 +1475,10 @@ focus_tree = {
 		}
 		available = {
 			threat > 0.05
+			ENG_economic_crisis_end_trigger = yes
+			has_completed_focus = ENG_british_austerity
 		}
 		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = construction_effort_tt
-				NOT = {
-					any_owned_state = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-				}
-			}
 		}
 		available_if_capitulated = yes
 		cancel_if_invalid = no
@@ -1393,7 +1573,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_fuel_the_war_industry
 		available = {
-			threat > 0.2
+			threat > 0.4
 		}
 		continue_if_invalid = yes
 		available_if_capitulated = yes
@@ -1401,8 +1581,7 @@ focus_tree = {
 			factor = 900
 		}
 		completion_reward = {
-			custom_effect_tooltip = ENG_shadow_scheme_focus_tt
-			add_ideas = wartime_industry_focus
+			remove_ideas = ENG_the_war_to_end_all_wars
 		}
 	}
 	focus = {
@@ -1416,7 +1595,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_the_war_office
 		available = {
-			threat > 0.2
+			threat > 0.3
 		}
 		continue_if_invalid = yes
 		available_if_capitulated = yes
@@ -1439,7 +1618,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_shadow_scheme_focus
 		available = {
-			threat > 0.2
+			threat > 0.25
 		}
 		continue_if_invalid = yes
 		available_if_capitulated = yes
@@ -1482,6 +1661,7 @@ focus_tree = {
 			focus = ENG_general_rearmament_focus
 		}
 		available = {
+			threat > 0.3
 			NOT = {
 				has_country_leader = {
 					ruling_only = yes
@@ -1568,6 +1748,7 @@ focus_tree = {
 			focus = ENG_new_military_projections
 		}
 		available = {
+			threat > 0.25
 			controls_state = 122
 			has_country_leader = {
 				character = ENG_artoria_pendragon
@@ -1605,7 +1786,7 @@ focus_tree = {
 	focus = {
 		id = ENG_CBI
 		icon = GFX_focus_ENG_cbi
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = ENG_industrial_focus
 		}
@@ -1621,12 +1802,15 @@ focus_tree = {
 			add_ideas = {
 				ENG_CBI
 			}
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			ENG_black_monday_down_effect = yes
 		}
 	}
 	focus = {
 		id = ENG_privatize_the_housing_market
 		icon = GFX_focus_generic_privatization
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = ENG_industrial_focus
 		}
@@ -1639,12 +1823,15 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_industrial_focus
 		completion_reward = {
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			ENG_black_monday_down_effect = yes
 		}
 	}
 	focus = {
 		id = ENG_government_loans
 		icon = GFX_focus_generic_banking_legislation
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = ENG_privatize_the_housing_market
 		}
@@ -1657,12 +1844,14 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_privatize_the_housing_market
 		completion_reward = {
+			add_political_power = 100
+			ENG_black_monday_down_effect = yes
 		}
 	}
 	focus = {
 		id = ENG_lower_interest_rates
 		icon = GFX_focus_generic_food_processing
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = ENG_approve_new_construction_projects
 		}
@@ -1675,12 +1864,14 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_approve_new_construction_projects
 		completion_reward = {
+			add_stability = 0.05
+			ENG_black_monday_down_effect = yes
 		}
 	}
 	focus = {
 		id = ENG_approve_new_construction_projects
 		icon = GFX_focus_generic_improvised_farming_machinery
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = ENG_industrial_focus
 		}
@@ -1693,12 +1884,15 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_industrial_focus
 		completion_reward = {
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			ENG_black_monday_down_effect = yes
 		}
 	}
 	focus = {
 		id = ENG_reignite_our_manufacturing_heartland
 		icon = GFX_focus_generic_orange_industry
-		cost = 5
+		cost = 4
 		prerequisite = {
 			focus = ENG_CBI
 		}
@@ -1711,12 +1905,15 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_CBI
 		completion_reward = {
+			add_one_random_civilian_factory = yes
+			add_one_random_civilian_factory = yes
+			ENG_black_monday_down_effect = yes
 		}
 	}
 	focus = {
 		id = ENG_british_austerity
 		icon = GFX_focus_generic_financial_markets
-		cost = 5
+		cost = 6
 		prerequisite = {
 			focus = ENG_reignite_our_manufacturing_heartland
 		}
@@ -1745,6 +1942,8 @@ focus_tree = {
 			focus = ENG_british_austerity
 		}
 		available = {
+			has_completed_focus = ENG_hard_econ_focus
+			has_completed_focus = ENG_arturia_synthetic_sharing
 		}
 		ai_will_do = {
 			factor = 10
@@ -1763,6 +1962,8 @@ focus_tree = {
 			focus = ENG_the_empires_sterling_reserves
 		}
 		available = {
+			has_completed_focus = ENG_hard_econ_focus
+			has_completed_focus = ENG_arturia_synthetic_sharing
 		}
 		ai_will_do = {
 			factor = 10
@@ -1776,9 +1977,9 @@ focus_tree = {
 	focus = {
 		id = ENG_home_defence
 		icon = GFX_focus_generic_liberty
-		cost = 3
-		x = 14
-		y = 18
+		cost = 5
+		x = 15
+		y = 19
 		ai_will_do = {
 			factor = 6
 			modifier = {
@@ -1851,7 +2052,7 @@ focus_tree = {
 	focus = {
 		id = ENG_defend_cities
 		icon = GFX_focus_ENG_civil_defence
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_briton_ultimate_defence
 		}
@@ -1989,7 +2190,7 @@ focus_tree = {
 	focus = {
 		id = ENG_defend_eastern_shore
 		icon = GFX_focus_generic_north_sea
-		cost = 3
+		cost = 5
 		x = 1
 		y = 1
 		prerequisite = {
@@ -2305,7 +2506,7 @@ focus_tree = {
 	focus = {
 		id = ENG_defend_channel
 		icon = GFX_focus_generic_english_channel
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_briton_ultimate_defence
 		}
@@ -2373,7 +2574,7 @@ focus_tree = {
 	focus = {
 		id = ENG_northern_ireland
 		icon = GFX_focus_ENG_abolish_ulster
-		cost = 3
+		cost = 5
 		x = 6
 		y = 1
 		prerequisite = {
@@ -2433,7 +2634,7 @@ focus_tree = {
 	focus = {
 		id = ENG_appease_ireland
 		icon = GFX_focus_IRE_the_restoration
-		cost = 3
+		cost = 5
 		x = -1
 		y = 1
 		prerequisite = {
@@ -2482,7 +2683,7 @@ focus_tree = {
 	focus = {
 		id = ENG_invade_ireland
 		icon = GFX_focus_IRE_army
-		cost = 3
+		cost = 5
 		x = 1
 		y = 1
 		prerequisite = {
@@ -2809,7 +3010,7 @@ focus_tree = {
 	focus = {
 		id = ENG_local_game
 		icon = GFX_focus_generic_army_cooperation
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 3
 		}
@@ -2994,8 +3195,8 @@ focus_tree = {
 		id = ENG_empire_focus
 		icon = GFX_focus_ENG_bedrock_of_prosperity
 		cost = 5
-		x = 30
-		y = 15
+		x = 32
+		y = 16
 		available = {
 			NOT = {
 				has_government = communism
@@ -3203,9 +3404,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_research_slot = 1
-			# custom_effect_tooltip = available_theorist
-			# show_ideas_tooltip = ENG_Sion
+			add_research_slot_until_seven = yes
 		}
 	}
 	focus = {
@@ -4215,7 +4414,7 @@ focus_tree = {
 	focus = {
 		id = ENG_new_zealand_focus
 		icon = GFX_focus_NZL_bob_semple_tank
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_australia_focus
 		}
@@ -4930,7 +5129,7 @@ focus_tree = {
 		}
 		bypass = {
 		}
-		cost = 3
+		cost = 5
 		completion_reward = {
 			add_ideas = indian_rations_idea
 			RAJ = {
@@ -4992,7 +5191,7 @@ focus_tree = {
 				}
 			}
 		}
-		cost = 3
+		cost = 5
 		completion_reward = {
 			if = {
 				limit = {
@@ -5257,7 +5456,7 @@ focus_tree = {
 	focus = {
 		id = ENG_not_steady_as_she_goes
 		icon = GFX_focus_ENG_cabinet0
-		cost = 3
+		cost = 5
 		x = 1
 		y = 2
 		available = {
@@ -5276,13 +5475,6 @@ focus_tree = {
 				ideology = democratic
 				popularity = 0.1
 			}
-			#if = {
-			#limit = {
-			#has_government = neutrality
-			#}
-			#add_ideas = ARTURIA_king_arthur_idea
-			#}
-			set_country_flag = ENG_steady_as_she_goes_flag
 			hidden_effect = {
 				news_event = {
 					id = more_news.3
@@ -5294,7 +5486,7 @@ focus_tree = {
 	focus = {
 		id = ENG_enforce_animusphere
 		icon = GFX_focus_ENG_cabinet1
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_not_steady_as_she_goes
 		}
@@ -5305,16 +5497,12 @@ focus_tree = {
 			factor = 400
 		}
 		available = {
-			has_country_flag = ENG_olga_marie_commission_flag
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_social_democracy_government = yes
 		}
 		available_if_capitulated = yes
 		completion_reward = {
-			add_stability = 0.1
-			add_political_power = 100
+			add_political_power = 50
+			add_ideas = ENG_enforce_animusphere_idea
 		}
 	}
 	focus = {
@@ -5331,22 +5519,18 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_social_democracy_government = yes
 		}
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
 				name = ENG_civil_aviation_industry
-				bonus = 0.25
+				bonus = 0.5
 				uses = 2
 				category = air_equipment
 			}
-			add_ideas = {
-				british_fighter_discount_civil_aviation
-			}
+			add_one_random_civilian_factory = yes
+			add_ideas = ENG_elite_appealling_1_idea
 		}
 	}
 	focus = {
@@ -5400,9 +5584,6 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_civil_aviation_industry
 		}
-		# prerequisite = {
-		# 	focus = ENG_navy_aristocrat
-		# }
 		x = 0
 		y = 1
 		relative_position_id = ENG_civil_aviation_industry
@@ -5410,15 +5591,25 @@ focus_tree = {
 			factor = 3
 		}
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_social_democracy_government = yes
 		}
 		available_if_capitulated = yes
 		completion_reward = {
-			add_ideas = {
-				ENG_elite_appealling
+			add_doctrine_cost_reduction = {
+				name = ENG_elite_appealling
+				cost_reduction = 0.5
+				uses = 1
+				category = naval_doctrine
+			}
+			add_tech_bonus = {
+				name = ENG_elite_appealling
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			swap_ideas = {
+				remove_idea = ENG_elite_appealling_1_idea
+				add_idea = ENG_elite_appealling_2_idea
 			}
 		}
 	}
@@ -5429,21 +5620,19 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_enforce_el_melloi
 		}
-		x = 0
+		x = 1
 		y = 1
-		relative_position_id = ENG_motion_of_no_confidence
+		relative_position_id = ENG_enforce_el_melloi
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			add_war_support = 0.05
+			add_ideas = ENG_prepare_for_the_inevitable_1_idea
 		}
 	}
 	focus = {
@@ -5457,17 +5646,30 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_prepare_for_the_inevitable
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			if = {
+				limit = {
+					OR = {
+						has_idea = low_economic_mobilisation
+						has_idea = civilian_economy
+					}
+				}
+				increase_economic_mobilisation = yes
+			}
+			else = {
+				add_war_support = 0.05
+				add_political_power = 100
+			}
+			swap_ideas = {
+				remove_idea = ENG_prepare_for_the_inevitable_1_idea
+				add_idea = ENG_prepare_for_the_inevitable_2_idea
+			}
 		}
 	}
 	focus = {
@@ -5477,21 +5679,19 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_not_steady_as_she_goes
 		}
-		x = 3
+		x = 4
 		y = 1
 		relative_position_id = ENG_not_steady_as_she_goes
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			add_political_power = 50
+			add_ideas = ENG_enforce_el_melloi_idea
 		}
 	}
 	focus = {
@@ -5501,17 +5701,24 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_enforce_el_melloi
 		}
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = ENG_enforce_el_melloi
 		available = {
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			add_doctrine_cost_reduction = {
+				name = ENG_elite_appealling
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			add_ideas = ENG_el_melloi_classroom_1_idea
 		}
 	}
 	focus = {
@@ -5525,13 +5732,23 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_el_melloi_classroom
 		available = {
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			add_tech_bonus = {
+				name = ENG_elite_appealling
+				bonus = 1
+				uses = 2
+				category = support_tech
+			}
+			swap_ideas = {
+				remove_idea = ENG_el_melloi_classroom_1_idea
+				add_idea = ENG_el_melloi_classroom_2_idea
+			}
 		}
 	}
 	focus = {
@@ -5545,13 +5762,21 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_clock_tower_research
 		available = {
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			gain_random_agency_upgrade = yes
+			gain_random_agency_upgrade = yes
+			gain_random_agency_upgrade = yes
+			gain_random_agency_upgrade = yes
+			swap_ideas = {
+				remove_idea = ENG_el_melloi_classroom_2_idea
+				add_idea = ENG_el_melloi_classroom_3_idea
+			}
 		}
 	}
 	focus = {
@@ -5559,22 +5784,36 @@ focus_tree = {
 		icon = GFX_focus_generic_interventionism
 		cost = 5
 		prerequisite = {
-			focus = ENG_global_network
+			focus = ENG_issue_gasmasks
 		}
-		prerequisite = {
-			focus = ENG_every_man_will_do_his_duty
-		}
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = ENG_global_network
+		relative_position_id = ENG_issue_gasmasks
 		available = {
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			if = {
+				limit = {
+					OR = {
+						has_idea = volunteer_only
+						has_idea = limited_conscription
+					}
+				}
+				increase_conscription = yes
+			}
+			else = {
+				add_war_support = 0.05
+				add_political_power = 100
+			}
+			swap_ideas = {
+				remove_idea = ENG_prepare_for_the_inevitable_2_idea
+				add_idea = ENG_prepare_for_the_inevitable_3_idea
+			}
 		}
 	}
 	focus = {
@@ -5582,22 +5821,27 @@ focus_tree = {
 		icon = GFX_focus_generic_stable_government
 		cost = 5
 		prerequisite = {
-			focus = ENG_civil_defence
+			focus = ENG_every_man_will_do_his_duty
 		}
 		mutually_exclusive = {
 			focus = ENG_reinforce_the_king_focus
 		}
 		x = -1
 		y = 1
-		relative_position_id = ENG_civil_defence
+		relative_position_id = ENG_every_man_will_do_his_duty
 		available = {
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			add_stability = 0.05
+			swap_ideas = {
+				remove_idea = ENG_prepare_for_the_inevitable_4_idea
+				add_idea = ENG_prepare_for_the_inevitable_5_idea
+			}
 		}
 	}
 	focus = {
@@ -5611,17 +5855,18 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_enforce_animusphere
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_social_democracy_government = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			add_ideas = ENG_secret_research_1_idea
 		}
 	}
 	focus = {
@@ -5645,10 +5890,6 @@ focus_tree = {
 			unlock_decision_category_tooltip = IRQ_oil_exploitation
 			add_political_power = -100
 			add_stability = -0.05
-			#add_offsite_building = {
-			#type = industrial_complex
-			#level = 3
-			#}
 			add_tech_bonus = {
 				name = ENG_acquire_energy_company
 				bonus = 1
@@ -5675,10 +5916,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_peace_in_our_time
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_social_democracy_government = yes
 		}
 		available_if_capitulated = yes
 		completion_reward = {
@@ -5688,6 +5926,17 @@ focus_tree = {
 				ahead_reduction = 2
 				uses = 2
 				category = rocketry
+			}
+			add_tech_bonus = {
+				name = ENG_celestial_research
+				bonus = 1
+				ahead_reduction = 2
+				uses = 2
+				category = radar_tech
+			}
+			swap_ideas = {
+				remove_idea = ENG_secret_research_1_idea
+				add_idea = ENG_secret_research_2_idea
 			}
 		}
 		ai_will_do = {
@@ -5705,16 +5954,21 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_elite_appealling
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_social_democracy_government = yes
 		}
 		available_if_capitulated = yes
 		completion_reward = {
+			add_tech_bonus = {
+				name = ENG_modernized_lab
+				bonus = 1
+				ahead_reduction = 1
+				uses = 2
+				category = industry
+			}
+			add_one_random_civilian_factory = yes
 			swap_ideas = {
-				remove_idea = ENG_elite_appealling
-				add_idea = ENG_modernized_lab
+				remove_idea = ENG_elite_appealling_2_idea
+				add_idea = ENG_elite_appealling_3_idea
 			}
 		}
 		ai_will_do = {
@@ -6030,15 +6284,26 @@ focus_tree = {
 			factor = 3
 		}
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
-			}
+			has_social_democracy_government = yes
 		}
 		available_if_capitulated = yes
 		completion_reward = {
-			add_ideas = {
-				ENG_secret_research
+			add_tech_bonus = {
+				name = ENG_celestial_research
+				bonus = 1
+				ahead_reduction = 2
+				uses = 1
+				category = mot_rockets
+			}
+			add_tech_bonus = {
+				name = ENG_celestial_research
+				bonus = 1
+				uses = 2
+				category = artillery
+			}
+			swap_ideas = {
+				remove_idea = ENG_secret_research_2_idea
+				add_idea = ENG_secret_research_3_idea
 			}
 		}
 	}
@@ -6059,37 +6324,27 @@ focus_tree = {
 			factor = 10
 		}
 		select_effect = {
-			country_event = {
-				id = more_britain_dlc.4
-				days = 10
-			}
 		}
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
+			NOT = {
+				has_completed_focus = ENG_motion_of_no_confidence
 			}
+			ENG_has_olga_marie_trigger = yes
+			has_social_democracy_government = yes
 			has_full_control_of_state = 720
 		}
 		available_if_capitulated = yes
 		completion_reward = {
-			add_research_slot = 1
-			if = {
-				limit = {
-					NOT = {
-						has_tech = atomic_research
-						is_researching_technology = atomic_research
-					}
-				}
-				set_technology = {
-					atomic_research = 1
-				}
+			add_research_slot_until_seven = yes
+			whiteline = yes
+			custom_effect_tooltip = ENG_merge_idea_tt
+			hidden_effect = {
+				remove_ideas = ENG_secret_research_3_idea
+				remove_ideas = ENG_elite_appealling_3_idea
 			}
-			remove_ideas = ENG_modernized_lab
-			remove_ideas = ENG_secret_research
-			add_ideas = {
-				ENG_chaledean_idea
-			}
+			whiteline = yes
+			add_ideas = ENG_chaledean_1_idea
+			whiteline = yes
 			720 = {
 				add_extra_state_shared_building_slots = 2
 				add_manpower = 2000
@@ -6127,6 +6382,17 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+						is_researching_technology = atomic_research
+					}
+				}
+				set_technology = {
+					atomic_research = 1
+				}
+			}
 		}
 	}
 	focus = {
@@ -6140,23 +6406,25 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_chaledean
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
+			NOT = {
+				has_completed_focus = ENG_motion_of_no_confidence
 			}
+			ENG_has_olga_marie_trigger = yes
+			has_social_democracy_government = yes
+			has_full_control_of_state = 720
 		}
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
 				name = ENG_chaledean
-				bonus = 1
-				ahead_reduction = 1
+				bonus = 5
+				ahead_reduction = 5
 				uses = 2
 				category = nuclear
 			}
 			swap_ideas = {
-				remove_idea = ENG_chaledean_idea
-				add_idea = ENG_chaledean_idea_nuclear
+				remove_idea = ENG_chaledean_1_idea
+				add_idea = ENG_chaledean_2_idea
 			}
 		}
 		ai_will_do = {
@@ -6170,7 +6438,8 @@ focus_tree = {
 		x = 1
 		y = 10
 		available = {
-			threat > 0.1
+			# threat > 0.1
+			ENG_has_saber_trigger = yes
 		}
 		available_if_capitulated = yes
 		ai_will_do = {
@@ -6179,27 +6448,32 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			swap_ideas = {
-				remove_idea = ARTURIA_london_camelot_idea
-				add_idea = ARTURIA_round_table_idea
+				remove_idea = ENG_neutrality_diplomacy_idea
+				add_idea = ENG_knight_diplomacy_idea
+			}
+			swap_ideas = {
+				remove_idea = ENG_saber_london_camelot_idea
+				add_idea = ENG_saber_round_table_idea
 			}
 		}
 	}
 	focus = {
 		id = ENG_motion_of_no_confidence
 		icon = GFX_focus_eng_motion_of_no_confidence
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_not_steady_as_she_goes
 		}
-		x = 5
+		x = 2
 		y = 1
 		relative_position_id = ENG_not_steady_as_she_goes
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_olga_marie_arsimilat_animusphere
+			custom_trigger_tooltip = {
+				hidden_trigger = {
+					always = no
+				}
+				tooltip = ENG_auto_bypass_tt
 			}
-			ENG_motion_of_confidence_availiable_trigger = yes
 		}
 		available_if_capitulated = yes
 		continue_if_invalid = yes
@@ -6207,27 +6481,84 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
-			country_event = {
-				id = more_britain_dlc.11
+			add_stability = -0.1
+			add_political_power = -100
+			effect_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							ENG_has_robin_leader_trigger = yes
+							ENG_has_kayneth_trigger = yes
+						}
+					}
+					promote_character = {
+						character = ENG_artoria_pendragon
+						ideology = authoritarianism
+					}
+					set_politics = {
+						ruling_party = neutrality
+						elections_allowed = yes
+					}
+					deactivate_advisor = ENG_artoria_pendragon_special_political_advisor
+					whiteline = yes
+					activate_advisor = ENG_morgan_le_fay_special_first
+					whiteline = yes
+					activate_advisor = ENG_myrddin_wyllt_special_first
+					whiteline = yes
+					activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+					whiteline = yes
+					activate_advisor = ENG_galahad_pelles_special_fourth
+					whiteline = yes
+					activate_advisor = ENG_barthomeloi_lorelei_special_fifth
+					whiteline = yes
+				}
+				if = {
+					limit = {
+						ENG_has_olga_marie_trigger = yes
+					}
+					promote_character = {
+						character = ENG_kayneth_el_melloi_archibald
+						ideology = conservatism
+					}
+					set_politics = {
+						ruling_party = democratic
+						elections_allowed = yes
+					}
+					whiteline = yes
+					activate_advisor = ENG_bram_nuadare_sophiari_special_first
+					whiteline = yes
+					activate_advisor = ENG_solaui_nuadare_sophiari_special_second
+					whiteline = yes
+					activate_advisor = ENG_reines_el_melloi_archisorte_special_third
+					whiteline = yes
+					activate_advisor = ENG_waver_velvet_el_melloi_archisorte_special_fourth
+					whiteline = yes
+					activate_advisor = ENG_rufleus_nuadare_eulyphis_special_fifth
+				}
+			}
+			hidden_effect = {
+				add_to_variable = {
+					var = ENG_motion_of_no_confidence_checker
+					value = 1
+				}
 			}
 		}
 	}
 	focus = {
 		id = ENG_every_man_will_do_his_duty
-		icon = GFX_focus_ENG_radiant_path_true
-		cost = 3
+		icon = GFX_focus_generic_workers
+		cost = 5
 		prerequisite = {
-			focus = ENG_issue_gasmasks
+			focus = ENG_global_network
 		}
-		x = 0
+		prerequisite = {
+			focus = ENG_civil_defence
+		}
+		x = 1
 		y = 1
-		relative_position_id = ENG_issue_gasmasks
+		relative_position_id = ENG_global_network
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_kayneth_el_melloi_archibald
-			}
-			threat > 0.2
+			has_conservatism_government = yes
 		}
 		available_if_capitulated = yes
 		continue_if_invalid = yes
@@ -6235,6 +6566,12 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
+			custom_effect_tooltip = ENG_merge_idea_tt
+			hidden_effect = {
+				remove_ideas = ENG_el_melloi_classroom_3_idea
+				remove_ideas = ENG_prepare_for_the_inevitable_3_idea
+			}
+			add_ideas = ENG_prepare_for_the_inevitable_4_idea
 			if = {
 				limit = {
 					has_war = no
@@ -6247,34 +6584,31 @@ focus_tree = {
 					has_war = yes
 					NOT = {
 						has_idea = war_economy
-					}
-					NOT = {
 						has_idea = tot_economic_mobilisation
 					}
 				}
-				add_ideas = war_economy
+				increase_economic_mobilisation = yes
 			}
 		}
 	}
+	##什么大政奉还
 	focus = {
 		id = ENG_reinforce_the_king_focus
 		icon = GFX_focus_generic_government2
-		cost = 3
+		cost = 5
 		prerequisite = {
-			focus = ENG_civil_defence
+			focus = ENG_every_man_will_do_his_duty
 		}
 		mutually_exclusive = {
 			focus = ENG_support_status_quo
 		}
 		x = 1
 		y = 1
-		relative_position_id = ENG_civil_defence
+		relative_position_id = ENG_every_man_will_do_his_duty
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = ENG_kayneth_el_melloi_archibald
-			}
-			threat > 0.6
+			has_conservatism_government = yes
+			ENG_has_kayneth_trigger = yes
+			# threat > 0.6
 			has_war = yes
 			any_enemy_country = {
 				is_major = yes
@@ -6285,30 +6619,44 @@ focus_tree = {
 		}
 		available_if_capitulated = yes
 		completion_reward = {
+			##直接这么搞就没有后面的破事了
 			set_capital = {
 				state = 122
 			}
-			add_country_leader_role = {
-				character = ENG_artoria_pendragon
-				country_leader = {
-					desc = ENG_artoria_pendragon
-					ideology = conservatism
-					traits = {
-						ENG_trait_knight_king
-						ENG_trait_motorized_expert
+			effect_tooltip = {
+				add_country_leader_role = {
+					character = ENG_artoria_pendragon
+					promote_leader = yes
+					country_leader = {
+						ideology = conservatism
 					}
 				}
-				promote_leader = yes
 			}
-			add_ideas = ARTURIA_knight_diplomacy_idea
-			swap_ideas = {
-				remove_idea = ARTURIA_round_table_idea
-				add_idea = ARTURIA_round_table_war_idea
+			hidden_effect = {
+				promote_character = {
+					character = ENG_artoria_pendragon
+					ideology = conservatism
+				}
+			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
 			}
 			add_timed_idea = {
-				idea = ARTURIA_hooray_the_king_idea
+				idea = ENG_hooray_the_king_idea
 				days = 365
 			}
+			activate_advisor = ENG_medraut_pendragon_special_political_advisor
+			whiteline = yes
+			activate_advisor = ENG_morgan_le_fay_special_first
+			whiteline = yes
+			activate_advisor = ENG_myrddin_wyllt_special_first
+			whiteline = yes
+			activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+			whiteline = yes
+			activate_advisor = ENG_galahad_pelles_special_fourth
+			whiteline = yes
+			activate_advisor = ENG_barthomeloi_lorelei_special_fifth
 			hidden_effect = {
 				news_event = {
 					id = more_britain_dlc_news.11
@@ -6320,7 +6668,7 @@ focus_tree = {
 	focus = {
 		id = ENG_Empire_Mobilization_focus
 		icon = GFX_focus_ENG_westerminster_dec
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_round_table_focus
 		}
@@ -6376,7 +6724,7 @@ focus_tree = {
 				add_ideas = tot_economic_mobilisation
 			}
 			add_ideas = ENG_spirit_of_the_industrial_revolution_idea
-			#add_ideas = ENG_Empire_Mobilization_idea
+			add_ideas = ENG_Empire_Mobilization_idea
 			if = {
 				limit = {
 					OR = {
@@ -6384,7 +6732,7 @@ focus_tree = {
 						has_idea = laws_women_workers_limited
 					}
 				}
-				add_ideas = laws_women_workers
+				increase_women_status = yes
 			}
 			hidden_effect = {
 				news_event = {
@@ -6690,7 +7038,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ENG_autarky
-		icon = GFX_focus_ENG_roundtable
+		icon = GFX_focus_generic_automobile_production
 		cost = 5
 		prerequisite = {
 			focus = ENG_Fill_the_assembly_line
@@ -6825,11 +7173,11 @@ focus_tree = {
 		icon = GFX_focus_ENG_radiant_path_true
 		cost = 5
 		prerequisite = {
-			focus = ENG_ideal_king_focus
+			focus = ENG_match_against_darkness_focus
 		}
 		x = 0
 		y = 1
-		relative_position_id = ENG_ideal_king_focus
+		relative_position_id = ENG_match_against_darkness_focus
 		available = {
 			has_war = yes
 		}
@@ -6891,6 +7239,9 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_garden_of_avalon_focus
 		available = {
+			NOT = {
+				has_completed_focus = ENG_chaledean
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -6903,8 +7254,8 @@ focus_tree = {
 		id = ENG_global_defense
 		icon = GFX_focus_generic_world
 		cost = 5
-		x = 19
-		y = 23
+		x = 21
+		y = 25
 		available = {
 		}
 		continue_if_invalid = yes
@@ -7834,7 +8185,7 @@ focus_tree = {
 	focus = {
 		id = ENG_scandinavian_focus
 		icon = GFX_focus_generic_attack_nordic_territory
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_baltic_focus
 		}
@@ -7958,7 +8309,7 @@ focus_tree = {
 	focus = {
 		id = ENG_befriend_finland
 		icon = GFX_focus_invite_finland
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_great_game
 		}
@@ -8283,7 +8634,7 @@ focus_tree = {
 	focus = {
 		id = ENG_swedish_intervention
 		icon = GFX_focus_generic_attack_sweden
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_plan_r4
 		}
@@ -8322,7 +8673,7 @@ focus_tree = {
 	focus = {
 		id = ENG_norwegian_intervention
 		icon = GFX_focus_generic_attack_norway
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_plan_r4
 		}
@@ -8361,7 +8712,7 @@ focus_tree = {
 	focus = {
 		id = ENG_danish_intervention
 		icon = GFX_focus_generic_attack_denmark
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_plan_r4
 		}
@@ -8460,7 +8811,7 @@ focus_tree = {
 	focus = {
 		id = ENG_benelux_intervention
 		icon = GFX_focus_hol_gateway_to_europe
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_offshore_equilibrium
 		}
@@ -8558,7 +8909,7 @@ focus_tree = {
 	focus = {
 		id = ENG_belgium_security
 		icon = GFX_focus_generic_attack_belgium
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_benelux_intervention
 		}
@@ -8596,7 +8947,7 @@ focus_tree = {
 	focus = {
 		id = ENG_dutch_security
 		icon = GFX_focus_generic_attack_netherlands
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_benelux_intervention
 		}
@@ -10433,7 +10784,7 @@ focus_tree = {
 	focus = {
 		id = ENG_condemn_tibet
 		icon = GFX_focus_generic_attack_tibet
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_alliance_with_china_dem
 		}
@@ -10775,7 +11126,7 @@ focus_tree = {
 	focus = {
 		id = ENG_local_airport
 		icon = GFX_focus_generic_airports
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_air_rearmament_focus
 		}
@@ -11005,7 +11356,7 @@ focus_tree = {
 	focus = {
 		id = ENG_anti_ship_air_force
 		icon = GFX_focus_generic_air_naval_bomber_new
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_coastal_command_focus
 		}
@@ -11398,7 +11749,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ENG_battlecruisers
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -11437,7 +11788,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ENG_expand_Scotland_shipbuilding
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -11487,7 +11838,7 @@ focus_tree = {
 	focus = {
 		id = ENG_landing_preparation
 		icon = GFX_focus_generic_marines2
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_amphibious_focus
 		}
@@ -12184,7 +12535,7 @@ focus_tree = {
 	focus = {
 		id = ENG_new_design_standard
 		icon = GFX_focus_ENG_royal_army
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -12604,7 +12955,7 @@ focus_tree = {
 	focus = {
 		id = ENG_rocket_experiment
 		icon = GFX_focus_generic_jet_engine_research
-		cost = 3
+		cost = 5
 		x = 0
 		y = 1
 		prerequisite = {
@@ -12866,6 +13217,9 @@ focus_tree = {
 		prerequisite = {
 			focus = ENG_royal_ordinance_focus
 		}
+		available = {
+			threat > 0.3
+		}
 		x = 0
 		y = 1
 		relative_position_id = ENG_royal_ordinance_focus
@@ -12914,7 +13268,7 @@ focus_tree = {
 	focus = {
 		id = ENG_imperial_defence_insititute
 		icon = GFX_focus_generic_military_research
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 15
 		}
@@ -13220,7 +13574,7 @@ focus_tree = {
 		relative_position_id = ENG_elite_pilot
 		available_if_capitulated = yes
 		completion_reward = {
-			add_research_slot = 1
+			add_research_slot_until_seven = yes
 		}
 	}
 	focus = {
@@ -13355,7 +13709,7 @@ focus_tree = {
 	focus = {
 		id = ENG_mountainers
 		icon = GFX_focus_generic_mountainous_artillery
-		cost = 3
+		cost = 5
 		prerequisite = {
 			focus = ENG_imperial_special_service
 		}

@@ -18,11 +18,17 @@ unit_leader_event = {
 		ENG_marisbury_animusphere = {
 			remove_unit_leader_role = yes
 		}
+		ENG_olga_marie_arsimilat_animusphere = {
+			add_trait = {
+				trait = ENG_trait_lord_of_the_Animusphere
+				slot = special_first
+			}
+		}
 		deactivate_advisor = ENG_olga_marie_arsimilat_animusphere_special_first
-		deactivate_advisor = ENG_nursery_rhyme_special_second
+		deactivate_advisor = ENG_lev_lainur_flauros_special_second
 		deactivate_advisor = ENG_goredolf_musik_yggdmillennia_special_third
 		deactivate_advisor = ENG_mash_kyrielight_pelles_special_fourth
-		deactivate_advisor = ENG_inorai_valualeta_atroholm_special_fifth
+		deactivate_advisor = ENG_sion_eltnam_atlasia_special_fifth
 		##deactivate_advisor = ENG_sherlock_holmes_special_sixth
 		##领袖更换为议会
 		promote_character = {
@@ -172,7 +178,7 @@ unit_leader_event = {
 	}
 }
 
-##迦勒底的神秘玩意 ##TODO
+##迦勒底的神秘玩意
 unit_leader_event = {
 	id = eng_core.4
 	title = eng_core.4.title
@@ -202,7 +208,7 @@ unit_leader_event = {
 	}
 }
 
-##政策被批评 ##工党进口 ##TODO
+##政策被批评--工党进口
 unit_leader_event = {
 	id = eng_core.5
 	title = eng_core.5.title
@@ -244,7 +250,7 @@ unit_leader_event = {
 		##红色支持率大于0.2
 		if = {
 			limit = {
-				communism > 0.2
+				communism > 0.15
 			}
 			ENG_robinhood_sherwood = {
 				unit_leader_event = {
@@ -490,7 +496,12 @@ unit_leader_event = {
 		name = eng_core.10.a
 		trigger = {
 		}
-		add_stability = -0.1
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = ENG_motion_of_no_confidence
+			}
+			complete_national_focus = ENG_motion_of_no_confidence
+		}
 		add_popularity = {
 			ideology = democratic
 			popularity = 0.1
@@ -562,6 +573,7 @@ unit_leader_event = {
 		ENG_kayneth_el_melloi_archibald = {
 			remove_unit_leader_role = yes
 		}
+		add_stability = -0.2
 		deactivate_advisor = ENG_kayneth_el_melloi_archibald_special_first
 		##领袖更换为议会
 		promote_character = {
@@ -602,6 +614,12 @@ unit_leader_event = {
 	option = {
 		name = eng_core.12.a
 		trigger = {
+		}
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = ENG_motion_of_no_confidence
+			}
+			complete_national_focus = ENG_motion_of_no_confidence
 		}
 		promote_character = {
 			character = ENG_artoria_pendragon
@@ -756,8 +774,17 @@ unit_leader_event = {
 			popularity = 0.2
 		}
 		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
+		}
+		add_popularity = {
 			ideology = democratic
-			popularity = -0.2
+			popularity = -0.3
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = ENG_hmmlg_party_long
+			name = ENG_hmmlg_party
 		}
 		set_party_name = {
 			ideology = neutrality
@@ -769,6 +796,7 @@ unit_leader_event = {
 			long_name = ENG_hmmlo_party_long
 			name = ENG_hmmlo_party
 		}
+		complete_national_focus = ENG_the_kings_party
 		ai_chance = {
 			base = 1
 		}
@@ -813,11 +841,20 @@ unit_leader_event = {
 
 ##15-28是完整的事件链
 ##总动员
-country_event = {
+##Trigger by focus
+unit_leader_event = {
 	id = eng_core.15
 	title = eng_core.15.title
 	desc = eng_core.15.desc
 	immediate = {
+		hidden_effect = {
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.16
+					days = 30
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -840,7 +877,7 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.16
 	title = eng_core.16.title
 	desc = eng_core.16.desc
@@ -853,17 +890,33 @@ country_event = {
 		name = eng_core.16.a
 		trigger = {
 		}
+		hidden_effect = {
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.17
+					days = 30
+				}
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.17
 	title = eng_core.17.title
 	desc = eng_core.17.desc
 	immediate = {
+		hidden_effect = {
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.18
+					days = 30
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -894,7 +947,7 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.18
 	title = eng_core.18.title
 	desc = eng_core.18.desc_def
@@ -913,6 +966,14 @@ country_event = {
 		}
 	}
 	immediate = {
+		hidden_effect = {
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.19
+					days = 30
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -935,11 +996,19 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.19
 	title = eng_core.19.title
 	desc = eng_core.19.desc
 	immediate = {
+		hidden_effect = {
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.20
+					days = 30
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -962,11 +1031,19 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.20
 	title = eng_core.20.title
 	desc = eng_core.20.desc
 	immediate = {
+		hidden_effect = {
+			ENG_artoria_pendragon = {
+				unit_leader_event = {
+					id = eng_core.21
+					days = 30
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -989,11 +1066,19 @@ country_event = {
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.21
 	title = eng_core.21.title
 	desc = eng_core.21.desc
 	immediate = {
+		hidden_effect = {
+			ENG_morgan_le_fay = {
+				unit_leader_event = {
+					id = eng_core.22
+					days = 30
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -1016,7 +1101,8 @@ country_event = {
 	}
 }
 
-country_event = {
+##Morgan le Fay
+unit_leader_event = {
 	id = eng_core.22
 	title = eng_core.22.title
 	desc = eng_core.22.desc
@@ -1025,25 +1111,77 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
+	##Alter
 	option = {
 		name = eng_core.22.a
 		trigger = {
+			has_completed_focus = ENG_the_kings_party
+		}
+		complete_national_focus = ENG_darkened_focus
+		hidden_effect = {
+			ENG_artoria_pendragon_alter = {
+				unit_leader_event = {
+					id = eng_core.23
+					days = 3
+				}
+			}
 		}
 		ai_chance = {
 			base = 1
 		}
 	}
+	##Calm Down Please
 	option = {
 		name = eng_core.22.b
 		trigger = {
 		}
+		ENG_artoria_pendragon = {
+			add_timed_unit_leader_trait = {
+				trait = sick
+				days = 14
+			}
+		}
+		hidden_effect = {
+			ENG_morgan_le_fay = {
+				unit_leader_event = {
+					id = eng_core.33
+					days = 180
+				}
+			}
+		}
+		complete_national_focus = ENG_match_against_darkness_focus
 		ai_chance = {
 			base = 1
 		}
 	}
+	##Take a Break
 	option = {
 		name = eng_core.22.c
 		trigger = {
+			has_completed_focus = ENG_the_kings_party
+		}
+		ENG_artoria_pendragon = {
+			add_timed_unit_leader_trait = {
+				trait = sick
+				days = 180
+			}
+		}
+		promote_character = {
+			character = ENG_morgan_le_fay
+			ideology = authoritarianism
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		activate_advisor = ENG_baobhan_sith_iseult_special_first
+		hidden_effect = {
+			ENG_morgan_le_fay = {
+				unit_leader_event = {
+					id = eng_core.27
+					days = 180
+				}
+			}
 		}
 		ai_chance = {
 			base = 1
@@ -1051,7 +1189,8 @@ country_event = {
 	}
 }
 
-country_event = {
+##23-26 is about alter
+unit_leader_event = {
 	id = eng_core.23
 	title = eng_core.23.title
 	desc = eng_core.23.desc
@@ -1064,13 +1203,19 @@ country_event = {
 		name = eng_core.23.a
 		trigger = {
 		}
+		ENG_artoria_pendragon_alter = {
+			unit_leader_event = {
+				id = eng_core.24
+				days = 7
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.24
 	title = eng_core.24.title
 	desc = eng_core.24.desc
@@ -1083,13 +1228,22 @@ country_event = {
 		name = eng_core.24.a
 		trigger = {
 		}
+		hidden_effect = {
+			ENG_morgan_le_fay = {
+				unit_leader_event = {
+					id = eng_core.25
+					days = 120
+				}
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+##Morgan
+unit_leader_event = {
 	id = eng_core.25
 	title = eng_core.25.title
 	desc = eng_core.25.desc
@@ -1102,13 +1256,25 @@ country_event = {
 		name = eng_core.25.a
 		trigger = {
 		}
+		activate_advisor = ENG_morgan_le_fay_special_political_advisor
+		whiteline = yes
+		activate_advisor = ENG_arthur_pendragon_special_first
+		hidden_effect = {
+			ENG_morgan_le_fay = {
+				unit_leader_event = {
+					id = eng_core.26
+					days = 60
+				}
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+##Wedding
+unit_leader_event = {
 	id = eng_core.26
 	title = eng_core.26.title
 	desc = eng_core.26.desc
@@ -1121,13 +1287,20 @@ country_event = {
 		name = eng_core.26.a
 		trigger = {
 		}
+		ENG_morgan_le_fay = {
+			add_trait = {
+				trait = ENG_trait_queen_of_great_britain
+				slot = special_political_advisor
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+##Morgan
+unit_leader_event = {
 	id = eng_core.27
 	title = eng_core.27.title
 	desc = eng_core.27.desc
@@ -1140,13 +1313,28 @@ country_event = {
 		name = eng_core.27.a
 		trigger = {
 		}
+		promote_character = {
+			character = ENG_morgan_le_fay
+			ideology = stratocracy
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		activate_advisor = ENG_myrin_wyllt_special_second
+		ENG_morgan_le_fay = {
+			unit_leader_event = {
+				id = eng_core.28
+				days = 60
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
 }
 
-country_event = {
+unit_leader_event = {
 	id = eng_core.28
 	title = eng_core.28.title
 	desc = eng_core.28.desc
@@ -1158,6 +1346,13 @@ country_event = {
 	option = {
 		name = eng_core.28.a
 		trigger = {
+		}
+		activate_advisor = ENG_artoria_pendragon_special_political_advisor
+		ENG_morgan_le_fay = {
+			add_trait = {
+				trait = ENG_trait_queen_of_great_britain
+				ideology = stratocracy
+			}
 		}
 		ai_chance = {
 			base = 1
@@ -1323,6 +1518,12 @@ unit_leader_event = {
 		name = eng_core.32.a
 		trigger = {
 		}
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = ENG_motion_of_no_confidence
+			}
+			complete_national_focus = ENG_motion_of_no_confidence
+		}
 		add_popularity = {
 			ideology = communism
 			popularity = -0.3
@@ -1351,6 +1552,36 @@ unit_leader_event = {
 			unit_leader_event = {
 				id = eng_core.14
 				days = 14
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+unit_leader_event = {
+	id = eng_core.33
+	title = eng_core.33.title
+	desc = eng_core.33.desc
+	immediate = {
+	}
+	picture = GFX_report_event_generic_diplomacy1
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = eng_core.33.a
+		trigger = {
+		}
+		activate_advisor = ENG_morgan_le_fay_special_political_advisor
+		whiteline = yes
+		activate_advisor = ENG_arthur_pendragon_special_first
+		hidden_effect = {
+			ENG_morgan_le_fay = {
+				unit_leader_event = {
+					id = eng_core.26
+					days = 60
+				}
 			}
 		}
 		ai_chance = {
@@ -1546,7 +1777,6 @@ country_event = {
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
-	hidden = yes
 	mean_time_to_happen = {
 		days = 1
 	}
@@ -1568,7 +1798,6 @@ country_event = {
 			is_controlled_by_PREV_or_ally = yes
 		}
 	}
-	##让他去
 	option = {
 		name = eng_trigger.3.a
 		trigger = {

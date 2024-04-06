@@ -13,7 +13,7 @@ else_if = {{
     limit = {{
         has_idea = {target}_{0}_idea
     }}
-    swap_idea = {{
+    swap_ideas = {{
         remove_idea = {target}_{0}_idea
         add_idea =  {target}_{1}_idea
     }}
@@ -22,11 +22,11 @@ else_if = {{
 
 
 
-target = "FRA_semi_restoration"
+target = "ENG_black_monday"
 
 with open(output_full_path, "w") as file:
     for i in range(1, 11):
-        current_statement = statement_template.format(i, i + 1, target=target)
+        current_statement = statement_template.format(i+1, i, target=target)
         file.write(current_statement)
 
 import os
