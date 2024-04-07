@@ -1425,50 +1425,7 @@ propaganda_efforts = {
 }
 
 political_actions = {
-	macdonald_proposal = {
-		allowed = {
-			tag = ENG
-		}
-		available = {
-			tag = ENG
-			has_government = democratic
-			has_war_with = GER
-			IRE = {
-				exists = yes
-			}
-			NOT = {
-				is_in_faction_with = IRE
-			}
-			FRA = {
-				has_capitulated = yes
-			}
-			is_in_faction_with = FRA
-		}
-		cost = 50
-		visible = {
-			tag = ENG
-			has_government = democratic
-			has_war_with = GER
-			IRE = {
-				exists = yes
-			}
-		}
-		complete_effect = {
-			IRE = {
-				country_event = {
-					id = wtt_britain.24
-				}
-			}
-			add_popularity = {
-				ideology = democratic
-				popularity = 0.03
-			}
-			add_stability = -0.05
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}
+
 	ENG_invoke_the_alliance_of_1373 = {
 		icon = generic_prepare_civil_war
 		allowed = {
@@ -1745,6 +1702,65 @@ operations = {
 		remove_effect = {
 		}
 	}
+	mers_el_kebir_raid = {
+		icon = generic_naval
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_country_leader = {
+				ruling_only = yes
+				name = "Winston Churchill"
+			}
+			has_government = democratic
+			has_war_with = GER
+			any_country = {
+				original_tag = FRA
+				has_government = fascism
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1
+		}
+		visible = {
+			has_country_leader = {
+				ruling_only = yes
+				name = "Winston Churchill"
+			}
+			tag = ENG
+			has_government = democratic
+			has_war_with = GER
+			OR = {
+				AND = {
+					is_in_faction_with = FRA
+					FRA = {
+						surrender_progress > 0.2
+					}
+				}
+				any_country = {
+					original_tag = FRA
+					has_government = fascism
+				}
+			}
+		}
+		complete_effect = {
+			random_other_country = {
+				limit = {
+					original_tag = FRA
+					has_government = fascism
+				}
+				country_event = {
+					id = wtt_britain.25
+					hours = 5
+				}
+			}
+		}
+	}
+}
+
+irish_problem = {
 	invade_ireland = {
 		icon = generic_operation
 		allowed = {
@@ -1814,60 +1830,48 @@ operations = {
 			}
 		}
 	}
-	mers_el_kebir_raid = {
-		icon = generic_naval
+	macdonald_proposal = {
 		allowed = {
 			tag = ENG
 		}
 		available = {
-			has_country_leader = {
-				ruling_only = yes
-				name = "Winston Churchill"
-			}
-			has_government = democratic
-			has_war_with = GER
-			any_country = {
-				original_tag = FRA
-				has_government = fascism
-			}
-		}
-		cost = 100
-		fire_only_once = yes
-		ai_will_do = {
-			factor = 1
-		}
-		visible = {
-			has_country_leader = {
-				ruling_only = yes
-				name = "Winston Churchill"
-			}
 			tag = ENG
 			has_government = democratic
 			has_war_with = GER
-			OR = {
-				AND = {
-					is_in_faction_with = FRA
-					FRA = {
-						surrender_progress > 0.2
-					}
-				}
-				any_country = {
-					original_tag = FRA
-					has_government = fascism
-				}
+			IRE = {
+				exists = yes
+			}
+			NOT = {
+				is_in_faction_with = IRE
+			}
+			FRA = {
+				has_capitulated = yes
+			}
+			is_in_faction_with = FRA
+		}
+		cost = 50
+		visible = {
+			tag = ENG
+			has_government = democratic
+			has_war_with = GER
+			IRE = {
+				exists = yes
 			}
 		}
 		complete_effect = {
-			random_other_country = {
-				limit = {
-					original_tag = FRA
-					has_government = fascism
-				}
+			IRE = {
 				country_event = {
-					id = wtt_britain.25
-					hours = 5
+					id = wtt_britain.24
 				}
 			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			add_stability = -0.05
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }
