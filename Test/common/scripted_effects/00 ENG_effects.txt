@@ -509,3 +509,71 @@ AST_enforce_loyalty = {
 	}
 }
 
+ENG_choose_cons_leader_if_kayneth_is_dead_effect = {
+	if = {
+		limit = {
+			ENG_kayneth_is_dead_trigger = no
+		}
+		activate_advisor = ENG_kayneth_el_melloi_archibald_special_first
+	}
+	if = {
+		limit = {
+			ENG_kayneth_is_dead_trigger = yes
+		}
+		activate_advisor = ENG_bram_nuadare_sophiari_special_first
+	}
+}
+
+ENG_election_view_clear_all_effect = {
+	clr_country_flag = ENG_election_view_first_page_flag
+	clr_country_flag = ENG_election_view_second_page_flag
+	clr_country_flag = ENG_election_view_third_page_flag
+	if = {
+		limit = {
+			OR = {
+				has_country_leader_ideology = social_democracy
+				has_country_leader_ideology = liberalism
+			}
+		}
+		ENG = {
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_cabinet.8
+					days = 2
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_country_leader_ideology = conservatism
+				has_country_leader_ideology = classical_liberalism
+			}
+		}
+		ENG = {
+			if = {
+				limit = {
+					ENG_kayneth_is_dead_trigger = no
+				}
+				ENG_kayneth_el_melloi_archibald = {
+					unit_leader_event = {
+						id = eng_cabinet.8
+						days = 2
+					}
+				}
+			}
+			if = {
+				limit = {
+					ENG_kayneth_is_dead_trigger = yes
+				}
+				ENG_reines_el_melloi_archisorte = {
+					unit_leader_event = {
+						id = eng_cabinet.8
+						days = 2
+					}
+				}
+			}
+		}
+	}
+}

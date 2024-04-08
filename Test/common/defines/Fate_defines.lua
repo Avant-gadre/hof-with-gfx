@@ -211,7 +211,7 @@
     NDefines.NMilitary.STRATEGIC_SPEED_INFRA_MAX = 5.0                          -- Vanilla is 10
     NDefines.NMilitary.STRATEGIC_SPEED_RAIL_BASE = 8.0                          -- Vanilla is 15
     NDefines.NMilitary.STRATEGIC_SPEED_RAIL_MAX = 10.0                          -- Vanilla is 25
-    NDefines.NMilitary.STRATEGIC_REDEPLOY_ORG_RATIO = 0.01 				        -- Vanilla is 0.1
+    NDefines.NMilitary.STRATEGIC_REDEPLOY_ORG_RATIO = 0.05 				        -- Vanilla is 0.1
 
     --Expericence
     NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 999			                    -- Vanilla is 500

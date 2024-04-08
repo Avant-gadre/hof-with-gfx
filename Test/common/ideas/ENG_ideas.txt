@@ -964,6 +964,17 @@ ideas = {
 				production_speed_arms_factory_factor = 0.1
 			}
 		}
+		ENG_the_war_office_5_idea = {
+			name = ENG_the_war_office
+			picture = swe_all_cards_on_deck
+			modifier = {
+				local_factories = 0.05
+				production_factory_start_efficiency_factor = 0.15
+				production_factory_max_efficiency_factor = 0.15
+				production_factory_efficiency_gain_factor = 0.15
+				production_speed_arms_factory_factor = 0.15
+			}
+		}
 	}
 	##Car
 	country = {
@@ -3221,7 +3232,7 @@ ideas = {
 				party_popularity_stability_factor = 0.1
 				master_ideology_drift = 0.1
 				war_support_weekly = 0.003
-				stability_weekly = 0.001
+				# stability_weekly = 0.001
 				democratic_drift = -0.02
 				communism_drift = -0.02
 				neutrality_drift = -0.02
@@ -3534,86 +3545,382 @@ ideas = {
 			}
 		}
 	}
-	##Anglo and Irish
+	##Anglo and Irish Relation
 	country = {
-		IRE_constitutional_monarchy = {
-			available = {
-				NOT = {
-					has_war_with = ENG
-				}
-			}
-			picture = generic_king_handled
+		##ENG
+		ENG_separatism_idea = {
+			name = ENG_separatism
+			picture = eng_britain_separatism
 			modifier = {
+				conscription_factor = -0.1
+				stability_factor = -0.1
+			}
+		}
+		ENG_separatism_1_idea = {
+			name = ENG_a_balanced_united_britain
+			picture = eng_britain_separatism
+			modifier = {
+				stability_weekly = 0.001
+				war_stability_factor = 0.1
 				stability_factor = 0.1
-			}
-			on_add = {
-				add_ai_strategy = {
-					type = antagonize
-					id = "ENG"
-					value = -200
-				}
+				research_speed_factor = 0.05
 			}
 		}
-		ENG_britain_ireland_trade_war = {
-			allowed = {
-				always = no
-				original_tag = ENG
-			}
+		##Start
+		ENG_britain_ireland_trade_war_idea = {
+			picture = generic_customs_barrier_ita
+			name = ENG_britain_ireland_trade_war
 			available = {
 				NOT = {
-					has_war_with = IRE
+					has_idea = ENG_appease_ireland_1_idea
+					has_idea = ENG_appease_ireland_2_idea
+					has_idea = ENG_appease_ireland_3_idea
 				}
 			}
-			picture = can_wartime_prices_and_trade_board
 			modifier = {
-				stability_factor = -0.05
-				consumer_goods_factor = 0.15
-				industrial_capacity_factory = -0.05
+				stability_factor = -0.1
+				consumer_goods_factor = 0.1
+				industrial_capacity_factory = -0.1
+			}
+			targeted_modifier = {
+				tag = IRE
+				trade_cost_for_target_factor = 0.5
+				trade_opinion_factor = -0.5
 			}
 		}
-		IRE_britain_ireland_trade_war = {
+		ENG_appease_ireland_1_idea = {
+			name = ENG_appease_ireland
+			picture = hol_caved_to_the_british
+			available = {
+			}
+			modifier = {
+				consumer_goods_factor = 0.1
+				industrial_capacity_factory = 0.05
+			}
+			targeted_modifier = {
+				tag = IRE
+				trade_cost_for_target_factor = -0.5
+				trade_opinion_factor = 0.5
+			}
+		}
+		ENG_appease_ireland_2_idea = {
+			name = ENG_appease_ireland
+			picture = hol_caved_to_the_british
 			available = {
 				NOT = {
-					has_war_with = ENG
+					has_idea = ENG_appease_ireland_1_idea
 				}
 			}
-			picture = can_wartime_prices_and_trade_board
+			modifier = {
+				consumer_goods_factor = 0.15
+				army_org_factor = 0.05
+				industrial_capacity_factory = 0.05
+			}
+			targeted_modifier = {
+				tag = IRE
+				compliance_growth = 0.1
+				compliance_gain = 0.01
+			}
+		}
+		ENG_appease_ireland_3_idea = {
+			name = ENG_appease_ireland
+			picture = hol_caved_to_the_british
+			available = {
+				NOT = {
+					has_idea = ENG_appease_ireland_1_idea
+					has_idea = ENG_appease_ireland_2_idea
+				}
+			}
+			modifier = {
+				industrial_capacity_factory = 0.05
+			}
+			targeted_modifier = {
+				tag = IRE
+				trade_cost_for_target_factor = -0.5
+				trade_opinion_factor = 0.5
+			}
+		}
+		ENG_neo_celtic_myth_1_idea = {
+			name = ENG_neo_celtic_myth
+			picture = jap_supremacy_of_technology
+			modifier = {
+				research_speed_factor = 0.05
+			}
+		}
+		##IRE
+		IRE_britain_ireland_trade_war_idea = {
+			picture = generic_customs_barrier_ita
+			name = ENG_britain_ireland_trade_war
+			available = {
+				NOT = {
+					has_idea = IRE_cooperative_with_britain_idea
+				}
+			}
 			modifier = {
 				stability_factor = -0.1
 				consumer_goods_factor = 0.3
 				industrial_capacity_factory = -0.1
 			}
+			targeted_modifier = {
+				tag = ENG
+				trade_cost_for_target_factor = 0.5
+				trade_opinion_factor = -0.5
+			}
 		}
-		IRE_appeased = {
+		IRE_trade_protection_idea = {
+			picture = can_wartime_prices_and_trade_board
 			available = {
 				NOT = {
-					has_war_with = ENG
+					has_idea = IRE_cooperative_with_britain_idea
 				}
 			}
+			modifier = {
+				stability_factor = 0.1
+				consumer_goods_factor = 0.1
+				industrial_capacity_factory = 0.1
+			}
+		}
+		IRE_cooperative_with_britain_idea = {
 			picture = hol_caved_to_the_british
 			modifier = {
-				consumer_goods_factor = 0.15
-				industrial_capacity_factory = 0.05
-			}
-		}
-		IRE_alternative_market = {
-			available = {
-			}
-			picture = eng_tackle_capitalism
-			modifier = {
-				stability_factor = 0.05
-				consumer_goods_factor = -0.15
-				industrial_capacity_factory = 0.05
-			}
-		}
-		IRE_trade_protection = {
-			available = {
-			}
-			picture = eng_tackle_capitalism
-			modifier = {
-				stability_factor = 0.05
-				consumer_goods_factor = 0.3
+				stability_factor = 0.1
+				consumer_goods_factor = -0.1
 				industrial_capacity_factory = 0.1
+			}
+			targeted_modifier = {
+				tag = ENG
+				trade_cost_for_target_factor = -0.5
+				trade_opinion_factor = 0.5
+			}
+		}
+	}
+	##Anglo and Japanese - TODO
+	country = {
+		ENG_cooperate_with_japan_1_idea = {
+			name = ENG_cooperate_with_japan
+			picture = generic_deal_with_the_devil2
+			available = {
+				JAP = {
+					NOT = {
+						has_war_with = ENG
+						has_completed_focus = JAP_strike_south_doctrine
+						has_completed_focus = JAP_pan_asianism
+					}
+				}
+			}
+			modifier = {
+				experience_gain_army_factor = 0.15
+				training_time_army_factor = -0.15
+			}
+		}
+		JAP_cooperate_with_british_1_idea = {
+			name = JAP_anglo_japan_alliance
+			available = {
+				JAP = {
+					NOT = {
+						has_war_with = ENG
+						has_completed_focus = JAP_strike_south_doctrine
+						has_completed_focus = JAP_pan_asianism
+					}
+				}
+			}
+			modifier = {
+				experience_gain_army_factor = 0.15
+				training_time_army_factor = -0.15
+			}
+		}
+		##
+		ENG_Influence = {
+			name = ENG_Influence
+			available = {
+				is_subject = yes
+				is_subject_of = ENG
+			}
+			picture = SPR_relocate_the_gold_reserves
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+				min_export = 0.6
+			}
+			targeted_modifier = {
+				tag = ENG
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 0.5
+				trade_cost_for_target_factor = -0.5
+				cic_to_target_factor = 0.3
+				mic_to_target_factor = 0.3
+			}
+		}
+		JAP_Influence = {
+			name = JAP_Influence
+			available = {
+				is_subject = yes
+				is_subject_of = JAP
+			}
+			picture = SPR_relocate_the_gold_reserves
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+				min_export = 0.6
+			}
+			targeted_modifier = {
+				tag = JAP
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 0.5
+				trade_cost_for_target_factor = -0.5
+				cic_to_target_factor = 0.3
+				mic_to_target_factor = 0.3
+			}
+		}
+		ENG_JAP_Together_Influence = {
+			name = ENG_JAP_Together_Influence
+			available = {
+				is_in_faction_with = ENG
+			}
+			picture = SPR_relocate_the_gold_reserves
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+				min_export = 0.6
+			}
+			targeted_modifier = {
+				tag = ENG
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 1
+				trade_cost_for_target_factor = -1
+				cic_to_target_factor = 0.25
+				mic_to_target_factor = 0.25
+			}
+			targeted_modifier = {
+				tag = JAP
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 1
+				trade_cost_for_target_factor = -1
+				cic_to_target_factor = 0.25
+				mic_to_target_factor = 0.25
+			}
+		}
+		ENG_JAP_USA_Together_Influence = {
+			name = ENG_JAP_USA_Together_Influence
+			available = {
+				is_in_faction_with = ENG
+			}
+			picture = SPR_relocate_the_gold_reserves
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+				min_export = 0.6
+			}
+			targeted_modifier = {
+				tag = ENG
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 1
+				trade_cost_for_target_factor = -1
+				cic_to_target_factor = 0.1
+				mic_to_target_factor = 0.1
+			}
+			targeted_modifier = {
+				tag = JAP
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 1
+				trade_cost_for_target_factor = -1
+				cic_to_target_factor = 0.1
+				mic_to_target_factor = 0.1
+			}
+			targeted_modifier = {
+				tag = USA
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 1
+				trade_cost_for_target_factor = -1
+				cic_to_target_factor = 0.3
+				mic_to_target_factor = 0.3
+			}
+		}
+		USA_JAP_Together_Influence = {
+			name = USA_JAP_Together_Influence
+			available = {
+				is_in_faction_with = ENG
+			}
+			picture = SPR_relocate_the_gold_reserves
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+				min_export = 0.6
+			}
+			targeted_modifier = {
+				tag = USA
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 1
+				trade_cost_for_target_factor = -1
+				cic_to_target_factor = 0.25
+				mic_to_target_factor = 0.25
+			}
+			targeted_modifier = {
+				tag = JAP
+				trade_opinion_factor = 1
+				extra_trade_to_target_factor = 1
+				trade_cost_for_target_factor = -1
+				cic_to_target_factor = 0.25
+				mic_to_target_factor = 0.25
+			}
+		}
+	}
+	##Bunk
+	country = {
+		ENG_home_defence_1_idea = {
+			name = ENG_home_defence
+			picture = eng_guided_by_britain
+			modifier = {
+				mobilization_speed = 0.2
+				supply_combat_penalties_on_core_factor = -0.2
+				air_home_defence_factor = 0.2
+			}
+		}
+		ENG_home_defence_2_idea = {
+			name = ENG_home_defence
+			picture = eng_guided_by_britain
+			modifier = {
+				mobilization_speed = 0.2
+				supply_combat_penalties_on_core_factor = -0.2
+				air_home_defence_factor = 0.2
+				land_bunker_effectiveness_factor = 0.2
+				coastal_bunker_effectiveness_factor = 0.2
+				production_speed_bunker_factor = 0.2
+				production_speed_coastal_bunker_factor = 0.2
+			}
+		}
+		ENG_home_defence_3_idea = {
+			name = ENG_unsinkable_air_craft_carrier
+			picture = eng_guided_by_britain
+			modifier = {
+				mobilization_speed = 0.2
+				supply_combat_penalties_on_core_factor = -0.2
+				air_home_defence_factor = 0.2
+				land_bunker_effectiveness_factor = 0.2
+				coastal_bunker_effectiveness_factor = 0.2
+				production_speed_bunker_factor = 0.2
+				production_speed_coastal_bunker_factor = 0.2
+				##
+				resistance_growth_on_our_occupied_states = 0.4
+				resistance_target_on_our_occupied_states = 0.4
+				resistance_damage_to_garrison_on_our_occupied_states = 0.4
+				resistance_decay_on_our_occupied_states = -0.4
+				compliance_growth_on_our_occupied_states = -0.4
 			}
 		}
 	}

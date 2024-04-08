@@ -10913,6 +10913,20 @@ focus_tree = {
 					modifier = FRA_resistance_modifier
 				}
 			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							state = 730
+							state = 308
+							state = 310
+							state = 1037
+						}
+						is_fully_controlled_by_ROOT_or_subject = yes
+					}
+					transfer_state_to = USA
+				}
+			}
 		}
 	}
 	focus = {
@@ -12895,7 +12909,12 @@ focus_tree = {
 			}
 		}
 		available = {
+			date < 1939.6.1
 			FRA_can_use_economy_branch_trigger = yes
+		}
+		bypass = {
+			date>
+			1939.6.1
 		}
 		cancelable = no
 		completion_reward = {
@@ -13578,6 +13597,13 @@ focus_tree = {
 			focus = FRA_Our_new_ally
 		}
 		bypass = {
+			NOT = {
+				has_completed_focus = FRA_go_with_britain_fate
+			}
+			NOT = {
+				has_completed_focus = FRA_Our_new_ally
+			}
+			date > 1939.6.1
 		}
 		ai_will_do = {
 			factor = 50
@@ -13586,7 +13612,6 @@ focus_tree = {
 			custom_effect_tooltip = fra_auto_bypass_tooltip
 			add_war_support = 0.05
 			add_political_power = 50
-			add_to_tech_sharing_group = FRA_legitimist_tech_sharing
 		}
 	}
 	focus = {
@@ -13602,14 +13627,10 @@ focus_tree = {
 		cancelable = no
 		select_effect = {
 			ROOT = {
-				setup_decision_attack_AI = yes
-				incoming_war_notification_for_ally_effect = yes
-				set_war_flag_effect = yes
+				attack_all_effect = yes
 			}
 			ENG = {
-				incoming_war_notification_for_ally_effect = yes
-				incoming_war_notification_effect = yes
-				setup_decision_attack_AI = yes
+				being_attack_all_effect = yes
 			}
 		}
 		x = 0

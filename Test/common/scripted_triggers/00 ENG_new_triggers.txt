@@ -138,12 +138,212 @@ ENG_has_saber_alter_trigger = {
 	}
 }
 
+ENG_has_mash_trigger = {
+	has_country_leader = {
+		character = ENG_mash_kyrielight_pelles
+		ruling_only = yes
+	}
+}
 
-ENG_has_artoria_trigger = {
+ENG_has_holmes_trigger = {
+	has_country_leader = {
+		character = ENG_sherlock_holmes
+		ruling_only = yes
+	}
+}
+
+ENG_has_oberon_trigger = {
+	has_country_leader = {
+		character = ENG_oberon_vortigern
+		ruling_only = yes
+	}
+}
+
+ENG_has_nursery_trigger = {
+	has_country_leader = {
+		character = ENG_nursery_rhyme
+		ruling_only = yes
+	}
+}
+
+ENG_has_arcueid_trigger = {
+	has_country_leader = {
+		character = GEU_arcueid_brunestud
+		ruling_only = yes
+	}
+}
+
+ENG_has_aoko_trigger = {
+	has_country_leader = {
+		character = JAP_aozaki_aoko
+		ruling_only = yes
+	}
+}
+
+ENG_has_ryougi_shiki_trigger = {
+	has_country_leader = {
+		character = JAP_ryougi_shiki
+		ruling_only = yes
+	}
+}
+
+ENG_has_touko_trigger = {
+	has_country_leader = {
+		character = JAP_aozaki_touko
+		ruling_only = yes
+	}
+}
+
+##--
+ENG_has_adashino_trigger = {
+	has_country_leader = {
+		character = JAP_adashino_hishiri
+		ruling_only = yes
+	}
+}
+
+ENG_has_moriarty_trigger = {
+	has_country_leader = {
+		character = ENG_james_moriarty
+		ruling_only = yes
+	}
+}
+
+ENG_has_waver_trigger = {
+	has_country_leader = {
+		character = ENG_waver_velvet_el_melloi_archisorte
+		ruling_only = yes
+	}
+}
+
+ENG_has_reines_trigger = {
+	has_country_leader = {
+		character = ENG_reines_el_melloi_archisorte
+		ruling_only = yes
+	}
+}
+
+ENG_has_nightingale_trigger = {
+	has_country_leader = {
+		character = ENG_florence_nightingale
+		ruling_only = yes
+	}
+}
+
+ENG_has_gray_trigger = {
+	has_country_leader = {
+		character = ENG_gray_yarg
+		ruling_only = yes
+	}
+}
+
+ENG_has_cornelius_trigger = {
+	has_country_leader = {
+		character = ENG_cornelius_alba
+		ruling_only = yes
+	}
+}
+
+ENG_has_touko_trigger = {
+	has_country_leader = {
+		character = JAP_aozaki_touko
+		ruling_only = yes
+	}
+}
+
+ENG_election_view_first_page_trigger = {
 	OR = {
-		ENG_has_mordred_trigger = yes
-		ENG_has_morgan_trigger = yes
-		ENG_has_saber_alter_trigger = yes
-		ENG_has_saber_trigger = yes
+		has_country_flag = ENG_election_view_first_page_flag
+		AND = {
+			NOT = {
+				has_country_flag = ENG_election_view_second_page_flag
+			}
+			NOT = {
+				has_country_flag = ENG_election_view_third_page_flag
+			}
+		}
+	}
+}
+
+ENG_election_view_second_page_trigger = {
+	has_country_flag = ENG_election_view_second_page_flag
+}
+
+ENG_election_view_third_page_trigger = {
+	has_country_flag = ENG_election_view_third_page_flag
+}
+
+ENG_free_election_avaliable_trigger = {
+	if = {
+		limit = {
+			has_completed_focus = ENG_round_table_focus
+		}
+		has_completed_focus = ENG_reinforce_the_king_focus
+	}
+	if = {
+		limit = {
+			has_completed_focus = ENG_restructure_the_government
+		}
+		has_completed_focus = ENG_reintroduce_elections
+	}
+}
+
+ENG_election_in_war_trigger = {
+	has_war = yes
+	OR = {
+		surrender_progress > 0.01
+		FRA = {
+			OR = {
+				controls_state = 16
+				controls_state = 20
+				controls_state = 19
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		GER = {
+			OR = {
+				controls_state = 64
+				controls_state = 66
+				controls_state = 52
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		SOV = {
+			OR = {
+				controls_state = 195
+				controls_state = 219
+				controls_state = 217
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		ITA = {
+			OR = {
+				controls_state = 2
+				controls_state = 159
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		any_other_country = {
+			THIS.capital_scope = {
+				is_on_continent = europe
+			}
+			ROOT = {
+				casualties_inflicted_by = {
+					opponent = PREV
+					thousands > 10
+				}
+			}
+			surrender_progress < 0.5
+			has_capitulated = no
+			has_war_with = ROOT
+		}
 	}
 }

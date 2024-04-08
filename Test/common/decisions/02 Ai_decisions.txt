@@ -2667,7 +2667,6 @@ Please_don_improve_the_relationship_anymore_ai_Strategy = {
 		}
 		modifier = {
 			local_resources_factor = 0.2
-
 			dig_in_speed_factor = 0.25
 			experience_gain_army_unit_factor = 0.05
 			experience_loss_factor = -0.2
@@ -2888,7 +2887,7 @@ Please_don_improve_the_relationship_anymore_ai_Strategy = {
 	}
 }
 
-ENG_Need_more_boats_ai_Strategy = {
+Need_more_boats_ai_Strategy = {
 	ai_want_a_lot_of_boats = {
 		icon = eng_trade_unions_demand
 		visible = {
@@ -2958,20 +2957,25 @@ ENG_Need_more_boats_ai_Strategy = {
 }
 
 ENG_biesongle_ai_Strategy = {
-	ENG_Dont_Land_Without_America_ai = { # 早期不要登录送头 要玩玩波大的
+	ENG_Dont_Land_Without_America_ai = {
+		# 早期不要登录送头 要玩玩波大的
 		icon = eng_trade_unions_demand
 		visible = {
 			is_ai = yes
-			OR = { # 是呆毛的同盟国
+			OR = {
+				# 是呆毛的同盟国
 				is_in_faction_with = ENG
 				original_tag = ENG
 			}
-			date < 1942.6.1 # 前中期谨慎一点
+			date < 1942.6.1			# 前中期谨慎一点
 			if = {
 				limit = {
 					has_war_with = GER
 				}
-				strength_ratio = { tag = GER ratio < 0.99 } # 兵力没和他持平别想登陆了吧？
+				strength_ratio = {
+					tag = GER
+					ratio < 0.99
+				}				# 兵力没和他持平别想登陆了吧？
 				OR = {
 					GER = {
 						surrender_progress < 0.1
@@ -2985,7 +2989,10 @@ ENG_biesongle_ai_Strategy = {
 				limit = {
 					has_war_with = FRA
 				}
-				strength_ratio = { tag = FRA ratio < 0.99 } # 兵力没和他持平别想登陆了吧？
+				strength_ratio = {
+					tag = FRA
+					ratio < 0.99
+				}				# 兵力没和他持平别想登陆了吧？
 				OR = {
 					FRA = {
 						surrender_progress < 0.1
@@ -2999,7 +3006,10 @@ ENG_biesongle_ai_Strategy = {
 				limit = {
 					has_war_with = ITA
 				}
-				strength_ratio = { tag = ITA ratio < 0.99 } # 兵力没和他持平别想登陆了吧？
+				strength_ratio = {
+					tag = ITA
+					ratio < 0.99
+				}				# 兵力没和他持平别想登陆了吧？
 				OR = {
 					ITA = {
 						surrender_progress < 0.1
@@ -3030,18 +3040,24 @@ ENG_biesongle_ai_Strategy = {
 			factor = 2000
 		}
 	}
-	ENG_Dont_Land_Without_sovrus_ai = { # 鹅子还在观望 不要登录德国
+	ENG_Dont_Land_Without_sovrus_ai = {
+		# 鹅子还在观望 不要登录德国
 		icon = eng_trade_unions_demand
 		visible = {
 			is_ai = yes
-			OR = { # 是呆毛的同盟国
+			OR = {
+				# 是呆毛的同盟国
 				is_in_faction_with = ENG
 				original_tag = ENG
 			}
-			date < 1942.6.1 # 前中期谨慎一点
+			date < 1942.6.1			# 前中期谨慎一点
 			has_war_with = GER
-			strength_ratio = { tag = GER ratio < 0.99 } # 兵力没和他持平别想登陆了吧？
-			any_other_country = { # 牢苏/牢鹅未与该势力交战 或尚处于劣势 这可能和战略地块没关系
+			strength_ratio = {
+				tag = GER
+				ratio < 0.99
+			}			# 兵力没和他持平别想登陆了吧？
+			any_other_country = {
+				# 牢苏/牢鹅未与该势力交战 或尚处于劣势 这可能和战略地块没关系
 				OR = {
 					tag = SOV
 					tag = RUS
@@ -3054,7 +3070,7 @@ ENG_biesongle_ai_Strategy = {
 					}
 					AND = {
 						has_war_with = GER
-						surrender_progress > 0.1 # 处于劣势
+						surrender_progress > 0.1						# 处于劣势
 					}
 				}
 			}
@@ -3079,26 +3095,31 @@ ENG_biesongle_ai_Strategy = {
 			factor = 2000
 		}
 	}
-	ENG_Dont_Land_endsieg_ai = { # 除非它正在崩溃 否则不要登陆欧罗巴霸主（拥有五百以上工厂 未与苏俄交战或就是苏俄的怪物tag）控制的欧洲
+	ENG_Dont_Land_endsieg_ai = {
+		# 除非它正在崩溃 否则不要登陆欧罗巴霸主（拥有五百以上工厂 未与苏俄交战或就是苏俄的怪物tag）控制的欧洲
 		icon = eng_trade_unions_demand
 		visible = {
 			is_ai = yes
-			OR = { # 是呆毛的同盟国
+			OR = {
+				# 是呆毛的同盟国
 				is_in_faction_with = ENG
 				original_tag = ENG
 			}
 			date > 1942.6.1
 			date < 1945.1.1
 			has_war_with = 16.owner
-			any_other_country = { # 欧罗巴霸主 通常是玩具
+			any_other_country = {
+				# 欧罗巴霸主 通常是玩具
 				is_subject = no
 				capital_scope = {
 					is_on_continent = europe
 				}
-				num_of_factories > 399 # 它很强
+				num_of_factories > 399				# 它很强
 				has_war_with = ENG
-				NOT = { has_war_with = 219.owner } # 它已经打败了苏俄 或者并没有开战
-				surrender_progress < 0.15 # 它距离失败还很远
+				NOT = {
+					has_war_with = 219.owner
+				}				# 它已经打败了苏俄 或者并没有开战
+				surrender_progress < 0.15				# 它距离失败还很远
 			}
 		}
 		available = {
