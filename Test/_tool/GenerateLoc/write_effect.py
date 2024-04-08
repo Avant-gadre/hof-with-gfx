@@ -20,13 +20,11 @@ else_if = {{
 }}
 """
 
-
-
-target = "ENG_black_monday"
+target = "ENG_global_defense"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 11):
-        current_statement = statement_template.format(i+1, i, target=target)
+    for i in range(0, 11):
+        current_statement = statement_template.format(i , i+1 , target=target)
         file.write(current_statement)
 
 import os
