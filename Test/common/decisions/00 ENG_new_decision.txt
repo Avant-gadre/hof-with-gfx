@@ -183,6 +183,16 @@ ENG_IRE_affairs_of_the_free_state_category = {
 		targets = {
 			IRE
 		}
+		highlight_states = {
+			highlight_provinces = {
+				11293
+				9303
+				6313
+				7394
+				11237
+			}
+		}
+		on_map_mode = decision_view_only
 		target_non_existing = no
 		cost = 50
 		fire_only_once = yes
@@ -241,6 +251,11 @@ ENG_IRE_affairs_of_the_free_state_category = {
 			}
 			num_of_civilian_factories_available_for_projects > 9
 		}
+		highlight_states = {
+			highlight_states_trigger = {
+				is_core_of = IRE
+			}
+		}
 		visible = {
 		}
 		ai_will_do = {
@@ -295,8 +310,14 @@ ENG_IRE_affairs_of_the_free_state_category = {
 		targets = {
 			IRE
 		}
+		highlight_states = {
+			highlight_provinces = {
+				11293
+			}
+		}
 		target_non_existing = yes
 		cost = 50
+		on_map_mode = map_and_decisions_view
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
@@ -316,12 +337,19 @@ ENG_IRE_affairs_of_the_free_state_category = {
 ##TODO - finish event chains
 ENG_JAP_second_anglo_japan_alliance_category = {
 	ENG_second_anglo_japan_alliance_decision = {
-		icon = generic_operation
+		name = ENG_cooperate_with_japan
+		desc = ENG_cooperate_with_japan_desc
+		icon = eng_install_government
 		allowed = {
 			tag = ENG
 		}
 		available = {
+			has_completed_focus = ENG_cooperate_with_japan
 			ENG = {
+				any_enemy_country = {
+					is_major = no
+				}
+				is_faction_leader = yes
 				NOT = {
 					has_war_with = JAP
 					has_government = fascism
@@ -332,12 +360,23 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 				OR = {
 					is_in_faction = no
 					is_faction_leader = yes
+				}
+				any_enemy_country = {
+					is_major = no
 				}
 				has_completed_focus = JAP_showdown
 				NOT = {
 					has_war_with = CHI
 					has_government = fascism
 				}
+				JAP_kirisame_marisa = {
+					is_general_trigger = yes
+				}
+			}
+		}
+		highlight_states = {
+			highlight_provinces = {
+				1182
 			}
 		}
 		targets = {
@@ -349,123 +388,125 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 		ai_will_do = {
 			factor = 100
 		}
-		days_remove = 0
+		days_remove = 14
 		visible = {
 		}
+		modifier = {
+			command_power_gain = -0.5
+			political_power_gain = -0.5
+		}
 		complete_effect = {
+			effect_tooltip = {
+				JAP = {
+					custom_effect_tooltip = if_they_accept
+				}
+				ENG_coop_japanese_effect = yes
+			}
 		}
 		remove_effect = {
+			add_political_power = -20
+			JAP = {
+				JAP_kirisame_marisa = {
+					unit_leader_event = {
+						id = eng_for_saja.1
+						hours = 1
+					}
+				}
+			}
 		}
 	}
 	ENG_formalize_anglo_japan_alliance_decision = {
-		icon = generic_operation
+		name = ENG_anglo_japan_alliance
+		desc = ENG_anglo_japan_alliance
+		icon = jap_pacific_guardian
 		allowed = {
 			tag = ENG
 		}
 		available = {
+			has_completed_focus = ENG_anglo_japan_alliance
+			ENG_anglo_japanese_alliance_forms_trigger = yes
 			ENG = {
+				any_enemy_country = {
+					is_major = no
+				}
+				is_faction_leader = yes
 				NOT = {
 					has_war_with = JAP
 					has_government = fascism
 					has_completed_focus = ENG_sanction_japan_focus
 				}
+				has_idea = ENG_cooperate_with_japan_1_idea
 			}
 			JAP = {
+				any_enemy_country = {
+					is_major = no
+				}
 				OR = {
 					is_in_faction = no
 					is_faction_leader = yes
 				}
+				has_civil_war = no
+				has_idea = JAP_cooperate_with_british_1_idea
 				has_completed_focus = JAP_smaller_japan
 				NOT = {
 					has_war_with = CHI
 					has_government = fascism
 				}
+				JAP_kirisame_marisa = {
+					is_general_trigger = yes
+				}
 			}
-			any_other_country = {
-				if = {
-					limit = {
-						original_tag = JAP
-					}
-				}
-				NOT = {
-					has_war_with = JAP
-				}
+			custom_trigger_tooltip = {
+				tooltip = ENG_formalize_anglo_japan_alliance_tt
+				ENG_JAP_control_all_east_indies_states_trigger = yes
 			}
 		}
 		targets = {
 			JAP
 		}
 		target_non_existing = no
+		highlight_states = {
+			highlight_states_trigger = {
+				ENG_is_east_indies_states_trigger = yes
+			}
+		}
+		on_map_mode = decision_view_only
 		cost = 0
 		fire_only_once = yes
 		ai_will_do = {
 			factor = 100
 		}
-		days_remove = 0
+		days_remove = 14
 		visible = {
 		}
+		modifier = {
+			command_power_gain = -0.5
+			political_power_gain = -0.5
+		}
 		complete_effect = {
+			add_political_power = -20
+			effect_tooltip = {
+				JAP = {
+					custom_effect_tooltip = if_they_accept
+				}
+				ENG_formalize_anglo_japanese_alliance_effect = yes
+			}
 		}
 		remove_effect = {
+			JAP = {
+				JAP_kirisame_marisa = {
+					unit_leader_event = {
+						id = eng_for_saja.4
+						hours = 1
+					}
+				}
+			}
 		}
 	}
 	##
-	ENG_singapore_conference_decision = {
-		allowed = {
-			tag = ENG
-		}
-		available = {
-		}
-		targets = {
-			JAP
-		}
-		target_non_existing = no
-		cost = 0
-		days_remove = 0
-		visible = {
-		}
-		complete_effect = {
-		}
-		remove_effect = {
-		}
-	}
-	ENG_manila_conference_decision = {
-		allowed = {
-			tag = ENG
-		}
-		available = {
-		}
-		targets = {
-			USA
-		}
-		target_non_existing = no
-		cost = 0
-		days_remove = 0
-		visible = {
-		}
-		complete_effect = {
-		}
-		remove_effect = {
-		}
-	}
 	ENG_singapore_conference_mission = {
-		allowed = {
-			tag = ENG
-		}
-		available = {
-		}
-		is_good = no
-		days_mission_timeout = 30
-		##Activate by Events?
-		activation = {
-			always = no
-		}
-		cancel_trigger = {
-		}
-		timeout_effect = {
-		}
-	}
-	ENG_manlia_conference_mission = {
+		name = ENG_singapore_conference_mission
+		desc = ENG_singapore_conference_desc
 		allowed = {
 			tag = ENG
 		}
@@ -481,8 +522,1470 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 			always = no
 		}
 		cancel_trigger = {
+			JAP = {
+				exists = no
+			}
 		}
 		timeout_effect = {
+			JAP = {
+				JAP_kirisame_marisa = {
+					unit_leader_event = {
+						id = eng_for_saja.7
+						hours = 1
+					}
+				}
+			}
+		}
+	}
+	ENG_manila_conference_mission = {
+		name = ENG_manila_conference_mission
+		desc = ENG_pacific_Rim_Free_Trade_Zone_desc
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		is_good = no
+		days_mission_timeout = 30
+		##Activate by Events?
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			USA = {
+				exists = no
+			}
+		}
+		timeout_effect = {
+			USA = {
+				country_event = {
+					id = eng_for_saja.8
+					hours = 1
+				}
+			}
+		}
+	}
+	##
+	ENG_invite_aozaki_touko_decision = {
+		icon = card
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			date > 1937.1.1
+			is_faction_leader = yes
+			has_completed_focus = ENG_east_asia_focus
+			ENG_cornelius_alba = {
+				is_hired_as_advisor = no
+			}
+			OR = {
+				ENG_waver_velvet_el_melloi_archisorte = {
+					is_country_leader = yes
+				}
+				ENG_waver_velvet_el_melloi_archisorte = {
+					is_hired_as_advisor = yes
+				}
+				has_character = JAP_kuonji_alice
+			}
+			FROM = {
+				has_character = JAP_aozaki_touko
+				JAP_is_conservatives_trigger = no
+			}
+		}
+		visible = {
+		}
+		targets = {
+			JAP
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 60
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		target_non_existing = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			command_power_gain = -1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			JAP = {
+				JAP_aozaki_touko = {
+					add_corps_commander_role = {
+						skill = 4
+						attack_skill = 4
+						defense_skill = 5
+						planning_skill = 3
+						logistics_skill = 4
+						traits = {
+							old_guard
+							inflexible_strategist
+							politically_connected
+							trait_reckless
+							engineer_officer
+							commando
+							skirmisher
+						}
+					}
+					set_nationality = {
+						target_country = ENG
+					}
+				}
+			}
+		}
+	}
+	ENG_invite_aozaki_aoko_decision = {
+		icon = oasis
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			date > 1937.1.1
+			is_faction_leader = yes
+			has_completed_focus = ENG_east_asia_focus
+			OR = {
+				has_character = GEU_arcueid_brunestud
+				has_character = GEU_nanaya_shiki
+				has_character = JAP_kuonji_alice
+			}
+			FROM = {
+				has_character = JAP_aozaki_aoko
+				JAP_is_liberals_trigger = no
+			}
+		}
+		visible = {
+		}
+		targets = {
+			JAP
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 60
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		target_non_existing = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			command_power_gain = -1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			JAP = {
+				JAP_aozaki_aoko = {
+					add_corps_commander_role = {
+						skill = 4
+						attack_skill = 5
+						defense_skill = 3
+						planning_skill = 3
+						logistics_skill = 4
+						traits = {
+							brilliant_strategist
+							politically_connected
+							trait_reckless
+							engineer_officer
+							commando
+							skirmisher
+						}
+					}
+					set_nationality = {
+						target_country = ENG
+					}
+				}
+			}
+		}
+	}
+	ENG_invite_ryougi_shiki_decision = {
+		icon = assassination
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			date > 1937.1.1
+			is_faction_leader = yes
+			has_character = JAP_aozaki_touko
+			has_completed_focus = ENG_east_asia_focus
+			FROM = {
+				has_character = JAP_ryougi_shiki
+				JAP_is_liberals_trigger = no
+			}
+		}
+		visible = {
+		}
+		targets = {
+			JAP
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 60
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		target_non_existing = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			command_power_gain = -1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			JAP = {
+				JAP_ryougi_shiki = {
+					add_corps_commander_role = {
+						traits = {
+							brilliant_strategist
+							infantry_leader
+							commando
+							trickster
+							urban_assault_specialist
+							trait_engineer
+						}
+						skill = 4
+						attack_skill = 6
+						defense_skill = 3
+						planning_skill = 3
+						logistics_skill = 2
+					}
+					set_nationality = {
+						target_country = ENG
+					}
+				}
+			}
+		}
+	}
+	ENG_invite_adashino_hishiri_decision = {
+		icon = scales
+		available = {
+			date > 1937.1.1
+			is_faction_leader = yes
+			has_completed_focus = ENG_east_asia_focus
+			OR = {
+				ENG_waver_velvet_el_melloi_archisorte = {
+					is_country_leader = yes
+				}
+				ENG_waver_velvet_el_melloi_archisorte = {
+					is_hired_as_advisor = yes
+				}
+				ENG_reines_el_melloi_archisorte = {
+					is_country_leader = yes
+				}
+				ENG_reines_el_melloi_archisorte = {
+					is_hired_as_advisor = yes
+				}
+			}
+			FROM = {
+				has_character = JAP_adashino_hishiri
+				JAP_is_conservatives_trigger = no
+			}
+		}
+		allowed = {
+			tag = ENG
+		}
+		visible = {
+		}
+		targets = {
+			JAP
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 60
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		target_non_existing = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			command_power_gain = -1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			JAP = {
+				JAP_adashino_hishiri = {
+					add_corps_commander_role = {
+						traits = {
+							career_officer
+							infantry_leader
+							commando
+							trickster
+							urban_assault_specialist
+							trait_engineer
+						}
+						skill = 4
+						attack_skill = 4
+						defense_skill = 3
+						planning_skill = 3
+						logistics_skill = 2
+					}
+					set_nationality = {
+						target_country = ENG
+					}
+				}
+			}
+		}
+	}
+	ENG_invite_kuonji_alice_decision = {
+		icon = research
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			date > 1937.1.1
+			is_faction_leader = yes
+			has_completed_focus = ENG_east_asia_focus
+			OR = {
+				ENG_may_riddell_archelot = {
+					is_hired_as_advisor = yes
+				}
+				ENG_may_riddell_archelot = {
+					is_country_leader = yes
+				}
+			}
+			FROM = {
+				has_character = JAP_kuonji_alice
+				JAP_is_conservatives_trigger = no
+				JAP_is_liberals_trigger = no
+			}
+		}
+		visible = {
+		}
+		targets = {
+			JAP
+		}
+		target_trigger = {
+		}
+		cost = 100
+		days_remove = 60
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		target_non_existing = yes
+		ai_will_do = {
+			factor = 100
+		}
+		modifier = {
+			command_power_gain = -1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			JAP = {
+				JAP_kuonji_alice = {
+					add_corps_commander_role = {
+						traits = {
+							career_officer
+							infantry_leader
+							inflexible_strategist
+							commando
+							trickster
+							urban_assault_specialist
+							trait_engineer
+						}
+						skill = 4
+						attack_skill = 4
+						defense_skill = 5
+						planning_skill = 4
+						logistics_skill = 4
+					}
+					set_nationality = {
+						target_country = ENG
+					}
+				}
+			}
+		}
+	}
+	##
+	ENG_declare_war_on_japan_decision = {
+		icon = hol_draw_up_staff_plans
+		allowed = {
+			tag = ENG
+		}
+		visible = {
+		}
+		target_trigger = {
+		}
+		targets = {
+			JAP
+		}
+		available = {
+			date > 1940.1.1
+			NOT = {
+				has_completed_focus = ENG_cooperate_with_japan
+			}
+			ENG = {
+				is_faction_leader = yes
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 999999
+					}
+				}
+			}
+			JAP = {
+				can_declare_on_FROM = yes
+			}
+			JAP = {
+				AND = {
+					OR = {
+						has_war_with = CHI
+						has_offensive_war = yes
+						has_added_tension_amount > 10
+					}
+				}
+				OR = {
+					has_country_flag = jap_western_condemned
+					has_completed_focus = JAP_strike_south_doctrine
+					has_completed_focus = JAP_manchuria_operation
+				}
+			}
+		}
+		modifier = {
+			political_power_cost = 0.5
+			command_power_gain = -0.5
+		}
+		cost = 0
+		days_remove = 60
+		fire_only_once = yes
+		on_map_mode = decision_view_only
+		complete_effect = {
+			ROOT = {
+				setup_decision_attack_AI = yes
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_effect = yes
+			}
+		}
+		cancel_trigger = {
+			JAP = {
+				can_declare_on_FROM = no
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				target = JAP
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				has_war_with = GER
+			}
+			modifier = {
+				factor = 0
+				date < 1939.1.1
+			}
+		}
+	}
+	ENG_setup_post_war_administration_in_japan_decision = {
+		icon = nationalism
+		allowed = {
+			tag = ENG
+		}
+		visible = {
+		}
+		target_trigger = {
+		}
+		targets = {
+			JAP
+		}
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_east_asia_focus
+			JAP = {
+				is_faction_leader = no
+			}
+			JAP = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			NOT = {
+				has_country_leader = {
+					character = ENG_arthur_pendragon
+					ruling_only = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = ENG_control_all_highlight_state_puppet_tt
+				ENG_control_all_japan_homelands_states_trigger = yes
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				ENG_is_japan_homelands_states_trigger = yes
+			}
+		}
+		modifier = {
+			political_power_cost = 0.5
+			command_power_gain = -0.5
+		}
+		cost = 0
+		days_remove = 60
+		fire_only_once = yes
+		on_map_mode = decision_view_only
+		complete_effect = {
+			effect_tooltip = {
+				ENG_arthur_pendragon = {
+					set_nationality = JAP
+				}
+			}
+			annex_country = {
+				target = JAP
+				transfer_troops = yes
+			}
+			every_state = {
+				limit = {
+					ENG_is_japan_homelands_states_trigger = yes
+				}
+				transfer_state_to = JAP
+			}
+			ENG = {
+				set_autonomy = {
+					target = JAP
+					autonomy_state = autonomy_mandate
+				}
+			}
+		}
+		cancel_trigger = {
+		}
+		remove_effect = {
+			##什么拷打纱条
+			##可能要有个事件但是我懒得写
+			JAP = {
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				add_ideas = ENG_economy_control_idea
+			}
+			hidden_effect = {
+				JAP = {
+					create_country_leader = {
+						name = ENG_arthur_pendragon
+						picture = GFX_Portrait_ENG_Arthur_Pendragon
+						ideology = authoritarianism
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				has_war_with = GER
+			}
+			modifier = {
+				factor = 0
+				date < 1939.1.1
+			}
+		}
+	}
+}
+
+ENG_relation_with_american_category = {
+	##起手5个武器
+	ENG_order_weapons_in_USA_decision = {
+		name = FRA_order_weapons_in_USA
+		icon = generic_prepare_civil_war
+		available = {
+			USA_can_sell_weapons_trigger_general = yes
+		}
+		visible = {
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0				#need to up conscription laws
+			}
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2500
+			}
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -2
+				}
+			}
+		}
+	}
+	ENG_order_artillery_in_USA_decision = {
+		name = FRA_order_artillery_in_USA
+		icon = ger_military_buildup
+		available = {
+			USA_can_sell_weapons_trigger_general = yes
+		}
+		visible = {
+		}
+		days_remove = 60
+		cost = 75
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0				#need to up conscription laws
+			}
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 75
+			}
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -3
+				}
+			}
+		}
+	}
+	ENG_order_tanks_in_USA_decision = {
+		name = FRA_order_tanks_in_USA
+		icon = generic_air
+		available = {
+			USA_can_sell_weapons_trigger_general = yes
+		}
+		visible = {
+		}
+		days_remove = 60
+		cost = 100
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0				#need to up conscription laws
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 5
+				}
+			}
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					USA = {
+						has_tech = basic_light_tank
+						NOT = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank							#needed because basic can be bypassed
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					USA = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank							#needed because basic can be bypassed
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					amount = 50
+				}
+			}
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -5
+				}
+			}
+		}
+	}
+	ENG_order_fighters_in_USA_decision = {
+		name = FRA_order_fighters_in_USA
+		icon = generic_air
+		available = {
+			USA_can_sell_weapons_trigger_general = yes
+		}
+		visible = {
+		}
+		days_remove = 60
+		cost = 100
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment_1 < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0				#need to up conscription laws
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 5
+				}
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = fighter_equipment_1
+				amount = 50
+			}
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -5
+				}
+			}
+		}
+	}
+	ENG_order_bombers_in_USA_decision = {
+		name = FRA_order_bombers_in_USA
+		icon = generic_air
+		available = {
+			USA_can_sell_weapons_trigger_general = yes
+		}
+		visible = {
+		}
+		days_remove = 60
+		cost = 100
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment_1 < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0				#need to up conscription laws
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 5
+				}
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = tac_bomber_equipment_1
+				amount = 25
+			}
+			USA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -5
+				}
+			}
+		}
+	}
+	##美爹救救我
+}
+
+ENG_mediterranean_focus_category = {
+	ENG_invoke_the_alliance_of_1373_decision = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_war = yes
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
+			POR = {
+				OR = {
+					has_government = ROOT
+					has_government = neutrality
+				}
+			}
+			POR = {
+				is_in_faction = no
+			}
+			is_faction_leader = yes
+		}
+		cost = 100
+		visible = {
+			has_war = yes
+			NOT = {
+				has_war_with = POR
+			}
+		}
+		complete_effect = {
+			POR = {
+				country_event = generic.5
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					any_enemy_country = {
+						original_tag = SPA
+					}
+				}
+			}
+		}
+	}
+	ENG_request_azores_lease_decision = {
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_war = yes
+			has_government = democratic
+			POR = {
+				has_full_control_of_state = 698
+				OR = {
+					has_government = ROOT
+					has_government = neutrality
+				}
+			}
+			POR = {
+				is_in_faction = no
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			POR = {
+				country_event = wtt_britain_lease_azores.1
+			}
+		}
+	}
+	ENG_elimate_mediterranean_threat_decision = {
+		icon = hol_draw_up_staff_plans
+		visible = {
+			tag = ENG
+			is_subject = no
+			ENG = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+			ENG = {
+				NOT = {
+					is_in_faction_with = ITA
+				}
+			}
+			OR = {
+				AND = {
+					is_ai = yes
+					date > 1937.1.1
+				}
+				date > 1938.1.1
+			}
+			OR = {
+				AND = {
+					is_ai = yes
+					has_army_manpower = {
+						size > 499999
+					}
+				}
+				has_army_manpower = {
+					size > 749999
+				}
+			}
+			country_exists = ITA
+			ITA = {
+				is_subject = no
+			}
+			OR = {
+				AND = {
+					date > 1938.6.1
+					ITA = {
+						has_added_tension_amount > 15
+						any_enemy_country = {
+							has_army_manpower = {
+								size > 299999
+							}
+						}
+					}
+				}
+				AND = {
+					date > 1940.1.1
+					ITA = {
+						num_of_factories > 150
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				original_tag = ITA
+			}
+		}
+		available = {
+			ENG = {
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 999999
+					}
+				}
+			}
+			NOT = {
+				has_country_flag = ENG_We_are_ready_to_fight_flag
+			}
+			custom_trigger_tooltip = {
+				tooltip = ENG_Political_points_are_positive_tt
+				OR = {
+					has_political_power > 0
+					is_ai = yes
+				}
+			}
+		}
+		modifier = {
+			political_power_cost = 0.5
+		}
+		cost = 0
+		days_remove = 60
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = {
+				flag = ENG_We_are_ready_to_fight_flag
+				days = 365
+				value = 1
+			}
+			if = {
+				limit = {
+					has_military_access_to = ITA
+				}
+				diplomatic_relation = {
+					country = ITA
+					relation = military_access
+					active = no
+				}
+			}
+			if = {
+				limit = {
+					ITA = {
+						has_military_access_to = ENG
+					}
+				}
+				ITA = {
+					diplomatic_relation = {
+						country = ENG
+						relation = military_access
+						active = no
+					}
+				}
+			}
+			if = {
+				limit = {
+					country_exists = ITA
+					NOT = {
+						has_war_with = ITA
+					}
+					NOT = {
+						ITA = {
+							is_in_faction_with = ENG
+						}
+					}
+					NOT = {
+						ITA = {
+							is_subject_of = ENG
+						}
+					}
+				}
+				ITA = {
+					country_event = {
+						id = more_ger.59
+						days = 2
+					}
+				}
+			}
+			every_other_country = {
+				limit = {
+					is_neighbor_of = ENG
+					OR = {
+						tag = ITA
+						is_in_faction_with = ITA
+						is_subject_of = ITA
+					}
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = 1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = 1000
+					}
+				}
+			}
+		}
+		cancel_trigger = {
+		}
+		remove_effect = {
+			every_other_country = {
+				limit = {
+					is_neighbor_of = ENG
+					OR = {
+						tag = ITA
+						is_in_faction_with = ITA
+						is_subject_of = ITA
+					}
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					id = ROOT
+					value = -1000
+				}
+				ROOT = {
+					add_ai_strategy = {
+						type = prepare_for_war
+						id = PREV
+						value = -1000
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				declare_war_on = {
+					type = puppet_wargoal_focus
+					target = ITA
+				}
+			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = ITA
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				date < 1939.1.1
+			}
+		}
+	}
+	ENG_invite_spain_decision = {
+		name = ENG_spain_focus
+		icon = eng_ally_imperialist_coup
+		available = {
+			has_global_flag = Spain_civil_war_end_flag
+			has_completed_focus = ENG_spain_focus
+			FROM = {
+				can_invite_join_faction = yes
+			}
+		}
+		visible = {
+			FROM = {
+				can_invite_join_faction = yes
+			}
+			is_faction_leader = yes
+		}
+		allowed = {
+			tag = FRA
+		}
+		targets = {
+			SPA
+		}
+		target_trigger = {
+		}
+		cost = 30
+		days_remove = 7
+		fire_only_once = yes
+		cancel_if_not_visible = yes
+		ai_will_do = {
+			factor = 100
+		}
+		remove_effect = {
+			FROM = {
+				invite_country_to_faction = yes
+			}
+		}
+	}
+}
+
+ENG_war_efforts_category = {
+	##美爹快来救我
+	ENG_hold_blood_toil_tears_sweat_speech = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			ENG_can_hold_speech_trigger = yes
+			casualties > 200000
+		}
+		cost = 50
+		fire_only_once = yes
+		visible = {
+		}
+		complete_effect = {
+			ENG_hold_speech_effect = yes
+		}
+		ai_will_do = {
+			factor = 200			#Gotta allow the Americans to help
+		}
+	}
+	ENG_hold_fight_on_the_beaches_speech = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			ENG_can_hold_speech_trigger = yes
+			casualties > 400000
+		}
+		cost = 50
+		fire_only_once = yes
+		visible = {
+		}
+		complete_effect = {
+			ENG_hold_speech_effect = yes
+		}
+		ai_will_do = {
+			factor = 200			#Gotta allow the Americans to help
+		}
+	}
+	ENG_hold_this_was_their_finest_hour_speech = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			ENG_can_hold_speech_trigger = yes
+			casualties > 600000
+		}
+		cost = 50
+		fire_only_once = yes
+		visible = {
+		}
+		complete_effect = {
+			ENG_hold_speech_effect = yes
+		}
+		ai_will_do = {
+			factor = 200			#Gotta allow the Americans to help
+		}
+	}
+	ENG_jeanne_london_speech = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			ENG_can_hold_speech_trigger = yes
+			FRA = {
+				FRA_jeanne_d_arc = {
+					is_general_trigger = yes
+				}
+			}
+			OR = {
+				has_war_with = GER
+				has_war_with = ITA
+				has_war_with = JAP
+				has_war_with = SOV
+			}
+			is_in_faction_with = FRA
+			FRA = {
+				OR = {
+					capital_scope = {
+						state = 19
+					}
+					capital_scope = {
+						state = 459
+					}
+					surrender_progress > 0.6
+					has_capitulated = yes
+				}
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		visible = {
+		}
+		complete_effect = {
+			FRA = {
+				add_political_power = 100
+			}
+			ENG_hold_speech_effect = yes
+			news_event = {
+				id = more_news.19
+			}
+		}
+		ai_will_do = {
+			factor = 200			#Gotta allow the Americans to help
+		}
+	}
+	##
+	ENG_mers_el_kebir_raid = {
+		icon = generic_naval
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = THIS_IS_WIP_TT
+				always = no
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1
+		}
+		visible = {
+		}
+		complete_effect = {
+		}
+	}
+	##
+	ENG_oberon_operations_decision = {
+		icon = generic_operation
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_Secretary_of_Aviation
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_deployed_air_force_size = {
+					type = strategic_bomber
+					size > 1500
+				}
+			}
+			else = {
+				has_deployed_air_force_size = {
+					type = strategic_bomber
+					size > 4000
+				}
+			}
+			OR = {
+				controls_state = 122
+				controls_state = 126
+			}
+		}
+		visible = {
+		}
+		cost = 0
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		custom_cost_text = CP_30
+		days_remove = 720
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				date < 1941.1.1
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+			##Used in Ai
+			set_country_flag = {
+				value = 1
+				days = 720
+				flag = ENG_oberon_operations_start_flag
+			}
+		}
+		modifier = {
+			air_range_factor = 0.4
+			air_fuel_consumption_factor = 0.4
+			air_night_penalty = -0.2
+			air_strategic_bomber_defence_factor = 0.2
+			air_strategic_bomber_bombing_factor = 0.2
+			air_superiority_efficiency = 0.1
+			air_escort_efficiency = 0.1
+		}
+		remove_effect = {
+		}
+	}
+	ENG_excalibur_operations_decision = {
+		icon = generic_operation
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_radiant_path_focus
+			date > 1942.6.1
+			OR = {
+				controls_state = 122
+				controls_state = 126
+			}
+		}
+		visible = {
+		}
+		cost = 0
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		custom_cost_text = CP_30
+		days_remove = 180
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				date < 1942.5.30
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+			##Used in Ai
+			set_country_flag = {
+				value = 1
+				days = 180
+				flag = ENG_Excalibur_operations_start_flag
+			}
+		}
+		modifier = {
+			army_attack_factor = 0.1
+			army_defence_factor = 0.1
+			breakthrough_factor = 0.1
+			supply_consumption_factor = -0.1
+			air_superiority_efficiency = 0.1
+			army_bonus_air_superiority_factor = 0.25
+			invasion_preparation = -0.25
+			amphibious_invasion = 0.25
+			shore_bombardment_bonus = 0.25
+			army_fuel_consumption_factor = 0.25
+			air_fuel_consumption_factor = 0.25
+			navy_fuel_consumption_factor = 0.25
+		}
+		remove_effect = {
+		}
+	}
+	ENG_operation_fork = {
+		icon = generic_naval
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = THIS_IS_WIP_TT
+				always = no
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1
+		}
+		visible = {
+		}
+		complete_effect = {
+		}
+	}
+	ENG_operation_valentine = {
+		icon = generic_naval
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = THIS_IS_WIP_TT
+				always = no
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1
+		}
+		visible = {
+		}
+		complete_effect = {
 		}
 	}
 }

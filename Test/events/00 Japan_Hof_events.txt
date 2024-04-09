@@ -1376,6 +1376,12 @@ country_event = {
 			flag = jap_rgouyi_shiki_was_arrested
 			days > 180
 		}
+		ENG = {
+			NOT = {
+				has_decision = ENG_invite_ryougi_shiki_decision
+			}
+		}
+		has_character = JAP_ryougi_shiki
 		#逮捕半年后
 	}
 	immediate = {
@@ -3213,106 +3219,6 @@ country_event = {
 		##贵族院议长更换为Non，枢密院院长更换为Non
 		###
 		activate_advisor = JAP_akechi_mitsuhide
-	}
-}
-
-###外交
-country_event = {
-	##日本寻求恢复英日同盟
-	id = jap_diplo.1
-	title = jap_diplo.1.t
-	desc = jap_diplo.1.d
-	#fire_only_once = yes
-	#picture = GFX_news_event_002
-	is_triggered_only = yes
-	option = {
-		##
-		name = jap_diplo.1.a
-		JAP = {
-			country_event = jap_diplo.2
-		}
-	}
-}
-
-##这很重要？
-country_event = {
-	##英国同意恢复英日同盟
-	id = jap_diplo.2
-	title = jap_diplo.2.t
-	desc = jap_diplo.2.d
-	#fire_only_once = yes
-	#picture = GFX_news_event_002
-	is_triggered_only = yes
-	option = {
-		##
-		name = jap_diplo.2.a
-		add_ideas = ENG_cooperate_with_japan
-		give_guarantee = ENG
-		ENG = {
-			add_ideas = ENG_cooperate_with_japan
-			give_guarantee = JAP
-		}
-	}
-}
-
-country_event = {
-	##日本违反了同盟条款
-	id = jap_diplo.3
-	title = jap_diplo.3.t
-	desc = jap_diplo.3.d
-	fire_only_once = yes
-	#picture = GFX_news_event_002
-	trigger = {
-		tag = ENG
-		has_idea = ENG_cooperate_with_japan
-		JAP = {
-			OR = {
-				has_offensive_war_with = CHI
-				has_offensive_war_with = BEY
-				has_offensive_war_with = ENG
-				has_completed_focus = JAP_pan_asianism
-			}
-			#全面侵华战争或完成泛亚细亚主义国策
-		}
-	}
-	option = {
-		##盟约终止
-		name = jap_diplo.3.a
-		JAP = {
-			country_event = jap_diplo.4
-		}
-	}
-	option = {
-		##维持盟约（没有完成泛亚细亚
-		name = jap_diplo.3.b
-	}
-}
-
-country_event = {
-	##英日同盟终止
-	id = jap_diplo.4
-	title = jap_diplo.4.t
-	desc = jap_diplo.4.d
-	#fire_only_once = yes
-	#picture = GFX_news_event_002
-	is_triggered_only = yes
-	option = {
-		##取消互相保独，移除民族精神
-		name = jap_diplo.4.a
-		remove_ideas = ENG_cooperate_with_japan
-		diplomatic_relation = {
-			country = ENG
-			relation = guarantee
-			active = no
-		}
-		ENG = {
-			remove_ideas = ENG_cooperate_with_japan
-			diplomatic_relation = {
-				country = JAP
-				relation = guarantee
-				active = no
-			}
-		}
 	}
 }
 

@@ -652,29 +652,14 @@ unit_leader_event = {
 		name = eng_for_saja.1.a
 		trigger = {
 		}
-		give_guarantee = ENG
-		add_ideas = {
-			ENG_cooperate_with_japan
-		}
-		add_to_tech_sharing_group = ENG_commonwealth_research
-		add_opinion_modifier = {
-			target = ENG
-			modifier = cooperation_accepted
-		}
+		ENG_coop_japanese_effect = yes
+		add_political_power = 20
 		ENG = {
-			give_guarantee = JAP
-			add_ideas = {
-				ENG_cooperate_with_japan
-			}
-			add_opinion_modifier = {
-				target = JAP
-				modifier = cooperation_accepted
-			}
-		}
-		FROM = {
-			country_event = {
-				id = eng_for_saja.3
-				days = 1
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.2
+					days = 1
+				}
 			}
 		}
 		ai_chance = {
@@ -685,10 +670,13 @@ unit_leader_event = {
 		name = eng_for_saja.1.b
 		trigger = {
 		}
-		FROM = {
-			country_event = {
-				id = eng_for_saja.3
-				days = 1
+		add_political_power = -20
+		ENG = {
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.3
+					days = 1
+				}
 			}
 		}
 		ai_chance = {
@@ -713,6 +701,7 @@ unit_leader_event = {
 		name = eng_for_saja.2.a
 		trigger = {
 		}
+		add_political_power = 20
 		ai_chance = {
 			base = 1
 		}
@@ -735,6 +724,7 @@ unit_leader_event = {
 		name = eng_for_saja.3.a
 		trigger = {
 		}
+		add_political_power = -20
 		ai_chance = {
 			base = 1
 		}
@@ -752,81 +742,19 @@ unit_leader_event = {
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = eng_for_saja.4.a
 		trigger = {
 		}
-		JAP = {
-			if = {
-				limit = {
-					is_faction_leader = yes
-				}
-				every_other_country = {
-					limit = {
-						is_in_faction_with = JAP
-						is_subject = no
-					}
-					leave_faction = yes
-					ENG = {
-						add_to_faction = PREV
-					}
-				}
-				JAP = {
-					dismantle_faction = yes
-				}
-			}
-		}
-		else = {
-			ENG = {
-				add_to_faction = JAP
-			}
-		}
+		ENG_formalize_anglo_japanese_alliance_effect = yes
+		add_political_power = 20
 		ENG = {
-			remove_resource_rights = 333
-			remove_resource_rights = 828
-			remove_resource_rights = 846
-			remove_resource_rights = 1002
-			remove_resource_rights = 963
-			remove_resource_rights = 999
-			remove_resource_rights = 751
-		}
-		JAP = {
-			puppet = MAL
-			set_autonomy = {
-				target = MAL
-				autonomous_state = autonomy_supervised_state
-			}
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					country_exists = INI
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.5
+					days = 1
 				}
-				JAP = {
-					annex_country = {
-						target = INI
-					}
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						country_exists = INS
-					}
-				}
-				INS = {
-					every_core_state = {
-						transfer_state_to = INS
-					}
-				}
-			}
-		}
-		JAP = {
-			puppet = INS
-			set_autonomy = {
-				target = INS
-				autonomous_state = autonomy_supervised_state
 			}
 		}
 		ai_chance = {
@@ -836,6 +764,15 @@ unit_leader_event = {
 	option = {
 		name = eng_for_saja.4.b
 		trigger = {
+		}
+		add_political_power = -20
+		ENG = {
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.6
+					days = 1
+				}
+			}
 		}
 		ai_chance = {
 			base = 0
@@ -859,6 +796,7 @@ unit_leader_event = {
 		name = eng_for_saja.5.a
 		trigger = {
 		}
+		add_political_power = 20
 		ai_chance = {
 			base = 1
 		}
@@ -881,6 +819,7 @@ unit_leader_event = {
 		name = eng_for_saja.6.a
 		trigger = {
 		}
+		add_political_power = -20
 		ai_chance = {
 			base = 1
 		}
@@ -903,6 +842,27 @@ unit_leader_event = {
 		name = eng_for_saja.7.a
 		trigger = {
 		}
+		##Yes
+		add_political_power = 20
+		ENG = {
+			activate_decision = ENG_manila_conference_mission
+		}
+		USA = {
+			custom_effect_tooltip = if_they_accept_tt
+			effect_tooltip = {
+				ENG_formalize_anglo_japanese_american_alliance_effect = yes
+			}
+		}
+		set_global_flag = ENG_singapore_summit_succeed_flag
+		set_global_flag = ENG_singapore_summit_end_flag
+		ENG = {
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.5
+					days = 1
+				}
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
@@ -911,8 +871,19 @@ unit_leader_event = {
 		name = eng_for_saja.7.b
 		trigger = {
 		}
+		##No
+		add_political_power = -20
+		set_global_flag = ENG_singapore_summit_end_flag
+		ENG = {
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.6
+					days = 1
+				}
+			}
+		}
 		ai_chance = {
-			base = 1
+			base = 0
 		}
 	}
 }
@@ -932,6 +903,17 @@ country_event = {
 		name = eng_for_saja.8.a
 		trigger = {
 		}
+		add_political_power = 20
+		ENG_formalize_anglo_japanese_american_alliance_effect = yes
+		set_global_flag = ENG_manila_summit_succeed_flag
+		ENG = {
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.5
+					days = 1
+				}
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
@@ -939,6 +921,15 @@ country_event = {
 	option = {
 		name = eng_for_saja.8.b
 		trigger = {
+		}
+		add_political_power = -20
+		ENG = {
+			ENG_reines_el_melloi_archisorte = {
+				unit_leader_event = {
+					id = eng_for_saja.6
+					days = 1
+				}
+			}
 		}
 		ai_chance = {
 			base = 1
