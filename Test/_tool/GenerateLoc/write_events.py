@@ -84,9 +84,9 @@ news_event = {{
 """
 
 
-target = "eng_cabinet"
+target = "eng_for_saja"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 16):
+    for i in range(1, 9):
         current_statement = statement_template.format(i,target=target)
         file.write(current_statement)
