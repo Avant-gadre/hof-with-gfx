@@ -180,30 +180,38 @@ any_enemy_has_war_with_THIS = {
 }
 
 can_invite_join_faction = {
-	exists = yes
-	has_capitulated = no
-	is_subject = no
+	whiteline_t = yes
 	NOT = {
 		has_war_with = ROOT
 	}
-	OR = {
-		AND = {
-			is_faction_leader = yes
-			NOT = {
-				any_other_country = {
-					is_in_faction_with = PREV
+	whiteline_t = yes
+	THIS = {
+		exists = yes
+		has_capitulated = no
+		is_subject = no
+	}
+	whiteline_t = yes
+	THIS = {
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			whiteline_t = yes
+			all_other_country = {
+				OR = {
+					AND = {
+						is_in_faction_with = PREV
+						is_puppet_of = PREV
+					}
+					whiteline_t = yes
+					NOT = {
+						is_in_faction_with = PREV
+					}
 				}
 			}
 		}
-		is_in_faction = no
-	}
-	ROOT = {
-		NOT = {
-			any_enemy_country = {
-				NOT = {
-					has_war_with = PREV
-				}
-			}
+		else = {
+			is_in_faction = no
 		}
 	}
 }

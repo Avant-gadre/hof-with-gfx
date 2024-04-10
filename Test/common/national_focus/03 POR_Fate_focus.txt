@@ -2967,6 +2967,7 @@ focus_tree = {
 		bypass = {
 		}
 		prerequisite = {
+			focus = POR_allow_free_elections
 			focus = POR_strengthen_the_regime
 		}
 		icon = GFX_goal_tfv_strengthen_commonwealth_ties
@@ -3104,6 +3105,7 @@ focus_tree = {
 		id = POR_proudly_alone
 		available = {
 			has_government = neutrality
+			is_in_faction = no
 			has_war = no
 		}
 		bypass = {
@@ -3138,27 +3140,12 @@ focus_tree = {
 	focus = {
 		id = POR_honor_anglo_portuguese_alliance
 		available = {
-			is_in_faction = no
-			has_war = no
-			ENG = {
-				exists = yes
-				NOT = {
-					has_war_with = ROOT
-					any_other_country = {
-						is_in_faction_with = ENG
-						has_war_with = ROOT
-					}
-				}
-			}
-			any_country = {
-				is_major = yes
-				has_war_with = ENG
-			}
+			is_in_faction_with = ENG
 		}
 		bypass = {
 		}
 		prerequisite = {
-			focus = POR_concordat_with_the_holy_see
+			focus = POR_the_capital_of_espionage
 		}
 		mutually_exclusive = {
 			focus = POR_proudly_alone
@@ -3171,61 +3158,17 @@ focus_tree = {
 		completion_reward = {
 			remove_ideas = POR_national_gold_reserves
 			remove_ideas = POR_unstable_republic
-			if = {
-				limit = {
-					ENG = {
-						is_faction_leader = yes
-						has_government = democratic
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				ENG = {
-					country_event = {
-						id = generic.2
-						hours = 4
-					}
-				}
-			}
 		}
 	}
 	focus = {
 		id = POR_the_capital_of_espionage
 		available = {
-			owns_state = 112
-			has_war = no
-			OR = {
-				AND = {
-					ENG = {
-						exists = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					any_country = {
-						is_major = yes
-						has_war_with = ENG
-					}
-				}
-				AND = {
-					GER = {
-						exists = yes
-						NOT = {
-							has_war_with = ROOT
-						}
-					}
-					any_country = {
-						is_major = yes
-						has_war_with = GER
-					}
-				}
-			}
 		}
 		bypass = {
 		}
 		prerequisite = {
 			focus = POR_strengthen_the_regime
+			focus = POR_allow_free_elections
 		}
 		icon = GFX_goal_generic_intelligence_exchange
 		x = -2
@@ -3600,13 +3543,19 @@ focus_tree = {
 	focus = {
 		id = POR_allow_free_elections
 		available = {
-			democratic > 0.5
-			has_war = no
+			OR = {
+				democratic > 0.5
+				is_in_faction_with = ENG
+			}
 		}
 		bypass = {
 		}
 		prerequisite = {
 			focus = POR_estado_novo
+		}
+		mutually_exclusive = {
+			focus = POR_national_syndicalism
+			focus = POR_strengthen_the_regime
 		}
 		icon = GFX_goal_support_democracy
 		x = -1
@@ -3620,51 +3569,13 @@ focus_tree = {
 			FOCUS_FILTER_STABILITY
 		}
 		completion_reward = {
-			every_other_country = {
-				limit = {
-					has_government = democratic
-				}
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_election_opinion_democratic
-				}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
 			}
-			remove_ideas = POR_unstable_republic
-			if = {
-				limit = {
-					has_idea = internationalism
-				}
-				remove_ideas = internationalism
-			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = POR_jaime_cortesao
-			custom_effect_tooltip = available_theorist
-			show_ideas_tooltip = POR_jose_manuel_sarmento_de_beires
-			if = {
-				limit = {
-					has_completed_focus = POR_limited_self_rule
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = POR_francisco_da_cunha_leal
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_government = democratic
-					}
-				}
-				set_politics = {
-					ruling_party = democratic
-					elections_allowed = yes
-				}
-				add_stability = -0.1
-			}
-			else = {
-				add_political_power = 120
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.05
-				}
+			promote_character = {
+				character = POR_cerejeira_elron
+				ideology = liberalism
 			}
 		}
 	}

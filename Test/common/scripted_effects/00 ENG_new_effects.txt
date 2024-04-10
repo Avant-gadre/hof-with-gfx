@@ -303,3 +303,466 @@ ENG_hold_speech_effect = {
 		}
 	}
 }
+
+ENG_setup_right_party_name_under_king_effect = {
+	if = {
+		limit = {
+			has_country_flag = ENG_royal_party_avaliable_flag
+		}
+		set_party_name = {
+			ideology = ROOT
+			long_name = ENG_royal_party_long
+			name = ENG_royal_party
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = ENG_respect_democratic_institution_flag
+		}
+		set_party_name = {
+			ideology = ROOT
+			long_name = ENG_neutrality_tories_party_long
+			name = ENG_neutrality_tories_party
+		}
+	}
+}
+
+ENG_setup_right_saber_due_to_constituional_status_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_completed_focus = ENG_king_for_once_and_future_focus
+			}
+			has_country_flag = ENG_respect_democratic_institution_flag
+		}
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = conservatism
+		}
+		ENG_setup_right_party_name_under_king_effect = yes
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_completed_focus = ENG_king_for_once_and_future_focus
+			}
+			has_country_flag = ENG_royal_party_avaliable_flag
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		promote_character = {
+			character = ENG_artoria_pendragon
+			ideology = authoritarianism
+		}
+		ENG_setup_right_party_name_under_king_effect = yes
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = ENG_king_for_once_and_future_focus
+			has_country_flag = ENG_respect_democratic_institution_flag
+		}
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		promote_character = {
+			character = ENG_medraut_pendragon
+			ideology = conservatism
+		}
+		activate_advisor = ENG_artoria_pendragon_special_political_advisor
+		ENG_setup_right_party_name_under_king_effect = yes
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = ENG_king_for_once_and_future_focus
+			has_country_flag = ENG_royal_party_avaliable_flag
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = yes
+		}
+		promote_character = {
+			character = ENG_medraut_pendragon
+			ideology = authoritarianism
+		}
+		activate_advisor = ENG_artoria_pendragon_special_political_advisor
+		ENG_setup_right_party_name_under_king_effect = yes
+	}
+}
+
+ENG_choose_cons_leader_if_kayneth_is_dead_effect = {
+	if = {
+		limit = {
+			ENG_kayneth_is_dead_trigger = no
+		}
+		activate_advisor = ENG_kayneth_el_melloi_archibald_special_first
+	}
+	if = {
+		limit = {
+			ENG_kayneth_is_dead_trigger = yes
+		}
+		activate_advisor = ENG_bram_nuadare_sophiari_special_first
+	}
+}
+
+ENG_election_view_clear_all_effect = {
+	clr_country_flag = ENG_election_view_first_page_flag
+	clr_country_flag = ENG_election_view_second_page_flag
+	clr_country_flag = ENG_election_view_third_page_flag
+	if = {
+		limit = {
+			OR = {
+				has_country_leader_ideology = social_democracy
+				has_country_leader_ideology = liberalism
+			}
+		}
+		ENG = {
+			ENG_olga_marie_arsimilat_animusphere = {
+				unit_leader_event = {
+					id = eng_cabinet.8
+					days = 2
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_country_leader_ideology = conservatism
+				has_country_leader_ideology = classical_liberalism
+			}
+		}
+		ENG = {
+			if = {
+				limit = {
+					ENG_kayneth_is_dead_trigger = no
+				}
+				ENG_kayneth_el_melloi_archibald = {
+					unit_leader_event = {
+						id = eng_cabinet.8
+						days = 2
+					}
+				}
+			}
+			if = {
+				limit = {
+					ENG_kayneth_is_dead_trigger = yes
+				}
+				ENG_reines_el_melloi_archisorte = {
+					unit_leader_event = {
+						id = eng_cabinet.8
+						days = 2
+					}
+				}
+			}
+		}
+	}
+}
+
+ENG_coop_japanese_effect = {
+	JAP = {
+		give_guarantee = ENG
+		add_to_tech_sharing_group = ENG_commonwealth_research
+		add_ideas = {
+			ENG_cooperate_with_japan_1_idea
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = generic_approves_of_government_opinion
+		}
+	}
+	ENG = {
+		give_guarantee = JAP
+		add_ideas = {
+			JAP_cooperate_with_british_1_idea
+		}
+		add_opinion_modifier = {
+			target = JAP
+			modifier = generic_approves_of_government_opinion
+		}
+	}
+}
+
+ENG_formalize_anglo_japanese_alliance_effect = {
+	JAP = {
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = JAP
+					is_subject = no
+				}
+				leave_faction = yes
+				ENG = {
+					add_to_faction = PREV
+				}
+			}
+			JAP = {
+				dismantle_faction = yes
+			}
+			ENG = {
+				add_to_faction = JAP
+			}
+		}
+	}
+	else = {
+		ENG = {
+			add_to_faction = JAP
+		}
+	}
+	ENG = {
+		remove_resource_rights = 333
+		remove_resource_rights = 828
+		remove_resource_rights = 846
+		remove_resource_rights = 1002
+		remove_resource_rights = 963
+		remove_resource_rights = 999
+		remove_resource_rights = 751
+	}
+	hidden_effect = {
+		MAL = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = MAL_independent
+		}
+	}
+	hidden_effect = {
+		INS = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = MAL_independent
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+			}
+		}
+	}
+	JAP = {
+		puppet = MAL
+		set_autonomy = {
+			target = MAL
+			autonomous_state = autonomy_supervised_state
+		}
+	}
+	hidden_effect = {
+		if = {
+			limit = {
+				country_exists = INI
+			}
+			JAP = {
+				annex_country = {
+					target = INI
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = INS
+				}
+			}
+			INS = {
+				every_core_state = {
+					limit = {
+						NOT = {
+							is_owned_by = POR
+						}
+					}
+					transfer_state_to = INS
+				}
+			}
+		}
+	}
+	JAP = {
+		puppet = INS
+		set_autonomy = {
+			target = INS
+			autonomous_state = autonomy_supervised_state
+		}
+	}
+	ENG = {
+		activate_mission = ENG_singapore_conference_mission
+	}
+}
+
+ENG_formalize_anglo_japanese_american_alliance_effect = {
+	USA = {
+		set_autonomy = {
+			target = PHI
+			autonomy_state = autonomy_mandate
+		}
+		set_autonomy = {
+			target = WIF
+			autonomy_state = autonomy_mandate
+		}
+		hidden_effect = {
+			WIF = {
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = yes
+				}
+				create_country_leader = {
+					name = USA_south_dakota
+					picture = GFX_Portrait_USA_South_Dakota
+					ideology = classical_liberalism
+				}
+			}
+		}
+	}
+	USA = {
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = USA
+					is_subject = no
+				}
+				leave_faction = yes
+				ENG = {
+					add_to_faction = PREV
+				}
+			}
+			USA = {
+				dismantle_faction = yes
+			}
+			ENG = {
+				add_to_faction = USA
+			}
+		}
+	}
+	else = {
+		ENG = {
+			add_to_faction = USA
+		}
+	}
+}
+
+ENG_formalize_anglo_rome_alliance_effect = {
+	hidden_effect = {
+		ITA = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ITA
+						is_subject = no
+					}
+					leave_faction = yes
+					ENG = {
+						add_to_faction = PREV
+					}
+				}
+				ITA = {
+					dismantle_faction = yes
+				}
+				ENG = {
+					add_to_faction = ITA
+				}
+			}
+			else = {
+				ENG = {
+					add_to_faction = ITA
+				}
+			}
+		}
+	}
+	ITA = {
+		transfer_state = 116
+		transfer_state = 164
+		transfer_state = 269
+	}
+	ETH = {
+		transfer_state = 550
+	}
+	whiteline = yes
+	ITA = {
+		add_ideas = ENG_economy_control_1_idea
+	}
+	whiteline = yes
+	EGY = {
+		add_ideas = ITA_economy_influence_idea
+	}
+	whiteline = yes
+	ITA = {
+		give_guarantee = TUR
+	}
+	ENG = {
+		give_guarantee = TUR
+	}
+}
+
+ENG_military_access_clear_all_effect = {
+	if = {
+		limit = {
+			has_military_access_to = FROM
+		}
+		diplomatic_relation = {
+			country = FROM
+			relation = military_access
+			active = no
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				has_military_access_to = ROOT
+			}
+		}
+		FROM = {
+			diplomatic_relation = {
+				country = ROOT
+				relation = military_access
+				active = no
+			}
+		}
+	}
+}
+
+
+ENG_formalize_anglo_american_alliance_effect = {
+	hidden_effect = {
+		USA = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = USA
+						is_subject = no
+					}
+					leave_faction = yes
+					ENG = {
+						add_to_faction = PREV
+					}
+				}
+				USA = {
+					dismantle_faction = yes
+				}
+				ENG = {
+					add_to_faction = USA
+				}
+			}
+			else = {
+				ENG = {
+					add_to_faction = USA
+				}
+			}
+		}
+	}
+	USA = {
+		transfer_state = 696
+		transfer_state = 311
+		transfer_state = 690
+	}
+}

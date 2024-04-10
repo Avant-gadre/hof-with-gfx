@@ -274,22 +274,75 @@ ENG_election_view_third_page_trigger = {
 }
 
 ENG_free_election_avaliable_trigger = {
-	if = {
-		limit = {
-			has_completed_focus = ENG_round_table_focus
-		}
-		has_completed_focus = ENG_reinforce_the_king_focus
-	}
-	if = {
-		limit = {
-			has_completed_focus = ENG_restructure_the_government
-		}
-		has_completed_focus = ENG_reintroduce_elections
+	ENG_has_saber_trigger = no
+	##她下去了才行
+	NOT = {
+		has_government = neutrality
+		has_country_flag = ENG_royal_party_avaliable_flag
 	}
 }
 
 ENG_election_in_war_trigger = {
 	has_war = yes
+	OR = {
+		surrender_progress > 0.01
+		FRA = {
+			OR = {
+				controls_state = 16
+				controls_state = 20
+				controls_state = 19
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		GER = {
+			OR = {
+				controls_state = 64
+				controls_state = 66
+				controls_state = 52
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		SOV = {
+			OR = {
+				controls_state = 195
+				controls_state = 219
+				controls_state = 217
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		ITA = {
+			OR = {
+				controls_state = 2
+				controls_state = 159
+				surrender_progress < 0.5
+			}
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+		any_other_country = {
+			THIS.capital_scope = {
+				is_on_continent = europe
+			}
+			ROOT = {
+				casualties_inflicted_by = {
+					opponent = PREV
+					thousands > 10
+				}
+			}
+			surrender_progress < 0.5
+			has_capitulated = no
+			has_war_with = ROOT
+		}
+	}
+}
+
+ENG_imperial_conference_disable_trigger = {
 	OR = {
 		surrender_progress > 0.01
 		FRA = {
@@ -440,5 +493,32 @@ ENG_can_hold_speech_trigger = {
 			is_puppet = no
 			has_war_with = ROOT
 		}
+	}
+}
+
+ENG_anglo_portuguese_trigger = {
+	ENG = {
+		is_faction_leader = yes
+	}
+	POR = {
+		is_in_faction_with = ENG
+	}
+}
+
+ENG_anglo_rome_trigger = {
+	ENG = {
+		is_faction_leader = yes
+	}
+	ITA = {
+		is_in_faction_with = ENG
+	}
+}
+
+ENG_anglo_usa_trigger = {
+	ENG = {
+		is_faction_leader = yes
+	}
+	USA = {
+		is_in_faction_with = ENG
 	}
 }

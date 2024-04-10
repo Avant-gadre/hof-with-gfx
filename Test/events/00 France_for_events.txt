@@ -865,3 +865,81 @@ country_event = {
 		add_political_power = -20
 	}
 }
+
+add_namespace = fra_foreign_support
+##event for FROM, FRA wants donations
+country_event = {
+	id = fra_foreign_support.1
+	title = fra_foreign_support.1.t
+	desc = fra_foreign_support.1.desc
+	picture = GFX_report_event_german_politician_speech
+	is_triggered_only = yes
+	option = {
+		#agree
+		name = fra_foreign_support.1.a
+		ai_chance = {
+			base = 70
+		}
+		add_political_power = 25
+		set_country_flag = USA_foreign_support_donations_approved
+		FRA = {
+			country_event = fra_foreign_support.2
+		}
+		effect_tooltip = {
+			FRA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+	}
+	option = {
+		#refuse
+		name = fra_foreign_support.1.b
+		ai_chance = {
+			base = 30
+		}
+		add_political_power = -25
+		FRA = {
+			country_event = fra_foreign_support.3
+		}
+	}
+}
+
+#event for FRA, donations approved
+country_event = {
+	id = fra_foreign_support.2
+	title = fra_foreign_support.2.t
+	desc = fra_foreign_support.2.desc
+	picture = GFX_report_event_generic_clock_tower
+	is_triggered_only = yes
+	option = {
+		##No
+		name = fra_foreign_support.2.a
+		ai_chance = {
+			base = 70
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+	}
+}
+
+#event for FRA, donations refused
+country_event = {
+	id = fra_foreign_support.3
+	title = fra_foreign_support.3.t
+	desc = fra_foreign_support.3.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		##No
+		name = fra_foreign_support.3.a
+		add_political_power = -1
+		ai_chance = {
+			base = 70
+		}
+	}
+}
