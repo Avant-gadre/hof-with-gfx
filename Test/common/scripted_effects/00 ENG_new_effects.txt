@@ -728,7 +728,6 @@ ENG_military_access_clear_all_effect = {
 	}
 }
 
-
 ENG_formalize_anglo_american_alliance_effect = {
 	hidden_effect = {
 		USA = {
@@ -764,5 +763,824 @@ ENG_formalize_anglo_american_alliance_effect = {
 		transfer_state = 696
 		transfer_state = 311
 		transfer_state = 690
+	}
+}
+
+ENG_formalize_anglo_france_alliance_effect = {
+	hidden_effect = {
+		FRA = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = FRA
+						is_subject = no
+					}
+					leave_faction = yes
+					ENG = {
+						add_to_faction = PREV
+					}
+				}
+				FRA = {
+					dismantle_faction = yes
+				}
+				ENG = {
+					add_to_faction = FRA
+				}
+			}
+			else = {
+				ENG = {
+					add_to_faction = FRA
+				}
+			}
+		}
+	}
+	ENG = {
+		transfer_state = 14
+		transfer_state = 983
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = SPA
+					tag = SPB
+					tag = SPC
+				}
+				is_puppet_of = FRA
+			}
+			FRA = {
+				annex_country = {
+					target = PREV
+					transfer_troops = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					41 = {
+						is_controlled_by_PREV_or_ally = yes
+					}
+				}
+			}
+			41 = {
+				transfer_state_to = SPA
+			}
+			ENG = {
+				set_autonomy = {
+					target = SPA
+					autonomy_state = autonomy_mandate
+				}
+			}
+			FRA = {
+				every_state = {
+					limit = {
+						is_core_of = SPA
+						is_controlled_by_PREV_or_ally = yes
+					}
+					transfer_state_to = SPA
+				}
+			}
+		}
+	}
+}
+
+ENG_formalize_anglo_german_alliance_effect = {
+	if = {
+		limit = {
+			HOL = {
+				is_in_faction_with = GER
+			}
+		}
+		ENG = {
+			set_autonomy = {
+				target = HOL
+				autonomy_state = autonomy_mandate
+			}
+		}
+	}
+	hidden_effect = {
+		GER = {
+			every_state = {
+				limit = {
+					NOT = {
+						is_core_of = HOL
+					}
+					is_core_of = BEL
+					is_controlled_by_PREV_or_ally = yes
+				}
+				transfer_state_to = BEL
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					925 = {
+						is_controlled_by_PREV_or_ally = yes
+					}
+				}
+			}
+			41 = {
+				transfer_state_to = BEL
+			}
+			ENG = {
+				set_autonomy = {
+					target = BEL
+					autonomy_state = autonomy_mandate
+				}
+			}
+		}
+		if = {
+			limit = {
+				BEL = {
+					OR = {
+						exists = no
+						is_in_faction_with = GER
+					}
+				}
+			}
+			ENG = {
+				set_autonomy = {
+					target = BEL
+					autonomy_state = autonomy_mandate
+				}
+			}
+		}
+	}
+	hidden_effect = {
+		GER = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = GER
+						is_subject = no
+					}
+					leave_faction = yes
+					ENG = {
+						add_to_faction = PREV
+					}
+				}
+				GER = {
+					dismantle_faction = yes
+				}
+				ENG = {
+					add_to_faction = GER
+				}
+			}
+			else = {
+				ENG = {
+					add_to_faction = GER
+				}
+			}
+		}
+	}
+}
+
+ENG_formalize_anglo_persian_alliance_effect = {
+	PER = {
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = PER
+					is_subject = no
+				}
+				leave_faction = yes
+				ENG = {
+					add_to_faction = PREV
+				}
+			}
+			PER = {
+				dismantle_faction = yes
+			}
+			ENG = {
+				add_to_faction = PER
+			}
+		}
+		else = {
+			ENG = {
+				add_to_faction = PER
+			}
+		}
+	}
+	ENG = {
+		if = {
+			limit = {
+				has_resources_rights = {
+					state = 411
+				}
+			}
+			remove_resource_rights = 411
+		}
+		if = {
+			limit = {
+				has_resources_rights = {
+					state = 412
+				}
+			}
+			remove_resource_rights = 412
+		}
+		if = {
+			limit = {
+				has_resources_rights = {
+					state = 413
+				}
+			}
+			remove_resource_rights = 413
+		}
+	}
+	411 = {
+		add_resource = {
+			type = oil
+			amount = 10
+		}
+	}
+	412 = {
+		add_resource = {
+			type = oil
+			amount = 10
+		}
+	}
+	413 = {
+		add_resource = {
+			type = oil
+			amount = 10
+		}
+	}
+	PER = {
+		add_ideas = ENG_economy_control_mideast_idea
+		transfer_state = 347
+	}
+}
+
+ENG_formalize_anglo_iraqi_alliance_effect = {
+	IRQ = {
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = IRQ
+					is_subject = no
+				}
+				leave_faction = yes
+				ENG = {
+					add_to_faction = PREV
+				}
+			}
+			IRQ = {
+				dismantle_faction = yes
+			}
+			ENG = {
+				add_to_faction = IRQ
+			}
+		}
+		else = {
+			ENG = {
+				add_to_faction = IRQ
+			}
+		}
+	}
+	1110 = {
+		add_resource = {
+			type = oil
+			amount = 10
+		}
+	}
+	907 = {
+		add_resource = {
+			type = oil
+			amount = 10
+		}
+	}
+	993 = {
+		add_resource = {
+			type = oil
+			amount = 10
+		}
+	}
+	IRQ = {
+		add_ideas = ENG_economy_control_mideast_idea
+		transfer_state = 1110
+		transfer_state = 907
+		transfer_state = 993
+		transfer_state = 658
+	}
+}
+
+ENG_formalize_anglo_israel_alliance_effect = {
+	ISR = {
+		if = {
+			limit = {
+				is_faction_leader = yes
+			}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ISR
+					is_subject = no
+				}
+				leave_faction = yes
+				ENG = {
+					add_to_faction = PREV
+				}
+			}
+			ISR = {
+				dismantle_faction = yes
+			}
+			ENG = {
+				add_to_faction = ISR
+			}
+		}
+		else = {
+			ENG = {
+				add_to_faction = ISR
+			}
+		}
+	}
+	ISR = {
+		add_ideas = ENG_economy_control_mideast_idea
+		add_offsite_building = {
+			type = industrial_complex
+			level = 3
+		}
+		add_offsite_building = {
+			type = arms_factory
+			level = 3
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 5000
+			producer = ISR
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 1000
+			producer = ISR
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 1000
+			producer = ISR
+		}
+	}
+}
+
+##
+ENG_provide_equipment_to_soviets_effect = {
+	SOV = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			producer = SOV
+			amount = 20000
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			producer = SOV
+			amount = 2000
+		}
+		add_equipment_to_stockpile = {
+			type = motorized_equipment
+			producer = SOV
+			amount = 2000
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			producer = SOV
+			amount = 1000
+		}
+		add_equipment_to_stockpile = {
+			type = mechanized_equipment
+			producer = SOV
+			amount = 1000
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_chassis
+			producer = SOV
+			amount = 500
+		}
+		add_equipment_to_stockpile = {
+			type = convoy
+			producer = SOV
+			amount = 100
+		}
+	}
+}
+
+ENG_provide_equipment_to_russians_effect = {
+	RUS = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			producer = RUS
+			amount = 20000
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			producer = RUS
+			amount = 2000
+		}
+		add_equipment_to_stockpile = {
+			type = motorized_equipment
+			producer = RUS
+			amount = 2000
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			producer = RUS
+			amount = 1000
+		}
+		add_equipment_to_stockpile = {
+			type = mechanized_equipment
+			producer = RUS
+			amount = 1000
+		}
+		add_equipment_to_stockpile = {
+			type = medium_tank_chassis
+			producer = RUS
+			amount = 500
+		}
+		add_equipment_to_stockpile = {
+			type = convoy
+			producer = RUS
+			amount = 100
+		}
+	}
+}
+
+##Used In Imperial Conference
+ENG_idec_upgrade_effect = {
+	if = {
+		limit = {
+			has_idea = ENG_IDEC_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_IDEC_idea
+			add_idea = ENG_IDEC_1_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_IDEC_1_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_IDEC_1_idea
+			add_idea = ENG_IDEC_2_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_IDEC_2_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_IDEC_2_idea
+			add_idea = ENG_IDEC_3_idea
+		}
+	}
+}
+
+ENG_imperial_defence_upgrade_effect = {
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_1_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_defense_1_idea
+			add_idea = ENG_imperial_conference_defense_2_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_2_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_defense_2_idea
+			add_idea = ENG_imperial_conference_defense_3_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_3_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_defense_3_idea
+			add_idea = ENG_imperial_conference_defense_4_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_4_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_defense_4_idea
+			add_idea = ENG_imperial_conference_defense_5_idea
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_idea = ENG_imperial_conference_defense_1_idea
+			}
+		}
+		add_ideas = ENG_imperial_conference_defense_1_idea
+	}
+}
+
+ENG_imperial_economy_upgrade_effect = {
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_1_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_economy_1_idea
+			add_idea = ENG_imperial_conference_economy_2_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_2_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_economy_2_idea
+			add_idea = ENG_imperial_conference_economy_3_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_3_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_economy_3_idea
+			add_idea = ENG_imperial_conference_economy_4_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_4_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_economy_4_idea
+			add_idea = ENG_imperial_conference_economy_5_idea
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_idea = ENG_imperial_conference_economy_1_idea
+			}
+		}
+		add_ideas = ENG_imperial_conference_economy_1_idea
+	}
+}
+
+ENG_imperial_trade_upgrade_effect = {
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_1_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_trade_1_idea
+			add_idea = ENG_imperial_conference_trade_2_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_2_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_trade_2_idea
+			add_idea = ENG_imperial_conference_trade_3_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_3_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_trade_3_idea
+			add_idea = ENG_imperial_conference_trade_4_idea
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_4_idea
+		}
+		swap_ideas = {
+			remove_idea = ENG_imperial_conference_trade_4_idea
+			add_idea = ENG_imperial_conference_trade_5_idea
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_idea = ENG_imperial_conference_trade_1_idea
+			}
+		}
+		add_ideas = ENG_imperial_conference_trade_1_idea
+	}
+}
+
+ENG_help_dominions_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_idea = ENG_commonwealth_focus_idea
+			}
+		}
+		add_timed_idea = {
+			idea = ENG_commonwealth_focus_idea
+			days = 90
+		}
+	}
+	if = {
+		limit = {
+			has_idea = ENG_commonwealth_focus_idea
+		}
+		modify_timed_idea = {
+			idea = ENG_commonwealth_focus_idea
+			days = 90
+		}
+	}
+}
+
+ENG_help_dominions_tech_effect = {
+	add_doctrine_cost_reduction = {
+		name = ENG_motorized_focus
+		cost_reduction = 0.5
+		uses = 1
+		category = land_doctrine
+	}
+	add_doctrine_cost_reduction = {
+		name = ENG_motorized_focus
+		cost_reduction = 0.5
+		uses = 1
+		category = air_doctrine
+	}
+	add_doctrine_cost_reduction = {
+		name = ENG_motorized_focus
+		cost_reduction = 0.5
+		uses = 1
+		category = naval_doctrine
+	}
+	add_tech_bonus = {
+		name = ENG_motorized_focus
+		bonus = 1
+		ahead_reduction = 1
+		uses = 1
+		category = cat_mechanized_equipment
+	}
+	add_tech_bonus = {
+		name = ENG_motorized_focus
+		bonus = 1
+		ahead_reduction = 1
+		uses = 1
+		category = artillery
+	}
+	add_tech_bonus = {
+		name = ENG_motorized_focus
+		bonus = 1
+		ahead_reduction = 1
+		uses = 1
+		category = infantry_weapons
+	}
+}
+
+ENG_help_dominions_industry_effect = {
+	add_tech_bonus = {
+		name = ENG_motorized_focus
+		bonus = 1
+		ahead_reduction = 1
+		uses = 1
+		category = industry
+	}
+	add_tech_bonus = {
+		name = ENG_motorized_focus
+		bonus = 1
+		ahead_reduction = 1
+		uses = 1
+		category = synth_resources
+	}
+	add_one_random_civilian_factory = yes
+	add_one_random_civilian_factory = yes
+	add_one_random_civilian_factory = yes
+	add_one_random_civilian_factory = yes
+}
+
+ENG_help_dominions_arms_effect = {
+	add_equipment_to_stockpile = {
+		type = infantry_equipment
+		amount = 10000
+	}
+	add_equipment_to_stockpile = {
+		type = artillery_equipment
+		amount = 1000
+	}
+	add_equipment_to_stockpile = {
+		type = support_equipment
+		amount = 1000
+	}
+	add_one_random_military_factory = yes
+	add_one_random_military_factory = yes
+	add_one_random_military_factory = yes
+	add_one_random_military_factory = yes
+}
+
+ENG_imperial_conference_clear_all_effect = {
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_1_idea
+		}
+		remove_ideas = ENG_imperial_conference_defense_1_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_2_idea
+		}
+		remove_ideas = ENG_imperial_conference_defense_2_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_3_idea
+		}
+		remove_ideas = ENG_imperial_conference_defense_3_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_4_idea
+		}
+		remove_ideas = ENG_imperial_conference_defense_4_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_defense_5_idea
+		}
+		remove_ideas = ENG_imperial_conference_defense_5_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_1_idea
+		}
+		remove_ideas = ENG_imperial_conference_economy_1_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_2_idea
+		}
+		remove_ideas = ENG_imperial_conference_economy_2_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_3_idea
+		}
+		remove_ideas = ENG_imperial_conference_economy_3_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_4_idea
+		}
+		remove_ideas = ENG_imperial_conference_economy_4_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_economy_5_idea
+		}
+		remove_ideas = ENG_imperial_conference_economy_5_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_1_idea
+		}
+		remove_ideas = ENG_imperial_conference_trade_1_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_2_idea
+		}
+		remove_ideas = ENG_imperial_conference_trade_2_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_3_idea
+		}
+		remove_ideas = ENG_imperial_conference_trade_3_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_4_idea
+		}
+		remove_ideas = ENG_imperial_conference_trade_4_idea
+	}
+	if = {
+		limit = {
+			has_idea = ENG_imperial_conference_trade_5_idea
+		}
+		remove_ideas = ENG_imperial_conference_trade_5_idea
 	}
 }

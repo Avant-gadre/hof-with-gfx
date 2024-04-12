@@ -20,10 +20,10 @@ else_if = {{
 }}
 """
 
-target = "ENG_global_defense"
+target = "ENG_imperial_conference_trade"
 
 with open(output_full_path, "w") as file:
-    for i in range(0, 11):
+    for i in range(0, 5):
         current_statement = statement_template.format(i , i+1 , target=target)
         file.write(current_statement)
 

@@ -17,9 +17,9 @@ for file_name in files:
     # 检查是否是文件且是.png文件
     if os.path.isfile(file_path) and file_name.lower().endswith(target_type):
         # 构建目标文件名
-        target_prefix = "Portrait_ENG_"
+        target_prefix = "Portrait_CZE_"
         target_suffix = " copy" + target_type
-        new_prefix = "eng_"
+        new_prefix = "cze_"
         BoolLower = 0
 
         if file_name.startswith(target_prefix) and file_name.endswith(target_suffix):
