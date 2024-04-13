@@ -277,7 +277,6 @@ ENG_IRE_affairs_of_the_free_state_category = {
 	}
 }
 
-##TODO - finish event chains
 ENG_JAP_second_anglo_japan_alliance_category = {
 	ENG_second_anglo_japan_alliance_decision = {
 		name = ENG_cooperate_with_japan
@@ -1004,6 +1003,7 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 			is_faction_leader = yes
 			has_completed_focus = ENG_east_asia_focus
 			JAP = {
+				has_completed_focus = JAP_manchuria_operation
 				is_faction_leader = no
 				OR = {
 					exists = no
@@ -1060,14 +1060,13 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 		cancel_trigger = {
 		}
 		remove_effect = {
-			##什么拷打纱条
-			##可能要有个事件但是我懒得写
 			JAP = {
 				set_politics = {
 					ruling_party = neutrality
 					elections_allowed = no
 				}
 				add_ideas = ENG_economy_control_idea
+				add_ideas = ENG_IDEC_idea
 			}
 			hidden_effect = {
 				JAP = {
@@ -1075,6 +1074,14 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 						name = ENG_arthur_pendragon
 						picture = GFX_Portrait_ENG_Arthur_Pendragon
 						ideology = authoritarianism
+					}
+				}
+			}
+			hidden_effect = {
+				ENG_arthur_pendragon = {
+					unit_leader_event = {
+						id = eng_for_saja.16
+						days = 60
 					}
 				}
 			}
@@ -1498,6 +1505,416 @@ ENG_relation_with_american_category = {
 		remove_effect = {
 		}
 	}
+	ENG_state_visit_to_the_usa_decision = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			ENG = {
+				is_faction_leader = yes
+				NOT = {
+					has_war = yes
+				}
+			}
+			FROM = {
+				is_in_faction_with = ENG
+				NOT = {
+					has_war = yes
+				}
+			}
+		}
+		targets = {
+			USA
+		}
+		target_non_existing = yes
+		cost = 50
+		fire_only_once = yes
+		visible = {
+		}
+		days_remove = 60
+		complete_effect = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			FROM = {
+				add_political_power = 100
+				add_stability = 0.05
+				add_war_support = 0.05
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
+	##
+	ENG_fortify_antilles_decision = {
+		icon = coastal_fortification
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_intervine_on_us
+			689 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 689
+			}
+		}
+		target_non_existing = yes
+		targets = {
+			WIF
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			689 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 12304
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 12304
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 12304
+					instant_build = yes
+				}
+			}
+			689 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	ENG_bermuda_decision = {
+		icon = coastal_fortification
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_intervine_on_us
+			696 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 696
+			}
+		}
+		target_non_existing = yes
+		targets = {
+			WIF
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			696 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 13010
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 13010
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 13010
+					instant_build = yes
+				}
+			}
+			696 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	ENG_key_towards_america_decision = {
+		icon = coastal_fortification
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_intervine_on_us
+			311 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 311
+			}
+		}
+		target_non_existing = yes
+		targets = {
+			WIF
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			311 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 2077
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 2077
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 2077
+					instant_build = yes
+				}
+			}
+			311 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	ENG_guayana_base_decision = {
+		icon = coastal_fortification
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_intervine_on_us
+			687 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 687
+			}
+		}
+		target_non_existing = yes
+		targets = {
+			WIF
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			687 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 4982
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 4982
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 4982
+					instant_build = yes
+				}
+			}
+			687 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
 }
 
 ENG_mediterranean_focus_category = {
@@ -1784,6 +2201,50 @@ ENG_mediterranean_focus_category = {
 			FROM = {
 				invite_country_to_faction = yes
 			}
+		}
+	}
+	ENG_gibraltar_for_spanish_support_decision = {
+		icon = swi_consolidate_council_power
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_spain_focus
+			118 = {
+				is_fully_controlled_by = ROOT
+			}
+			FROM = {
+				is_in_faction_with = ROOT
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 118
+			}
+		}
+		targets = {
+			SPA
+		}
+		target_non_existing = no
+		fire_only_once = yes
+		cost = 10
+		days_remove = 90
+		modifier = {
+			political_power_gain = 0.2
+		}
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			SPA = {
+				add_opinion_modifier = {
+					modifier = generic_close_allies_opinion
+					target = ROOT
+				}
+			}
+		}
+		remove_effect = {
+			add_political_power = 100
 		}
 	}
 	ENG_military_base_in_canary_decision = {
@@ -2271,6 +2732,145 @@ ENG_mediterranean_focus_category = {
 			}
 		}
 	}
+	ENG_install_kirschtaria_in_greece_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_aegean_strategy
+			num_of_civilian_factories_available_for_projects > 19
+			FROM = {
+				has_character = GRE_Kirschtaria_Wodime
+			}
+			GRE = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			GRE = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		targets = {
+			GRE
+		}
+		target_non_existing = yes
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		highlight_states = {
+			highlight_state_targets = {
+				state = 989
+			}
+		}
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			annex_country = {
+				target = GRE
+				transfer_troops = yes
+			}
+			GRE = {
+				every_core_state = {
+					transfer_state_to = GRE
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				promote_character = {
+					character = GRE_Kirschtaria_Wodime
+					ideology = authoritarianism
+				}
+			}
+			set_autonomy = {
+				target = GRE
+				autonomy_state = autonomy_mandate
+			}
+			GRE = {
+				add_ideas = ENG_IDEC_idea
+				add_ideas = ENG_economy_control_idea
+			}
+		}
+		remove_effect = {
+		}
+	}
+	ENG_install_musik_in_romania_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_balkan_strategy
+			num_of_civilian_factories_available_for_projects > 19
+			has_character = ENG_goredolf_musik_yggdmillennia
+			ROM = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			ROM = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		targets = {
+			ROM
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 46
+			}
+		}
+		target_non_existing = yes
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			annex_country = {
+				target = ROM
+				transfer_troops = yes
+			}
+			ROM = {
+				every_core_state = {
+					transfer_state_to = ROM
+				}
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = ENG_goredolf_musik_yggdmillennia
+						picture = GFX_Portrait_ENG_Goredolf_Musik_Yggdmillennia
+						ideology = classical_liberalism
+					}
+				}
+			}
+			set_autonomy = {
+				target = ROM
+				autonomy_state = autonomy_mandate
+			}
+			ROM = {
+				add_ideas = ENG_IDEC_idea
+				add_ideas = ENG_economy_control_idea
+			}
+		}
+		remove_effect = {
+		}
+	}
 	ENG_crown_time_temple_solomon_decision = {
 		icon = swi_consolidate_council_power
 		allowed = {
@@ -2322,6 +2922,75 @@ ENG_mediterranean_focus_category = {
 			FROM = {
 				invite_country_to_faction = yes
 			}
+		}
+	}
+	ENG_install_solomon_in_ethopia_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_balkan_strategy
+			num_of_civilian_factories_available_for_projects > 9
+			FROM = {
+				has_character = ETH_solomon_bethlehem
+			}
+			ETH = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			ETH = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		targets = {
+			ETH
+		}
+		target_non_existing = yes
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		highlight_states = {
+			highlight_state_targets = {
+				state = 921
+			}
+		}
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = {
+			annex_country = {
+				target = ETH
+				transfer_troops = yes
+			}
+			ETH = {
+				every_core_state = {
+					transfer_state_to = ETH
+				}
+				set_politics = {
+					ruling_party = fascism
+					elections_allowed = no
+				}
+				promote_character = {
+					character = ETH_solomon_bethlehem
+					ideology = rexism
+				}
+			}
+			set_autonomy = {
+				target = ETH
+				autonomy_state = autonomy_mandate
+			}
+			ETH = {
+				add_ideas = ENG_IDEC_idea
+				add_ideas = ENG_economy_control_idea
+			}
+		}
+		remove_effect = {
 		}
 	}
 	##Fort In Medit
@@ -2992,6 +3661,138 @@ ENG_european_equilibrium_category = {
 			}
 		}
 	}
+	##
+	ENG_state_visit_to_france_decision = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			ENG = {
+				is_faction_leader = yes
+				NOT = {
+					has_war = yes
+				}
+			}
+			FROM = {
+				is_in_faction_with = ENG
+				NOT = {
+					has_war = yes
+				}
+			}
+		}
+		targets = {
+			FRA
+		}
+		target_non_existing = yes
+		cost = 50
+		fire_only_once = yes
+		visible = {
+		}
+		days_remove = 60
+		complete_effect = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			FROM = {
+				add_political_power = 100
+				add_stability = 0.05
+				add_war_support = 0.05
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
+	ENG_invite_arcueid_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_no_further_appeasement
+			num_of_civilian_factories_available_for_projects > 9
+			RHI = {
+				has_character = GEU_arcueid_brunestud
+				has_character = GEU_kischur_zelretch_schweinorg
+			}
+			RHI = {
+				NOT = {
+					has_war_with = ROOT
+				}
+				OR = {
+					exists = no
+					has_capitulated = yes
+				}
+			}
+			RHI = {
+				if = {
+					limit = {
+						exists = yes
+					}
+					NOT = {
+						has_country_leader = {
+							character = GEU_arcueid_brunestud
+							ruling_only = yes
+						}
+					}
+				}
+			}
+		}
+		targets = {
+			RHI
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 42
+			}
+		}
+		target_non_existing = yes
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -20
+				add_command_power = -20
+			}
+			if = {
+				limit = {
+					RHI = {
+						exists = yes
+					}
+				}
+				effect_tooltip = {
+					RHI = {
+						GEU_kischur_zelretch_schweinorg = {
+							set_nationality = ENG
+						}
+						GEU_arcueid_brunestud = {
+							set_nationality = ENG
+						}
+					}
+				}
+				RHI = {
+					country_event = {
+						days = 1
+						id = eng_for_bal.19
+					}
+				}
+			}
+			else = {
+				RHI = {
+					GEU_kischur_zelretch_schweinorg = {
+						set_nationality = ENG
+					}
+					GEU_arcueid_brunestud = {
+						set_nationality = ENG
+					}
+				}
+			}
+		}
+		remove_effect = {
+		}
+	}
 	##Nordic
 	ENG_invite_sweden_decision = {
 		icon = eng_ally_imperialist_coup
@@ -3042,6 +3843,108 @@ ENG_european_equilibrium_category = {
 			FROM = {
 				invite_country_to_faction = yes
 			}
+		}
+	}
+	ENG_install_ophelia_in_sweden_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_operation_wilfred
+			num_of_civilian_factories_available_for_projects > 9
+			FROM = {
+				has_character = SWE_ophelia_phamrsolone
+			}
+			FROM = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			FROM = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		targets = {
+			SWE
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 38
+			}
+		}
+		target_non_existing = yes
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = {
+			annex_country = {
+				target = SWE
+				transfer_troops = yes
+			}
+			SWE = {
+				every_core_state = {
+					limit = {
+						OR = {
+							region = 33
+							region = 10
+							region = 11
+							region = 246
+							region = 247
+						}
+					}
+					transfer_state_to = SWE
+				}
+				promote_character = {
+					character = SWE_ophelia_phamrsolone
+					ideology = rexism
+				}
+				promote_character = {
+					character = SWE_ophelia_phamrsolone
+					ideology = conservatism
+				}
+			}
+			if = {
+				limit = {
+					has_government = fascism
+				}
+				SWE = {
+					set_politics = {
+						ruling_party = fascism
+						elections_allowed = no
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_government = fascism
+					}
+				}
+				SWE = {
+					set_politics = {
+						ruling_party = democratic
+						elections_allowed = no
+					}
+				}
+			}
+			set_autonomy = {
+				target = SWE
+				autonomy_state = autonomy_mandate
+			}
+			SWE = {
+				add_ideas = ENG_IDEC_idea
+				add_ideas = ENG_economy_control_idea
+			}
+		}
+		remove_effect = {
 		}
 	}
 	ENG_military_base_in_faores_decision = {
@@ -3680,6 +4583,266 @@ ENG_great_game_category = {
 		}
 	}
 	##
+	ENG_invite_kadoc_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_russian_intervention
+			num_of_civilian_factories_available_for_projects > 9
+			has_global_flag = RUS_lose_civil_war_flag
+			has_global_flag = RUS_anastasia_global_travel_flag
+			any_other_country = {
+				has_character = RUS_kadoc_zemiupus
+			}
+			any_other_country = {
+				has_character = RUS_anastasia_romanov
+			}
+			any_other_country = {
+				has_character = RUS_vlov_arkhangel
+			}
+		}
+		targets = {
+			RUS
+		}
+		target_non_existing = no
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -20
+				add_command_power = -20
+			}
+			random_other_country = {
+				limit = {
+					has_character = RUS_kadoc_zemiupus
+				}
+				RUS_kadoc_zemiupus = {
+					add_corps_commander_role = {
+						traits = {
+							inflexible_strategist
+							trait_cautious
+							organizer
+							skilled_staffer
+							expert_improviser
+						}
+						skill = 3
+						attack_skill = 2
+						defense_skill = 2
+						planning_skill = 3
+						logistics_skill = 3
+					}
+				}
+				RUS_kadoc_zemiupus = {
+					set_nationality = ROOT
+				}
+			}
+			random_other_country = {
+				limit = {
+					has_character = RUS_anastasia_romanov
+				}
+				RUS_anastasia_romanov = {
+					set_nationality = ROOT
+				}
+			}
+			random_other_country = {
+				limit = {
+					has_character = RUS_vlov_arkhangel
+				}
+				RUS_vlov_arkhangel = {
+					add_corps_commander_role = {
+						traits = {
+							infantry_officer
+							cavalry_officer
+							organizer
+							trickster
+							trait_engineer
+							commando
+							winter_specialist
+							hill_fighter
+						}
+						skill = 4
+						attack_skill = 4
+						defense_skill = 3
+						planning_skill = 3
+						logistics_skill = 3
+					}
+				}
+				RUS_vlov_arkhangel = {
+					set_nationality = ROOT
+				}
+			}
+		}
+		remove_effect = {
+			add_ideas = ENG_attract_russian_in_exile_idea
+		}
+	}
+	ENG_install_kadoc_in_poland_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			has_completed_focus = ENG_russian_intervention
+			num_of_civilian_factories_available_for_projects > 19
+			has_character = RUS_kadoc_zemiupus
+			POL = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			POL = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		targets = {
+			POL
+		}
+		target_non_existing = yes
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		highlight_states = {
+			highlight_state_targets = {
+				state = 10
+			}
+		}
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			annex_country = {
+				target = POL
+				transfer_troops = yes
+			}
+			POL = {
+				every_core_state = {
+					transfer_state_to = POL
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = RUS_kadoc_zemiupus
+						picture = GFX_Portrait_RUS_Kadoc_Zemiupus
+						ideology = stratocracy
+					}
+				}
+			}
+			set_autonomy = {
+				target = POL
+				autonomy_state = autonomy_mandate
+			}
+			POL = {
+				add_ideas = ENG_IDEC_idea
+				add_ideas = ENG_economy_control_idea
+			}
+		}
+		remove_effect = {
+		}
+	}
+	ENG_restore_tsardom_of_russian_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			is_faction_leader = yes
+			OR = {
+				has_government = neutrality
+				has_government = fascism
+			}
+			has_completed_focus = ENG_russian_intervention
+			num_of_civilian_factories_available_for_projects > 19
+			has_character = RUS_anastasia_romanov
+			RUS = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			SOV = {
+				OR = {
+					exists = no
+					is_puppet_of = ROOT
+				}
+			}
+			RUS = {
+				all_core_state = {
+					is_controlled_by_ROOT_or_subject = yes
+				}
+			}
+		}
+		targets = {
+			RUS
+		}
+		target_non_existing = yes
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_text = CP_20_PP_20
+		custom_cost_trigger = {
+			command_power > 19.9
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		complete_effect = {
+			annex_country = {
+				target = SOV
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = RUS
+				transfer_troops = yes
+			}
+			random_country = {
+				limit = {
+					has_character = RUS_anastasia_romanov
+				}
+				RUS_anastasia_romanov = {
+					set_nationality = RUS
+				}
+			}
+			RUS = {
+				every_core_state = {
+					transfer_state_to = RUS
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+			}
+			random_country = {
+				limit = {
+					NOT = {
+						tag = ROOT
+					}
+					has_character = RUS_anastasia_romanov
+				}
+				promote_character = {
+					character = RUS_anastasia_romanov
+					ideology = stratocracy
+				}
+			}
+			set_autonomy = {
+				target = RUS
+				autonomy_state = autonomy_personal_union
+			}
+			RUS = {
+				add_ideas = ENG_IDEC_idea
+				add_ideas = ENG_economy_control_idea
+			}
+		}
+		remove_effect = {
+		}
+	}
+	##
 	ENG_provide_weapons_to_soviets_decision = {
 		icon = generic_prepare_civil_war
 		available = {
@@ -3824,7 +4987,7 @@ ENG_great_game_category = {
 			}
 			SOV = {
 				229 = {
-					is_fully_controlled_by_ROOT_or_ally = yes
+					is_controlled_by_PREV_or_ally = yes
 				}
 			}
 		}
@@ -5384,7 +6547,7 @@ ENG_war_efforts_category = {
 		}
 		days_remove = 60
 		fire_only_once = yes
-		on_map_mode = decision_view_only
+		on_map_mode = map_and_decisions_view
 		complete_effect = {
 			hidden_effect = {
 				add_command_power = -30
@@ -5405,6 +6568,188 @@ ENG_war_efforts_category = {
 		remove_effect = {
 			declare_war_on = {
 				target = JAP
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				has_war_with = GER
+			}
+			modifier = {
+				factor = 0
+				date < 1939.1.1
+			}
+		}
+	}
+	ENG_operation_ortenaus_decision = {
+		desc = ENG_war_with_ussr
+		icon = hol_draw_up_staff_plans
+		allowed = {
+			tag = ENG
+		}
+		visible = {
+		}
+		target_trigger = {
+		}
+		targets = {
+			SOV
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 137
+			}
+		}
+		available = {
+			date > 1941.6.1
+			NOT = {
+				has_war_with = GER
+				has_war_with = FRA
+				has_war_with = ITA
+			}
+			has_completed_focus = ENG_war_with_ussr
+			ENG = {
+				is_faction_leader = yes
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 999999
+					}
+				}
+			}
+			SOV = {
+				can_declare_on_FROM = yes
+			}
+			SOV = {
+				OR = {
+					has_offensive_war = yes
+					has_added_tension_amount > 10
+				}
+			}
+		}
+		modifier = {
+			political_power_cost = 0.5
+			command_power_gain = -0.5
+		}
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		days_remove = 60
+		fire_only_once = yes
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_effect = yes
+			}
+		}
+		cancel_trigger = {
+			SOV = {
+				can_declare_on_FROM = no
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				target = SOV
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				has_war_with = GER
+			}
+			modifier = {
+				factor = 0
+				date < 1939.1.1
+			}
+		}
+	}
+	ENG_operation_nightingale_decision = {
+		desc = ENG_war_with_ussr
+		icon = hol_draw_up_staff_plans
+		allowed = {
+			tag = ENG
+		}
+		visible = {
+		}
+		target_trigger = {
+		}
+		targets = {
+			RUS
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 137
+			}
+		}
+		available = {
+			date > 1941.6.1
+			NOT = {
+				has_war_with = GER
+				has_war_with = FRA
+				has_war_with = ITA
+			}
+			has_completed_focus = ENG_war_with_ussr
+			ENG = {
+				is_faction_leader = yes
+				OR = {
+					has_war = no
+					has_army_manpower = {
+						size > 999999
+					}
+				}
+			}
+			RUS = {
+				can_declare_on_FROM = yes
+			}
+			RUS = {
+				OR = {
+					has_offensive_war = yes
+					has_added_tension_amount > 10
+				}
+			}
+		}
+		modifier = {
+			political_power_cost = 0.5
+			command_power_gain = -0.5
+		}
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		days_remove = 60
+		fire_only_once = yes
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+			ROOT = {
+				setup_decision_attack_AI = yes
+			}
+			FROM = {
+				setup_decision_attack_AI = yes
+				incoming_war_notification_effect = yes
+			}
+		}
+		cancel_trigger = {
+			RUS = {
+				can_declare_on_FROM = no
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				target = RUS
 				type = annex_everything
 			}
 		}
@@ -5530,9 +6875,56 @@ ENG_war_efforts_category = {
 			factor = 200			#Gotta allow the Americans to help
 		}
 	}
+	ENG_conscript_bbc_decision = {
+		name = ENG_bbc
+		desc = ENG_bbc_desc
+		icon = eng_propaganda_campaigns
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_war = yes
+			is_faction_leader = yes
+			has_completed_focus = ENG_bbc
+			126 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			122 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+		}
+		cost = 100
+		days_remove = 180
+		fire_only_once = no
+		visible = {
+		}
+		modifier = {
+			war_support_weekly = 0.002
+			weekly_bombing_war_support = 0.001
+			weekly_casualties_war_support = 0.001
+			weekly_convoys_war_support = 0.001
+		}
+		remove_effect = {
+		}
+		complete_effect = {
+		}
+		remove_trigger = {
+			NOT = {
+				126 = {
+					is_fully_controlled_by_ROOT_or_ally = yes
+				}
+				122 = {
+					is_fully_controlled_by_ROOT_or_ally = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
 	##
 	ENG_avalon_le_fae_decision = {
-		icon = generic_political_discourse
+		icon = eng_puppet_usa
 		allowed = {
 			tag = ENG
 		}
@@ -5549,6 +6941,16 @@ ENG_war_efforts_category = {
 			}
 			surrender_progress > 0.3
 		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 331
+			}
+		}
+		targets = {
+			CAN
+		}
+		target_non_existing = no
+		on_map_mode = map_and_decisions_view
 		cost = 10
 		days_remove = 60
 		fire_only_once = yes
@@ -5593,7 +6995,162 @@ ENG_war_efforts_category = {
 			factor = 200
 		}
 	}
+	ENG_loyalist_uprising_in_homeisles_decision = {
+		icon = eng_puppet_usa
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_liberation
+			RKE = {
+				exists = yes
+				has_war_with = ROOT
+			}
+			126 = {
+				CONTROLLER = {
+					has_war_with = ROOT
+				}
+			}
+			122 = {
+				CONTROLLER = {
+					has_war_with = ROOT
+				}
+			}
+			has_idea = ENG_liberation_idea
+			num_of_civilian_factories_available_for_projects > 19
+			surrender_progress > 0.3
+		}
+		visible = {
+			has_completed_focus = ENG_liberation
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 126
+			}
+		}
+		targets = {
+			GER
+		}
+		target_non_existing = no
+		on_map_mode = map_and_decisions_view
+		cost = 10
+		days_remove = 60
+		fire_only_once = yes
+		visible = {
+		}
+		modifier = {
+			civilian_factory_use = 20
+			political_power_gain = -0.5
+			command_power_gain = -0.5
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_template = "HMMLR"
+					}
+				}
+				division_template = {
+					name = "HMMLR"
+					division_names_group = ENG_INF_01
+					is_locked = yes
+					regiments = {
+						infantry = {
+							x = 0
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+						infantry = {
+							x = 1
+							y = 0
+						}
+						infantry = {
+							x = 1
+							y = 1
+						}
+						infantry = {
+							x = 1
+							y = 2
+						}
+						infantry = {
+							x = 2
+							y = 0
+						}
+						infantry = {
+							x = 2
+							y = 1
+						}
+						infantry = {
+							x = 2
+							y = 2
+						}
+					}
+					support = {
+						artillery = {
+							x = 0
+							y = 0
+						}
+					}
+				}
+				RKE = {
+					set_temp_variable = {
+						ENG_infantry = 30
+					}
+					for_loop_effect = {
+						start = 1
+						end = ENG_infantry
+						compare = less_than_or_equals
+						random_owned_controlled_state = {
+							limit = {
+								valid_state_for_spawning_friendly_unit = yes
+							}
+							create_unit = {
+								division = "division_template = \"HMMLR\" start_experience_factor = 0.1"
+								owner = ENG
+								allow_spawning_on_enemy_provs = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		complete_effect = {
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
 	##
+	ENG_womens_land_army_decision = {
+		icon = sov_the_workers_dictatorship
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_total_mobilization
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			increase_women_status = yes
+			increase_women_rights = yes
+		}
+	}
 	ENG_scottish_oil_decision = {
 		icon = GFX_decision_oil
 		allowed = {
@@ -5645,6 +7202,7 @@ ENG_war_efforts_category = {
 ENG_commonwealth_affairs_category = {
 	##Imperial Conference
 	ENG_1937_imperial_conference_mission = {
+		icon = eng_imperial_federation
 		allowed = {
 			tag = ENG
 		}
@@ -5709,6 +7267,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_1937_imperial_conference_ongoing_mission = {
+		icon = eng_imperial_federation
 		allowed = {
 			tag = ENG
 		}
@@ -5741,7 +7300,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_1937_imperial_conference_defense_decision = {
-		icon = generic_political_discourse
+		icon = industry
 		name = ENG_imperial_conference_defense_dominion
 		allowed = {
 			tag = ENG
@@ -5778,7 +7337,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_1937_imperial_conference_trade_decision = {
-		icon = generic_political_discourse
+		icon = global_trade
 		name = ENG_imperial_conference_trade_dominion
 		allowed = {
 			tag = ENG
@@ -5815,7 +7374,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_1937_imperial_conference_economy_decision = {
-		icon = generic_political_discourse
+		icon = give_cash
 		name = ENG_imperial_conference_economy_dominion
 		allowed = {
 			tag = ENG
@@ -5853,7 +7412,7 @@ ENG_commonwealth_affairs_category = {
 	}
 	##
 	ENG_modernize_all_india_decision = {
-		icon = generic_political_discourse
+		icon = eng_install_government
 		allowed = {
 			tag = ENG
 		}
@@ -5920,7 +7479,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_rations_from_india_decision = {
-		icon = generic_political_discourse
+		icon = goods
 		name = ENG_rations_from_india
 		desc = ENG_rations_from_india_desc
 		allowed = {
@@ -6159,7 +7718,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_encourage_colony_elite_decision = {
-		icon = generic_political_discourse
+		icon = wrenches
 		name = ENG_colonial_focus
 		desc = ENG_colonial_focus_desc
 		allowed = {
@@ -6172,7 +7731,7 @@ ENG_commonwealth_affairs_category = {
 			num_subjects > 0
 		}
 		cost = 50
-		days_remove = 60
+		days_remove = 120
 		fire_only_once = no
 		days_re_enable = 360
 		visible = {
@@ -6227,6 +7786,7 @@ ENG_commonwealth_affairs_category = {
 		fire_only_once = yes
 		days_remove = 90
 		visible = {
+			has_completed_focus = ENG_power_to_the_imperial_loyalists
 		}
 		modifier = {
 			political_power_gain = -0.2
@@ -6255,6 +7815,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_power_to_imperial_royalists_decision = {
+		icon = eng_ally_imperialist_coup
 		name = ENG_power_to_the_imperial_loyalists
 		desc = ENG_power_to_the_imperial_loyalists_desc
 		allowed = {
@@ -6273,6 +7834,7 @@ ENG_commonwealth_affairs_category = {
 			}
 		}
 		visible = {
+			has_completed_focus = ENG_power_to_the_imperial_loyalists
 		}
 		cost = 50
 		days_remove = 90
@@ -6311,7 +7873,7 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_impose_martial_laws_in_dominions_decision = {
-		icon = generic_civil_support
+		icon = eng_blackshirt_march
 		allowed = {
 			tag = ENG
 		}
@@ -6324,6 +7886,9 @@ ENG_commonwealth_affairs_category = {
 				has_country_flag = ENG_enforce_loyalty_flag
 				has_idea = ENG_direct_rule_from_camelot_1_idea
 			}
+		}
+		visible = {
+			has_completed_focus = ENG_move_to_secure_the_dominions
 		}
 		targets = {
 			CAN
@@ -6368,8 +7933,9 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	ENG_replace_government_in_dominions_decision = {
-		name = ENG_power_to_the_imperial_loyalists
-		desc = ENG_power_to_the_imperial_loyalists_desc
+		icon = eng_install_government
+		name = ENG_bring_the_dominions_back_into_the_fold
+		desc = ENG_bring_the_dominions_back_into_the_fold_desc
 		icon = eng_install_government
 		allowed = {
 			tag = ENG
@@ -6384,6 +7950,9 @@ ENG_commonwealth_affairs_category = {
 				is_puppet_of = ROOT
 				has_country_flag = ENG_enforce_loyalty_flag
 			}
+		}
+		visible = {
+			has_completed_focus = ENG_move_to_secure_the_dominions
 		}
 		targets = {
 			CAN
@@ -6453,16 +8022,20 @@ ENG_commonwealth_affairs_category = {
 				ENG_control_all_america_states_trigger = yes
 			}
 		}
+		visible = {
+			has_completed_focus = ENG_unite_the_anglosphere
+		}
 		highlight_states = {
 			highlight_states_trigger = {
 				ENG_is_america_states_trigger = yes
 			}
 		}
+		state_target = no
 		targets = {
 			USA
 		}
+		on_map_mode = decision_view_only
 		target_non_existing = yes
-		targets_dynamic = yes
 		target_root_trigger = {
 		}
 		target_trigger = {
@@ -6500,9 +8073,558 @@ ENG_commonwealth_affairs_category = {
 			factor = 0
 		}
 	}
+	##
+	ENG_ceylon_forward_operating_base_decision = {
+		icon = electricity1
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_defend_india
+			422 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		targets = {
+			RAJ
+		}
+		target_non_existing = yes
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		on_map_mode = map_and_decisions_view
+		highlight_states = {
+			highlight_state_targets = {
+				state = 422
+			}
+		}
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			422 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 7260
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 7260
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 7260
+					instant_build = yes
+				}
+			}
+			422 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	ENG_singapore_focus_decision = {
+		icon = merge_plant_ship
+		name = ENG_singapore_focus
+		desc = ENG_singapore_focus_desc
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_singapore_focus
+			336 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		targets = {
+			MAL
+		}
+		target_non_existing = yes
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		on_map_mode = map_and_decisions_view
+		highlight_states = {
+			highlight_state_targets = {
+				state = 336
+			}
+		}
+		highlight_color_before_active = yes
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			336 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 12299
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 12299
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 12299
+					instant_build = yes
+				}
+			}
+			336 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	ENG_hongkong_focus_decision = {
+		icon = infrastructure_blow
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_hongkong_industrial
+			326 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		targets = {
+			CHI
+		}
+		target_non_existing = yes
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		on_map_mode = map_and_decisions_view
+		highlight_states = {
+			highlight_state_targets = {
+				state = 326
+			}
+		}
+		highlight_color_before_active = yes
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			326 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 10062
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 10062
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 10062
+					instant_build = yes
+				}
+			}
+			326 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	ENG_peninsular_focus_decision = {
+		icon = infrastructure_blow
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_singapore_focus
+			846 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			963 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			1002 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 19
+		}
+		targets = {
+			MAL
+		}
+		target_non_existing = yes
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		on_map_mode = map_and_decisions_view
+		highlight_states = {
+			highlight_state_targets = {
+				state = 846
+				state = 1002
+				state = 963
+			}
+		}
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 20
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.03
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			846 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 7427
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 7427
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 7427
+					instant_build = yes
+				}
+			}
+			963 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 10297
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 10297
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 10297
+					instant_build = yes
+				}
+			}
+			1002 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+			}
+			every_state = {
+				limit = {
+					OR = {
+						state = 963
+						state = 846
+						state = 1002
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	ENG_weihaiwei_base_decision = {
+		icon = naval_mine
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_reines_china
+			996 = {
+				is_fully_controlled_by_ROOT_or_ally = yes
+			}
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		targets = {
+			CHI
+		}
+		target_non_existing = yes
+		cost = 0
+		custom_cost_text = CP_30
+		custom_cost_trigger = {
+			command_power > 29.9
+		}
+		on_map_mode = map_and_decisions_view
+		highlight_states = {
+			highlight_state_targets = {
+				state = 996
+			}
+		}
+		highlight_color_before_active = yes
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			996 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					province = 13670
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 13670
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 6
+					province = 13670
+					instant_build = yes
+				}
+			}
+			996 = {
+				add_dynamic_modifier = {
+					modifier = ENG_global_defence_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
 }
 
-##TODO - Setup Global Clock Tower Leaders
 political_actions = {
 	ENG_economic_depression_recedes_mission = {
 		allowed = {
@@ -6564,4 +8686,205 @@ political_actions = {
 			factor = 200
 		}
 	}
+	ENG_organize_the_blackshirts_decision = {
+		icon = nationalism
+		highlight_states = {
+			highlight_states_trigger = {
+				state = FROM
+			}
+		}
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+				NOT = {
+					has_dynamic_modifier = {
+						modifier = ENG_organize_blackshirts_modifier
+						scope = ENG
+					}
+				}
+				OR = {
+					region = 1					#Northern France
+					region = 2					#Southern France
+					region = 3					#Western France
+					region = 4
+				}
+				OR = {
+					state = 119
+					state = 122
+					state = 126
+					any_neighbor_state = {
+						has_dynamic_modifier = {
+							modifier = ENG_organize_blackshirts_modifier
+							scope = ENG
+						}
+					}
+				}
+			}
+		}
+		target_root_trigger = {
+			has_completed_focus = ENG_god_save_the_king
+		}
+		available = {
+			FROM = {
+				is_core_of = ENG
+				is_fully_controlled_by = ROOT
+			}
+			has_equipment = {
+				infantry_equipment > 999
+			}
+			num_of_civilian_factories_available_for_projects > 4
+		}
+		visible = {
+			##has_completed_focus = FRA_Tiffauges_model
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		on_map_mode = map_only
+		fire_only_once = yes
+		cost = 0
+		days_remove = 30
+		custom_cost_text = CP_10_PP_10
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 9.9
+		}
+		ai_will_do = {
+			factor = 10000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+				add_political_power = -10
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -1000
+			}
+		}
+		remove_effect = {
+			FROM = {
+				set_temp_variable = {
+					var = ENG_pop_checker
+					value = state_population_k
+				}
+				multiply_temp_variable = {
+					var = ENG_pop_checker
+					value = -0.5
+				}
+				add_manpower = ENG_pop_checker
+			}
+			FROM = {
+				add_dynamic_modifier = {
+					modifier = ENG_crush_dissent_modifier
+					scope = ENG
+					days = 120
+				}
+				add_dynamic_modifier = {
+					modifier = ENG_organize_blackshirts_modifier
+					scope = ENG
+				}
+			}
+		}
+	}
+	##
+	ENG_appoint_sherlock_holmes_decision = {
+		icon = generic_political_discourse
+		visible = {
+		}
+		allowed = {
+			tag = ENG
+		}
+		on_map_mode = decision_view_only
+		available = {
+			ENG_sherlock_holmes = {
+				is_country_leader = no
+			}
+			NOT = {
+				has_idea = ENG_sherlock_holmes_special_sixth
+			}
+		}
+		cost = 100
+		fire_only_once = no
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				NOT = {
+					has_idea = ENG_james_moriarty_special_sixth
+					has_idea = ENG_jack_kosminski_special_sixth
+					has_idea = ENG_sherlock_holmes_special_sixth
+				}
+			}
+		}
+		complete_effect = {
+			activate_advisor = ENG_sherlock_holmes_special_sixth
+		}
+	}
+	ENG_appoint_james_moriarty_decision = {
+		icon = generic_political_discourse
+		visible = {
+		}
+		allowed = {
+			tag = ENG
+		}
+		on_map_mode = decision_view_only
+		available = {
+			ENG_james_moriarty = {
+				is_country_leader = no
+			}
+			NOT = {
+				has_idea = ENG_james_moriarty_special_sixth
+			}
+		}
+		cost = 100
+		fire_only_once = no
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				NOT = {
+					has_idea = ENG_james_moriarty_special_sixth
+					has_idea = ENG_jack_kosminski_special_sixth
+					has_idea = ENG_sherlock_holmes_special_sixth
+				}
+			}
+		}
+		complete_effect = {
+			activate_advisor = ENG_james_moriarty_special_sixth
+		}
+	}
+	ENG_appoint_jack_kosminski_decision = {
+		icon = generic_political_discourse
+		visible = {
+		}
+		allowed = {
+			tag = ENG
+		}
+		on_map_mode = decision_view_only
+		available = {
+			NOT = {
+				has_idea = ENG_jack_kosminski_special_sixth
+			}
+		}
+		cost = 100
+		fire_only_once = no
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				NOT = {
+					has_idea = ENG_james_moriarty_special_sixth
+					has_idea = ENG_jack_kosminski_special_sixth
+					has_idea = ENG_sherlock_holmes_special_sixth
+				}
+			}
+		}
+		complete_effect = {
+			activate_advisor = ENG_jack_kosminski_special_sixth
+		}
+	}
+	##
 }

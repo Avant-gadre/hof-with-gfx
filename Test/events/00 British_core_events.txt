@@ -6,6 +6,7 @@ unit_leader_event = {
 	title = eng_core.1.title
 	desc = eng_core.1.desc
 	immediate = {
+		play_song = "Oath_of_humanity_FateGO"
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -289,7 +290,6 @@ unit_leader_event = {
 		name = eng_core.5.c
 		trigger = {
 		}
-		##TODO
 		add_timed_idea = {
 			idea = ENG_chaledean_postpone_idea
 			days = 360
@@ -568,6 +568,7 @@ unit_leader_event = {
 	title = eng_core.11.title
 	desc = eng_core.11.desc
 	immediate = {
+		play_song = "Excalibur_FateZ"
 		hidden_effect = {
 			ENG_artoria_pendragon = {
 				unit_leader_event = {
@@ -884,6 +885,11 @@ unit_leader_event = {
 			}
 		}
 	}
+	trigger = {
+		NOT = {
+			has_country_flag = ENG_respect_democratic_institution_flag
+		}
+	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -891,6 +897,7 @@ unit_leader_event = {
 		name = eng_core.15.a
 		trigger = {
 		}
+		add_political_power = 50
 		ai_chance = {
 			base = 1
 		}
@@ -899,6 +906,7 @@ unit_leader_event = {
 		name = eng_core.15.b
 		trigger = {
 		}
+		add_war_support = 0.05
 		ai_chance = {
 			base = 1
 		}
@@ -918,6 +926,9 @@ unit_leader_event = {
 		name = eng_core.16.a
 		trigger = {
 		}
+		add_political_power = -30
+		add_war_support = -0.03
+		ENG_artoria_anger_effect = yes
 		hidden_effect = {
 			ENG_artoria_pendragon = {
 				unit_leader_event = {
@@ -953,6 +964,8 @@ unit_leader_event = {
 		name = eng_core.17.a
 		trigger = {
 		}
+		add_political_power = -50
+		ENG_artoria_sanity_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -961,6 +974,8 @@ unit_leader_event = {
 		name = eng_core.17.b
 		trigger = {
 		}
+		add_political_power = -50
+		add_war_support = 0.05
 		ai_chance = {
 			base = 1
 		}
@@ -969,6 +984,13 @@ unit_leader_event = {
 		name = eng_core.17.c
 		trigger = {
 		}
+		add_manpower = -1000
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_war_support = 0.05
+		ENG_artoria_anger_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1010,6 +1032,8 @@ unit_leader_event = {
 		name = eng_core.18.a
 		trigger = {
 		}
+		add_war_support = -0.03
+		ENG_artoria_sanity_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1018,6 +1042,8 @@ unit_leader_event = {
 		name = eng_core.18.b
 		trigger = {
 		}
+		add_war_support = 0.03
+		ENG_artoria_anger_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1045,6 +1071,9 @@ unit_leader_event = {
 		name = eng_core.19.a
 		trigger = {
 		}
+		add_war_support = -0.03
+		add_stability = 0.03
+		ENG_artoria_sanity_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1053,6 +1082,12 @@ unit_leader_event = {
 		name = eng_core.19.b
 		trigger = {
 		}
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+		ENG_artoria_anger_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1068,7 +1103,7 @@ unit_leader_event = {
 			ENG_artoria_pendragon = {
 				unit_leader_event = {
 					id = eng_core.21
-					days = 30
+					days = 14
 				}
 			}
 		}
@@ -1080,6 +1115,9 @@ unit_leader_event = {
 		name = eng_core.20.a
 		trigger = {
 		}
+		add_war_support = -0.03
+		add_stability = 0.03
+		ENG_artoria_sanity_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1088,6 +1126,12 @@ unit_leader_event = {
 		name = eng_core.20.b
 		trigger = {
 		}
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+		ENG_artoria_anger_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1115,6 +1159,9 @@ unit_leader_event = {
 		name = eng_core.21.a
 		trigger = {
 		}
+		add_war_support = -0.03
+		add_stability = 0.03
+		ENG_artoria_sanity_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1123,6 +1170,12 @@ unit_leader_event = {
 		name = eng_core.21.b
 		trigger = {
 		}
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+		ENG_artoria_anger_effect = yes
 		ai_chance = {
 			base = 1
 		}
@@ -1144,8 +1197,16 @@ unit_leader_event = {
 		name = eng_core.22.a
 		trigger = {
 			has_country_flag = ENG_royal_party_avaliable_flag
+			check_variable = {
+				ENG_artoria_anger_checker > 0
+			}
 		}
 		complete_national_focus = ENG_darkened_focus
+		activate_advisor = ENG_morgan_le_fay_special_first
+		activate_advisor = ENG_lev_lainur_flauros_special_second
+		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		activate_advisor = ENG_agravain_morgause_special_fourth
+		activate_advisor = ENG_nrvnqsr_fabro_rowan_special_fifth
 		hidden_effect = {
 			ENG_artoria_pendragon_alter = {
 				unit_leader_event = {
@@ -1163,7 +1224,7 @@ unit_leader_event = {
 	option = {
 		name = eng_core.22.b
 		trigger = {
-			has_country_flag = ENG_respect_democratic_institution_flag
+			has_country_flag = ENG_royal_party_avaliable_flag
 		}
 		ENG_artoria_pendragon = {
 			add_timed_unit_leader_trait = {
@@ -1175,12 +1236,17 @@ unit_leader_event = {
 			ENG_morgan_le_fay = {
 				unit_leader_event = {
 					id = eng_core.33
-					days = 180
+					days = 120
 				}
 			}
-			play_song = "Excalibur_FateZ"
+			play_song = "The_pride_of_knightking_FateSN"
 		}
 		set_country_flag = ENG_radiant_path_flag
+		activate_advisor = ENG_arthur_pendragon_special_first
+		activate_advisor = ENG_myrin_wyllt_special_second
+		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		activate_advisor = ENG_galahad_pelles_special_fourth
+		activate_advisor = ENG_barthomeloi_lorelei_special_fifth
 		effect_tooltip = {
 			unlock_national_focus = ENG_ideal_king_focus
 		}
@@ -1197,23 +1263,28 @@ unit_leader_event = {
 		ENG_artoria_pendragon = {
 			add_timed_unit_leader_trait = {
 				trait = sick
-				days = 180
+				days = 120
 			}
 		}
+		add_political_power = -100
 		promote_character = {
 			character = ENG_morgan_le_fay
 			ideology = authoritarianism
 		}
 		set_politics = {
 			ruling_party = neutrality
-			elections_allowed = yes
+			elections_allowed = no
 		}
 		activate_advisor = ENG_baobhan_sith_iseult_special_first
+		activate_advisor = ENG_myrin_wyllt_special_second
+		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		activate_advisor = ENG_agravain_morgause_special_fourth
+		activate_advisor = ENG_nrvnqsr_fabro_rowan_special_fifth
 		hidden_effect = {
 			ENG_morgan_le_fay = {
 				unit_leader_event = {
 					id = eng_core.27
-					days = 180
+					days = 120
 				}
 			}
 			play_song = "Coronation_fairy_round_table_domain_ruin_FateGO"
@@ -1237,6 +1308,10 @@ unit_leader_event = {
 	option = {
 		name = eng_core.23.a
 		trigger = {
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
 		}
 		ENG_artoria_pendragon_alter = {
 			unit_leader_event = {
@@ -1263,12 +1338,20 @@ unit_leader_event = {
 		name = eng_core.24.a
 		trigger = {
 		}
-		complete_national_focus = ENG_london_incident_focus
+		add_stability = -0.05
+		add_war_support = 0.05
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
+		}
+		127 = {
+			add_manpower = -1000
+		}
 		hidden_effect = {
 			ENG_morgan_le_fay = {
 				unit_leader_event = {
 					id = eng_core.25
-					days = 180
+					days = 120
 				}
 			}
 		}
@@ -1278,7 +1361,7 @@ unit_leader_event = {
 	}
 }
 
-##Morgan
+##Morgan-Normal
 unit_leader_event = {
 	id = eng_core.25
 	title = eng_core.25.title
@@ -1293,8 +1376,6 @@ unit_leader_event = {
 		trigger = {
 		}
 		activate_advisor = ENG_morgan_le_fay_special_political_advisor
-		whiteline = yes
-		activate_advisor = ENG_arthur_pendragon_special_first
 		hidden_effect = {
 			ENG_artoria_pendragon_alter = {
 				unit_leader_event = {
@@ -1315,10 +1396,12 @@ unit_leader_event = {
 	title = eng_core.26.title
 	desc = eng_core.26.desc
 	immediate = {
-		ENG_artoria_pendragon_alter = {
-			set_portraits = {
-				army = {
-					large = GFX_Portrait_ENG_Artoria_Pendragon_Alter_2
+		hidden_effect = {
+			ENG_artoria_pendragon_alter = {
+				set_portraits = {
+					army = {
+						large = GFX_Portrait_ENG_Artoria_Pendragon_Alter_2
+					}
 				}
 			}
 		}
@@ -1338,6 +1421,16 @@ unit_leader_event = {
 		}
 		activate_advisor = ENG_morgan_le_fay_special_political_advisor
 		hidden_effect = {
+			ENG_morgan_le_fay = {
+				set_portraits = {
+					civilian = {
+						large = GFX_Portrait_ENG_Morgan_Le_Fay_1
+					}
+					army = {
+						large = GFX_Portrait_ENG_Morgan_Le_Fay_1
+					}
+				}
+			}
 			ENG_artoria_pendragon_alter = {
 				set_portraits = {
 					civilian = {
@@ -1346,6 +1439,14 @@ unit_leader_event = {
 					army = {
 						large = GFX_Portrait_ENG_Artoria_Pendragon_Alter_1
 					}
+				}
+			}
+		}
+		hidden_effect = {
+			ENG_william_shakespeare = {
+				unit_leader_event = {
+					id = eng_morgan.1
+					days = 14
 				}
 			}
 		}
@@ -1377,11 +1478,10 @@ unit_leader_event = {
 			ruling_party = neutrality
 			elections_allowed = no
 		}
-		activate_advisor = ENG_myrin_wyllt_special_second
 		ENG_morgan_le_fay = {
 			unit_leader_event = {
 				id = eng_core.28
-				days = 30
+				days = 40
 			}
 		}
 		ai_chance = {
@@ -1405,12 +1505,13 @@ unit_leader_event = {
 		trigger = {
 		}
 		activate_advisor = ENG_artoria_pendragon_special_political_advisor
-		activate_advisor = ENG_baobhan_sith_iseult_special_first
 		ENG_morgan_le_fay = {
 			add_trait = {
 				trait = ENG_trait_queen_of_great_britain
 				ideology = stratocracy
 			}
+		}
+		ENG_morgan_le_fay = {
 			set_portraits = {
 				army = {
 					large = GFX_Portrait_ENG_Morgan_Le_Fay_1
@@ -1654,13 +1755,11 @@ unit_leader_event = {
 		trigger = {
 		}
 		activate_advisor = ENG_morgan_le_fay_special_political_advisor
-		whiteline = yes
-		activate_advisor = ENG_baobhan_sith_iseult_special_first
 		hidden_effect = {
 			ENG_artoria_pendragon = {
 				unit_leader_event = {
 					id = eng_core.26
-					days = 60
+					days = 40
 				}
 			}
 		}
@@ -1839,6 +1938,7 @@ country_event = {
 		name = eng_trigger.2.b
 		trigger = {
 		}
+		add_political_power = -10
 		ENG_kayneth_el_melloi_archibald = {
 			add_timed_unit_leader_trait = {
 				trait = sick
