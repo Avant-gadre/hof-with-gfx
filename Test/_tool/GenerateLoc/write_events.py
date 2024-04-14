@@ -84,9 +84,9 @@ news_event = {{
 """
 
 
-target = "eng_for_imd"
+target = "eng_dom_news"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 16):
-        current_statement = statement_template.format(i,target=target)
+    for i in range(1, 18):
+        current_statement = statement_template1.format(i,target=target)
         file.write(current_statement)

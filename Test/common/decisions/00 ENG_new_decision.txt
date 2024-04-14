@@ -8,7 +8,11 @@ ENG_IRE_affairs_of_the_free_state_category = {
 				always = no
 			}
 		}
+		activation = {
+			date < 1936.1.2
+		}
 		is_good = no
+		fire_only_once = yes
 		days_mission_timeout = 360
 		highlight_states = {
 			highlight_state_targets = {
@@ -22,9 +26,6 @@ ENG_IRE_affairs_of_the_free_state_category = {
 		}
 		state_target = yes
 		on_map_mode = map_and_decisions_view
-		activation = {
-			date < 1936.1.2
-		}
 		cancel_trigger = {
 			IRE = {
 				exists = no
@@ -52,11 +53,12 @@ ENG_IRE_affairs_of_the_free_state_category = {
 				always = no
 			}
 		}
-		is_good = no
-		days_mission_timeout = 360
 		activation = {
 			date < 1936.1.2
 		}
+		is_good = no
+		fire_only_once = yes
+		days_mission_timeout = 360
 		cancel_trigger = {
 			IRE = {
 				exists = no
@@ -3629,13 +3631,12 @@ ENG_european_equilibrium_category = {
 			has_completed_focus = ENG_alliance_with_germany
 			ENG = {
 				is_subject = no
+				has_elections = no
 			}
 			GER = {
-				OR = {
-					has_government = ROOT
-					NOT = {
-						has_government = fascism
-					}
+				has_government = fascism
+				NOT = {
+					has_war_with = ROOT
 				}
 				has_war_with = FRA
 				OR = {
@@ -3904,7 +3905,7 @@ ENG_european_equilibrium_category = {
 				}
 				promote_character = {
 					character = SWE_ophelia_phamrsolone
-					ideology = rexism
+					ideology = valkism
 				}
 				promote_character = {
 					character = SWE_ophelia_phamrsolone
@@ -5710,11 +5711,15 @@ ENG_war_efforts_category = {
 		available = {
 			has_completed_focus = ENG_scandinavian_focus
 			OR = {
-				337.controller = {
-					has_war_with = ROOT
+				337 = {
+					CONTROLLER = {
+						has_war_with = ROOT
+					}
 				}
-				100.controller = {
-					has_war_with = ROOT
+				100 = {
+					CONTROLLER = {
+						has_war_with = ROOT
+					}
 				}
 			}
 			num_of_civilian_factories_available_for_projects > 14
@@ -5857,8 +5862,10 @@ ENG_war_efforts_category = {
 		}
 		available = {
 			has_completed_focus = ENG_scandinavian_focus
-			101.controller = {
-				has_war_with = ROOT
+			101 = {
+				CONTROLLER = {
+					has_war_with = ROOT
+				}
 			}
 			num_of_civilian_factories_available_for_projects > 9
 		}
@@ -6923,78 +6930,6 @@ ENG_war_efforts_category = {
 		}
 	}
 	##
-	ENG_avalon_le_fae_decision = {
-		icon = eng_puppet_usa
-		allowed = {
-			tag = ENG
-		}
-		available = {
-			has_completed_focus = ENG_garden_of_avalon_protection
-			CAN = {
-				is_puppet_of = ROOT
-			}
-			122.controller = {
-				has_war_with = ROOT
-			}
-			126.controller = {
-				has_war_with = ROOT
-			}
-			surrender_progress > 0.3
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 331
-			}
-		}
-		targets = {
-			CAN
-		}
-		target_non_existing = no
-		on_map_mode = map_and_decisions_view
-		cost = 10
-		days_remove = 60
-		fire_only_once = yes
-		visible = {
-		}
-		modifier = {
-			political_power_gain = -0.5
-			command_power_gain = -0.5
-		}
-		remove_effect = {
-		}
-		complete_effect = {
-			CAN = {
-				country_event = {
-					id = eng_morgan.13
-					hours = 8
-				}
-			}
-			CAN = {
-				custom_effect_tooltip = accept_offer_tt
-			}
-			effect_tooltip = {
-				ENG = {
-					annex_country = {
-						target = CAN
-						transfer_troops = yes
-					}
-				}
-				CAN = {
-					every_core_state = {
-						add_core_of = ENG
-					}
-				}
-				ENG = {
-					set_capital = {
-						state = 331
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 200
-		}
-	}
 	ENG_loyalist_uprising_in_homeisles_decision = {
 		icon = eng_puppet_usa
 		allowed = {
@@ -7197,6 +7132,575 @@ ENG_war_efforts_category = {
 			}
 		}
 	}
+	##
+	ENG_form_knight_decision = {
+		icon = shield
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_Empire_Mobilization_focus
+			has_war = yes
+			any_enemy_country = {
+				is_major = yes
+			}
+			surrender_progress > 0.01
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 122
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		visible = {
+		}
+		cost = 0
+		fire_only_once = yes
+		modifier = {
+			mobilization_speed = 0.2
+			training_time_factor = -0.2
+			surrender_limit = 0.2
+		}
+		days_remove = 360
+		complete_effect = {
+			unlock_decision_tooltip = ENG_form_knight_general_decision
+			add_political_power = -200
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 10000
+				producer = ENG
+			}
+			add_stability = -0.05
+			add_war_support = -0.05
+			set_country_flag = ENG_form_Knight_flag
+			if = {
+				limit = {
+					NOT = {
+						has_tech = mechanised_infantry
+					}
+				}
+				set_technology = {
+					mechanised_infantry = 1
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = basic_heavy_tank_chassis
+					}
+				}
+				set_technology = {
+					basic_heavy_tank_chassis = 1
+				}
+			}
+			create_equipment_variant = {
+				name = "Mathilda III"
+				type = heavy_tank_chassis_1
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_small_cannon_2
+					turret_type_slot = tank_heavy_three_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_cast_armor
+					engine_type_slot = tank_diesel_engine
+					special_type_slot_1 = tank_radio_1
+					special_type_slot_2 = smoke_launchers
+				}
+				upgrades = {
+					tank_nsb_engine_upgrade = 4
+					tank_nsb_armor_upgrade = 8
+				}
+				icon = "GFX_ENG_improved_light_tank_medium"
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Knight"
+					}
+				}
+				division_template = {
+					name = "Knight"
+					is_locked = yes
+					division_names_group = ENG_INF_01
+					regiments = {
+						mechanized = {
+							x = 0
+							y = 0
+						}
+						mechanized = {
+							x = 0
+							y = 1
+						}
+						mechanized = {
+							x = 0
+							y = 2
+						}
+						mechanized = {
+							x = 0
+							y = 3
+						}
+						mechanized = {
+							x = 0
+							y = 4
+						}
+					}
+					support = {
+						engineer = {
+							x = 0
+							y = 0
+						}
+						recon = {
+							x = 0
+							y = 1
+						}
+						artillery = {
+							x = 0
+							y = 2
+						}
+						anti_tank = {
+							x = 0
+							y = 3
+						}
+					}
+					priority = 0
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Knight of Empire"
+					}
+				}
+				division_template = {
+					name = "Knight of Empire"
+					is_locked = yes
+					regiments = {
+						medium_armor = {
+							x = 0
+							y = 0
+						}
+						medium_armor = {
+							x = 0
+							y = 1
+						}
+						medium_armor = {
+							x = 0
+							y = 2
+						}
+						medium_armor = {
+							x = 1
+							y = 0
+						}
+						medium_armor = {
+							x = 1
+							y = 1
+						}
+						mechanized = {
+							x = 2
+							y = 0
+						}
+						mechanized = {
+							x = 2
+							y = 1
+						}
+						mechanized = {
+							x = 2
+							y = 2
+						}
+						mechanized = {
+							x = 3
+							y = 0
+						}
+						mechanized = {
+							x = 3
+							y = 1
+						}
+					}
+					support = {
+						mot_recon = {
+							x = 0
+							y = 0
+						}
+						engineer = {
+							x = 0
+							y = 1
+						}
+						artillery = {
+							x = 0
+							y = 2
+						}
+						anti_air = {
+							x = 0
+							y = 3
+						}
+						logistics_company = {
+							x = 0
+							y = 4
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Marines of Empire"
+					}
+				}
+				division_template = {
+					name = "Marines of Empire"
+					is_locked = yes
+					regiments = {
+						marine = {
+							x = 0
+							y = 0
+						}
+						marine = {
+							x = 0
+							y = 1
+						}
+						marine = {
+							x = 1
+							y = 0
+						}
+						marine = {
+							x = 1
+							y = 1
+						}
+						marine = {
+							x = 2
+							y = 0
+						}
+						heavy_armor = {
+							x = 3
+							y = 0
+						}
+						heavy_armor = {
+							x = 3
+							y = 1
+						}
+						heavy_armor = {
+							x = 3
+							y = 2
+						}
+						heavy_armor = {
+							x = 4
+							y = 0
+						}
+						heavy_armor = {
+							x = 4
+							y = 1
+						}
+					}
+					support = {
+						mot_recon = {
+							x = 0
+							y = 0
+						}
+						engineer = {
+							x = 0
+							y = 1
+						}
+						artillery = {
+							x = 0
+							y = 2
+						}
+						anti_air = {
+							x = 0
+							y = 3
+						}
+						logistics_company = {
+							x = 0
+							y = 4
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 500
+		}
+	}
+	ENG_form_knight_general_decision = {
+		icon = monarchy
+		highlight_states = {
+			highlight_states_trigger = {
+				state = FROM
+			}
+		}
+		allowed = {
+			tag = ENG
+		}
+		state_target = yes
+		target_root_trigger = {
+			has_country_flag = ENG_form_Knight_flag
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					region = 1
+					region = 2
+					state = 121
+					state = 133
+				}
+			}
+		}
+		available = {
+			surrender_progress > 0.01
+			has_manpower > 100000
+			FROM = {
+				is_controlled_by = ROOT
+				any_neighbor_state = {
+					CONTROLLER = {
+						has_war_with = ROOT
+					}
+					OWNER = {
+						tag = ROOT
+					}
+				}
+			}
+		}
+		cost = 0
+		days_remove = 60
+		fire_only_once = yes
+		complete_effect = {
+			ROOT = {
+				if = {
+					limit = {
+						FROM = {
+							state = 126
+						}
+					}
+					add_political_power = -60
+					add_stability = -0.06
+					add_war_support = -0.06
+					add_manpower = -96000
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							state = 130
+						}
+					}
+					add_political_power = -40
+					add_stability = -0.04
+					add_war_support = -0.04
+					add_manpower = -64000
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							OR = {
+								state = 122
+								state = 127
+								state = 128
+								state = 131
+								state = 133
+							}
+						}
+					}
+					add_political_power = -20
+					add_stability = -0.02
+					add_war_support = -0.02
+					add_manpower = -32000
+				}
+				else = {
+					add_political_power = -10
+					add_stability = -0.01
+					add_war_support = -0.01
+					add_manpower = -16000
+				}
+			}
+			##
+			ROOT = {
+				if = {
+					limit = {
+						FROM = {
+							state = 126
+						}
+					}
+					FROM = {
+						create_unit = {
+							division = "division_template = \"Knight of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 3
+						}
+						create_unit = {
+							division = "division_template = \"Marines of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 3
+						}
+						create_unit = {
+							division = "division_template = \"Knight\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 9
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							state = 122
+						}
+					}
+					FROM = {
+						create_unit = {
+							division = "division_template = \"Knight of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 4
+						}
+						create_unit = {
+							division = "division_template = \"Marines of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 4
+						}
+						create_unit = {
+							division = "division_template = \"Knight\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 3
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							OR = {
+								state = 127
+								state = 128
+								state = 131
+								state = 133
+							}
+						}
+					}
+					FROM = {
+						create_unit = {
+							division = "division_template = \"Knight of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 1
+						}
+						create_unit = {
+							division = "division_template = \"Marines of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 1
+						}
+						create_unit = {
+							division = "division_template = \"Knight\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 3
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						FROM = {
+							OR = {
+								state = 132
+								state = 130
+							}
+						}
+					}
+					FROM = {
+						create_unit = {
+							division = "division_template = \"Knight of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 2
+						}
+						create_unit = {
+							division = "division_template = \"Marines of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 2
+						}
+						create_unit = {
+							division = "division_template = \"Knight\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 6
+						}
+					}
+				}
+				else = {
+					FROM = {
+						create_unit = {
+							division = "division_template = \"Knight of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 1
+						}
+						create_unit = {
+							division = "division_template = \"Marines of Empire\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 1
+						}
+						create_unit = {
+							division = "division_template = \"Knight\" start_experience_factor = 0.5"
+							owner = ENG
+							allow_spawning_on_enemy_provs = yes
+							count = 1
+						}
+					}
+				}
+			}
+		}
+		remove_effect = {
+			army_experience = 10
+		}
+		ai_will_do = {
+			factor = 500
+		}
+	}
+	ENG_demoblize_knights_decision = {
+		icon = flags
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_country_flag = ENG_form_Knight_flag
+			has_template = "Knight"
+			has_template = "Knight of Empire"
+			has_template = "Marines of Empire"
+		}
+		visible = {
+			has_country_flag = ENG_form_Knight_flag
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 90
+		modifier = {
+			civilian_factory_use = 10
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 100
+				surrender_progress < 0.01
+			}
+		}
+		remove_effect = {
+			set_division_template_lock = {
+				division_template = "Knight"
+				is_locked = no
+			}
+			set_division_template_lock = {
+				division_template = "Knight of Empire"
+				is_locked = no
+			}
+			set_division_template_lock = {
+				division_template = "Marines of Empire"
+				is_locked = no
+			}
+		}
+	}
 }
 
 ENG_commonwealth_affairs_category = {
@@ -7212,6 +7716,7 @@ ENG_commonwealth_affairs_category = {
 			}
 		}
 		is_good = no
+		fire_only_once = yes
 		days_mission_timeout = 499
 		priority = 300
 		activation = {
@@ -7226,6 +7731,7 @@ ENG_commonwealth_affairs_category = {
 			custom_effect_tooltip = ENG_1937_imperial_conference_mission_tt
 			custom_effect_tooltip = ENG_imperial_conference_tt
 			set_country_flag = ENG_imperial_conference_is_ongoing_flag
+			activate_mission = ENG_1937_imperial_conference_ongoing_mission
 			every_country = {
 				limit = {
 					OR = {
@@ -7235,7 +7741,7 @@ ENG_commonwealth_affairs_category = {
 						tag = AST
 						tag = RAJ
 					}
-					is_puppet_of = ROOT
+					is_in_faction_with = ROOT
 				}
 				country_event = {
 					id = eng_for_imc.2
@@ -7253,10 +7759,7 @@ ENG_commonwealth_affairs_category = {
 						tag = AST
 						tag = RAJ
 					}
-					OR = {
-						tag = ENG
-						is_puppet_of = ROOT
-					}
+					is_in_faction_with = ROOT
 				}
 				country_event = {
 					id = eng_for_imc.1
@@ -7277,6 +7780,7 @@ ENG_commonwealth_affairs_category = {
 			}
 		}
 		is_good = no
+		fire_only_once = yes
 		days_mission_timeout = 41
 		priority = 300
 		activation = {
@@ -7310,6 +7814,15 @@ ENG_commonwealth_affairs_category = {
 			NOT = {
 				has_country_flag = ENG_1937_imperial_conference_end_flag
 			}
+			NOT = {
+				has_decision = ENG_1937_imperial_conference_trade_decision
+			}
+			NOT = {
+				has_decision = ENG_1937_imperial_conference_economy_decision
+			}
+		}
+		visible = {
+			has_country_flag = ENG_imperial_conference_is_ongoing_flag
 		}
 		cost = 50
 		days_remove = 7
@@ -7347,11 +7860,18 @@ ENG_commonwealth_affairs_category = {
 			NOT = {
 				has_country_flag = ENG_1937_imperial_conference_end_flag
 			}
+			NOT = {
+				has_decision = ENG_1937_imperial_conference_defense_decision
+			}
+			NOT = {
+				has_decision = ENG_1937_imperial_conference_economy_decision
+			}
 		}
 		cost = 50
 		days_remove = 7
 		fire_only_once = yes
 		visible = {
+			has_country_flag = ENG_imperial_conference_is_ongoing_flag
 		}
 		modifier = {
 			political_power_gain = -0.5
@@ -7384,11 +7904,18 @@ ENG_commonwealth_affairs_category = {
 			NOT = {
 				has_country_flag = ENG_1937_imperial_conference_end_flag
 			}
+			NOT = {
+				has_decision = ENG_1937_imperial_conference_defense_decision
+			}
+			NOT = {
+				has_decision = ENG_1937_imperial_conference_trade_decision
+			}
 		}
 		cost = 50
 		days_remove = 7
 		fire_only_once = yes
 		visible = {
+			has_country_flag = ENG_imperial_conference_is_ongoing_flag
 		}
 		modifier = {
 			political_power_gain = -0.5
@@ -7714,7 +8241,7 @@ ENG_commonwealth_affairs_category = {
 			}
 		}
 		ai_will_do = {
-			factor = 200
+			factor = 0
 		}
 	}
 	ENG_encourage_colony_elite_decision = {
@@ -7749,6 +8276,83 @@ ENG_commonwealth_affairs_category = {
 				is_faction_leader = yes
 				has_war = no
 				num_subjects > 0
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	##
+	ENG_avalon_le_fae_decision = {
+		icon = eng_puppet_usa
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			has_completed_focus = ENG_garden_of_avalon_protection
+			CAN = {
+				is_puppet_of = ROOT
+			}
+			122 = {
+				CONTROLLER = {
+					has_war_with = ROOT
+				}
+			}
+			126 = {
+				CONTROLLER = {
+					has_war_with = ROOT
+				}
+			}
+			surrender_progress > 0.3
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 331
+			}
+		}
+		targets = {
+			CAN
+		}
+		target_non_existing = no
+		on_map_mode = map_and_decisions_view
+		cost = 10
+		days_remove = 60
+		fire_only_once = yes
+		visible = {
+		}
+		modifier = {
+			political_power_gain = -0.5
+			command_power_gain = -0.5
+		}
+		remove_effect = {
+		}
+		complete_effect = {
+			CAN = {
+				country_event = {
+					id = eng_morgan.13
+					hours = 8
+				}
+			}
+			CAN = {
+				custom_effect_tooltip = accept_offer_tt
+			}
+			effect_tooltip = {
+				ENG = {
+					annex_country = {
+						target = CAN
+						transfer_troops = yes
+					}
+				}
+				CAN = {
+					every_core_state = {
+						add_core_of = ENG
+					}
+				}
+				ENG = {
+					set_capital = {
+						state = 331
+					}
+				}
 			}
 		}
 		ai_will_do = {

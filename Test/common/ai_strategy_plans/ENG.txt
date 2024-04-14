@@ -6,26 +6,57 @@ ENG_historical_plan_IRL = {
 		date > 1936.1.1
 	}
 	abort = {
-		OR = {
-			date > 1936.8.1
-			has_completed_focus = ENG_neo_celtic_myth
-		}
 	}
 	ai_national_focuses = {
-		ENG_not_steady_as_she_goes
-		ENG_enforce_animusphere
-		ENG_navy_aristocrat
-		ENG_home_defence		#3
-		ENG_northern_ireland		#3
-		ENG_appease_ireland		#3
-		ENG_neo_celtic_myth		#4
+		ENG_home_defence
+		ENG_northern_ireland
+		ENG_appease_ireland
+		ENG_neo_celtic_myth		#3
+		ENG_a_balanced_united_britain		#3
 	}
 	ideas = {
 	}
 	weight = {
 		factor = 1
 		modifier = {
-			factor = 1
+			factor = 100
+			NOT = {
+				has_idea = ENG_britain_ireland_trade_war_idea
+			}
+		}
+	}
+}
+
+EMG_alliance_with_japan_focus = {
+	name = ""
+	desc = ""
+	enable = {
+		tag = ENG
+		date > 1936.6.1
+		JAP = {
+			JAP_is_liberals_trigger = yes
+		}
+	}
+	abort = {
+	}
+	ai_national_focuses = {
+		ENG_global_defense
+		ENG_east_asia_focus
+		ENG_cooperate_with_japan
+		ENG_anglo_japan_alliance
+		ENG_singapore_conference		#3
+		ENG_pacific_Rim_Free_Trade_Zone		#3
+		ENG_rising_run_never_set		#3
+	}
+	ideas = {
+	}
+	weight = {
+		factor = 1
+		modifier = {
+			factor = 100
+			JAP = {
+				JAP_is_liberals_trigger = yes
+			}
 		}
 	}
 }
@@ -34,65 +65,194 @@ ENG_animusphere_plan_construction_chaledean = {
 	name = ""
 	desc = ""
 	enable = {
-		original_tag = ENG
-		has_country_leader = {
-			ruling_only = yes
-			character = ENG_olga_marie_arsimilat_animusphere
+		tag = ENG
+		OR = {
+			has_liberalism_government = yes
+			has_social_democracy_government = yes
 		}
 		OR = {
-			date > 1936.8.1
-			has_completed_focus = ENG_neo_celtic_myth
+			ENG_has_robin_leader_trigger = no
+			AND = {
+				has_completed_focus = ENG_tackle_capitalism
+				has_completed_focus = ENG_spirit_of_the_industrial_revolution
+			}
 		}
 	}
 	abort = {
-		has_completed_focus = ENG_chaledean
+		has_completed_focus = ENG_controlled_reaction
 	}
 	ai_national_focuses = {
-		ENG_global_defense
-		ENG_great_game
-		ENG_east_asia_focus
-		ENG_cooperate_with_japan
-		ENG_anglo_japan_alliance
-		ENG_singapore_Conference
-		ENG_manila_Conference
-		ENG_limited_rearmament_focus
-		ENG_general_rearmament_focus
-		ENG_shadow_scheme_focus
 		ENG_not_steady_as_she_goes
 		ENG_enforce_animusphere
-		ENG_industrial_focus
-		ENG_civil_aviation_industry
-		ENG_navy_aristocrat
-		ENG_elite_appealling
-		ENG_CBI
-		ENG_prepare_for_the_inevitable
-		ENG_acquire_energy_company
+		ENG_peace_in_our_time
 		ENG_celestial_research
-		ENG_modernized_lab
-		ENG_improve_fleet_capacity
 		ENG_secret_research
+		##
+		ENG_civil_aviation_industry
+		ENG_elite_appealling
+		ENG_modernized_lab
+		##
 		ENG_chaledean
+		ENG_controlled_reaction
 	}
 	ideas = {
 	}
 	weight = {
 		factor = 1
 		modifier = {
-			factor = 1
+			factor = 200
+			OR = {
+				has_liberalism_government = yes
+				has_social_democracy_government = yes
+			}
+			OR = {
+				ENG_has_robin_leader_trigger = no
+				AND = {
+					has_completed_focus = ENG_tackle_capitalism
+					has_completed_focus = ENG_spirit_of_the_industrial_revolution
+				}
+			}
 		}
 	}
 }
 
+ENG_labour_agenda = {
+	name = ""
+	desc = ""
+	enable = {
+		tag = ENG
+		ENG = {
+			ENG_has_robin_leader_trigger = yes
+		}
+	}
+	ai_national_focuses = {
+		ENG_concessions_to_the_trade_unions
+		##
+		ENG_increase_social_spending
+		ENG_social_welfare
+		ENG_spirit_of_the_industrial_revolution
+		##
+		ENG_for_the_good_of_the_revolution
+		ENG_eliminate_the_upper_class
+		ENG_tackle_capitalism
+		##
+		ENG_tackle_fascism
+	}
+	weight = {
+		factor = 1
+		modifier = {
+			factor = 200
+			ENG = {
+				ENG_economic_crisis_end_trigger = no
+			}
+		}
+	}
+}
+
+ENG_cons_agenda = {
+	name = ""
+	desc = ""
+	enable = {
+		tag = ENG
+		ENG = {
+			has_conservative_government = yes
+		}
+	}
+	ai_national_focuses = {
+		ENG_enforce_el_melloi
+		##
+		ENG_el_melloi_classroom
+		ENG_clock_tower_research
+		ENG_global_network
+		##
+		ENG_prepare_for_the_inevitable
+		ENG_issue_gasmasks
+		ENG_civil_defence
+		##
+		ENG_every_man_will_do_his_duty
+	}
+	weight = {
+		factor = 1
+		modifier = {
+			factor = 200
+			ENG = {
+				has_conservative_government = yes
+			}
+		}
+	}
+}
+
+ENG_finish_economy_crisis = {
+	name = ""
+	desc = ""
+	enable = {
+		tag = ENG
+		ENG = {
+			ENG_economic_crisis_end_trigger = no
+		}
+	}
+	ai_national_focuses = {
+		ENG_industrial_focus
+		ENG_CBI
+		ENG_reignite_our_manufacturing_heartland
+		##
+		ENG_approve_new_construction_projects
+		ENG_lower_interest_rates
+		##
+		ENG_privatize_the_housing_market
+		ENG_government_loans
+		##
+		ENG_british_austerity
+	}
+	ideas = {
+	}
+	weight = {
+		factor = 1
+		modifier = {
+			factor = 100
+			ENG = {
+				ENG_economic_crisis_end_trigger = no
+			}
+		}
+	}
+}
+
+ENG_focus_on_colony = {
+	name = ""
+	desc = ""
+	enable = {
+		tag = ENG
+	}
+	ai_national_focuses = {
+		ENG_empire_focus
+		ENG_create_iedc
+		ENG_create_isac
+		ENG_commonwealth_focus
+		##
+		ENG_protect_suez
+		ENG_triple_hermes
+		ENG_aere
+		ENG_cooperation_with_atlas
+	}
+	weight = {
+		factor = 1
+		modifier = {
+			factor = 50
+		}
+	}
+}
+
+##TODO
 ENG_animusphere_plan_Limited_attention_armaments = {
 	name = ""
 	desc = ""
 	enable = {
-		original_tag = ENG
-		has_country_leader = {
-			ruling_only = yes
-			character = ENG_olga_marie_arsimilat_animusphere
+		tag = ENG
+		OR = {
+			has_liberalism_government = yes
+			has_social_democracy_government = yes
 		}
-		has_completed_focus = ENG_chaledean
+		has_completed_focus = ENG_controlled_reaction
 	}
 	abort = {
 		threat > 0.2
