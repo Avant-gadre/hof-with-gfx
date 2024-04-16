@@ -454,6 +454,17 @@ country_event = {
 		}
 		add_political_power = 25
 		give_guarantee = CZE
+		if = {
+			limit = {
+				is_faction_leader = yes
+				NOT = {
+					is_in_faction_with = CZE
+				}
+			}
+			CZE = {
+				invite_country_to_faction = yes
+			}
+		}
 	}
 	##Sad
 	option = {
@@ -464,6 +475,21 @@ country_event = {
 			base = 1
 		}
 		add_war_support = -0.05
+		if = {
+			limit = {
+				is_faction_leader = yes
+				is_in_faction_with = CZE
+			}
+			CZE = {
+				leave_faction = yes
+			}
+		}
+		CZE = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = generic_outraged_opinion
+			}
+		}
 	}
 }
 
@@ -485,6 +511,17 @@ country_event = {
 		}
 		add_political_power = 25
 		give_guarantee = POL
+		if = {
+			limit = {
+				is_faction_leader = yes
+				NOT = {
+					is_in_faction_with = POL
+				}
+			}
+			POL = {
+				invite_country_to_faction = yes
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
@@ -495,6 +532,21 @@ country_event = {
 		trigger = {
 		}
 		add_war_support = -0.05
+		if = {
+			limit = {
+				is_faction_leader = yes
+				is_in_faction_with = POL
+			}
+			POL = {
+				leave_faction = yes
+			}
+		}
+		POL = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = generic_outraged_opinion
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
@@ -665,7 +717,7 @@ unit_leader_event = {
 		whiteline = yes
 		activate_advisor = ENG_morgan_le_fay_special_first
 		whiteline = yes
-		activate_advisor = ENG_myrddin_wyllt_special_first
+		activate_advisor = ENG_myrddin_wyllt_special_second
 		whiteline = yes
 		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
 		whiteline = yes
@@ -728,7 +780,7 @@ unit_leader_event = {
 		whiteline = yes
 		activate_advisor = ENG_morgan_le_fay_special_first
 		whiteline = yes
-		activate_advisor = ENG_myrddin_wyllt_special_first
+		activate_advisor = ENG_myrddin_wyllt_special_second
 		whiteline = yes
 		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
 		whiteline = yes
@@ -800,6 +852,10 @@ unit_leader_event = {
 			ideology = democratic
 			popularity = -0.1
 		}
+		promote_character = {
+			character = ENG_myrddin_wyllt
+			ideology = conservatism
+		}
 		set_party_name = {
 			ideology = fascism
 			long_name = ENG_royal_party_long
@@ -833,6 +889,10 @@ unit_leader_event = {
 		promote_character = {
 			character = ENG_artoria_pendragon
 			ideology = conservatism
+		}
+		promote_character = {
+			character = ENG_morgan_le_fay
+			ideology = authoritarianism
 		}
 		set_party_name = {
 			ideology = democratic
@@ -1200,13 +1260,29 @@ unit_leader_event = {
 				ENG_artoria_anger_checker > 0
 			}
 		}
+		custom_effect_tooltip = ENG_ally_leave_tt
+		custom_effect_tooltip = ENG_usa_angry_tt
+		whiteline = yes
 		complete_national_focus = ENG_darkened_focus
+		whiteline = yes
 		activate_advisor = ENG_morgan_le_fay_special_first
-		activate_advisor = ENG_lev_lainur_flauros_special_second
+		whiteline = yes
+		activate_advisor = ENG_myrin_wyllt_special_second
+		whiteline = yes
 		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		whiteline = yes
 		activate_advisor = ENG_agravain_morgause_special_fourth
+		whiteline = yes
 		activate_advisor = ENG_nrvnqsr_fabro_rowan_special_fifth
 		hidden_effect = {
+			promote_character = {
+				character = ENG_myrddin_wyllt
+				ideology = conservatism
+			}
+			promote_character = {
+				character = ENG_morgan_le_fay
+				ideology = authoritarianism
+			}
 			ENG_artoria_pendragon_alter = {
 				unit_leader_event = {
 					id = eng_core.23
@@ -1223,7 +1299,6 @@ unit_leader_event = {
 	option = {
 		name = eng_core.22.b
 		trigger = {
-			has_country_flag = ENG_royal_party_avaliable_flag
 		}
 		ENG_artoria_pendragon = {
 			add_timed_unit_leader_trait = {
@@ -1241,11 +1316,17 @@ unit_leader_event = {
 			play_song = "The_pride_of_knightking_FateSN"
 		}
 		set_country_flag = ENG_radiant_path_flag
+		whiteline = yes
 		activate_advisor = ENG_arthur_pendragon_special_first
+		whiteline = yes
 		activate_advisor = ENG_myrin_wyllt_special_second
+		whiteline = yes
 		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		whiteline = yes
 		activate_advisor = ENG_galahad_pelles_special_fourth
+		whiteline = yes
 		activate_advisor = ENG_barthomeloi_lorelei_special_fifth
+		whiteline = yes
 		effect_tooltip = {
 			unlock_national_focus = ENG_ideal_king_focus
 		}
@@ -1274,10 +1355,15 @@ unit_leader_event = {
 			ruling_party = neutrality
 			elections_allowed = no
 		}
+		whiteline = yes
 		activate_advisor = ENG_baobhan_sith_iseult_special_first
+		whiteline = yes
 		activate_advisor = ENG_myrin_wyllt_special_second
+		whiteline = yes
 		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
+		whiteline = yes
 		activate_advisor = ENG_agravain_morgause_special_fourth
+		whiteline = yes
 		activate_advisor = ENG_nrvnqsr_fabro_rowan_special_fifth
 		hidden_effect = {
 			ENG_morgan_le_fay = {
@@ -1343,7 +1429,7 @@ unit_leader_event = {
 			ideology = fascism
 			popularity = 0.1
 		}
-		127 = {
+		126 = {
 			add_manpower = -1000
 		}
 		hidden_effect = {
@@ -1395,6 +1481,7 @@ unit_leader_event = {
 	title = eng_core.26.title
 	desc = eng_core.26.desc
 	immediate = {
+		set_global_flag = ENG_saber_morgan_weeding_flag
 		hidden_effect = {
 			ENG_artoria_pendragon_alter = {
 				set_portraits = {
@@ -1495,6 +1582,7 @@ unit_leader_event = {
 	title = eng_core.28.title
 	desc = eng_core.28.desc
 	immediate = {
+		set_global_flag = ENG_saber_morgan_weeding_flag
 	}
 	picture = GFX_report_event_generic_diplomacy1
 	is_triggered_only = yes
@@ -1731,7 +1819,7 @@ unit_leader_event = {
 		whiteline = yes
 		activate_advisor = ENG_morgan_le_fay_special_first
 		whiteline = yes
-		activate_advisor = ENG_myrddin_wyllt_special_first
+		activate_advisor = ENG_myrddin_wyllt_special_second
 		whiteline = yes
 		activate_advisor = ENG_bedwyr_lucam_le_bouteillier_special_third
 		whiteline = yes

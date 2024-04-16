@@ -239,3 +239,8 @@
     NDefines.NCountry.AIR_VOLUNTEER_PLANES_RATIO = 0				            -- Vanilia is 0.1
     NDefines.NCountry.AIR_VOLUNTEER_BASES_CAPACITY_LIMIT = 0		            -- Vanilia is 0.2
     NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 0						-- Vanilla is 30 
+
+    --Dockyards
+    NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 10
+    NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 15
+    NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 10
