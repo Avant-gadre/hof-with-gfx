@@ -567,9 +567,6 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 			date > 1937.1.1
 			is_faction_leader = yes
 			has_completed_focus = ENG_east_asia_focus
-			ENG_cornelius_alba = {
-				is_hired_as_advisor = no
-			}
 			FROM = {
 				has_character = JAP_aozaki_touko
 				JAP_is_conservatives_trigger = no
@@ -859,14 +856,6 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 			date > 1937.1.1
 			is_faction_leader = yes
 			has_completed_focus = ENG_east_asia_focus
-			OR = {
-				ENG_may_riddell_archelot = {
-					is_hired_as_advisor = yes
-				}
-				ENG_may_riddell_archelot = {
-					is_country_leader = yes
-				}
-			}
 			FROM = {
 				has_character = JAP_kuonji_alice
 				JAP_is_conservatives_trigger = no
@@ -974,6 +963,9 @@ ENG_JAP_second_anglo_japan_alliance_category = {
 				whiteline = yes
 				effect_tooltip = {
 					JAP_fujimaru_rika = {
+						set_nationality = ENG
+					}
+					JAP_senji_muramasa = {
 						set_nationality = ENG
 					}
 				}
@@ -2676,6 +2668,162 @@ ENG_relation_with_american_category = {
 					scope = ENG
 				}
 			}
+		}
+	}
+	##
+	ENG_install_american_monarchy_decision = {
+		icon = eng_install_government
+		available = {
+			is_faction_leader = yes
+			has_global_flag = ENG_saber_morgan_weeding_flag
+			has_completed_focus = ENG_return_to_the_sovereign
+			ENG_morgan_le_fay = {
+				has_trait = ENG_trait_queen_of_great_britain
+			}
+			USA = {
+				is_subject_of = ENG
+			}
+		}
+		allowed = {
+			tag = ENG
+		}
+		cost = 100
+		fire_only_once = yes
+		visible = {
+		}
+		complete_effect = {
+			ENG_morgan_le_fay = {
+				remove_trait = {
+					trait = ENG_trait_queen_of_great_britain
+					slot = special_political_advisor
+				}
+				whiteline = yes
+				add_trait = {
+					trait = ENG_trait_queen_of_great_britain_and_america
+					slot = special_political_advisor
+				}
+			}
+			hidden_effect = {
+				news_event = {
+					id = eng_dom_news.18
+					hours = 1
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						ENG_has_morgan_trigger = yes
+					}
+					ENG_morgan_le_fay = {
+						remove_trait = {
+							trait = ENG_trait_queen_of_great_britain
+							ideology = stratocracy
+						}
+						add_trait = {
+							trait = ENG_trait_queen_of_great_britain_and_america
+							ideology = stratocracy
+						}
+					}
+				}
+			}
+			set_autonomy = {
+				target = USA
+				autonomy_state = autonomy_personal_union
+			}
+			USA = {
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.5
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = ENG_morgan_le_fay
+						picture = GFX_Portrait_ENG_Morgan_Le_Fay_1
+						ideology = stratocracy
+					}
+				}
+			}
+		}
+	}
+	ENG_unite_the_anglosphere_decision = {
+		name = ENG_unite_the_anglosphere
+		desc = ENG_unite_the_anglosphere_desc
+		icon = eng_install_government
+		allowed = {
+			tag = ENG
+		}
+		available = {
+			is_faction_leader = yes
+			has_government = fascism
+			has_completed_focus = ENG_unite_the_anglosphere
+			num_of_civilian_factories_available_for_projects > 29
+			USA = {
+				can_release_FROM = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = ENG_control_all_highlight_state_puppet_tt
+				ENG_control_all_america_states_trigger = yes
+			}
+		}
+		visible = {
+			ENG_has_saber_alter_trigger = yes
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				ENG_is_america_states_trigger = yes
+			}
+		}
+		state_target = no
+		targets = {
+			USA
+		}
+		on_map_mode = decision_view_only
+		target_non_existing = yes
+		target_root_trigger = {
+		}
+		target_trigger = {
+		}
+		days_remove = 360
+		modifier = {
+			civilian_factory_use = 30
+		}
+		remove_effect = {
+		}
+		complete_effect = {
+			hidden_effect = {
+				news_event = {
+					id = eng_dom_news.19
+					hours = 1
+				}
+			}
+			if = {
+				limit = {
+					USA = {
+						is_puppet_of = ROOT
+					}
+				}
+				annex_country = {
+					target = USA
+					transfer_troops = yes
+				}
+			}
+			every_state = {
+				limit = {
+					ENG_is_america_states_trigger = yes
+				}
+				enable_state_integration_80_compliance = yes
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		visible = {
+		}
+		ai_will_do = {
+			factor = 0
 		}
 	}
 }
@@ -6755,6 +6903,10 @@ ENG_war_efforts_category = {
 			}
 		}
 		remove_effect = {
+			news_event = {
+				id = eng_for_news.10
+				hours = 1
+			}
 			SWE = {
 				country_event = {
 					id = eng_for_bal.11
@@ -8429,6 +8581,10 @@ ENG_commonwealth_affairs_category = {
 			}
 		}
 		timeout_effect = {
+			news_event = {
+				id = eng_for_news.13
+				hours = 1
+			}
 			custom_effect_tooltip = ENG_1937_imperial_conference_mission_tt
 			custom_effect_tooltip = ENG_imperial_conference_tt
 			set_country_flag = ENG_imperial_conference_is_ongoing_flag
@@ -9181,150 +9337,6 @@ ENG_commonwealth_affairs_category = {
 		}
 	}
 	##
-	ENG_install_american_monarchy_decision = {
-		icon = eng_install_government
-		available = {
-			is_faction_leader = yes
-			has_global_flag = ENG_saber_morgan_weeding_flag
-			has_completed_focus = ENG_return_to_the_sovereign
-			ENG_morgan_le_fay = {
-				has_trait = ENG_trait_queen_of_great_britain
-			}
-			USA = {
-				is_subject_of = ENG
-			}
-		}
-		allowed = {
-			tag = ENG
-		}
-		cost = 100
-		fire_only_once = yes
-		visible = {
-		}
-		complete_effect = {
-			ENG_morgan_le_fay = {
-				remove_trait = {
-					trait = ENG_trait_queen_of_great_britain
-					slot = special_political_advisor
-				}
-				whiteline = yes
-				add_trait = {
-					trait = ENG_trait_queen_of_great_britain_and_america
-					slot = special_political_advisor
-				}
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						ENG_has_morgan_trigger = yes
-					}
-					ENG_morgan_le_fay = {
-						remove_trait = {
-							trait = ENG_trait_queen_of_great_britain
-							ideology = stratocracy
-						}
-						add_trait = {
-							trait = ENG_trait_queen_of_great_britain_and_america
-							ideology = stratocracy
-						}
-					}
-				}
-			}
-			set_autonomy = {
-				target = USA
-				autonomy_state = autonomy_personal_union
-			}
-			USA = {
-				add_popularity = {
-					ideology = neutrality
-					popularity = 0.5
-				}
-				set_politics = {
-					ruling_party = neutrality
-					elections_allowed = no
-				}
-				hidden_effect = {
-					create_country_leader = {
-						name = ENG_morgan_le_fay
-						picture = GFX_Portrait_ENG_Morgan_Le_Fay_1
-						ideology = stratocracy
-					}
-				}
-			}
-		}
-	}
-	##
-	ENG_unite_the_anglosphere_decision = {
-		name = ENG_unite_the_anglosphere
-		desc = ENG_unite_the_anglosphere_desc
-		icon = eng_install_government
-		allowed = {
-			tag = ENG
-		}
-		available = {
-			is_faction_leader = yes
-			has_government = fascism
-			has_completed_focus = ENG_unite_the_anglosphere
-			num_of_civilian_factories_available_for_projects > 29
-			USA = {
-				can_release_FROM = yes
-			}
-			custom_trigger_tooltip = {
-				tooltip = ENG_control_all_highlight_state_puppet_tt
-				ENG_control_all_america_states_trigger = yes
-			}
-		}
-		visible = {
-			ENG_has_saber_alter_trigger = yes
-		}
-		highlight_states = {
-			highlight_states_trigger = {
-				ENG_is_america_states_trigger = yes
-			}
-		}
-		state_target = no
-		targets = {
-			USA
-		}
-		on_map_mode = decision_view_only
-		target_non_existing = yes
-		target_root_trigger = {
-		}
-		target_trigger = {
-		}
-		days_remove = 360
-		modifier = {
-			civilian_factory_use = 30
-		}
-		remove_effect = {
-		}
-		complete_effect = {
-			if = {
-				limit = {
-					USA = {
-						is_puppet_of = ROOT
-					}
-				}
-				annex_country = {
-					target = USA
-					transfer_troops = yes
-				}
-			}
-			every_state = {
-				limit = {
-					ENG_is_america_states_trigger = yes
-				}
-				enable_state_integration_80_compliance = yes
-			}
-		}
-		cost = 50
-		fire_only_once = yes
-		visible = {
-		}
-		ai_will_do = {
-			factor = 0
-		}
-	}
 	ENG_form_europe_empire_decision = {
 		icon = generic_political_discourse
 		allowed = {

@@ -60,6 +60,8 @@ news_event = {{
     major = yes
 	option = {{
 		name = {target}.{0}.a
+        trigger = {{
+		}}
 		ai_chance = {{
 			base = 1
 		}}
@@ -87,6 +89,6 @@ news_event = {{
 target = "eng_dom_news"
 
 with open(output_full_path, "w") as file:
-    for i in range(1, 18):
+    for i in range(18, 21):
         current_statement = statement_template1.format(i,target=target)
         file.write(current_statement)
