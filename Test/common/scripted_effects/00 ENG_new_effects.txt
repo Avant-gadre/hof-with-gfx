@@ -1702,3 +1702,142 @@ ENG_cost_5ws_at_peace_effect = {
 		add_war_support = -0.05
 	}
 }
+
+##
+ENG_caculate_parliament_icon = {
+	ENG = {
+		set_variable = {
+			current_house_icon_frame = ENG_commons_support
+		}
+		divide_variable = {
+			current_house_icon_frame = ENG_commons_total
+		}
+		multiply_variable = {
+			current_house_icon_frame = 21
+		}
+		round_variable = current_house_icon_frame
+		clamp_variable = {
+			var = current_house_icon_frame
+			min = 1
+			max = 21
+		}
+	}
+}
+
+ENG_caculate_parliament_strength = {
+	ENG = {
+		clamp_variable = {
+			var = ENG_liberals_support
+			min = 0
+			max = ENG_liberals_deputies
+		}
+		clamp_variable = {
+			var = ENG_labours_support
+			min = 0
+			max = ENG_labours_deputies
+		}
+		clamp_variable = {
+			var = ENG_cons_support
+			min = 0
+			max = ENG_cons_deputies
+		}
+		clamp_variable = {
+			var = ENG_royals_support
+			min = 0
+			max = ENG_royals_deputies
+		}
+		clamp_variable = {
+			var = ENG_irish_support
+			min = 0
+			max = ENG_irish_deputies
+		}
+		clamp_variable = {
+			var = ENG_minor_support
+			min = 0
+			max = ENG_minor_deputies
+		}
+		##
+		if = {
+			limit = {
+				OR = {
+					has_country_leader_ideology = conservatism
+					has_country_leader_ideology = classical_liberalism
+				}
+			}
+			set_variable = {
+				var = ENG_cons_support
+				value = ENG_cons_deputies
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					ENG_has_saber_trigger = yes
+					ENG_has_morgan_trigger = yes
+					ENG_has_mordred_trigger = yes
+					ENG_has_gray_trigger = yes
+					ENG_has_merlin_trigger = yes
+					ENG_has_arthur_trigger = yes
+				}
+			}
+			set_variable = {
+				var = ENG_royals_support
+				value = ENG_royals_deputies
+			}
+		}
+		if = {
+			limit = {
+				ENG_has_robin_leader_trigger = no
+				OR = {
+					has_country_leader_ideology = social_democracy
+					has_country_leader_ideology = liberalism
+				}
+			}
+			set_variable = {
+				var = ENG_liberals_support
+				value = ENG_liberals_deputies
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					ENG_has_robin_trigger = yes
+					ENG_has_robin_leader_trigger = yes
+				}
+			}
+			set_variable = {
+				var = ENG_labours_support
+				value = ENG_labours_deputies
+			}
+		}
+		set_variable = {
+			var = ENG_commons_support
+			value = 0
+		}
+		add_to_variable = {
+			ENG_commons_support = ENG_liberals_support
+		}
+		add_to_variable = {
+			ENG_commons_support = ENG_labours_support
+		}
+		add_to_variable = {
+			ENG_commons_support = ENG_cons_support
+		}
+		add_to_variable = {
+			ENG_commons_support = ENG_royals_support
+		}
+		add_to_variable = {
+			ENG_commons_support = ENG_irish_support
+		}
+		add_to_variable = {
+			ENG_commons_support = ENG_minor_support
+		}
+		clamp_variable = {
+			var = ENG_commons_support
+			min = 0
+			max = ENG_commons_total
+		}
+		ENG_caculate_parliament_icon = yes
+		### Fire conservative take-over event chain
+	}
+}
